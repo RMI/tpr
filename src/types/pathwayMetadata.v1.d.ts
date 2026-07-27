@@ -49,6 +49,10 @@ export interface PathwayMetadataV1 {
    */
   modelYearNetzero?: number;
   /**
+   * Carbon budget of the pathway in gigatons of CO₂ equivalent (GtCO₂eq). If no carbon budget is defined, this field should be omitted. If the carbon budget is not applicable, it should be set to 0.
+   */
+  carbonBudget?: number;
+  /**
    * Year from which the model starts.
    */
   modelYearStart?: number;
