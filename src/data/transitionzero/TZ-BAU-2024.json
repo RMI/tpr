@@ -42,9 +42,20 @@
   "description": "Business-as-usual continuation of existing ASEAN power and transmission systems.",
   "geography": {
     "regions": {
-      "South East Asia": []
+      "South East Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ]
     },
-    "country": ["BN", "KH", "ID", "LA", "MY", "MN", "PH", "SG", "TH", "VN"]
+    "country": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
   },
   "pathwayType": "Predictive",
   "modelYearStart": 2024,

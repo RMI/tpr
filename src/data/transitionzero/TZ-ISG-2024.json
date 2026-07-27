@@ -42,9 +42,20 @@
   "description": "ASEAN power model with significant new regional and interisland transmission in Indonesia.",
   "geography": {
     "regions": {
-      "South East Asia": []
+      "South East Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ]
     },
-    "country": ["BN", "KH", "ID", "LA", "MY", "MN", "PH", "SG", "TH", "VN"]
+    "country": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2024,
