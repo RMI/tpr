@@ -29,7 +29,9 @@
     "short": "EPP MM"
   },
   "description": "Myanmar-specific pathway following current energy policies and NDCs.",
-  "geography": ["MM"],
+  "geography": {
+    "country": ["MM"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,

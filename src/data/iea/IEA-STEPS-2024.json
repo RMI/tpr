@@ -2,7 +2,10 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "IEA-STEPS-2024",
   "publication": {
-    "title": { "full": "World Energy Outlook 2024", "short": "WEO" },
+    "title": {
+      "full": "World Energy Outlook 2024",
+      "short": "WEO"
+    },
     "publisher": {
       "full": "International Energy Agency",
       "short": "IEA"
@@ -21,36 +24,57 @@
       }
     ]
   },
-  "name": { "full": "Stated Policies Scenario", "short": "STEPS" },
+  "name": {
+    "full": "Stated Policies Scenario",
+    "short": "STEPS"
+  },
   "description": "Global projection of current energy system trends and the impact of stated policies.",
-  "geography": [
-    "Global",
-    "East Asia and Pacific",
-    "Europe and Central Asia",
-    "Latin America and Caribbean",
-    "Middle East and North Africa",
-    "North America",
-    "South East Asia",
-    "Sub-Saharan Africa",
-    "US",
-    "BR",
-    "RU",
-    "CN",
-    "IN",
-    "JP"
-  ],
+  "geography": {
+    "global": true,
+    "regions": {
+      "East Asia and Pacific": [],
+      "Europe and Central Asia": [],
+      "Latin America and Caribbean": [],
+      "Middle East and North Africa": [],
+      "North America": [],
+      "South East Asia": [],
+      "Sub-Saharan Africa": []
+    },
+    "country": ["US", "BR", "RU", "CN", "IN", "JP"]
+  },
   "pathwayType": "Predictive",
   "modelTempIncrease": 2.4,
   "modelYearStart": 2023,
   "modelYearEnd": 2100,
   "sectors": [
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -66,10 +90,22 @@
         "Other"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "pathwayOverview": "The Stated Policies Scenario (STEPS) provides a sense of the energy sector’s direction of travel today, based on the latest market data, technology costs and in-depth analysis of the prevailing policy settings in countries around the world. STEPS is complemented by APS, a scenario which assumes that countries’ aspirational targets will be met in full. The difference between STEPS and APS highlights a commitment gap.",
   "expertOverview": "#### Pathway Description\n\nThe Stated Policies Scenario (STEPS) projects the energy sector’s current direction of travel, based on the latest market data, technology costs and in-depth analysis of the stated policies in countries around the world. STEPS provides a detailed projection of future outcomes based on current conditions, but does not attempt to predict which existing policies or economic conditions are more or less likely to change. The STEPS pathway corresponds to 2.4°C of warming by 2100 (50% probability). This is significantly higher than the IEA’s announced pledges scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), and the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability).\n\n#### Core Drivers\n\nThe STEPS pathway is primarily driven by existing policy dynamics and forecast future declines in technology costs, which drive large-scale deployment of mature low-carbon technologies.\n\n*Policy:* The STEPS pathway models stated policies, such as energy subsidies or power development plans, but does not include aspirational policy goals that lack specific provisions for their implementation, such as long-term net-zero pledges. The STEPS pathway includes only existing or scheduled carbon pricing schemes for electricity, industry, and energy production sectors, and does not introduce a global carbon price, as is done in the APS and NZE pathway.\n\n*Technology costs:* Depending on the region, the IEA STEPS assumes moderate to significant cost declines in solar PV, onshore wind, and offshore wind power generation and modest cost declines in nuclear power generation. These declines are mostly driven by falling capital costs. The pathway projects moderate increases in fossil fuel power generation costs in advanced economies, but mixed trends in EMDEs. \n\nThe STEPS pathway provides detailed projections for demand shifts, infrastructure buildout, investment flows, and new technology deployment, but these factors are primarily caused by modelled existing policies and declining technology costs.  \n\n#### Application to Transition Assessment\n\nAs a predictive pathway based on detailed modeling of current stated policies, market conditions, and technology trends, STEPS provides a valuable base-case projection for benchmarking the impact of future transition impacts in the absence of significant policy or market shifts. As a global integrated assessment model, STEPS provides a direct connection between the described pathway and a global temperature outcome. While this allows assessing the ambition of stated targets or plans against a 2.4°C outcome, this high level of implied temperature rise is not applicable for most institutional targets.\n\nDue to its strong focus on modeling existing policy and market trends, STEPS is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of market shifts. Misalignment to the STEPS pathway indicates that a company or plan may already be lagging forecasted rates of change, potentially exposing them to regulatory risks or declining market share as other segments of the energy sector grow. As STEPS only models stated policies with clear implementation plans, and does not include aspirational pledges such as those modeled in APS, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition forecast in STEPS may still be exposed to future risks if new policies or technology shifts occur.\n\nSTEPS provides benchmark data on 5- and 10-year intervals and uses a moderately detailed breakdown of specific generation technologies such as coal, onshore wind, offshore wind, solar PV, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers and project pipelines within company plans. However, STEPS provides data at only the regional level. This limits its suitability for assessing companies which have operations concentrated in one or few countries, as it allows comparison only to the regional average.",

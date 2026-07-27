@@ -2,8 +2,12 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "PHDOE-CES2-2023",
   "publication": {
-    "title": { "full": "Power Development Plan 2023-2050" },
-    "publisher": { "full": "Philippines Department of Energy" },
+    "title": {
+      "full": "Power Development Plan 2023-2050"
+    },
+    "publisher": {
+      "full": "Philippines Department of Energy"
+    },
     "year": 2023,
     "links": [
       {
@@ -16,9 +20,14 @@
       }
     ]
   },
-  "name": { "full": "Clean Energy Scenario 2", "short": "CES 2" },
+  "name": {
+    "full": "Clean Energy Scenario 2",
+    "short": "CES 2"
+  },
   "description": "Philippines pathway following National Renewable Energy Plan. Significant offshore wind development.",
-  "geography": ["PH"],
+  "geography": {
+    "country": ["PH"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,

@@ -17,21 +17,50 @@
       }
     ]
   },
-  "name": { "full": "Baseline Scenario", "short": "Baseline" },
+  "name": {
+    "full": "Baseline Scenario",
+    "short": "Baseline"
+  },
   "description": "Business-as-usual baseline pathway for Vietnam's energy sector.",
-  "geography": ["VN"],
+  "geography": {
+    "country": ["VN"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
-    { "name": "Agriculture", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -45,11 +74,26 @@
         "Nuclear"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. The Baseline scenario represents a business-as-usual trajectory of Vietnam's energy system development. Specifically, the scenario portrays how the energy system evolves if no new policy action is taken beyond existing plans and commitments, where GHG reductions are not prioritized, and where the net-zero energy target by 2050 is not met.\n\nThe scenario is optimized toward the lowest possible total system cost while meeting growing energy demand, showing that even without explicit emissions reduction policies, some decarbonization occurs due to efficiency gains and declining costs of renewables. However, in the absence of strong policy action, emissions continue to rise until 2030, expanding fossil-based infrastructure and delaying significant system transition.\nPower sector emissions peak at 173 Mt in 2030 and significantly exceed projections in EREA's Net Zero and Net Zero+ scenarios. By 2050, total energy sector emissions are more than double the emissions in the Net Zero pathway.\n\n#### Core Drivers\n\nThe Baseline pathway is driven by existing power sector policies and gradual declines in renewable energy generation costs.\n\n*Policy:* The Baseline scenario reflects only current and near-term government policy, which includes retirement of plants before the end of their technical lifetime, as well as enforcement of restrictions on minimum operation of coal power plants. No carbon pricing or emissions caps are applied, meaning fossil generation faces no direct economic disincentive to renewables. Land allocation for renewables remains fixed at 136 GW of solar, limiting new large-scale solar deployment.\n\n*Technology costs:* Technology adoption in the Baseline scenario is driven purely by market conditions, rather than by policy incentives or emissions targets. Fossil fuel generation continues to dominate the system through 2040, until declining costs for renewable energy begin to result in wide-scale shifts toward renewable generation.\n\n#### Application to Transition Assessment\n\nThe Baseline scenario provides a business-as-usual reference for risk or gap analysis. It captures the trajectory of Vietnam's power and energy sector absent new emissions mitigation policy, and as such it serves as a conservative benchmark for understanding policy risk, transition risk, and stranded-asset exposure. As a single-country pathway, the Baseline pathway does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nDue to its strong focus on modeling existing policy and market trends, the Baseline pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of country-specific market shifts. Misalignment to the Baseline pathway indicates that a company or plan may already be lagging behind forecast rates of change, potentially exposing it to regulatory risks or declining market share as other segments of the energy sector are encouraged to grow. Because the Baseline scenario does not include aspirational targets or potential future policies, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition that is forecast in Baseline may still be exposed to future risks if new policies are introduced or technology shifts occur.\n\nThe inclusion of detailed technology costs and deployment projections in a cost-optimized model makes the Baseline pathway a strong candidate for contextualizing the commercial and technical feasibility of transition strategies in the absence of additional policy shifts.\n\nThe Baseline pathway includes 10-year resolution projections for generation and capacity using a detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Baseline pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
   "metric": [

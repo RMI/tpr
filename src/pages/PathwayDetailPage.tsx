@@ -5,6 +5,7 @@ import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
 import BadgeArray from "../components/BadgeArray";
 import {
+  flattenGeography,
   geographyKind,
   geographyLabel,
   geographyVariant,
@@ -117,7 +118,7 @@ const PathwayDetailPage: React.FC = () => {
   const sortedGeos = useMemo(
     () =>
       sortByAvailability(
-        sortGeographiesForDetails(pathway?.geography ?? []),
+        sortGeographiesForDetails(flattenGeography(pathway?.geography)),
         (geo) => availability.hasGeography(geo),
       ),
     [pathway, availability],

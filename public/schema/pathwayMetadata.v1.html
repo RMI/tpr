@@ -9413,297 +9413,221 @@
                 >geography</a
               >
             </div>
-            <span class="badge badge-dark value-type">Type: array</span><br />
+            <h4>Geography</h4>
+            <span class="badge badge-dark value-type">Type: object</span><br />
             <span class="description"
               ><p>Geographical areas that the pathway covers.</p>
             </span>
 
-            <p>
-              <span
-                class="badge badge-light restriction unique-items-restriction"
-                id="geography_uniqueItems"
-                >All items must be unique</span
-              >
-            </p>
             <span class="badge badge-info no-additional"
-              >No Additional Items</span
+              >No Additional Properties</span
             >
-            <h4>Each item of this array must be:</h4>
-            <div class="card">
-              <div
-                class="card-body items-definition"
-                id="geography_items"
-              >
-                <div class="breadcrumbs">
-                  root
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    class="bi bi-arrow-right-short"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                    />
-                  </svg>
-                  <a
-                    href="#geography"
-                    onclick="anchorLink('geography')"
-                    >geography</a
-                  >
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    class="bi bi-arrow-right-short"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                    />
-                  </svg>
-                  <a
-                    href="#geography_items"
-                    onclick="anchorLink('geography_items')"
-                    >Geography Item</a
-                  >
+
+            <div
+              class="accordion"
+              id="accordiongeography_global"
+            >
+              <div class="card">
+                <div
+                  class="card-header"
+                  id="headinggeography_global"
+                >
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link property-name-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#geography_global"
+                      aria-expanded=""
+                      aria-controls="geography_global"
+                      onclick="setAnchor('#geography_global')"
+                    >
+                      <span class="property-name">global</span>
+                    </button>
+                  </h2>
                 </div>
-                <h4>Geography Item</h4>
-                <span class="badge badge-dark value-type"
-                  >Type: enum (of string)</span
-                ><br />
-                <span class="description"
-                  ><p>
-                    A single geography identifier used across schemas. Accepts
-                    'Global', ISO-3166-1 alpha-2 country codes (e.g., 'US',
-                    'DE'), or a set of region names (e.g., 'East Asia and
-                    Pacific', 'North America'). Any 2-letter items in the array
-                    will be treated as an ISO code. Any 2-letter entries that do
-                    not map to a country will throw errors (EU). Do not use full
-                    country names, only ISO alpha-2 codes. To avoid
-                    typographical errors, items may not be 3 letters long (USA)
-                  </p>
-                </span>
 
                 <div
-                  class="all-of-value"
-                  id="geography_items_allOf"
+                  id="geography_global"
+                  class="collapse property-definition-div"
+                  aria-labelledby="headinggeography_global"
+                  data-parent="#accordiongeography_global"
                 >
-                  <h2 class="handle">
-                    <label>All of</label>
-                  </h2>
-                  <ul
-                    class="nav nav-tabs"
-                    id="tabsgeography_items_allOf_allOf"
-                    role="tablist"
-                  >
-                    <li class="nav-item">
-                      <a
-                        class="nav-link active allOf-option"
-                        id="geography_items_allOf_i0"
-                        data-toggle="tab"
-                        href="#tab-pane_geography_items_allOf_i0"
-                        role="tab"
-                        onclick="setAnchor('#geography_items_allOf_i0')"
-                        >Requirement 1</a
+                  <div class="card-body pl-5">
+                    <div class="breadcrumbs">
+                      root
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                    </li>
-                    <li class="nav-item">
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
                       <a
-                        class="nav-link allOf-option"
-                        id="geography_items_allOf_i1"
-                        data-toggle="tab"
-                        href="#tab-pane_geography_items_allOf_i1"
-                        role="tab"
-                        onclick="setAnchor('#geography_items_allOf_i1')"
-                        >Requirement 2</a
+                        href="#geography"
+                        onclick="anchorLink('geography')"
+                        >geography</a
                       >
-                    </li>
-                  </ul>
-                  <div class="tab-content card">
-                    <div
-                      class="tab-pane fade card-body active show"
-                      id="tab-pane_geography_items_allOf_i0"
-                      role="tabpanel"
-                    >
-                      <div class="breadcrumbs">
-                        root
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography"
-                          onclick="anchorLink('geography')"
-                          >geography</a
-                        >
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography_items"
-                          onclick="anchorLink('geography_items')"
-                          >Geography Item</a
-                        >
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography_items_allOf"
-                          onclick="anchorLink('geography_items_allOf')"
-                          >allOf</a
-                        >
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography_items_allOf_i0"
-                          onclick="anchorLink('geography_items_allOf_i0')"
-                          >item 0</a
-                        >
-                      </div>
-                      <span class="badge badge-dark value-type"
-                        >Type: object</span
-                      ><br />
-                      <span
-                        class="pattern-value"
-                        id="geography_items_allOf_i0_pattern"
-                        >Must match regular expression:
-                        <code>^(?!\s*$).+</code></span
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#geography_global"
+                        onclick="anchorLink('geography_global')"
+                        >global</a
                       >
                     </div>
-                    <div
-                      class="tab-pane fade card-body"
-                      id="tab-pane_geography_items_allOf_i1"
-                      role="tabpanel"
+                    <span class="badge badge-dark value-type"
+                      >Type: boolean</span
+                    ><br />
+                    <span class="description"
+                      ><p>True if the pathway covers the entire world.</p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="accordion"
+              id="accordiongeography_regions"
+            >
+              <div class="card">
+                <div
+                  class="card-header"
+                  id="headinggeography_regions"
+                >
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link property-name-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#geography_regions"
+                      aria-expanded=""
+                      aria-controls="geography_regions"
+                      onclick="setAnchor('#geography_regions')"
                     >
-                      <div class="breadcrumbs">
-                        root
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
+                      <span class="property-name">regions</span>
+                    </button>
+                  </h2>
+                </div>
+
+                <div
+                  id="geography_regions"
+                  class="collapse property-definition-div"
+                  aria-labelledby="headinggeography_regions"
+                  data-parent="#accordiongeography_regions"
+                >
+                  <div class="card-body pl-5">
+                    <div class="breadcrumbs">
+                      root
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#geography"
+                        onclick="anchorLink('geography')"
+                        >geography</a
+                      >
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#geography_regions"
+                        onclick="anchorLink('geography_regions')"
+                        >regions</a
+                      >
+                    </div>
+                    <span class="badge badge-dark value-type">Type: object</span
+                    ><br />
+                    <span class="description"
+                      ><p>
+                        Map from an author-defined region label (as named in the
+                        publication) to the ISO-3166-1 alpha-2 country codes in
+                        that region. Member arrays may be empty when the
+                        publication does not provide a mapping.
+                      </p>
+                    </span>
+
+                    <div
+                      class="accordion"
+                      id="accordiongeography_regions_additionalProperties"
+                    >
+                      <div class="card">
+                        <div
+                          class="card-header"
+                          id="headinggeography_regions_additionalProperties"
                         >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography"
-                          onclick="anchorLink('geography')"
-                          >geography</a
+                          <h2 class="mb-0">
+                            <button
+                              class="btn btn-link property-name-button"
+                              type="button"
+                              data-toggle="collapse"
+                              data-target="#geography_regions_additionalProperties"
+                              aria-expanded=""
+                              aria-controls="geography_regions_additionalProperties"
+                              onclick="
+                                setAnchor(
+                                  '#geography_regions_additionalProperties',
+                                )
+                              "
+                            >
+                              <em
+                                ><span class="property-name"
+                                  >Additional Properties</span
+                                ></em
+                              >
+                            </button>
+                          </h2>
+                        </div>
+
+                        <div
+                          id="geography_regions_additionalProperties"
+                          class="collapse property-definition-div"
+                          aria-labelledby="headinggeography_regions_additionalProperties"
+                          data-parent="#accordiongeography_regions_additionalProperties"
                         >
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography_items"
-                          onclick="anchorLink('geography_items')"
-                          >Geography Item</a
-                        >
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography_items_allOf"
-                          onclick="anchorLink('geography_items_allOf')"
-                          >allOf</a
-                        >
-                        <svg
-                          width="1em"
-                          height="1em"
-                          viewBox="0 0 16 16"
-                          class="bi bi-arrow-right-short"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            fill-rule="evenodd"
-                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                          />
-                        </svg>
-                        <a
-                          href="#geography_items_allOf_i1"
-                          onclick="anchorLink('geography_items_allOf_i1')"
-                          >item 1</a
-                        >
-                      </div>
-                      <br />
-                      <div class="not-value">
-                        <h4>Must <strong>not</strong> be:</h4>
-                        <div class="card">
-                          <div
-                            class="card-body"
-                            id=""
-                          >
+                          <div class="card-body pl-5">
+                            <p class="additional-properties">
+                              Each additional property must conform to the
+                              following schema
+                            </p>
+
                             <div class="breadcrumbs">
                               root
                               <svg
@@ -9738,9 +9662,9 @@
                                 />
                               </svg>
                               <a
-                                href="#geography_items"
-                                onclick="anchorLink('geography_items')"
-                                >Geography Item</a
+                                href="#geography_regions"
+                                onclick="anchorLink('geography_regions')"
+                                >regions</a
                               >
                               <svg
                                 width="1em"
@@ -9756,405 +9680,302 @@
                                 />
                               </svg>
                               <a
-                                href="#geography_items_allOf"
-                                onclick="anchorLink('geography_items_allOf')"
-                                >allOf</a
-                              >
-                              <svg
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                class="bi bi-arrow-right-short"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                                />
-                              </svg>
-                              <a
-                                href="#geography_items_allOf_i1"
-                                onclick="anchorLink('geography_items_allOf_i1')"
-                                >item 1</a
-                              >
-                              <svg
-                                width="1em"
-                                height="1em"
-                                viewBox="0 0 16 16"
-                                class="bi bi-arrow-right-short"
-                                fill="currentColor"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  fill-rule="evenodd"
-                                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                                />
-                              </svg>
-                              <a
-                                href="#geography_items_allOf_i1_not"
+                                href="#geography_regions_additionalProperties"
                                 onclick="
-                                  anchorLink('geography_items_allOf_i1_not')
+                                  anchorLink(
+                                    'geography_regions_additionalProperties',
+                                  )
                                 "
-                                >not</a
+                                >additionalProperties</a
                               >
                             </div>
                             <span class="badge badge-dark value-type"
-                              >Type: object</span
+                              >Type: array</span
                             ><br />
-                            <span
-                              class="pattern-value"
-                              id="geography_items_allOf_i1_not_pattern"
-                              >Must match regular expression:
-                              <code>^[A-Za-z]{3}$</code></span
+
+                            <p>
+                              <span
+                                class="badge badge-light restriction unique-items-restriction"
+                                id="geography_regions_additionalProperties_uniqueItems"
+                                >All items must be unique</span
+                              >
+                            </p>
+                            <span class="badge badge-info no-additional"
+                              >No Additional Items</span
                             >
+                            <h4>Each item of this array must be:</h4>
+                            <div class="card">
+                              <div
+                                class="card-body items-definition"
+                                id="geography_regions_additionalProperties_items"
+                              >
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#geography"
+                                    onclick="anchorLink('geography')"
+                                    >geography</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#geography_regions"
+                                    onclick="anchorLink('geography_regions')"
+                                    >regions</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#geography_regions_additionalProperties"
+                                    onclick="
+                                      anchorLink(
+                                        'geography_regions_additionalProperties',
+                                      )
+                                    "
+                                    >additionalProperties</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#geography_regions_additionalProperties_items"
+                                    onclick="
+                                      anchorLink(
+                                        'geography_regions_additionalProperties_items',
+                                      )
+                                    "
+                                    >countryCode.v1.json</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: object</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    😅 ERROR in schema generation, a referenced
+                                    schema could not be loaded, no documentation
+                                    here unfortunately 🏜️
+                                  </p>
+                                </span>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+            <div
+              class="accordion"
+              id="accordiongeography_country"
+            >
+              <div class="card">
                 <div
-                  class="enum-value"
-                  id="geography_items_enum"
+                  class="card-header"
+                  id="headinggeography_country"
                 >
-                  <h4>Must be one of:</h4>
-                  <ul class="list-group">
-                    <li class="list-group-item enum-item">"Global"</li>
-                    <li class="list-group-item enum-item">
-                      "East Asia and Pacific"
-                    </li>
-                    <li class="list-group-item enum-item">
-                      "Europe and Central Asia"
-                    </li>
-                    <li class="list-group-item enum-item">
-                      "Latin America and Caribbean"
-                    </li>
-                    <li class="list-group-item enum-item">
-                      "Middle East and North Africa"
-                    </li>
-                    <li class="list-group-item enum-item">"North America"</li>
-                    <li class="list-group-item enum-item">"South Asia"</li>
-                    <li class="list-group-item enum-item">"South East Asia"</li>
-                    <li class="list-group-item enum-item">
-                      "Sub-Saharan Africa"
-                    </li>
-                    <li class="list-group-item enum-item">"AD"</li>
-                    <li class="list-group-item enum-item">"AE"</li>
-                    <li class="list-group-item enum-item">"AF"</li>
-                    <li class="list-group-item enum-item">"AG"</li>
-                    <li class="list-group-item enum-item">"AI"</li>
-                    <li class="list-group-item enum-item">"AL"</li>
-                    <li class="list-group-item enum-item">"AM"</li>
-                    <li class="list-group-item enum-item">"AO"</li>
-                    <li class="list-group-item enum-item">"AQ"</li>
-                    <li class="list-group-item enum-item">"AR"</li>
-                    <li class="list-group-item enum-item">"AS"</li>
-                    <li class="list-group-item enum-item">"AT"</li>
-                    <li class="list-group-item enum-item">"AU"</li>
-                    <li class="list-group-item enum-item">"AW"</li>
-                    <li class="list-group-item enum-item">"AX"</li>
-                    <li class="list-group-item enum-item">"AZ"</li>
-                    <li class="list-group-item enum-item">"BA"</li>
-                    <li class="list-group-item enum-item">"BB"</li>
-                    <li class="list-group-item enum-item">"BD"</li>
-                    <li class="list-group-item enum-item">"BE"</li>
-                    <li class="list-group-item enum-item">"BF"</li>
-                    <li class="list-group-item enum-item">"BG"</li>
-                    <li class="list-group-item enum-item">"BH"</li>
-                    <li class="list-group-item enum-item">"BI"</li>
-                    <li class="list-group-item enum-item">"BJ"</li>
-                    <li class="list-group-item enum-item">"BL"</li>
-                    <li class="list-group-item enum-item">"BM"</li>
-                    <li class="list-group-item enum-item">"BN"</li>
-                    <li class="list-group-item enum-item">"BO"</li>
-                    <li class="list-group-item enum-item">"BQ"</li>
-                    <li class="list-group-item enum-item">"BR"</li>
-                    <li class="list-group-item enum-item">"BS"</li>
-                    <li class="list-group-item enum-item">"BT"</li>
-                    <li class="list-group-item enum-item">"BV"</li>
-                    <li class="list-group-item enum-item">"BW"</li>
-                    <li class="list-group-item enum-item">"BY"</li>
-                    <li class="list-group-item enum-item">"BZ"</li>
-                    <li class="list-group-item enum-item">"CA"</li>
-                    <li class="list-group-item enum-item">"CC"</li>
-                    <li class="list-group-item enum-item">"CD"</li>
-                    <li class="list-group-item enum-item">"CF"</li>
-                    <li class="list-group-item enum-item">"CG"</li>
-                    <li class="list-group-item enum-item">"CH"</li>
-                    <li class="list-group-item enum-item">"CI"</li>
-                    <li class="list-group-item enum-item">"CK"</li>
-                    <li class="list-group-item enum-item">"CL"</li>
-                    <li class="list-group-item enum-item">"CM"</li>
-                    <li class="list-group-item enum-item">"CN"</li>
-                    <li class="list-group-item enum-item">"CO"</li>
-                    <li class="list-group-item enum-item">"CR"</li>
-                    <li class="list-group-item enum-item">"CU"</li>
-                    <li class="list-group-item enum-item">"CV"</li>
-                    <li class="list-group-item enum-item">"CW"</li>
-                    <li class="list-group-item enum-item">"CX"</li>
-                    <li class="list-group-item enum-item">"CY"</li>
-                    <li class="list-group-item enum-item">"CZ"</li>
-                    <li class="list-group-item enum-item">"DE"</li>
-                    <li class="list-group-item enum-item">"DJ"</li>
-                    <li class="list-group-item enum-item">"DK"</li>
-                    <li class="list-group-item enum-item">"DM"</li>
-                    <li class="list-group-item enum-item">"DO"</li>
-                    <li class="list-group-item enum-item">"DZ"</li>
-                    <li class="list-group-item enum-item">"EC"</li>
-                    <li class="list-group-item enum-item">"EE"</li>
-                    <li class="list-group-item enum-item">"EG"</li>
-                    <li class="list-group-item enum-item">"EH"</li>
-                    <li class="list-group-item enum-item">"ER"</li>
-                    <li class="list-group-item enum-item">"ES"</li>
-                    <li class="list-group-item enum-item">"ET"</li>
-                    <li class="list-group-item enum-item">"FI"</li>
-                    <li class="list-group-item enum-item">"FJ"</li>
-                    <li class="list-group-item enum-item">"FK"</li>
-                    <li class="list-group-item enum-item">"FM"</li>
-                    <li class="list-group-item enum-item">"FO"</li>
-                    <li class="list-group-item enum-item">"FR"</li>
-                    <li class="list-group-item enum-item">"GA"</li>
-                    <li class="list-group-item enum-item">"GB"</li>
-                    <li class="list-group-item enum-item">"GD"</li>
-                    <li class="list-group-item enum-item">"GE"</li>
-                    <li class="list-group-item enum-item">"GF"</li>
-                    <li class="list-group-item enum-item">"GG"</li>
-                    <li class="list-group-item enum-item">"GH"</li>
-                    <li class="list-group-item enum-item">"GI"</li>
-                    <li class="list-group-item enum-item">"GL"</li>
-                    <li class="list-group-item enum-item">"GM"</li>
-                    <li class="list-group-item enum-item">"GN"</li>
-                    <li class="list-group-item enum-item">"GP"</li>
-                    <li class="list-group-item enum-item">"GQ"</li>
-                    <li class="list-group-item enum-item">"GR"</li>
-                    <li class="list-group-item enum-item">"GS"</li>
-                    <li class="list-group-item enum-item">"GT"</li>
-                    <li class="list-group-item enum-item">"GU"</li>
-                    <li class="list-group-item enum-item">"GW"</li>
-                    <li class="list-group-item enum-item">"GY"</li>
-                    <li class="list-group-item enum-item">"HK"</li>
-                    <li class="list-group-item enum-item">"HM"</li>
-                    <li class="list-group-item enum-item">"HN"</li>
-                    <li class="list-group-item enum-item">"HR"</li>
-                    <li class="list-group-item enum-item">"HT"</li>
-                    <li class="list-group-item enum-item">"HU"</li>
-                    <li class="list-group-item enum-item">"ID"</li>
-                    <li class="list-group-item enum-item">"IE"</li>
-                    <li class="list-group-item enum-item">"IL"</li>
-                    <li class="list-group-item enum-item">"IM"</li>
-                    <li class="list-group-item enum-item">"IN"</li>
-                    <li class="list-group-item enum-item">"IO"</li>
-                    <li class="list-group-item enum-item">"IQ"</li>
-                    <li class="list-group-item enum-item">"IR"</li>
-                    <li class="list-group-item enum-item">"IS"</li>
-                    <li class="list-group-item enum-item">"IT"</li>
-                    <li class="list-group-item enum-item">"JE"</li>
-                    <li class="list-group-item enum-item">"JM"</li>
-                    <li class="list-group-item enum-item">"JO"</li>
-                    <li class="list-group-item enum-item">"JP"</li>
-                    <li class="list-group-item enum-item">"KE"</li>
-                    <li class="list-group-item enum-item">"KG"</li>
-                    <li class="list-group-item enum-item">"KH"</li>
-                    <li class="list-group-item enum-item">"KI"</li>
-                    <li class="list-group-item enum-item">"KM"</li>
-                    <li class="list-group-item enum-item">"KN"</li>
-                    <li class="list-group-item enum-item">"KP"</li>
-                    <li class="list-group-item enum-item">"KR"</li>
-                    <li class="list-group-item enum-item">"KW"</li>
-                    <li class="list-group-item enum-item">"KY"</li>
-                    <li class="list-group-item enum-item">"KZ"</li>
-                    <li class="list-group-item enum-item">"LA"</li>
-                    <li class="list-group-item enum-item">"LB"</li>
-                    <li class="list-group-item enum-item">"LC"</li>
-                    <li class="list-group-item enum-item">"LI"</li>
-                    <li class="list-group-item enum-item">"LK"</li>
-                    <li class="list-group-item enum-item">"LR"</li>
-                    <li class="list-group-item enum-item">"LS"</li>
-                    <li class="list-group-item enum-item">"LT"</li>
-                    <li class="list-group-item enum-item">"LU"</li>
-                    <li class="list-group-item enum-item">"LV"</li>
-                    <li class="list-group-item enum-item">"LY"</li>
-                    <li class="list-group-item enum-item">"MA"</li>
-                    <li class="list-group-item enum-item">"MC"</li>
-                    <li class="list-group-item enum-item">"MD"</li>
-                    <li class="list-group-item enum-item">"ME"</li>
-                    <li class="list-group-item enum-item">"MF"</li>
-                    <li class="list-group-item enum-item">"MG"</li>
-                    <li class="list-group-item enum-item">"MH"</li>
-                    <li class="list-group-item enum-item">"MK"</li>
-                    <li class="list-group-item enum-item">"ML"</li>
-                    <li class="list-group-item enum-item">"MM"</li>
-                    <li class="list-group-item enum-item">"MN"</li>
-                    <li class="list-group-item enum-item">"MO"</li>
-                    <li class="list-group-item enum-item">"MP"</li>
-                    <li class="list-group-item enum-item">"MQ"</li>
-                    <li class="list-group-item enum-item">"MR"</li>
-                    <li class="list-group-item enum-item">"MS"</li>
-                    <li class="list-group-item enum-item">"MT"</li>
-                    <li class="list-group-item enum-item">"MU"</li>
-                    <li class="list-group-item enum-item">"MV"</li>
-                    <li class="list-group-item enum-item">"MW"</li>
-                    <li class="list-group-item enum-item">"MX"</li>
-                    <li class="list-group-item enum-item">"MY"</li>
-                    <li class="list-group-item enum-item">"MZ"</li>
-                    <li class="list-group-item enum-item">"NA"</li>
-                    <li class="list-group-item enum-item">"NC"</li>
-                    <li class="list-group-item enum-item">"NE"</li>
-                    <li class="list-group-item enum-item">"NF"</li>
-                    <li class="list-group-item enum-item">"NG"</li>
-                    <li class="list-group-item enum-item">"NI"</li>
-                    <li class="list-group-item enum-item">"NL"</li>
-                    <li class="list-group-item enum-item">"NO"</li>
-                    <li class="list-group-item enum-item">"NP"</li>
-                    <li class="list-group-item enum-item">"NR"</li>
-                    <li class="list-group-item enum-item">"NU"</li>
-                    <li class="list-group-item enum-item">"NZ"</li>
-                    <li class="list-group-item enum-item">"OM"</li>
-                    <li class="list-group-item enum-item">"PA"</li>
-                    <li class="list-group-item enum-item">"PE"</li>
-                    <li class="list-group-item enum-item">"PF"</li>
-                    <li class="list-group-item enum-item">"PG"</li>
-                    <li class="list-group-item enum-item">"PH"</li>
-                    <li class="list-group-item enum-item">"PK"</li>
-                    <li class="list-group-item enum-item">"PL"</li>
-                    <li class="list-group-item enum-item">"PM"</li>
-                    <li class="list-group-item enum-item">"PN"</li>
-                    <li class="list-group-item enum-item">"PR"</li>
-                    <li class="list-group-item enum-item">"PS"</li>
-                    <li class="list-group-item enum-item">"PT"</li>
-                    <li class="list-group-item enum-item">"PW"</li>
-                    <li class="list-group-item enum-item">"PY"</li>
-                    <li class="list-group-item enum-item">"QA"</li>
-                    <li class="list-group-item enum-item">"RE"</li>
-                    <li class="list-group-item enum-item">"RO"</li>
-                    <li class="list-group-item enum-item">"RS"</li>
-                    <li class="list-group-item enum-item">"RU"</li>
-                    <li class="list-group-item enum-item">"RW"</li>
-                    <li class="list-group-item enum-item">"SA"</li>
-                    <li class="list-group-item enum-item">"SB"</li>
-                    <li class="list-group-item enum-item">"SC"</li>
-                    <li class="list-group-item enum-item">"SD"</li>
-                    <li class="list-group-item enum-item">"SE"</li>
-                    <li class="list-group-item enum-item">"SG"</li>
-                    <li class="list-group-item enum-item">"SH"</li>
-                    <li class="list-group-item enum-item">"SI"</li>
-                    <li class="list-group-item enum-item">"SJ"</li>
-                    <li class="list-group-item enum-item">"SK"</li>
-                    <li class="list-group-item enum-item">"SL"</li>
-                    <li class="list-group-item enum-item">"SM"</li>
-                    <li class="list-group-item enum-item">"SN"</li>
-                    <li class="list-group-item enum-item">"SO"</li>
-                    <li class="list-group-item enum-item">"SR"</li>
-                    <li class="list-group-item enum-item">"SS"</li>
-                    <li class="list-group-item enum-item">"ST"</li>
-                    <li class="list-group-item enum-item">"SV"</li>
-                    <li class="list-group-item enum-item">"SX"</li>
-                    <li class="list-group-item enum-item">"SY"</li>
-                    <li class="list-group-item enum-item">"SZ"</li>
-                    <li class="list-group-item enum-item">"TC"</li>
-                    <li class="list-group-item enum-item">"TD"</li>
-                    <li class="list-group-item enum-item">"TF"</li>
-                    <li class="list-group-item enum-item">"TG"</li>
-                    <li class="list-group-item enum-item">"TH"</li>
-                    <li class="list-group-item enum-item">"TJ"</li>
-                    <li class="list-group-item enum-item">"TK"</li>
-                    <li class="list-group-item enum-item">"TL"</li>
-                    <li class="list-group-item enum-item">"TM"</li>
-                    <li class="list-group-item enum-item">"TN"</li>
-                    <li class="list-group-item enum-item">"TO"</li>
-                    <li class="list-group-item enum-item">"TR"</li>
-                    <li class="list-group-item enum-item">"TT"</li>
-                    <li class="list-group-item enum-item">"TV"</li>
-                    <li class="list-group-item enum-item">"TW"</li>
-                    <li class="list-group-item enum-item">"TZ"</li>
-                    <li class="list-group-item enum-item">"UA"</li>
-                    <li class="list-group-item enum-item">"UG"</li>
-                    <li class="list-group-item enum-item">"UM"</li>
-                    <li class="list-group-item enum-item">"US"</li>
-                    <li class="list-group-item enum-item">"UY"</li>
-                    <li class="list-group-item enum-item">"UZ"</li>
-                    <li class="list-group-item enum-item">"VA"</li>
-                    <li class="list-group-item enum-item">"VC"</li>
-                    <li class="list-group-item enum-item">"VE"</li>
-                    <li class="list-group-item enum-item">"VG"</li>
-                    <li class="list-group-item enum-item">"VI"</li>
-                    <li class="list-group-item enum-item">"VN"</li>
-                    <li class="list-group-item enum-item">"VU"</li>
-                    <li class="list-group-item enum-item">"WF"</li>
-                    <li class="list-group-item enum-item">"WS"</li>
-                    <li class="list-group-item enum-item">"YE"</li>
-                    <li class="list-group-item enum-item">"YT"</li>
-                    <li class="list-group-item enum-item">"ZA"</li>
-                    <li class="list-group-item enum-item">"ZM"</li>
-                    <li class="list-group-item enum-item">"ZW"</li>
-                  </ul>
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link property-name-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#geography_country"
+                      aria-expanded=""
+                      aria-controls="geography_country"
+                      onclick="setAnchor('#geography_country')"
+                    >
+                      <span class="property-name">country</span>
+                    </button>
+                  </h2>
                 </div>
 
-                <br />
-                <div class="badge badge-secondary">Examples:</div>
-                <br />
                 <div
-                  id="geography_items_ex1"
-                  class="jumbotron examples"
+                  id="geography_country"
+                  class="collapse property-definition-div"
+                  aria-labelledby="headinggeography_country"
+                  data-parent="#accordiongeography_country"
                 >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;Global&quot;</span>
-</pre>
-                  </div>
-                </div>
-                <div
-                  id="geography_items_ex2"
-                  class="jumbotron examples"
-                >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;South East Asia&quot;</span>
-</pre>
-                  </div>
-                </div>
-                <div
-                  id="geography_items_ex3"
-                  class="jumbotron examples"
-                >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;Europe and Central Asia&quot;</span>
-</pre>
-                  </div>
-                </div>
-                <div
-                  id="geography_items_ex4"
-                  class="jumbotron examples"
-                >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;North America&quot;</span>
-</pre>
-                  </div>
-                </div>
-                <div
-                  id="geography_items_ex5"
-                  class="jumbotron examples"
-                >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;US&quot;</span>
-</pre>
-                  </div>
-                </div>
-                <div
-                  id="geography_items_ex6"
-                  class="jumbotron examples"
-                >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;DE&quot;</span>
-</pre>
-                  </div>
-                </div>
-                <div
-                  id="geography_items_ex7"
-                  class="jumbotron examples"
-                >
-                  <div class="highlight">
-                    <pre><span></span><span class="s2">&quot;PH&quot;</span>
-</pre>
+                  <div class="card-body pl-5">
+                    <div class="breadcrumbs">
+                      root
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#geography"
+                        onclick="anchorLink('geography')"
+                        >geography</a
+                      >
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#geography_country"
+                        onclick="anchorLink('geography_country')"
+                        >country</a
+                      >
+                    </div>
+                    <span class="badge badge-dark value-type">Type: array</span
+                    ><br />
+                    <span class="description"
+                      ><p>
+                        Standalone ISO-3166-1 alpha-2 country codes covered by
+                        the pathway.
+                      </p>
+                    </span>
+
+                    <p>
+                      <span
+                        class="badge badge-light restriction unique-items-restriction"
+                        id="geography_country_uniqueItems"
+                        >All items must be unique</span
+                      >
+                    </p>
+                    <span class="badge badge-info no-additional"
+                      >No Additional Items</span
+                    >
+                    <h4>Each item of this array must be:</h4>
+                    <div class="card">
+                      <div
+                        class="card-body items-definition"
+                        id="geography_country_items"
+                      >
+                        <div class="breadcrumbs">
+                          root
+                          <svg
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            class="bi bi-arrow-right-short"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
+                          <a
+                            href="#geography"
+                            onclick="anchorLink('geography')"
+                            >geography</a
+                          >
+                          <svg
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            class="bi bi-arrow-right-short"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
+                          <a
+                            href="#geography_country"
+                            onclick="anchorLink('geography_country')"
+                            >country</a
+                          >
+                          <svg
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            class="bi bi-arrow-right-short"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
+                          <a
+                            href="#geography_country_items"
+                            onclick="anchorLink('geography_country_items')"
+                            >countryCode.v1.json</a
+                          >
+                        </div>
+                        <span class="badge badge-dark value-type"
+                          >Type: object</span
+                        ><br />
+                        <span class="description"
+                          ><p>
+                            😅 ERROR in schema generation, a referenced schema
+                            could not be loaded, no documentation here
+                            unfortunately 🏜️
+                          </p>
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

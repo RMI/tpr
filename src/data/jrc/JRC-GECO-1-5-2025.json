@@ -23,48 +23,77 @@
       }
     ]
   },
-  "name": { "full": "1.5°C Scenario", "short": "1.5°C" },
+  "name": {
+    "full": "1.5°C Scenario",
+    "short": "1.5°C"
+  },
   "description": "Global normative pathway peaking at 1.5°C warming before declining to 1.3°C by 2100.",
-  "geography": [
-    "Global",
-    "GB",
-    "RU",
-    "UA",
-    "AR",
-    "BR",
-    "CA",
-    "CN",
-    "CH",
-    "MX",
-    "US",
-    "EG",
-    "ZA",
-    "IR",
-    "SA",
-    "TR",
-    "IN",
-    "ID",
-    "MY",
-    "TH",
-    "VN",
-    "AU",
-    "KR",
-    "NZ"
-  ],
+  "geography": {
+    "global": true,
+    "country": [
+      "GB",
+      "RU",
+      "UA",
+      "AR",
+      "BR",
+      "CA",
+      "CN",
+      "CH",
+      "MX",
+      "US",
+      "EG",
+      "ZA",
+      "IR",
+      "SA",
+      "TR",
+      "IN",
+      "ID",
+      "MY",
+      "TH",
+      "VN",
+      "AU",
+      "KR",
+      "NZ"
+    ]
+  },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.3,
   "modelYearStart": 2022,
   "modelYearEnd": 2100,
   "modelYearNetzero": 2060,
   "sectors": [
-    { "name": "Agriculture", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -79,11 +108,26 @@
         "Other"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. The 1.5°C scenario outlines a pathway to limit global temperature rise to 1.5°C by 2100, with a temporary overshoot to ~1.6 °C by mid-century. This is a significantly more ambitious outcome than the GECO Nationally Determined Contributions – Long Term Strategies (NDC-LTS) pathway, indicating that current national objectives fall significantly short of achieving this trajectory.\n\nThe 1.5°C pathway models a very rapid global transition, with accelerated decarbonization in electricity generation, strong electrification of end‐uses, efficiency improvements, decarbonization of hard-to-abate sectors (industry, long-haul transport, aviation etc.), and a scale up of negative emissions (land sink, carbon removal) to offset residual emissions. Emissions peak in the near term in this scenario, with sustained reductions reaching net-zero around 2060.\n\n#### Core Drivers\n\nThe 1.5°C model is driven by a combination of strong carbon-pricing policies, large-scale demand shifts, rapid deployment of low-carbon technologies, and significant negative emissions.\n\n*Policy:* The GECO 1.5°C pathway builds on the policies and targets included in the GECO NDC-LTS pathway, but introduces a single, uniform global carbon price as the sole additional policy lever to close the emissions reduction gap between NDC-LTS and the 1.5°C pathway. This carbon price increases rapidly after 2025, reaching an inflection point in 2035, and goes beyond the pricing mechanisms included in the NDC-LTS pathway.\n\n*Demand shifts and electrification:* The GECO 1.5°C pathway includes significant demand and behavioral shifts. The 1.5°C pathway projects rapid and deep electrification, with around 65% of total final energy consumption as electricity in 2050 – higher than most comparable pathways. The pathway projects major improvements in efficiency and changes in consumption patterns, including reductions in auto transport, personal energy consumption, and shifts in diets. Combined, these measures result in a 20% reduction in total final energy consumption in 2035 compared to the GECO Reference pathway. \n\n*Technology costs, investment, and deployment:* GECO 2024 assumes further cost declines and learning in low-carbon technologies—renewables (solar, wind), storage, green hydrogen, biomass, carbon capture and storage (CCS), enabling more rapid deployment. The GECO 1.5 pathway is built on POLES-JRC, a partial equilibrium, year by year simulation model that responds to price changes, and fossil-fired power generation becomes increasingly uneconomical due to declining costs of alternatives and as emissions reduction policies become more stringent. Investment in unabated coal power plants stops by 2030, with investment in the power sector peaking in 2040 at USD 1.8 trillion per year. Earlier-stage technologies, including hydrogen and CCS, see widespread deployment at scale.\n\n#### Application to Transition Assessment\n\nGECO 1.5 °C is a normative scenario that outlines what would need to occur globally to limit warming to around 1.5 °C by 2100, ensuring coherence with a 1.5 °C target under IPCC-consistent assumptions. This makes it suitable for use in transition assessments that seek to benchmark ambition and identify gaps against science-based pathways.\n\nAs a normative pathway, GECO 1.5°C models a potential pathway to achieve a target temperature outcome, but does not aim to explore the impact of specific policy or market sets, such as the announced governmental ambitions modelled in the GECO NDC pathway. As a result, (mis)alignment to the 1.5°C pathway is less directly connected to regulatory risk or potential shifts in market share, as objectives within the 1.5°C pathway may differ significantly from currently stated jurisdictional goals.\n\nThe inclusion of detailed technology cost and deployment projection makes the GECO 1.5°C pathway useful for contextualizing the commercial and technical feasibility of transition strategies against a cost-optimized scenario for 1.5°C. However, users should be mindful of the strong carbon pricing assumptions underlying these projections and consider supplementing with additional pathways.\n\nThe GECO 1.5°C pathway provides capacity and generation technology on 5-year increments, using a moderately detailed breakdown of technologies such as coal, wind, solar, and battery storage. The pathway provides benchmarks at a range of geographic granularity, including global results, EU-specific results, country-specific results for 24 non-EU countries, and 13 residual regions. These granular benchmarks provide valuable information for assessing specific decarbonization levers and project pipelines within company plans, and can allow temperature alignment assessments within granular geographic scope. Users may wish to supplement country-specific GECO 1.5°C pathway data with bottom-up, country-specific models where available, such as those published by the Philippines Department of Energy.",
   "metric": [

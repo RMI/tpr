@@ -10,6 +10,7 @@ import {
 } from "../utils/timeseriesIndex";
 import { TimeSeries } from "../components/PlotSelector";
 import {
+  flattenGeography,
   geographyKind,
   geographyLabel,
   geographyVariant,
@@ -133,7 +134,7 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
     {pathways.map((pathway, idx) => {
       const availability = availabilities[idx];
       const sorted = sortByAvailability(
-        sortGeographiesForDetails(pathway.geography ?? []),
+        sortGeographiesForDetails(flattenGeography(pathway.geography)),
         (geo) => availability.hasGeography(geo),
       );
       return (
