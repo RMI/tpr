@@ -2,8 +2,14 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "ACE-BAS-2024",
   "publication": {
-    "title": { "full": "8th ASEAN Energy Outlook", "short": "AEO8" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "8th ASEAN Energy Outlook",
+      "short": "AEO8"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024,
     "city": "Jakarta",
     "issn": "2963-539X",
@@ -14,15 +20,28 @@
       }
     ]
   },
-  "name": { "full": "Baseline Scenario", "short": "BAS" },
+  "name": {
+    "full": "Baseline Scenario",
+    "short": "BAS"
+  },
   "description": "Baseline prediction of historical trends in ASEAN energy systems without policy impacts.",
-  "geography": ["South East Asia"],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    }
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "sectors": [
-    { "name": "Land Use", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -37,7 +56,10 @@
         "Other"
       ]
     },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Baseline scenario (BAS) is a predictive pathway that extrapolates observed historic trends of the ASEAN Member States (AMS) energy systems into the future. It assumes a business-as-usual level of effort and specifically disregards modelling any policy interventions, even existing ones to meet national energy efficiency (EE) and renewable energy (RE) targets. Hence, it also excludes firm plant capacity additions based on power development plans (PDP). The extrapolation of past trends also implies that technology costs remain static and new technologies do not benefit from learning rates.\n\nAs a conservative baseline pathway, ACE BAS forecasts emissions at the ASEAN level to more than double by 2050.\n\n#### Core Drivers\n\nThe BAS pathway is driven by historical trends in energy consumption growth.\n\n*Economic growth:* Rising energy consumption in the BAS pathway is a function of region-wide population growth and rapid economic development. The total population in ASEAN is forecast to grow from 680 million in 2022 to 790 million in 2050. GDP growth across the region is projected to be 3.9% CAGR between that same period, along with further increases in electrification rate and clean cooking access.\n\nPolicy impacts are explicitly excluded from this model in order to provide a baseline case for modeling policy impacts, which are included in other ACE pathways such as the Regional Aspiration Scenario (RAS). Energy efficiency and technology costs are assumed to be static, leaving limited avenues for potential emissions reductions in this baseline pathway.\n\n#### Application to Transition Assessment\n\nThe ACE BAS pathway is intended to provide a base case for the ASEAN region, explicitly excluding policy impacts, technology cost declines, or efficiency improvements as avenues for emissions reductions. As a result, it provides a highly conversative reference, which may be used to place a floor on potential future rates of transition in the energy sector. As a single-region model, the BAS pathway is not associated with a global implied temperature rise, and should not be used as a quantitative benchmark for the ambition of climate targets.\n\nMisalignment to the baseline scenario can highlight companies or plans which do not keep pace with purely historical trends, without accounting for planned policy interventions. However, the scenario’s conservative limit its applications in assessing the ambition of corporate targets.\n\nFor transition assessment applications focused on assessing the commercial or technological feasibility of company plans, BAS’s assumptions of static technology costs and energy efficiency may be overly conservative compared to alternative business-as-usual pathways. Due to its deliberate exclusion of policy impacts, including existing policies, the BAS pathway should not be used for assessing the alignment of company strategies with existing or potential policies, and ACE provides alternate pathways for these applications.\n\nThe BAS provides benchmark data on 5-year intervals and uses a moderately detailed breakdown of specific generation technologies such as coal, wind, solar, biomass, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers and project pipelines within company plans. BAS provides data at the regional ASEAN level, which enables region-specific benchmarking but limits its applicability for assessing country-specific strategies.",
   "metric": [

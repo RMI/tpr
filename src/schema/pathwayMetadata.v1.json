@@ -63,12 +63,8 @@
     },
     "geography": {
       "description": "Geographical areas that the pathway covers.",
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "$ref": "http://pathways.rmi.org/schema/common/geographyItem.v1.json",
-        "tsType": "import('./common/geographyItem.v1').GeographyItemV1"
-      }
+      "$ref": "http://pathways.rmi.org/schema/common/geography.v1.json",
+      "tsType": "import('./common/geography.v1').GeographyV1"
     },
     "sectors": {
       "description": "Sectors that the pathway covers.",

@@ -1,19 +1,36 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "sample-03",
-  "name": { "full": "Sample Pathway 03" },
+  "name": {
+    "full": "Sample Pathway 03"
+  },
   "publication": {
-    "title": { "full": "Example Title" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "Example Title"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024
   },
   "description": "Third Sample Pathway. asdf description.",
   "pathwayType": "Normative",
   "modelTempIncrease": 3,
-  "geography": ["North America"],
+  "geography": {
+    "regions": {
+      "North America": []
+    }
+  },
   "sectors": [
-    { "name": "Land Use", "technologies": ["Precision Agriculture"] },
-    { "name": "Steel", "technologies": ["Carbon Capture and Storage"] }
+    {
+      "name": "Land Use",
+      "technologies": ["Precision Agriculture"]
+    },
+    {
+      "name": "Steel",
+      "technologies": ["Carbon Capture and Storage"]
+    }
   ],
   "pathwayOverview": "ASDF Overview.",
   "expertOverview": "Example Expert Recommendation.",

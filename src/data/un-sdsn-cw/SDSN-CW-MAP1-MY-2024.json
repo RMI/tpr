@@ -17,9 +17,14 @@
       }
     ]
   },
-  "name": { "full": "More Ambitious Policy 1 Scenario MY", "short": "MAP1 MY" },
+  "name": {
+    "full": "More Ambitious Policy 1 Scenario MY",
+    "short": "MAP1 MY"
+  },
   "description": "Ambitious net-zero pathway with electricity decarbonization by the early 2040s.",
-  "geography": ["MY"],
+  "geography": {
+    "country": ["MY"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,

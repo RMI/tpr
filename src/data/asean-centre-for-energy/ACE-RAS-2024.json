@@ -2,8 +2,14 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "ACE-RAS-2024",
   "publication": {
-    "title": { "full": "8th ASEAN Energy Outlook", "short": "AEO8" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "8th ASEAN Energy Outlook",
+      "short": "AEO8"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024,
     "city": "Jakarta",
     "issn": "2963-539X",
@@ -14,15 +20,28 @@
       }
     ]
   },
-  "name": { "full": "Regional Aspiration Scenario", "short": "RAS" },
+  "name": {
+    "full": "Regional Aspiration Scenario",
+    "short": "RAS"
+  },
   "description": "ASEAN-specific pathway exploring impact of unconditional NDCs and long-term pledges.",
-  "geography": ["South East Asia"],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    }
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "sectors": [
-    { "name": "Land Use", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -37,7 +56,10 @@
         "Other"
       ]
     },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Regional Aspiration Scenario (RAS) is an exploratory pathway which assumes that every ASEAN member state fully achieves both its unconditional and conditional transition targets on time, including Nationally Determined Contributions (NDCs), national power development plans (PDPs), and the enhanced scenarios of the national energy roadmaps of each ASEAN member state (e.g., the Clean Energy Scenario in the Philippines). The RAS pathway includes the 2025 ASEAN Plan of Action for Energy Cooperation (APAEC) targets for renewable energy generation and energy efficiency. The RAS pathway extends the ACE ATS pathway, covering all policies included in ATS with the inclusion of additional aspirational goals. The RAS also differs from the ATS pathway in using a least-cost optimization approach, which results in both a faster build-out of renewable energy and lower utilization rates for fossil fuel power plans. \n\nEmissions remain stable in the RAS until 2030, after which they start to decrease very slightly at a rate of approximately 0.1% per year across the energy sector. Emissions from power generation decrease much more rapidly to approximately a third of 2022 emissions by 2050. Emissions in the industry and residential sectors also drop significantly compared to the ATS.\n\n#### Core Drivers\n\nThe RAS pathway is primarily driven by a range of policy mechanisms and cost optimization based on current technology costs.\n\n*Policy:* The RAS pathway adds conditional NDC targets, national targets from the enhanced scenario of the AMS energy roadmap, and APAEC 2025 regional targets on top of existing policies and unconditional NDCS (modeled in ACE ATS). This increases the target share of renewable energy in total energy production and requires a steeper reduction of energy intensity in transport and industry.\n\n*Technology Costs and Technology Deployment:* RAS incorporates a least-cost approach to power capacity additions and generation. This results in a continued shift towards lower-cost renewables generation and a reduction in utilization rates for fossil fuel power plants. However, the RAS pathway does not include potential changes in technology costs over time. \n\nThe RAS pathway provides information on demand shifts, investment flows, and technology deployment, but these factors are driven primarily by modeled policy shifts.\n\n#### Application to Transition Assessment\n\nACE RAS is an exploratory, policy-focused pathway, which provides useful values for assessing the alignment of corporate plans to region-wide policy impacts under conditions of significant policy action. As a region-specific pathway, ACE RAS is not directly linked to a global implied temperature rise, limiting its use as a quantitative benchmark for the ambition of climate targets. However, for companies that aim to align their strategies with national policy targets, the RAS can be used to assess the level of alignment between company ambition and relevant policy ambition.\n\nThe RAS is designed to support alignment assessments with potential future policies, making it a valuable tool for evaluating corporate strategies and investment pipelines against both national and regional ambitions. A misalignment with the RAS may signal potential exposure to future regulatory risks, such as non-compliance with evolving energy policies or reduced competitiveness in markets where low-carbon technologies are being prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. The RAS pathway includes the impacts of aspirational policies and targets which have not yet been implemented; therefore, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. Due to its inclusion of aspirational goals, alignment to the RAS pathway gives a stronger indication that a company is keeping pace with national ambition than alignment to a more limited policy pathway such as ACE ATS.\n\nDue to its inclusion of least-cost-optimized projections, the RAS pathway has useful applications for assessing the commercial feasibility of transition strategies. Alignment or misalignment to the RAS pathway may indicate that a company is outpacing or lagging economy-wide optimal trends. However, due to RAS’s assumption of static technology costs, users may consider supplementing the RAS pathway with options that provide more detailed and dynamic technology cost and deployment projections.\n\nThe RAS pathway provides regional-level projections for generation and capacity on 5-year intervals and using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers and project pipelines within company plans. However, RAS provides data at only the regional level. This limits its suitability for assessing companies which have operations concentrated in one or few countries, as it allows comparison only to the regional average.",
   "metric": [

@@ -29,7 +29,9 @@
     "short": "HA2O SG"
   },
   "description": "Singapore cost-optimized high-ambition pathway to achieve near-zero power sector emissions by 2050.",
-  "geography": ["SG"],
+  "geography": {
+    "country": ["SG"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,

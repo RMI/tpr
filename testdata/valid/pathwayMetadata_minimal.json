@@ -1,15 +1,25 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "pathway-minimal",
-  "name": { "full": "Minimal Pathway" },
+  "name": {
+    "full": "Minimal Pathway"
+  },
   "publication": {
-    "title": { "full": "Example Title" },
-    "publisher": { "full": "TransitionZero" },
+    "title": {
+      "full": "Example Title"
+    },
+    "publisher": {
+      "full": "TransitionZero"
+    },
     "year": 2024
   },
   "description": "A minimal pathway file that passes schema validation.",
   "pathwayType": "Exploratory",
-  "geography": ["South East Asia"],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    }
+  },
   "sectors": [
     {
       "name": "Other",

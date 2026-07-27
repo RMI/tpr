@@ -42,7 +42,9 @@
     "short": "1.5°C"
   },
   "description": "Normative 1.5°C pathway for Indonesia, with phaseout of on-grid and captive coal power.",
-  "geography": ["ID"],
+  "geography": {
+    "country": ["ID"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,

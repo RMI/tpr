@@ -1,10 +1,18 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "pathway-simple-standard",
-  "name": { "full": "Simple Standard Pathway", "short": "SimpStanPath" },
+  "name": {
+    "full": "Simple Standard Pathway",
+    "short": "SimpStanPath"
+  },
   "publication": {
-    "title": { "full": "Example Title" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "Example Title"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2025
   },
   "description": "This is a simple standard pathway for demonstration purposes, with all fields filled out.",
@@ -13,9 +21,14 @@
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "modelTempIncrease": 1.5,
-  "geography": ["Global"],
+  "geography": {
+    "global": true
+  },
   "sectors": [
-    { "name": "Land Use", "technologies": ["Precision Agriculture"] }
+    {
+      "name": "Land Use",
+      "technologies": ["Precision Agriculture"]
+    }
   ],
   "pathwayOverview": "Example Overview.",
   "expertOverview": "Example Expert Recommendation.",

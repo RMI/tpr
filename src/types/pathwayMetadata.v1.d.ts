@@ -13,9 +13,9 @@ export type Label = import("./common/label.v1").LabelV1;
  */
 export type Publication = import("./common/publication.v1").PublicationV1;
 /**
- * A single geography identifier used across schemas. Accepts 'Global', ISO-3166-1 alpha-2 country codes (e.g., 'US', 'DE'), or a set of region names (e.g., 'East Asia and Pacific', 'North America'). Any 2-letter items in the array will be treated as an ISO code. Any 2-letter entries that do not map to a country will throw errors (EU). Do not use full country names, only ISO alpha-2 codes. To avoid typographical errors, items may not be 3 letters long (USA)
+ * Geographical areas that the pathway covers.
  */
-export type GeographyItem = import("./common/geographyItem.v1").GeographyItemV1;
+export type Geography = import("./common/geography.v1").GeographyV1;
 /**
  * Defines which greenhouse gases are covered in the pathway's modeled emissions.
  */
@@ -60,10 +60,7 @@ export interface PathwayMetadataV1 {
    * Modeled temperature increase expected by the pathway (in degrees Celsius).
    */
   modelTempIncrease?: number;
-  /**
-   * Geographical areas that the pathway covers.
-   */
-  geography: GeographyItem[];
+  geography: Geography;
   /**
    * Sectors that the pathway covers.
    */

@@ -27,43 +27,69 @@
       }
     ]
   },
-  "name": { "full": "1.5°C Pathway", "short": "1.5°C" },
+  "name": {
+    "full": "1.5°C Pathway",
+    "short": "1.5°C"
+  },
   "description": "Global 1.5°C pathway driven by massive rapid deployment of existing low-carbon technology.",
-  "geography": [
-    "Global",
-    "AR",
-    "AU",
-    "BR",
-    "CA",
-    "CN",
-    "FR",
-    "DE",
-    "IN",
-    "ID",
-    "IT",
-    "JP",
-    "MX",
-    "RU",
-    "SA",
-    "ZA",
-    "KR",
-    "TR",
-    "GB",
-    "US"
-  ],
+  "geography": {
+    "global": true,
+    "country": [
+      "AR",
+      "AU",
+      "BR",
+      "CA",
+      "CN",
+      "FR",
+      "DE",
+      "IN",
+      "ID",
+      "IT",
+      "JP",
+      "MX",
+      "RU",
+      "SA",
+      "ZA",
+      "KR",
+      "TR",
+      "GB",
+      "US"
+    ]
+  },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.5,
   "modelYearStart": 2019,
   "modelYearEnd": 2100,
   "modelYearNetzero": 2050,
   "sectors": [
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -78,11 +104,26 @@
         "Other"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe One Earth Climate Model (OECM) is a normative pathway targeting 1.5°C warming, developed by the Net Zero Asset Owner Alliance (NZAOA) and the University of Technology Sydney (UTS). The pathway sets a highly ambitious outcome, targeting a total carbon budget of 400 Gt from 2020 to 2050, which corresponds to a 67% probability of limiting warming below 1.5°C. This carbon budget is stricter than the IEA’s Net Zero Emissions by 2050 (NZE) pathway, another prominent normative 1.5°C pathway. \n\nThe OECM aims to limit reliance on novel technologies, instead describing a pathway driven by extremely rapid deployment of existing low-carbon technologies at scale, supported by significant global policy action. The OECM pathway provides information on energy and emissions intensity across multiple scopes for different industries. This information is intended to support financial institutions in calculating potential financed-emissions exposures based on their portfolios. \n\n#### Core Drivers\n\nThe OECM pathway is driven by massive deployment of renewable generation, rapid electrification and demand shifts, and assertive global policy measures. \n\n*Policy:* The OECM pathway highlights significant global policy action to limit total emissions within a 400 Gt budget. The pathway describes coordinated international action, phasing out of fossil fuel subsidies, strong standards across sectors, and enabling frameworks for clean-technology innovation, infrastructure investment, and sector coupling. Highlighted supporting policy measures include a full phaseout of internal combustion engine (ICE) personal vehicles by 2030, phaseout of all coal-fired power generation in developed markets by 2030, and strong efficiency standards across multiple industries. \n\n*Technology deployment:* The OECM pathway limits reliance on less mature technologies such as green hydrogen and carbon capture, compensating through very rapid scale-up of existing low-carbon technologies. The pathway assumes 100% of global energy demands across all industries are met by renewable sources by 2050, with residual fossil consumption for feedstock purposes only. This requires immediate and massive scale-up of renewable generation, with solar generation increasing by a factor of 29 by 2050. \n\n*Investment:* The OECM pathway assumes no further investments in fossil fuel production, with no further investments in fossil fuel power generation from 2030 onward. Investments in clean energy technologies, electrification, low-carbon industry, and grid infrastructure increase rapidly and are sustained at very high levels throughout the scenario. \n\n#### Application to Transition Assessment\n\nThis scenario adopted by the Net Zero Asset Owner Alliance (NZAOA) offers a sectoral pathway intended for use in the finance community. It has a clear sectoral scope breakdown in 12 different sectors, covering total activity with a deep regional focus, and it provides targets for Scope 1, 2, and 3 emissions for any of those sectors. This data can be used to set targets for financed emissions, for example. The scenario can also be used to set a sectoral target as presented in the NZAOA protocol. As a global integrated assessment model, OECM provides a direct global temperature outcome, and it can be used to benchmark transition targets or strategies against a high level of ambition. \n\nAs a highly ambitious normative pathway, OECM models a potential pathway to achieve a target temperature outcome and introduces significant new policies and market shifts as part of the process. As a result, (mis)alignment to the OECM pathway is not clearly connected to regulatory risk or potential shifts in market share, because objectives within the OECM pathway may differ significantly from currently stated jurisdictional goals. Users interested in assessing the policy alignment or technological and commercial feasibility of corporate transition strategies should carefully review the strong assumptions introduced by this pathway across multiple sectors and consider supplementing with additional pathways that model a range of policies and technology developments.  \n\nThe OECM pathway provides emissions, capacity, and generation projections at five-year increments using a highly detailed breakdown by fuel source and/or technology, such as hard and lignite coal, onshore wind, and photovoltaic solar. The pathway provides data at the global level, at the regional level for the European Union (EU) and Group of 20 (G20), and for each country within the EU and G20.",
   "metric": [

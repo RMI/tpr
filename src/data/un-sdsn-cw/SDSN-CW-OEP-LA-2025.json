@@ -29,7 +29,9 @@
     "short": "OEP LA"
   },
   "description": "Cost-optimized pathway under current policies with coal and hydropower expansion.",
-  "geography": ["LA"],
+  "geography": {
+    "country": ["LA"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,

@@ -29,7 +29,9 @@
     "short": "OMAP LA"
   },
   "description": "Pathway balancing high renewables uptake with minimal coal use and reduced hydropower investment.",
-  "geography": ["LA"],
+  "geography": {
+    "country": ["LA"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,

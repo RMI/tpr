@@ -89,6 +89,27 @@ describe("sortGeographiesForDetails", () => {
     const out = sortGeographiesForDetails(input);
     expect(out).toEqual(["Global", "Region B", "Region A", "DE", "DK"]);
   });
+
+  it("returns [] for non-array input instead of throwing", () => {
+    // Callers should flatten structured geography first, but guard defensively:
+    // a raw Geography object (or nullish) must degrade to [], not crash with
+    // `input.map is not a function`.
+    const structuredGeography = {
+      global: true,
+      regions: { Europe: [] },
+      country: ["US"],
+    };
+    expect(() =>
+      sortGeographiesForDetails(structuredGeography as unknown as unknown[]),
+    ).not.toThrow();
+    expect(
+      sortGeographiesForDetails(structuredGeography as unknown as unknown[]),
+    ).toEqual([]);
+    expect(sortGeographiesForDetails(null as unknown as unknown[])).toEqual([]);
+    expect(
+      sortGeographiesForDetails(undefined as unknown as unknown[]),
+    ).toEqual([]);
+  });
 });
 
 describe("assertKnownCountryISO2 (strict ISO2 validation)", () => {
@@ -106,6 +127,24 @@ describe("assertKnownCountryISO2 (strict ISO2 validation)", () => {
   });
 });
 
+// Build the structured geography object from a flat list of tokens by
+// classifying each one (global / region label / country code). flattenGeography
+// is the inverse, so makeGeographyOptions sees the same tokens as before.
+const toGeographyObject = (tokens: string[]) => {
+  const geo: {
+    global?: boolean;
+    regions?: Record<string, string[]>;
+    country?: string[];
+  } = {};
+  for (const t of tokens) {
+    const kind = geographyKind(t);
+    if (kind === "global") geo.global = true;
+    else if (kind === "country") (geo.country ??= []).push(t);
+    else (geo.regions ??= {})[t] = [];
+  }
+  return geo;
+};
+
 const mkPathway = (id: string, geography: string[]): PathwayMetadataType =>
   ({
     id,
@@ -114,7 +153,7 @@ const mkPathway = (id: string, geography: string[]): PathwayMetadataType =>
     pathwayType: "Mitigation",
     modelYearEnd: 2050,
     modelTempIncrease: 1.5,
-    geography,
+    geography: toGeographyObject(geography),
     sectors: [],
     publisher: "RMI",
     publicationYear: 2024,

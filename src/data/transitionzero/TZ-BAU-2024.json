@@ -35,21 +35,17 @@
       }
     ]
   },
-  "name": { "full": "Business as Usual", "short": "BAU" },
+  "name": {
+    "full": "Business as Usual",
+    "short": "BAU"
+  },
   "description": "Business-as-usual continuation of existing ASEAN power and transmission systems.",
-  "geography": [
-    "South East Asia",
-    "BN",
-    "KH",
-    "ID",
-    "LA",
-    "MY",
-    "MN",
-    "PH",
-    "SG",
-    "TH",
-    "VN"
-  ],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    },
+    "country": ["BN", "KH", "ID", "LA", "MY", "MN", "PH", "SG", "TH", "VN"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2024,
   "modelYearEnd": 2035,
