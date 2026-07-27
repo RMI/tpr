@@ -18,6 +18,12 @@
  */
 import { countryCodeSchema } from "../schema/common";
 import type { GeographyCode } from "../types";
+import { ABSENT_FILTER_TOKEN } from "./absent";
+import {
+  toISO2,
+  countryNameFromISO2,
+  normalizeGeography,
+} from "./geographyUtils";
 
 /**
  * Every ISO-3166-1 alpha-2 code recognised by the repo's schema. Canonical source
@@ -77,3 +83,44 @@ export function filterRegionToISO(label: FilterRegionLabel): GeographyCode[] {
 export const FILTER_REGION_LABELS = Object.keys(
   FILTER_REGIONS,
 ) as (keyof typeof FILTER_REGIONS)[];
+
+/**
+ * A single selected geography-filter token, classified for matching.
+ * - `absent` — the "None" bucket (pathways with no geography).
+ * - `global` — the special "Global" label (matches only whole-world pathways).
+ * - `iso` — a concrete ISO set: a defined region's members, a single country
+ *   code, or the empty set for an unrecognised token (which then matches
+ *   nothing, so stale/legacy selections degrade safely rather than throwing).
+ */
+export type SelectedGeography =
+  | { kind: "absent" }
+  | { kind: "global" }
+  | { kind: "iso"; iso: Set<GeographyCode> };
+
+/**
+ * Classify one selected dropdown value into its match descriptor. This is the
+ * query-side counterpart of {@link filterRegionToISO}: the search matcher (#783)
+ * and the #869 resolver both interpret a user selection through here so they
+ * share one vocabulary. Checked in order so the categories can't collide
+ * (region labels are multi-word, never two letters).
+ */
+export function selectedGeographyToISO(value: string): SelectedGeography {
+  if (value === ABSENT_FILTER_TOKEN) return { kind: "absent" };
+  if (value in FILTER_REGIONS) {
+    return {
+      kind: "iso",
+      iso: new Set(FILTER_REGIONS[value as keyof typeof FILTER_REGIONS]),
+    };
+  }
+  if (
+    normalizeGeography(value).toLowerCase() ===
+    GLOBAL_REGION_LABEL.toLowerCase()
+  ) {
+    return { kind: "global" };
+  }
+  const iso = toISO2(value);
+  if (iso && countryNameFromISO2(iso)) {
+    return { kind: "iso", iso: new Set([iso as GeographyCode]) };
+  }
+  return { kind: "iso", iso: new Set() };
+}

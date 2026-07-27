@@ -4,7 +4,9 @@ import {
   FILTER_REGIONS,
   FILTER_REGION_LABELS,
   filterRegionToISO,
+  selectedGeographyToISO,
 } from "./filterRegions";
+import { ABSENT_FILTER_TOKEN } from "./absent";
 import { countryCodeSchema } from "../schema/common";
 
 const ENUM = new Set(countryCodeSchema.enum as string[]);
@@ -66,5 +68,40 @@ describe("exports", () => {
 
   it("ALL_COUNTRY_CODES matches the schema enum", () => {
     expect(ALL_COUNTRY_CODES.length).toBe(ENUM.size);
+  });
+});
+
+describe("selectedGeographyToISO", () => {
+  it("classifies the ABSENT token", () => {
+    expect(selectedGeographyToISO(ABSENT_FILTER_TOKEN)).toEqual({
+      kind: "absent",
+    });
+  });
+
+  it("classifies 'Global' (case-insensitive)", () => {
+    expect(selectedGeographyToISO("Global")).toEqual({ kind: "global" });
+    expect(selectedGeographyToISO("global")).toEqual({ kind: "global" });
+  });
+
+  it("expands a defined region label to its ISO members", () => {
+    const r = selectedGeographyToISO("Southeast Asia");
+    expect(r.kind).toBe("iso");
+    if (r.kind === "iso") {
+      expect([...r.iso].sort()).toEqual(
+        [...FILTER_REGIONS["Southeast Asia"]].sort(),
+      );
+    }
+  });
+
+  it("expands a valid ISO country code to a singleton set", () => {
+    const r = selectedGeographyToISO("TH");
+    expect(r).toEqual({ kind: "iso", iso: new Set(["TH"]) });
+  });
+
+  it("returns an empty ISO set for an unknown/legacy token (never throws)", () => {
+    for (const token of ["Europe", "South East Asia", "XX", "USA", ""]) {
+      const r = selectedGeographyToISO(token);
+      expect(r).toEqual({ kind: "iso", iso: new Set() });
+    }
   });
 });

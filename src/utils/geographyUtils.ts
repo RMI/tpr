@@ -1,6 +1,6 @@
 import countries from "i18n-iso-countries";
 import en from "i18n-iso-countries/langs/en.json";
-import type { Geography } from "../types";
+import type { Geography, GeographyCode } from "../types";
 countries.registerLocale(en);
 
 export type GeographyKind = "global" | "region" | "country";
@@ -21,6 +21,42 @@ export function flattenGeography(geo: Geography | null | undefined): string[] {
   if (geo.regions) tokens.push(...Object.keys(geo.regions));
   if (geo.country) tokens.push(...geo.country);
   return tokens;
+}
+
+// The ISO-3166-1 alpha-2 codes a pathway actually covers: the union of its
+// standalone `country` list and the member codes of every `regions` entry.
+// Unlike `flattenGeography` (which carries region LABELS, not members), this is
+// the country-level expansion used for ISO-overlap geography matching. The
+// `global` flag is intentionally NOT expanded here — it is a separate boolean,
+// so a global-only pathway yields an empty coverage set (which is what makes
+// "a below-global filter never matches a global-only pathway" fall out for
+// free in the matcher). Invalid entries are dropped via `toISO2`.
+export function pathwayISOCoverage(
+  geo: Geography | null | undefined,
+): Set<GeographyCode> {
+  const codes = new Set<GeographyCode>();
+  if (!geo || typeof geo !== "object") return codes;
+  const add = (raw: string) => {
+    const iso = toISO2(raw);
+    if (iso) codes.add(iso as GeographyCode);
+  };
+  if (geo.country) geo.country.forEach(add);
+  if (geo.regions) {
+    for (const members of Object.values(geo.regions)) {
+      if (Array.isArray(members)) members.forEach(add);
+    }
+  }
+  return codes;
+}
+
+// A pathway has "absent" geography when flattening yields no tokens — i.e. an
+// empty/missing geography object (`{}`, `undefined`, or the legacy empty array).
+// Single source of truth shared by the "None" facet gate and the ABSENT match
+// arm so the two can never disagree about what counts as empty. Note a region
+// with an empty member array (e.g. `{regions:{X:[]}}`) is NOT absent — it still
+// carries a region label token.
+export function isGeographyAbsent(geo: Geography | null | undefined): boolean {
+  return flattenGeography(geo).length === 0;
 }
 
 //Normalize to a safe string: accept strings (and basic primitives), drop everything else.
