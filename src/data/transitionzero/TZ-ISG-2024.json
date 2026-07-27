@@ -35,21 +35,17 @@
       }
     ]
   },
-  "name": { "full": "Indonesia Supergrid", "short": "ISG" },
+  "name": {
+    "full": "Indonesia Supergrid",
+    "short": "ISG"
+  },
   "description": "ASEAN power model with significant new regional and interisland transmission in Indonesia.",
-  "geography": [
-    "South East Asia",
-    "BN",
-    "KH",
-    "ID",
-    "LA",
-    "MY",
-    "MN",
-    "PH",
-    "SG",
-    "TH",
-    "VN"
-  ],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    },
+    "country": ["BN", "KH", "ID", "LA", "MY", "MN", "PH", "SG", "TH", "VN"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2024,
   "modelYearEnd": 2035,

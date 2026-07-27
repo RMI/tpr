@@ -139,6 +139,56 @@ describe("Badge component", () => {
     expect(badge).toHaveClass("border-rmipurple-200");
   });
 
+  describe("publication-only (-pub) variants", () => {
+    it("applies geographyGlobal-pub styling with transparent background", () => {
+      const { container } = render(
+        <Badge variant="geographyGlobal-pub">Global</Badge>,
+      );
+      const badge = container.firstChild as HTMLElement;
+      expect(badge).toHaveClass("bg-transparent");
+      expect(badge).toHaveClass("text-pinishgreen-800");
+      expect(badge).toHaveClass("border-pinishgreen-800");
+    });
+
+    it("applies geographyRegion-pub styling with transparent background", () => {
+      const { container } = render(
+        <Badge variant="geographyRegion-pub">Asia Pacific</Badge>,
+      );
+      const badge = container.firstChild as HTMLElement;
+      expect(badge).toHaveClass("bg-transparent");
+      expect(badge).toHaveClass("text-pinishgreen-700");
+      expect(badge).toHaveClass("border-pinishgreen-500");
+    });
+
+    it("applies geographyCountry-pub styling with transparent background", () => {
+      const { container } = render(
+        <Badge variant="geographyCountry-pub">Germany</Badge>,
+      );
+      const badge = container.firstChild as HTMLElement;
+      expect(badge).toHaveClass("bg-transparent");
+      expect(badge).toHaveClass("text-pinishgreen-600");
+      expect(badge).toHaveClass("border-pinishgreen-400");
+    });
+
+    it("applies sector-pub styling with transparent background", () => {
+      const { container } = render(<Badge variant="sector-pub">Power</Badge>);
+      const badge = container.firstChild as HTMLElement;
+      expect(badge).toHaveClass("bg-transparent");
+      expect(badge).toHaveClass("text-solar-800");
+      expect(badge).toHaveClass("border-solar-400");
+    });
+
+    it("applies metric-pub styling with transparent background", () => {
+      const { container } = render(
+        <Badge variant="metric-pub">Capacity</Badge>,
+      );
+      const badge = container.firstChild as HTMLElement;
+      expect(badge).toHaveClass("bg-transparent");
+      expect(badge).toHaveClass("text-rmipurple-800");
+      expect(badge).toHaveClass("border-rmipurple-400");
+    });
+  });
+
   it("always includes base badge styling", () => {
     // Testing that common styles are applied to all variants
     const { container } = render(

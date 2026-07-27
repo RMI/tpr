@@ -1,10 +1,17 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "sample-02",
-  "name": { "full": "Sample Pathway 02" },
+  "name": {
+    "full": "Sample Pathway 02"
+  },
   "publication": {
-    "title": { "full": "Example Title" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "Example Title"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024
   },
   "description": "Second Sample Pathway. uiop description.",
@@ -12,8 +19,17 @@
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "modelTempIncrease": 2,
-  "geography": ["South East Asia"],
-  "sectors": [{ "name": "Agriculture", "technologies": ["Agroforestry"] }],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    }
+  },
+  "sectors": [
+    {
+      "name": "Agriculture",
+      "technologies": ["Agroforestry"]
+    }
+  ],
   "pathwayOverview": "UIOP Overview.",
   "expertOverview": "Example Expert Recommendation.",
   "keyFeatures": {

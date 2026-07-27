@@ -29,7 +29,9 @@
     "short": "OEPP MM"
   },
   "description": "Myanmar-specific cost-optimized pathway following current energy policies and NDCs.",
-  "geography": ["MM"],
+  "geography": {
+    "country": ["MM"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,

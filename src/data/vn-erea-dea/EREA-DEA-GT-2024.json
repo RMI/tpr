@@ -17,22 +17,51 @@
       }
     ]
   },
-  "name": { "full": "Green Transport Scenario", "short": "GT" },
+  "name": {
+    "full": "Green Transport Scenario",
+    "short": "GT"
+  },
   "description": "Net-zero pathway with full implementation of Vietnam's Green Transport Strategy.",
-  "geography": ["VN"],
+  "geography": {
+    "country": ["VN"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
-    { "name": "Agriculture", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -46,11 +75,26 @@
         "Nuclear"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Green Transport scenario explores the accelerated decarbonization of the transport sector by 2050. Built on EREA's Net Zero pathway, Green Transport modifies two assumptions: transport sector emissions are capped at 1 Mt in 2050 via full implementation of the country's Green Transport plan, and renewable energy potential remains limited to 136 GW of land-based solar (the same availability as in EREA's Baseline scenario).\n\nThe Green Transport scenario models nearly complete electrification of light transport and substitutions of fossil fuels with renewable e-fuels for heavy modes. The entire car and motorbike fleet is electric, whereas the heavy-duty, aviation, and maritime transport sectors are largely powered by green hydrogen, e-methanol, ammonia, and biofuels. Domestic fuel production is prioritized, reducing import dependency through 2050. However, because renewable energy expansion remains constrained, the scenario yields higher cumulative emissions than the base Net Zero pathway, highlighting the limits of demand-side electrification under fixed-supply conditions.\n\n#### Core Drivers\n\n*Policy and technology deployment:* The Green Transport scenario shares the basic structure of EREA's Net Zero pathway, with significant emissions caps, accelerated retirement of high-emitting assets, and significant deployment of renewable energy supported by declining costs.\n\n*Electrification and fuel switching:* The Green Transport pathway achieves nearly universal adoption of battery electric vehicles (50% by 2030 and 90% by 2040) and a rapid scale-up of renewable fuels for hard-to-electrify modes. As a result, there is a significant rise in electricity demand for the transport sector (408 TWh for the transport sector in 2050, compared to 380 TWh in the Net Zero scenario).\n\n*Renewable energy constraints:* As solar PV potential is limited to 136 GW, the same amount as in the Baseline scenario, the Green Transport scenario explores the implications of achieving net zero within a constrained energy system. Green Transport magnifies the trade-offs between electricity demand, renewables integration, and fossil fuel-based generation.\n\n#### Application to Transition Assessment\n\nThe Green Transport scenario serves as a cross-sectoral stress test for Vietnam's net-zero transition, analyzing the interaction between demand-side ambition and supply-side limits. It enables users to assess the feasibility and sequencing of large-scale electrification under constrained renewable growth. As a single-country pathway, the Green Transport pathway does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nFor corporate transition assessments, this pathway provides a reference for assessing alignment with transport sector decarbonization goals, and it can be used to test the readiness of automotive and fuel supply companies to scale EV adoption, charging infrastructure, and renewable fuels. Additionally, the scenario allows users to evaluate whether currently planned renewable capacity additions are sufficient to support the electricity demanded by EV scale-up and renewable fuel production. Because it is built on the normative Net Zero pathway, which includes significant aspirational goals and policies that have not been implemented, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness.\n\nThe Green Growth pathway includes 10-year resolution projections for generation and capacity using a detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Green Growth pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
   "metric": [

@@ -31,7 +31,9 @@
     "short": "OEP PH"
   },
   "description": "Philippines-specific least-cost pathway to achieve current policy targets.",
-  "geography": ["PH"],
+  "geography": {
+    "country": ["PH"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2060,

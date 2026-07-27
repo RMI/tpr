@@ -22,7 +22,9 @@
     "short": "CIPP"
   },
   "description": "Power transition strategy driven by managed coal phasedown and renewables scale-up.",
-  "geography": ["ID"],
+  "geography": {
+    "country": ["ID"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,

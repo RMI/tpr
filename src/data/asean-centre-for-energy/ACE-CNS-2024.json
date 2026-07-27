@@ -2,8 +2,14 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "ACE-CNS-2024",
   "publication": {
-    "title": { "full": "8th ASEAN Energy Outlook", "short": "AEO8" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "8th ASEAN Energy Outlook",
+      "short": "AEO8"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024,
     "city": "Jakarta",
     "issn": "2963-539X",
@@ -14,16 +20,29 @@
       }
     ]
   },
-  "name": { "full": "Carbon Neutrality Scenario", "short": "CNS" },
+  "name": {
+    "full": "Carbon Neutrality Scenario",
+    "short": "CNS"
+  },
   "description": "Pathway for ASEAN to achieve significant CO2 emissions reductions by 2050.",
-  "geography": ["South East Asia"],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    }
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
-    { "name": "Land Use", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -38,7 +57,10 @@
         "Other"
       ]
     },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The Carbon Neutral Scenario (CNS) is a normative pathway in which the ASEAN region achieves net-zero carbon emissions by 2050, both in energy and non-energy sectors. This pathway builds on the extensive set of stated and aspirational policies modelled in ACE’s Regional Aspiration Scenario (RAS), introducing further emissions constraints, accelerated low-emissions technology and low-carbon fuels availability, gradual retirement of some coal and gas technologies, and expanded low-emission power generation. It assumes that countries improve their energy efficiency according to their full potential, develop and deploy renewable energy sources according to their individual technical potential, and models capacity additions beyond existing power development plans (PDPs), prioritizing dispatch of renewable energy. The CNS pathway also models widespread adoption of carbon capture and storage (CCS) technology, and rapid scale-up of low-carbon fuels. The CNS pathway incorporates least-cost-optimization in its projections.\n\nCore Drivers\n\nThe CNS pathway combines widespread policy, rapid technology deployment, and explicit targets for emissions and emissions intensity reductions.\n\n*Policy:* The policies considered by CNS are equivalent to the RAS pathway, including nationally determined contributions, energy efficiency targets, and power development plans. These policies are a core driver of CNS projections but not differentiate it from the RAS pathway. \n\n*Emissions goals:* The CNS pathway introduces explicit emissions constraints, with specific emissions and emissions intensity reduction targets in power, industry, and transport beyond what is contained in existing policy and pledges. These constraints impose rapid emissions reductions across the full energy system. \n\n*Technology Deployment & Technology costs:* Emissions constraints and the least-cost approach led to a more rapid build-out of low-carbon power capacity than in other ACE pathways, including a more rapid deployment of technologies that are less mature or not yet established in the region (such as nuclear, geothermal, and tidal & wave power). However, the CNS pathway does not forecast changes in technology costs, limiting the potential impact of cost optimization. \n\nThe CNS pathway provides detailed information on demand and investment flows. The pathway forecasts very large increases in energy investment, with 55 billion USD a year between 2023 and 2030, and up to 371 bn USD between 2040-2050, more than twice the investment seen in the ACE RAS pathway.\n\n#### Application to Transition Assessment\n\nThe Carbon Neutrality Scenario is a normative pathway, which provides a useful trajectory for exploring rapid and ambitious transition across Southeast Asia. As a single-region model, CNS is not linked to a global emissions outcome and so cannot be used to quantify corporate ambition in terms of implied temperature rise – however, as a pathway with large scale emissions reductions by 2050, it can be used as a region-specific benchmark for high ambition strategies.\n\nAs a normative pathway, CNS includes significant interventions that exceed existing regional goals. As a result, (mis)alignment to the CNS pathway is less directly connected to regulatory risk or potential shifts in market share, as objectives within the CNS pathway may differ significantly from currently stated jurisdictional policies. Users interested in assessing the policy alignment or technological and commercial feasibility of corporate transition strategies should supplement CNS with pathways that provide more direct links to predicted policy and market conditions, such as ACE RAS and IEA APS.\n\nAs a cost-optimized pathway, the CNS pathway can be used to quantify investment needs associated with a rapid region-wide change and to contextualize the commercial and market feasibility of a corporate transition strategy. However, due to exclusion of technology cost changes over time in CNS, and users may wish to supplement it with options that provide more detailed and dynamic cost and deployment projections.\n\nThe CNS pathway includes regional-level projections for power generation and capacity on 5-year intervals and using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for analyzing specific decarbonization levers and project investment pipelines within company plans. However, CNS provides data at only the regional level. This limits its suitability for assessing companies which have operations concentrated in one or few countries, as it allows comparison only to the regional average.",
   "metric": [

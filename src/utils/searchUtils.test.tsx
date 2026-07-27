@@ -229,7 +229,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "B",
       name: "B",
       sectors: [{ name: "Power" }],
-      geography: ["Europe"],
+      geography: { regions: { Europe: [] } },
       modelTempIncrease: 2.0,
       pathwayType: "Normative",
       modelYearNetzero: 2040,
@@ -241,7 +241,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "C",
       name: "C",
       sectors: [{ name: "Steel" }],
-      geography: ["Asia"],
+      geography: { regions: { Asia: [] } },
       modelTempIncrease: 1.5,
       pathwayType: "Exploratory",
       modelYearNetzero: 2030,
@@ -306,7 +306,7 @@ describe("filterPathways (array-backed facets)", () => {
         ...pathways[1],
         id: "B2",
         name: "B2",
-        geography: ["Europe", "Asia"],
+        geography: { regions: { Europe: [], Asia: [] } },
       },
     ];
     // ANY (default): Europe OR Asia → B, C, B2

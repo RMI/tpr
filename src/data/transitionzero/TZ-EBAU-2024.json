@@ -35,21 +35,17 @@
       }
     ]
   },
-  "name": { "full": "Enhanced Business as Usual", "short": "EBAU" },
+  "name": {
+    "full": "Enhanced Business as Usual",
+    "short": "EBAU"
+  },
   "description": "ASEAN power model where existing transmission assets expand without altering network configuration.",
-  "geography": [
-    "South East Asia",
-    "BN",
-    "KH",
-    "ID",
-    "LA",
-    "MY",
-    "MN",
-    "PH",
-    "SG",
-    "TH",
-    "VN"
-  ],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    },
+    "country": ["BN", "KH", "ID", "LA", "MY", "MN", "PH", "SG", "TH", "VN"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2024,
   "modelYearEnd": 2035,

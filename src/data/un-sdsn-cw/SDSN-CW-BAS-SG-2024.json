@@ -29,7 +29,9 @@
     "short": "BAS SG"
   },
   "description": "Singapore-specific base case scenario which continues existing energy and emissions trends.",
-  "geography": ["SG"],
+  "geography": {
+    "country": ["SG"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,

@@ -2,8 +2,14 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "ACE-ATS-2024",
   "publication": {
-    "title": { "full": "8th ASEAN Energy Outlook", "short": "AEO8" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "8th ASEAN Energy Outlook",
+      "short": "AEO8"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024,
     "city": "Jakarta",
     "issn": "2963-539X",
@@ -14,15 +20,28 @@
       }
     ]
   },
-  "name": { "full": "ASEAN Member State Targets Scenario", "short": "ATS" },
+  "name": {
+    "full": "ASEAN Member State Targets Scenario",
+    "short": "ATS"
+  },
   "description": "ASEAN-specific pathway exploring impact of unconditional NDCs and existing policies.",
-  "geography": ["South East Asia"],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    }
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "sectors": [
-    { "name": "Land Use", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -37,7 +56,10 @@
         "Other"
       ]
     },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE ASEAN Member States Targets Scenario (ATS) is an exploratory pathway which assumes that every ASEAN member state fully achieves its unconditional transition targets on time, including unconditional goals set via Nationally Determined Contributions (NDCs). This pathway models the impact of existing policies, such as national power development plans (PDPs), and the implementation of these stated targets. The ATS pathway models more ambitious energy efficiency targets, as well as a faster deployment of low-carbon energy technologies, especially from renewable energy. The ATS pathway does not include more aspirational national objectives, such as conditional NDCs or long-term net zero goals. For examples of pathways that include these policies, see the ACE Regional Aspiration Scenario (RAS) and IEA Announced Pledges Scenario (APS).\n\nPower generation emissions decline -2.4% per year, resulting in a total decrease of 74% relative to power emissions in the Baseline Scenario. However, the ATS pathway projects to an average annual emissions increase of 0.8% across the full energy sector. \n\n#### Core Drivers\n\nThe ATS pathway is primarily influenced by existing and announced policies and does not consider declining technology costs or significant new technologies.\n\n*Policy:* Unconditional national policies are the primary driver of transition outcomes in the ATS pathway. Energy efficiency targets and renewable energy targets, including detailed plans from national power development plans, drive significant renewables deployment and emissions reductions. Power capacity deployment follows the plans detailed in NDCs and PDPs until the final year laid out in these policies, and ATS simulates further additions based on the technology mix at the end year of the policy plans.\n\nThe ATS pathway assumes technology costs remain fixed at current levels across the full trajectory. The ATS pathway provides information on demand shifts, investment flows, and technology deployment, but these factors are driven primarily by modeled policy shifts. \n\n#### Application to Transition Assessment\n\nACE ATS is an exploratory, policy-focused pathway, which provides useful values for assessing the alignment of corporate plans to region-wide policy impacts. As a region-specific pathway, ACE ATS is not directly linked to a global implied temperature rise, limiting its use as a quantitative benchmark the ambition of climate targets.\n\nThe ATS is particularly well-suited for evaluating the alignment of corporate targets, strategies, and investment pipelines with the stated ambitions of the jurisdictions in which they operate. Its strong policy orientation allows for a meaningful comparison between corporate actions and national development priorities. A misalignment with the ATS may signal potential exposure to future regulatory risks, such as non-compliance with evolving energy policies or reduced competitiveness in markets where low-carbon technologies are being prioritized. Alignment, in the other hand, may indicate that a company is strategically positioned to benefit from market shifts. The ATS pathway includes the impacts of stated policies and targets which have not yet been implemented; therefore, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. However, the ATS pathway excludes aspirational goals such as conditional NDCs, making the pathway a relatively conservative choice for evaluating potential policy alignment and impact.\n\nDue to its assumption of static technology costs and limited modelling of specific technology deployment, the ATS pathway has more limited applications in assessing the commercial or technological feasibility of specific transition strategies. Users interested in these applications may consider supplementing the ATS pathway with additional pathways that provide more detailed and dynamic technology cost and deployment projections.\n\nATS provides national targets. These targets are presented with fine granularity, enabling detailed national policy alignment assessments. The pathway also includes regional-level projections for generation and capacity on 5-year intervals and using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. This data is relevant and useful for analyzing specific decarbonization levers and project investment pipelines within company plans, and supports region-specific benchmark, but does not enable country-specific comparisons of changes in generation or capacity.",
   "metric": [

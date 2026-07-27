@@ -13,7 +13,14 @@ interface BadgeProps {
     | "geographyGlobal"
     | "geographyRegion"
     | "geographyCountry"
-    | "sector";
+    | "sector"
+    | "metric"
+    | "keyFeature"
+    | "geographyGlobal-pub"
+    | "geographyRegion-pub"
+    | "geographyCountry-pub"
+    | "sector-pub"
+    | "metric-pub";
   className?: string;
 }
 
@@ -43,6 +50,16 @@ const Badge: React.FC<BadgeProps> = ({
         return "bg-rmipurple-100 text-rmipurple-800 border-rmipurple-200";
       case "keyFeature":
         return "bg-rmiblue-100 text-rmiblue-800 border-rmiblue-200";
+      case "geographyGlobal-pub":
+        return "bg-transparent text-pinishgreen-800 border-pinishgreen-800";
+      case "geographyRegion-pub":
+        return "bg-transparent text-pinishgreen-700 border-pinishgreen-500";
+      case "geographyCountry-pub":
+        return "bg-transparent text-pinishgreen-600 border-pinishgreen-400";
+      case "sector-pub":
+        return "bg-transparent text-solar-800 border-solar-400";
+      case "metric-pub":
+        return "bg-transparent text-rmipurple-800 border-rmipurple-400";
       default:
         return "bg-rmigray-100 text-rmigray-800 border-rmigray-200";
     }

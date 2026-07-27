@@ -19,6 +19,12 @@ export const labelSchema: SchemaObject = labelSchemaJson;
 import geographyItemSchemaJson from "./geographyItem.v1.json" with { type: "json" };
 export const geographyItemSchema: SchemaObject = geographyItemSchemaJson;
 
+import countryCodeSchemaJson from "./countryCode.v1.json" with { type: "json" };
+export const countryCodeSchema: SchemaObject = countryCodeSchemaJson;
+
+import geographySchemaJson from "./geography.v1.json" with { type: "json" };
+export const geographySchema: SchemaObject = geographySchemaJson;
+
 import emissionsScopeSchemaJson from "./emissionsScope.v1.json" with { type: "json" };
 export const emissionsScopeSchema: SchemaObject = emissionsScopeSchemaJson;
 
@@ -30,6 +36,8 @@ export const commonSchemas: SchemaObject[] = [
   metricSchema,
   labelSchema,
   geographyItemSchema,
+  countryCodeSchema,
+  geographySchema,
   emissionsScopeSchema,
 ];
 

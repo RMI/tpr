@@ -18,7 +18,7 @@ interface TimeSeries {
   data: DataPoint[];
 }
 
-type PlotType =
+export type PlotType =
   | "technologyMix"
   | "absoluteEmissions"
   | "emissionsIntensity"

@@ -2,7 +2,10 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "IEA-APS-2024",
   "publication": {
-    "title": { "full": "World Energy Outlook 2024", "short": "WEO" },
+    "title": {
+      "full": "World Energy Outlook 2024",
+      "short": "WEO"
+    },
     "publisher": {
       "full": "International Energy Agency",
       "short": "IEA"
@@ -21,36 +24,57 @@
       }
     ]
   },
-  "name": { "full": "Announced Pledges Scenario", "short": "APS" },
+  "name": {
+    "full": "Announced Pledges Scenario",
+    "short": "APS"
+  },
   "description": "Countries meet aspirational targets including NDCs and net zero pledges.",
-  "geography": [
-    "Global",
-    "East Asia and Pacific",
-    "Europe and Central Asia",
-    "Latin America and Caribbean",
-    "Middle East and North Africa",
-    "North America",
-    "South East Asia",
-    "Sub-Saharan Africa",
-    "US",
-    "BR",
-    "RU",
-    "CN",
-    "IN",
-    "JP"
-  ],
+  "geography": {
+    "global": true,
+    "regions": {
+      "East Asia and Pacific": [],
+      "Europe and Central Asia": [],
+      "Latin America and Caribbean": [],
+      "Middle East and North Africa": [],
+      "North America": [],
+      "South East Asia": [],
+      "Sub-Saharan Africa": []
+    },
+    "country": ["US", "BR", "RU", "CN", "IN", "JP"]
+  },
   "pathwayType": "Exploratory",
   "modelTempIncrease": 1.7,
   "modelYearStart": 2023,
   "modelYearEnd": 2100,
   "sectors": [
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -66,10 +90,22 @@
         "Other"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "pathwayOverview": "The Announced Pledges Scenario (APS) shows the future of the energy sector if all countries were to hit their aspirational targets, including national and regional net zero emissions pledges, on time and in full – in addition to their legislated policies (as described in STEPS). The APS has a 50% probability to not exceed 1.7°C by 2100. The difference between the APS and the Net Zero Emissions by 2050 scenario highlights the ambition gap between countries’ commitments and a 1.5°C pathway.",
   "expertOverview": "#### Pathway Description\n\nThe Announced Pledges Scenario (APS) provides a pathway in which all countries achieve their aspirational energy transition goals, including national and regional net zero emissions pledges, in addition to their currently legislated policies. As an exploratory scenario, APS provides a detailed description of a possible future, but does not attempt to predict which announced policies will be implemented. The APS pathway corresponds to 1.7°C of warming by 2100 (50% probability). This is significantly lower than the IEA’s current policies scenario (STEPS), which forecasts 2.4°C of warming by 2100 (50% probability), but still higher than the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability). This indicates that the policies and pledges incorporated into APS significantly increase the pace of the transition compared to status quo conditions.\n\n#### Core Drivers\n\nIEA APS is primarily driven by large-scale policy action, continued cost decline for low-emissions technologies, and the introduction of new low-carbon technology.\n\n*Policy:*  The APS assumes current nationally determined contributions (NDCs) are met, including, for example, emissions intensity goals and coal phase-out commitments. It includes national power development plans and targets for renewable energy additions or technology-based capacity mixes. In addition to explicit policies included in pledges, APS introduces additional measures to achieve aspirational policy goals. The APS models a carbon price, affecting electricity, industry and energy production sectors. The carbon tax is structured in three regional tiers: advanced economies, emerging markets and developing economies (EMDEs) with net-zero pledges, and EMDEs without pledges. \n\n*Technology costs:* IEA APS assumes significant cost declines in solar PV, onshore wind, and offshore wind power generation in most regions of the world and modest cost declines in nuclear power generation. These declines are mostly driven by reduced capital costs. The combined costs of fuel, CO2 prices, and operations and maintenance are projected to increase, making fossil-fuel based electricity less competitive over time.\n\nThe APS pathway provides detailed projections for demand shifts, infrastructure buildout, investment flow changes, and new technology deployment, but these factors are primarily caused by modelled policies and declining technology costs.\n\n#### Application to Transition Assessment\n\nAPS is a detailed, policy-focused, exploratory pathway. As a global integrated assessment model, APS provides a direct connection between the described pathway and a global temperature outcome. This makes it suitable for assessing the ambition of targets or plans against a 1.7°C outcome.\n\nDue to its strong policy focus, APS is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines with the stated ambitions of the jurisdictions they operate in. Misalignment to the APS pathway can indicate potential risk that a company will fall out of line with future regulatory or economic policy and face declining market share as other segments of the energy sector are encouraged to grow. Conversely, alignment to APS may indicate that a company is well-positioned to take advantage of future policy and market dynamics. However, because APS includes aspirational pledges and policies which have not yet been implemented, misalignment to APS does not mean a company is automatically exposed to current regulatory risk.\n \nAPS provides benchmark data on 5- and 10-year intervals and uses a moderately detailed breakdown of specific generation technologies such as coal, onshore wind, offshore wind, solar PV, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers and project pipelines within company plans. However, APS provides data at only the regional level, which limits its suitability for assessing companies which have operations concentrated in one or few countries, as it allows comparison only to the regional average.",

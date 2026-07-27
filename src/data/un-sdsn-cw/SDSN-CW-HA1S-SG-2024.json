@@ -29,7 +29,9 @@
     "short": "HA1S SG"
   },
   "description": "Singapore pathway to achieve near net-zero power emissions through fuel substitution and renewables.",
-  "geography": ["SG"],
+  "geography": {
+    "country": ["SG"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,

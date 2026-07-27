@@ -17,9 +17,14 @@
       }
     ]
   },
-  "name": { "full": "More Ambitious Policy Scenario MY", "short": "MAP MY" },
+  "name": {
+    "full": "More Ambitious Policy Scenario MY",
+    "short": "MAP MY"
+  },
   "description": "Pathway with significant policy-supported renewables expansion driving emissions reductions.",
-  "geography": ["MY"],
+  "geography": {
+    "country": ["MY"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,

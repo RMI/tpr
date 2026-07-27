@@ -29,7 +29,9 @@
     "short": "HA1O SG"
   },
   "description": "Singapore-specific cost-optimized high-ambition pathway with limited fossil generation investment.",
-  "geography": ["SG"],
+  "geography": {
+    "country": ["SG"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,

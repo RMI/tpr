@@ -29,7 +29,9 @@
     "short": "MAP LA"
   },
   "description": "Policy-supported coal phaseout and renewables deployment significantly reduce emissions by 2050.",
-  "geography": ["LA"],
+  "geography": {
+    "country": ["LA"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
