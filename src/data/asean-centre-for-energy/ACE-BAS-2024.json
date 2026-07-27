@@ -27,7 +27,18 @@
   "description": "Baseline prediction of historical trends in ASEAN energy systems without policy impacts.",
   "geography": {
     "regions": {
-      "South East Asia": []
+      "South East Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ]
     }
   },
   "pathwayType": "Predictive",
