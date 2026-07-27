@@ -42,11 +42,6 @@
       "minimum": 2030,
       "maximum": 2100
     },
-    "carbonBudget": {
-      "description": "Carbon budget of the pathway in gigatons of CO₂ equivalent (GtCO₂eq). If no carbon budget is defined, this field should be omitted. If the carbon budget is not applicable, it should be set to 0.",
-      "type": "number",
-      "minimum": 0
-    },
     "modelYearStart": {
       "description": "Year from which the model starts.",
       "type": "integer",
