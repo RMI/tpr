@@ -29,11 +29,12 @@
     "short": "OEPP MM"
   },
   "description": "Myanmar-specific cost-optimized pathway following current energy policies and NDCs.",
-  "geography": ["MM"],
+  "geography": {
+    "country": ["MM"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -53,15 +54,16 @@
     "energyEfficiency": "No information",
     "energyDemand": "No information",
     "electrification": "No information",
-    "policyTypes": ["Target technology shares", "Phaseout dates"],
+    "policyTypes": [
+      "Target technology shares",
+      "Phaseout dates",
+      "Performance standards"
+    ],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "Minor technology deployment",
     "emissionsScope": "CO2e (Kyoto)",
     "policyAmbition": "Current and drafted policies",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
     "newTechnologiesIncluded": ["Battery storage"],
-    "supplyChain": "Exogenous input or fuel price",
-    "investmentNeeds": "By technology",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "By technology"
   }
 }

@@ -55,5 +55,5 @@ export function toDisplay<T>(
   opts?: { noneLabel?: string },
 ): string {
   if (isAbsent(value)) return opts?.noneLabel ?? "None";
-  return String(value as unknown as T);
+  return String(value);
 }

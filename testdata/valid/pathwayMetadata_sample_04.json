@@ -1,10 +1,17 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "sample-04",
-  "name": { "full": "Sample Pathway 04" },
+  "name": {
+    "full": "Sample Pathway 04"
+  },
   "publication": {
-    "title": { "full": "Example Title" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "Example Title"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024
   },
   "description": "Fourth Sample Pathway. ghjkl description.",
@@ -12,11 +19,18 @@
   "modelYearNetzero": 2050,
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
-  "ssp": "SSP4",
-  "geography": ["CN"],
+  "geography": {
+    "country": ["CN"]
+  },
   "sectors": [
-    { "name": "Land Use", "technologies": ["Precision Agriculture"] },
-    { "name": "Buildings", "technologies": ["Other"] }
+    {
+      "name": "Land Use",
+      "technologies": ["Precision Agriculture"]
+    },
+    {
+      "name": "Buildings",
+      "technologies": ["Other"]
+    }
   ],
   "pathwayOverview": "GHJKL Overview.",
   "expertOverview": "Example Expert Recommendation.",
@@ -34,7 +48,6 @@
       "Other"
     ],
     "technologyCostTrend": "No information",
-    "technologyDeploymentTrend": "Moderate technology deployment",
     "emissionsScope": "CO2",
     "policyAmbition": "Current/legislated policies",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
@@ -45,8 +58,6 @@
       "SAF",
       "Battery storage"
     ],
-    "supplyChain": "No information",
-    "investmentNeeds": "By sector, part of value chain",
-    "infrastructureRequirements": "By supply chain, add/replace"
+    "investmentNeeds": "By sector, part of value chain"
   }
 }

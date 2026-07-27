@@ -32,7 +32,7 @@ jobs:
       id-token: write # to enable use of OIDC for npm provenance
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           # checkout base ref for PRs, or actual branch for pushes
@@ -51,7 +51,7 @@ jobs:
           git merge "origin/$HEAD_BRANCH"
 
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version: "lts/*"
 
@@ -72,6 +72,7 @@ jobs:
               (github.event_name == 'pull_request' && format('{0}-{1}', 'pr', github.event.pull_request.number)) ||
               github.ref_name
             }}
+          VITE_BUILD_ID: gha-${{ github.run_id }}.${{ github.run_attempt }}
           VITE_GITHUB_ACTOR: ${{ github.actor }}
           VITE_GITHUB_EVENT_NAME: ${{ github.event_name }}
           VITE_GITHUB_REPOSITORY: ${{ github.repository }}
@@ -90,6 +91,7 @@ jobs:
           VITE_BUILD_ARCH: ${{ runner.arch }}
           VITE_GOOGLE_ANALYTICS_ID: ${{ secrets.GOOGLE_ANALYTICS_ID }}
         run: |
+          echo "Build ID: $VITE_BUILD_ID"
           if [[ "${{ github.event_name }}" == "pull_request" ]]; then
             echo "unsetting GITHUB_ACTIONS"
             unset GITHUB_ACTIONS
@@ -142,7 +144,7 @@ jobs:
         # Reuse the artifact for downstream deploy
       - name: Upload dist.tgz as workflow artifact
         if: ${{ steps.check_artifact.outputs.has_artifact == 'true' }}
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dist-tgz
           path: dist.tgz

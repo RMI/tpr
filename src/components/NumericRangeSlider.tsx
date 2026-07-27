@@ -167,7 +167,7 @@ const NumericRangeSlider: React.FC<Props> = ({
     setDraggingWhich(which);
     setIsDragging(true);
     // commit the initial click position (rounded to step)
-    commit({ [which]: roundToStepDisplay(v, step) } as Partial<Internal>);
+    commit({ [which]: roundToStepDisplay(v, step) });
 
     const move = (ev: MouseEvent) => {
       const nv = pxToValue(ev.clientX);
@@ -175,7 +175,7 @@ const NumericRangeSlider: React.FC<Props> = ({
       if (activeHandle.current) {
         commit({
           [activeHandle.current]: roundToStepDisplay(nv, step),
-        } as Partial<Internal>);
+        });
       }
     };
 
@@ -201,7 +201,7 @@ const NumericRangeSlider: React.FC<Props> = ({
       const move = (ev: MouseEvent) => {
         const nv = pxToValue(ev.clientX);
         if (!isNum(nv)) return;
-        commit({ [which]: roundToStepDisplay(nv, step) } as Partial<Internal>);
+        commit({ [which]: roundToStepDisplay(nv, step) });
       };
 
       const up = () => {

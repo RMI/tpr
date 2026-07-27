@@ -1,0 +1,74 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "SDSN-CW-BAS-SG-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonisation Pathways for Singapore"
+    },
+    "author": [
+      "Euston Quah",
+      "Wai Mun Chia",
+      "Yeow Hwee Chua",
+      "Zach Lee",
+      "Jun Rui Tan"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://files.unsdsn.org/AGF%20-%20Singapore%20-%202.1_2.2_Report%20-%20FINAL.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Baseline Scenario SG",
+    "short": "BAS SG"
+  },
+  "description": "Singapore-specific base case scenario which continues existing energy and emissions trends.",
+  "geography": {
+    "country": ["SG"]
+  },
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Baseline (BAS) scenario models a continuation of historical energy and emissions trends for Singapore without the application of new or existing policy measures, except Minimum Energy Performance Standards in the residential sector, vehicle growth policy in the transport sector, and the Laos-Thailand-Malaysia-Singapore Power Integration Project. It represents the counterfactual case in which technological progress, policy ambition, and regional integration remain static. No new energy efficiency measures or renewable energy policies are incorporated, to reflect a scenario of inertia in energy transformation. \n\nUnder BAS, Singapore’s energy system evolves in a manner reflective of historical norms, with natural gas remaining the dominant energy source providing over 93% of generation. Waste-to-energy and coal maintain marginal shares of generation, while renewables and imports remain negligible. Installed capacity grows only marginally, and no new low-carbon technologies are introduced.\n\nThis scenario’s geographic scope is limited to Singapore, and it is not linked to a specific global temperature rise outcome. \n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nEconomic and population growth remain the dominant drivers of energy demand, with industrial expansion reinforcing dependence on natural gas generation. Fossil fuels continue to dominate the power mix and renewable technology remains minimal. Static technology performance and unchanged policy frameworks lead to sustained emissions growth through 2050.\n\n*Socio-economic trends:* Growing GDP and industrial output are the key determinants of energy consumption, with minimal shift toward low carbon fuels or more efficient technology. The current energy mix remains largely unchanged.\n\n#### Application to Transition Assessment\n\nThe BAS provides the most pessimistic outlook for the transition in Singapore by assuming that historic trends hold and there is no action taken to shift generation to low-carbon sources. In doing so, BAS does not account for any transition drivers such as policy or technology costs. It establishes a minimum ambition “status quo” emissions trajectory that highlights the scale of change needed to meet climate commitments, and the impact of those changes in other scenarios from the same pathway developers.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Moderate increase",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": ["None"],
+    "technologyCostTrend": "No information",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "No policies included",
+    "technologyCostsDetail": "No information",
+    "newTechnologiesIncluded": ["No new technologies"],
+    "investmentNeeds": "No information"
+  }
+}

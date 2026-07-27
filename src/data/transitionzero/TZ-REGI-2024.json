@@ -24,24 +24,28 @@
       {
         "url": "https://blog.transitionzero.org/hubfs/Analysis/TZ-APG/TZ-APG%20-%20From%20Vision%20to%20Voltage%20-%20Report.pdf",
         "description": "Report"
+      },
+      {
+        "description": "Technical Annex",
+        "url": "https://blog.transitionzero.org/hubfs/Analysis/TZ-APG/tz-apg_technical-annex.pdf"
+      },
+      {
+        "description": "Dataset",
+        "url": "https://www.transitionzero.org/products/tz-asean-power-grid-model"
       }
     ]
   },
-  "name": { "full": "Regional Interconnection", "short": "REGI" },
+  "name": {
+    "full": "Regional Interconnection",
+    "short": "REGI"
+  },
   "description": "ASEAN power model with significant new regional transmission infrastructure.",
-  "geography": [
-    "South East Asia",
-    "BN",
-    "KH",
-    "ID",
-    "LA",
-    "MY",
-    "MN",
-    "PH",
-    "SG",
-    "TH",
-    "VN"
-  ],
+  "geography": {
+    "regions": {
+      "South East Asia": []
+    },
+    "country": ["BN", "KH", "ID", "LA", "MY", "MN", "PH", "SG", "TH", "VN"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2024,
   "modelYearEnd": 2035,
@@ -66,13 +70,10 @@
     "electrification": "No information",
     "policyTypes": ["Target technology shares"],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "Moderate technology deployment",
     "emissionsScope": "CO2e (unspecified GHGs)",
     "policyAmbition": "NDCs incl. conditional targets",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
     "newTechnologiesIncluded": ["Battery storage"],
-    "supplyChain": "Static input or fuel price",
-    "investmentNeeds": "Total investment",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "Total investment"
   }
 }

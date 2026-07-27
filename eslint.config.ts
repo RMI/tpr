@@ -1,8 +1,8 @@
 import js from "@eslint/js";
+import eslintReact from "@eslint-react/eslint-plugin";
+import pluginReactHooks from "eslint-plugin-react-hooks";
 import globals from "globals";
 import tseslint from "typescript-eslint";
-import pluginReact from "eslint-plugin-react";
-import pluginReactHooks from "eslint-plugin-react-hooks";
 
 export default tseslint.config(
   { ignores: ["dist", "node_modules"] },
@@ -10,7 +10,6 @@ export default tseslint.config(
     extends: [
       js.configs.recommended,
       ...tseslint.configs.recommendedTypeChecked, // Add type checking rules
-      pluginReact.configs.flat.recommended,
     ],
     files: ["src/**/*.{ts,tsx}", "*.{ts,tsx}"],
     languageOptions: {
@@ -24,19 +23,30 @@ export default tseslint.config(
     },
     plugins: {
       "@typescript-eslint": tseslint.plugin,
-      "react": pluginReact,
+    },
+  },
+  {
+    files: ["src/**/*.{tsx,jsx}"],
+    ...eslintReact.configs["recommended-typescript"],
+    plugins: {
+      ...eslintReact.configs["recommended-typescript"].plugins,
       "react-hooks": pluginReactHooks,
     },
-    settings: { react: { version: "detect" } },
     rules: {
-      // Flags `classname` and other non-standard DOM props
-      "react/no-unknown-property": ["error", { ignore: ["css"] }],
-      // Instead of extending react-hooks' legacy preset, enable its rules explicitly:
+      ...eslintReact.configs["recommended-typescript"].rules,
+      "@eslint-react/dom-no-unknown-property": ["error", { ignore: ["css"] }],
+      "@eslint-react/naming-convention-ref-name": "off",
+      "@eslint-react/no-missing-component-display-name": "error",
+      "@eslint-react/no-missing-context-display-name": "error",
+      "@eslint-react/no-array-index-key": "off",
+      "@eslint-react/no-clone-element": "off",
+      "@eslint-react/purity": "off",
+      "@eslint-react/set-state-in-effect": "off",
+      "@eslint-react/unsupported-syntax": "off",
+      "@eslint-react/web-api-no-leaked-fetch": "off",
+      "@eslint-react/web-api-no-leaked-timeout": "off",
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      // react rules
-      "react/react-in-jsx-scope": "off", // Not needed with React 17+
-      "react/no-unescaped-entities": "off", // Allows ' and " in JSX
     },
   },
   {

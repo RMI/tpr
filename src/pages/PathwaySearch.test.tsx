@@ -5,6 +5,8 @@ import PathwaySearch from "./PathwaySearch";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
 import userEvent from "@testing-library/user-event";
+import { FilterProvider } from "../context/FilterContext";
+import { ComparisonProvider } from "../context/ComparisonContext";
 
 // Mock the PathwayCard component to simplify testing
 vi.mock("../components/PathwayCard", () => ({
@@ -19,18 +21,28 @@ vi.mock("../components/PathwayCard", () => ({
 }));
 
 describe("PathwaySearch component", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
   const renderPathwaySearch = () => {
     return render(
       <MemoryRouter>
-        <PathwaySearch />
+        <FilterProvider>
+          <ComparisonProvider>
+            <PathwaySearch />
+          </ComparisonProvider>
+        </FilterProvider>
       </MemoryRouter>,
     );
   };
 
   it("renders a PathwayCard for each pathway in the data", () => {
     renderPathwaySearch();
-    // Check that the correct number of pathway cards are rendered
-    const pathwayCards = screen.getAllByTestId("pathway-card");
+    // Check that the correct number of pathway cards are rendered.
+    // queryAll (not getAll) so an empty dataset yields [] rather than throwing —
+    // src/data may be fully excluded by validation until it is migrated.
+    const pathwayCards = screen.queryAllByTestId("pathway-card");
     expect(pathwayCards).toHaveLength(pathwayMetadata.length);
   });
 });
@@ -59,8 +71,8 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "B",
       name: { full: "Pathway B", short: "Power, Europe, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: ["Europe"],
-      modelTempIncrease: "2°C",
+      geography: { regions: { Europe: [] } },
+      modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Capacity"],
@@ -70,8 +82,8 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "C",
       name: { full: "Pathway C", short: "empty sectors[], empty geo[], 1.5°C" },
       sectors: [], // -> Sector "None"
-      geography: [], // -> Geography "None"
-      modelTempIncrease: "1.5°C",
+      geography: {}, // -> Geography "None"
+      modelTempIncrease: 1.5,
       pathwayType: "NZi2050",
       modelYearNetzero: 2040,
       metric: [],
@@ -79,9 +91,9 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
     },
     {
       id: "D",
-      name: { full: "Pathway D", short: "Industry, Asia, no temp" },
-      sectors: [{ name: "Industry" }],
-      geography: ["Asia"],
+      name: { full: "Pathway D", short: "Steel, Asia, no temp" },
+      sectors: [{ name: "Steel" }],
+      geography: { regions: { Asia: [] } },
       modelTempIncrease: undefined, // -> Temperature "None"
       pathwayType: "BAU",
       modelYearNetzero: 2030,
@@ -92,8 +104,8 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "E",
       name: { full: "Pathway E", short: "Power, Europe+Asia, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: ["Europe", "Asia"],
-      modelTempIncrease: "2°C",
+      geography: { regions: { Europe: [], Asia: [] } },
+      modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Generation"],
@@ -102,6 +114,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
   ] as const;
 
   async function mountWithFixtures(): Promise<void> {
+    sessionStorage.clear();
     // Reset module graph so our mock applies to the next import.
     vi.resetModules();
     // Mock BEFORE importing PathwaySearch
@@ -112,8 +125,27 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
         virtual: true,
       },
     );
-    PathwaySearchUnderTest = (await import("./PathwaySearch")).default;
-    render(<PathwaySearchUnderTest />);
+    // FilterProvider must be imported from the same fresh module graph so
+    // it shares the same React context instance as the re-imported PathwaySearch.
+    const [
+      { default: Component },
+      { FilterProvider: FP },
+      { ComparisonProvider: CP },
+    ] = await Promise.all([
+      import("./PathwaySearch"),
+      import("../context/FilterContext"),
+      import("../context/ComparisonContext"),
+    ]);
+    PathwaySearchUnderTest = Component;
+    render(
+      <MemoryRouter>
+        <FP>
+          <CP>
+            <PathwaySearchUnderTest />
+          </CP>
+        </FP>
+      </MemoryRouter>,
+    );
   }
 
   async function openDropdown(labelRegex: RegExp): Promise<HTMLButtonElement> {
@@ -167,7 +199,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       "no sectors, no geo, no temp",
       "empty sectors[], empty geo[], 1.5°C",
     ]);
-    expectHidden(["Power, Europe, 2°C", "Industry, Asia, no temp"]);
+    expectHidden(["Power, Europe, 2°C", "Steel, Asia, no temp"]);
   });
 
   it("Geography: shows 'None' when any pathway has missing/empty geography, selecting it filters correctly", async () => {
@@ -180,7 +212,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       "no sectors, no geo, no temp",
       "empty sectors[], empty geo[], 1.5°C",
     ]);
-    expectHidden(["Power, Europe, 2°C", "Industry, Asia, no temp"]);
+    expectHidden(["Power, Europe, 2°C", "Steel, Asia, no temp"]);
   });
 
   // Concrete selection (requested): pick a real value and ensure only matching pathways remain
@@ -193,7 +225,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
     expectHidden([
       "no sectors, no geo, no temp",
       "empty sectors[], empty geo[], 1.5°C",
-      "Industry, Asia, no temp",
+      "Steel, Asia, no temp",
     ]);
   });
 
@@ -205,7 +237,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
     // ANY (default): shows anything with Europe OR Asia → B, D, E
     expectVisible([
       "Power, Europe, 2°C",
-      "Industry, Asia, no temp",
+      "Steel, Asia, no temp",
       "Power, Europe+Asia, 2°C",
     ]);
 
@@ -215,7 +247,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
     expectVisible(["Power, Europe+Asia, 2°C"]);
     expectHidden([
       "Power, Europe, 2°C",
-      "Industry, Asia, no temp",
+      "Steel, Asia, no temp",
       "no sectors, no geo, no temp",
       "empty sectors[], empty geo[], 1.5°C",
     ]);

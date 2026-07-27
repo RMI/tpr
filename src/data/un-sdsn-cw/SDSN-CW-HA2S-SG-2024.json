@@ -1,0 +1,85 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "SDSN-CW-HA2S-SG-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonisation Pathways for Singapore"
+    },
+    "author": [
+      "Euston Quah",
+      "Wai Mun Chia",
+      "Yeow Hwee Chua",
+      "Zach Lee",
+      "Jun Rui Tan"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://files.unsdsn.org/AGF%20-%20Singapore%20-%202.1_2.2_Report%20-%20FINAL.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Highly Ambitious Scenario 2 Simulated SG",
+    "short": "HA2S SG"
+  },
+  "description": "Singapore pathway to achieve near net-zero power sector emissions with a diversified power mix.",
+  "geography": {
+    "country": ["SG"]
+  },
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "modelYearNetzero": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Highly Ambitious 2 Simulated (HA2S) scenario explores a pathway in which Singapore adopts a diversified mix of low carbon energy sources to achieve near net-zero in the power sector by 2050. This pathway is not a least cost optimization, but is built as a rules-based simulation consistent with achieving deep decarbonization by 2050 with a diversified mix of low carbon generation. \n\nRather than relying on a single dominant fuel or technology (as is more the case in the complementary Highly Ambitious 1 Simulated scenario from the same developers), HA2S develops a balanced portfolio that integrates multiple low-carbon energy sources. This includes large-scale imports of renewable electricity, the introduction of nuclear power for firm baseload generation, the deployment of advanced geothermal systems, and the gradual scale-up of low-carbon hydrogen and ammonia for dispatchable capacity. This diversified approach reduces dependence on any single fuel and improves system resilience, while still achieving near-zero emissions in the power sector by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Policies:* HA2S incorporates national plans such as Singapore’s Green Plan 2030, the EMA Energy 2050 Committee Report, and government commitment to importing up to 4 GW of low carbon electricity by 2035. Existing plans establish the foundation for renewable integration, cross-border power trading, and hydrogen-ready infrastructure, which HA2S expands by introducing low-carbon technologies such as nuclear and geothermal, larger volumes of regional renewable imports, and scaling of hydrogen, ammonia, and domestic solar. These assumptions could be interpreted as prospective policy mandates but do not reflect current government plans.\n\n*Technology deployment:* As a simulated model, most of the technology shifts are defined as inputs to the model rather than outcomes based on policy or cost factors. These assumptions focus on growth of hydrogen power generation, the retirement of fossil generation, and the maximization of domestic solar capacity. However, HA2S has less aggressive assumptions on the growth of hydrogen generation than HA1S. By 2050, imported renewable electricity becomes the dominant energy source (~50% of supply), supported by hydrogen (26%), nuclear (14%), and solar (6%), with geothermal and biomass providing supplementary capacity. Nuclear and geothermal power enter from 2040 onward, enhancing baseload reliability.\n\n#### Application to Transition Assessment\n\nThe HA2S scenario illustrates a technology mix and policy environment required to fully decarbonize Singapore’s power sector by 2050. It provides a benchmark for high ambition decarbonization, as well as highlighting the infrastructure, and policy frameworks needed to integrate a broad mix of renewable imports, nuclear, geothermal, hydrogen, ammonia, and expanded solar. \n\nThe scenario’s national focus enables detailed power sector modelling, including technology-level granularity (renewable imports, nuclear, geothermal, hydrogen, ammonia, and solar). Benchmark data is available at five-year intervals through 2050.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Phaseout dates",
+      "Target technology shares",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "No information",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "High ambition policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": [
+      "CCUS",
+      "Green H2/ammonia",
+      "Battery storage",
+      "EGS/AGS",
+      "Other new technologies"
+    ],
+    "investmentNeeds": "No information"
+  }
+}

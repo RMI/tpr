@@ -17,13 +17,17 @@
       }
     ]
   },
-  "name": { "full": "Existing Policy Scenario MY", "short": "EP MY" },
+  "name": {
+    "full": "Existing Policy Scenario MY",
+    "short": "EP MY"
+  },
   "description": "Extrapolation of current policy and market conditions for Malaysia’s energy system.",
-  "geography": ["MY"],
+  "geography": {
+    "country": ["MY"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -51,15 +55,16 @@
     "energyEfficiency": "No information",
     "energyDemand": "No information",
     "electrification": "Moderate increase",
-    "policyTypes": ["Target technology shares", "Other"],
+    "policyTypes": [
+      "Target technology shares",
+      "Performance standards",
+      "Other"
+    ],
     "technologyCostTrend": "Low or no change",
-    "technologyDeploymentTrend": "Moderate technology deployment",
     "emissionsScope": "CO2e (Kyoto)",
     "policyAmbition": "Current/legislated policies",
     "technologyCostsDetail": "Total costs",
     "newTechnologiesIncluded": ["Battery storage", "Other new technologies"],
-    "supplyChain": "No information",
-    "investmentNeeds": "No information",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "No information"
   }
 }

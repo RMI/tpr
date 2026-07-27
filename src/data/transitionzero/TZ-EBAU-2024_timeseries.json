@@ -27,6 +27,14 @@
       {
         "url": "https://blog.transitionzero.org/hubfs/Analysis/TZ-APG/TZ-APG%20-%20From%20Vision%20to%20Voltage%20-%20Report.pdf",
         "description": "Report"
+      },
+      {
+        "description": "Technical Annex",
+        "url": "https://blog.transitionzero.org/hubfs/Analysis/TZ-APG/tz-apg_technical-annex.pdf"
+      },
+      {
+        "description": "Dataset",
+        "url": "https://www.transitionzero.org/products/tz-asean-power-grid-model"
       }
     ]
   },

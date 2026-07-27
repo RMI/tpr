@@ -123,9 +123,9 @@ describe("matchesOptionalFacetAny (array facets)", () => {
 
   it("concrete selection matches any token produced by toToken", () => {
     // Sector-like: array of objects with .name
-    const items = [{ name: "Power" }, { name: "Industry" }];
+    const items = [{ name: "Power" }, { name: "Steel" }];
     expect(matchesOptionalFacetAny(["Power"], items, (s) => s.name)).toBe(true);
-    expect(matchesOptionalFacetAny(["Transport"], items, (s) => s.name)).toBe(
+    expect(matchesOptionalFacetAny(["Aviation"], items, (s) => s.name)).toBe(
       false,
     );
   });
