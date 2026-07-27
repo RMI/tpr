@@ -79,13 +79,13 @@ new_pathway_metadata <-
       id = "R-import-example",
       name = "R Import Pathway",
       description = "Pathway Imported from R",
-      pathwayType =  "Direct Policy",
+      pathwayType =  "Normative",
       modelYearEnd = 2050,
       modelTempIncrease = 1.5,
       geography = list("Global", "US", "Europe"),
       sectors = list(
         list(name = "Power", technologies = c("Coal", "Wind")),
-        list(name = "Industry", technologies = I(c("Other")))
+        list(name = "Steel", technologies = I(c("Other")))
         ),
       publisher = "Example Publisher",
       publicationYear = 2021,

@@ -5,7 +5,6 @@ describe("sortPathwayType", () => {
     const arr = [
       { title: "Normative" },
       { title: "Predictive" },
-      { title: "Direct Policy" },
       { title: "Exploratory" },
     ];
     const sorted = sortPathwayType(arr);
@@ -13,7 +12,6 @@ describe("sortPathwayType", () => {
       "Predictive",
       "Exploratory",
       "Normative",
-      "Direct Policy",
     ]);
   });
 
@@ -22,13 +20,11 @@ describe("sortPathwayType", () => {
       { title: "Normative" },
       { title: "UnknownType" },
       { title: "Predictive" },
-      { title: "Direct Policy" },
     ];
     const sorted = sortPathwayType(arr);
     expect(sorted.map((x) => x.title)).toEqual([
       "Predictive",
       "Normative",
-      "Direct Policy",
       "UnknownType",
     ]);
     // UnknownType is last
@@ -43,7 +39,6 @@ describe("sortPathwayType", () => {
     const arr = [
       { title: "Normative" },
       { title: "Predictive" },
-      { title: "Direct Policy" },
       { title: "Exploratory" },
     ];
     const arrCopy = [...arr];

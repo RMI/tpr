@@ -1,0 +1,86 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "SDSN-CW-HA2O-SG-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonisation Pathways for Singapore"
+    },
+    "author": [
+      "Euston Quah",
+      "Wai Mun Chia",
+      "Yeow Hwee Chua",
+      "Zach Lee",
+      "Jun Rui Tan"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://files.unsdsn.org/AGF%20-%20Singapore%20-%202.1_2.2_Report%20-%20FINAL.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Highly Ambitious Scenario 2 Optimized SG",
+    "short": "HA2O SG"
+  },
+  "description": "Singapore cost-optimized high-ambition pathway to achieve near-zero power sector emissions by 2050.",
+  "geography": {
+    "country": ["SG"]
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "modelYearNetzero": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nHighly Ambitious 2 Optimized (HA2O) uses a least-cost optimization framework for capacity expansion and dispatch and adds explicit constraints to ensure the power sector achieves near-zero emissions by 2050. In contrast to HA1 Optimized (from the same developers), which allows greater flexibility and results in some residual fossil generation, HA2 Optimized imposes stricter renewable and emissions limits to show what a cost-optimal, near-zero power sector could look like.\n\nThis scenario assumes a broad technology set (imports of low-carbon electricity, solar PV, hydrogen- and ammonia-fueled plants, nuclear, geothermal, and Waste to Energy with carbon capture) alongside three key constraints:\n* Capacity constraints limiting over-reliance on individual technologies and driving diversification of the low carbon portfolio. \n* A renewable portfolio standard (RPS) is imposed, requiring a minimum share of generation from renewable and low-carbon sources\n* The minimum utilization of WTE plants is reduced by 2050, allowing for reduced operation of the remaining high-emitting assets and enabling the system to converge towards near-zero emissions.\n\nUnder these constraints, the model selects a configuration with very low power-sector emissions in 2050 (around 0.8–0.9 MtCO₂e) and a grid emissions factor falling to roughly 9.4 kgCO₂e/MWh. The generation mix in 2050 has hydrogen and imported electricity as the dominant energy sources (each supply ~40% of demand), supported by solar (12%), with geothermal, ammonia, biomass, and waste-to-energy providing supplementary capacity.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nHA2O is driven by stringent policy constraints requiring no new investments in unabated fossil fuel generation and near-zero emissions in the power sector by 2050, pushing the model toward a diversified portfolio of renewables, imports, hydrogen, and firm low-carbon technologies. This produces a cost-optimal configuration consistent with a deeply decarbonized electricity system by 2050.\n\n*Technology cost:* The pathway allocates capacity and dispatch to minimize system costs, given capital, operating and fuel cost trajectories and technical constraints. Capital and operating costs for generation, storage, and transmission technologies are primarily sourced from the National Renewable Energy Laboratories Annual Technology Baseline (2023) and complemented by fuel price assumptions from regional and international datasets.\n\n*Policies:* This pathway assumes very high policy ambition, including effective implementation of a power-sector near-zero target, and explicit diversification requirements, including binding renewable portfolio standards and emissions limits. These policies are designed to prevent over-reliance on any single low-carbon technology and to steer the power system toward a diversified, near-zero-emissions configuration by 2050.\n\n#### Application to Transition Assessment\n\nHA2O is a net-zero-compatible benchmark within the AGF pathway set for Singapore’s power sector. It is valuable for assessing the ambition and feasibility of corporate transition plans that aim to align with Singapore’s 2050 net-zero target.\n\nHA2O shows the required scale and rate of fossil phase-out, the extent of dependence on imported low-carbon power, and the deployment levels of firm low-carbon capacity that would be consistent with a near-zero electricity system. Companies can use this to evaluate potential exposure to accelerated asset retirement, fuel switching, and system-wide shifts in merit order and pricing.\n\nFor target setting and ambition evaluation, HA2O is the most appropriate AGF pathway to reference when testing whether a company’s planned emissions trajectory is compatible with a power-sector net-zero outcome in Singapore. While it does not explicitly encode a global 1.5°C carbon budget, the near-zero grid emissions factor and very low residual power-sector emissions by 2050 make it a strong sectoral benchmark for high level ambition in Singapore.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Carbon price",
+      "Phaseout dates",
+      "Target technology shares",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "Decrease",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "High ambition policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": [
+      "CCUS",
+      "Green H2/ammonia",
+      "Battery storage",
+      "EGS/AGS",
+      "Other new technologies"
+    ],
+    "investmentNeeds": "By technology"
+  }
+}

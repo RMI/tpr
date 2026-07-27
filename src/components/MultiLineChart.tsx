@@ -31,6 +31,10 @@ interface MultiLineChartProps {
   marginLeft?: number;
   sector?: string;
   metric?: string;
+  yMin?: number;
+  yMax?: number;
+  externalHoveredSeries?: string | null;
+  onHoverSeries?: (series: string | null) => void;
 }
 
 type GroupedData = [string, DataPoint[]];
@@ -41,12 +45,16 @@ export default function MultiLineChart({
   data,
   width = 600,
   height = 400,
-  marginTop = 40,
+  marginTop = 20,
   marginRight = 80,
   marginBottom = 55,
   marginLeft = 50,
   sector = "power",
   metric = "capacity",
+  yMin,
+  yMax,
+  externalHoveredSeries,
+  onHoverSeries,
 }: MultiLineChartProps) {
   const d3data = useMemo(
     () => data.data.filter((d) => d.sector === sector && d.metric === metric),
@@ -58,13 +66,24 @@ export default function MultiLineChart({
   const gy = useRef<SVGGElement>(null);
   const lines = useRef<SVGGElement>(null);
   const dots = useRef<SVGGElement>(null);
-  const title = useRef<SVGGElement>(null);
   const tooltip_grp = useRef<SVGGElement>(null);
+
+  const chartTitle = useMemo(() => {
+    const unit = d3data[0]?.unit ?? "";
+    return `${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`;
+  }, [d3data, sector, metric]);
   const [selectRef, setSelectRef] = useState<string>(
     data.data
       .filter((d) => d.sector === sector && d.metric === metric)
       .map((d) => d.technology)[0],
   );
+
+  const isPointerOver = useRef(false);
+  const lastHoveredSeries = useRef<string | null>(null);
+  const onHoverSeriesRef = useRef(onHoverSeries);
+  useEffect(() => {
+    onHoverSeriesRef.current = onHoverSeries;
+  }, [onHoverSeries]);
 
   // Memoize scales and data transformations
   const chartSetup = useMemo(() => {
@@ -78,11 +97,16 @@ export default function MultiLineChart({
           d !== null && (i === 0 || d.getUTCFullYear() % 10 === 0),
       );
 
+    if (!years[0] || !years[1]) return null;
+
+    const domainMin = yMin !== undefined ? yMin : values[0];
+    const domainMax = yMax !== undefined ? yMax : values[1];
+
     if (
-      !years[0] ||
-      !years[1] ||
-      (!values[0] && values[0] !== 0) ||
-      (!values[1] && values[1] !== 0)
+      domainMin === undefined ||
+      domainMin === null ||
+      domainMax === undefined ||
+      domainMax === null
     ) {
       return null;
     }
@@ -92,7 +116,7 @@ export default function MultiLineChart({
       .range([marginLeft, width - marginRight]);
 
     const y = scaleLinear()
-      .domain(values)
+      .domain([domainMin, domainMax])
       .range([height - marginBottom, marginTop]);
 
     const lineGenerator = line<DataPoint>()
@@ -128,7 +152,17 @@ export default function MultiLineChart({
     }
 
     return { x, y, line: lineGenerator, xticks, parse, dodge };
-  }, [d3data, width, height, marginLeft, marginRight, marginTop, marginBottom]);
+  }, [
+    d3data,
+    yMin,
+    yMax,
+    width,
+    height,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginBottom,
+  ]);
 
   useEffect(() => {
     if (
@@ -136,7 +170,6 @@ export default function MultiLineChart({
       !gx.current ||
       !gy.current ||
       !lines.current ||
-      !title.current ||
       !tooltip_grp.current ||
       !chartSetup
     )
@@ -151,25 +184,17 @@ export default function MultiLineChart({
       unknown
     >;
 
-    // Update title
-    const unit = d3data[0]?.unit || "";
-    select(title.current)
-      .selectAll("text")
-      .data([`${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`])
-      .join("text")
-      .attr("x", width / 2)
-      .attr("y", marginTop - 5)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "16px")
-      .attr("font-weight", "bold")
-      .text((d) => d);
-
     // Update X axis
     select(gx.current)
       .transition()
       .duration(750)
       .call(axisBottom(x).tickValues(xticks))
-      .style("font-size", "14px");
+      .style("font-size", "14px")
+      .selectAll("text")
+      .attr("transform", "rotate(-45)")
+      .attr("text-anchor", "end")
+      .attr("dx", "-0.5em")
+      .attr("dy", "0.15em");
 
     // Update Y axis
     select(gy.current)
@@ -270,6 +295,11 @@ export default function MultiLineChart({
       if (i === undefined || i < 0) return;
       const [x, y, k, year, value, unit] = points[i];
 
+      if (lastHoveredSeries.current !== k) {
+        lastHoveredSeries.current = k as string;
+        onHoverSeriesRef.current?.(k as string);
+      }
+
       path
         .attr("stroke", (d) => (d[0] === k ? "var(--color-donate)" : "#ddd"))
         .attr("stroke-width", (d) => (d[0] === k ? 3 : 1))
@@ -299,11 +329,15 @@ export default function MultiLineChart({
     }
 
     function pointerentered() {
+      isPointerOver.current = true;
       path.style("mix-blend-mode", null).attr("stroke", "#ddd");
       dot.attr("display", null);
     }
 
     function pointerleft() {
+      isPointerOver.current = false;
+      lastHoveredSeries.current = null;
+      onHoverSeriesRef.current?.(null);
       const selectedTech = selectRef;
       path
         .style("mix-blend-mode", "multiply")
@@ -339,14 +373,39 @@ export default function MultiLineChart({
     }
   }, [d3data, selectRef, chartSetup, sector, metric, marginTop, width]);
 
+  // Apply cross-chart highlighting when another pathway's chart is hovered
+  useEffect(() => {
+    if (!lines.current || isPointerOver.current) return;
+    const path = select(lines.current).selectAll<SVGPathElement, GroupedData>(
+      ".line",
+    );
+    if (externalHoveredSeries == null) {
+      path
+        .style("mix-blend-mode", "multiply")
+        .attr("stroke", (d) =>
+          d[0] === selectRef ? "var(--color-donate)" : "var(--color-coal)",
+        )
+        .attr("stroke-width", (d) => (d[0] === selectRef ? 3 : 1));
+    } else {
+      path
+        .style("mix-blend-mode", null)
+        .attr("stroke", (d) =>
+          d[0] === externalHoveredSeries ? "var(--color-donate)" : "#ddd",
+        )
+        .attr("stroke-width", (d) => (d[0] === externalHoveredSeries ? 3 : 1));
+    }
+  }, [externalHoveredSeries, selectRef]);
+
   return (
     <div className="flex flex-col items-center">
+      <p className="text-sm font-bold text-center w-full px-2 break-words mb-1">
+        {chartTitle}
+      </p>
       <svg
         ref={ref}
         width={width}
         height={height}
       >
-        <g ref={title} />
         <g
           ref={gx}
           transform={`translate(0, ${height - marginBottom})`}

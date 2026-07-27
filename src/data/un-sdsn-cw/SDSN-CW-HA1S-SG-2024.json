@@ -1,0 +1,85 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "SDSN-CW-HA1S-SG-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonisation Pathways for Singapore"
+    },
+    "author": [
+      "Euston Quah",
+      "Wai Mun Chia",
+      "Yeow Hwee Chua",
+      "Zach Lee",
+      "Jun Rui Tan"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://files.unsdsn.org/AGF%20-%20Singapore%20-%202.1_2.2_Report%20-%20FINAL.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Highly Ambitious Scenario 1 Simulated SG",
+    "short": "HA1S SG"
+  },
+  "description": "Singapore pathway to achieve near net-zero power emissions through fuel substitution and renewables.",
+  "geography": {
+    "country": ["SG"]
+  },
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "modelYearNetzero": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Highly Ambitious 1 Simulated (HA1S) scenario models a decisive structural shift toward a hydrogen-dominant power system by 2050. It builds on the foundations of the Business As Usual (BAU) scenario by the same developers, but introduces a more aggressive fossil fuel phase-out, widespread hydrogen and ammonia adoption, and rapid renewables expansion. The HA1S scenario represents a hydrogen-dominant energy future, closely aligned with Singapore’s EMA Energy 2050 Committee report that estimates that hydrogen could supply up to 50% of Singapore’s power needs by 2050. In contrast, the HA2S pathway from the same developers demonstrates a more diversified decarbonization approach, balancing hydrogen deployment with expanded imports, nuclear, geothermal, and ammonia-based generation. \n\nThis scenario is simulated rather than cost-optimized, meaning capacity additions and technology choices follow a prescribed narrative rather than a least-cost route. As such, HA1S describes a technically feasible transition consistent with high policy ambition, but it does not provide information on cost-optimal sequencing or the relative economic attractiveness of different technologies. Its optimized counterpart, HA1-Optimized, applies least-cost decision rules to the same technology set, illustrating how the system could evolve when economic considerations, rather than predefined deployment, shape the transition.\n\nIn the power sector, HA1S assumes the complete phase-out of natural gas and oil-fired generation by 2050, with existing and new natural gas capacity progressively replaced by hydrogen-compatible plants operating on low-carbon hydrogen. The scenario highlights infrastructure readiness as the key constraint. Achieving HA1S requires large-scale hydrogen imports, hydrogen infrastructure, and cost parity for green hydrogen and ammonia. It further implies the need for new investment in systems to address residual emissions and verify low-carbon fuel supply, and requires sustained international energy diplomacy to secure long-term green fuel supply, certification, and cross-border energy cooperation. \n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Policies:* HA1S accounts for all existing national policies which are also modelled in the BAU scenario; the Green Plan 2030, EMA Energy 2050 Committee Report, National Environmental Agency Minimum Energy Performance Standards, carbon tax and Singapore’s carbon pricing trajectory, and emissions standards for power units. However additional policy assumptions for the power sector are made. This includes phased retirement of natural gas and oil, expanded hydrogen and ammonia generation, accelerated renewable power imports and maximizing domestic solar deployment. These assumptions could be interpreted as prospective policy mandates but do not reflect current government plans.\n\n*Technology deployment:* As a simulated model, most of the technology shifts are defined as inputs to the model rather than outcomes based on policy or cost factors. These assumptions focus on growth of hydrogen and ammonia power generation, the retirement of fossil generation, and the maximization of domestic solar capacity. By 2050, hydrogen and ammonia supply roughly 66% of electricity demand, renewables including domestic solar and imports contribute another 31%, and all unabated fossil fuels are retired. Solar capacity reaches its technical maximum of 8.6 GW, generating 7% of electricity, while renewable imports from neighboring ASEAN partners meet 24% of demand. Biomass and waste to energy maintain niche roles.\n\n#### Application to Transition Assessment\n\nThe HA1S scenario is relevant for evaluating the ambition of targets and technology readiness in a hydrogen driven rapid transition case. The scenario highlights the capital, infrastructure, and policy frameworks needed to sustain a hydrogen-based economy. It provides a useful benchmark for assessing whether corporate strategies and project plans are compatible with a rapid decarbonization of the domestic power mix and a substantial increase in low-carbon electricity, hydrogen and ammonia.\n\nThe scenario’s national focus enables detailed power sector modelling, including technology-level granularity (natural gas, hydrogen, solar, imports, waste-to-energy, biomass). Benchmark data is available at five-year intervals through 2050.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Phaseout dates",
+      "Target technology shares",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "No information",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "High ambition policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": [
+      "CCUS",
+      "Green H2/ammonia",
+      "Battery storage",
+      "EGS/AGS",
+      "Other new technologies"
+    ],
+    "investmentNeeds": "No information"
+  }
+}

@@ -29,6 +29,7 @@ interface VerticalBarChartProps {
   sector?: string;
   metric?: string;
   barColor?: string;
+  yMax?: number;
 }
 
 interface ChartScales {
@@ -41,13 +42,14 @@ export default function VerticalBarChart({
   data,
   width = 640,
   height = 400,
-  marginTop = 45,
+  marginTop = 15,
   marginRight = 20,
   marginBottom = 30,
   marginLeft = 40,
   sector = "power",
   metric = "emissionsIntensity",
   barColor = "midnightblue",
+  yMax,
 }: VerticalBarChartProps) {
   const d3data = useMemo(
     () => data.data.filter((d) => d.sector === sector && d.metric === metric),
@@ -58,8 +60,12 @@ export default function VerticalBarChart({
   const gx = useRef<SVGGElement>(null);
   const gy = useRef<SVGGElement>(null);
   const bars = useRef<SVGGElement>(null);
-  const title = useRef<SVGGElement>(null);
   const tooltips = useRef<SVGGElement>(null);
+
+  const chartTitle = useMemo(() => {
+    const unit = d3data[0]?.unit ?? "";
+    return `${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`;
+  }, [d3data, sector, metric]);
 
   const chartSetup = useMemo<ChartScales>(() => {
     const unit = d3data[0]?.unit ?? "";
@@ -70,11 +76,20 @@ export default function VerticalBarChart({
       .padding(0.6);
 
     const y = scaleLinear()
-      .domain([0, max(d3data, (d) => d.value) ?? 0])
+      .domain([0, yMax ?? max(d3data, (d) => d.value) ?? 0])
       .range([height - marginBottom, marginTop]);
 
     return { x, y, unit };
-  }, [d3data, width, height, marginLeft, marginRight, marginTop, marginBottom]);
+  }, [
+    d3data,
+    yMax,
+    width,
+    height,
+    marginLeft,
+    marginRight,
+    marginTop,
+    marginBottom,
+  ]);
 
   useEffect(() => {
     if (
@@ -82,31 +97,23 @@ export default function VerticalBarChart({
       !gx.current ||
       !gy.current ||
       !bars.current ||
-      !title.current ||
       !tooltips.current
     )
       return;
 
-    const { x, y, unit } = chartSetup;
-
-    // Update title
-    select(title.current)
-      .selectAll<SVGTextElement, string>("text")
-      .data([`${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`])
-      .join("text")
-      .attr("x", width / 2)
-      .attr("y", marginTop - 30)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "16px")
-      .attr("font-weight", "bold")
-      .text((d) => d);
+    const { x, y } = chartSetup;
 
     // Update X axis
     select(gx.current)
       .transition()
       .duration(750)
       .call(axisBottom(x).tickSize(0))
-      .style("font-size", "14px");
+      .style("font-size", "14px")
+      .selectAll("text")
+      .attr("transform", "rotate(-45)")
+      .attr("text-anchor", "end")
+      .attr("dx", "0")
+      .attr("dy", "0.71em");
 
     // Update Y axis
     select(gy.current)
@@ -218,31 +225,35 @@ export default function VerticalBarChart({
   ]);
 
   return (
-    <svg
-      ref={ref}
-      width={width}
-      height={height}
-      viewBox={`0 0 ${width} ${height}`}
-    >
-      <g ref={title} />
-      <g
-        ref={gx}
-        className="xaxis"
-        transform={`translate(0, ${height - marginBottom})`}
-      />
-      <g
-        ref={gy}
-        className="yaxis"
-        transform={`translate(${marginLeft}, 0)`}
-      />
-      <g
-        ref={bars}
-        className="bars"
-      />
-      <g
-        ref={tooltips}
-        className="tooltips"
-      />
-    </svg>
+    <div className="flex flex-col items-center">
+      <p className="text-sm font-bold text-center w-full px-2 break-words mb-1">
+        {chartTitle}
+      </p>
+      <svg
+        ref={ref}
+        width={width}
+        height={height}
+        viewBox={`0 0 ${width} ${height}`}
+      >
+        <g
+          ref={gx}
+          className="xaxis"
+          transform={`translate(0, ${height - marginBottom})`}
+        />
+        <g
+          ref={gy}
+          className="yaxis"
+          transform={`translate(${marginLeft}, 0)`}
+        />
+        <g
+          ref={bars}
+          className="bars"
+        />
+        <g
+          ref={tooltips}
+          className="tooltips"
+        />
+      </svg>
+    </div>
   );
 }

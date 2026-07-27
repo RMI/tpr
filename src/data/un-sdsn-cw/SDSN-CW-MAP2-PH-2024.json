@@ -31,12 +31,13 @@
     "short": "MAP2 PH"
   },
   "description": "Philippines-specific renewable energy pathway achieving near-zero power sector emissions by 2060.",
-  "geography": ["PH"],
+  "geography": {
+    "country": ["PH"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2019,
   "modelYearEnd": 2060,
   "modelYearNetzero": 2060,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -70,16 +71,14 @@
     "policyTypes": [
       "Carbon price",
       "Target technology shares",
-      "Phaseout dates"
+      "Phaseout dates",
+      "Performance standards"
     ],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "Minor technology deployment",
     "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Normative/Optimization-based",
+    "policyAmbition": "High ambition policies",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
     "newTechnologiesIncluded": ["Battery storage"],
-    "supplyChain": "Exogenous input or fuel price",
-    "investmentNeeds": "By technology",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "By technology"
   }
 }

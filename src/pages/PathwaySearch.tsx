@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import PathwayCard from "../components/PathwayCard";
 import SearchSection from "../components/SearchSection";
 import StepByStepGuide from "../components/StepByStepGuide";
+import ComparisonRibbon from "../components/ComparisonRibbon";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { filterPathways } from "../utils/searchUtils";
 import { SearchFilters, PathwayMetadataType } from "../types";
+import { useFilters } from "../context/FilterContext";
 
 const PathwaySearch: React.FC = () => {
   // Ref for the top section to handle scrolling
@@ -15,18 +17,7 @@ const PathwaySearch: React.FC = () => {
   // State to track if search section is sticky
   const [isSticky, setIsSticky] = useState(false);
 
-  const [filters, setFilters] = useState<SearchFilters>({
-    pathwayType: null,
-    modelYearNetzero: null,
-    modelTempIncrease: null,
-    geography: null,
-    sector: null,
-    metric: null,
-    emissionsTrajectory: null,
-    policyAmbition: null,
-    dataAvailability: null,
-    searchTerm: "",
-  });
+  const { filters, setFilters, resetFilters } = useFilters();
 
   const [filteredPathways, setFilteredPathways] =
     useState<PathwayMetadataType[]>(pathwayMetadata);
@@ -101,20 +92,7 @@ const PathwaySearch: React.FC = () => {
     // Search is already applied through the useEffect
   };
 
-  const handleClear = () => {
-    setFilters({
-      pathwayType: null,
-      modelYearNetzero: null,
-      modelTempIncrease: null,
-      geography: null,
-      sector: null,
-      metric: null,
-      emissionsTrajectory: null,
-      policyAmbition: null,
-      dataAvailability: null,
-      searchTerm: "",
-    });
-  };
+  const handleClear = resetFilters;
 
   return (
     <div className="container mx-auto px-4 py-8 bg-gray-50">
@@ -136,6 +114,7 @@ const PathwaySearch: React.FC = () => {
             onSearch={handleSearch}
             onClear={handleClear}
           />
+          <ComparisonRibbon />
         </div>
       </div>
 

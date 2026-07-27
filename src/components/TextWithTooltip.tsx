@@ -4,6 +4,7 @@ import { createPortal } from "react-dom";
 interface TextWithTooltipProps {
   text: React.ReactNode;
   tooltip: React.ReactNode;
+  ariaLabel?: string;
   className?: string;
   position?: "right" | "top" | "bottom" | "left";
 }
@@ -47,6 +48,7 @@ const TooltipArrow = ({
 const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
   text,
   tooltip,
+  ariaLabel,
   className = "",
   position = "right",
 }) => {
@@ -201,6 +203,7 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
       opacity: isVisible ? 1 : 0,
       visibility: isVisible ? "visible" : "hidden",
       transition: "opacity 200ms ease-in-out, visibility 200ms ease-in-out",
+      pointerEvents: "none",
     } as React.CSSProperties;
   };
 
@@ -210,6 +213,7 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
         ref={triggerRef}
         className={`relative inline-block cursor-help ${className}`}
         tabIndex={0}
+        aria-label={ariaLabel}
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         aria-describedby={isVisible ? tooltipId : undefined}

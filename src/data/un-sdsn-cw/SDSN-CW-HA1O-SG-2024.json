@@ -1,0 +1,86 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "SDSN-CW-HA1O-SG-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonisation Pathways for Singapore"
+    },
+    "author": [
+      "Euston Quah",
+      "Wai Mun Chia",
+      "Yeow Hwee Chua",
+      "Zach Lee",
+      "Jun Rui Tan"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://files.unsdsn.org/AGF%20-%20Singapore%20-%202.1_2.2_Report%20-%20FINAL.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Highly Ambitious Scenario 1 Optimized SG",
+    "short": "HA1O SG"
+  },
+  "description": "Singapore-specific cost-optimized high-ambition pathway with limited fossil generation investment.",
+  "geography": {
+    "country": ["SG"]
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "modelYearNetzero": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nHighly Ambitious 1 Optimized (HA1O) is a least-cost capacity expansion and dispatch scenario for Singapore’s power system, developed using an optimization model linked to the Low Emissions Analysis Platform framework. The model determines the generation mix of technologies by minimizing system costs, subject to a set of technical and policy constraints.\n\nThe scenario incorporates explicit technical and policy rules, such as limits on unabated fossil fuel development and retirement of coal and oil-fired plants at end of life, that guide how the system transitions to near net zero by 2050. In this scenario waste-to-energy plants are required to keep operating at roughly the same utilization levels as today, rather than gradually reducing output over time. At the same time, the model sets generous limits on how much certain low-carbon technologies can be built. These rules give the system flexibility to rely on these technologies where they are cost-effective, while limiting the development of new unabated fossil-fuel generation. This leads to a significant but incomplete decarbonization of power. Power-sector emissions decrease substantially relative to today and to baseline scenarios, and the grid emissions factor falls sharply. \n\nThe resulting technology mix in 2050 for HA1O has nuclear becoming the dominant energy source (27% of supply), supported by hydrogen (22%), imported electricity (22%), and solar (11%), with geothermal, ammonia and biomass providing supplementary capacity. The HA1O power mix demonstrates that the optimizer favors a balanced portfolio anchored by firm, low-carbon baseload (nuclear) complemented by hydrogen, imports, and moderate domestic renewables, rather than an overwhelmingly renewable or hydrogen-led system.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nDriven by cost-minimizing capacity expansion within a high-ambition policy environment that prohibits new unabated fossil capacity but does not enforce a net-zero constraint. The system favors lower-cost combinations of clean and transitional technologies, resulting in significant but incomplete decarbonization.\n\n*Technology cost:* The pathway allocates capacity and dispatch to minimize system costs, given capital, operating and fuel cost trajectories and technical constraints. Capital and operating costs for generation, storage, and transmission technologies are primarily sourced from the National Renewable Energy Laboratories Annual Technology Baseline (2023) and complemented by fuel price assumptions from regional and international datasets. \n\n*Policies:* Assumes a policy framework that prevents new unabated fossil build-out and enables deployment of low-carbon technologies, but does not strictly enforce a power-sector net-zero requirement or a binding renewable share.\n\n#### Application to Transition Assessment\n\nHA1O is useful as a high ambition and cost efficient reference case for transition assessment. It illustrates how Singapore’s power system could evolve under a high level of policy ambition that rules out new unabated fossil capacity, while optimizing for the lowest cost low-carbon generation source to ensure demand is met. \n\nFor target setting and evaluating ambition, HA1O should not be treated as a net-zero-aligned benchmark, given the residual emissions in 2050. It can, however, provide a lower bound for power-sector decarbonization in a scenario where all new fossil investments cease, against which more ambitious corporate targets and projects can be compared. \n\nThe scenario offers granular outputs at five-year intervals, including capacity additions, technology-specific generation profiles, and emissions.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Carbon price",
+      "Phaseout dates",
+      "Target technology shares",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "Decrease",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "High ambition policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": [
+      "CCUS",
+      "Green H2/ammonia",
+      "Battery storage",
+      "EGS/AGS",
+      "Other new technologies"
+    ],
+    "investmentNeeds": "By technology"
+  }
+}

@@ -184,7 +184,7 @@ describe("MultiSelectDropdown – menu header layout & interactions", () => {
         label="Sector"
         options={[
           { value: "p", label: "Power" },
-          { value: "t", label: "Transport" },
+          { value: "t", label: "Aviation" },
         ]}
         value={["p", "t"]}
         onChange={() => {}}
@@ -204,7 +204,7 @@ describe("MultiSelectDropdown – menu header layout & interactions", () => {
         label="Sector"
         options={[
           { value: "p", label: "Power" },
-          { value: "t", label: "Transport" },
+          { value: "t", label: "Aviation" },
         ]}
         value={[]}
         onChange={() => {}}
@@ -272,7 +272,7 @@ describe("MultiSelectDropdown – menu header layout & interactions", () => {
         label="Sector"
         options={[
           { value: "p", label: "Power" },
-          { value: "t", label: "Transport" },
+          { value: "t", label: "Aviation" },
         ]}
         value={[]}
         onChange={() => {}}

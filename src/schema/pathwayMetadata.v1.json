@@ -34,7 +34,7 @@
     "pathwayType": {
       "description": "Type of the pathway pathway.",
       "type": "string",
-      "enum": ["Normative", "Exploratory", "Direct Policy", "Predictive"]
+      "enum": ["Normative", "Exploratory", "Predictive"]
     },
     "modelYearNetzero": {
       "description": "Year by which net zero is reached in the pathway. If Pathway does not reach net zero, this field should be omitted.",
@@ -66,19 +66,10 @@
       "minimum": 0.5,
       "maximum": 3
     },
-    "ssp": {
-      "description": "Shared Socioeconomic Pathways (SSP) associated with the pathway.",
-      "type": "string",
-      "enum": ["SSP1", "SSP2", "SSP3", "SSP4", "SSP5"]
-    },
     "geography": {
       "description": "Geographical areas that the pathway covers.",
-      "type": "array",
-      "uniqueItems": true,
-      "items": {
-        "$ref": "http://pathways.rmi.org/schema/common/geographyItem.v1.json",
-        "tsType": "import('./common/geographyItem.v1').GeographyItemV1"
-      }
+      "$ref": "http://pathways.rmi.org/schema/common/geography.v1.json",
+      "tsType": "import('./common/geography.v1').GeographyV1"
     },
     "sectors": {
       "description": "Sectors that the pathway covers.",
@@ -190,6 +181,8 @@
             "type": "string",
             "enum": [
               "Carbon price",
+              "Feed-in tariffs",
+              "Performance standards",
               "Phaseout dates",
               "Subsidies",
               "Target technology shares",
@@ -202,17 +195,6 @@
           "description": "Describes how technology costs evolve over time, from static cost assumptions to rapidly declining costs (e.g., via learning curves).",
           "type": "string",
           "enum": ["No information", "Increase", "Low or no change", "Decrease"]
-        },
-        "technologyDeploymentTrend": {
-          "description": "Indicates the scale and pace of new technology adoption within the pathway, where significant deployment means that several new technologies are adopted rapidly",
-          "type": "string",
-          "enum": [
-            "No information",
-            "No new technologies deployed",
-            "Minor technology deployment",
-            "Moderate technology deployment",
-            "Signif. technology deployment"
-          ]
         },
         "emissionsScope": {
           "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
@@ -228,7 +210,7 @@
             "Current and drafted policies",
             "NDCs, unconditional only",
             "NDCs incl. conditional targets",
-            "Normative/Optimization-based",
+            "High ambition policies",
             "Other policy ambition"
           ]
         },
@@ -262,16 +244,6 @@
             ]
           }
         },
-        "supplyChain": {
-          "description": "Describes how upstream fuel or material price dynamics are represented in the pathway.",
-          "type": "string",
-          "enum": [
-            "No information",
-            "Static input or fuel price",
-            "Exogenous input or fuel price",
-            "Endogenous input or fuel price"
-          ]
-        },
         "investmentNeeds": {
           "description": "Summarizes how investment requirements are quantified, from total system to sector-level or supply-chain detail.",
           "type": "string",
@@ -283,15 +255,6 @@
             "By technology",
             "By tech, part of value chain"
           ]
-        },
-        "infrastructureRequirements": {
-          "description": "Describes how infrastructure buildout and maintenance needs are represented across the supply chain.",
-          "type": "string",
-          "enum": [
-            "No information",
-            "By part of supply chain",
-            "By supply chain, add/replace"
-          ]
         }
       },
       "additionalProperties": false,
@@ -302,14 +265,11 @@
         "electrification",
         "policyTypes",
         "technologyCostTrend",
-        "technologyDeploymentTrend",
         "emissionsScope",
         "policyAmbition",
         "technologyCostsDetail",
         "newTechnologiesIncluded",
-        "supplyChain",
-        "investmentNeeds",
-        "infrastructureRequirements"
+        "investmentNeeds"
       ]
     }
   },

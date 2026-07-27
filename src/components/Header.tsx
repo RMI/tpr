@@ -1,10 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import HeaderNav from "./HeaderNav";
 
-export const HeaderBrand: React.FC = () => {
+export const HeaderBrand: React.FC<{ to?: string }> = ({ to = "/" }) => {
   return (
     <Link
-      to="/pathway"
+      to={to}
       className="flex items-center space-x-3 group transition-all duration-300"
     >
       <div>
@@ -26,9 +27,10 @@ export const HeaderBrand: React.FC = () => {
 
 const Header: React.FC = () => {
   return (
-    <header className="bg-bluespruce text-white shadow-md">
+    <header className="relative z-50 bg-bluespruce text-white shadow-md">
       <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
         <HeaderBrand />
+        <HeaderNav />
       </div>
     </header>
   );

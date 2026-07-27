@@ -3,12 +3,12 @@ import {
   normalizeGeography,
   geographyLabel,
   sortGeographiesForDetails,
+  flattenGeography,
 } from "./geographyUtils";
 import { matchesOptionalFacetAny, matchesOptionalFacetAll } from "./facets";
 import { ABSENT_FILTER_TOKEN } from "./absent";
 import { buildOptionsFromValues, hasAbsent, withAbsentOption } from "./facets";
 import { sortPathwayType } from "./sortUtils";
-import type { LabeledOption } from "./facets";
 import { index } from "../data/index.gen";
 
 // ───────────────────────────────────────────────────────────────────────────────
@@ -40,9 +40,19 @@ export function getGlobalFacetOptions(pathways: PathwayMetadataType[]) {
 
   // Geography (structured options via makeGeographyOptions)
   const geographyOptionsRaw: GeoOption[] = makeGeographyOptions(pathways);
-  const sawAbsentGeography = hasAbsent(pathways.map((d) => d.geography));
+  // A pathway counts as "absent" geography (surfacing the "None" facet) when
+  // flattening yields no tokens — i.e. an empty/missing geography object. Note
+  // this is stricter than the old flat-array model, where an empty `[]` was
+  // treated as present (`[] != null`); an empty structured object now maps to
+  // `null` here and is reported as absent.
+  const sawAbsentGeography = hasAbsent(
+    pathways.map((d) => {
+      const flat = flattenGeography(d.geography);
+      return flat.length > 0 ? flat : null;
+    }),
+  );
   const geographyOptions = withAbsentOption(
-    geographyOptionsRaw as LabeledOption[],
+    geographyOptionsRaw,
     sawAbsentGeography,
   );
 
@@ -117,12 +127,7 @@ export type FilterModes = Partial<{
 // - geography/sector may be string | string[]
 // - optionally accept a modes map
 export type Arrayable =
-  | string
-  | string[]
-  | number
-  | number[]
-  | null
-  | undefined;
+  string | string[] | number | number[] | null | undefined;
 
 export type FiltersWithArrays = {
   geography?: Arrayable;
@@ -163,7 +168,7 @@ export function makeGeographyOptions(
 ): GeoOption[] {
   const seen = new Set<string>();
   for (const s of pathways) {
-    for (const g of s.geography ?? []) {
+    for (const g of flattenGeography(s.geography)) {
       const v = normalizeGeography(g);
       if (v) seen.add(v);
     }
@@ -179,7 +184,7 @@ export function makeGeographyOptions(
 // - "download": pathway id exists in index.byPathway
 // - "link": has link to data set
 // - "unavailable": otherwise
-export type DataAvailability = "Download" | "Foo" | "Unavailable";
+export type DataAvailability = "Download" | "Link" | "Unavailable";
 
 function availabilityFor(pathway: PathwayMetadataType): DataAvailability {
   const hasDownload = Boolean(index?.byPathway?.[pathway.id]);
@@ -262,7 +267,7 @@ export const filterPathways = (
         const hasAbsent = selected.includes(ABSENT_FILTER_TOKEN);
         const concrete = selected.filter((t) => t !== ABSENT_FILTER_TOKEN);
         const v = pathway.pathwayType ?? null;
-        const mode = pickMode("pathwayType", filters.modes as FilterModes);
+        const mode = pickMode("pathwayType", filters.modes);
         let ok = true;
 
         if (mode === "ANY") {
@@ -332,17 +337,14 @@ export const filterPathways = (
         t === ABSENT_FILTER_TOKEN ? t : norm(t),
       );
       const mode = pickMode("geography", filters.modes);
+      const geographyTokens = flattenGeography(pathway.geography);
       const ok =
         mode === "ALL"
-          ? matchesOptionalFacetAll(
-              normalizedSelected,
-              pathway.geography ?? [],
-              (g) => norm(g),
+          ? matchesOptionalFacetAll(normalizedSelected, geographyTokens, (g) =>
+              norm(g),
             )
-          : matchesOptionalFacetAny(
-              normalizedSelected,
-              pathway.geography ?? [],
-              (g) => norm(g),
+          : matchesOptionalFacetAny(normalizedSelected, geographyTokens, (g) =>
+              norm(g),
             );
       if (!ok) return false;
     }
@@ -380,10 +382,7 @@ export const filterPathways = (
         const hasAbsent = selected.includes(ABSENT_FILTER_TOKEN);
         const concrete = selected.filter((t) => t !== ABSENT_FILTER_TOKEN);
         const v = pathway.keyFeatures?.emissionsTrajectory ?? null;
-        const mode = pickMode(
-          "emissionsTrajectory",
-          filters.modes as FilterModes,
-        );
+        const mode = pickMode("emissionsTrajectory", filters.modes);
         let ok = true;
 
         if (mode === "ANY") {
@@ -415,7 +414,7 @@ export const filterPathways = (
         const hasAbsent = selected.includes(ABSENT_FILTER_TOKEN);
         const concrete = selected.filter((t) => t !== ABSENT_FILTER_TOKEN);
         const v = pathway.keyFeatures?.policyAmbition ?? null;
-        const mode = pickMode("policyAmbition", filters.modes as FilterModes);
+        const mode = pickMode("policyAmbition", filters.modes);
         let ok = true;
 
         if (mode === "ANY") {
@@ -449,7 +448,7 @@ export const filterPathways = (
         const hasAbsent = selected.includes(ABSENT_FILTER_TOKEN);
         const concrete = selected.filter((t) => t !== ABSENT_FILTER_TOKEN);
         const v = availabilityFor(pathway) ?? null;
-        const mode = pickMode("dataAvailability", filters.modes as FilterModes);
+        const mode = pickMode("dataAvailability", filters.modes);
         let ok = true;
 
         if (mode === "ANY") {
@@ -477,6 +476,7 @@ export const filterPathways = (
     // Search term
     if (filters.searchTerm && filters.searchTerm.trim() !== "") {
       const searchTerm = filters.searchTerm.toLowerCase();
+      const geographyTokens = flattenGeography(pathway.geography);
       const searchFields = [
         pathway.name.full,
         pathway.name.short,
@@ -484,8 +484,8 @@ export const filterPathways = (
         pathway.pathwayType,
         pathway.modelYearNetzero,
         pathway.modelTempIncrease,
-        ...pathway.geography,
-        ...pathway.geography.map((s) => geographyLabel(s)),
+        ...geographyTokens,
+        ...geographyTokens.map((s) => geographyLabel(s)),
         ...pathway.sectors.map((s) => s.name),
         ...pathway.metric,
         pathway.publication.publisher.full,

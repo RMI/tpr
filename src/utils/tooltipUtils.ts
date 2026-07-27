@@ -8,11 +8,9 @@ import type {
 export const unknownTooltip = "No tooltip available.";
 
 export const pathwayTypeTooltips: Record<PathwayType, string> = {
-  "Direct Policy":
-    "Outcomes based on legislated policy targets or commitments.",
-  "Exploratory": "Examines a range of plausible futures without fixed goals.",
-  "Normative": "Starts from a desired end state and works backward to actions.",
-  "Predictive":
+  Exploratory: "Examines a range of plausible futures without fixed goals.",
+  Normative: "Starts from a desired end state and works backward to actions.",
+  Predictive:
     "Projects likely futures based on current trends and assumptions.",
 };
 
@@ -30,8 +28,6 @@ export const sectorTooltips: Record<Sector, string> = {
     "Production of primary chemicals and/or chemicals for end use, such as plastics, fertilizer, pharmaceuticals.",
   "Coal Mining": "Extraction of coal.",
   "Gas (Upstream)": "Extraction of natural gas.",
-  "Industry":
-    "Focused on manufacturing activities, especially heavy industries and hard-to-abate industries.",
   "Land Use": "Agriculture, Forestry, Fishery, other forms of land use.",
   "Oil (Upstream)": "Extraction of oil.",
   "Other":
@@ -39,12 +35,9 @@ export const sectorTooltips: Record<Sector, string> = {
   "Power":
     "Includes power generation based on any energy source. Can also include power storage, transmission, and distribution.",
   "Rail": "Logistics of passengers and cargo by train.",
-  "Road transport":
-    "Logistics of passengers and cargo on the road, by different means, I.e. types of vehicles.",
   "Shipping": "Logistics of passengers and cargo by ship.",
   "Steel":
     "Steel making, both primary and secondary. Can include upstream and downstream activities.",
-  "Transport": "Logistics of passengers and cargo.",
 };
 
 export const getSectorTooltip = (sector: Sector): string => {
@@ -155,6 +148,10 @@ export function getKeyFeatureTooltip(
     },
     policyTypes: {
       "Carbon price": "A carbon price is used to model policy impacts.",
+      "Feed-in tariffs":
+        "Feed-in tariffs are explicitly modeled as a policy intervention.",
+      "Performance standards":
+        "Performance standards are explicitly modeled as a policy intervention.",
       "Phaseout dates":
         "This pathway includes targeted phaseout dates for technologies as policy interventions.",
       "Subsidies":
@@ -162,7 +159,7 @@ export function getKeyFeatureTooltip(
       "Target technology shares":
         "Target technology shares are used to model policy impacts.",
       "Other":
-        "Other policy types beside carbon prices, phaseout dates, subsidies, and target technology shares are used to model policy impacts.",
+        "Impacts of other policy types modeled beside carbon prices, phaseout dates, subsidies, target technology shares, FiTs, and performance standards.",
       "None": "This pathway does not explicitly model the impact of policies.",
     },
     technologyCostTrend: {
@@ -172,18 +169,6 @@ export function getKeyFeatureTooltip(
       "Low or no change":
         "Technology costs are assumed to remain static in this pathway.",
       "Decrease": "Technology costs decline in this pathway.",
-    },
-    technologyDeploymentTrend: {
-      "No information":
-        "There is no information available on technology deployment trends in this pathway.",
-      "No new technologies deployed":
-        "This pathway does not assume that meaningful new technologies will be deployed.",
-      "Minor technology deployment":
-        "No more than one new technology is deployed at pace OR no more than three new technologies are deployed at moderate speed.",
-      "Moderate technology deployment":
-        "At least two new technologies are deployed at pace OR at least four new technologies are deployed at moderate speed.",
-      "Signif. technology deployment":
-        "At least four new technologies are deployed at pace.",
     },
     emissionsScope: {
       "No information":
@@ -211,8 +196,8 @@ export function getKeyFeatureTooltip(
         "The policies modeled in this pathway assume policies are in place that ensure  all unconditional targets from NDCs are reached.",
       "NDCs incl. conditional targets":
         "The policies modeled in this pathway assume policies are in place that ensure  all targets from NDCs (conditional and unconditional) are reached.",
-      "Normative/Optimization-based":
-        "The policies modeled in this pathway ensure that a normative model outcome is reached, typically based on cost-optimization.",
+      "High ambition policies":
+        "The policies modeled in this pathway ensure an ambitious outcome such as 1.5°C, net zero, or near net zero. Models often use least-cost optimization.",
       "Other policy ambition":
         "The policies modeled in this pathway follow other specifications of policy ambition.",
     },
@@ -243,16 +228,6 @@ export function getKeyFeatureTooltip(
       "Other new technologies":
         "This pathway assumes deployment of other new technologies.",
     },
-    supplyChain: {
-      "No information":
-        "This pathway does not have any information on upstream input material or fuel prices.",
-      "Static input or fuel price":
-        "Upstream input material or fuel prices are assumed to be static.",
-      "Exogenous input or fuel price":
-        "Upstream input material or fuel prices are dynamic and exogenous in this pathway.",
-      "Endogenous input or fuel price":
-        "Upstream input material or fuel prices are dynamic and endogenous in this pathway.",
-    },
     investmentNeeds: {
       "No information":
         "This pathway does not have any quantitative information on investment needs.",
@@ -263,14 +238,6 @@ export function getKeyFeatureTooltip(
       "By technology": "This pathway provides investment needs by technology.",
       "By tech, part of value chain":
         "This pathway provides investment needs by technology and part of the value chain (upstream, instream, downstream).",
-    },
-    infrastructureRequirements: {
-      "No information":
-        "This pathway does not have any information on physical infrastructure requirements.",
-      "By part of supply chain":
-        "Infrastructure requirements (in physical units) by part of the supply chain.",
-      "By supply chain, add/replace":
-        "Infrastructure requirements (in physical units) along supply chain and by replacement of existing infrastructure vs buildout of new infrastructure.",
     },
   };
 

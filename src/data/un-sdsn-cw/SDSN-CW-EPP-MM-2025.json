@@ -29,11 +29,12 @@
     "short": "EPP MM"
   },
   "description": "Myanmar-specific pathway following current energy policies and NDCs.",
-  "geography": ["MM"],
+  "geography": {
+    "country": ["MM"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -53,15 +54,16 @@
     "energyEfficiency": "No information",
     "energyDemand": "No information",
     "electrification": "No information",
-    "policyTypes": ["Target technology shares", "Phaseout dates"],
+    "policyTypes": [
+      "Target technology shares",
+      "Phaseout dates",
+      "Performance standards"
+    ],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "No new technologies deployed",
     "emissionsScope": "CO2e (Kyoto)",
     "policyAmbition": "Current and drafted policies",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
     "newTechnologiesIncluded": ["No new technologies"],
-    "supplyChain": "Exogenous input or fuel price",
-    "investmentNeeds": "By technology",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "By technology"
   }
 }

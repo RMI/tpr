@@ -29,11 +29,12 @@
     "short": "OEP LA"
   },
   "description": "Cost-optimized pathway under current policies with coal and hydropower expansion.",
-  "geography": ["LA"],
+  "geography": {
+    "country": ["LA"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -49,13 +50,10 @@
     "electrification": "Moderate increase",
     "policyTypes": ["Target technology shares"],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "No information",
     "emissionsScope": "CO2e (Kyoto)",
     "policyAmbition": "Current/legislated policies",
     "technologyCostsDetail": "Total costs",
     "newTechnologiesIncluded": ["No information"],
-    "supplyChain": "No information",
-    "investmentNeeds": "Total investment",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "Total investment"
   }
 }

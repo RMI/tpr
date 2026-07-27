@@ -27,11 +27,12 @@
     "short": "MAP TH"
   },
   "description": "Thailand-specific pathway reflecting current energy policy and continued ambition.",
-  "geography": ["TH"],
+  "geography": {
+    "country": ["TH"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2060,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -60,15 +61,16 @@
     "energyEfficiency": "No information",
     "energyDemand": "No information",
     "electrification": "No information",
-    "policyTypes": ["Target technology shares", "Other"],
+    "policyTypes": [
+      "Target technology shares",
+      "Performance standards",
+      "Other"
+    ],
     "technologyCostTrend": "No information",
-    "technologyDeploymentTrend": "No new technologies deployed",
     "emissionsScope": "CO2e (Kyoto)",
     "policyAmbition": "Other policy ambition",
     "technologyCostsDetail": "No information",
     "newTechnologiesIncluded": ["No new technologies"],
-    "supplyChain": "No information",
-    "investmentNeeds": "No information",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "No information"
   }
 }

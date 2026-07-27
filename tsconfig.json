@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "types": ["node"],
-    "moduleResolution": "node"
+    "moduleResolution": "bundler"
   },
   "files": [],
   "references": [

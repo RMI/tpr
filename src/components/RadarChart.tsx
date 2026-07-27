@@ -1,4 +1,4 @@
-import { select, Selection } from "d3-selection";
+import { select } from "d3-selection";
 import { scaleLinear, ScaleLinear } from "d3-scale";
 import { lineRadial, curveLinearClosed } from "d3-shape";
 import { range, max } from "d3-array";
@@ -88,20 +88,6 @@ export default function RadarChart({
       rScale,
     } = chartConfig;
 
-    type CircleSelection = Selection<
-      SVGCircleElement,
-      number,
-      SVGGElement,
-      unknown
-    >;
-    type AxisSelection = Selection<SVGGElement, string, SVGGElement, unknown>;
-    type DotSelection = Selection<
-      SVGCircleElement,
-      DataPoint,
-      SVGGElement,
-      unknown
-    >;
-
     const svg = select<SVGSVGElement, unknown>(ref.current)
       .attr("width", width)
       .attr("height", height);
@@ -127,26 +113,23 @@ export default function RadarChart({
     const axisGrid = container.append("g").attr("class", "axisWrapper");
 
     // Draw the concentric circles
-    (
-      axisGrid
-        .selectAll<SVGCircleElement, number>(".levels")
-        .data(range(1, axisCircles + 1).reverse())
-        .enter()
-        .append("circle") as CircleSelection
-    )
+    axisGrid
+      .selectAll<SVGCircleElement, number>(".levels")
+      .data(range(1, axisCircles + 1).reverse())
+      .enter()
+      .append("circle")
       .attr("class", "gridCircle")
       .attr("r", (d) => (radius / axisCircles) * d)
       .style("fill", "none")
       .style("stroke", axisColor);
 
     // Draw the axes
-    const axis = (
-      axisGrid
-        .selectAll<SVGGElement, string>(".axis")
-        .data(axesDomain)
-        .enter()
-        .append("g") as AxisSelection
-    ).attr("class", "axis");
+    const axis = axisGrid
+      .selectAll<SVGGElement, string>(".axis")
+      .data(axesDomain)
+      .enter()
+      .append("g")
+      .attr("class", "axis");
 
     // Draw the lines
     axis
@@ -200,12 +183,10 @@ export default function RadarChart({
       .attr("stroke-width", "2");
 
     // Add the dots
-    (
-      plots
-        .selectAll<SVGCircleElement, DataPoint>("circle")
-        .data(d3data)
-        .join("circle") as DotSelection
-    )
+    plots
+      .selectAll<SVGCircleElement, DataPoint>("circle")
+      .data(d3data)
+      .join("circle")
       .attr("r", dotRadius)
       .attr(
         "cx",

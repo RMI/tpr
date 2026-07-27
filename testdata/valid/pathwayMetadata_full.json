@@ -1,12 +1,21 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "pathway-simple-full",
-  "name": { "full": "Full Enums Pathway", "short": "FullEnum" },
+  "name": {
+    "full": "Full Enums Pathway",
+    "short": "FullEnum"
+  },
   "publication": {
-    "title": { "full": "Example Title", "short": "Example" },
+    "title": {
+      "full": "Example Title",
+      "short": "Example"
+    },
     "subtitle": "An Example Subtitle",
     "author": ["Foo bar", "Baz qux"],
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024,
     "month": 6,
     "day": 15,
@@ -24,24 +33,27 @@
   "description": "Pathway with all enum values populated where possible.",
   "pathwayType": "Normative",
   "modelYearNetzero": 2050,
-  "carbonBudget": 500,
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "modelTempIncrease": 1.5,
-  "ssp": "SSP1",
-  "geography": [
-    "Global",
-    "Europe and Central Asia",
-    "North America",
-    "South East Asia",
-    "US"
-  ],
+  "geography": {
+    "global": true,
+    "regions": {
+      "Europe and Central Asia": ["DE", "FR", "GB"],
+      "North America": ["US", "CA", "MX"],
+      "South East Asia": ["ID", "TH", "VN"]
+    },
+    "country": ["US"]
+  },
   "sectors": [
     {
       "name": "Land Use",
       "technologies": ["Agroforestry", "Bioenergy Crops"]
     },
-    { "name": "Agriculture", "technologies": ["Precision Agriculture"] },
+    {
+      "name": "Agriculture",
+      "technologies": ["Precision Agriculture"]
+    },
     {
       "name": "Buildings",
       "technologies": [
@@ -55,15 +67,29 @@
       ]
     },
     {
-      "name": "Industry",
-      "technologies": ["Carbon Capture and Storage", "Electrification"]
+      "name": "Steel",
+      "technologies": ["Process Optimization"]
     },
-    { "name": "Steel", "technologies": ["Process Optimization"] },
-    { "name": "Cement", "technologies": ["Other"] },
-    { "name": "Chemicals", "technologies": ["Hydrogen Use", "Biofuels"] },
-    { "name": "Coal Mining", "technologies": ["Other"] },
-    { "name": "Oil (Upstream)", "technologies": ["Other"] },
-    { "name": "Gas (Upstream)", "technologies": ["Other"] },
+    {
+      "name": "Cement",
+      "technologies": ["Other"]
+    },
+    {
+      "name": "Chemicals",
+      "technologies": ["Hydrogen Use", "Biofuels"]
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": ["Other"]
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": ["Other"]
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": ["Other"]
+    },
     {
       "name": "Power",
       "technologies": [
@@ -77,17 +103,29 @@
       ]
     },
     {
-      "name": "Transport",
-      "technologies": ["Public Transport", "Active Mobility"]
-    },
-    {
-      "name": "Road transport",
+      "name": "Automotive",
       "technologies": ["Electric Vehicles", "Hydrogen Vehicles"]
     },
-    { "name": "Aviation", "technologies": ["Aviation Efficiency"] },
-    { "name": "Rail", "technologies": ["Other"] },
-    { "name": "Shipping", "technologies": ["Maritime Efficiency"] },
-    { "name": "Other", "technologies": ["Other"] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": ["Aviation Efficiency"]
+    },
+    {
+      "name": "Rail",
+      "technologies": ["Other"]
+    },
+    {
+      "name": "Shipping",
+      "technologies": ["Maritime Efficiency"]
+    },
+    {
+      "name": "Other",
+      "technologies": ["Other"]
+    }
   ],
   "pathwayOverview": "Example Overview.",
   "expertOverview": "Example Expert Recommendation.",
@@ -111,7 +149,6 @@
       "Other"
     ],
     "technologyCostTrend": "No information",
-    "technologyDeploymentTrend": "No information",
     "emissionsScope": "No information",
     "policyAmbition": "No information",
     "technologyCostsDetail": "No information",
@@ -124,8 +161,6 @@
       "Battery storage",
       "EGS/AGS"
     ],
-    "supplyChain": "No information",
-    "investmentNeeds": "No information",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "No information"
   }
 }

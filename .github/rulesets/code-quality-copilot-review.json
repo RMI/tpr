@@ -1,0 +1,24 @@
+{
+  "id": 19360353,
+  "name": "Code Quality Copilot review for default branch",
+  "target": "branch",
+  "source_type": "Repository",
+  "source": "RMI/pbtar",
+  "enforcement": "active",
+  "conditions": {
+    "ref_name": {
+      "exclude": [],
+      "include": ["~DEFAULT_BRANCH"]
+    }
+  },
+  "rules": [
+    {
+      "type": "copilot_code_review",
+      "parameters": {
+        "review_on_push": true,
+        "review_draft_pull_requests": true
+      }
+    }
+  ],
+  "bypass_actors": []
+}
