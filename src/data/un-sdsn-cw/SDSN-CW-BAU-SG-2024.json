@@ -1,0 +1,78 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "SDSN-CW-BAU-SG-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonisation Pathways for Singapore"
+    },
+    "author": [
+      "Euston Quah",
+      "Wai Mun Chia",
+      "Yeow Hwee Chua",
+      "Zach Lee",
+      "Jun Rui Tan"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://files.unsdsn.org/AGF%20-%20Singapore%20-%202.1_2.2_Report%20-%20FINAL.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Business-as-Usual Scenario SG",
+    "short": "BAU SG"
+  },
+  "description": "Singapore-specific pathway reflecting existing policy commitments and government targets.",
+  "geography": {
+    "country": ["SG"]
+  },
+  "pathwayType": "Predictive",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Business-As-Usual (BAU) scenario represents Singapore’s energy and emissions trajectory under the full implementation of selected currently legislated policies and national targets. It integrates the Energy Market Authority’s (EMA) emission standards, the Green Plan 2030, and sectoral electrification strategies across power, transport, and residential sectors. The BAU scenario assumes Singapore continues to adopt low carbon technologies gradually, driven only by existing government policies and current levels of investment, without any major acceleration or new initiatives. \n\nThe power mix diversifies modestly; natural gas falls to 65% of generation by 2050; imported renewables reach 25%; and hydrogen, coal, solar, and waste collectively supply the remaining 10%. Solar deployment expands fivefold to 2 GW by 2030 and continues gradual growth thereafter. The hydrogen-ready Keppel Sakra natural gas cogeneration plant contributes up to 600 MW by 2026, blending 30% hydrogen initially and 50% by 2035.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Policies:* The BAU scenario incorporates national plans such as the Green Plan 2030, National Environment Agency Minimum Energy Performance Standards, carbon tax, Singapore’s carbon pricing trajectory, and emissions standards for power units. Policy-induced innovation reduces emissions intensity to meet Singapore’s initial 2030 intensity target from their first NDC in 2015 and maintain this intensity through 2050.\n\n#### Application to Transition Assessment\n\nThe BAU scenario is a national policy-aligned scenario that represents a predictive view of Singapore’s decarbonization pathway under current legislative and regulatory commitments. This makes it well-suited for policy alignment analysis. It reflects incremental change, enabling Singapore to reach its NDC target of capping emissions at 65 MtCO₂e by 2030 which was the country’s commitment prior to the 2022 NDC update. However, since this scenario does not introduce new mitigation measures beyond existing commitments, it does not achieve Singapore’s updated net zero commitment nor the 2022 NDC target of reducing emissions to 60 MtCO2e by 2030.\n\nThe BAU scenario also underscores the potential role of hydrogen production and regional power trade to achieve emissions reductions. However, BAU assumes static policy ambition and may understate long-term market disruptions as a result. \n\nThe BAU scenario provides granular data across the Singapore power system at five year intervals, including detailed electricity generation technology mixes and sectoral emissions intensities.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Low or no change",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Carbon price",
+      "Target technology shares",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "No information",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "Current/legislated policies",
+    "technologyCostsDetail": "No information",
+    "newTechnologiesIncluded": ["CCUS", "Green H2/ammonia", "Battery storage"],
+    "investmentNeeds": "No information"
+  }
+}

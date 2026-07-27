@@ -2,14 +2,31 @@ import { validateDataCollect } from "./validateData.ts";
 import type { FileEntry, ValidationOutcome } from "./validateData.ts";
 import type { SchemaObject } from "ajv";
 
+declare const process:
+  | {
+      env?: {
+        NODE_ENV?: string;
+        VITE_BUILD_MODE?: string;
+        VITE_INCLUDE_INVALID?: string;
+      };
+    }
+  | undefined;
+
+type ImportMetaEnvShim = {
+  meta?: {
+    env?: {
+      DEV?: boolean;
+      VITE_INCLUDE_INVALID?: string | boolean;
+    };
+  };
+};
+
 type ViteEnv =
   | {
       DEV?: boolean;
       VITE_INCLUDE_INVALID?: string | boolean;
     }
   | undefined;
-
-type EnvValue = string | boolean | undefined;
 
 // Decider reads both Vite and Node envs so it works in browser & Node contexts.
 export function decideIncludeInvalid(): boolean {
@@ -19,11 +36,14 @@ export function decideIncludeInvalid(): boolean {
 
   try {
     // @ts-expect-error: import.meta is not defined in Node tests
-    viteEnv = import.meta?.env as ViteEnv;
+    viteEnv = import.meta?.env;
   } catch {
+    // Ignore runtime access failures and fall back to any injected shim below.
+  }
+  if (viteEnv === undefined) {
     // Fallback to a test shim placed at globalThis.import.meta.env
-    viteEnv = ((globalThis?.import as EnvValue)?.meta as EnvValue)
-      ?.env as ViteEnv;
+    viteEnv = (globalThis as typeof globalThis & { import?: ImportMetaEnvShim })
+      .import?.meta?.env;
   }
 
   const viteDev = !!viteEnv?.DEV;
@@ -31,21 +51,14 @@ export function decideIncludeInvalid(): boolean {
     viteEnv?.VITE_INCLUDE_INVALID !== undefined &&
     String(viteEnv.VITE_INCLUDE_INVALID).toLowerCase() === "true";
 
-  const nodeFlag =
-    typeof process !== "undefined" &&
-    process.env?.VITE_INCLUDE_INVALID?.toLowerCase() === "true";
+  const nodeEnv = typeof process !== "undefined" ? process.env : undefined;
+  const nodeFlag = nodeEnv?.VITE_INCLUDE_INVALID?.toLowerCase() === "true";
 
   // In prod builds we never include invalid pathways.
   const nodeProd =
-    typeof process !== "undefined" &&
-    (process.env?.NODE_ENV === "production" ||
-      process.env?.VITE_BUILD_MODE === "production");
-  const nodeDev =
-    typeof process !== "undefined" &&
-    !(
-      process.env?.NODE_ENV === "production" ||
-      process.env?.VITE_BUILD_MODE === "production"
-    );
+    nodeEnv?.NODE_ENV === "production" ||
+    nodeEnv?.VITE_BUILD_MODE === "production";
+  const nodeDev = !nodeProd;
 
   if (nodeProd) return false;
   return viteFlag || (viteDev && nodeFlag) || (!viteEnv && nodeDev && nodeFlag);
@@ -77,7 +90,7 @@ export function assembleData<T>(
   if (invalid.length && opts?.warn) {
     const totalInvalid = invalid.length;
     opts.warn(
-      `[assembleData] Warning: ${totalInvalid} invalid data files{
+      `[assembleData] Warning: ${totalInvalid} invalid data files${
         totalInvalid !== 1 ? "s" : ""
       } found in ${invalid.length} file${invalid.length !== 1 ? "s" : ""}. ${
         includeInvalid

@@ -2,8 +2,12 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "PHDOE-CES1-2023",
   "publication": {
-    "title": { "full": "Power Development Plan 2023-2050" },
-    "publisher": { "full": "Philippines Department of Energy" },
+    "title": {
+      "full": "Power Development Plan 2023-2050"
+    },
+    "publisher": {
+      "full": "Philippines Department of Energy"
+    },
     "year": 2023,
     "links": [
       {
@@ -16,10 +20,15 @@
       }
     ]
   },
-  "name": { "full": "Clean Energy Scenario 1", "short": "CES 1" },
+  "name": {
+    "full": "Clean Energy Scenario 1",
+    "short": "CES 1"
+  },
   "description": "Philippines pathway following National Renewable Energy Plan with some offshore wind development.",
-  "geography": ["PH"],
-  "pathwayType": "Direct Policy",
+  "geography": {
+    "country": ["PH"]
+  },
+  "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "sectors": [
@@ -55,13 +64,10 @@
     "electrification": "Moderate increase",
     "policyTypes": ["Subsidies", "Target technology shares", "Other"],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "Minor technology deployment",
     "emissionsScope": "CO2e (unspecified GHGs)",
     "policyAmbition": "Current and drafted policies",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
     "newTechnologiesIncluded": ["Battery storage"],
-    "supplyChain": "No information",
-    "investmentNeeds": "By sector, part of value chain",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "By sector, part of value chain"
   }
 }

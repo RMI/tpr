@@ -1,0 +1,82 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "UNSDSN-CW-OEP-PH-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonizing the Philippine Power Sector"
+    },
+    "author": [
+      "Ma. Joy Abrenica",
+      "Justin Chan",
+      "Laarni Escresa",
+      "Kenmore Espinoza",
+      "Karl Jandoc",
+      "Michael Pedrasa",
+      "Penny Laine Sokoken"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/AGF%20-%20Philippines%202.2%20Report%20-%20release.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Optimized Existing Policy Pathway PH",
+    "short": "OEP PH"
+  },
+  "description": "Philippines-specific least-cost pathway to achieve current policy targets.",
+  "geography": {
+    "country": ["PH"]
+  },
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2060,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Renewables",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Optimized Existing Policy (OEP) scenario models the Philippine power system under the same policy environment and structural constraints defined in the Philippine Energy Plan (PEP) but applies a least-cost optimization to determine the most economically efficient mix of technologies over time. Using the Low Emission Analysis Platform (LEAP) model’s optimization module, it determines the most cost-efficient configuration of generation and dispatch that satisfies national demand growth, existing renewable energy targets, and current policy constraints. \n\nUnlike scenarios that rely on fixed capacity additions, the OEP pathway allows the model to autonomously select and dispatch technologies based on their cost, availability, and policy compliance, revealing how the system could evolve if investment and operational decisions were made purely on the basis of economic efficiency. \n\nAlthough OEP shares the same policy assumptions as the Simulated Existing Policy (SEP) pathway from the same developers, it differs fundamentally in its method of determining the future system composition. While SEP reflects policy-driven and market-informed build-out patterns, OEP illustrates the cost-optimal evolution of the power sector within those same policy boundaries. This makes OEP a valuable lens for understanding the cost savings of accelerated renewable energy uptake, identifying cost-efficient transition opportunities, and assessing how current Philippine policies might interact with least-cost pathways over time.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nOEP is shaped by the same policy environment as SEP but allows the model to select the lowest-cost generation mix, accelerating renewable deployment and reducing emissions. Cost-optimized dispatch and technology choices drive overall efficiency and lower system costs, while still operating within current institutional constraints.\n\n*Policies:* The scenario assumes full implementation of existing renewable energy policies in the Philippines, but no new fiscal or regulatory interventions beyond the Philippine PEP. \n\n*Technology deployment:* Greater reliance on onshore and offshore wind supported by limited gas-fired balancing capacity enables lower-cost decarbonization. By 2060, total capacity reaches 293 GW, driven by accelerated deployment of wind and solar, which together account for 70% of generation. \n\n*Technology cost:* The scenario uses a least-cost approach to the selection of technologies, which steers investment toward lower-cost renewable generation and away from more expensive fossil assets. This optimization results in faster renewable deployment, reduced reliance on aging coal plants, and a lower overall system cost compared to a policy-driven build-out.\n\n#### Application to Transition Assessment\n\nThe OEP scenario provides a cost-optimized baseline for transition analysis in the Philippine power sector, modeling how the system could evolve under existing policies if investment and dispatch decisions follow least-cost pathways rather than predetermined build-out plans. OEP offers a benchmark for assessing how corporate targets, investment plans, and technology choices align with both existing regulations and the most economically efficient pathway implied by those regulations.\n\nThis pathway can inform financial institutions by highlighting the potential cost advantages of accelerated renewable energy deployment even without new policy incentives. This makes it particularly relevant for assessing capital efficiency in new generation investments.\n\nCompanies that do not keep pace with the modelled retirement of older fossil units and the addition of new renewable capacity in OEP may be exposed to growing competitiveness risks as lower-cost renewable technologies expand. Conversely, companies moving more aggressively than OEP may face uncertainty, as the enabling policy and infrastructure environment may not yet support accelerated deployment. \n\nThe OEP scenario provides annual projections for power capacity, electricity generation, and emissions using a moderately detailed technology breakdown, including coal, natural gas (OCGT and CCGT), solar PV, onshore and offshore wind, geothermal, hydro (run-of-river and dam), biomass, battery storage, and pumped storage. These outputs allow users to benchmark corporate plans against modeled trends in technology deployment, fossil phaseout, renewable penetration, and system-level emissions trajectories.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Low or no change",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Target technology shares",
+      "Phaseout dates",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "Decrease",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "Current and drafted policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": ["Battery storage"],
+    "investmentNeeds": "By technology"
+  }
+}

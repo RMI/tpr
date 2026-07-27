@@ -33,7 +33,7 @@ function makeAjv(schemas: readonly (object | SchemaObject)[]) {
     errors: false,
   });
 
-  for (const s of schemas) ajv.addSchema(s as SchemaObject);
+  for (const s of schemas) ajv.addSchema(s);
   return ajv;
 }
 

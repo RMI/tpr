@@ -53,9 +53,9 @@ export default function NormalizedStackedAreaChart({
   data,
   width = 600,
   height = 400,
-  marginTop = 40,
+  marginTop = 20,
   marginRight = 80,
-  marginBottom = 30,
+  marginBottom = 55,
   marginLeft = 40,
   sector = "power",
   metric = "technologyMix",
@@ -64,11 +64,15 @@ export default function NormalizedStackedAreaChart({
     data.data.filter((d) => d.sector === sector && d.metric === metric),
   );
 
+  const chartTitle = useMemo(() => {
+    const unit = d3data[0]?.unit ?? "";
+    return `${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`;
+  }, [d3data, sector, metric]);
+
   const ref = useRef<SVGSVGElement>(null);
   const gx = useRef<SVGGElement>(null);
   const gy = useRef<SVGGElement>(null);
   const areas = useRef<SVGGElement>(null);
-  const title = useRef<SVGGElement>(null);
   const legend = useRef<SVGGElement>(null);
 
   // Memoize scales and data transformations
@@ -137,7 +141,6 @@ export default function NormalizedStackedAreaChart({
       !gx.current ||
       !gy.current ||
       !areas.current ||
-      !title.current ||
       !legend.current ||
       !chartSetup
     )
@@ -151,19 +154,6 @@ export default function NormalizedStackedAreaChart({
       xticks,
       technologies,
     } = chartSetup;
-
-    // Update title
-    const unit = d3data[0]?.unit || "";
-    select(title.current)
-      .selectAll("text")
-      .data([`${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`])
-      .join("text")
-      .attr("x", width / 2)
-      .attr("y", marginTop - 10)
-      .attr("text-anchor", "middle")
-      .attr("font-size", "16px")
-      .attr("font-weight", "bold")
-      .text((d) => d);
 
     // Add legend
     const legendItems = select(legend.current)
@@ -200,7 +190,12 @@ export default function NormalizedStackedAreaChart({
       .transition()
       .duration(750)
       .call(axisBottom(x).tickValues(xticks))
-      .style("font-size", "14px");
+      .style("font-size", "14px")
+      .selectAll("text")
+      .attr("transform", "rotate(-45)")
+      .attr("text-anchor", "end")
+      .attr("dx", "-0.5em")
+      .attr("dy", "0.15em");
 
     // Update Y axis
     select(gy.current)
@@ -225,22 +220,26 @@ export default function NormalizedStackedAreaChart({
   }, [d3data, chartSetup, sector, metric, marginRight, marginTop, width]);
 
   return (
-    <svg
-      ref={ref}
-      width={width}
-      height={height}
-    >
-      <g ref={title} />
-      <g ref={legend} />
-      <g
-        ref={gx}
-        transform={`translate(0, ${height - marginBottom})`}
-      />
-      <g
-        ref={gy}
-        transform={`translate(${marginLeft}, 0)`}
-      />
-      <g ref={areas} />
-    </svg>
+    <div className="flex flex-col items-center">
+      <p className="text-sm font-bold text-center w-full px-2 break-words mb-1">
+        {chartTitle}
+      </p>
+      <svg
+        ref={ref}
+        width={width}
+        height={height}
+      >
+        <g ref={legend} />
+        <g
+          ref={gx}
+          transform={`translate(0, ${height - marginBottom})`}
+        />
+        <g
+          ref={gy}
+          transform={`translate(${marginLeft}, 0)`}
+        />
+        <g ref={areas} />
+      </svg>
+    </div>
   );
 }

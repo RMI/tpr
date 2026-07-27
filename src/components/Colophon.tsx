@@ -70,11 +70,8 @@ const Colophon: React.FC<ColophonProps> = ({
     const sections = {
       "Build Info": {
         "App Version": getEnvValue("VITE_APP_VERSION"),
-        "Git SHA": getEnvValue("VITE_GIT_SHA"),
-        "Branch": getEnvValue("VITE_GIT_BRANCH"),
-        "Working Directory Clean": String(getEnvValue("VITE_GIT_CLEAN")),
-        "Environment": getEnvValue("VITE_ENVIRONMENT", "development"),
-        "Build Time": getEnvValue("VITE_BUILD_TIME"),
+        "Build ID": getEnvValue("VITE_BUILD_ID"),
+        "Git SHA": getEnvValue("VITE_GIT_SHA").slice(0, 7),
         "Node Version": getEnvValue("VITE_NODE_VERSION"),
         "Vite Version": getEnvValue("VITE_VERSION"),
       },
@@ -84,26 +81,6 @@ const Colophon: React.FC<ColophonProps> = ({
         "Device Pixel Ratio": systemInfo.devicePixelRatio,
         "Language": systemInfo.language,
         "Connection": systemInfo.connectionType,
-      },
-      "GitHub Build Info": {
-        "Actor": getEnvValue("VITE_GITHUB_ACTOR"),
-        "Event": getEnvValue("VITE_GITHUB_EVENT_NAME"),
-        "Repository": getEnvValue("VITE_GITHUB_REPOSITORY"),
-        "Ref": getEnvValue("VITE_GITHUB_REF"),
-        "Merge SHA": getEnvValue("VITE_GITHUB_SHA"),
-        "Head SHA": getEnvValue("VITE_GITHUB_HEAD_SHA"),
-        "Workflow": getEnvValue("VITE_GITHUB_WORKFLOW"),
-        "Workflow Ref": getEnvValue("VITE_GITHUB_WORKFLOW_REF"),
-        "Workflow SHA": getEnvValue("VITE_GITHUB_WORKFLOW_SHA"),
-        "Run ID": getEnvValue("VITE_GITHUB_RUN_ID"),
-        "Run Number": getEnvValue("VITE_GITHUB_RUN_NUMBER"),
-        "Run Attempt": getEnvValue("VITE_GITHUB_RUN_ATTEMPT"),
-      },
-      "Build Machine Info": {
-        "Machine Name": getEnvValue("VITE_BUILD_MACHINE_NAME"),
-        "OS": getEnvValue("VITE_BUILD_OS"),
-        "OS Version": getEnvValue("VITE_BUILD_OS_VERSION"),
-        "Architecture": getEnvValue("VITE_BUILD_ARCH"),
       },
     };
 
@@ -167,17 +144,10 @@ const Colophon: React.FC<ColophonProps> = ({
           <h4 className="font-medium mb-1">Build Info</h4>
           <ul className="list-none text-s">
             <li>App Version: {import.meta.env["VITE_APP_VERSION"] ?? "N/A"}</li>
-            <li>Git SHA: {import.meta.env["VITE_GIT_SHA"] ?? "N/A"}</li>
-            <li>Branch: {import.meta.env["VITE_GIT_BRANCH"] ?? "N/A"}</li>
+            <li>Build ID: {import.meta.env["VITE_BUILD_ID"] ?? "N/A"}</li>
             <li>
-              Working Directory Clean:{" "}
-              {String(import.meta.env["VITE_GIT_CLEAN"])}
+              Git SHA: {import.meta.env["VITE_GIT_SHA"]?.slice(0, 7) ?? "N/A"}
             </li>
-            <li>
-              Environment:{" "}
-              {import.meta.env["VITE_ENVIRONMENT"] ?? "development"}
-            </li>
-            <li>Build Time: {import.meta.env["VITE_BUILD_TIME"] ?? "N/A"}</li>
             <li>
               Node Version: {import.meta.env["VITE_NODE_VERSION"] ?? "N/A"}
             </li>
@@ -193,55 +163,6 @@ const Colophon: React.FC<ColophonProps> = ({
             <li>Device Pixel Ratio: {systemInfo.devicePixelRatio}</li>
             <li>Language: {systemInfo.language}</li>
             <li>Connection: {systemInfo.connectionType}</li>
-          </ul>
-        </div>
-
-        <div className="mb-3">
-          <h4 className="font-medium mb-1">GitHub Build Info</h4>
-          <ul className="list-none text-s">
-            <li>Actor: {import.meta.env["VITE_GITHUB_ACTOR"] ?? "N/A"}</li>
-            <li>Event: {import.meta.env["VITE_GITHUB_EVENT_NAME"] ?? "N/A"}</li>
-            <li>
-              Repository: {import.meta.env["VITE_GITHUB_REPOSITORY"] ?? "N/A"}
-            </li>
-            <li>Ref: {import.meta.env["VITE_GITHUB_REF"] ?? "N/A"}</li>
-            <li>Merge SHA: {import.meta.env["VITE_GITHUB_SHA"] ?? "N/A"}</li>
-            <li>
-              Head SHA: {import.meta.env["VITE_GITHUB_HEAD_SHA"] ?? "N/A"}
-            </li>
-            <li>
-              Workflow: {import.meta.env["VITE_GITHUB_WORKFLOW"] ?? "N/A"}
-            </li>
-            <li>
-              Workflow Ref:{" "}
-              {import.meta.env["VITE_GITHUB_WORKFLOW_REF"] ?? "N/A"}
-            </li>
-            <li>
-              Workflow SHA:{" "}
-              {import.meta.env["VITE_GITHUB_WORKFLOW_SHA"] ?? "N/A"}
-            </li>
-            <li>Run ID: {import.meta.env["VITE_GITHUB_RUN_ID"] ?? "N/A"}</li>
-            <li>
-              Run Number: {import.meta.env["VITE_GITHUB_RUN_NUMBER"] ?? "N/A"}
-            </li>
-            <li>
-              Run Attempt: {import.meta.env["VITE_GITHUB_RUN_ATTEMPT"] ?? "N/A"}
-            </li>
-          </ul>
-        </div>
-
-        <div className="mb-3">
-          <h4 className="font-medium mb-1">Build Machine Info</h4>
-          <ul className="list-none text-s">
-            <li>
-              Machine Name:{" "}
-              {import.meta.env["VITE_BUILD_MACHINE_NAME"] ?? "N/A"}
-            </li>
-            <li>OS: {import.meta.env["VITE_BUILD_OS"] ?? "N/A"}</li>
-            <li>
-              OS Version: {import.meta.env["VITE_BUILD_OS_VERSION"] ?? "N/A"}
-            </li>
-            <li>Architecture: {import.meta.env["VITE_BUILD_ARCH"] ?? "N/A"}</li>
           </ul>
         </div>
       </div>

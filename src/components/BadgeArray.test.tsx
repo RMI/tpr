@@ -11,10 +11,10 @@ describe("BadgeArray", () => {
   });
 
   it("applies a single variant to all badges", () => {
-    render(<BadgeArray variant="sector">{["Power", "Transport"]}</BadgeArray>);
+    render(<BadgeArray variant="sector">{["Power", "Aviation"]}</BadgeArray>);
     const power = screen.getByText("Power").closest("span") as HTMLElement;
     const transport = screen
-      .getByText("Transport")
+      .getByText("Aviation")
       .closest("span") as HTMLElement;
     expect(power).toHaveClass("bg-solar-100");
     expect(power).toHaveClass("text-solar-800");
@@ -63,7 +63,7 @@ describe("BadgeArray", () => {
     expect(() =>
       render(
         <BadgeArray variant={["sector"] as string[]}>
-          {["Power", "Transport"]}
+          {["Power", "Aviation"]}
         </BadgeArray>,
       ),
     ).toThrow(/length must match/);

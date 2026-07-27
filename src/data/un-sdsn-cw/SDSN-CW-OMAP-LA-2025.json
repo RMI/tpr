@@ -29,12 +29,13 @@
     "short": "OMAP LA"
   },
   "description": "Pathway balancing high renewables uptake with minimal coal use and reduced hydropower investment.",
-  "geography": ["LA"],
+  "geography": {
+    "country": ["LA"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
-  "ssp": "SSP2",
   "sectors": [
     {
       "name": "Power",
@@ -56,13 +57,10 @@
     "electrification": "Significant increase",
     "policyTypes": ["Target technology shares", "Phaseout dates"],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "No information",
     "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Normative/Optimization-based",
+    "policyAmbition": "High ambition policies",
     "technologyCostsDetail": "Total costs",
     "newTechnologiesIncluded": ["No information"],
-    "supplyChain": "No information",
-    "investmentNeeds": "Total investment",
-    "infrastructureRequirements": "No information"
+    "investmentNeeds": "Total investment"
   }
 }

@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { Link } from "react-router-dom";
 import BadgeArray from "./BadgeArray";
 import {
+  flattenGeography,
   geographyKind,
   geographyLabel,
   geographyVariant,
@@ -9,11 +10,21 @@ import {
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import { PathwayMetadataType } from "../types";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Plus, Check, Info } from "lucide-react";
 import HighlightedText from "./HighlightedText";
 import { prioritizeMatches, prioritizeGeographies } from "../utils/sortUtils";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
 import getTemperatureColor from "../utils/getTemperatureColor";
+import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
+import { index } from "../data/index.gen";
+import {
+  pathwayToolAvailability,
+  sortByAvailability,
+  GEOGRAPHY_AVAILABILITY_TOOLTIP,
+  SECTOR_AVAILABILITY_TOOLTIP,
+  METRIC_AVAILABILITY_TOOLTIP,
+} from "../utils/timeseriesAvailability";
+import TextWithTooltip from "./TextWithTooltip";
 
 interface PathwayCardProps {
   pathway: PathwayMetadataType;
@@ -27,19 +38,45 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
   pathway,
   searchTerm = "",
 }) => {
-  // Sort geography and sectors to prioritize matches
+  const {
+    addToComparison,
+    removeFromComparison,
+    isInComparison,
+    comparedPathwayIds,
+    ribbonExpanded,
+  } = useComparison();
+  const inComparison = isInComparison(pathway.id);
+  const comparisonFull =
+    comparedPathwayIds.length >= MAX_COMPARED && !inComparison;
+  const availability = useMemo(
+    () => pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
+    [pathway.id],
+  );
+
+  // Sort geography and sectors to prioritize matches, then by availability
   const sortedGeography = useMemo(
     () =>
-      prioritizeGeographies(
-        sortGeographiesForDetails(pathway.geography),
-        searchTerm,
+      sortByAvailability(
+        prioritizeGeographies(
+          sortGeographiesForDetails(flattenGeography(pathway.geography)),
+          searchTerm,
+        ),
+        (geo) => availability.hasGeography(geo),
       ),
-    [pathway.geography, searchTerm],
+    [pathway.geography, searchTerm, availability],
   );
 
   const sortedSectors = useMemo(
-    () => prioritizeMatches(pathway.sectors, searchTerm),
-    [pathway.sectors, searchTerm],
+    () =>
+      sortByAvailability(prioritizeMatches(pathway.sectors, searchTerm), (s) =>
+        availability.hasSector(s.name),
+      ),
+    [pathway.sectors, searchTerm, availability],
+  );
+
+  const sortedMetrics = useMemo(
+    () => sortByAvailability(pathway.metric, (m) => availability.hasMetric(m)),
+    [pathway.metric, availability],
   );
 
   // Helper function to conditionally highlight text based on search term
@@ -128,14 +165,26 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
 
         {/* Geographies section with dynamic badge count */}
         <div className="mb-3">
-          <p className="text-xs font-medium text-rmigray-500 mb-1">
+          <p className="text-xs font-medium text-rmigray-500 mb-1 flex items-center gap-1">
             Geographies:
+            <TextWithTooltip
+              text={
+                <Info
+                  size={12}
+                  className="text-rmigray-400 cursor-help"
+                />
+              }
+              tooltip={GEOGRAPHY_AVAILABILITY_TOOLTIP}
+              ariaLabel="Geography availability information"
+              position="right"
+            />
           </p>
           <div className="flex flex-wrap">
             <BadgeArray
-              variant={sortedGeography.map(
-                (geo) => geographyVariant(geographyKind(geo)) as string,
-              )}
+              variant={sortedGeography.map((geo) => {
+                const base = geographyVariant(geographyKind(geo));
+                return availability.hasGeography(geo) ? base : `${base}-pub`;
+              })}
               toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
               renderLabel={(label) => highlightTextIfSearchMatch(label)}
               maxRows={2}
@@ -147,10 +196,25 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
 
         {/* Sectors section with dynamic badge count */}
         <div className="mb-3">
-          <p className="text-xs font-medium text-rmigray-500 mb-1">Sectors:</p>
+          <p className="text-xs font-medium text-rmigray-500 mb-1 flex items-center gap-1">
+            Sectors:
+            <TextWithTooltip
+              text={
+                <Info
+                  size={12}
+                  className="text-rmigray-400 cursor-help"
+                />
+              }
+              tooltip={SECTOR_AVAILABILITY_TOOLTIP}
+              ariaLabel="Sector availability information"
+              position="right"
+            />
+          </p>
           <div className="flex flex-wrap">
             <BadgeArray
-              variant="sector"
+              variant={sortedSectors.map((s) =>
+                availability.hasSector(s.name) ? "sector" : "sector-pub",
+              )}
               tooltipGetter={getSectorTooltip}
               renderLabel={(label) => highlightTextIfSearchMatch(label)}
               maxRows={2}
@@ -162,17 +226,30 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
 
         {/* Metrics section with dynamic badge count */}
         <div className="mb-3">
-          <p className="text-xs font-medium text-rmigray-500 mb-1">
+          <p className="text-xs font-medium text-rmigray-500 mb-1 flex items-center gap-1">
             Benchmark Metrics:
+            <TextWithTooltip
+              text={
+                <Info
+                  size={12}
+                  className="text-rmigray-400 cursor-help"
+                />
+              }
+              tooltip={METRIC_AVAILABILITY_TOOLTIP}
+              ariaLabel="Benchmark metric availability information"
+              position="right"
+            />
           </p>
           <div className="flex flex-wrap">
             <BadgeArray
-              variant="metric"
+              variant={sortedMetrics.map((m) =>
+                availability.hasMetric(m) ? "metric" : "metric-pub",
+              )}
               tooltipGetter={getMetricTooltip}
               renderLabel={(label) => highlightTextIfSearchMatch(label)}
               maxRows={2}
             >
-              {pathway.metric}
+              {sortedMetrics}
             </BadgeArray>
           </div>
         </div>
@@ -201,10 +278,10 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
               </p>
             </div>
           </div>
-          <div className="flex flex-col">
+          <div className="flex gap-2">
             <Link
               to={`/pathway/${pathway.id}`}
-              className="bg-rmiblue-100 hover:bg-rmiblue-200 transition-colors duration-200 h-12 flex items-center justify-center w-full"
+              className="bg-rmiblue-100 hover:bg-rmiblue-200 transition-colors duration-200 h-12 flex items-center justify-center flex-1"
             >
               <span className="text-bluespruce font-medium">View Details</span>
               <ChevronRight
@@ -212,6 +289,41 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
                 className="ml-2 text-bluespruce"
               />
             </Link>
+            {ribbonExpanded && (
+              <button
+                type="button"
+                onClick={() =>
+                  inComparison
+                    ? removeFromComparison(pathway.id)
+                    : addToComparison(pathway.id)
+                }
+                disabled={comparisonFull}
+                aria-label={
+                  inComparison
+                    ? "Remove from comparison"
+                    : comparisonFull
+                      ? "Comparison full (max 3)"
+                      : "Add to comparison"
+                }
+                aria-pressed={inComparison}
+                title={
+                  inComparison
+                    ? "Remove from comparison"
+                    : comparisonFull
+                      ? "Comparison full (max 3)"
+                      : "Add to comparison"
+                }
+                className={`h-12 w-12 flex-shrink-0 flex items-center justify-center border transition-colors duration-200 ${
+                  inComparison
+                    ? "bg-bluespruce border-bluespruce text-white hover:bg-energy hover:border-energy"
+                    : comparisonFull
+                      ? "bg-neutral-100 border-neutral-200 text-neutral-300 cursor-not-allowed"
+                      : "bg-white border-neutral-200 text-rmigray-500 hover:bg-rmiblue-50 hover:border-rmiblue-300 hover:text-bluespruce"
+                }`}
+              >
+                {inComparison ? <Check size={18} /> : <Plus size={18} />}
+              </button>
+            )}
           </div>
         </div>
       </div>

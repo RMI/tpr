@@ -207,6 +207,7 @@ async function main() {
       let rowCount = 0;
       const sectors = new Set<string>();
       const geos = new Set<string>();
+      const metrics = new Set<string>();
 
       for (const row of rawData as any[]) {
         rowCount++;
@@ -232,14 +233,24 @@ async function main() {
               ? row.region
               : undefined;
         if (g) geos.add(g);
+        // Unique metrics
+        if (typeof row?.metric === "string" && row.metric)
+          metrics.add(row.metric);
       }
 
       if (rowCount > 0) computed.rowCount = rowCount;
       if (minYear !== undefined && maxYear !== undefined) {
         computed.yearRange = [minYear, maxYear];
       }
-      if (sectors.size > 0) computed.sectorCount = sectors.size;
-      if (geos.size > 0) computed.geographyCount = geos.size;
+      if (sectors.size > 0) {
+        computed.sectorCount = sectors.size;
+        computed.sectors = [...sectors].sort();
+      }
+      if (geos.size > 0) {
+        computed.geographyCount = geos.size;
+        computed.geographies = [...geos].sort();
+      }
+      if (metrics.size > 0) computed.metrics = [...metrics].sort();
     }
 
     // Merge with any author-provided summary in the file (computed wins on conflicts)

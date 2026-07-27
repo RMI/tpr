@@ -22,7 +22,9 @@
     "short": "CIPP"
   },
   "description": "Power transition strategy driven by managed coal phasedown and renewables scale-up.",
-  "geography": ["ID"],
+  "geography": {
+    "country": ["ID"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
@@ -60,16 +62,14 @@
       "Phaseout dates",
       "Target technology shares",
       "Subsidies",
+      "Performance standards",
       "Other"
     ],
     "technologyCostTrend": "Decrease",
-    "technologyDeploymentTrend": "Minor technology deployment",
     "emissionsScope": "CO2",
-    "policyAmbition": "Normative/Optimization-based",
+    "policyAmbition": "High ambition policies",
     "technologyCostsDetail": "Capital costs, O&M, etc.",
     "newTechnologiesIncluded": ["Battery storage", "CCUS", "Green H2/ammonia"],
-    "supplyChain": "Static input or fuel price",
-    "investmentNeeds": "By tech, part of value chain",
-    "infrastructureRequirements": "By part of supply chain"
+    "investmentNeeds": "By tech, part of value chain"
   }
 }

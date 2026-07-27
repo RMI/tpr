@@ -13,9 +13,9 @@ export type Label = import("./common/label.v1").LabelV1;
  */
 export type Publication = import("./common/publication.v1").PublicationV1;
 /**
- * A single geography identifier used across schemas. Accepts 'Global', ISO-3166-1 alpha-2 country codes (e.g., 'US', 'DE'), or a set of region names (e.g., 'East Asia and Pacific', 'North America'). Any 2-letter items in the array will be treated as an ISO code. Any 2-letter entries that do not map to a country will throw errors (EU). Do not use full country names, only ISO alpha-2 codes. To avoid typographical errors, items may not be 3 letters long (USA)
+ * Geographical areas that the pathway covers.
  */
-export type GeographyItem = import("./common/geographyItem.v1").GeographyItemV1;
+export type Geography = import("./common/geography.v1").GeographyV1;
 /**
  * Defines which greenhouse gases are covered in the pathway's modeled emissions.
  */
@@ -43,15 +43,11 @@ export interface PathwayMetadataV1 {
   /**
    * Type of the pathway pathway.
    */
-  pathwayType: "Normative" | "Exploratory" | "Direct Policy" | "Predictive";
+  pathwayType: "Normative" | "Exploratory" | "Predictive";
   /**
    * Year by which net zero is reached in the pathway. If Pathway does not reach net zero, this field should be omitted.
    */
   modelYearNetzero?: number;
-  /**
-   * Carbon budget of the pathway in gigatons of CO2 equivalent (GtCO2eq). If no carbon budget is defined, this field should be omitted. If the carbon budget is not applicable, it should be set to 0.
-   */
-  carbonBudget?: number;
   /**
    * Year from which the model starts.
    */
@@ -64,14 +60,7 @@ export interface PathwayMetadataV1 {
    * Modeled temperature increase expected by the pathway (in degrees Celsius).
    */
   modelTempIncrease?: number;
-  /**
-   * Shared Socioeconomic Pathways (SSP) associated with the pathway.
-   */
-  ssp?: "SSP1" | "SSP2" | "SSP3" | "SSP4" | "SSP5";
-  /**
-   * Geographical areas that the pathway covers.
-   */
-  geography: GeographyItem[];
+  geography: Geography;
   /**
    * Sectors that the pathway covers.
    */
@@ -83,7 +72,6 @@ export interface PathwayMetadataV1 {
       | "Land Use"
       | "Agriculture"
       | "Buildings"
-      | "Industry"
       | "Steel"
       | "Cement"
       | "Chemicals"
@@ -92,8 +80,6 @@ export interface PathwayMetadataV1 {
       | "Gas (Upstream)"
       | "Power"
       | "Automotive"
-      | "Transport"
-      | "Road transport"
       | "Aviation"
       | "Rail"
       | "Shipping"
@@ -204,6 +190,8 @@ export interface PathwayMetadataV1 {
     policyTypes: [
       (
         | "Carbon price"
+        | "Feed-in tariffs"
+        | "Performance standards"
         | "Phaseout dates"
         | "Subsidies"
         | "Target technology shares"
@@ -212,6 +200,8 @@ export interface PathwayMetadataV1 {
       ),
       ...(
         | "Carbon price"
+        | "Feed-in tariffs"
+        | "Performance standards"
         | "Phaseout dates"
         | "Subsidies"
         | "Target technology shares"
@@ -223,19 +213,7 @@ export interface PathwayMetadataV1 {
      * Describes how technology costs evolve over time, from static cost assumptions to rapidly declining costs (e.g., via learning curves).
      */
     technologyCostTrend:
-      | "No information"
-      | "Increase"
-      | "Low or no change"
-      | "Decrease";
-    /**
-     * Indicates the scale and pace of new technology adoption within the pathway, where significant deployment means that several new technologies are adopted rapidly
-     */
-    technologyDeploymentTrend:
-      | "No information"
-      | "No new technologies deployed"
-      | "Minor technology deployment"
-      | "Moderate technology deployment"
-      | "Signif. technology deployment";
+      "No information" | "Increase" | "Low or no change" | "Decrease";
     emissionsScope: EmissionsScope;
     /**
      * Represents the overall stringency and intent of modeled policies relative to climate targets, often reflecting if and how far the included policies go beyond currently legislated ones
@@ -247,7 +225,7 @@ export interface PathwayMetadataV1 {
       | "Current and drafted policies"
       | "NDCs, unconditional only"
       | "NDCs incl. conditional targets"
-      | "Normative/Optimization-based"
+      | "High ambition policies"
       | "Other policy ambition";
     /**
      * Specifies the level of granularity in cost data, such as total system costs or detailed CAPEX/OPEX breakdowns.
@@ -287,14 +265,6 @@ export interface PathwayMetadataV1 {
       )[],
     ];
     /**
-     * Describes how upstream fuel or material price dynamics are represented in the pathway.
-     */
-    supplyChain:
-      | "No information"
-      | "Static input or fuel price"
-      | "Exogenous input or fuel price"
-      | "Endogenous input or fuel price";
-    /**
      * Summarizes how investment requirements are quantified, from total system to sector-level or supply-chain detail.
      */
     investmentNeeds:
@@ -304,12 +274,5 @@ export interface PathwayMetadataV1 {
       | "By sector, part of value chain"
       | "By technology"
       | "By tech, part of value chain";
-    /**
-     * Describes how infrastructure buildout and maintenance needs are represented across the supply chain.
-     */
-    infrastructureRequirements:
-      | "No information"
-      | "By part of supply chain"
-      | "By supply chain, add/replace";
   };
 }

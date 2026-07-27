@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import Header from "./Header";
 
@@ -28,5 +29,38 @@ describe("Header component", () => {
     renderHeader();
     const logo = screen.getByAltText("RMI logo");
     expect(logo).toBeInTheDocument();
+  });
+
+  it("shows Resources dropdown links", async () => {
+    renderHeader();
+    const user = userEvent.setup();
+
+    expect(
+      screen.getByRole("link", { name: "Contact Us" }),
+    ).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: /resources/i }));
+    const resourcesNav = screen.getByRole("navigation", { name: "Resources" });
+
+    const menuLinks = within(resourcesNav).getAllByRole("link");
+    expect(menuLinks[0]).toHaveTextContent("How to choose a pathway");
+
+    expect(
+      within(resourcesNav).getByRole("link", { name: "Methodology" }),
+    ).toBeInTheDocument();
+    expect(
+      within(resourcesNav).getByRole("link", { name: "Use cases" }),
+    ).toBeInTheDocument();
+    expect(
+      within(resourcesNav).getByRole("link", {
+        name: "How to choose a pathway",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      within(resourcesNav).getByRole("link", { name: "FAQs" }),
+    ).toBeInTheDocument();
+    expect(
+      within(resourcesNav).getByRole("link", { name: "Updates" }),
+    ).toBeInTheDocument();
   });
 });

@@ -136,7 +136,6 @@ describe("SearchSection", () => {
     openByLabel("Sector");
 
     openByLabel("Pathway Type");
-    expect(screen.getByText("Direct Policy")).toBeInTheDocument();
     expect(screen.getByText("Exploratory")).toBeInTheDocument();
     expect(screen.getByText("Normative")).toBeInTheDocument();
     expect(screen.getByText("Predictive")).toBeInTheDocument();

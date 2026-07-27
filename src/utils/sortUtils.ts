@@ -43,12 +43,7 @@ export const prioritizeGeographies = (
 };
 
 // Utility for sorting pathway types according to a fixed order
-export const pathwayTypeOrder = [
-  "Predictive",
-  "Exploratory",
-  "Normative",
-  "Direct Policy",
-];
+export const pathwayTypeOrder = ["Predictive", "Exploratory", "Normative"];
 
 export function sortPathwayType<T extends { title: string }>(arr: T[]): T[] {
   return arr.slice().sort((a, b) => {

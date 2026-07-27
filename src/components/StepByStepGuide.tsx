@@ -87,10 +87,9 @@ const StepByStepGuide: React.FC<StepByStepGuideProps> = ({
 
   const descriptions: Record<string, Record<string, string>> = {
     pathwayType: {
-      "Direct Policy": "Sourced directly from policy frameworks",
-      "Exploratory": "Future states under explicit assumptions",
-      "Normative": "Pre-determined target outcome",
-      "Predictive": "Extrapolates from current trends",
+      Exploratory: "Future states under explicit assumptions",
+      Normative: "Pre-determined target outcome",
+      Predictive: "Extrapolates from current trends",
     },
     emissionsTrajectory: {
       "Significant increase": "Grow more than 50% by 2050",
@@ -169,9 +168,10 @@ const StepByStepGuide: React.FC<StepByStepGuideProps> = ({
               "Policies to reach unconditional and/or conditional targets",
           },
           {
-            label: "Normative/Optimization-based",
-            values: ["Normative/Optimization-based"],
-            description: "Policies to reach a climate outcome",
+            label: "High ambition policies",
+            values: ["High ambition policies"],
+            description:
+              "Deep decarbonization targets (e.g. near or net zero, 1.5°C)",
           },
           {
             label: "Other policy ambition",

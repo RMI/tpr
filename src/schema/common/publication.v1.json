@@ -11,7 +11,7 @@
       "enum": [
         "ASEAN Centre for Energy",
         "Indonesia Just Energy Transition Partnership Secretariat",
-        "Institute for Essential Services Reform",
+        "Center for Global Sustainability and Institute for Essential Services Reform",
         "Electricity and Renewable Energy Authority in Viet Nam, Danish Energy Agency",
         "European Commission, Joint Research Centre",
         "Institute for Sustainable Futures, University of Technology Sydney",
@@ -28,7 +28,7 @@
       "enum": [
         "ACE",
         "IEA",
-        "IESR",
+        "CGS, IESR",
         "JETP ID",
         "JRC",
         "NGFS",
@@ -69,8 +69,10 @@
             },
             {
               "properties": {
-                "full": { "const": "Institute for Essential Services Reform" },
-                "short": { "const": "IESR" }
+                "full": {
+                  "const": "Center for Global Sustainability and Institute for Essential Services Reform"
+                },
+                "short": { "const": "CGS, IESR" }
               },
               "required": ["full", "short"]
             },

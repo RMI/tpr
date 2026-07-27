@@ -1,0 +1,84 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "UNSDSN-CW-MAP2-PH-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonizing the Philippine Power Sector"
+    },
+    "author": [
+      "Ma. Joy Abrenica",
+      "Justin Chan",
+      "Laarni Escresa",
+      "Kenmore Espinoza",
+      "Karl Jandoc",
+      "Michael Pedrasa",
+      "Penny Laine Sokoken"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/AGF%20-%20Philippines%202.2%20Report%20-%20release.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Most Ambitious Policy Scenario 2 PH",
+    "short": "MAP2 PH"
+  },
+  "description": "Philippines-specific renewable energy pathway achieving near-zero power sector emissions by 2060.",
+  "geography": {
+    "country": ["PH"]
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2060,
+  "modelYearNetzero": 2060,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Renewables",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe MAP2 scenario models a fully renewable power system without nuclear or fossil fuel generation capacity by 2060. It represents the upper bound of feasible transition ambition in the Philippines, incorporating the full social cost of carbon into system optimization. \n\nThe scenario assumes immediate prohibition of new coal and gas plants, and reliance solely on renewable technologies, particularly solar, onshore and offshore wind, hydro, biomass, and battery storage, to meet rising demand. As a result, all fossil fuel assets are retired by the late 2050s and the power system reaches zero direct emissions by 2060. \n\nThis scenario is also complemented by the MAP1 scenario from the same developers which includes a greater share of nuclear energy. Under the developer’s assumptions, MAP2’s total investment needs are three-fold those of MAP1, due to the significant overbuild of renewables deployed in MAP2 to account for solar and wind intermittency. \n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Fossil fuel constraints:* A key driver of this pathway is the constraint that no new fossil fueled plants may be built and all existing coal, gas, and diesel units must retire on accelerated schedules. This assumption necessitates a full shift to non-fossil capacity, driving large scale expansion of renewable technologies. \n\n*Technology mix:* Complete dependence on renewable and storage technologies demands unprecedented scaling of hydro, solar, and battery systems. By 2060, total capacity reaches 518 GW—more than double the complementary MAP1 scenario from the same developers—to compensate for intermittency and ensure grid reliability. Renewable generation reaches 100% of supply by 2060.\n\n#### Application to Transition Assessment\n\nThe MAP2 scenario provides an upper-bound benchmark for the rate of the transition in the Philippines with respect to renewables deployment. It is useful for evaluating ambition and feasibility of transition plans given it is effectively a ceiling on the rate of the transition. The MAP2 scenario highlights key dependencies for achieving a rapid transition, namely storage cost, energy policy, grid modernization, and financing requirements, that can guide financial institutions’ policy engagement and technology prioritization. \n\nGiven its ambition and cost intensity, MAP2 is not appropriate for near-term target-setting but provides valuable insight into structural requirements, innovation gaps, and infrastructure needs associated with a fully renewable electricity system. Power producers pursuing advanced storage, grid solutions, or high-penetration renewable portfolios may use MAP2 to identify long-term opportunities and constraints.\n\nThe MAP2 scenario provides annual projections for capacity, generation, and emissions across a detailed set of renewable and storage technologies, including solar PV, onshore wind, offshore wind, hydro, geothermal, biomass, and battery storage. This level of granularity supports analysis of project pipelines, technology choices, and system adequacy implications for companies operating within the Philippine market.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": [
+      "Carbon price",
+      "Target technology shares",
+      "Phaseout dates",
+      "Performance standards"
+    ],
+    "technologyCostTrend": "Decrease",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "High ambition policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": ["Battery storage"],
+    "investmentNeeds": "By technology"
+  }
+}

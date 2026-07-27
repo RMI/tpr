@@ -133,6 +133,10 @@ The commit summary used will appear in the release notes.
 The "released" version of the application is updated when the `production` branch is updated, but we can see pre-release versions by updating `main` (updates `x.x.x-dev.y`) or `next` (updates `x.x.x-rc.y`).
 When opening a Pull Request, an GitHub workflow will dry-run the release process and comment with a preview of the expected version tag and release notes.
 
+### Note on schemata
+
+At the moment, schemata are for internal use only and are treated as malleable. We do not consider a minor schema change a breaking change for external users at the moment. This is subject to change, once the use of the transition pathways repository requires it, e.g. once it has external consumers.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE.txt)
