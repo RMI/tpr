@@ -99,7 +99,18 @@ describe("selectedGeographyToISO", () => {
   });
 
   it("returns an empty ISO set for an unknown/legacy token (never throws)", () => {
-    for (const token of ["Europe", "South East Asia", "XX", "USA", ""]) {
+    // Includes Object.prototype keys: an `in` check would misread these as
+    // regions and throw on `new Set(fn)`; an own-property check must not.
+    for (const token of [
+      "Europe",
+      "South East Asia",
+      "XX",
+      "USA",
+      "",
+      "toString",
+      "constructor",
+      "hasOwnProperty",
+    ]) {
       const r = selectedGeographyToISO(token);
       expect(r).toEqual({ kind: "iso", iso: new Set() });
     }

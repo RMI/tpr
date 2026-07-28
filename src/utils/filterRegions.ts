@@ -106,7 +106,9 @@ export type SelectedGeography =
  */
 export function selectedGeographyToISO(value: string): SelectedGeography {
   if (value === ABSENT_FILTER_TOKEN) return { kind: "absent" };
-  if (value in FILTER_REGIONS) {
+  // Own-property check, not `in`: `in` walks the prototype chain, so tokens
+  // like "toString" would be misread as regions and throw on `new Set(fn)`.
+  if (Object.hasOwn(FILTER_REGIONS, value)) {
     return {
       kind: "iso",
       iso: new Set(FILTER_REGIONS[value as keyof typeof FILTER_REGIONS]),

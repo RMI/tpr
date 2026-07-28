@@ -8,10 +8,10 @@ export type GeographyKind = "global" | "region" | "country";
 // Flatten the structured geography object into the ordered flat token list the
 // rest of the app historically operated on: "Global" (when global) → region
 // labels → country codes. This intentionally does NOT expand region membership
-// into countries — the canonical region→country intersection is a later phase.
-// In the current dataset the `regions` member arrays are deliberately left
-// empty (regions are carried only as labels, matching the pre-migration flat
-// list), so this flattening reproduces exactly the tokens the app saw before.
+// into countries — it carries regions as their label only. ISO-overlap
+// geography matching (#797) reads the populated `regions` member arrays via
+// `pathwayISOCoverage` instead; this function is still used for display tokens
+// (badges, sort) and the "absent geography" check (`isGeographyAbsent`).
 // `geographyKind`/`geographyLabel`/`sortGeographiesForDetails` continue to work
 // on the individual string tokens this returns.
 export function flattenGeography(geo: Geography | null | undefined): string[] {
