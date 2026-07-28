@@ -30,7 +30,9 @@ export function flattenGeography(geo: Geography | null | undefined): string[] {
 // `global` flag is intentionally NOT expanded here — it is a separate boolean,
 // so a global-only pathway yields an empty coverage set (which is what makes
 // "a below-global filter never matches a global-only pathway" fall out for
-// free in the matcher). Invalid entries are dropped via `toISO2`.
+// free in the matcher). Entries that aren't recognised ISO-3166-1 alpha-2
+// codes are dropped (`toISO2` + a name lookup), so the result only ever holds
+// real country codes — matching the query side (`selectedGeographyToISO`).
 export function pathwayISOCoverage(
   geo: Geography | null | undefined,
 ): Set<GeographyCode> {
@@ -38,7 +40,7 @@ export function pathwayISOCoverage(
   if (!geo || typeof geo !== "object") return codes;
   const add = (raw: string) => {
     const iso = toISO2(raw);
-    if (iso) codes.add(iso as GeographyCode);
+    if (iso && countryNameFromISO2(iso)) codes.add(iso as GeographyCode);
   };
   if (geo.country) geo.country.forEach(add);
   if (geo.regions) {

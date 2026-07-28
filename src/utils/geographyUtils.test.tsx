@@ -219,9 +219,11 @@ describe("pathwayISOCoverage", () => {
   });
 
   it("drops invalid / non-ISO entries and handles missing/empty geography", () => {
-    expect([...pathwayISOCoverage({ country: ["US", "USA", ""] })]).toEqual([
-      "US",
-    ]);
+    // "USA" (3 letters) and "" fail toISO2; "ZZ" is two letters but not a real
+    // country, so it must be dropped too (result is only recognised codes).
+    expect([
+      ...pathwayISOCoverage({ country: ["US", "USA", "", "ZZ"] }),
+    ]).toEqual(["US"]);
     expect(pathwayISOCoverage(undefined).size).toBe(0);
     expect(pathwayISOCoverage({}).size).toBe(0);
     expect(pathwayISOCoverage({ regions: { X: [] } }).size).toBe(0);
