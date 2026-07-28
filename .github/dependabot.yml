@@ -9,6 +9,13 @@ updates:
         update-types:
           - "patch"
           - "minor"
+    ignore:
+      # Coupled to the conventional-changelog-writer version that
+      # semantic-release ships (currently v8). Preset v10 targets writer v9
+      # and renders empty release-note bodies under v8 (see PR #877).
+      # Only bump past v9 when semantic-release moves to writer v9.
+      - dependency-name: "conventional-changelog-conventionalcommits"
+        versions: [">=10"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
