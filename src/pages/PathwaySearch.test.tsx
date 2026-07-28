@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import PathwaySearch from "./PathwaySearch";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";

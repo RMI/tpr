@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import HeaderNav from "./HeaderNav";
 
 export const HeaderBrand: React.FC<{ to?: string }> = ({ to = "/" }) => {
