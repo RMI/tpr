@@ -73,31 +73,38 @@ describe("filterRegions config (#798)", () => {
     }
   });
 
-  it("honours the transcontinental / political assignments in the doc's tables", () => {
+  it("honours the transcontinental / political assignments (#798, product-owner confirmed)", () => {
     expect(FILTER_REGIONS["Europe (Continental)"]).toContain("RU"); // Russia
     expect(FILTER_REGIONS["Asia (Continental)"]).toContain("TR"); // Turkey
     expect(FILTER_REGIONS["Europe (Continental)"]).toContain("CY"); // Cyprus
     expect(FILTER_REGIONS["Asia (Continental)"]).not.toContain("CY");
-    // NOTE: the doc's prose edge-case summary says GL (Greenland) → Europe, but
-    // its membership TABLES place GL in America (Continental) / North America.
-    // We follow the tables (the actual deliverable); the contradiction is
-    // flagged for the product owner under #798.
+    // GL (Greenland): the doc's prose said Europe, but its tables — and the
+    // product owner's ruling under #798 — place Greenland in the Americas.
     expect(FILTER_REGIONS["America (Continental)"]).toContain("GL");
     expect(FILTER_REGIONS["North America"]).toContain("GL");
     expect(FILTER_REGIONS["Europe (Continental)"]).not.toContain("GL");
   });
 
-  it("leaves exactly the known continental coverage gaps uncovered", () => {
-    // The five continents partition the world MINUS these codes. AQ is an
-    // intentional exclusion (Antarctica). The rest are pending product-owner
-    // review (they appear in a sub-region but not their continent, or in no
-    // region at all) — pinned here so a future doc revision must update this
-    // list deliberately rather than silently. See #798.
+  it("applies the product-owner's #798 gap assignments", () => {
+    // Ruling from Jacob on the codes the doc left uncovered.
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("AR"); // Argentina
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("GS"); // S. Georgia
+    expect(FILTER_REGIONS["Africa (Continental)"]).toContain("EH"); // W. Sahara
+    expect(FILTER_REGIONS["Sub-Saharan Africa"]).toContain("EH");
+    expect(FILTER_REGIONS["Asia (Continental)"]).toContain("PS"); // Palestine
+    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("BQ"); // Bonaire
+    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("SX"); // Sint Maarten
+  });
+
+  it("leaves only the intended codes uncovered by the five continents", () => {
+    // Post-#798 the continents cover every code EXCEPT: AQ (Antarctica,
+    // intentionally unassigned) and the Caribbean territories BQ/SX, which the
+    // product owner placed in the "Central America & Caribbean" sub-region only
+    // (not the continental America bucket). Pinned so any future change is
+    // deliberate rather than silent.
     const covered = new Set(CONTINENTS.flatMap((c) => [...FILTER_REGIONS[c]]));
     const uncovered = [...ENUM].filter((c) => !covered.has(c)).sort();
-    expect(uncovered).toEqual(
-      ["AQ", "AR", "BQ", "EH", "GS", "PS", "SX"].sort(),
-    );
+    expect(uncovered).toEqual(["AQ", "BQ", "SX"].sort());
   });
 });
 

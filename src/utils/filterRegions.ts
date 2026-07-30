@@ -16,12 +16,12 @@
  * ({@link filterRegionToISO} / {@link selectedGeographyToISO}), so they are not
  * repeated in {@link FILTER_REGIONS}.
  *
- * Edge-case assignments follow the doc's membership TABLES: RU → Europe,
+ * Edge-case assignments (confirmed with the product owner, #798): RU → Europe,
  * TR → Asia, CY (Cyprus) → Europe, GL (Greenland) → America. (The doc's prose
- * summary says GL → Europe, contradicting its own tables; we follow the tables
- * and have flagged this for the product owner under #798.) AQ (Antarctica) is
- * intentionally unassigned — no permanent population or single sovereign
- * state — so it appears only under "Global".
+ * summary said GL → Europe, but its membership tables — and the product owner —
+ * place Greenland in the Americas.) AQ (Antarctica) is intentionally
+ * unassigned — no permanent population or single sovereign state — so it appears
+ * only under "Global".
  */
 import { countryCodeSchema } from "../schema/common";
 import type { GeographyCode } from "../types";
@@ -55,13 +55,15 @@ export const ALL_COUNTRY_CODES: readonly GeographyCode[] = Object.freeze(
  * each other — e.g. Cyprus is in both the EU and Europe (Continental)).
  */
 export const FILTER_REGIONS = {
-  // Five continental regions — mutually exclusive; together they cover every
-  // recognised code except AQ (Antarctica, intentionally unassigned) and a
-  // handful of small territories still under review with the product owner
-  // (see filterRegions.test.ts "known continental coverage gaps").
+  // Five continental regions — mutually exclusive. Together they cover every
+  // recognised code except AQ (Antarctica, intentionally unassigned) and the
+  // Caribbean territories BQ/SX, which the product owner assigned to the
+  // "Central America & Caribbean" sub-region only (#798). See
+  // filterRegions.test.ts "known continental coverage gaps".
   "America (Continental)": [
     "AG",
     "AI",
+    "AR",
     "AW",
     "BB",
     "BL",
@@ -84,6 +86,7 @@ export const FILTER_REGIONS = {
     "GF",
     "GL",
     "GP",
+    "GS",
     "GT",
     "GY",
     "HN",
@@ -129,6 +132,7 @@ export const FILTER_REGIONS = {
     "DJ",
     "DZ",
     "EG",
+    "EH",
     "ER",
     "ET",
     "GA",
@@ -267,6 +271,7 @@ export const FILTER_REGIONS = {
     "OM",
     "PH",
     "PK",
+    "PS",
     "QA",
     "SA",
     "SG",
@@ -321,6 +326,7 @@ export const FILTER_REGIONS = {
     "AW",
     "BB",
     "BL",
+    "BQ",
     "BS",
     "BZ",
     "CR",
@@ -344,6 +350,7 @@ export const FILTER_REGIONS = {
     "PA",
     "PR",
     "SV",
+    "SX",
     "TC",
     "TT",
     "VC",
@@ -434,6 +441,7 @@ export const FILTER_REGIONS = {
     "CM",
     "CV",
     "DJ",
+    "EH",
     "ER",
     "ET",
     "GA",
