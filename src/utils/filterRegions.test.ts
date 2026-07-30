@@ -92,19 +92,37 @@ describe("filterRegions config (#798)", () => {
     expect(FILTER_REGIONS["Africa (Continental)"]).toContain("EH"); // W. Sahara
     expect(FILTER_REGIONS["Sub-Saharan Africa"]).toContain("EH");
     expect(FILTER_REGIONS["Asia (Continental)"]).toContain("PS"); // Palestine
-    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("BQ"); // Bonaire
-    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("SX"); // Sint Maarten
+    // Bonaire & Sint Maarten: placed in the Caribbean sub-region, and also in
+    // America (Continental) so the continent contains all its sub-region members.
+    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("BQ");
+    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("SX");
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("BQ");
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("SX");
   });
 
-  it("leaves only the intended codes uncovered by the five continents", () => {
-    // Post-#798 the continents cover every code EXCEPT: AQ (Antarctica,
-    // intentionally unassigned) and the Caribbean territories BQ/SX, which the
-    // product owner placed in the "Central America & Caribbean" sub-region only
-    // (not the continental America bucket). Pinned so any future change is
-    // deliberate rather than silent.
+  it("leaves only Antarctica uncovered by the five continents", () => {
+    // Post-#798 the five continents partition every recognised code EXCEPT AQ
+    // (Antarctica), which is intentionally unassigned. Pinned so any future
+    // change to the continental sets is deliberate rather than silent.
     const covered = new Set(CONTINENTS.flatMap((c) => [...FILTER_REGIONS[c]]));
     const uncovered = [...ENUM].filter((c) => !covered.has(c)).sort();
-    expect(uncovered).toEqual(["AQ", "BQ", "SX"].sort());
+    expect(uncovered).toEqual(["AQ"]);
+  });
+
+  it("every sub-region member belongs to at least one continent", () => {
+    // The containment invariant Copilot flagged: no code may live in a
+    // sub-region yet fall outside all five continents.
+    const continental = new Set(
+      CONTINENTS.flatMap((c) => [...FILTER_REGIONS[c]]),
+    );
+    const subRegions = Object.keys(FILTER_REGIONS).filter(
+      (k) => !CONTINENTS.includes(k as (typeof CONTINENTS)[number]),
+    ) as (keyof typeof FILTER_REGIONS)[];
+    for (const label of subRegions) {
+      for (const code of FILTER_REGIONS[label]) {
+        expect(continental.has(code), `${label} → ${code}`).toBe(true);
+      }
+    }
   });
 });
 

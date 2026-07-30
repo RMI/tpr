@@ -55,11 +55,11 @@ export const ALL_COUNTRY_CODES: readonly GeographyCode[] = Object.freeze(
  * each other — e.g. Cyprus is in both the EU and Europe (Continental)).
  */
 export const FILTER_REGIONS = {
-  // Five continental regions — mutually exclusive. Together they cover every
-  // recognised code except AQ (Antarctica, intentionally unassigned) and the
-  // Caribbean territories BQ/SX, which the product owner assigned to the
-  // "Central America & Caribbean" sub-region only (#798). See
-  // filterRegions.test.ts "known continental coverage gaps".
+  // Five continental regions — mutually exclusive, and together a partition of
+  // every recognised code except AQ (Antarctica), which is intentionally
+  // unassigned (no permanent population or single sovereign state) and appears
+  // only under "Global". Each finer sub-region below is therefore a subset of
+  // one or more of these. See the coverage test in filterRegions.test.ts.
   "America (Continental)": [
     "AG",
     "AI",
@@ -69,6 +69,7 @@ export const FILTER_REGIONS = {
     "BL",
     "BM",
     "BO",
+    "BQ",
     "BR",
     "BS",
     "BZ",
@@ -107,6 +108,7 @@ export const FILTER_REGIONS = {
     "PY",
     "SR",
     "SV",
+    "SX",
     "TC",
     "TT",
     "US",
