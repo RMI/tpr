@@ -71,7 +71,9 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "B",
       name: { full: "Pathway B", short: "Power, Europe, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: { regions: { Europe: [] } },
+      // Geography matches by ISO overlap now, so coverage carries real codes.
+      // "Europe" here is represented by Germany (DE), "Asia" by Japan (JP).
+      geography: { country: ["DE"] },
       modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
@@ -93,7 +95,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "D",
       name: { full: "Pathway D", short: "Steel, Asia, no temp" },
       sectors: [{ name: "Steel" }],
-      geography: { regions: { Asia: [] } },
+      geography: { country: ["JP"] },
       modelTempIncrease: undefined, // -> Temperature "None"
       pathwayType: "BAU",
       modelYearNetzero: 2030,
@@ -104,7 +106,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "E",
       name: { full: "Pathway E", short: "Power, Europe+Asia, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: { regions: { Europe: [], Asia: [] } },
+      geography: { country: ["DE", "JP"] },
       modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
@@ -229,12 +231,13 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
     ]);
   });
 
-  it("Geography: ANY vs ALL toggle affects results (Europe + Asia)", async () => {
+  it("Geography: ANY vs ALL toggle affects results (Germany + Japan)", async () => {
     await openDropdown(/geography/i);
-    await selectOption("Europe");
-    await selectOption("Asia");
+    // Select two country options; matching is by ISO overlap.
+    await selectOption("Germany");
+    await selectOption("Japan");
 
-    // ANY (default): shows anything with Europe OR Asia → B, D, E
+    // ANY (default): shows anything covering DE OR JP → B, D, E
     expectVisible([
       "Power, Europe, 2°C",
       "Steel, Asia, no temp",
@@ -243,7 +246,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
 
     // Switch to ALL inside the open menu
     await u.click(screen.getByTestId("mode-toggle"));
-    // Only E has both Europe and Asia
+    // Only E covers both DE and JP
     expectVisible(["Power, Europe+Asia, 2°C"]);
     expectHidden([
       "Power, Europe, 2°C",

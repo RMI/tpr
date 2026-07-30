@@ -4,6 +4,8 @@ import {
   sortGeographiesForDetails,
   normalizeGeography,
   assertKnownCountryISO2,
+  pathwayISOCoverage,
+  isGeographyAbsent,
 } from "./geographyUtils";
 import { makeGeographyOptions } from "./searchUtils";
 import type { PathwayMetadataType } from "../types";
@@ -200,5 +202,41 @@ describe("makeGeographyOptions", () => {
     const opts = makeGeographyOptions(pathways);
     expect(opts.map((o) => o.value)).toEqual(["CN"]);
     expect(opts.map((o) => o.label)).toEqual(["People's Republic of China"]);
+  });
+});
+
+describe("pathwayISOCoverage", () => {
+  it("unions country[] and all region members", () => {
+    const cov = pathwayISOCoverage({
+      regions: { "South East Asia": ["ID", "TH"], "Europe": ["DE"] },
+      country: ["US"],
+    });
+    expect([...cov].sort()).toEqual(["DE", "ID", "TH", "US"]);
+  });
+
+  it("does NOT expand the global flag (global-only → empty set)", () => {
+    expect(pathwayISOCoverage({ global: true }).size).toBe(0);
+  });
+
+  it("drops invalid / non-ISO entries and handles missing/empty geography", () => {
+    // "USA" (3 letters) and "" fail toISO2; "ZZ" is two letters but not a real
+    // country, so it must be dropped too (result is only recognised codes).
+    expect([
+      ...pathwayISOCoverage({ country: ["US", "USA", "", "ZZ"] }),
+    ]).toEqual(["US"]);
+    expect(pathwayISOCoverage(undefined).size).toBe(0);
+    expect(pathwayISOCoverage({}).size).toBe(0);
+    expect(pathwayISOCoverage({ regions: { X: [] } }).size).toBe(0);
+  });
+});
+
+describe("isGeographyAbsent", () => {
+  it("is true only when flattening yields no tokens", () => {
+    expect(isGeographyAbsent(undefined)).toBe(true);
+    expect(isGeographyAbsent({})).toBe(true);
+    // A region label with empty members is still PRESENT (carries a token).
+    expect(isGeographyAbsent({ regions: { X: [] } })).toBe(false);
+    expect(isGeographyAbsent({ global: true })).toBe(false);
+    expect(isGeographyAbsent({ country: ["US"] })).toBe(false);
   });
 });
