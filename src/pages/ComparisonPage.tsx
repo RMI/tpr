@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";

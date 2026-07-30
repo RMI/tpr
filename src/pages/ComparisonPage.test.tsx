@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 
 // Structured-geography fixtures (the post-migration `{ global, regions, country }`
 // shape). Two pathways so ComparisonPage clears its `ids.length < 2` guard, and
