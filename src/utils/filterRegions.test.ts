@@ -11,11 +11,38 @@ import { countryCodeSchema } from "../schema/common";
 
 const ENUM = new Set(countryCodeSchema.enum as string[]);
 
-describe("filterRegions config (#798 seed)", () => {
-  it("Southeast Asia is exactly the ten ASEAN member states", () => {
-    // Grounded: IEA WEO 2024 Annex C. Order-independent comparison.
+// The five continental regions, in the order the definition doc lists them.
+const CONTINENTS = [
+  "America (Continental)",
+  "Africa (Continental)",
+  "Europe (Continental)",
+  "Asia (Continental)",
+  "Australia & Oceania (Continental)",
+] as const;
+
+describe("filterRegions config (#798)", () => {
+  it("defines all fifteen regions from the definition doc", () => {
+    expect(new Set(Object.keys(FILTER_REGIONS))).toEqual(
+      new Set([
+        ...CONTINENTS,
+        "North America",
+        "Central America & Caribbean",
+        "South America",
+        "European Union (EU)",
+        "Middle East & North Africa",
+        "Sub-Saharan Africa",
+        "Central Asia",
+        "South Asia",
+        "Southeast Asia",
+        "East Asia and Pacific",
+      ]),
+    );
+  });
+
+  it("Southeast Asia is exactly the eleven codes from the doc (ASEAN + TL)", () => {
+    // Order-independent comparison. Includes TL (Timor-Leste) per the #798 doc.
     expect([...FILTER_REGIONS["Southeast Asia"]].sort()).toEqual(
-      ["BN", "ID", "KH", "LA", "MM", "MY", "PH", "SG", "TH", "VN"].sort(),
+      ["BN", "ID", "KH", "LA", "MM", "MY", "PH", "SG", "TH", "TL", "VN"].sort(),
     );
   });
 
@@ -32,6 +59,71 @@ describe("filterRegions config (#798 seed)", () => {
       expect(new Set(codes).size, label).toBe(codes.length);
     }
   });
+
+  it("the five continental regions are mutually exclusive", () => {
+    const seen = new Map<string, string>();
+    for (const label of CONTINENTS) {
+      for (const code of FILTER_REGIONS[label]) {
+        expect(
+          seen.has(code),
+          `${code} in both ${seen.get(code)} and ${label}`,
+        ).toBe(false);
+        seen.set(code, label);
+      }
+    }
+  });
+
+  it("honours the transcontinental / political assignments (#798, product-owner confirmed)", () => {
+    expect(FILTER_REGIONS["Europe (Continental)"]).toContain("RU"); // Russia
+    expect(FILTER_REGIONS["Asia (Continental)"]).toContain("TR"); // Turkey
+    expect(FILTER_REGIONS["Europe (Continental)"]).toContain("CY"); // Cyprus
+    expect(FILTER_REGIONS["Asia (Continental)"]).not.toContain("CY");
+    // GL (Greenland): the doc's prose said Europe, but its tables — and the
+    // product owner's ruling under #798 — place Greenland in the Americas.
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("GL");
+    expect(FILTER_REGIONS["North America"]).toContain("GL");
+    expect(FILTER_REGIONS["Europe (Continental)"]).not.toContain("GL");
+  });
+
+  it("applies the product-owner's #798 gap assignments", () => {
+    // Ruling from Jacob on the codes the doc left uncovered.
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("AR"); // Argentina
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("GS"); // S. Georgia
+    expect(FILTER_REGIONS["Africa (Continental)"]).toContain("EH"); // W. Sahara
+    expect(FILTER_REGIONS["Sub-Saharan Africa"]).toContain("EH");
+    expect(FILTER_REGIONS["Asia (Continental)"]).toContain("PS"); // Palestine
+    // Bonaire & Sint Maarten: placed in the Caribbean sub-region, and also in
+    // America (Continental) so the continent contains all its sub-region members.
+    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("BQ");
+    expect(FILTER_REGIONS["Central America & Caribbean"]).toContain("SX");
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("BQ");
+    expect(FILTER_REGIONS["America (Continental)"]).toContain("SX");
+  });
+
+  it("leaves only Antarctica uncovered by the five continents", () => {
+    // Post-#798 the five continents partition every recognised code EXCEPT AQ
+    // (Antarctica), which is intentionally unassigned. Pinned so any future
+    // change to the continental sets is deliberate rather than silent.
+    const covered = new Set(CONTINENTS.flatMap((c) => [...FILTER_REGIONS[c]]));
+    const uncovered = [...ENUM].filter((c) => !covered.has(c)).sort();
+    expect(uncovered).toEqual(["AQ"]);
+  });
+
+  it("every sub-region member belongs to at least one continent", () => {
+    // The containment invariant Copilot flagged: no code may live in a
+    // sub-region yet fall outside all five continents.
+    const continental = new Set(
+      CONTINENTS.flatMap((c) => [...FILTER_REGIONS[c]]),
+    );
+    const subRegions = Object.keys(FILTER_REGIONS).filter(
+      (k) => !CONTINENTS.includes(k as (typeof CONTINENTS)[number]),
+    ) as (keyof typeof FILTER_REGIONS)[];
+    for (const label of subRegions) {
+      for (const code of FILTER_REGIONS[label]) {
+        expect(continental.has(code), `${label} → ${code}`).toBe(true);
+      }
+    }
+  });
 });
 
 describe("filterRegionToISO", () => {
@@ -43,13 +135,13 @@ describe("filterRegionToISO", () => {
 
   it("resolves a defined region to its membership", () => {
     expect(filterRegionToISO("Southeast Asia")).toContain("TH");
-    expect(filterRegionToISO("Southeast Asia")).toHaveLength(10);
+    expect(filterRegionToISO("Southeast Asia")).toHaveLength(11);
   });
 
   it("returns a fresh array that cannot mutate the shared config", () => {
     const first = filterRegionToISO("Southeast Asia");
     first.push("US");
-    expect(filterRegionToISO("Southeast Asia")).toHaveLength(10);
+    expect(filterRegionToISO("Southeast Asia")).toHaveLength(11);
   });
 
   it("Global is a strict superset of Southeast Asia (containment holds)", () => {

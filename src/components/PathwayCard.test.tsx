@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import PathwayCard from "./PathwayCard";
 import { PathwayMetadataType } from "../types";
 import { ComparisonProvider } from "../context/ComparisonContext";
