@@ -1,0 +1,77 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "UNSDSN-CW-MAP-ID-2025",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Optimizing Indonesia's Power Sector Decarbonization"
+    },
+    "author": [
+      "Alin Halimatussadiah",
+      "Muhammad Yudha Pratama",
+      "Rafika Farah Maulia",
+      "Sarah Natalia Gultom",
+      "Ali Kafiyatullah"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2025,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/Indonesia%20Phase%202.1%20%26%202.2%20Report%20-%20Finalised.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "More Ambitious Pathway ID",
+    "short": "MAP ID"
+  },
+  "description": "Indonesia-specific high-ambition pathway that achieves a near-zero emissions power system by 2060.",
+  "geography": ["ID"],
+  "pathwayType": "Normative",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2060,
+  "ssp": "SSP2",
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe More Ambitious Pathway (MAP) reflects a decarbonization trajectory with accelerated electrification, strengthened national policy targets for renewable deployment and emissions reduction, and explicit coal-retirement expectations. This scenario blends strengthened national policy aspirations with assumptions about how the power system would evolve given technology costs and resource availability.\n\nIndustrial electricity consumption grows substantially by 2060 driven by extensive sectoral electrification and rising economic activity, reflecting deep process electrification. In response, the power system undergoes extensive structural transformation. MAP mobilizes large-scale renewable energy growth. Solar, hydropower, and nuclear dominate the supply mix. Coal declines at a rate of 10% annually from 2020, fully exiting the system by 2060. Natural gas capacity likewise reaches zero by 2060, resulting in a zero emissions power grid.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Technology:* Large-scale investment in solar, hydro, and nuclear reshapes the sector’s generation mix. Solar grows at an average annual rate of 39% through 2030. Nuclear emerges as a major baseload generation source, accounting for 23% of generation by 2060. Coal generation declines progressively from 2020 onward under MAP, following an assumed phaseout trajectory that results in complete retirement by 2060.\n\n*Emissions:* MAP embeds emission constraints through mandated coal phaseout trajectories, accelerated renewable deployment, and a requirement to reach zero power generation emissions by 2060. These shape investment and retirement decisions across the system, moving the system away from fossil generation and ensuring that the technology mix evolves in line with Indonesia’s long-term decarbonization ambitions.\n\n#### Application to Transition Assessment\n\nMAP is suited for evaluating the ambition of corporate transition strategies. Financial institutions can use MAP as the benchmark for determining whether companies are positioning themselves in line with a rapid transition rather than Indonesia’s formal policy trajectory. \n\nMAP serves as a high ambition benchmark against which investment pipelines can be evaluated. Companies whose planned investments align with MAP signal readiness for a future in which markets and policy environments shift toward decarbonization. Conversely, investment pipelines dominated by long-lived fossil assets, limited renewable expansion, or insufficient grid-enabling technologies would appear structurally misaligned, indicating heightened transition risk, stranded-asset exposure, or future cost disadvantages should the sector move toward an accelerated transition.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": ["Phaseout dates", "Target technology shares"],
+    "technologyCostTrend": "No information",
+    "technologyDeploymentTrend": "No new technologies deployed",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "Normative/Optimization-based",
+    "technologyCostsDetail": "No information",
+    "newTechnologiesIncluded": ["No new technologies"],
+    "supplyChain": "No information",
+    "investmentNeeds": "No information",
+    "infrastructureRequirements": "No information"
+  }
+}

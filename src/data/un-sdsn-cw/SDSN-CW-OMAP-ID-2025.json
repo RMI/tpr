@@ -1,0 +1,77 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "UNSDSN-CW-OMAP-ID-2025",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Optimizing Indonesia's Power Sector Decarbonization"
+    },
+    "author": [
+      "Alin Halimatussadiah",
+      "Muhammad Yudha Pratama",
+      "Rafika Farah Maulia",
+      "Sarah Natalia Gultom",
+      "Ali Kafiyatullah"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2025,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/Indonesia%20Phase%202.1%20%26%202.2%20Report%20-%20Finalised.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Optimized More Ambitious Policy Scenario ID",
+    "short": "OMAP ID"
+  },
+  "description": "Indonesia-specific least-cost high ambition pathway that delivers a near-zero power system by 2060.",
+  "geography": ["ID"],
+  "pathwayType": "Normative",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2060,
+  "ssp": "SSP2",
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Optimized More Ambitious Pathway (OMAP) models the evolution of Indonesia’s power system under assumptions of accelerated electrification, early fossil-fuel retirement, and large-scale deployment of low-carbon technologies, while identifying the least-cost configuration needed to meet these ambitions. OMAP assumes rapid electrification and early coal phaseout, with cost optimization used to identify the lowest-cost mix of renewable and low-carbon technologies that can meet these goals.\n\nOMAP shifts the balance among renewable resources: hydropower becomes the dominant energy source, supplying 50% of all electricity by 2060 due to its cost-effectiveness and high capacity factor. Coal persists minimally to 2060 to provide grid stability reflecting the model’s selection of low-cost firm capacity under conditions where storage remains comparatively expensive. OMAP delivers the lowest levelized cost of electricity among the AGF Indonesia scenarios, which include current policy, more ambitious and optimized pathways, demonstrating the economic efficiency of low-carbon power generation technologies. OMAP also models a substantial reduction in power-sector emissions, though some residual demand-side fossil use persists, primarily in industrial high heat processes.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Technology and costs:* As a cost-optimized pathway, it selects the generation mix that minimizes long-term system costs while meeting high electrification and decarbonization objectives. Hydropower emerges as the most cost-effective long-term baseload option given Indonesia’s resource characteristics. Nuclear and geothermal each contribute 12%, while solar occupies a smaller but still significant share relative to MAP. OMAP delivers the lowest LCOE (USD 0.063/kWh) across all AGF Indonesia pathways, which include a cost-optimized pathway under current policy constraints, demonstrating the economic efficiency of accelerated deployment of renewables.\n\n*Emission constraints:* OMAP requires deep decarbonization of the power sector by 2060, including an accelerated reduction of coal generation and large-scale deployment of low-carbon technologies. These requirements shape the technology mix selected by the optimization model and ensure the system evolves toward a near-zero-emissions profile. Although OMAP has emissions limitations to guide the long-term transition, the resulting system configuration is shaped more strongly by cost optimization than by emissions constraints themselves. Falling renewable and firm low-carbon technology costs drive most of the decarbonization outcomes, with the implicit emissions requirements primarily serving to narrow technology choices rather than dictate the system’s evolution.\n\n#### Application to Transition Assessment\n\nOMAP reflects both ambitious policy and cost-optimal system development, providing a useful benchmark for determining whether a company’s strategy, technology roadmap, and investment pipeline is grounded in the most cost effective route to net-zero.\n\nOMAP is well suited for assessing investment pipelines as it identifies the technologies that remain competitive in a least-cost decarbonized system. Firms over-investing in technologies that OMAP de-prioritizes, such as large-scale fossil baseload, signal future transition risks. By contrast, firms aligned with hydropower, geothermal, nuclear, or solar would appear well positioned in a transitioning Indonesian power market.\n\nThe pathway also provides meaningful insights for technology and market feasibility analysis, as it highlights where integration constraints, particularly storage, create transition bottlenecks. Companies deploying intermittent renewables need credible strategies for managing this intermittency.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": ["Phaseout dates", "Target technology shares"],
+    "technologyCostTrend": "Decrease",
+    "technologyDeploymentTrend": "Minor technology deployment",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "Normative/Optimization-based",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": ["Battery storage"],
+    "supplyChain": "Exogenous input or fuel price",
+    "investmentNeeds": "No information",
+    "infrastructureRequirements": "No information"
+  }
+}
