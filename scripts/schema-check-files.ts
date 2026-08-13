@@ -5,8 +5,14 @@ import type { FileEntry } from "../src/utils/validateData.ts";
 import { validateFilesBySchema } from "../src/utils/validateData.ts";
 import { decideIncludeInvalid } from "../src/utils/loadData.ts";
 import pathwayMetadata from "../src/schema/pathwayMetadata.v1.json" with { type: "json" };
+import pathwayMetadataV2 from "../src/schema/pathwayMetadata.v2.json" with { type: "json" };
 import pathwayTimeseries from "../src/schema/pathwayTimeseries.v1.json" with { type: "json" };
 import { commonSchemas } from "../src/schema/common/index.ts";
+import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
+import {
+  PATHWAY_METADATA_V2_ID,
+  validateScopedEntries,
+} from "../src/utils/validateScopes.ts";
 
 async function run(dir: string) {
   async function getJsonFilesRecursive(base: string): Promise<string[]> {
@@ -34,10 +40,29 @@ async function run(dir: string) {
 
   const { valid, invalid } = validateFilesBySchema(entries, [
     pathwayMetadata,
+    pathwayMetadataV2,
     pathwayTimeseries,
     ...commonSchemas,
   ]);
-  return { dir, validCount: valid.length, invalid };
+
+  // Second pass over the AJV-valid v2 documents for the cross-field scope
+  // constraint draft-07 cannot express — see src/utils/validateScopes.ts. A
+  // document that fails here is reported exactly like a schema failure, so a
+  // mistyped region label breaks the build instead of silently matching nothing.
+  const scopeProblems = valid
+    .filter((r) => r.schemaId === PATHWAY_METADATA_V2_ID)
+    .map((r) => ({
+      name: r.name,
+      errors: validateScopedEntries(r.data as PathwayMetadataV2),
+    }))
+    .filter((p) => p.errors.length > 0);
+
+  const badNames = new Set(scopeProblems.map((p) => p.name));
+  return {
+    dir,
+    validCount: valid.filter((r) => !badNames.has(r.name)).length,
+    invalid: [...invalid, ...scopeProblems],
+  };
 }
 
 async function main() {

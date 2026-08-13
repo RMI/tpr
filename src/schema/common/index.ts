@@ -28,6 +28,13 @@ export const geographySchema: SchemaObject = geographySchemaJson;
 import emissionsScopeSchemaJson from "./emissionsScope.v1.json" with { type: "json" };
 export const emissionsScopeSchema: SchemaObject = emissionsScopeSchemaJson;
 
+// The two axes of a v2 scoped keyFeatures entry (#858).
+import scopeSectorSchemaJson from "./scopeSector.v2.json" with { type: "json" };
+export const scopeSectorSchema: SchemaObject = scopeSectorSchemaJson;
+
+import scopeGeographySchemaJson from "./scopeGeography.v2.json" with { type: "json" };
+export const scopeGeographySchema: SchemaObject = scopeGeographySchemaJson;
+
 // Aggregate — type stays correct
 export const commonSchemas: SchemaObject[] = [
   publicationSchema,
@@ -39,6 +46,8 @@ export const commonSchemas: SchemaObject[] = [
   countryCodeSchema,
   geographySchema,
   emissionsScopeSchema,
+  scopeSectorSchema,
+  scopeGeographySchema,
 ];
 
 export default commonSchemas;
