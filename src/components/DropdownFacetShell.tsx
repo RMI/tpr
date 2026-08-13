@@ -15,6 +15,8 @@ type ShellProps = {
   header?: React.ReactNode;
   /** panel body (checkbox list or NumericRange). May be a function to get { close } */
   children: React.ReactNode | ((api: { close: () => void }) => React.ReactNode);
+  /** optional note pinned under the panel body (e.g. a disclaimer). Omitted → no footer element at all. */
+  footer?: React.ReactNode;
   /** Tailwind width for the panel (optional) */
   menuWidthClassName?: string;
   /** Tailwind min width for the trigger (optional, defaults to min-w-32) */
@@ -30,6 +32,7 @@ export default function DropdownFacetShell({
   onClear,
   header,
   children,
+  footer,
   menuWidthClassName,
   triggerMinWidthClassName = "min-w-32",
   // Number of characters of ghost text to reserve space for
@@ -166,6 +169,13 @@ export default function DropdownFacetShell({
                   )
                 : children}
             </div>
+
+            {/* Optional footnote. Guarded so facets without one render exactly as before. */}
+            {footer && (
+              <div className="border-t border-gray-200 px-2 py-2 text-xs italic text-rmigray-500">
+                {footer}
+              </div>
+            )}
           </div>
         </div>
       )}
