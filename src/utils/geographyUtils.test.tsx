@@ -6,9 +6,10 @@ import {
   assertKnownCountryISO2,
   pathwayISOCoverage,
   isGeographyAbsent,
+  regionMemberCodes,
 } from "./geographyUtils";
 import { makeGeographyOptions } from "./searchUtils";
-import type { PathwayMetadataType } from "../types";
+import type { Geography, PathwayMetadataType } from "../types";
 
 describe("normalizeGeography", () => {
   it("normalizeGeography drops zero-width and NBSP then trims", () => {
@@ -227,6 +228,76 @@ describe("pathwayISOCoverage", () => {
     expect(pathwayISOCoverage(undefined).size).toBe(0);
     expect(pathwayISOCoverage({}).size).toBe(0);
     expect(pathwayISOCoverage({ regions: { X: [] } }).size).toBe(0);
+  });
+});
+
+describe("regionMemberCodes", () => {
+  it("returns the pathway's own members for a region, A→Z by ISO2", () => {
+    expect(
+      regionMemberCodes(
+        {
+          regions: {
+            "South East Asia": ["VN", "ID", "TH"],
+            "Europe": ["DE"],
+          },
+          country: ["US"],
+        },
+        "South East Asia",
+      ),
+    ).toEqual(["ID", "TH", "VN"]);
+  });
+
+  it("matches the label by its normalized form", () => {
+    // The badge token comes from flattenGeography, so the lookup has to survive
+    // stray whitespace / zero-width characters on either side.
+    const geo = { regions: { " South East Asia ": ["ID"] } } as Geography;
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["ID"]);
+    expect(
+      regionMemberCodes({ regions: { Europe: ["DE"] } }, "\u200BEurope"),
+    ).toEqual(["DE"]);
+  });
+
+  it("returns [] for a region the publication left unmapped", () => {
+    // The NGFS shape: a declared region label with no member codes.
+    expect(
+      regionMemberCodes(
+        { regions: { "South East Asia": [] } },
+        "South East Asia",
+      ),
+    ).toEqual([]);
+  });
+
+  it("returns [] for labels that are not one of the pathway's regions", () => {
+    const geo: Geography = { regions: { Europe: ["DE"] }, country: ["US"] };
+    expect(regionMemberCodes(geo, "Africa")).toEqual([]);
+    expect(regionMemberCodes(geo, "US")).toEqual([]); // a country, not a region
+    expect(regionMemberCodes(geo, "Global")).toEqual([]);
+    expect(regionMemberCodes(geo, "")).toEqual([]);
+  });
+
+  it("returns [] when there is no geography or no regions at all", () => {
+    expect(regionMemberCodes(undefined, "Europe")).toEqual([]);
+    expect(regionMemberCodes(null, "Europe")).toEqual([]);
+    expect(regionMemberCodes({}, "Europe")).toEqual([]);
+    expect(
+      regionMemberCodes({ global: true, country: ["US"] }, "Europe"),
+    ).toEqual([]);
+  });
+
+  it("drops entries that are not recognised ISO-3166-1 alpha-2 codes", () => {
+    // Same filter as pathwayISOCoverage: "USA" is 3 letters, "ZZ" is two letters
+    // but not a real country, "" is blank.
+    const geo = {
+      regions: { Mixed: ["US", "USA", "", "ZZ", "de"] },
+    } as unknown as Geography;
+    expect(regionMemberCodes(geo, "Mixed")).toEqual(["DE", "US"]);
+  });
+
+  it("collapses duplicate codes", () => {
+    const geo = {
+      regions: { Doubled: ["TH", "th", "TH", "ID"] },
+    } as unknown as Geography;
+    expect(regionMemberCodes(geo, "Doubled")).toEqual(["ID", "TH"]);
   });
 });
 
