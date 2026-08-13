@@ -1,17 +1,17 @@
 # Transition Pathways Repository (TPR)
 
-|                   |                                                                                                                                                             Production |                                                                                                                                 Development (`main`) |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------: |
-| **Link**          |                                                                                                **[Production](https://proud-glacier-0f640931e.2.azurestaticapps.net)** |                                                               **[Development](https://proud-glacier-0f640931e-main.westus2.2.azurestaticapps.net/)** |
-| **`node` checks** | [![Node Package Checks](https://github.com/RMI/pbtar/actions/workflows/node.yml/badge.svg?branch=production)](https://github.com/RMI/pbtar/actions/workflows/node.yml) | [![Node Package Checks](https://github.com/RMI/pbtar/actions/workflows/node.yml/badge.svg)](https://github.com/RMI/pbtar/actions/workflows/node.yml) |
+|                   |                                                                                                                                                         Production |                                                                                                                             Development (`main`) |
+| ----------------- | -----------------------------------------------------------------------------------------------------------------------------------------------------------------: | -----------------------------------------------------------------------------------------------------------------------------------------------: |
+| **Link**          |                                                                                            **[Production](https://proud-glacier-0f640931e.2.azurestaticapps.net)** |                                                           **[Development](https://proud-glacier-0f640931e-main.westus2.2.azurestaticapps.net/)** |
+| **`node` checks** | [![Node Package Checks](https://github.com/RMI/tpr/actions/workflows/node.yml/badge.svg?branch=production)](https://github.com/RMI/tpr/actions/workflows/node.yml) | [![Node Package Checks](https://github.com/RMI/tpr/actions/workflows/node.yml/badge.svg)](https://github.com/RMI/tpr/actions/workflows/node.yml) |
 
 ## Running the application
 
 1. Clone the Repo
 
 ```sh
-git clone https://github.com/RMI/pbtar
-cd pbtar
+git clone https://github.com/RMI/tpr
+cd tpr
 ```
 
 2. Create an `.env` file to store the desired frontend port
@@ -49,7 +49,7 @@ To install Node.js, follow the [official installation guide](https://nodejs.org/
 1. Install Dependencies
 
 ```bash
-cd pbtar
+cd tpr
 npm install
 ```
 
