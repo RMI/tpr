@@ -5,7 +5,7 @@ Each JSON file in this directory contains one or more pathway definitions.
 
 ## Schema and Validation
 
-The JSON files have a strict, specific format that needs to be followed, which is defined by the JSON schema file in this repo at [pbtar_schema.json](https://github.com/RMI/pbtar/blob/main/src/schema/schema.json).
+The JSON files have a strict, specific format that needs to be followed, which is defined by the JSON schema file in this repo at [pbtar_schema.json](https://github.com/RMI/tpr/blob/main/src/schema/schema.json).
 
 The schema file defines a number of mandatory fields which must be included.
 Additionally, the structure, the data types, and in some cases the allowed values for a given key must be correct for things to work as expected.
@@ -31,7 +31,7 @@ These functions require the following R packages to be installed in your environ
 
 validate_json <- function(json_obj, schema_url = NULL) {
   if (is.null(schema_url)) {
-    schema_url <- "https://raw.githubusercontent.com/RMI/pbtar/refs/heads/main/pbtar_schema.json"
+    schema_url <- "https://raw.githubusercontent.com/RMI/tpr/refs/heads/main/pbtar_schema.json"
   }
   json_schema <- readr::read_file(file = schema_url)
   validation <-
