@@ -5,7 +5,7 @@ const LegalPage: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-12">
       <h1 className="text-3xl font-bold mb-6">
-        Pathways Based Transition Repository Terms of Use{" "}
+        Transition Pathways Repository Terms of Use{" "}
       </h1>
       <p className="mb-4">
         <em>Copyright © 2025 Rocky Mountain Institute</em>
@@ -15,24 +15,23 @@ const LegalPage: React.FC = () => {
       </p>
       <p className="mb-4">
         These terms of use are entered into by and between the user ("You") and
-        Rocky Mountain Institute ("RMI" or "We" or "Us"). By using the Pathways
-        Based Transition Assessment Repository ("PBTAR"), You have accepted and
-        agreed to be bound by the following terms and conditions (these
-        "Terms"). These Terms govern Your access to and use of PBTAR,{" "}
+        Rocky Mountain Institute ("RMI" or "We" or "Us"). By using the
+        Transition Pathways Repository ("TPR"), You have accepted and agreed to
+        be bound by the following terms and conditions (these "Terms"). These
+        Terms govern Your access to and use of TPR,{" "}
         <a href="http://pathways.rmi.org">http://pathways.rmi.org</a> (the
         "Website"), including any data, reporting or other content ("Content"),
-        functionality, and other products or services offered on or through
-        PBTAR or the Website (collectively, the "Services"). RMI may update
-        these Terms of Use at any time. All changes shall be effective
-        immediately.
+        functionality, and other products or services offered on or through TPR
+        or the Website (collectively, the "Services"). RMI may update these
+        Terms of Use at any time. All changes shall be effective immediately.
       </p>
       <p className="mb-4">
         You may use the Services only in compliance with these Terms and all
         applicable laws. In particular, You agree that You will not use the
         Services in violation of any applicable export controls or sanctions,
         including those of the United States and any jurisdiction where the
-        Services are used, and that Your use will not cause PBTAR to violate
-        such laws. You are not located in, or a resident of, any comprehensively
+        Services are used, and that Your use will not cause TPR to violate such
+        laws. You are not located in, or a resident of, any comprehensively
         sanctioned jurisdiction, and You are not, do not represent, and are not
         owned or controlled by a person or persons designated on any restricted
         party lists (e.g., the Specially Designated Nationals and Blocked
@@ -41,14 +40,13 @@ const LegalPage: React.FC = () => {
       <p className="mb-4">
         Any use or access by anyone under the age of 16 is prohibited, and
         certain regions may have additional requirements and/or restrictions. If
-        You do not want to agree to these Terms, you must not access or use
-        PBTAR.
+        You do not want to agree to these Terms, you must not access or use TPR.
       </p>
       <p className="mb-4">
-        PBTAR is a curated collection of climate transition pathways designed to
+        TPR is a curated collection of climate transition pathways designed to
         connect users with transition pathways based on their needs, with
         structured guidance for navigating diverse pathway types, geographies,
-        developers, and methodologies. PBTAR is updated routinely to include
+        developers, and methodologies. TPR is updated routinely to include
         additional oil and gas resources, as new input data are collected.
       </p>
       <ol
@@ -65,7 +63,7 @@ const LegalPage: React.FC = () => {
           >
             <li>
               <p className="mb-4">
-                <em>Use of PBTAR Services</em>
+                <em>Use of TPR Services</em>
               </p>
               <ol
                 type="i"
@@ -95,12 +93,12 @@ const LegalPage: React.FC = () => {
                 <li>
                   <p className="mb-4">
                     RMI has endeavored to ensure that the information made
-                    available via the Website and PBTAR is accurate. However,
+                    available via the Website and TPR is accurate. However,
                     notwithstanding the foregoing, the content has been derived
                     from third-party sources that are publicly available. We
                     have no control over any aspects of such data, including its
                     accuracy, timeliness, completeness, or consistency. Users of
-                    PBTAR are advised to exercise caution and evaluate the
+                    TPR are advised to exercise caution and evaluate the
                     methodology, data sources, and limitations of the data,
                     including model outputs that are erroneous or uncertain.
                     Users are encouraged to contact RMI with any feedback, or if
@@ -142,9 +140,7 @@ const LegalPage: React.FC = () => {
         </li>
         <li>
           <p className="mb-4">
-            <strong>
-              Intellectual Property, Citation, and PBTAR Copyright
-            </strong>
+            <strong>Intellectual Property, Citation, and TPR Copyright</strong>
           </p>
           <ol
             type="a"
@@ -196,25 +192,25 @@ const LegalPage: React.FC = () => {
             <li>
               <p className="mb-4">
                 Unless otherwise stated, the data, analyses, and model outputs
-                made available through PBTAR may be used, shared, and adapted
-                for informational, research, and non-commercial purposes,
-                provided that appropriate attribution to Rocky Mountain
-                Institute (RMI) is included. Users may not imply endorsement by
-                RMI or misrepresent the data or its source.
+                made available through TPR may be used, shared, and adapted for
+                informational, research, and non-commercial purposes, provided
+                that appropriate attribution to Rocky Mountain Institute (RMI)
+                is included. Users may not imply endorsement by RMI or
+                misrepresent the data or its source.
               </p>
             </li>
             <li>
               <p className="mb-4">
                 Certain datasets, model inputs, and outputs made available
-                through PBTAR incorporate or are derived from third-party
-                sources and may be subject to additional attribution, citation,
-                or use requirements imposed by the original data providers.
-                Users are required to preserve all applicable attributions and
-                comply with any source-specific terms identified by RMI,
-                including those listed in the PBTAR Attribution &amp; Sources
-                documentation. Users are responsible for ensuring that any
-                downstream use, redistribution, or publication of the data
-                complies with all applicable third-party requirements.
+                through TPR incorporate or are derived from third-party sources
+                and may be subject to additional attribution, citation, or use
+                requirements imposed by the original data providers. Users are
+                required to preserve all applicable attributions and comply with
+                any source-specific terms identified by RMI, including those
+                listed in the TPR Attribution &amp; Sources documentation. Users
+                are responsible for ensuring that any downstream use,
+                redistribution, or publication of the data complies with all
+                applicable third-party requirements.
               </p>
             </li>
           </ol>
@@ -262,7 +258,7 @@ const LegalPage: React.FC = () => {
           >
             <li>
               <p className="mb-4">
-                You understand that You are using the Services, including PBTAR,
+                You understand that You are using the Services, including TPR,
                 entirely at Your own risk.
               </p>
             </li>

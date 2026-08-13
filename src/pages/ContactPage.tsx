@@ -43,21 +43,21 @@ const ContactPage: React.FC = () => {
             <p className="mt-4 text-rmigray-700 leading-7">
               To get in touch, reach out to{" "}
               <a
-                href="mailto:tomwhite+pbtar@rmi.org"
+                href="mailto:tomwhite+tpr@rmi.org"
                 className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
               >
                 Tom White
               </a>{" "}
               or{" "}
               <a
-                href="mailto:nherrera+pbtar@rmi.org"
+                href="mailto:nherrera+tpr@rmi.org"
                 className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
               >
                 Nayra Herrera
               </a>
               , or open an issue on our{" "}
               <a
-                href="https://github.com/RMI/pbtar/issues"
+                href="https://github.com/RMI/tpr/issues"
                 className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
               >
                 GitHub repository

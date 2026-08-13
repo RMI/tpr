@@ -33,7 +33,7 @@ describe("Footer component", () => {
     expect(feedbackLink).toBeInTheDocument();
     expect(feedbackLink.closest("a")).toHaveAttribute(
       "href",
-      "mailto:tomwhite+pbtar@rmi.org",
+      "mailto:tomwhite+tpr@rmi.org",
     );
   });
 
