@@ -1,8 +1,8 @@
 {
-  "name": "pbtar_frontend",
+  "name": "tpr_frontend",
   "version": "0.0.0-semantic-release",
   "type": "module",
-  "description": "Front-end for the pathways-based transition assessment repository (pbtar)",
+  "description": "Front-end for the Transition Pathways Repository (TPR)",
   "main": "main.jsx",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--disable-warning=ExperimentalWarning vite build --mode ${VITE_BUILD_MODE:-development}",

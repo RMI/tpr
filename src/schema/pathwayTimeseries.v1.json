@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://pathways.rmi.org/schema/pathwayTimeseries.v1.json",
   "title": "Pathway Timeseries",
-  "description": "A schema for the pathway timeseries dataset in PBTAR.",
+  "description": "A schema for the pathway timeseries dataset in TPR.",
   "type": "object",
   "properties": {
     "$schema": {

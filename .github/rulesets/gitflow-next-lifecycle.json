@@ -2,7 +2,7 @@
   "name": "gitflow-next-lifecycle",
   "target": "branch",
   "source_type": "Repository",
-  "source": "RMI/pbtar",
+  "source": "RMI/tpr",
   "enforcement": "active",
   "conditions": {
     "ref_name": {
