@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router";
 
 // Structured-geography fixture (#799): one region the publication mapped to three
@@ -64,13 +64,15 @@ async function mountDetailPage(id: string): Promise<void> {
   );
 }
 
-// The page waits out a 300 ms load timer and BadgeArray measures itself across a
-// requestAnimationFrame, so these waits are sensitive to CPU contention under
-// full-suite parallelism (the same class of flake ComparisonPage.test.tsx hits).
-// Give them room rather than leaving a timing-dependent test in the suite — but
-// stay under vitest's 5 s testTimeout, or a genuine failure surfaces as an
-// unhelpful "test timed out" instead of the query's own error.
-const WAIT = { timeout: 2000 };
+// Mounting this page is slow and contention-sensitive: vi.resetModules() forces a
+// fresh dynamic import, the page then waits out a 300 ms load timer, and a second
+// async effect re-renders once the (stubbed) timeseries index resolves. Under
+// full-suite parallelism that can overrun a short budget, so these waits are
+// generous and the tests carry a matching per-test timeout — a query budget at or
+// above vitest's default 5 s testTimeout would otherwise surface a real failure as
+// an unhelpful "test timed out" instead of the query's own error.
+const WAIT = { timeout: 10_000 };
+const TEST_TIMEOUT = 20_000;
 
 /** The TextWithTooltip trigger wrapping a badge (it carries tabIndex=0). */
 const triggerFor = (label: string): HTMLElement => {
@@ -82,48 +84,77 @@ const triggerFor = (label: string): HTMLElement => {
   return trigger;
 };
 
+/**
+ * Focus a badge's tooltip trigger and resolve with the tooltip it opens.
+ *
+ * The focus is re-fired on every poll rather than dispatched once. A badge's text
+ * lands in the DOM as soon as React commits, but the trigger only becomes
+ * interactive once React flushes TextWithTooltip's passive effect and attaches its
+ * focus listener. Those are separate ticks, so a single up-front dispatch can be
+ * delivered to an element that is not yet listening — the event is dropped, no
+ * state changes, and the wait then times out with "Unable to find role=tooltip"
+ * no matter how long its budget is. Re-firing makes the wait self-healing.
+ */
+const openTooltipFor = async (label: string): Promise<HTMLElement> => {
+  let tooltip: HTMLElement | null = null;
+  await waitFor(() => {
+    fireEvent.focus(triggerFor(label));
+    tooltip = screen.getByRole("tooltip");
+  }, WAIT);
+  return tooltip as unknown as HTMLElement;
+};
+
 describe("PathwayDetailPage — region geography tooltips", () => {
   afterEach(() => {
     vi.resetModules();
     vi.restoreAllMocks();
   });
 
-  it("makes region badges hoverable and lists the mapped countries by name", async () => {
-    await mountDetailPage("detail-a");
+  it(
+    "makes region badges hoverable and lists the mapped countries by name",
+    async () => {
+      await mountDetailPage("detail-a");
 
-    const badge = await screen.findByText("South East Asia", undefined, WAIT);
-    expect(badge).toBeInTheDocument();
+      const badge = await screen.findByText("South East Asia", undefined, WAIT);
+      expect(badge).toBeInTheDocument();
 
-    // Focus is the keyboard-equivalent of hover in TextWithTooltip, and the only
-    // one jsdom drives reliably; the tooltip body is portaled to document.body.
-    fireEvent.focus(triggerFor("South East Asia"));
+      // Focus is the keyboard-equivalent of hover in TextWithTooltip, and the
+      // only one jsdom drives reliably; the body is portaled to document.body.
+      const tooltip = await openTooltipFor("South East Asia");
+      expect(tooltip).toHaveTextContent("3 countries");
+      expect(tooltip).toHaveTextContent("Indonesia");
+      expect(tooltip).toHaveTextContent("Thailand");
+      expect(tooltip).toHaveTextContent("Vietnam");
+    },
+    TEST_TIMEOUT,
+  );
 
-    const tooltip = await screen.findByRole("tooltip", undefined, WAIT);
-    expect(tooltip).toHaveTextContent("3 countries");
-    expect(tooltip).toHaveTextContent("Indonesia");
-    expect(tooltip).toHaveTextContent("Thailand");
-    expect(tooltip).toHaveTextContent("Vietnam");
-  });
+  it(
+    "tells the user when a declared region has no published mapping",
+    async () => {
+      await mountDetailPage("detail-a");
 
-  it("tells the user when a declared region has no published mapping", async () => {
-    await mountDetailPage("detail-a");
+      await screen.findByText("Unmapped Region", undefined, WAIT);
 
-    await screen.findByText("Unmapped Region", undefined, WAIT);
-    fireEvent.focus(triggerFor("Unmapped Region"));
+      const tooltip = await openTooltipFor("Unmapped Region");
+      expect(tooltip).toHaveTextContent("No country mapping published");
+    },
+    TEST_TIMEOUT,
+  );
 
-    const tooltip = await screen.findByRole("tooltip", undefined, WAIT);
-    expect(tooltip).toHaveTextContent("No country mapping published");
-  });
+  it(
+    "leaves Global and country badges without a tooltip trigger",
+    async () => {
+      await mountDetailPage("detail-a");
 
-  it("leaves Global and country badges without a tooltip trigger", async () => {
-    await mountDetailPage("detail-a");
+      // "Global" and the country name render as plain badges: no tabbable
+      // wrapper, so there is nothing to hover.
+      const global = await screen.findByText("Global", undefined, WAIT);
+      expect(global.closest("[tabindex]")).toBeNull();
 
-    // "Global" and the country name render as plain badges: no tabbable wrapper,
-    // so there is nothing to hover.
-    const global = await screen.findByText("Global", undefined, WAIT);
-    expect(global.closest("[tabindex]")).toBeNull();
-
-    const country = screen.getByText("United States of America");
-    expect(country.closest("[tabindex]")).toBeNull();
-  });
+      const country = screen.getByText("United States of America");
+      expect(country.closest("[tabindex]")).toBeNull();
+    },
+    TEST_TIMEOUT,
+  );
 });
