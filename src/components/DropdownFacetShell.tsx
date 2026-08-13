@@ -15,7 +15,13 @@ type ShellProps = {
   header?: React.ReactNode;
   /** panel body (checkbox list or NumericRange). May be a function to get { close } */
   children: React.ReactNode | ((api: { close: () => void }) => React.ReactNode);
-  /** optional note pinned under the panel body (e.g. a disclaimer). Omitted → no footer element at all. */
+  /**
+   * Optional note pinned under the panel body (e.g. a disclaimer). Rendered only
+   * when truthy, so omitting it — or passing a falsy node such as `false` from a
+   * `cond && <p/>` expression — emits no footer element and no divider at all.
+   * `0` and `""` are likewise treated as "no footnote"; a footnote is prose, and
+   * rendering an empty bordered strip for them would be worse than skipping it.
+   */
   footer?: React.ReactNode;
   /** Tailwind width for the panel (optional) */
   menuWidthClassName?: string;
