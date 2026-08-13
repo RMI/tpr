@@ -67,8 +67,10 @@ async function mountDetailPage(id: string): Promise<void> {
 // The page waits out a 300 ms load timer and BadgeArray measures itself across a
 // requestAnimationFrame, so these waits are sensitive to CPU contention under
 // full-suite parallelism (the same class of flake ComparisonPage.test.tsx hits).
-// Give them room rather than leaving a timing-dependent test in the suite.
-const WAIT = { timeout: 5000 };
+// Give them room rather than leaving a timing-dependent test in the suite — but
+// stay under vitest's 5 s testTimeout, or a genuine failure surfaces as an
+// unhelpful "test timed out" instead of the query's own error.
+const WAIT = { timeout: 2000 };
 
 /** The TextWithTooltip trigger wrapping a badge (it carries tabIndex=0). */
 const triggerFor = (label: string): HTMLElement => {

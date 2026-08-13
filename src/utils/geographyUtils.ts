@@ -56,8 +56,11 @@ export function pathwayISOCoverage(
 // `filterRegions.ts`. `flattenGeography` carries region labels only, so this is how
 // display code gets the membership behind a region badge back (#799). Returns an
 // empty array both when `label` is not one of the pathway's regions and when the
-// publication provides no mapping for it (empty member array); callers that must
-// tell those apart should check `geographyKind(label)` first. Unrecognised codes are
+// publication provides no mapping for it (empty member array). Those two cases are
+// NOT distinguishable from the result, and `geographyKind` cannot tell them apart
+// either — it answers "region" for any non-Global, non-country token, including a
+// label this pathway never declared. A caller that needs the difference has to look
+// for the label in `geo.regions` itself. Unrecognised codes are
 // dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the order
 // comes from `sortGeographiesForDetails` so members read A→Z by ISO2 exactly like
 // country badges elsewhere.
