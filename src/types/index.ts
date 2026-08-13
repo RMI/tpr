@@ -5,9 +5,9 @@ import type { PublicationV1 } from "./common/publication.v1";
 import type { GeographyV1 } from "./common/geography.v1";
 
 // Re-export the (current) versioned pathway metadata type as generic.
-// Still v1: #858 lands the v2 schema and types first, and the loader is
-// repointed at v2 in a later commit once data files carry the v2 $schema.
-export type PathwayMetadataType = PathwayMetadataV1;
+// v2 as of #858: src/data/pathwayMetadata.ts validates against v2, so only v2
+// documents reach the app and this is the shape every consumer sees.
+export type PathwayMetadataType = PathwayMetadataV2;
 export type PublicationType = PublicationV1;
 
 // Both versions are exported for the migration window. v1 and v2 documents

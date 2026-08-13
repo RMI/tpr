@@ -1,6 +1,7 @@
 import React from "react";
 import { PathwayMetadataType } from "../types";
 import { getKeyFeatureTooltip } from "../utils/tooltipUtils";
+import { widestValue } from "../utils/keyFeatureScope";
 import TextWithTooltip from "./TextWithTooltip";
 import Badge from "./Badge";
 import SentimentScale, { getSentimentPalette } from "./SentimentScale";
@@ -238,7 +239,11 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
   labelClassName = "text-xs font-medium text-rmigray-500",
   showLabel = true,
 }) => {
-  const rawValue = keyFeatures[feature.key];
+  // v2 stores each feature as scoped {sector, geography, value} entries (#858).
+  // Render the value at the broadest scope, which reproduces v1's output exactly
+  // for codemod-migrated data (one entry, at its widest scope). #869 replaces this
+  // with a scope-aware resolver and #859 adds the badge that names the scope.
+  const rawValue = widestValue(keyFeatures[feature.key]);
 
   const label = <p className={`${labelClassName} mb-1.5`}>{feature.label}</p>;
 
