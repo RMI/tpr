@@ -62,17 +62,7 @@
     <h1>Pathway Metadata</h1>
     <span class="badge badge-dark value-type">Type: object</span><br />
     <span class="description"
-      ><p>
-        A schema for the pathway metadata dataset in TPR. v2 of #858: each
-        keyFeatures field carries an array of {sector, geography, value} entries
-        instead of a bare value, so the #869 resolver can serve the most
-        specific value a pathway holds for a given search scope and fall back to
-        broader scopes. Also adds coreDrivers, dependencies, pathwayDescription
-        and transitionAssessment, and removes expertOverview and
-        pathwayOverview. v1 documents remain valid against
-        pathwayMetadata.v1.json; validateData routes each document by its own
-        $schema.
-      </p>
+      ><p>A schema for the pathway metadata dataset in TPR.</p>
     </span>
     <span class="badge badge-info no-additional">No Additional Properties</span>
 
@@ -10913,8 +10903,8 @@
                 applicable scope: sector 'cross-sector' for a multi-sector
                 pathway else its lone sector, and geography 'Global' else the
                 pathway's widest declared region or country. An entry that is
-                absent at some scope means the #869 resolver keeps broadening
-                until it finds one; an explicit "No information" value is a real
+                absent at some scope means the resolver keeps broadening until
+                it finds one; an explicit "No information" value is a real
                 authored value that terminates that fallback chain and displays
                 at its own scope. An empty array means nothing is authored at
                 any scope.

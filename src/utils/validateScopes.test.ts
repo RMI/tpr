@@ -143,7 +143,9 @@ describe("validateScopedEntries — reporting", () => {
       }),
     );
     expect(errors).toHaveLength(2);
-    expect(errors.every((e) => e.includes("/emissionsTrajectory/1/"))).toBe(true);
+    expect(errors.every((e) => e.includes("/emissionsTrajectory/1/"))).toBe(
+      true,
+    );
   });
 
   it("checks every keyFeatures field, not just the first", () => {

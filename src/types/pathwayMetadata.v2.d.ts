@@ -122,7 +122,7 @@ export type ScopeGeography10 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 
 /**
- * A schema for the pathway metadata dataset in TPR. v2 of #858: each keyFeatures field carries an array of {sector, geography, value} entries instead of a bare value, so the #869 resolver can serve the most specific value a pathway holds for a given search scope and fall back to broader scopes. Also adds coreDrivers, dependencies, pathwayDescription and transitionAssessment, and removes expertOverview and pathwayOverview. v1 documents remain valid against pathwayMetadata.v1.json; validateData routes each document by its own $schema.
+ * A schema for the pathway metadata dataset in TPR.
  */
 export interface PathwayMetadataV2 {
   /**
@@ -230,7 +230,7 @@ export interface PathwayMetadataV2 {
   transitionAssessment?: string | null;
   metric: import("./common/metric.v1").MetricV1["displayName"][];
   /**
-   * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the #869 resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
+   * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
    */
   keyFeatures: {
     /**
