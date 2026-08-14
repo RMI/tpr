@@ -390,3 +390,131 @@ describe("v1 and v2 documents coexist (#858)", () => {
     );
   });
 });
+
+describe("v2 enforces its own required fields (#858)", () => {
+  // The v1 REQ block above deliberately still lists `expertOverview`: those cases
+  // validate v1 documents against v1, where it remains required. These are the v2
+  // counterparts. `coreDrivers` and `dependencies` matter most — the codemod
+  // scaffolds them to null/[], so they are the fields most likely to be omitted
+  // by hand-authoring or by a partial migration of the remaining files.
+  const V2_REQ = [
+    "id",
+    "name",
+    "description",
+    "publication",
+    "pathwayType",
+    "geography",
+    "sectors",
+    "pathwayDescription",
+    "metric",
+    "keyFeatures",
+    "coreDrivers",
+    "dependencies",
+  ];
+
+  for (const key of V2_REQ) {
+    it(`fails when required property '${key}' is missing`, () => {
+      const rest: Record<string, unknown> = { ...v2Full };
+      delete rest[key];
+      fail2({ name: "missing.json", data: rest }, new RegExp(key));
+    });
+  }
+
+  it("accepts a null pathwayDescription, but not a missing one", () => {
+    // Nullable-but-required: "we have no description" is authored explicitly,
+    // which is the same distinction #858 draws for coreDrivers and keyFeatures.
+    const { invalid } = validateDataCollect(
+      [
+        {
+          name: "null-desc.json",
+          data: { ...v2Full, pathwayDescription: null },
+        },
+      ],
+      pathwayMetadataV2,
+      commonSchemas,
+    );
+    expect(invalid).toHaveLength(0);
+  });
+
+  it("requires every one of the 7 coreDrivers keys, nullable though they are", () => {
+    const { coreDrivers } = v2Full as unknown as {
+      coreDrivers: Record<string, unknown>;
+    };
+    for (const key of Object.keys(coreDrivers)) {
+      const partial = { ...coreDrivers };
+      delete partial[key];
+      fail2(
+        {
+          name: `missing-driver-${key}.json`,
+          data: { ...v2Full, coreDrivers: partial },
+        },
+        new RegExp(key),
+      );
+    }
+  });
+
+  it("rejects an unknown coreDrivers key", () => {
+    fail2(
+      {
+        name: "extra-driver.json",
+        data: {
+          ...v2Full,
+          coreDrivers: {
+            ...(v2Full as unknown as { coreDrivers: object }).coreDrivers,
+            madeUpDriver: "Nope.",
+          },
+        },
+      },
+      /must NOT have additional properties/,
+    );
+  });
+
+  it("rejects a dependency scoped to an unknown sector", () => {
+    fail2(
+      {
+        name: "bad-dep-sector.json",
+        data: {
+          ...v2Full,
+          dependencies: [
+            {
+              dependency_name: "Technology",
+              dependency_description: "Needs something.",
+              sector: "Yak Shaving",
+              evidence_type: "Qualitative",
+            },
+          ],
+        },
+      },
+      /allowed values/,
+    );
+  });
+
+  it("rejects an unknown dependency_name or evidence_type", () => {
+    const base = {
+      dependency_name: "Technology",
+      dependency_description: "Needs something.",
+      sector: "Power",
+      evidence_type: "Qualitative",
+    };
+    fail2(
+      {
+        name: "bad-dep-name.json",
+        data: {
+          ...v2Full,
+          dependencies: [{ ...base, dependency_name: "Vibes" }],
+        },
+      },
+      /allowed values/,
+    );
+    fail2(
+      {
+        name: "bad-evidence.json",
+        data: {
+          ...v2Full,
+          dependencies: [{ ...base, evidence_type: "Hearsay" }],
+        },
+      },
+      /allowed values/,
+    );
+  });
+});
