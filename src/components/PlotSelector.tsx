@@ -172,6 +172,7 @@ export const PlotSelector: React.FC<PlotSelectorProps> = ({
               width={450}
               height={300}
               metric="emissionsIntensity"
+              yMin={0}
             />
           </div>
         );

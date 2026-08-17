@@ -233,16 +233,24 @@ export default function MultiLineChart({
       .attr("data-technology", (d) => d[1][0].technology)
       .attr("data-unit", (d) => d[1][0].unit);
 
-    // Update labels with capitalized technology names
-    const dodged = dodge(
-      groupedData.map((d) => y(d[1][d[1].length - 1].value)),
-    );
+    // Update labels with capitalized technology names. Sector-level metrics
+    // (absolute emissions, emissions intensity) only ever have a single series,
+    // so a label is redundant and can overflow the chart's right margin,
+    // especially in the space-constrained Comparison View.
+    const showSeriesLabels =
+      metric !== "absoluteEmissions" && metric !== "emissionsIntensity";
 
-    const labelData = groupedData.map((d, i) => ({
-      label: capitalizeWords(d[0]),
-      x: x(parse(d[1][d[1].length - 1].year) as Date),
-      y: dodged[i],
-    }));
+    let labelData: LabelData[] = [];
+    if (showSeriesLabels) {
+      const dodged = dodge(
+        groupedData.map((d) => y(d[1][d[1].length - 1].value)),
+      );
+      labelData = groupedData.map((d, i) => ({
+        label: capitalizeWords(d[0]),
+        x: x(parse(d[1][d[1].length - 1].year) as Date),
+        y: dodged[i],
+      }));
+    }
 
     (
       select(lines.current)
