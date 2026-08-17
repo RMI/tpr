@@ -15,7 +15,7 @@ import { prioritizeGeographies } from "../utils/sortUtils";
 export const REGION_TOOLTIP_MAX_MEMBERS = 12;
 
 export const NO_REGION_MAPPING_TEXT =
-  "No country mapping published for this region.";
+  "No country mapping available for this region.";
 
 type RegionMembersTooltipProps = {
   /** The pathway's own structured geography — the source of the mapping. */
