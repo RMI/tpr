@@ -137,7 +137,7 @@ describe("PathwayDetailPage — region geography tooltips", () => {
       await screen.findByText("Unmapped Region", undefined, WAIT);
 
       const tooltip = await openTooltipFor("Unmapped Region");
-      expect(tooltip).toHaveTextContent("No country mapping published");
+      expect(tooltip).toHaveTextContent("No country mapping available");
     },
     TEST_TIMEOUT,
   );
