@@ -1,11 +1,11 @@
-# Pathway metadata for the pbtar repo
+# Pathway metadata for the tpr repo
 
-The `src/data` directory in the [pbtar](https://github.com/RMI/pbtar) repo contains all of the data shown on the Pathways-based transition assessment repository site.
+The `src/data` directory in the [tpr](https://github.com/RMI/tpr) repo contains all of the data shown on the Transition Pathways Repository site.
 Each JSON file in this directory contains one or more pathway definitions.
 
 ## Schema and Validation
 
-The JSON files have a strict, specific format that needs to be followed, which is defined by the JSON schema file in this repo at [pbtar_schema.json](https://github.com/RMI/pbtar/blob/main/src/schema/schema.json).
+The JSON files have a strict, specific format that needs to be followed, which is defined by the JSON schema file in this repo at [pbtar_schema.json](https://github.com/RMI/tpr/blob/main/src/schema/schema.json).
 
 The schema file defines a number of mandatory fields which must be included.
 Additionally, the structure, the data types, and in some cases the allowed values for a given key must be correct for things to work as expected.
@@ -31,7 +31,7 @@ These functions require the following R packages to be installed in your environ
 
 validate_json <- function(json_obj, schema_url = NULL) {
   if (is.null(schema_url)) {
-    schema_url <- "https://raw.githubusercontent.com/RMI/pbtar/refs/heads/main/pbtar_schema.json"
+    schema_url <- "https://raw.githubusercontent.com/RMI/tpr/refs/heads/main/pbtar_schema.json"
   }
   json_schema <- readr::read_file(file = schema_url)
   validation <-
@@ -109,4 +109,4 @@ If the `<list>` is not valid, the functions will return a data frame with inform
 This README should be the definitive source of information about these JSON files and how to add them or modify them.
 As this repo is currently under heavy development, such details may change rapidly, and this README should be kept up to date with those changes as they happen.
 If you're developing in this repo, please remember to make appropriate changes to this README when relevant changes are made to the underlying code.
-If you're maintaining/modifying/adding the pathway data, please refer to the [live version of this README](https://github.com/RMI/pbtar/blob/main/src/data/README.md) on `main` for the most up-to-date details.
+If you're maintaining/modifying/adding the pathway data, please refer to the [live version of this README](https://github.com/RMI/tpr/blob/main/src/data/README.md) on `main` for the most up-to-date details.

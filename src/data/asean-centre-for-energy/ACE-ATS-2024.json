@@ -27,7 +27,18 @@
   "description": "ASEAN-specific pathway exploring impact of unconditional NDCs and existing policies.",
   "geography": {
     "regions": {
-      "South East Asia": []
+      "South East Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ]
     }
   },
   "pathwayType": "Exploratory",

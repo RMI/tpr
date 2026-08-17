@@ -3,7 +3,7 @@
   "name": "Code Quality Copilot review for default branch",
   "target": "branch",
   "source_type": "Repository",
-  "source": "RMI/pbtar",
+  "source": "RMI/tpr",
   "enforcement": "active",
   "conditions": {
     "ref_name": {

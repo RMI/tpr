@@ -27,7 +27,18 @@
   "description": "Pathway for ASEAN to achieve significant CO2 emissions reductions by 2050.",
   "geography": {
     "regions": {
-      "South East Asia": []
+      "South East Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ]
     }
   },
   "pathwayType": "Normative",

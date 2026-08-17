@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { X, Plus, GitCompareArrows, Trash2 } from "lucide-react";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
