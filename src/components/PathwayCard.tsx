@@ -25,6 +25,7 @@ import {
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
 import TextWithTooltip from "./TextWithTooltip";
+import RegionMembersTooltip from "./RegionMembersTooltip";
 
 interface PathwayCardProps {
   pathway: PathwayMetadataType;
@@ -187,6 +188,15 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
               })}
               toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
               renderLabel={(label) => highlightTextIfSearchMatch(label)}
+              tooltipGetter={(geo) =>
+                geographyKind(geo) === "region" ? (
+                  <RegionMembersTooltip
+                    geography={pathway.geography}
+                    label={geo}
+                    searchTerm={searchTerm}
+                  />
+                ) : undefined
+              }
               maxRows={2}
             >
               {sortedGeography}

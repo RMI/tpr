@@ -4,7 +4,9 @@ import { coalesceOptional, isAbsent } from "../utils/absent";
 
 interface BadgeProps {
   children: string | number;
-  tooltip?: string;
+  // ReactNode, not string: BadgeArray's `tooltipGetter` already returns ReactNode,
+  // and geography badges pass a rendered member-country list (#799).
+  tooltip?: React.ReactNode;
   variant?:
     | "default"
     | "pathwayType"

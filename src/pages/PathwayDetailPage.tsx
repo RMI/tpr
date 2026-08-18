@@ -30,6 +30,7 @@ import PublicationBlock from "../components/PublicationBlock";
 import { PlotSelector, TimeSeries } from "../components/PlotSelector";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import TextWithTooltip from "../components/TextWithTooltip";
+import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import {
   pathwayToolAvailability,
   sortByAvailability,
@@ -329,6 +330,14 @@ const PathwayDetailPage: React.FC = () => {
                       : `${base}-pub`;
                   })}
                   toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+                  tooltipGetter={(geo) =>
+                    geographyKind(geo) === "region" ? (
+                      <RegionMembersTooltip
+                        geography={pathway.geography}
+                        label={geo}
+                      />
+                    ) : undefined
+                  }
                   visibleCount={Infinity}
                 >
                   {sortedGeos}
