@@ -4,6 +4,7 @@ import SearchSection from "./SearchSection";
 import { SearchFilters } from "../types";
 import { PathwayMetadataType } from "../types";
 import userEvent from "@testing-library/user-event";
+import { REGION_MAPPING_DISCLAIMER } from "../utils/geographyUtils";
 
 // Mock the pathwayMetadata import
 vi.mock("../data/pathwayMetadata", async () => {
@@ -239,6 +240,27 @@ describe("SearchSection", () => {
       // ANY/ALL toggle should not be present in the header for range facets
       expect(screen.queryByRole("button", { name: /any/i })).toBeNull();
       expect(screen.queryByRole("button", { name: /all/i })).toBeNull();
+    });
+  });
+
+  // #800: the filter regions are our mapping, so the dropdown that offers them has
+  // to say whose opinion they are (and whose they are not).
+  describe("region mapping disclaimer", () => {
+    it("footnotes the Geography dropdown with the disclaimer", () => {
+      render(<SearchSection {...defaultProps} />);
+
+      // Not shown until the panel is open — it belongs to the option list.
+      expect(screen.queryByText(REGION_MAPPING_DISCLAIMER)).toBeNull();
+
+      openByLabel("Geography");
+      expect(screen.getByText(REGION_MAPPING_DISCLAIMER)).toBeInTheDocument();
+    });
+
+    it("does not add the footnote to other facets", () => {
+      render(<SearchSection {...defaultProps} />);
+
+      openByLabel("Pathway Type");
+      expect(screen.queryByText(REGION_MAPPING_DISCLAIMER)).toBeNull();
     });
   });
 });

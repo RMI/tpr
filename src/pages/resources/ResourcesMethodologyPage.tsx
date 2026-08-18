@@ -1,5 +1,6 @@
 import React, { useId, useState } from "react";
 import { Link } from "react-router";
+import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
 
 const DefinitionCard: React.FC<{
   title: string;
@@ -351,8 +352,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                   </p>
                   <p>
                     <i>
-                      Note: RMI does not make any statements on country
-                      delineations and/or conflicting territorial claims.
+                      Note: {REGION_MAPPING_DISCLAIMER} RMI does not make any
+                      statements on country delineations and/or conflicting
+                      territorial claims.
                     </i>
                   </p>
                 </div>

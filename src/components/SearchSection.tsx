@@ -5,6 +5,7 @@ import { pathwayMetadata } from "../data/pathwayMetadata";
 import { SearchFilters } from "../types";
 import type { FacetMode } from "../utils/searchUtils";
 import { getGlobalFacetOptions } from "../utils/searchUtils";
+import { REGION_MAPPING_DISCLAIMER } from "../utils/geographyUtils";
 import { getStep } from "./NumericRange";
 import NumericRangeDropdown from "./NumericRangeDropdown";
 import {
@@ -150,6 +151,7 @@ const SearchSection: React.FC<SearchSectionProps> = ({
             mode={filters.modes?.geography ?? "ANY"}
             onModeChange={(m) => setMode("geography", m)}
             menuWidthClassName="w-60"
+            footer={REGION_MAPPING_DISCLAIMER}
           />
         </div>
 
