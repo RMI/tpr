@@ -56,10 +56,15 @@ export default function MultiLineChart({
   externalHoveredSeries,
   onHoverSeries,
 }: MultiLineChartProps) {
-  const d3data = useMemo(
-    () => data.data.filter((d) => d.sector === sector && d.metric === metric),
-    [data.data, sector, metric],
-  );
+  const d3data = useMemo(() => {
+    let filtered = data.data.filter(
+      (d) => d.sector === sector && d.metric === metric,
+    );
+    if (metric === "emissionsIntensity" || metric === "absoluteEmissions") {
+      filtered = filtered.map((d) => ({ ...d, technology: d.metric }));
+    }
+    return filtered;
+  }, [data.data, sector, metric]);
 
   const ref = useRef<SVGSVGElement>(null);
   const gx = useRef<SVGGElement>(null);
@@ -73,9 +78,7 @@ export default function MultiLineChart({
     return `${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`;
   }, [d3data, sector, metric]);
   const [selectRef, setSelectRef] = useState<string>(
-    data.data
-      .filter((d) => d.sector === sector && d.metric === metric)
-      .map((d) => d.technology)[0],
+    d3data.map((d) => d.technology)[0],
   );
 
   const isPointerOver = useRef(false);
@@ -228,16 +231,24 @@ export default function MultiLineChart({
       .attr("data-technology", (d) => d[1][0].technology)
       .attr("data-unit", (d) => d[1][0].unit);
 
-    // Update labels with capitalized technology names
-    const dodged = dodge(
-      groupedData.map((d) => y(d[1][d[1].length - 1].value)),
-    );
+    // Update labels with capitalized technology names. Sector-level metrics
+    // (absolute emissions, emissions intensity) only ever have a single series,
+    // so a label is redundant and can overflow the chart's right margin,
+    // especially in the space-constrained Comparison View.
+    const showSeriesLabels =
+      metric !== "absoluteEmissions" && metric !== "emissionsIntensity";
 
-    const labelData = groupedData.map((d, i) => ({
-      label: capitalizeWords(d[0]),
-      x: x(parse(d[1][d[1].length - 1].year) as Date),
-      y: dodged[i],
-    }));
+    let labelData: LabelData[] = [];
+    if (showSeriesLabels) {
+      const dodged = dodge(
+        groupedData.map((d) => y(d[1][d[1].length - 1].value)),
+      );
+      labelData = groupedData.map((d, i) => ({
+        label: capitalizeWords(d[0]),
+        x: x(parse(d[1][d[1].length - 1].year) as Date),
+        y: dodged[i],
+      }));
+    }
 
     (
       select(lines.current)

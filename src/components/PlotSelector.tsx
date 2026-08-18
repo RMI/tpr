@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 import MultiLineChart from "./MultiLineChart";
-import VerticalBarChart from "./VerticalBarChart";
 import { geographyLabel } from "../utils/geographyUtils";
 
 interface DataPoint {
@@ -155,7 +154,7 @@ export const PlotSelector: React.FC<PlotSelectorProps> = ({
       case "absoluteEmissions":
         return (
           <div className="flex flex-col items-center">
-            <VerticalBarChart
+            <MultiLineChart
               key={`${datasetId}-${selectedPlot}-${selectedGeography}`}
               data={filteredData}
               width={450}
@@ -167,12 +166,13 @@ export const PlotSelector: React.FC<PlotSelectorProps> = ({
       case "emissionsIntensity":
         return (
           <div className="flex flex-col items-center">
-            <VerticalBarChart
+            <MultiLineChart
               key={`${datasetId}-${selectedPlot}-${selectedGeography}`}
               data={filteredData}
               width={450}
               height={300}
               metric="emissionsIntensity"
+              yMin={0}
             />
           </div>
         );
