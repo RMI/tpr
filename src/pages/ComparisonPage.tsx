@@ -338,7 +338,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={
@@ -374,7 +374,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={SECTOR_AVAILABILITY_TOOLTIP}
@@ -420,7 +420,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={METRIC_AVAILABILITY_TOOLTIP}
