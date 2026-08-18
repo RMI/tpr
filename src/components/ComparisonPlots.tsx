@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { PlotType, TimeSeries } from "./PlotSelector";
 import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 import MultiLineChart from "./MultiLineChart";
-import VerticalBarChart from "./VerticalBarChart";
 import { geographyLabel } from "../utils/geographyUtils";
 
 const PLOT_OPTIONS: { value: PlotType; label: string }[] = [
@@ -105,24 +104,30 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
         );
       case "absoluteEmissions":
         return (
-          <VerticalBarChart
+          <MultiLineChart
             key={key}
             data={filteredData}
             width={dims.width}
             height={dims.height}
             metric="absoluteEmissions"
+            yMin={yMin}
             yMax={yMax}
+            externalHoveredSeries={hoveredSeries}
+            onHoverSeries={onHoverSeries}
           />
         );
       case "emissionsIntensity":
         return (
-          <VerticalBarChart
+          <MultiLineChart
             key={key}
             data={filteredData}
             width={dims.width}
             height={dims.height}
             metric="emissionsIntensity"
+            yMin={yMin}
             yMax={yMax}
+            externalHoveredSeries={hoveredSeries}
+            onHoverSeries={onHoverSeries}
           />
         );
       case "capacity":
@@ -221,13 +226,13 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({ entries }) => {
 
   // Shared y-axis bounds across all pathways for the current plot type + geography
   const sharedYBounds = useMemo(() => {
-    const isMultiLine =
-      selectedPlot === "capacity" || selectedPlot === "generation";
-    const isBar =
+    const isLineChart =
+      selectedPlot === "capacity" ||
+      selectedPlot === "generation" ||
       selectedPlot === "absoluteEmissions" ||
       selectedPlot === "emissionsIntensity";
 
-    if (!isMultiLine && !isBar) return undefined;
+    if (!isLineChart) return undefined;
 
     const allValues: number[] = [];
     entries.forEach((e) => {
@@ -244,7 +249,9 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({ entries }) => {
     if (allValues.length === 0) return undefined;
 
     const yMax = Math.max(...allValues);
-    const yMin = isMultiLine ? Math.min(...allValues) : 0;
+    // Emissions intensity axes always start at 0; other line charts use the natural data min.
+    const yMin =
+      selectedPlot === "emissionsIntensity" ? 0 : Math.min(...allValues);
     return { yMin, yMax };
   }, [entries, selectedPlot, selectedGeography]);
 
