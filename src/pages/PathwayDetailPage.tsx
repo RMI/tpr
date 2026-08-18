@@ -11,6 +11,7 @@ import {
   geographyVariant,
   normalizeGeography,
   sortGeographiesForDetails,
+  REGION_MAPPING_DISCLAIMER,
 } from "../utils/geographyUtils";
 import { ArrowLeft, Info } from "lucide-react";
 import {
@@ -29,6 +30,7 @@ import PublicationBlock from "../components/PublicationBlock";
 import { PlotSelector, TimeSeries } from "../components/PlotSelector";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import TextWithTooltip from "../components/TextWithTooltip";
+import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import {
   pathwayToolAvailability,
   sortByAvailability,
@@ -306,7 +308,16 @@ const PathwayDetailPage: React.FC = () => {
                         className="text-rmigray-400 cursor-help"
                       />
                     }
-                    tooltip={GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                    tooltip={
+                      <>
+                        <span className="block">
+                          {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                        </span>
+                        <span className="mt-2 block italic">
+                          {REGION_MAPPING_DISCLAIMER}
+                        </span>
+                      </>
+                    }
                     ariaLabel="Geography availability information"
                     position="right"
                   />
@@ -319,6 +330,14 @@ const PathwayDetailPage: React.FC = () => {
                       : `${base}-pub`;
                   })}
                   toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+                  tooltipGetter={(geo) =>
+                    geographyKind(geo) === "region" ? (
+                      <RegionMembersTooltip
+                        geography={pathway.geography}
+                        label={geo}
+                      />
+                    ) : undefined
+                  }
                   visibleCount={Infinity}
                 >
                   {sortedGeos}

@@ -5,6 +5,14 @@ countries.registerLocale(en);
 
 export type GeographyKind = "global" | "region" | "country";
 
+// Approved wording from #800 (2026-08-10). Single source of truth for the
+// region-mapping disclaimer, rendered on the methodology page, in the detail-page
+// geography tooltip, and under the Geography filter dropdown — the three places a
+// user meets a region→country mapping.
+export const REGION_MAPPING_DISCLAIMER =
+  "The mapping of any individual country or territory to a region reflects the " +
+  "mappings of the model used in the pathway. It does not reflect any opinion of RMI.";
+
 // Flatten the structured geography object into the ordered flat token list the
 // rest of the app historically operated on: "Global" (when global) → region
 // labels → country codes. This intentionally does NOT expand region membership
@@ -49,6 +57,42 @@ export function pathwayISOCoverage(
     }
   }
   return codes;
+}
+
+// The ISO-3166-1 alpha-2 codes a pathway's OWN `regions[label]` entry declares —
+// the publication's mapping, never the filter-region vocabulary in
+// `filterRegions.ts`. `flattenGeography` carries region labels only, so this is how
+// display code gets the membership behind a region badge back (#799). Returns an
+// empty array both when `label` is not one of the pathway's regions and when the
+// publication provides no mapping for it (empty member array). Those two cases are
+// NOT distinguishable from the result, and `geographyKind` cannot tell them apart
+// either — it answers "region" for any non-Global, non-country token, including a
+// label this pathway never declared. A caller that needs the difference has to look
+// for the label in `geo.regions` itself. Unrecognised codes are
+// dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the order
+// comes from `sortGeographiesForDetails` so members read A→Z by ISO2 exactly like
+// country badges elsewhere.
+export function regionMemberCodes(
+  geo: Geography | null | undefined,
+  label: string,
+): GeographyCode[] {
+  if (!geo || typeof geo !== "object" || !geo.regions) return [];
+  const wanted = normalizeGeography(label);
+  if (!wanted) return [];
+  // Match on the normalized form so the lookup accepts the same token
+  // `flattenGeography` emitted, even if the raw key carries stray whitespace.
+  const key = Object.keys(geo.regions).find(
+    (k) => normalizeGeography(k) === wanted,
+  );
+  if (key === undefined) return [];
+  const members = geo.regions[key];
+  if (!Array.isArray(members)) return [];
+  const codes = new Set<string>();
+  for (const raw of members) {
+    const iso = toISO2(raw);
+    if (iso && countryNameFromISO2(iso)) codes.add(iso);
+  }
+  return sortGeographiesForDetails([...codes]) as GeographyCode[];
 }
 
 // A pathway has "absent" geography when flattening yields no tokens — i.e. an
