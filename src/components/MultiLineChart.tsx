@@ -60,7 +60,7 @@ export default function MultiLineChart({
     let filtered = data.data.filter(
       (d) => d.sector === sector && d.metric === metric,
     );
-    if (metric == "emissionsIntensity" || metric == "absoluteEmissions") {
+    if (metric === "emissionsIntensity" || metric === "absoluteEmissions") {
       filtered = filtered.map((d) => ({ ...d, technology: d.metric }));
     }
     return filtered;
@@ -78,9 +78,7 @@ export default function MultiLineChart({
     return `${capitalizeWords(sector)} ${capitalizeWords(metric)} [${unit}]`;
   }, [d3data, sector, metric]);
   const [selectRef, setSelectRef] = useState<string>(
-    data.data
-      .filter((d) => d.sector === sector && d.metric === metric)
-      .map((d) => d.technology)[0],
+    d3data.map((d) => d.technology)[0],
   );
 
   const isPointerOver = useRef(false);
