@@ -34,16 +34,25 @@ export const CROSS_REGION = "cross-region";
 type ScopedEntry = { sector: string; geography: string; value: unknown };
 
 /**
- * Every geography token an entry on this pathway may legitimately name: the
- * two sentinels, each declared region label, every country inside those regions,
- * and every standalone country. Region members count because a pathway that
- * covers "South East Asia" does cover Thailand — scoping an entry to `TH` is
- * more specific than the pathway's own declaration, not outside it.
+ * Every geography token an entry on this pathway may legitimately name: each
+ * declared region label, every country inside those regions, every standalone
+ * country, and the sentinels where they apply. Region members count because a
+ * pathway that covers "South East Asia" does cover Thailand — scoping an entry
+ * to `TH` is more specific than the pathway's own declaration, not outside it.
+ *
+ * `Global` is allowed only when the pathway actually sets `geography.global`.
+ * #858 phrases the rule as "declared by the pathway, or the widest sentinel",
+ * which read literally would let a South-East-Asia-only pathway carry a
+ * global-scoped value — describing coverage it never claims, and defeating the
+ * point of the check. `cross-region` stays unconditional: #858 reserves it for a
+ * multi-region non-global aggregate without saying when it applies, and no file
+ * in the corpus uses it yet, so gating it would be inventing a rule.
  */
 function allowedGeographies(pathway: PathwayMetadataV2): Set<string> {
-  const allowed = new Set<string>([GLOBAL_SCOPE, CROSS_REGION]);
+  const allowed = new Set<string>([CROSS_REGION]);
   const geo = pathway.geography;
   if (!geo || typeof geo !== "object") return allowed;
+  if (geo.global === true) allowed.add(GLOBAL_SCOPE);
   if (geo.regions) {
     for (const [label, members] of Object.entries(geo.regions)) {
       allowed.add(label);

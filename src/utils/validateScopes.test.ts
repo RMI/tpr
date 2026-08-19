@@ -32,7 +32,7 @@ describe("validateScopedEntries — sector axis", () => {
     const errors = validateScopedEntries(
       pathway({
         keyFeatures: {
-          emissionsTrajectory: [entry("Power", "Global")],
+          emissionsTrajectory: [entry("Power", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
@@ -43,7 +43,7 @@ describe("validateScopedEntries — sector axis", () => {
     const errors = validateScopedEntries(
       pathway({
         keyFeatures: {
-          emissionsTrajectory: [entry("cross-sector", "Global")],
+          emissionsTrajectory: [entry("cross-sector", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
@@ -54,7 +54,7 @@ describe("validateScopedEntries — sector axis", () => {
     const errors = validateScopedEntries(
       pathway({
         keyFeatures: {
-          emissionsTrajectory: [entry("Cement", "Global")],
+          emissionsTrajectory: [entry("Cement", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
@@ -68,7 +68,7 @@ describe("validateScopedEntries — sector axis", () => {
       pathway({
         sectors: [{ name: "Power", technologies: [] }],
         keyFeatures: {
-          emissionsTrajectory: [entry("cross-sector", "Global")],
+          emissionsTrajectory: [entry("cross-sector", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
@@ -77,7 +77,7 @@ describe("validateScopedEntries — sector axis", () => {
 });
 
 describe("validateScopedEntries — geography axis", () => {
-  it.each(["Global", "cross-region", "South East Asia", "SG", "TH"])(
+  it.each(["cross-region", "South East Asia", "SG", "TH"])(
     "accepts %s",
     (geography) => {
       const errors = validateScopedEntries(
@@ -90,6 +90,35 @@ describe("validateScopedEntries — geography axis", () => {
       expect(errors).toEqual([]);
     },
   );
+
+  it("accepts Global only when the pathway actually is global", () => {
+    const globalPathway = pathway({
+      geography: { global: true, regions: { "South East Asia": ["TH"] } },
+    });
+    expect(
+      validateScopedEntries({
+        ...globalPathway,
+        keyFeatures: {
+          emissionsTrajectory: [entry("Power", "Global")],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    ).toEqual([]);
+  });
+
+  it("rejects Global on a pathway that does not set geography.global", () => {
+    // A South-East-Asia-only pathway carrying a global-scoped value would be
+    // describing coverage it never claims. #858's "or the widest sentinel"
+    // wording allows it read literally; that defeats the point of the check.
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [entry("Power", "Global")],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('"Global"');
+  });
 
   it("accepts a country reached only through a declared region", () => {
     // The pathway declares "South East Asia": ["TH","VN"] but no standalone VN,
@@ -136,7 +165,7 @@ describe("validateScopedEntries — reporting", () => {
       pathway({
         keyFeatures: {
           emissionsTrajectory: [
-            entry("Power", "Global"),
+            entry("Power", "South East Asia"),
             entry("Cement", "Narnia"),
           ],
         } as unknown as PathwayMetadataV2["keyFeatures"],
@@ -152,8 +181,8 @@ describe("validateScopedEntries — reporting", () => {
     const errors = validateScopedEntries(
       pathway({
         keyFeatures: {
-          emissionsTrajectory: [entry("Power", "Global")],
-          policyAmbition: [entry("Cement", "Global")],
+          emissionsTrajectory: [entry("Power", "South East Asia")],
+          policyAmbition: [entry("Cement", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
