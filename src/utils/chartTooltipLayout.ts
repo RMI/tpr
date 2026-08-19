@@ -4,9 +4,11 @@
  * plot area's edges. Kept free of d3/DOM so it can be unit tested without
  * a real SVG layout engine (jsdom's getBBox() always returns zeros).
  *
- * All coordinates are local to the anchor point, i.e. the hovered point
- * sits at (0, 0); `offsetX`/`nearY`/`farY` describe the tooltip box's
- * position relative to it.
+ * `point` and `bounds` are in absolute plot-pixel space (the same space
+ * as each other). The returned layout is local to the anchor point
+ * instead, i.e. as if the hovered point sat at (0, 0) — `offsetX`/`nearY`/
+ * `farY`/etc. describe the tooltip box's position relative to it, ready
+ * to use inside an SVG group already translated to the point's position.
  */
 
 export interface TooltipAnchorPoint {
