@@ -7,6 +7,4 @@
 /**
  * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
-export type ScopeGeographyV2 = {
-  [k: string]: unknown;
-} & string;
+export type ScopeGeographyV2 = string;

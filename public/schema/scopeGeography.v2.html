@@ -68,46 +68,12 @@
         region label.
       </p>
     </span>
-    <div
-      class="all-of-value"
-      id="allOf"
-    >
-      <h2 class="handle">
-        <label>All of</label>
-      </h2>
-      <ul
-        class="nav nav-tabs"
-        id="tabsallOf_allOf"
-        role="tablist"
-      >
-        <li class="nav-item">
-          <a
-            class="nav-link active allOf-option"
-            id="allOf_i0"
-            data-toggle="tab"
-            href="#tab-pane_allOf_i0"
-            role="tab"
-            onclick="setAnchor('#allOf_i0')"
-            >Requirement 1</a
-          >
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link allOf-option"
-            id="allOf_i1"
-            data-toggle="tab"
-            href="#tab-pane_allOf_i1"
-            role="tab"
-            onclick="setAnchor('#allOf_i1')"
-            >Requirement 2</a
-          >
-        </li>
-      </ul>
-      <div class="tab-content card">
+    <div class="not-value">
+      <h4>Must <strong>not</strong> be:</h4>
+      <div class="card">
         <div
-          class="tab-pane fade card-body active show"
-          id="tab-pane_allOf_i0"
-          role="tabpanel"
+          class="card-body"
+          id=""
         >
           <div class="breadcrumbs">
             root
@@ -125,159 +91,25 @@
               />
             </svg>
             <a
-              href="#allOf"
-              onclick="anchorLink('allOf')"
-              >allOf</a
-            >
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-arrow-right-short"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-              />
-            </svg>
-            <a
-              href="#allOf_i0"
-              onclick="anchorLink('allOf_i0')"
-              >item 0</a
+              href="#not"
+              onclick="anchorLink('not')"
+              >not</a
             >
           </div>
-          <span class="badge badge-dark value-type">Type: object</span><br />
+          <span class="badge badge-dark value-type">Type: string</span><br />
           <span
             class="pattern-value"
-            id="allOf_i0_pattern"
-            >Must match regular expression: <code>^(?!\s*$).+</code></span
+            id="not_pattern"
+            >Must match regular expression: <code>^[A-Za-z]{3}$</code></span
           >
-        </div>
-        <div
-          class="tab-pane fade card-body"
-          id="tab-pane_allOf_i1"
-          role="tabpanel"
-        >
-          <div class="breadcrumbs">
-            root
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-arrow-right-short"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-              />
-            </svg>
-            <a
-              href="#allOf"
-              onclick="anchorLink('allOf')"
-              >allOf</a
-            >
-            <svg
-              width="1em"
-              height="1em"
-              viewBox="0 0 16 16"
-              class="bi bi-arrow-right-short"
-              fill="currentColor"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-              />
-            </svg>
-            <a
-              href="#allOf_i1"
-              onclick="anchorLink('allOf_i1')"
-              >item 1</a
-            >
-          </div>
-          <br />
-          <div class="not-value">
-            <h4>Must <strong>not</strong> be:</h4>
-            <div class="card">
-              <div
-                class="card-body"
-                id=""
-              >
-                <div class="breadcrumbs">
-                  root
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    class="bi bi-arrow-right-short"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                    />
-                  </svg>
-                  <a
-                    href="#allOf"
-                    onclick="anchorLink('allOf')"
-                    >allOf</a
-                  >
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    class="bi bi-arrow-right-short"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                    />
-                  </svg>
-                  <a
-                    href="#allOf_i1"
-                    onclick="anchorLink('allOf_i1')"
-                    >item 1</a
-                  >
-                  <svg
-                    width="1em"
-                    height="1em"
-                    viewBox="0 0 16 16"
-                    class="bi bi-arrow-right-short"
-                    fill="currentColor"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
-                    />
-                  </svg>
-                  <a
-                    href="#allOf_i1_not"
-                    onclick="anchorLink('allOf_i1_not')"
-                    >not</a
-                  >
-                </div>
-                <span class="badge badge-dark value-type">Type: object</span
-                ><br />
-                <span
-                  class="pattern-value"
-                  id="allOf_i1_not_pattern"
-                  >Must match regular expression:
-                  <code>^[A-Za-z]{3}$</code></span
-                >
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
+    <span
+      class="pattern-value"
+      id="pattern"
+      >Must match regular expression: <code>^(?!\s*$).+</code></span
+    >
 
     <p>
       <span

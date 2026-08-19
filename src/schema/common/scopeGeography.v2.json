@@ -6,10 +6,11 @@
   "$comment": "Deliberately an open string rather than an enum. Region labels are free-form by design -- geography.v1's 'regions' keys are kept as named in the source publication -- so a closed list could not express labels this repo already uses, e.g. IEA's 'Asia Pacific', 'Eurasia', 'Middle East', 'Central and South America', none of which appear in geographyItem.v1's enum. (#858's scope text says geographyItem, which would reject any finer-scope entry on an IEA pathway.) 'Global' is the widest sentinel; 'cross-region' is reserved for a multi-region non-global aggregate. Because any non-blank string validates here, the real constraint -- that the value is 'Global', 'cross-region', or a region/country the pathway declares in its own 'geography' -- is enforced by validateScopedEntries in src/utils/validateScopes.ts, run from scripts/schema-check-files.ts. That check is what catches a mistyped label.",
   "type": "string",
   "minLength": 1,
-  "allOf": [
-    { "pattern": "^(?!\\s*$).+" },
-    { "not": { "pattern": "^[A-Za-z]{3}$" } }
-  ],
+  "pattern": "^(?!\\s*$).+",
+  "not": {
+    "type": "string",
+    "pattern": "^[A-Za-z]{3}$"
+  },
   "examples": [
     "Global",
     "cross-region",
