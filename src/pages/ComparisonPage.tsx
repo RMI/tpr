@@ -15,6 +15,7 @@ import {
   geographyLabel,
   geographyVariant,
   normalizeGeography,
+  REGION_MAPPING_DISCLAIMER,
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import BadgeArray from "../components/BadgeArray";
@@ -337,10 +338,19 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
-              tooltip={GEOGRAPHY_AVAILABILITY_TOOLTIP}
+              tooltip={
+                <>
+                  <span className="block">
+                    {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                  </span>
+                  <span className="mt-2 block italic">
+                    {REGION_MAPPING_DISCLAIMER}
+                  </span>
+                </>
+              }
               ariaLabel="Geography availability information"
               position="right"
             />
@@ -364,7 +374,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={SECTOR_AVAILABILITY_TOOLTIP}
@@ -410,7 +420,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={METRIC_AVAILABILITY_TOOLTIP}

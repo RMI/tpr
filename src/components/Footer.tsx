@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               Legal
             </Link>
             <a
-              href="mailto:tomwhite+pbtar@rmi.org"
+              href="mailto:tomwhite+tpr@rmi.org"
               className="flex items-center text-sm text-white hover:text-energy transition-colors duration-200"
             >
               <Mail

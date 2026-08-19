@@ -318,14 +318,14 @@ const ResourcesFaqPage: React.FC = () => {
                 If you can’t find an answer to your question here, we would love
                 to hear from you. Reach out to{" "}
                 <a
-                  href="mailto:tomwhite+pbtar@rmi.org"
+                  href="mailto:tomwhite+tpr@rmi.org"
                   className="text-white underline underline-offset-2 transition-colors hover:text-white/80"
                 >
                   Tom White
                 </a>{" "}
                 or{" "}
                 <a
-                  href="mailto:jkastl+pbtar@rmi.org"
+                  href="mailto:jkastl+tpr@rmi.org"
                   className="text-white underline underline-offset-2 transition-colors hover:text-white/80"
                 >
                   Jacob Kastl

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import PathwayCard from "./PathwayCard";
 import { PathwayMetadataType } from "../types";
@@ -531,6 +531,76 @@ describe("tooltip functionality", () => {
       expect(Array.from(marks).some((m) => m.textContent === "2045")).toBe(
         true,
       );
+    });
+  });
+
+  // #799: region badges carry their published country mapping on hover, on the
+  // search-result cards as well as on the detail page.
+  describe("region geography tooltips", () => {
+    const renderCard = (searchTerm = "") =>
+      render(
+        <MemoryRouter>
+          <ComparisonProvider>
+            <PathwayCard
+              pathway={mockPathwayFull as PathwayMetadataType}
+              searchTerm={searchTerm}
+            />
+          </ComparisonProvider>
+        </MemoryRouter>,
+      );
+
+    /** The TextWithTooltip trigger wrapping a badge (it carries tabIndex=0). */
+    const triggerFor = (label: string): HTMLElement => {
+      const trigger = screen.getByText(label).closest("[tabindex]");
+      if (!(trigger instanceof HTMLElement)) {
+        throw new Error(`No tooltip trigger found for badge "${label}"`);
+      }
+      return trigger;
+    };
+
+    /**
+     * Focus a badge's trigger and resolve with the tooltip it opens. The focus is
+     * re-fired on each poll: a badge's text is in the DOM as soon as React
+     * commits, but the trigger only listens once React has flushed
+     * TextWithTooltip's passive effect, and a single up-front dispatch can land
+     * before that and be dropped.
+     */
+    const openTooltipFor = async (label: string): Promise<HTMLElement> => {
+      let tooltip: HTMLElement | null = null;
+      await waitFor(() => {
+        fireEvent.focus(triggerFor(label));
+        tooltip = screen.getByRole("tooltip");
+      });
+      return tooltip as unknown as HTMLElement;
+    };
+
+    it("lists a region's mapped countries by name on hover", async () => {
+      renderCard();
+
+      const tooltip = await openTooltipFor("South East Asia");
+      expect(tooltip).toHaveTextContent("3 countries");
+      expect(tooltip).toHaveTextContent("Indonesia");
+      expect(tooltip).toHaveTextContent("Thailand");
+      expect(tooltip).toHaveTextContent("Vietnam");
+    });
+
+    it("floats search-term matches to the front of the list", async () => {
+      renderCard("thai");
+
+      // Default order is by ISO2 (ID, TH, VN → Indonesia, Thailand, Vietnam);
+      // the search term pulls Thailand ahead of Indonesia, mirroring how the
+      // cards already reorder the badges themselves.
+      const tooltip = await openTooltipFor("South East Asia");
+      expect(tooltip.textContent).toMatch(/Thailand.*Indonesia/);
+    });
+
+    it("leaves Global and country badges without a tooltip trigger", () => {
+      renderCard();
+
+      expect(screen.getByText("Global").closest("[tabindex]")).toBeNull();
+      expect(
+        screen.getByText("United States of America").closest("[tabindex]"),
+      ).toBeNull();
     });
   });
 });
