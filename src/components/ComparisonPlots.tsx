@@ -15,7 +15,7 @@ const PLOT_OPTIONS: { value: PlotType; label: string }[] = [
 // Width/height per panel depending on how many pathways are compared
 const CHART_DIMS: Record<number, { width: number; height: number }> = {
   2: { width: 400, height: 240 },
-  3: { width: 270, height: 200 },
+  3: { width: 320, height: 240 },
 };
 
 function hasDataForMetric(data: TimeSeries | null, metric: string): boolean {
