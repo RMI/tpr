@@ -184,6 +184,9 @@ const ResourcesUpdatesPage: React.FC = () => {
           </div>
         </section>
 
+        {/* No OnPageIndex on this page (#802): it has only one top-level h2
+            ("Latest updates" below), so a table of contents would have
+            nothing to navigate to. */}
         <section className="mx-auto mt-12 max-w-5xl">
           <div className="max-w-5xl">
             <h2 className="text-2xl font-semibold text-rmigray-800 mt-8">
