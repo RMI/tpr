@@ -1,0 +1,608 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "title": "Pathway Metadata",
+  "description": "A schema for the pathway metadata dataset in TPR.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "URI of the schema that validates this document (see https://json-schema.org/).",
+      "type": "string",
+      "maxLength": 1000
+    },
+    "id": {
+      "description": "The unique identifier for a pathway.",
+      "type": "string",
+      "maxLength": 100
+    },
+    "name": {
+      "description": "Name of the pathway.",
+      "$ref": "http://pathways.rmi.org/schema/common/label.v1.json",
+      "tsType": "import('./common/label.v1').LabelV1"
+    },
+    "description": {
+      "description": "Brief description of the pathway.",
+      "type": "string",
+      "pattern": "\\.$",
+      "maxLength": 100
+    },
+    "publication": {
+      "description": "Bibliographic information about the report or dataset.",
+      "$ref": "http://pathways.rmi.org/schema/common/publication.v1.json",
+      "tsType": "import('./common/publication.v1').PublicationV1"
+    },
+    "pathwayType": {
+      "description": "Type of the pathway pathway.",
+      "type": "string",
+      "enum": ["Normative", "Exploratory", "Predictive"]
+    },
+    "modelYearNetzero": {
+      "description": "Year by which net zero is reached in the pathway. If Pathway does not reach net zero, this field should be omitted.",
+      "type": "integer",
+      "minimum": 2030,
+      "maximum": 2100
+    },
+    "modelYearStart": {
+      "description": "Year from which the model starts.",
+      "type": "integer",
+      "minimum": 1900,
+      "maximum": 2030
+    },
+    "modelYearEnd": {
+      "description": "Year in which the model ends.",
+      "type": "integer",
+      "minimum": 2030,
+      "maximum": 2100
+    },
+    "modelTempIncrease": {
+      "description": "Modeled temperature increase expected by the pathway (in degrees Celsius).",
+      "type": "number",
+      "multipleOf": 0.1,
+      "minimum": 0.5,
+      "maximum": 3
+    },
+    "geography": {
+      "description": "Geographical areas that the pathway covers.",
+      "$ref": "http://pathways.rmi.org/schema/common/geography.v1.json",
+      "tsType": "import('./common/geography.v1').GeographyV1"
+    },
+    "sectors": {
+      "description": "Sectors that the pathway covers.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "$ref": "http://pathways.rmi.org/schema/common/sector.v1.json#/$defs/displayName"
+          },
+          "technologies": {
+            "type": "array",
+            "description": "Technologies applicable to this sector.",
+            "items": {
+              "$ref": "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName"
+            }
+          }
+        },
+        "required": ["name", "technologies"],
+        "additionalProperties": false
+      }
+    },
+    "pathwayDescription": {
+      "description": "Narrative description of the pathway. Replaces v1's expertOverview and pathwayOverview. In the v1 corpus this is the '#### Pathway Description' section of expertOverview; null means no description is available.",
+      "type": ["string", "null"],
+      "pattern": "\\.$",
+      "maxLength": 2500
+    },
+    "transitionAssessment": {
+      "description": "How the pathway can be applied to transition assessment. In the v1 corpus this is the '#### Application to Transition Assessment' section of expertOverview; null means no guidance is available.",
+      "type": ["string", "null"],
+      "pattern": "\\.$",
+      "maxLength": 3000
+    },
+    "metric": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "http://pathways.rmi.org/schema/common/metric.v1.json#/$defs/displayName",
+        "tsType": "import('./common/metric.v1').MetricV1['displayName']"
+      }
+    },
+    "keyFeatures": {
+      "description": "Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit \"No information\" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.",
+      "type": "object",
+      "properties": {
+        "emissionsTrajectory": {
+          "description": "Describes the overall trend of greenhouse gas emissions over time, from continued growth to rapid decline. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Significant increase",
+                  "Moderate increase",
+                  "Minor increase",
+                  "Low or no change",
+                  "Minor decrease",
+                  "Moderate decrease",
+                  "Significant decrease"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "energyEfficiency": {
+          "description": "Indicates how efficiently energy is used to produce economic output across the sectors covered in the pathway. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Significant deterioration",
+                  "Moderate deterioration",
+                  "Minor deterioration",
+                  "Low or no change",
+                  "Minor improvement",
+                  "Moderate improvement",
+                  "Significant improvement"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "energyDemand": {
+          "description": "Captures the change in total energy consumption, driven by factors such as socio-economic development, technology shifts and consumer behavior. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Significant decrease",
+                  "Moderate decrease",
+                  "Minor decrease",
+                  "Low or no change",
+                  "Minor increase",
+                  "Moderate increase",
+                  "Significant increase"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "electrification": {
+          "description": "Represents the extent to which energy end-uses transition from fossil fuels to electricity. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Significant decrease",
+                  "Moderate decrease",
+                  "Minor decrease",
+                  "Low or no change",
+                  "Minor increase",
+                  "Moderate increase",
+                  "Significant increase"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "policyTypes": {
+          "description": "Identifies the types of policies modeled as drivers of the pathway, such as carbon pricing, subsidies, or mandated phaseouts of specific technologies. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "No information",
+                    "Carbon price",
+                    "Feed-in tariffs",
+                    "Performance standards",
+                    "Phaseout dates",
+                    "Subsidies",
+                    "Target technology shares",
+                    "Other",
+                    "None"
+                  ]
+                }
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "technologyCostTrend": {
+          "description": "Describes how technology costs evolve over time, from static cost assumptions to rapidly declining costs (e.g., via learning curves). Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Increase",
+                  "Low or no change",
+                  "Decrease"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "emissionsScope": {
+          "description": "Defines which greenhouse gases are covered in the pathway's modeled emissions. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
+                "tsType": "import('./common/emissionsScope.v1').EmissionsScopeV1"
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "policyAmbition": {
+          "description": "Represents the overall stringency and intent of modeled policies relative to climate targets, often reflecting if and how far the included policies go beyond currently legislated ones Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "No policies included",
+                  "Current/legislated policies",
+                  "Current and drafted policies",
+                  "NDCs, unconditional only",
+                  "NDCs incl. conditional targets",
+                  "High ambition policies",
+                  "Other policy ambition"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "technologyCostsDetail": {
+          "description": "Specifies the level of granularity in cost data, such as total system costs or detailed CAPEX/OPEX breakdowns. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Total costs",
+                  "Capital costs, O&M, etc.",
+                  "Other cost breakdown"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "newTechnologiesIncluded": {
+          "description": "Lists emerging or breakthrough technologies that are explicitly modeled within the pathway. These are considered in technology deployment too. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "array",
+                "uniqueItems": true,
+                "minItems": 1,
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "No information",
+                    "No new technologies",
+                    "CCUS",
+                    "DAC",
+                    "Green H2/ammonia",
+                    "SAF",
+                    "Battery storage",
+                    "EGS/AGS",
+                    "Other new technologies"
+                  ]
+                }
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        },
+        "investmentNeeds": {
+          "description": "Summarizes how investment requirements are quantified, from total system to sector-level or supply-chain detail. Scoped: see keyFeatures.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "sector": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+                "tsType": "import('./common/scopeSector.v2').ScopeSectorV2"
+              },
+              "geography": {
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "value": {
+                "type": "string",
+                "enum": [
+                  "No information",
+                  "Total investment",
+                  "By sector",
+                  "By sector, part of value chain",
+                  "By technology",
+                  "By tech, part of value chain"
+                ]
+              }
+            },
+            "required": ["sector", "geography", "value"],
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "emissionsTrajectory",
+        "energyEfficiency",
+        "energyDemand",
+        "electrification",
+        "policyTypes",
+        "technologyCostTrend",
+        "emissionsScope",
+        "policyAmbition",
+        "technologyCostsDetail",
+        "newTechnologiesIncluded",
+        "investmentNeeds"
+      ]
+    },
+    "coreDrivers": {
+      "description": "The drivers that shape this pathway's outcomes. Every field is required but nullable: null means the driver is not a core driver for this pathway, as distinct from a driver that is present but undescribed.",
+      "type": "object",
+      "properties": {
+        "policies": {
+          "description": "Policies modeled as a driver of this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        },
+        "emissionsTargets": {
+          "description": "Emissions targets or constraints driving this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        },
+        "technologyCosts": {
+          "description": "Technology cost assumptions driving this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        },
+        "investmentChange": {
+          "description": "Changes in investment driving this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        },
+        "macroeconomicDrivers": {
+          "description": "Macroeconomic assumptions driving this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        },
+        "behavioralShifts": {
+          "description": "Behavioral or demand-side shifts driving this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        },
+        "otherDrivers": {
+          "description": "Any other core driver of this pathway.",
+          "type": ["string", "null"],
+          "pattern": "\\.$",
+          "maxLength": 500
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "policies",
+        "emissionsTargets",
+        "technologyCosts",
+        "investmentChange",
+        "macroeconomicDrivers",
+        "behavioralShifts",
+        "otherDrivers"
+      ]
+    },
+    "dependencies": {
+      "description": "Conditions the pathway's outcomes depend on. Descriptive only -- deliberately NOT part of the #869 inheritance chain, so these are not scoped by geography.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "properties": {
+          "dependency_name": {
+            "description": "Category of the dependency.",
+            "type": "string",
+            "enum": [
+              "Policy strategy",
+              "Regulatory framework",
+              "Market and economics",
+              "Public acceptance",
+              "Consumer and client behavior",
+              "Infrastructure and logistics",
+              "Technology",
+              "Resource availability",
+              "Environmental impacts and ecosystem services",
+              "Labor availability"
+            ]
+          },
+          "dependency_description": {
+            "description": "What the pathway depends on, in prose.",
+            "type": "string",
+            "pattern": "\\.$",
+            "maxLength": 500
+          },
+          "sector": {
+            "description": "Sector the dependency applies to. Must be one of the pathway's own declared sectors -- enforced by scripts/schema-check-files.ts, since draft-07 cannot reference sibling data.",
+            "$ref": "http://pathways.rmi.org/schema/common/sector.v1.json#/$defs/displayName"
+          },
+          "evidence_type": {
+            "description": "Strength of the evidence for this dependency.",
+            "type": "string",
+            "enum": ["Quantitative", "Qualitative", "Anecdotal", "No evidence"]
+          }
+        },
+        "required": [
+          "dependency_name",
+          "dependency_description",
+          "sector",
+          "evidence_type"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "name",
+    "description",
+    "publication",
+    "pathwayType",
+    "geography",
+    "sectors",
+    "pathwayDescription",
+    "metric",
+    "keyFeatures",
+    "coreDrivers",
+    "dependencies"
+  ]
+}
