@@ -67,7 +67,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: [],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "Global", value: "foo" },
+          { sector: "cross-sector", geography: "DE", value: "foo" },
         ],
       },
     },
@@ -84,7 +84,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: ["Capacity"],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "Global", value: "foo" },
+          { sector: "cross-sector", geography: "DE", value: "foo" },
         ],
       },
     },
@@ -98,9 +98,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       modelYearNetzero: 2040,
       metric: [],
       keyFeatures: {
-        emissionsTrajectory: [
-          { sector: "cross-sector", geography: "Global", value: "foo" },
-        ],
+        emissionsTrajectory: [], // no geography declared -> no scope to attach a value to
       },
     },
     {
@@ -114,7 +112,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: ["Capacity", "Generation"],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "Global", value: "bar" },
+          { sector: "cross-sector", geography: "JP", value: "bar" },
         ],
       },
     },
@@ -129,7 +127,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: ["Generation"],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "Global", value: "bar" },
+          { sector: "cross-sector", geography: "DE", value: "bar" },
         ],
       },
     },

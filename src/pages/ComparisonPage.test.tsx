@@ -47,7 +47,7 @@ const fixtures = [
     geography: { country: ["DE", "FR"] },
     keyFeatures: {
       emissionsTrajectory: [
-        { sector: "cross-sector", geography: "Global", value: "bar" },
+        { sector: "cross-sector", geography: "DE", value: "bar" },
       ],
     },
   },
