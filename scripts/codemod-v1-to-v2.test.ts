@@ -219,7 +219,9 @@ describe("upgradeV1ToV2", () => {
   it("moves the description section into pathwayDescription", () => {
     const { doc } = upgradeV1ToV2(v1({}));
     expect(doc.pathwayDescription).toBe("A description of the pathway.");
-    expect(doc.transitionAssessment).toBe("How to apply it.");
+    // The assessment section has no v2 field; it comes back in the result so the
+    // run report can print it rather than losing it.
+    expect("transitionAssessment" in doc).toBe(false);
   });
 
   it("discards pathwayOverview rather than folding it in", () => {
@@ -260,6 +262,12 @@ describe("upgradeV1ToV2", () => {
     expect(doc.dependencies).toEqual([]);
   });
 
+  it("returns the retired Application-to-Transition-Assessment prose", () => {
+    expect(upgradeV1ToV2(v1({})).transitionAssessmentProse).toBe(
+      "How to apply it.",
+    );
+  });
+
   it("returns the Core Drivers prose it does not carry over", () => {
     expect(upgradeV1ToV2(v1({})).coreDriversProse).toBe(
       "*Policy:* Policies drive it.",
@@ -271,7 +279,6 @@ describe("upgradeV1ToV2", () => {
       v1({ expertOverview: "No headings here." } as Partial<PathwayMetadataV1>),
     );
     expect(doc.pathwayDescription).toBeNull();
-    expect(doc.transitionAssessment).toBeNull();
   });
 
   it("preserves unrelated fields and their order", () => {

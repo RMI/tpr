@@ -262,23 +262,16 @@ const PathwayDetailPage: React.FC = () => {
                   Expert Overview
                 </h2>
                 {/*
-                  v1's single `expertOverview` markdown blob was three sections;
-                  v2 splits it into `pathwayDescription` and
-                  `transitionAssessment` (#858), with the middle section becoming
-                  the structured `coreDrivers`. Both are rendered here so the
-                  migration loses no visible content, under headings matching the
-                  ones the markdown used to carry. #859 owns the real presentation
-                  of these fields, including whether this heading keeps its name.
+                  v1's single `expertOverview` blob held three sections. In v2
+                  only the description survives as prose: "Core Drivers" becomes
+                  the structured `coreDrivers` object, and "Application to
+                  Transition Assessment" is retired because the new UI does not
+                  display it (#898). So this renders one field, not a set of
+                  sub-headed blocks. #859 owns the real presentation, including
+                  whether this heading keeps its name.
                 */}
                 <div className="prose text-rmigray-700">
-                  <h4>Pathway Description</h4>
                   <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
-                  {pathway.transitionAssessment && (
-                    <>
-                      <h4>Application to Transition Assessment</h4>
-                      <Markdown>{pathway.transitionAssessment}</Markdown>
-                    </>
-                  )}
                 </div>
               </section>
 

@@ -62,13 +62,15 @@ If a feature does not vary, give it **one entry at the widest scope that applies
 
 An empty array means nothing is recorded at any scope. That is different from an entry whose `value` is `"No information"`, which is a deliberate statement that this scope has no data.
 
-### expertOverview is replaced by two fields
+### expertOverview is replaced by pathwayDescription
 
-v1's single `expertOverview` was one markdown document containing three sections. In v2:
+v1's single `expertOverview` was one markdown document containing three sections. Only
+one survives as prose in v2:
 
 - `pathwayDescription` (required, may be `null`, max 2500 chars) — the narrative description.
-- `transitionAssessment` (optional, may be `null`, max 3000 chars) — how the pathway can be used in transition assessment.
 - the "Core Drivers" section becomes the structured `coreDrivers` object below.
+- the "Application to Transition Assessment" section is **retired** — the new UI
+  does not display it, so v2 has no field for it.
 
 v1's separate `pathwayOverview` field is **retired without replacement**. Do not
 carry it into `pathwayDescription`: in practice the two texts restate each other,
@@ -173,7 +175,6 @@ new_pathway_metadata <-
       list(name = "Power", technologies = I(c("Coal", "Wind")))
     ),
     pathwayDescription = "A short narrative description of the pathway.",
-    transitionAssessment = "How this pathway can be used in transition assessment.",
     metric = I(c("Capacity")),
     keyFeatures = list(
       emissionsTrajectory = scoped("Moderate decrease"),

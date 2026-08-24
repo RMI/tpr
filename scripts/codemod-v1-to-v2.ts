@@ -14,8 +14,12 @@
  * documents on load. Files that still carry the v1 $schema simply are not loaded
  * once the loader points at v2.
  *
- * `pathwayOverview` is dropped rather than merged into `pathwayDescription` --
- * see the note in upgradeV1ToV2 for why.
+ * Two v1 prose fields are retired without replacement (confirmed with the data
+ * owner on PR #898): `pathwayOverview`, because it restates the description
+ * almost verbatim; and the '#### Application to Transition Assessment' section,
+ * because the new UI does not display it. Neither has a v2 home, so the section
+ * text is printed in the run report alongside the Core Drivers prose rather than
+ * being dropped silently.
  *
  * What it does NOT do: populate `coreDrivers`. The v1 "#### Core Drivers" prose
  * cannot be mapped onto the 7 named fields mechanically -- several paragraphs
@@ -152,6 +156,8 @@ export interface UpgradeResult {
   doc: PathwayMetadataV2;
   /** Prose with no destination in v2 -- reported so it is not lost track of. */
   coreDriversProse: string;
+  /** Ditto: the new UI does not show this, so v2 has no field for it. */
+  transitionAssessmentProse: string;
   scope: { sector: string; geography: string };
   /** Chars of `pathwayOverview` discarded, for the run report. */
   droppedPathwayOverview: number;
@@ -195,7 +201,6 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
         break;
       case "expertOverview":
         out.pathwayDescription = description.length > 0 ? description : null;
-        out.transitionAssessment = assessment.length > 0 ? assessment : null;
         break;
       case "keyFeatures":
         out.keyFeatures = {
@@ -241,6 +246,7 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
   return {
     doc: out as unknown as PathwayMetadataV2,
     coreDriversProse,
+    transitionAssessmentProse: assessment,
     scope,
     droppedPathwayOverview,
   };
@@ -310,10 +316,19 @@ async function main() {
           ? `  [dropped ${droppedPathwayOverview}-char pathwayOverview]`
           : ""),
     );
-    if (coreDriversProse.length > 0) {
-      report.push(`## ${file}\n\n${coreDriversProse}\n`);
+    const orphaned: string[] = [];
+    if (result.coreDriversProse.length > 0) {
+      orphaned.push(`### ${CORE_DRIVERS}\n\n${result.coreDriversProse}`);
     } else {
       console.info(`    note: no "${CORE_DRIVERS}" section found`);
+    }
+    if (result.transitionAssessmentProse.length > 0) {
+      orphaned.push(
+        `### ${TRANSITION_ASSESSMENT}\n\n${result.transitionAssessmentProse}`,
+      );
+    }
+    if (orphaned.length > 0) {
+      report.push(`## ${file}\n\n${orphaned.join("\n\n")}\n`);
     }
 
     if (!dryRun) {
@@ -328,8 +343,10 @@ async function main() {
 
   if (report.length > 0) {
     console.info(
-      `\n--- "${CORE_DRIVERS}" prose NOT carried into v2 (coreDrivers is scaffolded null; ` +
-        `hand-author from this text) ---\n`,
+      "\n--- v1 prose with no v2 destination ---\n" +
+        `"${CORE_DRIVERS}" becomes the structured coreDrivers object, scaffolded null here;\n` +
+        `"${TRANSITION_ASSESSMENT}" is retired because the new UI does not display it.\n` +
+        "Both are reproduced below so the text is not lost.\n",
     );
     console.info(report.join("\n"));
   }

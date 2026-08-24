@@ -93,12 +93,6 @@
       "pattern": "\\.$",
       "maxLength": 2500
     },
-    "transitionAssessment": {
-      "description": "How the pathway can be applied to transition assessment. In the v1 corpus this is the '#### Application to Transition Assessment' section of expertOverview; null means no guidance is available.",
-      "type": ["string", "null"],
-      "pattern": "\\.$",
-      "maxLength": 3000
-    },
     "metric": {
       "type": "array",
       "uniqueItems": true,

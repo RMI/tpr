@@ -1,18 +1,31 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "pathway-v2-full",
-  "name": { "full": "Full V2 Pathway", "short": "Full V2" },
+  "name": {
+    "full": "Full V2 Pathway",
+    "short": "Full V2"
+  },
   "publication": {
-    "title": { "full": "Example Title", "short": "Example" },
+    "title": {
+      "full": "Example Title",
+      "short": "Example"
+    },
     "subtitle": "Exercising every v2 shape",
     "author": ["Doe, Jane"],
-    "publisher": { "full": "TransitionZero" },
+    "publisher": {
+      "full": "TransitionZero"
+    },
     "year": 2024,
     "month": 6,
     "day": 1,
     "city": "London",
     "license": "CC BY 4.0",
-    "links": [{ "description": "Report", "url": "https://www.example.com/" }]
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.example.com/"
+      }
+    ]
   },
   "description": "A v2 pathway exercising multi-scope key features.",
   "pathwayType": "Normative",
@@ -29,11 +42,16 @@
     "country": ["SG"]
   },
   "sectors": [
-    { "name": "Power", "technologies": ["Solar", "Wind", "Coal"] },
-    { "name": "Steel", "technologies": ["Hydrogen Use"] }
+    {
+      "name": "Power",
+      "technologies": ["Solar", "Wind", "Coal"]
+    },
+    {
+      "name": "Steel",
+      "technologies": ["Hydrogen Use"]
+    }
   ],
   "pathwayDescription": "A pathway whose key features vary by sector and geography, used to exercise the scoped-entry shape end to end.",
-  "transitionAssessment": "Use this fixture wherever a v2 document with more than one scope per field is needed.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -53,7 +71,11 @@
         "geography": "South East Asia",
         "value": "Significant decrease"
       },
-      { "sector": "Steel", "geography": "TH", "value": "Minor decrease" }
+      {
+        "sector": "Steel",
+        "geography": "TH",
+        "value": "Minor decrease"
+      }
     ],
     "energyEfficiency": [
       {
@@ -80,7 +102,11 @@
         "geography": "Global",
         "value": "Significant increase"
       },
-      { "sector": "Power", "geography": "SG", "value": "Moderate increase" }
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Moderate increase"
+      }
     ],
     "policyTypes": [
       {
@@ -95,7 +121,11 @@
       }
     ],
     "technologyCostTrend": [
-      { "sector": "cross-sector", "geography": "Global", "value": "Decrease" }
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Decrease"
+      }
     ],
     "emissionsScope": [
       {

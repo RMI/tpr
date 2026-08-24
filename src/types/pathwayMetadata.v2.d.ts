@@ -224,10 +224,6 @@ export interface PathwayMetadataV2 {
    * Narrative description of the pathway. Replaces v1's expertOverview: in the v1 corpus this is the '#### Pathway Description' section of it. v1's separate pathwayOverview field is retired without replacement, not merged in here -- the two texts restate each other, so merging them read as immediate self-repetition. null means no description is available.
    */
   pathwayDescription: string | null;
-  /**
-   * How the pathway can be applied to transition assessment. In the v1 corpus this is the '#### Application to Transition Assessment' section of expertOverview; null means no guidance is available.
-   */
-  transitionAssessment?: string | null;
   metric: import("./common/metric.v1").MetricV1["displayName"][];
   /**
    * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
