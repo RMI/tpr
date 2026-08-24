@@ -6,6 +6,7 @@ import { ascending, extent, groups, leastIndex, range } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
+import { computeTooltipBoxLayout } from "../utils/chartTooltipLayout";
 
 interface DataPoint {
   sector: string;
@@ -336,7 +337,7 @@ export default function MultiLineChart({
           .text((d) => d),
       );
 
-      size(tooltipTextElem, tooltipBoxElem);
+      size(tooltipTextElem, tooltipBoxElem, x, y);
     }
 
     function pointerentered() {
@@ -369,20 +370,62 @@ export default function MultiLineChart({
       setSelectRef(clicked_tech as string);
     }
 
+    // Positions the tooltip box around the hovered point, avoiding clipping
+    // past the plot's edges. Horizontally the box is centered on the point
+    // by default, sliding back on-chart if that would clip; vertically it
+    // grows downward from the point by default (today's look), flipping
+    // to grow upward if there's no room below but there is above. Either
+    // way the tail stretches to keep pointing at the exact hovered point.
+    // The actual geometry lives in chartTooltipLayout.ts as a pure
+    // function, so it can be unit tested without a real SVG layout engine.
     function size(
       text: Selection<SVGTextElement, unknown, null, undefined>,
       path: Selection<SVGPathElement, unknown, null, undefined>,
+      xPixel: number,
+      yPixel: number,
     ) {
       const bbox = text.node()?.getBBox();
       if (!bbox) return;
-      const { y, width: w, height: h } = bbox;
-      text.attr("transform", `translate(${-w / 2},${15 - y})`);
+
+      const {
+        boxLeft,
+        boxRight,
+        nearY,
+        farY,
+        offsetX,
+        tailHalf,
+        textOffsetX,
+        textOffsetY,
+      } = computeTooltipBoxLayout(
+        { x: xPixel, y: yPixel },
+        { width: bbox.width, height: bbox.height, bboxY: bbox.y },
+        {
+          left: marginLeft,
+          right: width - marginRight,
+          top: marginTop,
+          bottom: height - marginBottom,
+        },
+      );
+
+      text.attr("transform", `translate(${textOffsetX},${textOffsetY})`);
       path.attr(
         "d",
-        `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`,
+        `M${boxLeft},${nearY}L${offsetX - tailHalf},${nearY}L0,0L${offsetX + tailHalf},${nearY}L${boxRight},${nearY}L${boxRight},${farY}L${boxLeft},${farY}Z`,
       );
     }
-  }, [d3data, selectRef, chartSetup, sector, metric, marginTop, width]);
+  }, [
+    d3data,
+    selectRef,
+    chartSetup,
+    sector,
+    metric,
+    marginTop,
+    marginRight,
+    marginBottom,
+    marginLeft,
+    width,
+    height,
+  ]);
 
   // Apply cross-chart highlighting when another pathway's chart is hovered
   useEffect(() => {
