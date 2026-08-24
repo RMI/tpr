@@ -222,14 +222,20 @@ describe("upgradeV1ToV2", () => {
     expect(doc.transitionAssessment).toBe("How to apply it.");
   });
 
-  it("folds pathwayOverview in as the lead paragraph", () => {
-    const { doc, foldedPathwayOverview } = upgradeV1ToV2(
+  it("discards pathwayOverview rather than folding it in", () => {
+    // #858 says to fold it in; the data owner confirmed on PR #898 that it should
+    // be dropped, because the two texts restate each other and the merged field
+    // reads as immediate self-repetition.
+    const { doc, droppedPathwayOverview } = upgradeV1ToV2(
       v1({ pathwayOverview: "A short summary." } as Partial<PathwayMetadataV1>),
     );
-    expect(foldedPathwayOverview).toBe(true);
-    expect(doc.pathwayDescription).toBe(
-      "A short summary.\n\nA description of the pathway.",
-    );
+    expect(droppedPathwayOverview).toBe("A short summary.".length);
+    expect(doc.pathwayDescription).toBe("A description of the pathway.");
+    expect(doc.pathwayDescription).not.toContain("A short summary.");
+  });
+
+  it("reports nothing dropped when there was no pathwayOverview", () => {
+    expect(upgradeV1ToV2(v1({})).droppedPathwayOverview).toBe(0);
   });
 
   it("drops the v1 overview fields", () => {

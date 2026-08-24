@@ -221,7 +221,7 @@ export interface PathwayMetadataV2 {
     )[];
   }[];
   /**
-   * Narrative description of the pathway. Replaces v1's expertOverview and pathwayOverview. In the v1 corpus this is the '#### Pathway Description' section of expertOverview; null means no description is available.
+   * Narrative description of the pathway. Replaces v1's expertOverview: in the v1 corpus this is the '#### Pathway Description' section of it. v1's separate pathwayOverview field is retired without replacement, not merged in here -- the two texts restate each other, so merging them read as immediate self-repetition. null means no description is available.
    */
   pathwayDescription: string | null;
   /**

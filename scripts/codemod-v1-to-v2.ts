@@ -14,6 +14,9 @@
  * documents on load. Files that still carry the v1 $schema simply are not loaded
  * once the loader points at v2.
  *
+ * `pathwayOverview` is dropped rather than merged into `pathwayDescription` --
+ * see the note in upgradeV1ToV2 for why.
+ *
  * What it does NOT do: populate `coreDrivers`. The v1 "#### Core Drivers" prose
  * cannot be mapped onto the 7 named fields mechanically -- several paragraphs
  * exceed the 500-char cap, the italic labels do not correspond 1:1 to the field
@@ -150,7 +153,8 @@ export interface UpgradeResult {
   /** Prose with no destination in v2 -- reported so it is not lost track of. */
   coreDriversProse: string;
   scope: { sector: string; geography: string };
-  foldedPathwayOverview: boolean;
+  /** Chars of `pathwayOverview` discarded, for the run report. */
+  droppedPathwayOverview: number;
 }
 
 /** Transform one v1 document into its v2 equivalent. Pure; does no I/O. */
@@ -164,13 +168,21 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
   const assessment = sections.get(TRANSITION_ASSESSMENT) ?? "";
   const coreDriversProse = sections.get(CORE_DRIVERS) ?? "";
 
-  // #858 folds pathwayOverview into pathwayDescription. It is a short standalone
-  // summary, so it reads as the lead paragraph. It has no readers in the app
-  // today, so nothing observable depends on where it lands.
-  const overview = doc.pathwayOverview?.trim();
-  const descriptionParts = [overview, description].filter(
-    (p): p is string => !!p && p.length > 0,
-  );
+  // `pathwayOverview` is DISCARDED, not folded into pathwayDescription.
+  //
+  // #858 says to move it in, and an earlier version of this script did. Reading
+  // the output showed why that is wrong: the two texts restate each other almost
+  // verbatim, so the merged field opens by saying the same thing twice. IEA-STEPS
+  // for instance had "STEPS provides a sense of the energy sector's direction of
+  // travel today, based on the latest market data, technology costs and in-depth
+  // analysis of the prevailing policy settings..." immediately followed by "STEPS
+  // projects the energy sector's current direction of travel, based on the latest
+  // market data, technology costs and in-depth analysis of the stated policies...".
+  //
+  // Confirmed with the data owner (Jacob, PR #898): the field was already out of
+  // use and should be removed without replacement. It has no readers in the app,
+  // so nothing observable is lost.
+  const droppedPathwayOverview = doc.pathwayOverview?.trim().length ?? 0;
 
   const out: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(doc)) {
@@ -182,8 +194,7 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
         // Superseded; emitted below in expertOverview's position.
         break;
       case "expertOverview":
-        out.pathwayDescription =
-          descriptionParts.length > 0 ? descriptionParts.join("\n\n") : null;
+        out.pathwayDescription = description.length > 0 ? description : null;
         out.transitionAssessment = assessment.length > 0 ? assessment : null;
         break;
       case "keyFeatures":
@@ -231,7 +242,7 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
     doc: out as unknown as PathwayMetadataV2,
     coreDriversProse,
     scope,
-    foldedPathwayOverview: !!overview,
+    droppedPathwayOverview,
   };
 }
 
@@ -289,13 +300,15 @@ async function main() {
       continue;
     }
 
-    const { scope, coreDriversProse, foldedPathwayOverview } = result;
+    const { scope, coreDriversProse, droppedPathwayOverview } = result;
     const descLength = result.doc.pathwayDescription?.length ?? 0;
     console.info(
       `✔ ${file}\n` +
         `    scope: (${scope.sector}, ${scope.geography})` +
         `  pathwayDescription: ${descLength} chars` +
-        (foldedPathwayOverview ? "  [pathwayOverview folded in]" : ""),
+        (droppedPathwayOverview > 0
+          ? `  [dropped ${droppedPathwayOverview}-char pathwayOverview]`
+          : ""),
     );
     if (coreDriversProse.length > 0) {
       report.push(`## ${file}\n\n${coreDriversProse}\n`);

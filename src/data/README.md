@@ -70,7 +70,10 @@ v1's single `expertOverview` was one markdown document containing three sections
 - `transitionAssessment` (optional, may be `null`, max 3000 chars) — how the pathway can be used in transition assessment.
 - the "Core Drivers" section becomes the structured `coreDrivers` object below.
 
-`pathwayOverview` is also gone; fold any such text into `pathwayDescription`.
+v1's separate `pathwayOverview` field is **retired without replacement**. Do not
+carry it into `pathwayDescription`: in practice the two texts restate each other,
+so merging them reads as immediate self-repetition. The field had no readers in
+the app, so nothing is lost by dropping it.
 
 ### coreDrivers and dependencies are new
 
