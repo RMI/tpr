@@ -19,6 +19,7 @@
 import type { GeographyCode, PathwayMetadataType } from "../types";
 import { pathwayISOCoverage, toISO2 } from "./geographyUtils";
 import { selectedGeographyToISO } from "./filterRegions";
+import { ABSENT_FILTER_TOKEN } from "./absent";
 
 /** Sector sentinel: the union of *this pathway's own* declared sectors. */
 export const CROSS_SECTOR = "cross-sector";
@@ -111,8 +112,8 @@ export function geographyScopeContains(
   pathway: PathwayMetadataType,
 ): boolean {
   const query = selectedGeographyToISO(queryToken);
-  // The "None" bucket is about the pathway having no geography at all; it says
-  // nothing about which scope to read, so it does not constrain this axis.
+  // The "None" bucket says nothing about which scope to read. entriesInScope now
+  // strips it before calling this, so the guard is only for direct callers.
   if (query.kind === "absent") return true;
 
   const entrySet = entryISOSet(entryGeography, pathway);
@@ -131,6 +132,12 @@ export interface ScopeQuery {
   geographies?: readonly string[];
 }
 
+/** Selected tokens with the ABSENT/"None" bucket removed — see entriesInScope. */
+function dropAbsent(tokens: readonly string[] | undefined): readonly string[] {
+  if (!tokens || tokens.length === 0) return [];
+  return tokens.filter((t) => t !== ABSENT_FILTER_TOKEN);
+}
+
 /**
  * The entries relevant to the user's current filter.
  *
@@ -146,8 +153,15 @@ export function entriesInScope(
   pathway: PathwayMetadataType,
 ): ScopedEntry[] {
   const all = asEntries(entries);
-  const sectors = query.sectors ?? [];
-  const geographies = query.geographies ?? [];
+  // The "None" bucket is a predicate about the *pathway* ("has no sectors" /
+  // "has no geography"), not a scope to read values from, so it must not
+  // constrain either axis. Dropping it here rather than in each axis helper keeps
+  // the two consistent: previously geographyScopeContains ignored the token but
+  // sectorScopeContains compared it as if it were a sector name, so selecting
+  // Sector=None alongside a keyFeature facet filtered out every entry and made
+  // the pathway look like it held no values at all.
+  const sectors = dropAbsent(query.sectors);
+  const geographies = dropAbsent(query.geographies);
   if (sectors.length === 0 && geographies.length === 0) return [...all];
 
   const declared = (pathway.sectors ?? []).map((s) => s.name);

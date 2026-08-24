@@ -225,6 +225,64 @@ describe("policyAmbition facet over scoped entries", () => {
   });
 });
 
+describe("Sector=None combined with a scoped facet", () => {
+  // Regression for the case Copilot flagged: selecting the "None" sector bucket
+  // alongside a keyFeature facet used to return nothing, because the ABSENT token
+  // was compared as though it were a sector name and filtered out every entry.
+  const noSectors = {
+    id: "no-sectors",
+    name: { full: "No Sectors" },
+    sectors: [],
+    geography: { global: true },
+    metric: [],
+    keyFeatures: {
+      emissionsTrajectory: [
+        e("cross-sector", "Global", "Significant decrease"),
+      ],
+      policyAmbition: [],
+    },
+  } as unknown as PathwayMetadataType;
+
+  it("matches on the sector bucket alone", () => {
+    expect(
+      ids(filterPathways([noSectors], { sector: [ABSENT_FILTER_TOKEN] })),
+    ).toEqual(["no-sectors"]);
+  });
+
+  it("still matches when combined with the keyFeature facet", () => {
+    expect(
+      ids(
+        filterPathways([noSectors], {
+          sector: [ABSENT_FILTER_TOKEN],
+          emissionsTrajectory: ["Significant decrease"],
+        }),
+      ),
+    ).toEqual(["no-sectors"]);
+  });
+
+  it("does not match a value the pathway does not hold", () => {
+    expect(
+      ids(
+        filterPathways([noSectors], {
+          sector: [ABSENT_FILTER_TOKEN],
+          emissionsTrajectory: ["Minor decrease"],
+        }),
+      ),
+    ).toEqual([]);
+  });
+
+  it("behaves the same for the geography None bucket", () => {
+    expect(
+      ids(
+        filterPathways([noSectors], {
+          geography: [ABSENT_FILTER_TOKEN],
+          emissionsTrajectory: ["Significant decrease"],
+        }),
+      ),
+    ).toEqual([]); // geography facet itself excludes it: this pathway IS global
+  });
+});
+
 describe("getGlobalFacetOptions over scoped entries", () => {
   const all = [
     pathway("a", {

@@ -213,6 +213,66 @@ describe("entriesInScope", () => {
   });
 });
 
+describe("entriesInScope — the ABSENT/None token", () => {
+  // Regression: the None bucket is a predicate about the pathway ("has no
+  // sectors"), not a scope. geographyScopeContains always ignored it, but the
+  // sector axis compared it as a sector name, so Sector=None plus a keyFeature
+  // facet filtered out every entry and the pathway looked empty.
+  const entries = [
+    e("cross-sector", "Global", "wide"),
+    e("Power", "South East Asia", "power-sea"),
+  ];
+  const p = pathway();
+
+  it("does not constrain the sector axis", () => {
+    expect(
+      entriesInScope(entries, { sectors: [ABSENT_FILTER_TOKEN] }, p).map(
+        (x) => x.value,
+      ),
+    ).toEqual(["wide", "power-sea"]);
+  });
+
+  it("does not constrain the geography axis", () => {
+    expect(
+      entriesInScope(entries, { geographies: [ABSENT_FILTER_TOKEN] }, p).map(
+        (x) => x.value,
+      ),
+    ).toEqual(["wide", "power-sea"]);
+  });
+
+  it("is ignored on both axes at once", () => {
+    expect(
+      entriesInScope(
+        entries,
+        { sectors: [ABSENT_FILTER_TOKEN], geographies: [ABSENT_FILTER_TOKEN] },
+        p,
+      ),
+    ).toHaveLength(2);
+  });
+
+  it("still applies the concrete tokens alongside it", () => {
+    // None + Power: the real sector still narrows; None adds no constraint.
+    expect(
+      entriesInScope(
+        entries,
+        { sectors: [ABSENT_FILTER_TOKEN, "Steel"] },
+        p,
+      ).map((x) => x.value),
+    ).toEqual(["wide"]);
+  });
+
+  it("treats it the same for a pathway that declares no sectors at all", () => {
+    const noSectors = pathway({ sectors: [] });
+    expect(
+      entriesInScope(
+        [e("cross-sector", "Global", "wide")],
+        { sectors: [ABSENT_FILTER_TOKEN] },
+        noSectors,
+      ),
+    ).toHaveLength(1);
+  });
+});
+
 describe("widestValue", () => {
   it("returns undefined when nothing is authored", () => {
     expect(widestValue([])).toBeUndefined();
