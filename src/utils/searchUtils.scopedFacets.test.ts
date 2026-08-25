@@ -13,9 +13,11 @@ import type { PathwayMetadataType } from "../types";
  * silently: `concrete.includes(v)` against an array is simply always false, so
  * selecting either facet quietly returned zero pathways.
  *
- * The semantics asserted here are containment: a pathway matches on the value at
- * the scope the user is looking at, and a pathway holding that value only at some
- * *other* scope is not a match. Fallback ranking is #869's job, not this layer's.
+ * A pathway matches on the value at the scope the user is looking at; holding it
+ * only at some *other* scope is not a match. The sector axis uses containment; the
+ * geography axis uses a non-empty ISO intersection, because the query vocabulary
+ * and each publication's region membership are different lists by design (#783).
+ * Fallback ranking is #869's job, not this layer's.
  */
 
 type Entry = { sector: string; geography: string; value: string };
@@ -114,8 +116,8 @@ describe("emissionsTrajectory facet over scoped entries", () => {
   });
 
   it("does not match a regional entry from a country outside that region", () => {
-    // "regional" only has South East Asia data; the US is not in it. (The
-    // geography facet would also exclude it, but this asserts the scope check
+    // "regional" only has South East Asia data, which does not include the US.
+    // (The geography facet would also exclude it, but this pins the scope check
     // independently — the pathway does declare US coverage.)
     const filters: FiltersWithArrays = {
       geography: ["US"],
@@ -222,6 +224,58 @@ describe("policyAmbition facet over scoped entries", () => {
     };
     // emissionsTrajectory is empty on this pathway, so the conjunction fails.
     expect(ids(filterPathways([p], filters))).toEqual([]);
+  });
+});
+
+describe("region filters vs publication region membership", () => {
+  // Regression for the containment bug. The fixture pathway names its region
+  // "South East Asia" with members [ID, TH, VN]; the filter vocabulary's token is
+  // "Southeast Asia" with 11 codes. The lists differ in both spelling and
+  // membership, which is normal (#783) — and under strict containment it meant a
+  // region filter plus a keyFeature facet returned nothing, even though the
+  // geography facet alone (which has always used overlap) kept the pathway.
+  const regional = pathway("regional", {
+    emissionsTrajectory: [
+      e("cross-sector", "South East Asia", "Significant decrease"),
+    ],
+  });
+
+  it("matches when the query region overlaps the entry's region", () => {
+    expect(
+      ids(
+        filterPathways([regional], {
+          geography: ["Southeast Asia"],
+          emissionsTrajectory: ["Significant decrease"],
+        }),
+      ),
+    ).toEqual(["regional"]);
+  });
+
+  it("agrees with the geography facet applied on its own", () => {
+    // The two must not disagree about the same pathway — that divergence was the
+    // bug, and it only showed up once a second filter was added.
+    const geoOnly = ids(
+      filterPathways([regional], { geography: ["Southeast Asia"] }),
+    );
+    const combined = ids(
+      filterPathways([regional], {
+        geography: ["Southeast Asia"],
+        emissionsTrajectory: ["Significant decrease"],
+      }),
+    );
+    expect(geoOnly).toEqual(["regional"]);
+    expect(combined).toEqual(geoOnly);
+  });
+
+  it("still excludes a region that shares no countries with the entry", () => {
+    expect(
+      ids(
+        filterPathways([regional], {
+          geography: ["North America"],
+          emissionsTrajectory: ["Significant decrease"],
+        }),
+      ),
+    ).toEqual([]);
   });
 });
 

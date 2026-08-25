@@ -3,7 +3,7 @@ import {
   entryValues,
   sectorScopeContains,
   entryISOSet,
-  geographyScopeContains,
+  geographyScopeOverlaps,
   entriesInScope,
   valuesInScope,
   widestValue,
@@ -113,39 +113,61 @@ describe("entryISOSet", () => {
   });
 });
 
-describe("geographyScopeContains", () => {
+describe("geographyScopeOverlaps", () => {
   const p = pathway();
 
-  it("Global contains a country", () => {
-    expect(geographyScopeContains("Global", "TH", p)).toBe(true);
+  it("a Global entry answers any query", () => {
+    expect(geographyScopeOverlaps("Global", "TH", p)).toBe(true);
   });
 
-  it("a region contains a country inside it", () => {
-    expect(geographyScopeContains("South East Asia", "TH", p)).toBe(true);
+  it("a region entry answers a country inside it", () => {
+    expect(geographyScopeOverlaps("South East Asia", "TH", p)).toBe(true);
   });
 
-  it("a country does NOT contain the region around it", () => {
-    // Containment is directional: broader answers narrower, never the reverse.
-    expect(geographyScopeContains("TH", "South East Asia", p)).toBe(false);
+  it("a country entry answers a region query that includes it", () => {
+    // Overlap, not containment. "Southeast Asia" is the query vocabulary's
+    // label (11 ISO codes) and includes TH, so a Thailand-scoped entry is a
+    // match. Under the old containment rule this was false, which is what made
+    // region filters drop pathways whose own region list differs by a country.
+    expect(geographyScopeOverlaps("TH", "Southeast Asia", p)).toBe(true);
   });
 
-  it("a region does not contain a country outside it", () => {
-    expect(geographyScopeContains("South East Asia", "US", p)).toBe(false);
+  it("tolerates a publication label the query vocabulary does not share", () => {
+    // The pathway's own regions are named "South East Asia" (with spaces); the
+    // filter vocabulary calls it "Southeast Asia". The two lists also differ by
+    // one country (TL), so containment would fail even once spelling matched.
+    // Overlap makes the intersection sufficient, which is the point of #783.
+    expect(geographyScopeOverlaps("South East Asia", "Southeast Asia", p)).toBe(
+      true,
+    );
   });
 
-  it("only Global contains a Global query", () => {
-    expect(geographyScopeContains("Global", "Global", p)).toBe(true);
-    expect(geographyScopeContains("South East Asia", "Global", p)).toBe(false);
+  it("does not match a country outside the entry's region", () => {
+    expect(geographyScopeOverlaps("South East Asia", "US", p)).toBe(false);
+  });
+
+  it("only a Global entry answers a Global query", () => {
+    // Mirrors the geography facet's `wantGlobal && pGlobal`: selecting "Global"
+    // means whole-world pathways, not "match anything".
+    expect(geographyScopeOverlaps("Global", "Global", p)).toBe(true);
+    expect(geographyScopeOverlaps("South East Asia", "Global", p)).toBe(false);
+  });
+
+  it("an unrecognised token matches nothing", () => {
+    // "South East Asia" is a publication label, not a query-vocabulary token, so
+    // it resolves to an empty ISO set and must not vacuously match.
+    expect(geographyScopeOverlaps("TH", "South East Asia", p)).toBe(false);
+    expect(geographyScopeOverlaps("TH", "Souteast Asia", p)).toBe(false);
   });
 
   it("the absent bucket does not constrain which scope to read", () => {
     expect(
-      geographyScopeContains("South East Asia", ABSENT_FILTER_TOKEN, p),
+      geographyScopeOverlaps("South East Asia", ABSENT_FILTER_TOKEN, p),
     ).toBe(true);
   });
 
-  it("an unmapped region contains nothing", () => {
-    expect(geographyScopeContains("Unmapped Region", "TH", p)).toBe(false);
+  it("an unmapped region overlaps nothing", () => {
+    expect(geographyScopeOverlaps("Unmapped Region", "TH", p)).toBe(false);
   });
 });
 

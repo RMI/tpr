@@ -10,11 +10,12 @@
  *     ({@link entriesInScope}), and
  *   - what values those entries carry ({@link entryValues}).
  *
- * Deliberately **containment only**: an entry is relevant when its scope contains
- * the query on both axes. There is no cost model, no ranking, and no notion of how
- * far the query had to broaden — that is #869's resolver. This decides inclusion,
- * nothing more, so search keeps working over v2 data without pre-empting the
- * design that lands next.
+ * Deliberately **inclusion only**: an entry is relevant when its scope meets the
+ * query on both axes — sector by containment, geography by non-empty ISO
+ * intersection (see geographyScopeOverlaps for why the two axes differ). There is
+ * no cost model, no ranking, and no notion of how far the query had to broaden —
+ * that is #869's resolver, which is where strict containment belongs, as the basis
+ * for ranking rather than as a hard filter.
  */
 import type { GeographyCode, PathwayMetadataType } from "../types";
 import { pathwayISOCoverage, toISO2 } from "./geographyUtils";
@@ -100,13 +101,24 @@ export function entryISOSet(
 }
 
 /**
- * Does an entry's geography scope contain a selected geography token?
+ * Does an entry's geography scope overlap a selected geography token?
  *
- * Containment, not overlap: the query's ISO set must be a *subset* of the entry's.
- * "Power in Thailand" is answered by an entry scoped to South East Asia, but an
- * entry scoped to Thailand does not answer a query about South East Asia.
+ * **Overlap, not containment** — a non-empty intersection is a match. Requiring
+ * the query to be a strict subset of the entry looks tidier but is wrong here,
+ * because the query vocabulary and each publication's own region membership are
+ * different lists by design (#783), so they rarely coincide exactly. Concretely:
+ * the filter vocabulary's "Southeast Asia" carries 11 codes including TL, while
+ * ACE's own "South East Asia" carries 10 and omits it. Under containment that one
+ * country made every ACE pathway vanish whenever a region filter was combined
+ * with a keyFeature facet, even though the geography facet itself kept them --
+ * it has always used overlap (`isoSets.some(overlaps)` in filterPathways). This
+ * now matches that behaviour, so the two cannot disagree about the same pathway.
+ *
+ * "Global" stays a distinct predicate rather than "every code", again mirroring
+ * the facet (`wantGlobal && pGlobal`): a Global query is answered only by a
+ * Global-scoped entry, so selecting it does not quietly match everything.
  */
-export function geographyScopeContains(
+export function geographyScopeOverlaps(
   entryGeography: string,
   queryToken: string,
   pathway: PathwayMetadataType,
@@ -117,12 +129,14 @@ export function geographyScopeContains(
   if (query.kind === "absent") return true;
 
   const entrySet = entryISOSet(entryGeography, pathway);
-  if (entrySet === null) return true; // Global contains everything
+  if (entrySet === null) return true; // a Global entry answers anything
 
-  if (query.kind === "global") return false; // only Global contains Global
-  if (query.iso.size === 0) return false; // unrecognised token matches nothing
-  for (const code of query.iso) if (!entrySet.has(code)) return false;
-  return true;
+  if (query.kind === "global") return false; // only a Global entry answers Global
+  // An unrecognised token, or a region the publication never mapped, yields an
+  // empty set and so overlaps nothing -- a stale selection matches nothing
+  // rather than everything.
+  for (const code of query.iso) if (entrySet.has(code)) return true;
+  return false;
 }
 
 export interface ScopeQuery {
@@ -156,7 +170,7 @@ export function entriesInScope(
   // The "None" bucket is a predicate about the *pathway* ("has no sectors" /
   // "has no geography"), not a scope to read values from, so it must not
   // constrain either axis. Dropping it here rather than in each axis helper keeps
-  // the two consistent: previously geographyScopeContains ignored the token but
+  // the two consistent: previously geographyScopeOverlaps ignored the token but
   // sectorScopeContains compared it as if it were a sector name, so selecting
   // Sector=None alongside a keyFeature facet filtered out every entry and made
   // the pathway look like it held no values at all.
@@ -174,7 +188,7 @@ export function entriesInScope(
     const geoOk =
       geographies.length === 0 ||
       geographies.some((g) =>
-        geographyScopeContains(entry.geography, g, pathway),
+        geographyScopeOverlaps(entry.geography, g, pathway),
       );
     return geoOk;
   });
