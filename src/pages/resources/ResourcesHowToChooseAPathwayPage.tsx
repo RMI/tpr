@@ -1,5 +1,6 @@
-import React, { useId, useState } from "react";
+import React from "react";
 import { Link } from "react-router";
+import AccordionItem from "../../components/AccordionItem";
 
 const quickStartCards = [
   {
@@ -73,54 +74,27 @@ const CollapsibleRow: React.FC<{
   title: string;
   children: React.ReactNode;
 }> = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentId = useId();
   const [stepLabel, ...titleParts] = title.split(": ");
   const heading = titleParts.join(": ");
 
   return (
-    <div className="px-6 py-5 md:px-7">
-      <h3>
-        <button
-          type="button"
-          className="group w-full text-left"
-          aria-expanded={isOpen}
-          aria-controls={contentId}
-          onClick={() => setIsOpen((v) => !v)}
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
-                {stepLabel}
-              </p>
-              <span className="mt-3 block text-xl font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-                {heading}
-              </span>
-            </div>
-            <span
-              className={
-                "mt-1 text-rmigray-500 transition-transform " +
-                (isOpen ? "rotate-180" : "rotate-0")
-              }
-              aria-hidden="true"
-            >
-              ▾
-            </span>
-          </div>
-        </button>
-      </h3>
-
-      {isOpen ? (
-        <div
-          id={contentId}
-          className="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-rmigray-700 leading-7"
-        >
-          <div className="[&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>p+ul]:mt-3 [&>p]:text-rmigray-700">
-            {children}
-          </div>
+    <AccordionItem
+      header={
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
+            {stepLabel}
+          </p>
+          <span className="mt-3 block text-xl font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
+            {heading}
+          </span>
         </div>
-      ) : null}
-    </div>
+      }
+      panelClassName="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-rmigray-700 leading-7"
+    >
+      <div className="[&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>p+ul]:mt-3 [&>p]:text-rmigray-700">
+        {children}
+      </div>
+    </AccordionItem>
   );
 };
 
@@ -176,12 +150,12 @@ const guides: Guide[] = [
             </div>
           </li>
           <li>
-            The pathway cards below, will now show a button next to the{" "}
-            <b>"View Details"</b> button. Clicking on <b>"Plus"</b> button on a
-            pathway card will add the pathway to the comparison tray. A selected
-            pathway will now show a checkmark on the pathway card. Clicking on
-            the <b>"Checkmark"</b> button will remove the pathway from the
-            comparison tray.
+            The pathway cards below will now show a button next to the{" "}
+            <b>"View Details"</b> button. Clicking on the <b>"Plus"</b> button
+            on a pathway card will add the pathway to the comparison tray. A
+            selected pathway will now show a checkmark on the pathway card.
+            Clicking on the <b>"Checkmark"</b> button will remove the pathway
+            from the comparison tray.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-3.png"
@@ -255,48 +229,18 @@ const guides: Guide[] = [
   },
 ];
 
-const GuideItemBlock: React.FC<Guide> = ({ title, content }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentId = useId();
-
-  return (
-    <div className="px-6 py-5 md:px-7">
-      <h3>
-        <button
-          type="button"
-          className="group w-full text-left"
-          aria-expanded={isOpen}
-          aria-controls={contentId}
-          onClick={() => setIsOpen((value) => !value)}
-        >
-          <div className="flex items-start justify-between gap-4">
-            <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-              {title}
-            </span>
-            <span
-              className={
-                "mt-1 text-rmigray-500 transition-transform " +
-                (isOpen ? "rotate-180" : "rotate-0")
-              }
-              aria-hidden="true"
-            >
-              ▾
-            </span>
-          </div>
-        </button>
-      </h3>
-
-      {isOpen ? (
-        <div
-          id={contentId}
-          className="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
-        >
-          <div className="space-y-4 leading-7">{content}</div>
-        </div>
-      ) : null}
-    </div>
-  );
-};
+const GuideItemBlock: React.FC<Guide> = ({ title, content }) => (
+  <AccordionItem
+    header={
+      <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
+        {title}
+      </span>
+    }
+    panelClassName="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
+  >
+    <div className="space-y-4 leading-7">{content}</div>
+  </AccordionItem>
+);
 
 const ResourcesHowToChooseAPathwayPage: React.FC = () => {
   return (
