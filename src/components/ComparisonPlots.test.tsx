@@ -1,21 +1,23 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ComparisonPlots from "./ComparisonPlots";
 import type { ComparisonPlotsEntry } from "./ComparisonPlots";
 import MultiLineChart from "./MultiLineChart";
+import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 
 vi.mock("./MultiLineChart", () => ({
   default: vi.fn(() => <div data-testid="multi-line-chart" />),
 }));
 vi.mock("./NormalizedStackedAreaChart", () => ({
-  default: () => <div data-testid="stacked-area-chart" />,
+  default: vi.fn(() => <div data-testid="stacked-area-chart" />),
 }));
 vi.mock("../utils/geographyUtils", () => ({
   geographyLabel: (geo: string) => geo,
 }));
 
 const mockedMultiLineChart = vi.mocked(MultiLineChart);
+const mockedStackedAreaChart = vi.mocked(NormalizedStackedAreaChart);
 
 function makeEntry(
   pathwayId: string,
@@ -77,6 +79,7 @@ function makeMetricEntry(
 describe("ComparisonPlots", () => {
   beforeEach(() => {
     mockedMultiLineChart.mockClear();
+    mockedStackedAreaChart.mockClear();
   });
 
   it("shows a 'no timeseries data' message when all entries have null data", () => {
@@ -180,6 +183,66 @@ describe("ComparisonPlots", () => {
     mockedMultiLineChart.mock.calls.forEach(([props]) => {
       expect(props.yMin).toBe(-20);
       expect(props.yMax).toBe(300);
+    });
+  });
+
+  it("broadcasts a hovered point from one MultiLineChart panel to its siblings, and clears it on hover-out", async () => {
+    const entries = [
+      makeMetricEntry("p1", "absoluteEmissions", [50, 150]),
+      makeMetricEntry("p2", "absoluteEmissions", [80, 200]),
+    ];
+    render(<ComparisonPlots entries={entries} />);
+    const plotSelect = screen.getAllByRole("combobox")[0];
+    await userEvent.setup().selectOptions(plotSelect, "Absolute Emissions");
+
+    expect(mockedMultiLineChart.mock.calls.length).toBe(2);
+    mockedMultiLineChart.mock.calls.forEach(([props]) => {
+      expect(props.externalHoveredPoint).toBeNull();
+    });
+
+    // Simulate panel 1 reporting a hovered point, the way its own
+    // pointermove handler would via the onHoverPoint callback it was given.
+    const point = { year: "2020", technology: "absoluteEmissions" };
+    const sourceProps = mockedMultiLineChart.mock.calls[0][0];
+    act(() => {
+      sourceProps.onHoverPoint?.(point);
+    });
+
+    const hoveredCalls = mockedMultiLineChart.mock.calls.slice(-2);
+    expect(hoveredCalls).toHaveLength(2);
+    hoveredCalls.forEach(([props]) => {
+      expect(props.externalHoveredPoint).toEqual(point);
+    });
+
+    // Simulate the pointer leaving that panel.
+    act(() => {
+      sourceProps.onHoverPoint?.(null);
+    });
+
+    mockedMultiLineChart.mock.calls.slice(-2).forEach(([props]) => {
+      expect(props.externalHoveredPoint).toBeNull();
+    });
+  });
+
+  it("wires NormalizedStackedAreaChart panels into the same shared hover state", () => {
+    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["Global"])];
+    render(<ComparisonPlots entries={entries} />);
+
+    // Default selected plot type is technologyMix, rendered as
+    // NormalizedStackedAreaChart panels.
+    expect(mockedStackedAreaChart.mock.calls.length).toBe(2);
+    mockedStackedAreaChart.mock.calls.forEach(([props]) => {
+      expect(props.externalHoveredPoint).toBeNull();
+    });
+
+    const point = { year: "2020", technology: null };
+    const sourceProps = mockedStackedAreaChart.mock.calls[0][0];
+    act(() => {
+      sourceProps.onHoverPoint?.(point);
+    });
+
+    mockedStackedAreaChart.mock.calls.slice(-2).forEach(([props]) => {
+      expect(props.externalHoveredPoint).toEqual(point);
     });
   });
 });

@@ -7,6 +7,7 @@ import { axisBottom, axisLeft } from "d3-axis";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
 import { computeTooltipBoxLayout } from "../utils/chartTooltipLayout";
+import { HoveredPoint } from "./PlotSelector";
 
 interface DataPoint {
   sector: string;
@@ -34,13 +35,16 @@ interface MultiLineChartProps {
   metric?: string;
   yMin?: number;
   yMax?: number;
-  externalHoveredSeries?: string | null;
-  onHoverSeries?: (series: string | null) => void;
+  externalHoveredPoint?: HoveredPoint | null;
+  onHoverPoint?: (point: HoveredPoint | null) => void;
 }
 
 type GroupedData = [string, DataPoint[]];
 
 type LabelData = { label: string; x: number; y: number };
+
+// [xPixel, yPixel, technology, year, value, unit] for a single data point.
+type LinePoint = [number, number, string, string, number, string];
 
 export default function MultiLineChart({
   data,
@@ -54,8 +58,8 @@ export default function MultiLineChart({
   metric = "capacity",
   yMin,
   yMax,
-  externalHoveredSeries,
-  onHoverSeries,
+  externalHoveredPoint,
+  onHoverPoint,
 }: MultiLineChartProps) {
   const d3data = useMemo(() => {
     let filtered = data.data.filter(
@@ -83,11 +87,21 @@ export default function MultiLineChart({
   );
 
   const isPointerOver = useRef(false);
-  const lastHoveredSeries = useRef<string | null>(null);
-  const onHoverSeriesRef = useRef(onHoverSeries);
+  const lastHoveredPoint = useRef<HoveredPoint | null>(null);
+  const onHoverPointRef = useRef(onHoverPoint);
   useEffect(() => {
-    onHoverSeriesRef.current = onHoverSeries;
-  }, [onHoverSeries]);
+    onHoverPointRef.current = onHoverPoint;
+  }, [onHoverPoint]);
+
+  // Pixel positions of every data point in the current dataset, kept fresh
+  // by the main effect below, so the cross-chart hover-sync effect can look
+  // up a matching point without re-running the (expensive, transitioning)
+  // main effect on every sibling-chart pointer move.
+  const pointsRef = useRef<LinePoint[]>([]);
+  const tooltipApiRef = useRef<{
+    renderTooltip: (point: LinePoint, muted: boolean) => void;
+    hideTooltip: () => void;
+  } | null>(null);
 
   // Memoize scales and data transformations
   const chartSetup = useMemo(() => {
@@ -269,14 +283,15 @@ export default function MultiLineChart({
     const svg = select(ref.current);
     const path = select(lines.current).selectAll("path");
 
-    const points = d3data.map((d) => [
-      x(parse(d.year)),
+    const points: LinePoint[] = d3data.map((d) => [
+      x(parse(d.year) as Date),
       y(d.value),
       d.technology,
       d.year,
       d.value,
       d.unit,
     ]);
+    pointsRef.current = points;
 
     const dot = select(tooltip_grp.current);
 
@@ -301,27 +316,22 @@ export default function MultiLineChart({
       .on("touchstart", (event: TouchEvent) => event.preventDefault())
       .on("click", pointerclicked);
 
-    function pointermoved(event: PointerEvent) {
-      const [xm, ym] = pointer(event);
-      const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
-      if (i === undefined || i < 0) return;
-      const [x, y, k, year, value, unit] = points[i];
-
-      if (lastHoveredSeries.current !== k) {
-        lastHoveredSeries.current = k as string;
-        onHoverSeriesRef.current?.(k as string);
-      }
-
-      path
-        .attr("stroke", (d) => (d[0] === k ? "var(--color-donate)" : "#ddd"))
-        .attr("stroke-width", (d) => (d[0] === k ? 3 : 1))
-        .filter((d) => d[0] === k)
-        .raise();
-
-      dot.attr("transform", `translate(${x},${y})`);
+    // Shows the tooltip for a single data point. Used both for this chart's
+    // own local hover (muted: false) and, from the effect below, to sync a
+    // matching tooltip in when a sibling comparison-view panel is hovered
+    // (muted: true) — see the doc comment on chartTooltipLayout.ts's caller
+    // for why the geometry itself lives in a separate pure function.
+    function renderTooltip(
+      [x, y, k, year, value, unit]: LinePoint,
+      muted: boolean,
+    ) {
+      dot
+        .attr("transform", `translate(${x},${y})`)
+        .attr("display", null)
+        .attr("opacity", muted ? 0.6 : 1);
 
       const tooltipText = [
-        capitalizeWords(k as string) + ": " + year,
+        capitalizeWords(k) + ": " + year,
         value + " " + unit,
       ];
 
@@ -340,6 +350,36 @@ export default function MultiLineChart({
       size(tooltipTextElem, tooltipBoxElem, x, y);
     }
 
+    function hideTooltip() {
+      dot.attr("display", "none").attr("opacity", 1);
+    }
+
+    tooltipApiRef.current = { renderTooltip, hideTooltip };
+
+    function pointermoved(event: PointerEvent) {
+      const [xm, ym] = pointer(event);
+      const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
+      if (i === undefined || i < 0) return;
+      const point = points[i];
+      const [, , k, year] = point;
+
+      if (
+        lastHoveredPoint.current?.technology !== k ||
+        lastHoveredPoint.current?.year !== year
+      ) {
+        lastHoveredPoint.current = { technology: k, year };
+        onHoverPointRef.current?.({ technology: k, year });
+      }
+
+      path
+        .attr("stroke", (d) => (d[0] === k ? "var(--color-donate)" : "#ddd"))
+        .attr("stroke-width", (d) => (d[0] === k ? 3 : 1))
+        .filter((d) => d[0] === k)
+        .raise();
+
+      renderTooltip(point, false);
+    }
+
     function pointerentered() {
       isPointerOver.current = true;
       path.style("mix-blend-mode", null).attr("stroke", "#ddd");
@@ -348,8 +388,8 @@ export default function MultiLineChart({
 
     function pointerleft() {
       isPointerOver.current = false;
-      lastHoveredSeries.current = null;
-      onHoverSeriesRef.current?.(null);
+      lastHoveredPoint.current = null;
+      onHoverPointRef.current?.(null);
       const selectedTech = selectRef;
       path
         .style("mix-blend-mode", "multiply")
@@ -359,7 +399,7 @@ export default function MultiLineChart({
         .attr("stroke-width", (d: GroupedData) =>
           d[0] === selectedTech ? 3 : 1,
         );
-      dot.attr("display", "none");
+      hideTooltip();
     }
 
     function pointerclicked(event: PointerEvent) {
@@ -367,7 +407,7 @@ export default function MultiLineChart({
       const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
       if (i === undefined || i < 0) return;
       const clicked_tech = points[i][2];
-      setSelectRef(clicked_tech as string);
+      setSelectRef(clicked_tech);
     }
 
     // Positions the tooltip box around the hovered point, avoiding clipping
@@ -427,28 +467,50 @@ export default function MultiLineChart({
     height,
   ]);
 
-  // Apply cross-chart highlighting when another pathway's chart is hovered
+  // Apply cross-chart highlighting, and show a synced tooltip if this
+  // chart has a data point at the same (year, technology), when another
+  // pathway's chart is hovered. Skipped while the pointer is over this
+  // chart itself, since its own pointermoved/pointerleft handlers already
+  // own the highlighting/tooltip in that case.
   useEffect(() => {
     if (!lines.current || isPointerOver.current) return;
     const path = select(lines.current).selectAll<SVGPathElement, GroupedData>(
       ".line",
     );
-    if (externalHoveredSeries == null) {
+    const api = tooltipApiRef.current;
+
+    if (externalHoveredPoint == null) {
       path
         .style("mix-blend-mode", "multiply")
         .attr("stroke", (d) =>
           d[0] === selectRef ? "var(--color-donate)" : "var(--color-coal)",
         )
         .attr("stroke-width", (d) => (d[0] === selectRef ? 3 : 1));
-    } else {
-      path
-        .style("mix-blend-mode", null)
-        .attr("stroke", (d) =>
-          d[0] === externalHoveredSeries ? "var(--color-donate)" : "#ddd",
-        )
-        .attr("stroke-width", (d) => (d[0] === externalHoveredSeries ? 3 : 1));
+      api?.hideTooltip();
+      return;
     }
-  }, [externalHoveredSeries, selectRef]);
+
+    const { year, technology } = externalHoveredPoint;
+    path
+      .style("mix-blend-mode", null)
+      .attr("stroke", (d) =>
+        d[0] === technology ? "var(--color-donate)" : "#ddd",
+      )
+      .attr("stroke-width", (d) => (d[0] === technology ? 3 : 1));
+
+    const match =
+      technology == null
+        ? undefined
+        : pointsRef.current.find(
+            ([, , k, y]) => k === technology && y === year,
+          );
+
+    if (match) {
+      api?.renderTooltip(match, true);
+    } else {
+      api?.hideTooltip();
+    }
+  }, [externalHoveredPoint, selectRef]);
 
   return (
     <div className="flex flex-col items-center">

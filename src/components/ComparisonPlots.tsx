@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { PlotType, TimeSeries } from "./PlotSelector";
+import { PlotType, TimeSeries, HoveredPoint } from "./PlotSelector";
 import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 import MultiLineChart from "./MultiLineChart";
 import { geographyLabel } from "../utils/geographyUtils";
@@ -50,8 +50,8 @@ interface PlotPanelProps {
   dims: { width: number; height: number };
   yMin?: number;
   yMax?: number;
-  hoveredSeries?: string | null;
-  onHoverSeries?: (series: string | null) => void;
+  hoveredPoint?: HoveredPoint | null;
+  onHoverPoint?: (point: HoveredPoint | null) => void;
 }
 
 const PlotPanel: React.FC<PlotPanelProps> = ({
@@ -62,8 +62,8 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
   dims,
   yMin,
   yMax,
-  hoveredSeries,
-  onHoverSeries,
+  hoveredPoint,
+  onHoverPoint,
 }) => {
   const filteredData = useMemo(() => {
     if (!timeseriesdata?.data || !selectedGeography) return { data: [] };
@@ -100,6 +100,8 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
             height={dims.height}
             sector="power"
             metric="technologyMix"
+            externalHoveredPoint={hoveredPoint}
+            onHoverPoint={onHoverPoint}
           />
         );
       case "absoluteEmissions":
@@ -112,8 +114,8 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
             metric="absoluteEmissions"
             yMin={yMin}
             yMax={yMax}
-            externalHoveredSeries={hoveredSeries}
-            onHoverSeries={onHoverSeries}
+            externalHoveredPoint={hoveredPoint}
+            onHoverPoint={onHoverPoint}
           />
         );
       case "emissionsIntensity":
@@ -126,8 +128,8 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
             metric="emissionsIntensity"
             yMin={yMin}
             yMax={yMax}
-            externalHoveredSeries={hoveredSeries}
-            onHoverSeries={onHoverSeries}
+            externalHoveredPoint={hoveredPoint}
+            onHoverPoint={onHoverPoint}
           />
         );
       case "capacity":
@@ -140,8 +142,8 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
             metric="capacity"
             yMin={yMin}
             yMax={yMax}
-            externalHoveredSeries={hoveredSeries}
-            onHoverSeries={onHoverSeries}
+            externalHoveredPoint={hoveredPoint}
+            onHoverPoint={onHoverPoint}
           />
         );
       case "generation":
@@ -154,8 +156,8 @@ const PlotPanel: React.FC<PlotPanelProps> = ({
             metric="generation"
             yMin={yMin}
             yMax={yMax}
-            externalHoveredSeries={hoveredSeries}
-            onHoverSeries={onHoverSeries}
+            externalHoveredPoint={hoveredPoint}
+            onHoverPoint={onHoverPoint}
           />
         );
       default:
@@ -255,10 +257,10 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({ entries }) => {
     return { yMin, yMax };
   }, [entries, selectedPlot, selectedGeography]);
 
-  const [hoveredSeries, setHoveredSeries] = useState<string | null>(null);
+  const [hoveredPoint, setHoveredPoint] = useState<HoveredPoint | null>(null);
 
-  const handleHoverSeries = useCallback((series: string | null) => {
-    setHoveredSeries(series);
+  const handleHoverPoint = useCallback((point: HoveredPoint | null) => {
+    setHoveredPoint(point);
   }, []);
 
   const hasAnyData = availablePlotOptions.length > 0;
@@ -351,8 +353,8 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({ entries }) => {
             dims={dims}
             yMin={sharedYBounds?.yMin}
             yMax={sharedYBounds?.yMax}
-            hoveredSeries={hoveredSeries}
-            onHoverSeries={handleHoverSeries}
+            hoveredPoint={hoveredPoint}
+            onHoverPoint={handleHoverPoint}
           />
         </div>
       ))}
