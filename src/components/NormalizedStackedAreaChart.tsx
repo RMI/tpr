@@ -343,7 +343,7 @@ export default function NormalizedStackedAreaChart({
     function pointerentered() {
       isPointerOver.current = true;
       guidelineElem.attr("display", null);
-      dot.attr("display", null);
+      dot.attr("display", null).attr("opacity", 1);
     }
 
     function pointerleft() {

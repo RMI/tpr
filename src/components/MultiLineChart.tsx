@@ -383,7 +383,7 @@ export default function MultiLineChart({
     function pointerentered() {
       isPointerOver.current = true;
       path.style("mix-blend-mode", null).attr("stroke", "#ddd");
-      dot.attr("display", null);
+      dot.attr("display", null).attr("opacity", 1);
     }
 
     function pointerleft() {
