@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from "vitest";
+import { describe, it, expect, vi, beforeEach } from "vitest";
 import { useRef } from "react";
 import { render, screen, fireEvent, within, act } from "@testing-library/react";
 import OnPageIndex from "./OnPageIndex";
@@ -23,6 +23,13 @@ const getActiveLink = () =>
   screen.getAllByRole("link").find((link) => link.getAttribute("aria-current"));
 
 describe("OnPageIndex", () => {
+  // `location`/`history` persist across tests within this file (jsdom is
+  // shared per test file, not per test), so start each test from a clean,
+  // hash-free URL.
+  beforeEach(() => {
+    window.history.replaceState(null, "", "/");
+  });
+
   it("renders one link per indexed heading, in DOM order, using the heading text", () => {
     render(<Harness />);
     const nav = screen.getByRole("navigation", { name: "On this page" });
@@ -116,5 +123,41 @@ describe("OnPageIndex", () => {
       block: "start",
     });
     expect(getActiveLink()?.textContent).toBe("Third section");
+  });
+
+  it("keeps the URL shareable: clicking a heading updates the hash via replaceState", () => {
+    render(<Harness />);
+    const replaceState = vi.spyOn(window.history, "replaceState");
+
+    fireEvent.click(screen.getByRole("link", { name: "Second section" }));
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", "#second");
+  });
+
+  it("clears the hash from the URL when 'Back to top' is clicked", () => {
+    window.history.replaceState(null, "", "#second");
+    render(<Harness />);
+    const replaceState = vi.spyOn(window.history, "replaceState");
+    const pathAndSearch = window.location.pathname + window.location.search;
+
+    fireEvent.click(screen.getByRole("link", { name: /Back to top/ }));
+
+    expect(replaceState).toHaveBeenCalledWith(null, "", pathAndSearch);
+  });
+
+  it("deep link: lands on and activates the section matching the URL hash on mount, instead of the first entry", () => {
+    window.history.replaceState(null, "", "#second");
+    const scrollIntoView = vi.spyOn(HTMLElement.prototype, "scrollIntoView");
+
+    render(<Harness />);
+
+    expect(getActiveLink()?.textContent).toBe("Second section");
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+  });
+
+  it("falls back to the first entry when the URL hash doesn't match any section on this page", () => {
+    window.history.replaceState(null, "", "#not-a-real-section");
+    render(<Harness />);
+    expect(getActiveLink()?.textContent).toBe("First section");
   });
 });

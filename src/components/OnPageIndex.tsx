@@ -45,7 +45,21 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
     }));
 
     setHeadings(found);
-    setActiveId(found[0]?.id ?? null);
+
+    // Support deep links (e.g. shared as `.../methodology#classification-
+    // group-2`): if the URL already points at one of this page's sections,
+    // land there instead of the first entry. This can't rely on the
+    // browser's native "scroll to #fragment on load" behavior — that races
+    // against React rendering the content in a client-rendered SPA and can
+    // silently miss.
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const target = found.find((heading) => heading.id === targetId);
+    if (target) {
+      document.getElementById(target.id)?.scrollIntoView({ block: "start" });
+      setActiveId(target.id);
+    } else {
+      setActiveId(found[0]?.id ?? null);
+    }
   }, [containerRef]);
 
   // Highlight the heading currently in view as the reader scrolls.
@@ -107,6 +121,11 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
       block: "start",
     });
     setActiveId(id);
+    // Keep the URL shareable as a direct link to this section. `replaceState`
+    // (not `pushState`) so clicking around the index doesn't fill up
+    // browser history — Back just leaves the page, as if the hash had
+    // never changed.
+    window.history.replaceState(null, "", `#${id}`);
   };
 
   const handleBackToTop = (event: React.MouseEvent<HTMLAnchorElement>) => {
@@ -115,6 +134,12 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
     // Matches the "first entry is bold on load" behavior: landing back at
     // the very top of the page should look the same as a fresh page load.
     setActiveId(headings[0]?.id ?? null);
+    // The URL no longer points at a specific section, so drop the hash.
+    window.history.replaceState(
+      null,
+      "",
+      window.location.pathname + window.location.search,
+    );
   };
 
   return (
