@@ -1,6 +1,10 @@
 import { PathwayMetadataType } from "../types";
 import { FileEntry } from "../utils/validateData";
-import { assembleData, decideIncludeInvalid } from "../utils/loadData";
+import {
+  assembleData,
+  decideIncludeInvalid,
+  isViteDev,
+} from "../utils/loadData";
 import pathwayMetadataSchema from "../schema/pathwayMetadata.v2.json" with { type: "json" };
 import pathwayMetadataV1Schema from "../schema/pathwayMetadata.v1.json" with { type: "json" };
 import { commonSchemas } from "../schema/common";
@@ -31,6 +35,11 @@ const entries: FileEntry[] = Object.entries(modules)
  * error at all. Counting them here turns "pathways are missing" from a mystery
  * into a number. Timeseries files are routed away by the same mechanism and are
  * not counted, since their absence from this list is by design.
+ *
+ * Dev-server only. The message names an internal script and issue number, which
+ * is useful to us and noise to anyone reading a production console — and this
+ * module otherwise does no logging at all (assembleData warns only when a caller
+ * opts in via `opts.warn`, which this one does not).
  */
 const V1_METADATA_ID = String(
   (pathwayMetadataV1Schema as { $id?: string }).$id,
@@ -43,7 +52,7 @@ const unmigrated = entries.filter(
     (e.data as { $schema?: unknown }).$schema === V1_METADATA_ID,
 ).length;
 
-if (unmigrated > 0) {
+if (unmigrated > 0 && isViteDev()) {
   console.warn(
     `[pathwayMetadata] ${unmigrated} metadata file(s) still use schema v1 and are ` +
       `not loaded. Migrate them with scripts/codemod-v1-to-v2.ts (#858).`,
