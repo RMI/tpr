@@ -12,8 +12,13 @@
  * So `scopeGeography.v2.json` validates the *shape* — a non-blank, non-3-letter
  * string — and this module validates the *reference*. Without it a mistyped
  * region label ("Souteast Asia") would validate cleanly and then silently match
- * nothing at search time, which is the worst of both worlds. Run from
- * `scripts/schema-check-files.ts`, so `npm run schema:check` gates it.
+ * nothing at search time, which is the worst of both worlds.
+ *
+ * It also enforces one-value-per-scope, which `uniqueItems` cannot: that keyword
+ * compares whole entries, so two at the same (sector, geography) with different
+ * values are "unique" to the schema while being contradictory as data.
+ *
+ * Run from `scripts/schema-check-files.ts`, so `npm run schema:check` gates both.
  *
  * Errors are formatted like AJV's (`<instancePath> <message>`) so callers can
  * merge them into the same `ValidationProblem.errors` list without special-casing.
@@ -104,6 +109,9 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
   >;
   for (const [field, entries] of Object.entries(keyFeatures)) {
     if (!Array.isArray(entries)) continue;
+    // Tracks the first index each (sector, geography) pair was seen at, so a
+    // repeat can name its twin. See the duplicate check below for why.
+    const seenScopes = new Map<string, number>();
     entries.forEach((entry, i) => {
       const at = `/keyFeatures/${field}/${i}`;
       if (!entrySectors.has(entry.sector)) {
@@ -116,6 +124,26 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
         errors.push(
           `${at}/geography "${entry.geography}" is not a geography this pathway` +
             ` declares (allowed: ${quote(geographies)})`,
+        );
+      }
+
+      // One scope, one value. The schema's `uniqueItems` only rejects entries
+      // that are identical including their value, so two entries at the same
+      // (sector, geography) carrying *different* values validate cleanly -- and
+      // then disagree downstream: the resolver picks one to display while search
+      // matches the field under both, so a pathway surfaces under a value its
+      // own detail page does not show. The likely author intent is an override,
+      // which is not what the data expresses, so reject it rather than pick a
+      // winner by document order.
+      const scope = `${entry.sector}\u0000${entry.geography}`;
+      const firstSeen = seenScopes.get(scope);
+      if (firstSeen === undefined) {
+        seenScopes.set(scope, i);
+      } else {
+        errors.push(
+          `${at} duplicates the scope of /keyFeatures/${field}/${firstSeen}` +
+            ` (sector "${entry.sector}", geography "${entry.geography}").` +
+            ` Each scope may carry only one value; to vary a value, vary the scope.`,
         );
       }
     });

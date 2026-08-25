@@ -202,6 +202,109 @@ describe("validateScopedEntries — reporting", () => {
   });
 });
 
+describe("validateScopedEntries — one value per scope", () => {
+  const dup = (geography: string, value: string) => ({
+    sector: "Power",
+    geography,
+    value,
+  });
+
+  it("rejects two entries at the same scope with different values", () => {
+    // uniqueItems compares whole entries, so these are "unique" to the schema.
+    // Left unchecked, the resolver displays one while search matches both.
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [
+            dup("South East Asia", "Significant decrease"),
+            dup("South East Asia", "Minor increase"),
+          ],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/keyFeatures/emissionsTrajectory/1");
+    expect(errors[0]).toContain("duplicates the scope of");
+    // Names the entry it collides with, so the fix is obvious in a long list.
+    expect(errors[0]).toContain("/keyFeatures/emissionsTrajectory/0");
+  });
+
+  it("accepts the same value at genuinely different scopes", () => {
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [
+            dup("South East Asia", "Significant decrease"),
+            dup("SG", "Significant decrease"),
+          ],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it("distinguishes scopes that differ only by sector", () => {
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [
+            { sector: "Power", geography: "SG", value: "Minor increase" },
+            { sector: "Steel", geography: "SG", value: "Minor decrease" },
+          ],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it("reports every repeat, not just the second", () => {
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [
+            dup("SG", "Significant decrease"),
+            dup("SG", "Minor increase"),
+            dup("SG", "Low or no change"),
+          ],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toHaveLength(2);
+    // Both point back at index 0 rather than chaining 1->2.
+    expect(errors.every((e) => e.includes("emissionsTrajectory/0"))).toBe(true);
+  });
+
+  it("scopes the check per field, not across the whole object", () => {
+    // The same (sector, geography) in two different fields is normal.
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [dup("SG", "Significant decrease")],
+          policyAmbition: [dup("SG", "High ambition policies")],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it("does not confuse scopes whose parts concatenate alike", () => {
+    // Guards the composite key: "A" + "BC" must not collide with "AB" + "C".
+    const errors = validateScopedEntries(
+      pathway({
+        sectors: [{ name: "Power", technologies: [] }],
+        geography: { regions: { "Power SG": ["SG"] }, country: ["SG"] },
+        keyFeatures: {
+          emissionsTrajectory: [
+            { sector: "Power", geography: "SG", value: "Minor increase" },
+            { sector: "Power", geography: "Power SG", value: "Minor decrease" },
+          ],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+});
+
 describe("validateScopedEntries — dependencies", () => {
   it("accepts a declared sector", () => {
     const errors = validateScopedEntries(
