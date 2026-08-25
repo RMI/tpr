@@ -52,7 +52,18 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
     // browser's native "scroll to #fragment on load" behavior — that races
     // against React rendering the content in a client-rendered SPA and can
     // silently miss.
-    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const rawHash = window.location.hash.slice(1);
+    let targetId = rawHash;
+    try {
+      targetId = decodeURIComponent(rawHash);
+    } catch {
+      // A hash with malformed percent-encoding (e.g. a stray "%" from a
+      // typo'd or hand-edited URL, such as "#50%off") makes
+      // decodeURIComponent throw. There's no error boundary in this app,
+      // so an uncaught throw here would blank the entire page, not just
+      // this component — fall back to the raw hash instead, which simply
+      // won't match any section id below.
+    }
     const target = found.find((heading) => heading.id === targetId);
     if (target) {
       document.getElementById(target.id)?.scrollIntoView({ block: "start" });
