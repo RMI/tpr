@@ -107,10 +107,6 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
     };
   }, [headings]);
 
-  if (headings.length === 0) {
-    return null;
-  }
-
   const handleClick = (
     event: React.MouseEvent<HTMLAnchorElement>,
     id: string,
@@ -142,6 +138,14 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
     );
   };
 
+  // Deliberately never render `null` while `headings` is still empty: this
+  // component is the first (16rem) track of its parent grid, and briefly
+  // rendering nothing would leave the content column as the grid's only
+  // item — which places it in that same first track, squeezed to 16rem,
+  // until the scan effect above populates `headings` a moment later and it
+  // snaps back to full width. Always rendering the nav shell (its "Back to
+  // top" link doesn't depend on the scan either) reserves the column from
+  // the first paint and avoids that layout shift.
   return (
     <nav
       aria-label="On this page"
