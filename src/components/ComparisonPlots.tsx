@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import { PlotType, TimeSeries, HoveredPoint } from "./PlotSelector";
+import type { PlotType, TimeSeries, HoveredPoint } from "./PlotSelector";
 import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 import MultiLineChart from "./MultiLineChart";
 import { geographyLabel } from "../utils/geographyUtils";
@@ -262,6 +262,13 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({ entries }) => {
   const handleHoverPoint = useCallback((point: HoveredPoint | null) => {
     setHoveredPoint(point);
   }, []);
+
+  // Switching plot type or geography remounts every panel; without this, a
+  // hover captured just before the switch would linger and apply to the
+  // newly-mounted panels until the next real hover/leave event.
+  useEffect(() => {
+    setHoveredPoint(null);
+  }, [selectedPlot, selectedGeography]);
 
   const hasAnyData = availablePlotOptions.length > 0;
 

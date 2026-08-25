@@ -245,4 +245,31 @@ describe("ComparisonPlots", () => {
       expect(props.externalHoveredPoint).toEqual(point);
     });
   });
+
+  it("clears the hovered point when the plot type changes, instead of carrying it over to the newly-mounted panels", async () => {
+    const entries = [
+      makeEntry("p1", ["Global"], ["absoluteEmissions", "emissionsIntensity"]),
+      makeEntry("p2", ["Global"], ["absoluteEmissions", "emissionsIntensity"]),
+    ];
+    render(<ComparisonPlots entries={entries} />);
+    const plotSelect = screen.getAllByRole("combobox")[0];
+    const user = userEvent.setup();
+
+    await user.selectOptions(plotSelect, "Absolute Emissions");
+    expect(mockedMultiLineChart.mock.calls.length).toBe(2);
+
+    const point = { year: "2020", technology: "absoluteEmissions" };
+    const sourceProps = mockedMultiLineChart.mock.calls[0][0];
+    act(() => {
+      sourceProps.onHoverPoint?.(point);
+    });
+    mockedMultiLineChart.mock.calls.slice(-2).forEach(([props]) => {
+      expect(props.externalHoveredPoint).toEqual(point);
+    });
+
+    await user.selectOptions(plotSelect, "Emissions Intensity");
+    mockedMultiLineChart.mock.calls.slice(-2).forEach(([props]) => {
+      expect(props.externalHoveredPoint).toBeNull();
+    });
+  });
 });

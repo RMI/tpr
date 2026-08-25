@@ -7,7 +7,7 @@ import { axisBottom, axisLeft } from "d3-axis";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
 import { computeTooltipBoxLayout } from "../utils/chartTooltipLayout";
-import { HoveredPoint } from "./PlotSelector";
+import type { HoveredPoint } from "./PlotSelector";
 
 interface DataPoint {
   sector: string;

@@ -9,7 +9,7 @@ import { stackOffsetExpand } from "d3-shape";
 import "d3-transition";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
-import { HoveredPoint } from "./PlotSelector";
+import type { HoveredPoint } from "./PlotSelector";
 
 interface DataPoint {
   sector: string;
