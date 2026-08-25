@@ -98,8 +98,12 @@ async function main() {
     filesWithIssues += r.invalid.length;
 
     for (const p of r.invalid) {
-      // Emit up to N errors per file as GH annotations
-      const file = join(r.dir, p.name);
+      // Emit up to N errors per file as GH annotations.
+      // `p.name` already carries the directory — getJsonFilesRecursive builds it
+      // with join(base, d.name) — so re-prepending r.dir produced paths like
+      // "src/data/src/data/foo.json" and the annotations pointed nowhere. Latent
+      // until now because it only shows when a file actually fails.
+      const file = p.name;
       const errs = p.errors.slice(0, 50);
       for (const e of errs) {
         console.log(`::${annotate} file=${file}::${e}`);

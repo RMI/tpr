@@ -140,7 +140,7 @@ export interface PathwayMetadataV2 {
   description: string;
   publication: Publication;
   /**
-   * Type of the pathway pathway.
+   * Type of the pathway.
    */
   pathwayType: "Normative" | "Exploratory" | "Predictive";
   /**
@@ -344,7 +344,7 @@ export interface PathwayMetadataV2 {
       value: EmissionsScope;
     }[];
     /**
-     * Represents the overall stringency and intent of modeled policies relative to climate targets, often reflecting if and how far the included policies go beyond currently legislated ones Scoped: see keyFeatures.
+     * Represents the overall stringency and intent of modeled policies relative to climate targets, often reflecting if and how far the included policies go beyond currently legislated ones. Scoped: see keyFeatures.
      */
     policyAmbition: {
       sector: ScopeSector7;
