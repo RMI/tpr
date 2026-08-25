@@ -22,10 +22,15 @@ if (typeof window !== "undefined") {
   window.ResizeObserver = window.ResizeObserver || MockResizeObserver;
 
   // Mock IntersectionObserver for OnPageIndex's scroll-spy behavior.
-  // Not available in the test environment either.
+  // Installed unconditionally (unlike the ResizeObserver mock above): the
+  // OnPageIndex tests reach into `MockIntersectionObserver.instances` and
+  // call `.trigger()` on them directly, so if a real IntersectionObserver
+  // ever became available here (a jsdom upgrade, a switch to happy-dom,
+  // etc.), an `existing || mock` guard would silently skip installing the
+  // controllable mock and those tests would fail confusingly instead of
+  // cleanly.
   window.IntersectionObserver =
-    window.IntersectionObserver ||
-    (MockIntersectionObserver as unknown as typeof IntersectionObserver);
+    MockIntersectionObserver as unknown as typeof IntersectionObserver;
 
   // jsdom does not implement scrollIntoView at all.
   if (typeof window.HTMLElement.prototype.scrollIntoView !== "function") {
