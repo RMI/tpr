@@ -1,5 +1,6 @@
-import React, { useId, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router";
+import AccordionItem from "../../components/AccordionItem";
 import OnPageIndex from "../../components/OnPageIndex";
 
 const quickStartCards = [
@@ -74,56 +75,175 @@ const CollapsibleRow: React.FC<{
   title: string;
   children: React.ReactNode;
 }> = ({ title, children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentId = useId();
   const [stepLabel, ...titleParts] = title.split(": ");
   const heading = titleParts.join(": ");
 
   return (
-    <div className="px-6 py-5 md:px-7">
-      <h3>
-        <button
-          type="button"
-          className="group w-full text-left"
-          aria-expanded={isOpen}
-          aria-controls={contentId}
-          onClick={() => setIsOpen((v) => !v)}
-        >
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
-                {stepLabel}
-              </p>
-              <span className="mt-3 block text-xl font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-                {heading}
-              </span>
-            </div>
-            <span
-              className={
-                "mt-1 text-rmigray-500 transition-transform " +
-                (isOpen ? "rotate-180" : "rotate-0")
-              }
-              aria-hidden="true"
-            >
-              ▾
-            </span>
-          </div>
-        </button>
-      </h3>
-
-      {isOpen ? (
-        <div
-          id={contentId}
-          className="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-rmigray-700 leading-7"
-        >
-          <div className="[&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>p+ul]:mt-3 [&>p]:text-rmigray-700">
-            {children}
-          </div>
+    <AccordionItem
+      header={
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
+            {stepLabel}
+          </p>
+          <span className="mt-3 block text-xl font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
+            {heading}
+          </span>
         </div>
-      ) : null}
-    </div>
+      }
+      panelClassName="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-rmigray-700 leading-7"
+    >
+      <div className="[&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>p+ul]:mt-3 [&>p]:text-rmigray-700">
+        {children}
+      </div>
+    </AccordionItem>
   );
 };
+
+const GuideScreenshot: React.FC<{ src: string; alt: string }> = ({
+  src,
+  alt,
+}) => (
+  <img
+    src={src}
+    alt={alt}
+    loading="lazy"
+    className="w-full rounded-xl border border-neutral-200 shadow-sm"
+  />
+);
+
+type Guide = {
+  title: string;
+  content: React.ReactNode;
+};
+
+const guides: Guide[] = [
+  {
+    title: "How to compare pathways using the TPR",
+    content: (
+      <>
+        <p>
+          To understand the implications of any transition pathway better, it
+          can help to compare it to other pathways. You can see the benchmarks,
+          assumptions, and scopes side-by-side using the pathway comparison
+          feature.
+        </p>
+        <ol className="list-decimal space-y-4 pl-5">
+          <li>
+            To select pathways for comparison, click the{" "}
+            <b>"Compare Pathways"</b> button below the drop-down filter section
+            on the Card View.
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-1.png"
+                alt="Pathway list filters with the collapsed 'Compare Pathways' link."
+              />
+            </div>
+          </li>
+          <li>
+            This will open a ribbon that allows you to select pathways for
+            comparison. Add at least 2 (and up to 3) pathways to the comparison
+            tray. You can remove a pathway from the tray at any time.
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-2.png"
+                alt="Expanded comparison tray with empty pathway slots and a disabled 'Compare' button."
+              />
+            </div>
+          </li>
+          <li>
+            The pathway cards below will now show a button next to the{" "}
+            <b>"View Details"</b> button. Clicking on the <b>"Plus"</b> button
+            on a pathway card will add the pathway to the comparison tray. A
+            selected pathway will now show a checkmark on the pathway card.
+            Clicking on the <b>"Checkmark"</b> button will remove the pathway
+            from the comparison tray.
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-3.png"
+                alt="Pathway cards with one already added to the comparison tray, and an 'Add to comparison' button shown on another."
+              />
+            </div>
+          </li>
+          <li>
+            Once you have selected the pathways you want to compare, you can
+            access the Comparison View by clicking on the <b>"Compare"</b>{" "}
+            button next to the comparison tray in the ribbon below the drop-down
+            filters.
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-4.png"
+                alt="Comparison tray filled with three selected pathways and the 'Compare' button enabled."
+              />
+            </div>
+          </li>
+          <li>
+            This will open the side-by-side comparison of your selected
+            pathways. Scroll down to compare benchmarks for each pathway.
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-5.png"
+                alt="Comparison view showing pathway summary cards and benchmark capacity plots side by side."
+              />
+            </div>
+          </li>
+          <li>
+            Scroll further to compare model assumptions such as modelled policy
+            types and technology cost assumptions.
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-6.png"
+                alt="Comparison view showing policy environment and technology and feasibility assumptions side by side."
+              />
+            </div>
+          </li>
+          <li>
+            Further down, you can compare pathway coverage side by side (for
+            example, which geographies and sectors each pathway covers).
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-7.png"
+                alt="Comparison view showing the geographies and sectors covered by each pathway side by side."
+              />
+            </div>
+          </li>
+          <li>
+            If you find an insight you want to share, you can simply send the
+            URL to a colleague, and it will open the same comparison:
+            <div className="mt-3">
+              <GuideScreenshot
+                src="/guides/how-to-compare-pathways-8.png"
+                alt="Browser address bar showing a shareable comparison URL with pathway IDs as query parameters."
+              />
+            </div>
+          </li>
+          <li>
+            If you find anything you would like to share with us, please{" "}
+            <Link
+              to="/contact"
+              className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+            >
+              get in touch
+            </Link>
+            .
+          </li>
+        </ol>
+      </>
+    ),
+  },
+];
+
+const GuideItemBlock: React.FC<Guide> = ({ title, content }) => (
+  <AccordionItem
+    header={
+      <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
+        {title}
+      </span>
+    }
+    panelClassName="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
+  >
+    <div className="space-y-4 leading-7">{content}</div>
+  </AccordionItem>
+);
 
 const ResourcesHowToChooseAPathwayPage: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -370,6 +490,32 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                     priorities={card.priorities}
                   />
                 ))}
+              </div>
+            </section>
+
+            <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
+              <div className="max-w-5xl">
+                <h2
+                  id="step-by-step-guides"
+                  className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+                >
+                  Step-by-step guides
+                </h2>
+                <p className="mt-4 text-rmigray-700 leading-7">
+                  Short click-through guides for specific TPR features.
+                </p>
+              </div>
+
+              <div className="mt-8 max-w-5xl overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
+                <div className="divide-y divide-neutral-200/80">
+                  {guides.map((guide) => (
+                    <GuideItemBlock
+                      key={guide.title}
+                      title={guide.title}
+                      content={guide.content}
+                    />
+                  ))}
+                </div>
               </div>
             </section>
 

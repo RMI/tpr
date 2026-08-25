@@ -18,7 +18,23 @@ describe("ResourcesHowToChooseAPathwayPage — on-page index (#802)", () => {
     expect(links.map((link) => link.textContent)).toEqual([
       "A structured way to narrow down the right pathway",
       "A simple way to start finding the right pathways",
+      "Step-by-step guides",
       "What to do next",
     ]);
+  });
+
+  it("renders the comparison guide as an h3 accordion entry, collapsed by default like a FAQ item", () => {
+    render(
+      <MemoryRouter>
+        <ResourcesHowToChooseAPathwayPage />
+      </MemoryRouter>,
+    );
+
+    const heading = screen.getByRole("heading", {
+      level: 3,
+      name: "How to compare pathways using the TPR",
+    });
+    const button = within(heading).getByRole("button");
+    expect(button).toHaveAttribute("aria-expanded", "false");
   });
 });

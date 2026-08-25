@@ -1,5 +1,6 @@
-import React, { useId, useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef } from "react";
 import { Link } from "react-router";
+import AccordionItem from "../../components/AccordionItem";
 import OnPageIndex from "../../components/OnPageIndex";
 
 type FaqItem = {
@@ -13,50 +14,20 @@ type FaqSection = {
   items: FaqItem[];
 };
 
-const FaqItemBlock: React.FC<FaqItem> = ({ question, answer }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const contentId = useId();
-
-  return (
-    <div className="px-6 py-5 md:px-7">
-      <h3>
-        <button
-          type="button"
-          className="group w-full text-left"
-          aria-expanded={isOpen}
-          aria-controls={contentId}
-          onClick={() => setIsOpen((value) => !value)}
-        >
-          <div className="flex items-start justify-between gap-4">
-            <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-              {question}
-            </span>
-            <span
-              className={
-                "mt-1 text-rmigray-500 transition-transform " +
-                (isOpen ? "rotate-180" : "rotate-0")
-              }
-              aria-hidden="true"
-            >
-              ▾
-            </span>
-          </div>
-        </button>
-      </h3>
-
-      {isOpen ? (
-        <div
-          id={contentId}
-          className="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
-        >
-          <div className="space-y-3 leading-7 [&>ul]:list-disc [&>ul]:space-y-1 [&>ul]:pl-5">
-            {answer}
-          </div>
-        </div>
-      ) : null}
+const FaqItemBlock: React.FC<FaqItem> = ({ question, answer }) => (
+  <AccordionItem
+    header={
+      <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
+        {question}
+      </span>
+    }
+    panelClassName="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
+  >
+    <div className="space-y-3 leading-7 [&>ul]:list-disc [&>ul]:space-y-1 [&>ul]:pl-5">
+      {answer}
     </div>
-  );
-};
+  </AccordionItem>
+);
 
 const ResourcesFaqPage: React.FC = () => {
   const contentRef = useRef<HTMLDivElement>(null);
