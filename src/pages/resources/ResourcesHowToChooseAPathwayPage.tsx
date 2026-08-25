@@ -177,7 +177,7 @@ const guides: Guide[] = [
           </li>
           <li>
             This will open the side-by-side comparison of your selected
-            pathways. Scrolling this page allows you to compare benchmarks…
+            pathways. Scroll down to compare benchmarks for each pathway.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-5.png"
@@ -186,7 +186,8 @@ const guides: Guide[] = [
             </div>
           </li>
           <li>
-            ... model assumptions ...
+            Scroll further to compare model assumptions such as modelled policy
+            types and technology cost assumptions.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-6.png"
@@ -195,7 +196,8 @@ const guides: Guide[] = [
             </div>
           </li>
           <li>
-            ... and pathway coverage.
+            Further down, you can compare pathway coverage side by side (for
+            example, which geographies and sectors each pathway covers).
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-7.png"
