@@ -122,16 +122,15 @@ const guides: Guide[] = [
     content: (
       <>
         <p>
-          To understand the implications of any transition pathway better, it
-          can help to compare it to other pathways. You can see the benchmarks,
-          assumptions, and scopes side-by-side using the pathway comparison
-          feature.
+          The pathway comparison feature built into the Transition Pathways
+          Repository allows you to see the benchmarks, assumptions, and scopes
+          of different pathways side-by-side.
         </p>
         <ol className="list-decimal space-y-4 pl-5">
           <li>
             To select pathways for comparison, click the{" "}
             <b>"Compare Pathways"</b> button below the drop-down filter section
-            on the Card View.
+            on the main pathway view.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-1.png"
@@ -140,9 +139,11 @@ const guides: Guide[] = [
             </div>
           </li>
           <li>
-            This will open a ribbon that allows you to select pathways for
-            comparison. Add at least 2 (and up to 3) pathways to the comparison
-            tray. You can remove a pathway from the tray at any time.
+            This will open a ribbon showing the pathways selected for
+            comparison, and the pathway cards will now show a <b>"Plus"</b>{" "}
+            button next to the <b>"View Details"</b> button. Two to three
+            pathways can be added to the comparison tray, and you can remove a
+            pathway from the tray at any time.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-2.png"
@@ -151,10 +152,9 @@ const guides: Guide[] = [
             </div>
           </li>
           <li>
-            The pathway cards below will now show a button next to the{" "}
-            <b>"View Details"</b> button. Clicking on the <b>"Plus"</b> button
-            on a pathway card will add the pathway to the comparison tray. A
-            selected pathway will now show a checkmark on the pathway card.
+            To add a pathway for comparison, click on the <b>"Plus"</b> button
+            on the pathway card. A selected pathway will now show a checkmark on
+            the pathway card and you will see it in the comparison tray.
             Clicking on the <b>"Checkmark"</b> button will remove the pathway
             from the comparison tray.
             <div className="mt-3">
@@ -166,9 +166,8 @@ const guides: Guide[] = [
           </li>
           <li>
             Once you have selected the pathways you want to compare, you can
-            access the Comparison View by clicking on the <b>"Compare"</b>{" "}
-            button next to the comparison tray in the ribbon below the drop-down
-            filters.
+            access the comparison view by clicking on the <b>"Compare"</b>{" "}
+            button on the right side of the comparison ribbon.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-4.png"
@@ -208,13 +207,7 @@ const guides: Guide[] = [
           </li>
           <li>
             If you find an insight you want to share, you can simply send the
-            URL to a colleague, and it will open the same comparison:
-            <div className="mt-3">
-              <GuideScreenshot
-                src="/guides/how-to-compare-pathways-8.png"
-                alt="Browser address bar showing a shareable comparison URL with pathway IDs as query parameters."
-              />
-            </div>
+            URL to a colleague, and it will open the same comparison.
           </li>
           <li>
             If you find anything you would like to share with us, please{" "}
