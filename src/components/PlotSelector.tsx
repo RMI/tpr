@@ -17,6 +17,17 @@ interface TimeSeries {
   data: DataPoint[];
 }
 
+/**
+ * A single hovered data point (year + technology), lifted by ComparisonPlots
+ * and broadcast to every chart panel so sibling pathways can show a matching
+ * tooltip. `technology` is null for chart types (e.g. the technology-mix
+ * stacked area chart) whose tooltip isn't anchored to one specific series.
+ */
+export interface HoveredPoint {
+  year: string;
+  technology: string | null;
+}
+
 export type PlotType =
   | "technologyMix"
   | "absoluteEmissions"
