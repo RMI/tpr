@@ -48,7 +48,7 @@
     },
     {
       "name": "Steel",
-      "technologies": ["Hydrogen Use"]
+      "technologies": []
     }
   ],
   "pathwayDescription": "A pathway whose key features vary by sector and geography, used to exercise the scoped-entry shape end to end.",

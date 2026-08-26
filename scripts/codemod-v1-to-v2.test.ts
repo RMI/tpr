@@ -297,3 +297,50 @@ describe("upgradeV1ToV2", () => {
     );
   });
 });
+
+describe("upgradeV1ToV2 — #461 technology reporting", () => {
+  it("reports nothing when every technology belongs to its sector", () => {
+    const { unscopedTechnologies } = upgradeV1ToV2(
+      v1({
+        sectors: [{ name: "Power", technologies: ["Solar", "Wind"] }],
+      } as unknown as Partial<PathwayMetadataV1>),
+    );
+    expect(unscopedTechnologies).toEqual([]);
+  });
+
+  it("reports a technology outside its sector's list", () => {
+    const { unscopedTechnologies } = upgradeV1ToV2(
+      v1({
+        sectors: [{ name: "Power", technologies: ["Solar", "Hydrogen Use"] }],
+      } as unknown as Partial<PathwayMetadataV1>),
+    );
+    expect(unscopedTechnologies).toEqual(["Power: Hydrogen Use"]);
+  });
+
+  it("reports technologies on a sector with no defined list", () => {
+    const { unscopedTechnologies } = upgradeV1ToV2(
+      v1({
+        sectors: [{ name: "Steel", technologies: ["Hydrogen Use"] }],
+      } as unknown as Partial<PathwayMetadataV1>),
+    );
+    expect(unscopedTechnologies).toEqual(["Steel: Hydrogen Use"]);
+  });
+
+  it("leaves the offending technologies in the output document", () => {
+    // Reporting, not fixing: deleting a technology someone recorded on purpose
+    // would be worse than a failing schema:check with a line in the report.
+    const { doc, unscopedTechnologies } = upgradeV1ToV2(
+      v1({
+        sectors: [{ name: "Steel", technologies: ["Hydrogen Use"] }],
+      } as unknown as Partial<PathwayMetadataV1>),
+    );
+    expect(unscopedTechnologies).toHaveLength(1);
+    expect(doc.sectors).toEqual([
+      { name: "Steel", technologies: ["Hydrogen Use"] },
+    ]);
+  });
+
+  it("is empty for the corpus shape — TransitionZero declares no technologies", () => {
+    expect(upgradeV1ToV2(v1({})).unscopedTechnologies).toEqual([]);
+  });
+});

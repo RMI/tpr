@@ -1,6 +1,9 @@
 import { describe, it, expect } from "vitest";
 import { validateScopedEntries } from "./validateScopes";
 import type { PathwayMetadataV2 } from "../types";
+import sectorSchema from "../schema/common/sector.v1.json" with { type: "json" };
+
+const SECTOR_NAMES: string[] = sectorSchema.$defs.displayName.enum;
 
 /**
  * These cover the cross-field constraint that JSON Schema draft-07 cannot express
@@ -354,5 +357,106 @@ describe("validateScopedEntries — dependencies", () => {
     );
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain('"cross-sector"');
+  });
+});
+
+describe("validateScopedEntries — technologies belong to their sector (#461)", () => {
+  const withSectors = (sectors: unknown) =>
+    validateScopedEntries(
+      pathway({ sectors: sectors as PathwayMetadataV2["sectors"] }),
+    );
+
+  it("accepts technologies the sector lists", () => {
+    expect(
+      withSectors([{ name: "Power", technologies: ["Solar", "Wind", "Coal"] }]),
+    ).toEqual([]);
+  });
+
+  it("accepts every technology Power defines", () => {
+    expect(
+      withSectors([
+        {
+          name: "Power",
+          technologies: [
+            "Biomass",
+            "Coal",
+            "Gas",
+            "Hydro",
+            "Nuclear",
+            "Oil",
+            "Other",
+            "Renewables",
+            "Solar",
+            "Wind",
+          ],
+        },
+      ]),
+    ).toEqual([]);
+  });
+
+  it("rejects a technology outside its sector's list, naming the value", () => {
+    const errors = withSectors([
+      { name: "Power", technologies: ["Solar", "Hydrogen Use"] },
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/sectors/0/technologies/1");
+    expect(errors[0]).toContain('"Hydrogen Use"');
+    expect(errors[0]).toContain('"Power"');
+  });
+
+  it("accepts an empty list for every sector the schema allows", () => {
+    // The legal state for the 14 sectors whose technologies are not defined yet,
+    // and what all four TransitionZero pathways carry today.
+    for (const name of SECTOR_NAMES) {
+      expect(withSectors([{ name, technologies: [] }])).toEqual([]);
+    }
+  });
+
+  it("rejects a non-empty list on a sector with no definition", () => {
+    // Closed by default. Passing this through would mean the next data round
+    // populates a sector's technologies and nothing checks them.
+    const errors = withSectors([
+      { name: "Steel", technologies: ["Hydrogen Use"] },
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/sectors/0/technologies");
+    expect(errors[0]).toContain('"Steel"');
+  });
+
+  it("names the fix, since the offending data may well be correct", () => {
+    // The likeliest cause is a sector whose taxonomy nobody has written down
+    // yet, so the message has to say where to write it.
+    const errors = withSectors([
+      { name: "Cement", technologies: ["Carbon Capture and Storage"] },
+    ]);
+    expect(errors[0]).toContain("SECTORS_BY_KEY");
+    expect(errors[0]).toContain("timeseriesTaxonomy.ts");
+    expect(errors[0]).toContain('"Carbon Capture and Storage"');
+  });
+
+  it("reports one error per undefined sector, not one per technology", () => {
+    // The fix is a single edit -- define the sector -- so listing its
+    // technologies individually would be noise.
+    const errors = withSectors([
+      { name: "Steel", technologies: ["Hydrogen Use", "Electrification"] },
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('"Electrification"');
+    expect(errors[0]).toContain('"Hydrogen Use"');
+  });
+
+  it("indexes each sector, and checks them all", () => {
+    const errors = withSectors([
+      { name: "Power", technologies: ["Solar"] },
+      { name: "Steel", technologies: ["Hydrogen Use"] },
+      { name: "Cement", technologies: [] },
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/sectors/1/technologies");
+  });
+
+  it("passes a pathway with no sectors at all", () => {
+    // AJV does not require `sectors`, so the check must not assume it is there.
+    expect(withSectors(undefined)).toEqual([]);
   });
 });

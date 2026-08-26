@@ -21,6 +21,11 @@
  * text is printed in the run report alongside the Core Drivers prose rather than
  * being dropped silently.
  *
+ * It also reports, without touching, technologies attached to a sector that does
+ * not list them (#461). Auto-fixing would mean either deleting a technology
+ * someone deliberately recorded or inventing a sector's taxonomy -- both worse
+ * than a line in the report, and `npm run schema:check` refuses the file anyway.
+ *
  * What it does NOT do: populate `coreDrivers`. The v1 "#### Core Drivers" prose
  * cannot be mapped onto the 7 named fields mechanically -- several paragraphs
  * exceed the 500-char cap, the italic labels do not correspond 1:1 to the field
@@ -33,6 +38,7 @@ import { join, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { PathwayMetadataV1 } from "../src/types/pathwayMetadata.v1.d.ts";
 import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
+import { technologyBelongsToSector } from "../src/utils/timeseriesTaxonomy.ts";
 
 const V1_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v1.json";
 const V2_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
@@ -161,6 +167,12 @@ export interface UpgradeResult {
   scope: { sector: string; geography: string };
   /** Chars of `pathwayOverview` discarded, for the run report. */
   droppedPathwayOverview: number;
+  /**
+   * `"Sector: Technology"` for each technology its sector does not list (#461).
+   * Carried straight over from v1, so this reports pre-existing data rather than
+   * anything the codemod introduced.
+   */
+  unscopedTechnologies: string[];
 }
 
 /** Transform one v1 document into its v2 equivalent. Pure; does no I/O. */
@@ -243,8 +255,15 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
     }
   }
 
+  const unscopedTechnologies = (doc.sectors ?? []).flatMap((s) =>
+    (s.technologies ?? [])
+      .filter((t) => technologyBelongsToSector(t, s.name) !== "yes")
+      .map((t) => `${s.name}: ${t}`),
+  );
+
   return {
     doc: out as unknown as PathwayMetadataV2,
+    unscopedTechnologies,
     coreDriversProse,
     transitionAssessmentProse: assessment,
     scope,
@@ -316,6 +335,16 @@ async function main() {
           ? `  [dropped ${droppedPathwayOverview}-char pathwayOverview]`
           : ""),
     );
+    if (result.unscopedTechnologies.length > 0) {
+      // stderr, because this needs a human before the file will pass
+      // schema:check -- but not a non-zero exit, since the migration itself
+      // succeeded and the offending data predates it.
+      console.error(
+        `    #461: technologies outside their sector's list, left as-is: ` +
+          result.unscopedTechnologies.join("; "),
+      );
+    }
+
     const orphaned: string[] = [];
     if (result.coreDriversProse.length > 0) {
       orphaned.push(`### ${CORE_DRIVERS}\n\n${result.coreDriversProse}`);

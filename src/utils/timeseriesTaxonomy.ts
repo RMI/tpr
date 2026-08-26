@@ -156,3 +156,72 @@ export function getTechnologyDefinition(
   }
   return tech;
 }
+
+/* -------------------------------------------------------------------------- */
+/* Sector/technology membership (#461)                                        */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Whether a technology belongs to a sector.
+ *
+ * Tri-state rather than boolean on purpose. Only one of the fifteen sectors in
+ * `sector.v1.json` has its technologies defined here, so a boolean would have to
+ * answer `false` for the other fourteen — indistinguishable from "definitely not
+ * this sector's technology" and wrong for every caller that is not validation.
+ * `"unknown"` lets each caller choose: `validateScopedEntries` treats it as a
+ * failure (see below), while a search filter can treat it as a match rather than
+ * silently dropping every non-Power pathway.
+ */
+export type TechnologyMembership = "yes" | "no" | "unknown";
+
+/**
+ * Sector definitions indexed by display name.
+ *
+ * `SECTORS_BY_KEY` is keyed by the camelCase key the timeseries data uses
+ * (`power`), while pathway metadata names sectors by their display name
+ * (`"Power"`, `"Oil (Upstream)"`). `displayName` is the only bridge between the
+ * two: there is no camelCase↔Title-Case converter in the repo, and there cannot
+ * be a lossless one — `capitalizeWords` is a one-way chart-label prettifier and
+ * could never produce `"Oil (Upstream)"` from `oilUpstream`.
+ */
+const SECTORS_BY_DISPLAY_NAME: ReadonlyMap<string, SectorDefinition> = new Map(
+  Object.values(SECTORS_BY_KEY).map((sector) => [sector.displayName, sector]),
+);
+
+/**
+ * The technologies defined for a sector, by display name, or `undefined` when
+ * that sector has no definition yet.
+ *
+ * The `undefined` is load-bearing: it separates "this sector's technologies are
+ * defined and the list happens to be empty" from "nobody has said what this
+ * sector's technologies are". Callers must not collapse it to `[]`.
+ *
+ * Derived from `SECTORS_BY_KEY` rather than listed separately, so adding a
+ * sector definition is the single edit that opens it up to metadata as well.
+ */
+export function technologiesForSector(
+  sectorDisplayName: string,
+): readonly string[] | undefined {
+  const sector = SECTORS_BY_DISPLAY_NAME.get(sectorDisplayName);
+  if (!sector) return undefined;
+  return Object.values(sector.technologies).map((tech) => tech.displayName);
+}
+
+/**
+ * #461: scope technologies to their sector. Both arguments are display names, as
+ * they appear in pathway metadata's `sectors[]`.
+ *
+ * Note this cannot distinguish "sector with no definition" from "not a sector at
+ * all" — both are `"unknown"`. That is fine for the callers there are: AJV has
+ * already checked `name` against the sector enum before validation reaches here,
+ * and a caller that wants to know whether a string is a sector should ask the
+ * schema, not the taxonomy.
+ */
+export function technologyBelongsToSector(
+  technologyDisplayName: string,
+  sectorDisplayName: string,
+): TechnologyMembership {
+  const allowed = technologiesForSector(sectorDisplayName);
+  if (!allowed) return "unknown";
+  return allowed.includes(technologyDisplayName) ? "yes" : "no";
+}

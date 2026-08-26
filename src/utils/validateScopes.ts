@@ -18,12 +18,24 @@
  * compares whole entries, so two at the same (sector, geography) with different
  * values are "unique" to the schema while being contradictory as data.
  *
+ * It also enforces #461 -- that a technology belongs to the sector it is attached
+ * to. #461 suggests mirroring the `if`/`then` sector conditional in
+ * `pathwayTimeseries.v1.json`, but that keyword pair defeats
+ * `json-schema-to-typescript`: the timeseries `data` items use exactly that shape
+ * and generate as `{ [k: string]: unknown }[]`. Applying it to `sectors.items`
+ * would collapse today's `{ name; technologies }` object type and break every
+ * consumer of `Sector`, so the constraint lives here with its siblings instead.
+ *
  * Run from `scripts/schema-check-files.ts`, so `npm run schema:check` gates both.
  *
  * Errors are formatted like AJV's (`<instancePath> <message>`) so callers can
  * merge them into the same `ValidationProblem.errors` list without special-casing.
  */
 import type { PathwayMetadataV2 } from "../types/pathwayMetadata.v2";
+import {
+  technologiesForSector,
+  technologyBelongsToSector,
+} from "./timeseriesTaxonomy.ts";
 
 /** `$id` of the schema these checks apply to. */
 export const PATHWAY_METADATA_V2_ID =
@@ -148,6 +160,41 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       }
     });
   }
+
+  // #461: a technology must belong to the sector it is attached to. The schema
+  // types `technologies` as the flat 31-member enum, which is why the generated
+  // type still reads as "a bit of a random list" -- that breadth is answered here
+  // rather than in the type.
+  //
+  // Closed by default: a sector whose technologies are not defined in
+  // `timeseriesTaxonomy.ts` accepts only an empty list. The alternative -- passing
+  // anything through for undefined sectors -- means the next data round populates
+  // technologies for a new sector and nothing checks them, which is the failure
+  // this whole check exists to prevent. Rejecting instead makes the missing
+  // definition impossible to miss, and the message says exactly where to add it.
+  (pathway.sectors ?? []).forEach((sector, i) => {
+    if (!sector?.name) return;
+    const allowed = technologiesForSector(sector.name);
+    const technologies = sector.technologies ?? [];
+    if (!allowed) {
+      if (technologies.length > 0) {
+        errors.push(
+          `/sectors/${i}/technologies lists ${quote(technologies)} but no` +
+            ` technology list is defined for sector "${sector.name}". Add one to` +
+            ` SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts, or use [].`,
+        );
+      }
+      return;
+    }
+    technologies.forEach((technology, t) => {
+      if (technologyBelongsToSector(technology, sector.name) !== "yes") {
+        errors.push(
+          `/sectors/${i}/technologies/${t} "${technology}" is not a technology of` +
+            ` sector "${sector.name}" (allowed: ${quote(allowed)})`,
+        );
+      }
+    });
+  });
 
   // dependencies are descriptive and not part of the inheritance chain, but
   // #858 still scopes each to a sector, and that sector must be a real one.
