@@ -140,10 +140,10 @@ const guides: Guide[] = [
           </li>
           <li>
             This will open a ribbon showing the pathways selected for
-            comparison, and the pathway cards will now show a <b>"Plus"</b> button next
-            to the <b>"View Details"</b> button. Two to three pathways can be added to
-            the comparison tray, and you can remove a pathway from the tray at
-            any time.
+            comparison, and the pathway cards will now show a <b>"Plus"</b>{" "}
+            button next to the <b>"View Details"</b> button. Two to three
+            pathways can be added to the comparison tray, and you can remove a
+            pathway from the tray at any time.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-2.png"
@@ -154,9 +154,9 @@ const guides: Guide[] = [
           <li>
             To add a pathway for comparison, click on the <b>"Plus"</b> button
             on the pathway card. A selected pathway will now show a checkmark on
-            the pathway card and you will see it in the comparison tray. Clicking on
-            the <b>"Checkmark"</b> button will remove the pathway from the
-            comparison tray.
+            the pathway card and you will see it in the comparison tray.
+            Clicking on the <b>"Checkmark"</b> button will remove the pathway
+            from the comparison tray.
             <div className="mt-3">
               <GuideScreenshot
                 src="/guides/how-to-compare-pathways-3.png"
