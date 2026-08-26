@@ -292,7 +292,7 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
             <section className="mx-auto max-w-5xl rounded-[2rem] bg-white px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="structured-way"
+                  id="five-steps"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Five steps to finding the right pathway
@@ -472,7 +472,7 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="simple-way-to-start"
+                  id="pathway-characteristics"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Pathway characteristics for different use cases
@@ -493,7 +493,7 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="step-by-step-guides"
+                  id="how-to-guides"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   How-to guides

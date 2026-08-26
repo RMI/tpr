@@ -198,7 +198,7 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="classification-group-1"
+                  id="meta-data-classification"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Meta data classification
@@ -349,7 +349,7 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="classification-group-2"
+                  id="scope-and-granularity-classification"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Scope and granularity classification
@@ -754,7 +754,7 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="classification-group-3"
+                  id="narrative-and-assumptions-classification"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Narrative and assumptions classification
@@ -1011,7 +1011,7 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-neutral-200 bg-neutral-100/80 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
                 <h2
-                  id="looking-for-practical-guidance"
+                  id="what-to-do-next"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   What to do next

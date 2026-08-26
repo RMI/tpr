@@ -178,7 +178,7 @@ const ResourcesUseCasesPage: React.FC = () => {
             <section className="mx-auto max-w-5xl">
               <div className="max-w-5xl">
                 <h2
-                  id="financing-the-transition"
+                  id="how-pathways-inform-users"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   How pathways inform different users
@@ -235,7 +235,7 @@ const ResourcesUseCasesPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl">
               <div className="max-w-5xl">
                 <h2
-                  id="decision-makers"
+                  id="pathway-use-cases"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Pathway use cases
