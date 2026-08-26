@@ -16,9 +16,9 @@ describe("ResourcesHowToChooseAPathwayPage — on-page index (#802)", () => {
     const links = within(nav).getAllByRole("link").slice(1);
 
     expect(links.map((link) => link.textContent)).toEqual([
-      "A structured way to narrow down the right pathway",
-      "A simple way to start finding the right pathways",
-      "Step-by-step guides",
+      "Five steps to finding the right pathway",
+      "Pathway characteristics for different use cases",
+      "How-to guides",
       "What to do next",
     ]);
   });

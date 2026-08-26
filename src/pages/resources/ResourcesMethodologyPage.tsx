@@ -201,7 +201,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                   id="classification-group-1"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Classification group 1: Pathway meta data
+                  Meta data classification
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   This meta data is useful to understand the overarching idea
@@ -352,7 +352,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                   id="classification-group-2"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Classification group 2: Scope, Granularity, Availability
+                  Scope and granularity classification
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   In transition assessments, company metrics are compared with
@@ -757,7 +757,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                   id="classification-group-3"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Classification group 3: Trends, Assumptions, Narrative
+                  Narrative and assumptions classification
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   Each pathway describes trends that are built on assumptions of
@@ -1014,7 +1014,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                   id="looking-for-practical-guidance"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Looking for practical guidance?
+                  What to do next
                 </h2>
                 <p className="mt-4 text-rmigray-700 leading-7">
                   Visit the{" "}

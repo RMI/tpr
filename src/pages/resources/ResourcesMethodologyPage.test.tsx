@@ -81,10 +81,10 @@ describe("ResourcesMethodologyPage — on-page index (#802)", () => {
     expect(links.map((link) => link.textContent)).toEqual([
       "Key definitions",
       "Expert overview",
-      "Classification group 1: Pathway meta data",
-      "Classification group 2: Scope, Granularity, Availability",
-      "Classification group 3: Trends, Assumptions, Narrative",
-      "Looking for practical guidance?",
+      "Meta data classification",
+      "Scope and granularity classification",
+      "Narrative and assumptions classification",
+      "What to do next",
     ]);
   });
 });
