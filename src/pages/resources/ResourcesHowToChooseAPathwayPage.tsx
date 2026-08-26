@@ -155,7 +155,7 @@ const guides: Guide[] = [
             To add a pathway for comparison, click on the <b>"Plus"</b> button
             on the pathway card. A selected pathway will now show a checkmark on
             the pathway card and you will see it in the comparison tray. Clicking on
-            the <b>"Checkmark"</b>{" "} button will remove the pathway from the
+            the <b>"Checkmark"</b> button will remove the pathway from the
             comparison tray.
             <div className="mt-3">
               <GuideScreenshot
