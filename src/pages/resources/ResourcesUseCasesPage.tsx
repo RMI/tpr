@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef } from "react";
+import OnPageIndex from "../../components/OnPageIndex";
 
 const financialInstitutionRoles = [
   {
@@ -131,6 +132,8 @@ const AudienceCard: React.FC<{
 };
 
 const ResourcesUseCasesPage: React.FC = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="bg-gray-50">
       <div className="container mx-auto px-4 py-8 md:py-10">
@@ -165,162 +168,189 @@ const ResourcesUseCasesPage: React.FC = () => {
           </div>
         </section>
 
-        <section className="mx-auto mt-12 max-w-5xl">
-          <div className="max-w-5xl">
-            <h2 className="text-2xl font-semibold text-rmigray-800">
-              Supporting the teams financing the transition
-            </h2>
-            <p className="mt-3 text-rmigray-700 leading-7">
-              The Transition Pathways Repository (TPR) enables financial
-              institutions, public institutions, and other stakeholders to
-              identify, compare, and apply transition pathways for corporate
-              transition assessments and other strategic and analytical
-              applications. It streamlines pathway selection, enhances
-              transparency, and supports the decision-usefulness of analyses.
-            </p>
-            <p className="mt-3 text-rmigray-700 leading-7">
-              The TPR was built primarily to support teams across financial
-              institutions shaping and implementing transition strategies. It is
-              also a valuable resource for corporations and public institutions.
-            </p>
-          </div>
+        <div className="mt-12 xl:mt-14 grid gap-8 xl:grid-cols-[16rem_1fr]">
+          <OnPageIndex containerRef={contentRef} />
 
-          <div className="mt-8 grid gap-6 xl:grid-cols-[1.35fr,0.95fr]">
-            <AudienceCard title="Financial Institutions">
-              <div className="grid gap-4 sm:grid-cols-2">
-                {financialInstitutionRoles.map((role) => (
-                  <div
-                    key={role.title}
-                    className="rounded-xl border border-neutral-200 bg-neutral-50 p-4"
-                  >
-                    <h4 className="text-sm font-semibold uppercase tracking-[0.12em] text-rmiblue-800">
-                      {role.title}
-                    </h4>
-                    <p className="mt-3 text-sm leading-7 text-rmigray-700">
-                      {role.description}
-                    </p>
+          <div
+            ref={contentRef}
+            className="min-w-0"
+          >
+            <section className="mx-auto max-w-5xl">
+              <div className="max-w-5xl">
+                <h2
+                  id="financing-the-transition"
+                  className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+                >
+                  Supporting the teams financing the transition
+                </h2>
+                <p className="mt-3 text-rmigray-700 leading-7">
+                  The Transition Pathways Repository (TPR) enables financial
+                  institutions, public institutions, and other stakeholders to
+                  identify, compare, and apply transition pathways for corporate
+                  transition assessments and other strategic and analytical
+                  applications. It streamlines pathway selection, enhances
+                  transparency, and supports the decision-usefulness of
+                  analyses.
+                </p>
+                <p className="mt-3 text-rmigray-700 leading-7">
+                  The TPR was built primarily to support teams across financial
+                  institutions shaping and implementing transition strategies.
+                  It is also a valuable resource for corporations and public
+                  institutions.
+                </p>
+              </div>
+
+              <div className="mt-8 grid gap-6 xl:grid-cols-[1.35fr,0.95fr]">
+                <AudienceCard title="Financial Institutions">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    {financialInstitutionRoles.map((role) => (
+                      <div
+                        key={role.title}
+                        className="rounded-xl border border-neutral-200 bg-neutral-50 p-4"
+                      >
+                        <h4 className="text-sm font-semibold uppercase tracking-[0.12em] text-rmiblue-800">
+                          {role.title}
+                        </h4>
+                        <p className="mt-3 text-sm leading-7 text-rmigray-700">
+                          {role.description}
+                        </p>
+                      </div>
+                    ))}
                   </div>
+                </AudienceCard>
+
+                <div className="grid gap-6">
+                  {audienceCards.map((audience) => (
+                    <AudienceCard
+                      key={audience.title}
+                      title={audience.title}
+                    >
+                      <p>{audience.description}</p>
+                    </AudienceCard>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            <section className="mx-auto mt-14 max-w-5xl">
+              <div className="max-w-5xl">
+                <h2
+                  id="decision-makers"
+                  className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+                >
+                  How the TPR supports decision makers
+                </h2>
+              </div>
+
+              <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
+                {useCases.map((useCase) => (
+                  <UseCaseCard
+                    key={useCase.title}
+                    title={useCase.title}
+                    subtitle={useCase.subtitle}
+                    bullets={useCase.bullets}
+                  />
                 ))}
               </div>
-            </AudienceCard>
+            </section>
 
-            <div className="grid gap-6">
-              {audienceCards.map((audience) => (
-                <AudienceCard
-                  key={audience.title}
-                  title={audience.title}
+            <section className="mx-auto mt-14 max-w-5xl">
+              <div className="grid gap-8 xl:grid-cols-[1.2fr,0.8fr]">
+                <div>
+                  <h2
+                    id="transition-intelligence"
+                    className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+                  >
+                    How the Transition Pathways Repository supports transition
+                    intelligence
+                  </h2>
+                  <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
+                    <p>
+                      Corporate transition assessments should not be a simple
+                      box-checking exercise. Corporate transition assessments
+                      should deliver business value through transition
+                      intelligence.
+                    </p>
+                    <p>
+                      This requires a forward-looking understanding of how
+                      sectors are expected to evolve, the technologies that will
+                      underpin decarbonization, and the external conditions that
+                      will shape the pace and feasibility of change. Transition
+                      pathways provide this essential context, enabling a more
+                      rigorous evaluation of whether corporate strategies are
+                      credible, actionable, and aligned with broader
+                      system-level transformations. See this{" "}
+                      <a
+                        href="https://rmi.org/scaling-transition-intelligence/"
+                        className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+                      >
+                        case study
+                      </a>{" "}
+                      for an example analysis.
+                    </p>
+                    <p>
+                      The Transition Pathways Repository supports this by
+                      providing structured, comparable, and transparent pathway
+                      data that can be directly applied in corporate transition
+                      assessments.
+                    </p>
+                  </div>
+                </div>
+
+                <aside>
+                  <h2 className="text-2xl font-semibold text-rmigray-800">
+                    Why pathway selection matters
+                  </h2>
+                  <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
+                    <p>
+                      No one pathway can provide all the information or answer
+                      all the questions an analyst might have. Different
+                      transition pathways are necessary to answer different
+                      questions.
+                    </p>
+                    <p>
+                      A global 1.5°C pathway may be well suited to assessing the
+                      level of ambition of a global portfolio, while a regional,
+                      policy-driven pathway provides more relevant insights into
+                      risks and dynamics within a specific market. Selecting the
+                      right pathway is therefore critical to ensuring that an
+                      analysis is meaningful, robust, and decision-useful.
+                    </p>
+                    <p>
+                      The Transition Pathways Repository helps users understand
+                      these differences up front — making it easier to choose
+                      the most appropriate pathway for their specific objective
+                      and avoid misinterpretation or an inaccurate analysis.
+                    </p>
+                  </div>
+                </aside>
+              </div>
+            </section>
+
+            <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-neutral-200 bg-neutral-100/80 px-6 py-8 shadow-sm md:px-8 md:py-10">
+              <div className="max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
+                <h2
+                  id="looking-for-more-information"
+                  className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  <p>{audience.description}</p>
-                </AudienceCard>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="mx-auto mt-14 max-w-5xl">
-          <div className="max-w-5xl">
-            <h2 className="text-2xl font-semibold text-rmigray-800">
-              How the TPR supports decision makers
-            </h2>
-          </div>
-
-          <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
-            {useCases.map((useCase) => (
-              <UseCaseCard
-                key={useCase.title}
-                title={useCase.title}
-                subtitle={useCase.subtitle}
-                bullets={useCase.bullets}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="mx-auto mt-14 max-w-5xl">
-          <div className="grid gap-8 xl:grid-cols-[1.2fr,0.8fr]">
-            <div>
-              <h2 className="text-2xl font-semibold text-rmigray-800">
-                How the Transition Pathways Repository supports transition
-                intelligence
-              </h2>
-              <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
-                <p>
-                  Corporate transition assessments should not be a simple
-                  box-checking exercise. Corporate transition assessments should
-                  deliver business value through transition intelligence.
-                </p>
-                <p>
-                  This requires a forward-looking understanding of how sectors
-                  are expected to evolve, the technologies that will underpin
-                  decarbonization, and the external conditions that will shape
-                  the pace and feasibility of change. Transition pathways
-                  provide this essential context, enabling a more rigorous
-                  evaluation of whether corporate strategies are credible,
-                  actionable, and aligned with broader system-level
-                  transformations. See this{" "}
+                  Looking for more information?
+                </h2>
+                <p className="mt-4 text-rmigray-700 leading-7">
+                  Find RMI’s thought leadership related to transition
+                  intelligence, pathway selection, and other transition finance
+                  topics at RMI’s{" "}
                   <a
-                    href="https://rmi.org/scaling-transition-intelligence/"
+                    href="https://rmi.org/transitionfinance/"
                     className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
                   >
-                    case study
-                  </a>{" "}
-                  for an example analysis.
-                </p>
-                <p>
-                  The Transition Pathways Repository supports this by providing
-                  structured, comparable, and transparent pathway data that can
-                  be directly applied in corporate transition assessments.
+                    <b>Transition Finance Resource Hub</b>
+                  </a>
+                  .
                 </p>
               </div>
-            </div>
-
-            <aside>
-              <h2 className="text-2xl font-semibold text-rmigray-800">
-                Why pathway selection matters
-              </h2>
-              <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
-                <p>
-                  No one pathway can provide all the information or answer all
-                  the questions an analyst might have. Different transition
-                  pathways are necessary to answer different questions.
-                </p>
-                <p>
-                  A global 1.5°C pathway may be well suited to assessing the
-                  level of ambition of a global portfolio, while a regional,
-                  policy-driven pathway provides more relevant insights into
-                  risks and dynamics within a specific market. Selecting the
-                  right pathway is therefore critical to ensuring that an
-                  analysis is meaningful, robust, and decision-useful.
-                </p>
-                <p>
-                  The Transition Pathways Repository helps users understand
-                  these differences up front — making it easier to choose the
-                  most appropriate pathway for their specific objective and
-                  avoid misinterpretation or an inaccurate analysis.
-                </p>
-              </div>
-            </aside>
+            </section>
           </div>
-        </section>
-
-        <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-neutral-200 bg-neutral-100/80 px-6 py-8 shadow-sm md:px-8 md:py-10">
-          <div className="max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
-            <h2 className="text-2xl font-semibold text-rmigray-800">
-              Looking for more information?
-            </h2>
-            <p className="mt-4 text-rmigray-700 leading-7">
-              Find RMI’s thought leadership related to transition intelligence,
-              pathway selection, and other transition finance topics at RMI’s{" "}
-              <a
-                href="https://rmi.org/transitionfinance/"
-                className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
-              >
-                <b>Transition Finance Resource Hub</b>
-              </a>
-              .
-            </p>
-          </div>
-        </section>
+        </div>
       </div>
     </div>
   );

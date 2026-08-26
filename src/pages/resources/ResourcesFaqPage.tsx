@@ -1,6 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Link } from "react-router";
 import AccordionItem from "../../components/AccordionItem";
+import OnPageIndex from "../../components/OnPageIndex";
 
 type FaqItem = {
   question: string;
@@ -8,6 +9,7 @@ type FaqItem = {
 };
 
 type FaqSection = {
+  id: string;
   title: string;
   items: FaqItem[];
 };
@@ -28,9 +30,11 @@ const FaqItemBlock: React.FC<FaqItem> = ({ question, answer }) => (
 );
 
 const ResourcesFaqPage: React.FC = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
   const sections = useMemo<FaqSection[]>(
     () => [
       {
+        id: "about-the-tpr",
         title: "About the TPR",
         items: [
           {
@@ -121,6 +125,7 @@ const ResourcesFaqPage: React.FC = () => {
         ],
       },
       {
+        id: "using-the-tpr",
         title: "Using the TPR",
         items: [
           {
@@ -189,6 +194,7 @@ const ResourcesFaqPage: React.FC = () => {
         ],
       },
       {
+        id: "using-the-tpr-for-ctas",
         title:
           "Using the TPR to support corporate transition assessments (CTAs)",
         items: [
@@ -307,33 +313,45 @@ const ResourcesFaqPage: React.FC = () => {
           </div>
         </section>
 
-        {sections.map((section, index) => (
-          <section
-            key={section.title}
-            className={
-              "mx-auto max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10 " +
-              (index === 0 ? "mt-12" : "mt-14")
-            }
-          >
-            <div className="max-w-5xl">
-              <h2 className="text-2xl font-semibold text-rmigray-800">
-                {section.title}
-              </h2>
-            </div>
+        <div className="mt-12 xl:mt-14 grid gap-8 xl:grid-cols-[16rem_1fr]">
+          <OnPageIndex containerRef={contentRef} />
 
-            <div className="mt-8 max-w-5xl overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-              <div className="divide-y divide-neutral-200/80">
-                {section.items.map((item) => (
-                  <FaqItemBlock
-                    key={item.question}
-                    question={item.question}
-                    answer={item.answer}
-                  />
-                ))}
-              </div>
-            </div>
-          </section>
-        ))}
+          <div
+            ref={contentRef}
+            className="min-w-0"
+          >
+            {sections.map((section, index) => (
+              <section
+                key={section.id}
+                className={
+                  "mx-auto max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10 " +
+                  (index === 0 ? "" : "mt-14")
+                }
+              >
+                <div className="max-w-5xl">
+                  <h2
+                    id={section.id}
+                    className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+                  >
+                    {section.title}
+                  </h2>
+                </div>
+
+                <div className="mt-8 max-w-5xl overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
+                  <div className="divide-y divide-neutral-200/80">
+                    {section.items.map((item) => (
+                      <FaqItemBlock
+                        key={item.question}
+                        question={item.question}
+                        answer={item.answer}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </section>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
