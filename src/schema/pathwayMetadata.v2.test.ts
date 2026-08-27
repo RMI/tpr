@@ -36,6 +36,7 @@ interface JsonSchema {
   additionalProperties?: boolean;
   uniqueItems?: boolean;
   minItems?: number;
+  maxLength?: number;
   description?: string;
   tsType?: string;
 }
@@ -246,5 +247,101 @@ describe("scopeSector.v2 tracks sector.v1", () => {
     expect([...scopeNames].filter((n) => n !== "cross-sector").sort()).toEqual(
       [...sectorNames].sort(),
     );
+  });
+});
+
+/**
+ * #870's dataAvailability. The interesting properties are structural: that it is
+ * optional (authoring is incremental), that the row shape is closed, and that its
+ * vocabularies are `$ref`s rather than copies — the drift this file exists to
+ * catch is a vocabulary spelled out twice.
+ */
+describe("pathwayMetadata.v2 dataAvailability", () => {
+  const da = prop(v2, "dataAvailability", "v2");
+  const byMetric = prop(da, "byMetric", "v2.dataAvailability");
+  const row = items(byMetric, "v2.dataAvailability.byMetric");
+  const rowProp = (name: string) =>
+    prop(row, name, "v2.dataAvailability.byMetric.items");
+
+  it("is optional — a pathway without it is still valid", () => {
+    expect(v2.required ?? []).not.toContain("dataAvailability");
+  });
+
+  it("requires both halves once present, and admits nothing else", () => {
+    expect([...(da.required ?? [])].sort()).toEqual(["byMetric", "overall"]);
+    expect(da.additionalProperties).toBe(false);
+  });
+
+  it("declares every row field as required, and admits nothing else", () => {
+    const expected = [
+      "access",
+      "dataFormat",
+      "geography",
+      "geographyCoverage",
+      "granularity",
+      "metricName",
+      "scopeLimitations",
+      "sector",
+      "sectorSegment",
+      "timeResolution",
+    ];
+    expect([...Object.keys(props(row, "row"))].sort()).toEqual(expected);
+    expect([...(row.required ?? [])].sort()).toEqual(expected);
+    expect(row.additionalProperties).toBe(false);
+  });
+
+  it("dedupes rows structurally as far as the schema can", () => {
+    // uniqueItems only catches wholly identical rows; two rows sharing a scope
+    // and differing elsewhere are caught by validateScopedEntries instead.
+    expect(byMetric.uniqueItems).toBe(true);
+  });
+
+  it("refs the shared vocabularies instead of restating them", () => {
+    const refs: Record<string, string> = {
+      metricName: "common/metric.v1.json#/$defs/displayName",
+      sector: "common/sector.v1.json#/$defs/displayName",
+      sectorSegment: "common/sectorSegment.v1.json#/$defs/displayName",
+      geography: "common/scopeGeography.v2.json",
+      geographyCoverage:
+        "common/dataAvailability.v1.json#/$defs/geographyCoverage",
+      timeResolution: "common/dataAvailability.v1.json#/$defs/timeResolution",
+      dataFormat: "common/dataAvailability.v1.json#/$defs/dataFormat",
+      access: "common/dataAvailability.v1.json#/$defs/access",
+    };
+    for (const [name, suffix] of Object.entries(refs)) {
+      expect(rowProp(name).$ref).toBe(
+        `http://pathways.rmi.org/schema/${suffix}`,
+      );
+    }
+  });
+
+  it("scopes rows the same way keyFeatures does, so the same helpers apply", () => {
+    expect(rowProp("geography").$ref).toBe(
+      prop(entry("emissionsTrajectory"), "geography", "kf entry").$ref,
+    );
+  });
+
+  it("uses the plain sector enum, not scopeSector — there is no cross-sector row", () => {
+    // Availability describes a concrete dataset, so the cross-sector sentinel
+    // would have nothing to resolve to.
+    expect(rowProp("sector").$ref).not.toContain("scopeSector");
+    expect(enumOf(scopeSector, "scopeSector.v2")).toContain("cross-sector");
+  });
+
+  it("makes granularity nullable and draws its values from technology.v1", () => {
+    const granularity = rowProp("granularity");
+    expect(granularity.type).toEqual(["array", "null"]);
+    expect(granularity.uniqueItems).toBe(true);
+    expect(items(granularity, "granularity").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName",
+    );
+  });
+
+  it("caps the free-text fields", () => {
+    expect(rowProp("scopeLimitations").type).toEqual(["string", "null"]);
+    expect(prop(da, "overall", "v2.dataAvailability").type).toEqual([
+      "string",
+      "null",
+    ]);
   });
 });

@@ -120,6 +120,11 @@ export type ScopeSector10 = import("./common/scopeSector.v2").ScopeSectorV2;
  */
 export type ScopeGeography10 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
+/**
+ * Geography this row applies to. Same scope token as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers.
+ */
+export type ScopeGeography11 =
+  import("./common/scopeGeography.v2").ScopeGeographyV2;
 
 /**
  * A schema for the pathway metadata dataset in TPR.
@@ -499,4 +504,64 @@ export interface PathwayMetadataV2 {
      */
     evidence_type: "Quantitative" | "Qualitative" | "Anecdotal" | "No evidence";
   }[];
+  /**
+   * Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- `dataFormat` says unavailable.
+   */
+  dataAvailability?: {
+    /**
+     * Summary of the full timeseries file we host, plus anything that does not fit the per-metric rows. Null where there is nothing to add.
+     */
+    overall: string | null;
+    /**
+     * One row per (metricName, sector, sectorSegment, geography). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else.
+     */
+    byMetric: {
+      /**
+       * Metric this row describes. Must be a metric the pathway itself reports (one of its own `metric` values) and a metric of its `sector` -- both enforced by scripts/schema-check-files.ts.
+       */
+      metricName: import("./common/metric.v1").MetricV1["displayName"];
+      /**
+       * Display name of a sector.
+       */
+      sector: import("./common/sector.v1").SectorV1["displayName"];
+      /**
+       * Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.
+       */
+      sectorSegment: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"];
+      geography: ScopeGeography11;
+      /**
+       * How geographically granular the underlying data is. A coverage class, not a scope -- `geography` above carries the scope.
+       */
+      geographyCoverage: "Global" | "Regional" | "Country";
+      /**
+       * How finely the underlying data is resolved over time.
+       */
+      timeResolution:
+        | "No information"
+        | "Single year (2050)"
+        | "Medium-term"
+        | "10-year"
+        | "5-10-year"
+        | "5-year"
+        | "1-year"
+        | "Other";
+      /**
+       * Where the data can be obtained, and in what form. `In tool` rows link to the timeseries download.
+       */
+      dataFormat: "In tool" | "Tabular in publication" | "Text in publication";
+      /**
+       * Whether reaching the data at the publisher costs money. Must be null exactly when `dataFormat` is `In tool` -- enforced by scripts/schema-check-files.ts.
+       */
+      access: "Free" | "Paywalled" | null;
+      /**
+       * Dimensions the metric is broken down by, or null where it is reported as a single series. Values are technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies.
+       */
+      granularity:
+        import("./common/technology.v1").TechnologyV1["displayName"][] | null;
+      /**
+       * Caveats on what the data does and does not cover, in prose. Null where there are none.
+       */
+      scopeLimitations: string | null;
+    }[];
+  };
 }

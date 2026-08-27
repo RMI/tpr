@@ -582,6 +582,92 @@
         ],
         "additionalProperties": false
       }
+    },
+    "dataAvailability": {
+      "description": "Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- `dataFormat` says unavailable.",
+      "type": "object",
+      "properties": {
+        "overall": {
+          "description": "Summary of the full timeseries file we host, plus anything that does not fit the per-metric rows. Null where there is nothing to add.",
+          "type": ["string", "null"],
+          "maxLength": 2500
+        },
+        "byMetric": {
+          "description": "One row per (metricName, sector, sectorSegment, geography). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else.",
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "properties": {
+              "metricName": {
+                "description": "Metric this row describes. Must be a metric the pathway itself reports (one of its own `metric` values) and a metric of its `sector` -- both enforced by scripts/schema-check-files.ts.",
+                "$ref": "http://pathways.rmi.org/schema/common/metric.v1.json#/$defs/displayName",
+                "tsType": "import('./common/metric.v1').MetricV1['displayName']"
+              },
+              "sector": {
+                "description": "Sector this row describes. Must be one of the pathway's own declared sectors. Note this is the plain sector enum, not scopeSector.v2: there is no `cross-sector` availability, because availability is a property of a concrete dataset.",
+                "$ref": "http://pathways.rmi.org/schema/common/sector.v1.json#/$defs/displayName",
+                "tsType": "import('./common/sector.v1').SectorV1['displayName']"
+              },
+              "sectorSegment": {
+                "description": "Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.",
+                "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+                "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+              },
+              "geography": {
+                "description": "Geography this row applies to. Same scope token as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers.",
+                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+              },
+              "geographyCoverage": {
+                "description": "How geographically granular the underlying data is. A coverage class, not a scope -- `geography` above carries the scope.",
+                "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/geographyCoverage"
+              },
+              "timeResolution": {
+                "description": "How finely the underlying data is resolved over time.",
+                "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/timeResolution"
+              },
+              "dataFormat": {
+                "description": "Where the data can be obtained, and in what form. `In tool` rows link to the timeseries download.",
+                "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/dataFormat"
+              },
+              "access": {
+                "description": "Whether reaching the data at the publisher costs money. Must be null exactly when `dataFormat` is `In tool` -- enforced by scripts/schema-check-files.ts.",
+                "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/access"
+              },
+              "granularity": {
+                "description": "Dimensions the metric is broken down by, or null where it is reported as a single series. Values are technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies.",
+                "type": ["array", "null"],
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName",
+                  "tsType": "import('./common/technology.v1').TechnologyV1['displayName']"
+                }
+              },
+              "scopeLimitations": {
+                "description": "Caveats on what the data does and does not cover, in prose. Null where there are none.",
+                "type": ["string", "null"],
+                "maxLength": 500
+              }
+            },
+            "required": [
+              "metricName",
+              "sector",
+              "sectorSegment",
+              "geography",
+              "geographyCoverage",
+              "timeResolution",
+              "dataFormat",
+              "access",
+              "granularity",
+              "scopeLimitations"
+            ],
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": ["overall", "byMetric"],
+      "additionalProperties": false
     }
   },
   "additionalProperties": false,

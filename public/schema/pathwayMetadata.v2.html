@@ -22475,6 +22475,2368 @@
         </div>
       </div>
     </div>
+    <div
+      class="accordion"
+      id="accordiondataAvailability"
+    >
+      <div class="card">
+        <div
+          class="card-header"
+          id="headingdataAvailability"
+        >
+          <h2 class="mb-0">
+            <button
+              class="btn btn-link property-name-button"
+              type="button"
+              data-toggle="collapse"
+              data-target="#dataAvailability"
+              aria-expanded=""
+              aria-controls="dataAvailability"
+              onclick="setAnchor('#dataAvailability')"
+            >
+              <span class="property-name">dataAvailability</span>
+            </button>
+          </h2>
+        </div>
+
+        <div
+          id="dataAvailability"
+          class="collapse property-definition-div"
+          aria-labelledby="headingdataAvailability"
+          data-parent="#accordiondataAvailability"
+        >
+          <div class="card-body pl-5">
+            <div class="breadcrumbs">
+              root
+              <svg
+                width="1em"
+                height="1em"
+                viewBox="0 0 16 16"
+                class="bi bi-arrow-right-short"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                />
+              </svg>
+              <a
+                href="#dataAvailability"
+                onclick="anchorLink('dataAvailability')"
+                >dataAvailability</a
+              >
+            </div>
+            <span class="badge badge-dark value-type">Type: object</span><br />
+            <span class="description"
+              ><p>
+                Where and how the data behind each metric can be obtained
+                (#870). Optional: authoring is incremental, and a pathway with
+                no entry yet is not an invalid pathway. Absent means unknown,
+                NOT unavailable -- <code>dataFormat</code> says unavailable.
+              </p>
+            </span>
+            <span class="badge badge-info no-additional"
+              >No Additional Properties</span
+            >
+
+            <div
+              class="accordion"
+              id="accordiondataAvailability_overall"
+            >
+              <div class="card">
+                <div
+                  class="card-header"
+                  id="headingdataAvailability_overall"
+                >
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link property-name-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#dataAvailability_overall"
+                      aria-expanded=""
+                      aria-controls="dataAvailability_overall"
+                      onclick="setAnchor('#dataAvailability_overall')"
+                    >
+                      <span class="property-name">overall</span>
+                      <span class="badge badge-warning required-property"
+                        >Required</span
+                      >
+                    </button>
+                  </h2>
+                </div>
+
+                <div
+                  id="dataAvailability_overall"
+                  class="collapse property-definition-div"
+                  aria-labelledby="headingdataAvailability_overall"
+                  data-parent="#accordiondataAvailability_overall"
+                >
+                  <div class="card-body pl-5">
+                    <div class="breadcrumbs">
+                      root
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#dataAvailability"
+                        onclick="anchorLink('dataAvailability')"
+                        >dataAvailability</a
+                      >
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#dataAvailability_overall"
+                        onclick="anchorLink('dataAvailability_overall')"
+                        >overall</a
+                      >
+                    </div>
+                    <span class="badge badge-dark value-type"
+                      >Type: string or null</span
+                    ><br />
+                    <span class="description"
+                      ><p>
+                        Summary of the full timeseries file we host, plus
+                        anything that does not fit the per-metric rows. Null
+                        where there is nothing to add.
+                      </p>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="accordion"
+              id="accordiondataAvailability_byMetric"
+            >
+              <div class="card">
+                <div
+                  class="card-header"
+                  id="headingdataAvailability_byMetric"
+                >
+                  <h2 class="mb-0">
+                    <button
+                      class="btn btn-link property-name-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#dataAvailability_byMetric"
+                      aria-expanded=""
+                      aria-controls="dataAvailability_byMetric"
+                      onclick="setAnchor('#dataAvailability_byMetric')"
+                    >
+                      <span class="property-name">byMetric</span>
+                      <span class="badge badge-warning required-property"
+                        >Required</span
+                      >
+                    </button>
+                  </h2>
+                </div>
+
+                <div
+                  id="dataAvailability_byMetric"
+                  class="collapse property-definition-div"
+                  aria-labelledby="headingdataAvailability_byMetric"
+                  data-parent="#accordiondataAvailability_byMetric"
+                >
+                  <div class="card-body pl-5">
+                    <div class="breadcrumbs">
+                      root
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#dataAvailability"
+                        onclick="anchorLink('dataAvailability')"
+                        >dataAvailability</a
+                      >
+                      <svg
+                        width="1em"
+                        height="1em"
+                        viewBox="0 0 16 16"
+                        class="bi bi-arrow-right-short"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                        />
+                      </svg>
+                      <a
+                        href="#dataAvailability_byMetric"
+                        onclick="anchorLink('dataAvailability_byMetric')"
+                        >byMetric</a
+                      >
+                    </div>
+                    <span class="badge badge-dark value-type"
+                      >Type: array of object</span
+                    ><br />
+                    <span class="description"
+                      ><p>
+                        One row per (metricName, sector, sectorSegment,
+                        geography). Each combination may appear only once --
+                        enforced by scripts/schema-check-files.ts, because
+                        uniqueItems compares whole entries and so permits two
+                        rows that agree on the scope and disagree on everything
+                        else.
+                      </p>
+                    </span>
+
+                    <p>
+                      <span
+                        class="badge badge-light restriction unique-items-restriction"
+                        id="dataAvailability_byMetric_uniqueItems"
+                        >All items must be unique</span
+                      >
+                    </p>
+                    <span class="badge badge-info no-additional"
+                      >No Additional Items</span
+                    >
+                    <h4>Each item of this array must be:</h4>
+                    <div class="card">
+                      <div
+                        class="card-body items-definition"
+                        id="dataAvailability_byMetric_items"
+                      >
+                        <div class="breadcrumbs">
+                          root
+                          <svg
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            class="bi bi-arrow-right-short"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
+                          <a
+                            href="#dataAvailability"
+                            onclick="anchorLink('dataAvailability')"
+                            >dataAvailability</a
+                          >
+                          <svg
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            class="bi bi-arrow-right-short"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
+                          <a
+                            href="#dataAvailability_byMetric"
+                            onclick="anchorLink('dataAvailability_byMetric')"
+                            >byMetric</a
+                          >
+                          <svg
+                            width="1em"
+                            height="1em"
+                            viewBox="0 0 16 16"
+                            class="bi bi-arrow-right-short"
+                            fill="currentColor"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                            />
+                          </svg>
+                          <a
+                            href="#dataAvailability_byMetric_items"
+                            onclick="
+                              anchorLink('dataAvailability_byMetric_items')
+                            "
+                            >byMetric items</a
+                          >
+                        </div>
+                        <span class="badge badge-dark value-type"
+                          >Type: object</span
+                        ><br />
+                        <span class="badge badge-info no-additional"
+                          >No Additional Properties</span
+                        >
+
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_metricName"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_metricName"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_metricName"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_metricName"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_metricName',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name">metricName</span>
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_metricName"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_metricName"
+                              data-parent="#accordiondataAvailability_byMetric_items_metricName"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_metricName"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_metricName',
+                                      )
+                                    "
+                                    >metricName</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Metric this row describes. Must be a metric
+                                    the pathway itself reports (one of its own
+                                    <code>metric</code> values) and a metric of
+                                    its <code>sector</code> -- both enforced by
+                                    scripts/schema-check-files.ts.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="metric_items_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "Emissions Intensity"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Capacity"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Generation"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Technology Mix"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Absolute Emissions"
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_sector"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_sector"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_sector"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_sector"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_sector',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name">sector</span>
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_sector"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_sector"
+                              data-parent="#accordiondataAvailability_byMetric_items_sector"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_sector"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_sector',
+                                      )
+                                    "
+                                    >sector</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Sector this row describes. Must be one of
+                                    the pathway's own declared sectors. Note
+                                    this is the plain sector enum, not
+                                    scopeSector.v2: there is no
+                                    <code>cross-sector</code> availability,
+                                    because availability is a property of a
+                                    concrete dataset.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="sectors_items_name_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "Land Use"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Agriculture"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Buildings"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Steel"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Cement"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Chemicals"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Coal Mining"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Oil (Upstream)"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Gas (Upstream)"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Power"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Automotive"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Aviation"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Rail"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Shipping"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Other"
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_sectorSegment"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_sectorSegment"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_sectorSegment"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_sectorSegment"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_sectorSegment',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name"
+                                    >sectorSegment</span
+                                  >
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_sectorSegment"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_sectorSegment"
+                              data-parent="#accordiondataAvailability_byMetric_items_sectorSegment"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_sectorSegment"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_sectorSegment',
+                                      )
+                                    "
+                                    >sectorSegment</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Segment within the sector.
+                                    <code>No information</code> where the sector
+                                    is not segmented, or where its segments are
+                                    not yet defined.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="dataAvailability_byMetric_items_sectorSegment_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "No information"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Power generation"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Storage"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Transmission & Distribution"
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_geography"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_geography"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_geography"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_geography"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_geography',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name">geography</span>
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_geography"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_geography"
+                              data-parent="#accordiondataAvailability_byMetric_items_geography"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_geography"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_geography',
+                                      )
+                                    "
+                                    >geography</a
+                                  >
+                                </div>
+                                <h4>Scope Geography</h4>
+                                <span class="badge badge-dark value-type"
+                                  >Type: string</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Geography this row applies to. Same scope
+                                    token as keyFeatures, so the table can be
+                                    filtered by the detail page's geography
+                                    selection (#872) using the existing scope
+                                    helpers.
+                                  </p>
+                                </span>
+
+                                <div class="not-value">
+                                  <h4>Must <strong>not</strong> be:</h4>
+                                  <div class="card">
+                                    <div
+                                      class="card-body"
+                                      id=""
+                                    >
+                                      <div class="breadcrumbs">
+                                        root
+                                        <svg
+                                          width="1em"
+                                          height="1em"
+                                          viewBox="0 0 16 16"
+                                          class="bi bi-arrow-right-short"
+                                          fill="currentColor"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                          />
+                                        </svg>
+                                        <a
+                                          href="#keyFeatures"
+                                          onclick="anchorLink('keyFeatures')"
+                                          >keyFeatures</a
+                                        >
+                                        <svg
+                                          width="1em"
+                                          height="1em"
+                                          viewBox="0 0 16 16"
+                                          class="bi bi-arrow-right-short"
+                                          fill="currentColor"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                          />
+                                        </svg>
+                                        <a
+                                          href="#keyFeatures_emissionsTrajectory"
+                                          onclick="
+                                            anchorLink(
+                                              'keyFeatures_emissionsTrajectory',
+                                            )
+                                          "
+                                          >emissionsTrajectory</a
+                                        >
+                                        <svg
+                                          width="1em"
+                                          height="1em"
+                                          viewBox="0 0 16 16"
+                                          class="bi bi-arrow-right-short"
+                                          fill="currentColor"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                          />
+                                        </svg>
+                                        <a
+                                          href="#keyFeatures_emissionsTrajectory_items"
+                                          onclick="
+                                            anchorLink(
+                                              'keyFeatures_emissionsTrajectory_items',
+                                            )
+                                          "
+                                          >emissionsTrajectory items</a
+                                        >
+                                        <svg
+                                          width="1em"
+                                          height="1em"
+                                          viewBox="0 0 16 16"
+                                          class="bi bi-arrow-right-short"
+                                          fill="currentColor"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                          />
+                                        </svg>
+                                        <a
+                                          href="#keyFeatures_emissionsTrajectory_items_geography"
+                                          onclick="
+                                            anchorLink(
+                                              'keyFeatures_emissionsTrajectory_items_geography',
+                                            )
+                                          "
+                                          >geography</a
+                                        >
+                                        <svg
+                                          width="1em"
+                                          height="1em"
+                                          viewBox="0 0 16 16"
+                                          class="bi bi-arrow-right-short"
+                                          fill="currentColor"
+                                          xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                          <path
+                                            fill-rule="evenodd"
+                                            d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                          />
+                                        </svg>
+                                        <a
+                                          href="#keyFeatures_emissionsTrajectory_items_geography_not"
+                                          onclick="
+                                            anchorLink(
+                                              'keyFeatures_emissionsTrajectory_items_geography_not',
+                                            )
+                                          "
+                                          >not</a
+                                        >
+                                      </div>
+                                      <span class="badge badge-dark value-type"
+                                        >Type: string</span
+                                      ><br />
+                                      <span
+                                        class="pattern-value"
+                                        id="keyFeatures_emissionsTrajectory_items_geography_not_pattern"
+                                        >Must match regular expression:
+                                        <code>^[A-Za-z]{3}$</code></span
+                                      >
+                                    </div>
+                                  </div>
+                                </div>
+                                <span
+                                  class="pattern-value"
+                                  id="keyFeatures_emissionsTrajectory_items_geography_pattern"
+                                  >Must match regular expression:
+                                  <code>^(?!\s*$).+</code></span
+                                >
+
+                                <p>
+                                  <span
+                                    class="badge badge-light restriction min-length-restriction"
+                                    id="keyFeatures_emissionsTrajectory_items_geography_minLength"
+                                    >Must be at least <code>1</code> characters
+                                    long</span
+                                  >
+                                </p>
+
+                                <br />
+                                <div class="badge badge-secondary">
+                                  Examples:
+                                </div>
+                                <br />
+                                <div
+                                  id="keyFeatures_emissionsTrajectory_items_geography_ex1"
+                                  class="jumbotron examples"
+                                >
+                                  <div class="highlight">
+                                    <pre><span></span><span class="s2">"Global"</span>
+</pre>
+                                  </div>
+                                </div>
+                                <div
+                                  id="keyFeatures_emissionsTrajectory_items_geography_ex2"
+                                  class="jumbotron examples"
+                                >
+                                  <div class="highlight">
+                                    <pre><span></span><span class="s2">"cross-region"</span>
+</pre>
+                                  </div>
+                                </div>
+                                <div
+                                  id="keyFeatures_emissionsTrajectory_items_geography_ex3"
+                                  class="jumbotron examples"
+                                >
+                                  <div class="highlight">
+                                    <pre><span></span><span class="s2">"South East Asia"</span>
+</pre>
+                                  </div>
+                                </div>
+                                <div
+                                  id="keyFeatures_emissionsTrajectory_items_geography_ex4"
+                                  class="jumbotron examples"
+                                >
+                                  <div class="highlight">
+                                    <pre><span></span><span class="s2">"Asia Pacific"</span>
+</pre>
+                                  </div>
+                                </div>
+                                <div
+                                  id="keyFeatures_emissionsTrajectory_items_geography_ex5"
+                                  class="jumbotron examples"
+                                >
+                                  <div class="highlight">
+                                    <pre><span></span><span class="s2">"TH"</span>
+</pre>
+                                  </div>
+                                </div>
+                                <div
+                                  id="keyFeatures_emissionsTrajectory_items_geography_ex6"
+                                  class="jumbotron examples"
+                                >
+                                  <div class="highlight">
+                                    <pre><span></span><span class="s2">"US"</span>
+</pre>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_geographyCoverage"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_geographyCoverage"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_geographyCoverage"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_geographyCoverage"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_geographyCoverage',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name"
+                                    >geographyCoverage</span
+                                  >
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_geographyCoverage"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_geographyCoverage"
+                              data-parent="#accordiondataAvailability_byMetric_items_geographyCoverage"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_geographyCoverage"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_geographyCoverage',
+                                      )
+                                    "
+                                    >geographyCoverage</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    How geographically granular the underlying
+                                    data is. A coverage class, not a scope --
+                                    <code>geography</code> above carries the
+                                    scope.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="dataAvailability_byMetric_items_geographyCoverage_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "Global"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Regional"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Country"
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_timeResolution"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_timeResolution"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_timeResolution"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_timeResolution"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_timeResolution',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name"
+                                    >timeResolution</span
+                                  >
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_timeResolution"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_timeResolution"
+                              data-parent="#accordiondataAvailability_byMetric_items_timeResolution"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_timeResolution"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_timeResolution',
+                                      )
+                                    "
+                                    >timeResolution</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    How finely the underlying data is resolved
+                                    over time.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="dataAvailability_byMetric_items_timeResolution_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "No information"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Single year (2050)"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Medium-term"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "10-year"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "5-10-year"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "5-year"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "1-year"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Other"
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_dataFormat"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_dataFormat"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_dataFormat"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_dataFormat"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_dataFormat',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name">dataFormat</span>
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_dataFormat"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_dataFormat"
+                              data-parent="#accordiondataAvailability_byMetric_items_dataFormat"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_dataFormat"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_dataFormat',
+                                      )
+                                    "
+                                    >dataFormat</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Where the data can be obtained, and in what
+                                    form. <code>In tool</code> rows link to the
+                                    timeseries download.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="dataAvailability_byMetric_items_dataFormat_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "In tool"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Tabular in publication"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Text in publication"
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_access"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_access"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_access"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_access"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_access',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name">access</span>
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_access"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_access"
+                              data-parent="#accordiondataAvailability_byMetric_items_access"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_access"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_access',
+                                      )
+                                    "
+                                    >access</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: enum (of null or string)</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Whether reaching the data at the publisher
+                                    costs money. Must be null exactly when
+                                    <code>dataFormat</code> is
+                                    <code>In tool</code> -- enforced by
+                                    scripts/schema-check-files.ts.
+                                  </p>
+                                </span>
+
+                                <div
+                                  class="enum-value"
+                                  id="dataAvailability_byMetric_items_access_enum"
+                                >
+                                  <h4>Must be one of:</h4>
+                                  <ul class="list-group">
+                                    <li class="list-group-item enum-item">
+                                      "Free"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      "Paywalled"
+                                    </li>
+                                    <li class="list-group-item enum-item">
+                                      null
+                                    </li>
+                                  </ul>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_granularity"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_granularity"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_granularity"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_granularity"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_granularity',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name">granularity</span>
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_granularity"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_granularity"
+                              data-parent="#accordiondataAvailability_byMetric_items_granularity"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_granularity"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_granularity',
+                                      )
+                                    "
+                                    >granularity</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: array or null</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Dimensions the metric is broken down by, or
+                                    null where it is reported as a single
+                                    series. Values are technologies of this
+                                    row's sector -- enforced by
+                                    scripts/schema-check-files.ts, the same rule
+                                    as sectors[].technologies.
+                                  </p>
+                                </span>
+
+                                <p>
+                                  <span
+                                    class="badge badge-light restriction unique-items-restriction"
+                                    id="dataAvailability_byMetric_items_granularity_uniqueItems"
+                                    >All items must be unique</span
+                                  >
+                                </p>
+                                <span class="badge badge-info no-additional"
+                                  >No Additional Items</span
+                                >
+                                <h4>Each item of this array must be:</h4>
+                                <div class="card">
+                                  <div
+                                    class="card-body items-definition"
+                                    id="dataAvailability_byMetric_items_granularity_items"
+                                  >
+                                    <div class="breadcrumbs">
+                                      root
+                                      <svg
+                                        width="1em"
+                                        height="1em"
+                                        viewBox="0 0 16 16"
+                                        class="bi bi-arrow-right-short"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                        />
+                                      </svg>
+                                      <a
+                                        href="#dataAvailability"
+                                        onclick="anchorLink('dataAvailability')"
+                                        >dataAvailability</a
+                                      >
+                                      <svg
+                                        width="1em"
+                                        height="1em"
+                                        viewBox="0 0 16 16"
+                                        class="bi bi-arrow-right-short"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                        />
+                                      </svg>
+                                      <a
+                                        href="#dataAvailability_byMetric"
+                                        onclick="
+                                          anchorLink(
+                                            'dataAvailability_byMetric',
+                                          )
+                                        "
+                                        >byMetric</a
+                                      >
+                                      <svg
+                                        width="1em"
+                                        height="1em"
+                                        viewBox="0 0 16 16"
+                                        class="bi bi-arrow-right-short"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                        />
+                                      </svg>
+                                      <a
+                                        href="#dataAvailability_byMetric_items"
+                                        onclick="
+                                          anchorLink(
+                                            'dataAvailability_byMetric_items',
+                                          )
+                                        "
+                                        >byMetric items</a
+                                      >
+                                      <svg
+                                        width="1em"
+                                        height="1em"
+                                        viewBox="0 0 16 16"
+                                        class="bi bi-arrow-right-short"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                        />
+                                      </svg>
+                                      <a
+                                        href="#dataAvailability_byMetric_items_granularity"
+                                        onclick="
+                                          anchorLink(
+                                            'dataAvailability_byMetric_items_granularity',
+                                          )
+                                        "
+                                        >granularity</a
+                                      >
+                                      <svg
+                                        width="1em"
+                                        height="1em"
+                                        viewBox="0 0 16 16"
+                                        class="bi bi-arrow-right-short"
+                                        fill="currentColor"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                      >
+                                        <path
+                                          fill-rule="evenodd"
+                                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                        />
+                                      </svg>
+                                      <a
+                                        href="#dataAvailability_byMetric_items_granularity_items"
+                                        onclick="
+                                          anchorLink(
+                                            'dataAvailability_byMetric_items_granularity_items',
+                                          )
+                                        "
+                                        >displayName</a
+                                      >
+                                    </div>
+                                    <span class="badge badge-dark value-type"
+                                      >Type: enum (of string)</span
+                                    ><br />
+                                    <span class="description"
+                                      ><p>
+                                        Display name of the technology as
+                                        presented in charts or tables.
+                                      </p>
+                                    </span>
+
+                                    <div
+                                      class="enum-value"
+                                      id="sectors_items_technologies_items_enum"
+                                    >
+                                      <h4>Must be one of:</h4>
+                                      <ul class="list-group">
+                                        <li class="list-group-item enum-item">
+                                          "Precision Agriculture"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Agroforestry"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Bioenergy Crops"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Energy Efficiency"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Smart Grids"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Renewable Heating"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Heat Pumps"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Building Automation"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Smart Appliances"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Insulation"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Carbon Capture and Storage"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Electrification"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Process Optimization"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Hydrogen Use"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Coal"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Oil"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Gas"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Wind"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Solar"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Nuclear"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Biomass"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Hydro"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Renewables"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Electric Vehicles"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Hydrogen Vehicles"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Biofuels"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Public Transport"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Active Mobility"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Aviation Efficiency"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Maritime Efficiency"
+                                        </li>
+                                        <li class="list-group-item enum-item">
+                                          "Other"
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div
+                          class="accordion"
+                          id="accordiondataAvailability_byMetric_items_scopeLimitations"
+                        >
+                          <div class="card">
+                            <div
+                              class="card-header"
+                              id="headingdataAvailability_byMetric_items_scopeLimitations"
+                            >
+                              <h2 class="mb-0">
+                                <button
+                                  class="btn btn-link property-name-button"
+                                  type="button"
+                                  data-toggle="collapse"
+                                  data-target="#dataAvailability_byMetric_items_scopeLimitations"
+                                  aria-expanded=""
+                                  aria-controls="dataAvailability_byMetric_items_scopeLimitations"
+                                  onclick="
+                                    setAnchor(
+                                      '#dataAvailability_byMetric_items_scopeLimitations',
+                                    )
+                                  "
+                                >
+                                  <span class="property-name"
+                                    >scopeLimitations</span
+                                  >
+                                  <span
+                                    class="badge badge-warning required-property"
+                                    >Required</span
+                                  >
+                                </button>
+                              </h2>
+                            </div>
+
+                            <div
+                              id="dataAvailability_byMetric_items_scopeLimitations"
+                              class="collapse property-definition-div"
+                              aria-labelledby="headingdataAvailability_byMetric_items_scopeLimitations"
+                              data-parent="#accordiondataAvailability_byMetric_items_scopeLimitations"
+                            >
+                              <div class="card-body pl-5">
+                                <div class="breadcrumbs">
+                                  root
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability"
+                                    onclick="anchorLink('dataAvailability')"
+                                    >dataAvailability</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric"
+                                    onclick="
+                                      anchorLink('dataAvailability_byMetric')
+                                    "
+                                    >byMetric</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items',
+                                      )
+                                    "
+                                    >byMetric items</a
+                                  >
+                                  <svg
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 16 16"
+                                    class="bi bi-arrow-right-short"
+                                    fill="currentColor"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      fill-rule="evenodd"
+                                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+                                    />
+                                  </svg>
+                                  <a
+                                    href="#dataAvailability_byMetric_items_scopeLimitations"
+                                    onclick="
+                                      anchorLink(
+                                        'dataAvailability_byMetric_items_scopeLimitations',
+                                      )
+                                    "
+                                    >scopeLimitations</a
+                                  >
+                                </div>
+                                <span class="badge badge-dark value-type"
+                                  >Type: string or null</span
+                                ><br />
+                                <span class="description"
+                                  ><p>
+                                    Caveats on what the data does and does not
+                                    cover, in prose. Null where there are none.
+                                  </p>
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <footer>
       <p class="generated-by-footer">

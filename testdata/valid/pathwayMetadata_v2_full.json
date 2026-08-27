@@ -189,5 +189,58 @@
       "sector": "Steel",
       "evidence_type": "Qualitative"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": "The full timeseries file covers all five metrics for Power at annual resolution from 2022 to 2050. Steel is described in the publication only.",
+    "byMetric": [
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": "Power generation",
+        "geography": "Global",
+        "geographyCoverage": "Global",
+        "timeResolution": "1-year",
+        "dataFormat": "In tool",
+        "access": null,
+        "granularity": ["Solar", "Wind", "Coal"],
+        "scopeLimitations": "Excludes off-grid generation."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": "Storage",
+        "geography": "South East Asia",
+        "geographyCoverage": "Regional",
+        "timeResolution": "5-year",
+        "dataFormat": "Tabular in publication",
+        "access": "Free",
+        "granularity": null,
+        "scopeLimitations": null
+      },
+      {
+        "metricName": "Technology Mix",
+        "sector": "Power",
+        "sectorSegment": "Transmission & Distribution",
+        "geography": "SG",
+        "geographyCoverage": "Country",
+        "timeResolution": "Single year (2050)",
+        "dataFormat": "Text in publication",
+        "access": "Paywalled",
+        "granularity": null,
+        "scopeLimitations": "Grid losses only."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Steel",
+        "sectorSegment": "No information",
+        "geography": "Global",
+        "geographyCoverage": "Global",
+        "timeResolution": "No information",
+        "dataFormat": "Text in publication",
+        "access": "Free",
+        "granularity": null,
+        "scopeLimitations": null
+      }
+    ]
+  }
 }

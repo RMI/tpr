@@ -26,15 +26,26 @@
  * would collapse today's `{ name; technologies }` object type and break every
  * consumer of `Sector`, so the constraint lives here with its siblings instead.
  *
- * Run from `scripts/schema-check-files.ts`, so `npm run schema:check` gates both.
+ * #870's `dataAvailability` rows are checked here for the same reasons: their
+ * `metricName`/`sectorSegment`/`granularity` vocabularies are sector-conditional,
+ * their scope must resolve against the pathway's own coverage, and `access` is
+ * tied to a sibling property -- none of which draft-07 can express.
+ *
+ * Run from `scripts/schema-check-files.ts`, so `npm run schema:check` gates all
+ * of it.
  *
  * Errors are formatted like AJV's (`<instancePath> <message>`) so callers can
  * merge them into the same `ValidationProblem.errors` list without special-casing.
  */
 import type { PathwayMetadataV2 } from "../types/pathwayMetadata.v2";
 import {
+  metricBelongsToSector,
+  metricsForSector,
+  segmentBelongsToSector,
+  segmentsForSector,
   technologiesForSector,
   technologyBelongsToSector,
+  UNSEGMENTED,
 } from "./timeseriesTaxonomy.ts";
 
 /** `$id` of the schema these checks apply to. */
@@ -95,6 +106,31 @@ function declaredSectors(pathway: PathwayMetadataV2): Set<string> {
     if (s?.name) declared.add(s.name);
   }
   return declared;
+}
+
+/**
+ * The trailing clause of a "not a valid X of sector Y" message.
+ *
+ * Three cases, because they call for three different actions. Undefined means
+ * nobody has written that sector's vocabulary down, and the fix is to write it.
+ * Defined-but-empty means someone has, and the answer is genuinely "none" -- so
+ * saying "(allowed: )" would read as a bug in the checker rather than an answer.
+ * Only a non-empty list can usefully be listed.
+ */
+function allowedClause(
+  defined: readonly string[] | undefined,
+  axis: string,
+): string {
+  if (!defined) {
+    return (
+      `-- no ${axis} are defined for that sector. Add them to SECTORS_BY_KEY in` +
+      ` src/utils/timeseriesTaxonomy.ts.`
+    );
+  }
+  if (defined.length === 0) {
+    return `-- that sector defines no ${axis}.`;
+  }
+  return `(allowed: ${quote(defined)})`;
 }
 
 function quote(values: Iterable<string>): string {
@@ -190,11 +226,126 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       if (technologyBelongsToSector(technology, sector.name) !== "yes") {
         errors.push(
           `/sectors/${i}/technologies/${t} "${technology}" is not a technology of` +
-            ` sector "${sector.name}" (allowed: ${quote(allowed)})`,
+            ` sector "${sector.name}" ` +
+            allowedClause(allowed, "technologies"),
         );
       }
     });
   });
+
+  // #870: dataAvailability rows. Optional -- authoring is incremental, and a
+  // pathway without the field is not an invalid pathway.
+  const availability = pathway.dataAvailability;
+  if (availability && Array.isArray(availability.byMetric)) {
+    // Metrics the pathway itself claims to report. Availability for a metric it
+    // does not report is a typo, not data -- and the likeliest typo of all,
+    // since the two lists are authored separately.
+    const reported = new Set<string>(pathway.metric ?? []);
+    // First index each (metricName, sector, sectorSegment, geography) was seen
+    // at. NUL-joined so no combination of parts can collide with another; see
+    // the keyFeatures duplicate check above for the same reasoning.
+    const seenRows = new Map<string, number>();
+
+    availability.byMetric.forEach((row, i) => {
+      const at = `/dataAvailability/byMetric/${i}`;
+
+      if (!declared.has(row.sector)) {
+        errors.push(
+          `${at}/sector "${row.sector}" is not a sector this pathway declares` +
+            ` (allowed: ${quote(declared)})`,
+        );
+      }
+      if (!geographies.has(row.geography)) {
+        errors.push(
+          `${at}/geography "${row.geography}" is not a geography this pathway` +
+            ` declares (allowed: ${quote(geographies)})`,
+        );
+      }
+
+      if (!reported.has(row.metricName)) {
+        errors.push(
+          `${at}/metricName "${row.metricName}" is not a metric this pathway` +
+            ` reports (allowed: ${quote(reported)})`,
+        );
+      }
+
+      // Deliberately rejects only a definite "no", unlike the technology and
+      // segment checks: a sector whose metrics are undefined passes. Those two
+      // axes have no other constraint, so closing them by default is the only
+      // thing standing between a typo and production. `metricName` already has
+      // one -- it must appear in the pathway's own `metric` array, checked just
+      // above -- so closing this axis too would add no safety while making
+      // dataAvailability unauthorable for the fourteen sectors whose metrics
+      // nobody has defined, which is the blockage `UNSEGMENTED` exists to avoid.
+      if (metricBelongsToSector(row.metricName, row.sector) === "no") {
+        errors.push(
+          `${at}/metricName "${row.metricName}" is not a metric of sector` +
+            ` "${row.sector}" ` +
+            allowedClause(metricsForSector(row.sector), "metrics"),
+        );
+      }
+
+      if (segmentBelongsToSector(row.sectorSegment, row.sector) !== "yes") {
+        const defined = segmentsForSector(row.sector);
+        errors.push(
+          `${at}/sectorSegment "${row.sectorSegment}" is not a segment of sector` +
+            ` "${row.sector}" ` +
+            // UNSEGMENTED is always legal, so it belongs in every allowed list.
+            allowedClause([...(defined ?? []), UNSEGMENTED], "segments") +
+            (defined
+              ? ""
+              : ` No segments are defined for that sector; add them to` +
+                ` SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts.`),
+        );
+      }
+
+      // Same rule as sectors[].technologies (#461): a breakdown dimension has to
+      // be a technology the sector actually has.
+      (row.granularity ?? []).forEach((technology, g) => {
+        if (technologyBelongsToSector(technology, row.sector) !== "yes") {
+          errors.push(
+            `${at}/granularity/${g} "${technology}" is not a technology of` +
+              ` sector "${row.sector}" ` +
+              allowedClause(technologiesForSector(row.sector), "technologies"),
+          );
+        }
+      });
+
+      // `access` describes the cost of reaching the publisher's copy, so it is
+      // meaningless for data we serve ourselves and required for data we do not.
+      const inTool = row.dataFormat === "In tool";
+      if (inTool && row.access !== null) {
+        errors.push(
+          `${at}/access is "${row.access}" but dataFormat is "In tool" -- we host` +
+            ` this data, so there is no publisher paywall to describe. Use null.`,
+        );
+      } else if (!inTool && row.access === null) {
+        errors.push(
+          `${at}/access is null but dataFormat is "${row.dataFormat}" -- say` +
+            ` whether reaching it at the publisher is "Free" or "Paywalled".`,
+        );
+      }
+
+      const scope = [
+        row.metricName,
+        row.sector,
+        row.sectorSegment,
+        row.geography,
+      ].join("\u0000");
+      const firstSeen = seenRows.get(scope);
+      if (firstSeen === undefined) {
+        seenRows.set(scope, i);
+      } else {
+        errors.push(
+          `${at} duplicates the scope of /dataAvailability/byMetric/${firstSeen}` +
+            ` (metric "${row.metricName}", sector "${row.sector}", segment` +
+            ` "${row.sectorSegment}", geography "${row.geography}").` +
+            ` Each combination may describe only one row; the table has one cell` +
+            ` per column to render it in.`,
+        );
+      }
+    });
+  }
 
   // dependencies are descriptive and not part of the inheritance chain, but
   // #858 still scopes each to a sector, and that sector must be a real one.

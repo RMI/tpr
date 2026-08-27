@@ -460,3 +460,211 @@ describe("validateScopedEntries — technologies belong to their sector (#461)",
     expect(withSectors(undefined)).toEqual([]);
   });
 });
+
+describe("validateScopedEntries — dataAvailability rows (#870)", () => {
+  /** A row that passes every check, for tests to vary one field of. */
+  const ROW = {
+    metricName: "Capacity",
+    sector: "Power",
+    sectorSegment: "Power generation",
+    geography: "South East Asia",
+    geographyCoverage: "Regional",
+    timeResolution: "1-year",
+    dataFormat: "In tool",
+    access: null,
+    granularity: ["Solar"],
+    scopeLimitations: null,
+  };
+
+  const withRows = (rows: unknown[], over: Record<string, unknown> = {}) =>
+    validateScopedEntries(
+      pathway({
+        metric: ["Capacity", "Generation"],
+        dataAvailability: { overall: null, byMetric: rows },
+        ...over,
+      } as unknown as Partial<PathwayMetadataV2>),
+    );
+
+  const row = (over: Record<string, unknown> = {}) => ({ ...ROW, ...over });
+
+  it("accepts a row that satisfies every check", () => {
+    expect(withRows([row()])).toEqual([]);
+  });
+
+  it("passes a pathway with no dataAvailability at all", () => {
+    // Optional field: authoring is incremental, so absence is not a defect.
+    expect(validateScopedEntries(pathway({}))).toEqual([]);
+  });
+
+  it("passes an empty byMetric array", () => {
+    expect(withRows([])).toEqual([]);
+  });
+
+  it("rejects a sector the pathway does not declare", () => {
+    const errors = withRows([row({ sector: "Cement" })]);
+    expect(
+      errors.some((e) => e.includes("/sector") && e.includes('"Cement"')),
+    ).toBe(true);
+  });
+
+  it("rejects a geography the pathway does not cover", () => {
+    const errors = withRows([row({ geography: "Narnia" })]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/dataAvailability/byMetric/0/geography");
+    expect(errors[0]).toContain('"Narnia"');
+  });
+
+  it("rejects a metric the pathway does not report", () => {
+    // The likeliest typo of all: `metric` and `dataAvailability` are authored
+    // separately, so they drift.
+    const errors = withRows([row({ metricName: "Absolute Emissions" })]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/metricName");
+    expect(errors[0]).toContain('"Absolute Emissions"');
+    expect(errors[0]).toContain("is not a metric this pathway reports");
+  });
+
+  it("rejects a metric that is not the sector's, naming the value", () => {
+    // Reached directly here: in production AJV rejects a non-enum metricName
+    // first, and Power currently defines all five members of that enum, so this
+    // path only becomes live for real data once a second sector defines metrics.
+    const errors = withRows([row({ metricName: "Water Use" })], {
+      metric: ["Water Use"],
+    });
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("is not a metric of sector");
+    expect(errors[0]).toContain('"Water Use"');
+  });
+
+  it("accepts a metric under a sector whose metrics are undefined", () => {
+    // Steel has no metric list. Rejecting here would make dataAvailability
+    // unauthorable for 14 of 15 sectors while adding no safety, since the
+    // metric is still checked against the pathway's own `metric` array.
+    expect(
+      withRows([
+        row({
+          sector: "Steel",
+          sectorSegment: "No information",
+          granularity: null,
+        }),
+      ]),
+    ).toEqual([]);
+  });
+
+  it("rejects a named segment under a sector with no segments defined", () => {
+    const errors = withRows([
+      row({ sector: "Steel", sectorSegment: "Storage", granularity: null }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/sectorSegment");
+    expect(errors[0]).toContain('"Storage"');
+    // Names the one segment that is legal, and how to define the rest.
+    expect(errors[0]).toContain('"No information"');
+    expect(errors[0]).toContain("SECTORS_BY_KEY");
+  });
+
+  it("accepts the No information segment under any sector", () => {
+    expect(withRows([row({ sectorSegment: "No information" })])).toEqual([]);
+  });
+
+  it("rejects granularity that is not a technology of the sector", () => {
+    const errors = withRows([row({ granularity: ["Solar", "Hydrogen Use"] })]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/granularity/1");
+    expect(errors[0]).toContain('"Hydrogen Use"');
+  });
+
+  it("rejects granularity on a sector with no technologies defined", () => {
+    const errors = withRows([
+      row({
+        sector: "Steel",
+        sectorSegment: "No information",
+        granularity: ["Solar"],
+      }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("no technologies are defined");
+  });
+
+  it("accepts null granularity — a metric need not be broken down", () => {
+    expect(withRows([row({ granularity: null })])).toEqual([]);
+  });
+
+  it("rejects a paywall on data we host ourselves", () => {
+    const errors = withRows([
+      row({ dataFormat: "In tool", access: "Paywalled" }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/access");
+    expect(errors[0]).toContain("we host this data");
+  });
+
+  it("rejects a null access on data held at the publisher", () => {
+    const errors = withRows([
+      row({ dataFormat: "Text in publication", access: null }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/access");
+    expect(errors[0]).toContain('"Free" or "Paywalled"');
+  });
+
+  it("accepts both publisher access values", () => {
+    for (const access of ["Free", "Paywalled"]) {
+      expect(
+        withRows([row({ dataFormat: "Tabular in publication", access })]),
+      ).toEqual([]);
+    }
+  });
+
+  it("rejects two rows at the same scope", () => {
+    // uniqueItems permits these: they agree on the scope and differ elsewhere,
+    // so the schema sees two distinct entries. The table has one cell to render
+    // them in.
+    const errors = withRows([
+      row(),
+      row({ timeResolution: "5-year", granularity: null }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/dataAvailability/byMetric/1");
+    expect(errors[0]).toContain("duplicates the scope of");
+    expect(errors[0]).toContain("/dataAvailability/byMetric/0");
+  });
+
+  it.each([
+    ["metric", { metricName: "Generation" }],
+    ["segment", { sectorSegment: "Storage" }],
+    ["geography", { geography: "SG" }],
+    [
+      "sector",
+      { sector: "Steel", sectorSegment: "No information", granularity: null },
+    ],
+  ])("treats rows differing only by %s as distinct scopes", (_axis, over) => {
+    expect(withRows([row(), row(over)])).toEqual([]);
+  });
+
+  it("does not confuse scopes whose parts concatenate alike", () => {
+    // Guards the NUL-joined key the same way the keyFeatures test does.
+    expect(
+      withRows([
+        row({ sectorSegment: "Power generation", geography: "SG" }),
+        row({ sectorSegment: "No information", geography: "SG" }),
+      ]),
+    ).toEqual([]);
+  });
+
+  it("indexes each row, and checks them all", () => {
+    const errors = withRows([row(), row({ geography: "Narnia" })]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/byMetric/1/geography");
+  });
+
+  it("reports every failing check on one row", () => {
+    const errors = withRows([
+      row({ sector: "Cement", geography: "Narnia", access: "Free" }),
+    ]);
+    // undeclared sector, unresolvable geography, granularity under an undefined
+    // sector, and a paywall on hosted data.
+    expect(errors.length).toBeGreaterThanOrEqual(4);
+    expect(errors.every((e) => e.includes("/byMetric/0"))).toBe(true);
+  });
+});

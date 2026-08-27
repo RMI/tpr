@@ -35,6 +35,13 @@ export const scopeSectorSchema: SchemaObject = scopeSectorSchemaJson;
 import scopeGeographySchemaJson from "./scopeGeography.v2.json" with { type: "json" };
 export const scopeGeographySchema: SchemaObject = scopeGeographySchemaJson;
 
+// Vocabularies for the per-metric dataAvailability entries (#870).
+import sectorSegmentSchemaJson from "./sectorSegment.v1.json" with { type: "json" };
+export const sectorSegmentSchema: SchemaObject = sectorSegmentSchemaJson;
+
+import dataAvailabilitySchemaJson from "./dataAvailability.v1.json" with { type: "json" };
+export const dataAvailabilitySchema: SchemaObject = dataAvailabilitySchemaJson;
+
 // Aggregate — type stays correct
 export const commonSchemas: SchemaObject[] = [
   publicationSchema,
@@ -48,6 +55,8 @@ export const commonSchemas: SchemaObject[] = [
   emissionsScopeSchema,
   scopeSectorSchema,
   scopeGeographySchema,
+  sectorSegmentSchema,
+  dataAvailabilitySchema,
 ];
 
 export default commonSchemas;

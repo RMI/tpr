@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json",
+  "title": "Data Availability",
+  "description": "The closed vocabularies describing how a metric's underlying data can be obtained (#870).",
+  "$comment": "A wrapper object whose only job is to keep every $def reachable from the root: generate-types.ts runs json-schema-to-typescript with unreachableDefinitions:false, so a $def nothing points at emits no type. Same pattern as technology.v1.json and metric.v1.json. Callers $ref the individual $defs, not this object.",
+  "type": "object",
+  "properties": {
+    "geographyCoverage": { "$ref": "#/$defs/geographyCoverage" },
+    "timeResolution": { "$ref": "#/$defs/timeResolution" },
+    "dataFormat": { "$ref": "#/$defs/dataFormat" },
+    "access": { "$ref": "#/$defs/access" }
+  },
+  "required": ["geographyCoverage", "timeResolution", "dataFormat", "access"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "geographyCoverage": {
+      "description": "How geographically granular the underlying data is.",
+      "$comment": "A coverage class, NOT a scope. It says the data resolves to individual countries; it does not say which. The entry's sibling 'geography' carries the scope.",
+      "type": "string",
+      "enum": ["Global", "Regional", "Country"]
+    },
+    "timeResolution": {
+      "description": "How finely the underlying data is resolved over time.",
+      "type": "string",
+      "enum": [
+        "No information",
+        "Single year (2050)",
+        "Medium-term",
+        "10-year",
+        "5-10-year",
+        "5-year",
+        "1-year",
+        "Other"
+      ]
+    },
+    "dataFormat": {
+      "description": "Where the data can be obtained, and in what form.",
+      "$comment": "#870 specifies this as one enum with parenthetical free|paywall ('tabular-in-pub (free|paywall)'). Split into dataFormat and access because the acceptance criteria call for the tables/text indicator and the free/paywall indicator as separate UI signals; a flat five-member enum would make the table string-match to recover them. 'In tool' means we host it -- those rows link to the timeseries download via the generated index. A downloadable non-timeseries value is expected here once the hosting mechanism is decided.",
+      "type": "string",
+      "enum": ["In tool", "Tabular in publication", "Text in publication"]
+    },
+    "access": {
+      "description": "Whether reaching the data at the publisher costs money. Null when we host it.",
+      "$comment": "Null exactly when dataFormat is 'In tool' -- a paywall on data we serve ourselves is a contradiction. draft-07 cannot tie two sibling properties together, so validateScopedEntries enforces the biconditional.",
+      "type": ["string", "null"],
+      "enum": ["Free", "Paywalled", null]
+    }
+  }
+}
