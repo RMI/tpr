@@ -284,14 +284,11 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
           >
             <section className="mx-auto max-w-5xl rounded-[2rem] bg-white px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
-                  5-step process
-                </p>
                 <h2
-                  id="structured-way"
-                  className="scroll-mt-8 mt-3 text-2xl font-semibold text-rmigray-800"
+                  id="five-steps"
+                  className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  A structured way to narrow down the right pathway
+                  Five steps to finding the right pathway
                 </h2>
                 <p className="mt-4 text-rmigray-700 leading-7">
                   Selecting appropriate pathways for a transition-related
@@ -468,10 +465,10 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="simple-way-to-start"
+                  id="pathway-characteristics"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  A simple way to start finding the right pathways
+                  Pathway characteristics for different use cases
                 </h2>
               </div>
 
@@ -489,10 +486,10 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="step-by-step-guides"
+                  id="how-to-guides"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Step-by-step guides
+                  How-to guides
                 </h2>
                 <p className="mt-4 text-rmigray-700 leading-7">
                   Short click-through guides for specific TPR features.

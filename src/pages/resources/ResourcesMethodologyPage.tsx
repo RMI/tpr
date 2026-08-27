@@ -198,10 +198,10 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="classification-group-1"
+                  id="meta-data-classification"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Classification group 1: Pathway meta data
+                  Meta data classification
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   This meta data is useful to understand the overarching idea
@@ -349,10 +349,10 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="classification-group-2"
+                  id="scope-and-granularity-classification"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Classification group 2: Scope, Granularity, Availability
+                  Scope and granularity classification
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   In transition assessments, company metrics are compared with
@@ -754,10 +754,10 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl">
                 <h2
-                  id="classification-group-3"
+                  id="narrative-and-assumptions-classification"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Classification group 3: Trends, Assumptions, Narrative
+                  Narrative and assumptions classification
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   Each pathway describes trends that are built on assumptions of
@@ -1011,10 +1011,10 @@ const ResourcesMethodologyPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-neutral-200 bg-neutral-100/80 px-6 py-8 shadow-sm md:px-8 md:py-10">
               <div className="max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
                 <h2
-                  id="looking-for-practical-guidance"
+                  id="what-to-do-next"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Looking for practical guidance?
+                  What to do next
                 </h2>
                 <p className="mt-4 text-rmigray-700 leading-7">
                   Visit the{" "}

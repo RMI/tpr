@@ -178,10 +178,10 @@ const ResourcesUseCasesPage: React.FC = () => {
             <section className="mx-auto max-w-5xl">
               <div className="max-w-5xl">
                 <h2
-                  id="financing-the-transition"
+                  id="how-pathways-inform-users"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  Supporting the teams financing the transition
+                  How pathways inform different users
                 </h2>
                 <p className="mt-3 text-rmigray-700 leading-7">
                   The Transition Pathways Repository (TPR) enables financial
@@ -235,11 +235,32 @@ const ResourcesUseCasesPage: React.FC = () => {
             <section className="mx-auto mt-14 max-w-5xl">
               <div className="max-w-5xl">
                 <h2
-                  id="decision-makers"
+                  id="pathway-use-cases"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
-                  How the TPR supports decision makers
+                  Pathway use cases
                 </h2>
+                <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
+                  <p>
+                    No one pathway can provide all the information or answer all
+                    the questions an analyst might have. Different transition
+                    pathways are necessary to answer different questions.
+                  </p>
+                  <p>
+                    A global 1.5°C pathway may be well suited to assessing the
+                    level of ambition of a global portfolio, while a regional,
+                    policy-driven pathway provides more relevant insights into
+                    risks and dynamics within a specific market. Selecting the
+                    right pathway is therefore critical to ensuring that an
+                    analysis is meaningful, robust, and decision-useful.
+                  </p>
+                  <p>
+                    The Transition Pathways Repository helps users understand
+                    these differences up front — making it easier to choose the
+                    most appropriate pathway for their specific objective and
+                    avoid misinterpretation or an inaccurate analysis.
+                  </p>
+                </div>
               </div>
 
               <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
@@ -261,8 +282,7 @@ const ResourcesUseCasesPage: React.FC = () => {
                     id="transition-intelligence"
                     className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                   >
-                    How the Transition Pathways Repository supports transition
-                    intelligence
+                    Creating transition intelligence
                   </h2>
                   <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
                     <p>
@@ -296,34 +316,6 @@ const ResourcesUseCasesPage: React.FC = () => {
                     </p>
                   </div>
                 </div>
-
-                <aside>
-                  <h2 className="text-2xl font-semibold text-rmigray-800">
-                    Why pathway selection matters
-                  </h2>
-                  <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
-                    <p>
-                      No one pathway can provide all the information or answer
-                      all the questions an analyst might have. Different
-                      transition pathways are necessary to answer different
-                      questions.
-                    </p>
-                    <p>
-                      A global 1.5°C pathway may be well suited to assessing the
-                      level of ambition of a global portfolio, while a regional,
-                      policy-driven pathway provides more relevant insights into
-                      risks and dynamics within a specific market. Selecting the
-                      right pathway is therefore critical to ensuring that an
-                      analysis is meaningful, robust, and decision-useful.
-                    </p>
-                    <p>
-                      The Transition Pathways Repository helps users understand
-                      these differences up front — making it easier to choose
-                      the most appropriate pathway for their specific objective
-                      and avoid misinterpretation or an inaccurate analysis.
-                    </p>
-                  </div>
-                </aside>
               </div>
             </section>
 
