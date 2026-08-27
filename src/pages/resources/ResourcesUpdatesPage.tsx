@@ -151,7 +151,7 @@ const posts: UpdatePost[] = [
           className="w-full rounded-xl border border-neutral-200 shadow-sm"
         />
         <p>
-          These differences reflect the pathways assumptions around regional
+          These differences reflect the pathways’ assumptions around regional
           constraints and technology costs. Both GECO 1.5°C and ACE CNS use
           least-cost optimization approaches to identify cost-effective
           transition pathways, but they use different modeling frameworks and
