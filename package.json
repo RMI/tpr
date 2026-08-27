@@ -22,8 +22,7 @@
     "schema:check": "npx ts-node --esm scripts/schema-check-files.ts src/data testdata/valid",
     "schema:check:srcdata": "npx ts-node --esm scripts/schema-check-files.ts src/data",
     "schema:check:testdata": "npx ts-node --esm scripts/schema-check-files.ts testdata/valid",
-    "schema:generate": "npm run schema:generate:types && npm run schema:generate:docs",
-    "schema:generate:docs": "scripts/generate-schema-docs.sh",
+    "schema:generate": "npm run schema:generate:types",
     "schema:generate:types": "npx ts-node --esm scripts/generate-types.ts && prettier --write \"src/types/**/*.d.ts\"",
     "test": "vitest run",
     "test:watch": "vitest"
