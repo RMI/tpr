@@ -31,7 +31,9 @@
     "short": "SEP PH"
   },
   "description": "Philippines pathway reflecting existing energy policies and gradual renewable adoption through 2060.",
-  "geography": ["PH"],
+  "geography": {
+    "country": ["PH"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2060,

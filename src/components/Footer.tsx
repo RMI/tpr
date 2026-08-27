@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Mail } from "lucide-react";
 import Colophon from "../components/Colophon";
 
@@ -27,7 +27,7 @@ const Footer: React.FC = () => {
               Legal
             </Link>
             <a
-              href="mailto:tomwhite+pbtar@rmi.org"
+              href="mailto:tomwhite+tpr@rmi.org"
               className="flex items-center text-sm text-white hover:text-energy transition-colors duration-200"
             >
               <Mail

@@ -29,7 +29,9 @@
     "short": "HA2S SG"
   },
   "description": "Singapore pathway to achieve near net-zero power sector emissions with a diversified power mix.",
-  "geography": ["SG"],
+  "geography": {
+    "country": ["SG"]
+  },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,

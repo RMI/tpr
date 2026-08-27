@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState, useMemo } from "react";
 import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 import MultiLineChart from "./MultiLineChart";
-import VerticalBarChart from "./VerticalBarChart";
 import { geographyLabel } from "../utils/geographyUtils";
 
 interface DataPoint {
@@ -16,6 +15,17 @@ interface DataPoint {
 
 interface TimeSeries {
   data: DataPoint[];
+}
+
+/**
+ * A single hovered data point (year + technology), lifted by ComparisonPlots
+ * and broadcast to every chart panel so sibling pathways can show a matching
+ * tooltip. `technology` is null for chart types (e.g. the technology-mix
+ * stacked area chart) whose tooltip isn't anchored to one specific series.
+ */
+export interface HoveredPoint {
+  year: string;
+  technology: string | null;
 }
 
 export type PlotType =
@@ -155,7 +165,7 @@ export const PlotSelector: React.FC<PlotSelectorProps> = ({
       case "absoluteEmissions":
         return (
           <div className="flex flex-col items-center">
-            <VerticalBarChart
+            <MultiLineChart
               key={`${datasetId}-${selectedPlot}-${selectedGeography}`}
               data={filteredData}
               width={450}
@@ -167,12 +177,13 @@ export const PlotSelector: React.FC<PlotSelectorProps> = ({
       case "emissionsIntensity":
         return (
           <div className="flex flex-col items-center">
-            <VerticalBarChart
+            <MultiLineChart
               key={`${datasetId}-${selectedPlot}-${selectedGeography}`}
               data={filteredData}
               width={450}
               height={300}
               metric="emissionsIntensity"
+              yMin={0}
             />
           </div>
         );

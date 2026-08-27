@@ -25,6 +25,8 @@ type Props<T extends string | number = string> = {
   onModeChange?: (m: FacetMode) => void;
   showModeToggle?: boolean;
   closeOnSelect?: boolean;
+  /** Optional note pinned under the option list (e.g. a disclaimer about the options). */
+  footer?: React.ReactNode;
 };
 
 export default function MultiSelectDropdown<
@@ -41,6 +43,7 @@ export default function MultiSelectDropdown<
   onModeChange,
   showModeToggle = false,
   closeOnSelect = false,
+  footer,
 }: Props<T>) {
   // Coerce scalar/null/undefined → T[]
   // Normalize current values to an array for easy checks
@@ -94,6 +97,7 @@ export default function MultiSelectDropdown<
       onClear={clear}
       menuWidthClassName={menuWidthClassName}
       triggerMinWidthClassName={triggerMinWidthClassName}
+      footer={footer}
       // number of digits in options.length
       reserveSpace={String(options.length).length}
       header={

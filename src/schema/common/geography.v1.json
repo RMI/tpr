@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/common/geography.v1.json",
+  "title": "Geography",
+  "description": "Geographical coverage of a pathway. 'global' marks whole-world coverage (a literal flag, not a list of every country); 'regions' maps an author-defined region label, kept as named in the source publication, to the ISO-3166-1 alpha-2 country codes it contains (member arrays may be empty when the publication provides no mapping); 'country' lists standalone ISO-3166-1 alpha-2 country codes.",
+  "type": "object",
+  "properties": {
+    "global": {
+      "description": "True if the pathway covers the entire world.",
+      "type": "boolean"
+    },
+    "regions": {
+      "description": "Map from an author-defined region label (as named in the publication) to the ISO-3166-1 alpha-2 country codes in that region. Member arrays may be empty when the publication does not provide a mapping.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!\\s*$).+"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "uniqueItems": true,
+        "items": {
+          "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json",
+          "tsType": "import('./countryCode.v1').CountryCodeV1"
+        }
+      }
+    },
+    "country": {
+      "description": "Standalone ISO-3166-1 alpha-2 country codes covered by the pathway.",
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json",
+        "tsType": "import('./countryCode.v1').CountryCodeV1"
+      }
+    }
+  },
+  "additionalProperties": false
+}

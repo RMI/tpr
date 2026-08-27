@@ -1,0 +1,83 @@
+---
+name: Backmerge reminder
+concurrency: backmerge-reminder
+
+# Opens (and later auto-closes) a tracking issue when `production` has commits
+# that are not yet on `main`, as a reminder to backmerge after a release.
+# Replaces the old auto-PR workflow, which could not create PRs under GH Enterprise.
+# Issue creation is not gated by the "Allow Actions to create PRs" setting, so this works.
+
+on:
+  push:
+    branches:
+      - production
+  schedule:
+    - cron: "0 3 * * *" # Nightly at 3 AM UTC
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  backmerge-reminder:
+    name: Check production/main divergence
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check whether production is ahead of main
+        id: check
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          AHEAD=$(gh api "/repos/${{ github.repository }}/compare/main...production" --jq '.ahead_by')
+          echo "production is $AHEAD commit(s) ahead of main"
+          echo "ahead=$AHEAD" >> "$GITHUB_OUTPUT"
+
+      - name: Ensure tracking label exists
+        if: steps.check.outputs.ahead != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create backmerge \
+            --description "Tracking: production needs a backmerge to main" \
+            --color BFD4F2 \
+            --force
+
+      - name: Open reminder issue
+        if: steps.check.outputs.ahead != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AHEAD: ${{ steps.check.outputs.ahead }}
+          REPO: ${{ github.repository }}
+        run: |
+          EXISTING=$(gh issue list --label backmerge --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            echo "Reminder issue #$EXISTING already open; nothing to do."
+            exit 0
+          fi
+          gh issue create \
+            --title 'Backmerge `production` → `main`' \
+            --label backmerge \
+            --body "$(cat <<EOF
+          Automated reminder.
+
+          \`production\` is **$AHEAD commit(s)** ahead of \`main\`. After a release, please
+          backmerge so the branches don't drift.
+
+          - Review the diff: $GITHUB_SERVER_URL/$REPO/compare/main...production
+          - Open the backmerge PR: $GITHUB_SERVER_URL/$REPO/compare/main...production?expand=1
+
+          This issue closes automatically once \`main\` contains all of \`production\`.
+          EOF
+          )"
+
+      - name: Close reminder issue when back in sync
+        if: steps.check.outputs.ahead == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for N in $(gh issue list --label backmerge --state open --json number --jq '.[].number'); do
+            gh issue comment "$N" --body '`production` and `main` are back in sync. Closing automatically.'
+            gh issue close "$N"
+          done

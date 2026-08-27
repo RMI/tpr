@@ -1,7 +1,8 @@
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import BadgeArray from "./BadgeArray";
 import {
+  flattenGeography,
   geographyKind,
   geographyLabel,
   geographyVariant,
@@ -24,6 +25,7 @@ import {
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
 import TextWithTooltip from "./TextWithTooltip";
+import RegionMembersTooltip from "./RegionMembersTooltip";
 
 interface PathwayCardProps {
   pathway: PathwayMetadataType;
@@ -57,7 +59,7 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
     () =>
       sortByAvailability(
         prioritizeGeographies(
-          sortGeographiesForDetails(pathway.geography),
+          sortGeographiesForDetails(flattenGeography(pathway.geography)),
           searchTerm,
         ),
         (geo) => availability.hasGeography(geo),
@@ -186,6 +188,15 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
               })}
               toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
               renderLabel={(label) => highlightTextIfSearchMatch(label)}
+              tooltipGetter={(geo) =>
+                geographyKind(geo) === "region" ? (
+                  <RegionMembersTooltip
+                    geography={pathway.geography}
+                    label={geo}
+                    searchTerm={searchTerm}
+                  />
+                ) : undefined
+              }
               maxRows={2}
             >
               {sortedGeography}

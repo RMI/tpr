@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import PathwaySearch from "./PathwaySearch";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
@@ -39,8 +39,10 @@ describe("PathwaySearch component", () => {
 
   it("renders a PathwayCard for each pathway in the data", () => {
     renderPathwaySearch();
-    // Check that the correct number of pathway cards are rendered
-    const pathwayCards = screen.getAllByTestId("pathway-card");
+    // Check that the correct number of pathway cards are rendered.
+    // queryAll (not getAll) so an empty dataset yields [] rather than throwing —
+    // src/data may be fully excluded by validation until it is migrated.
+    const pathwayCards = screen.queryAllByTestId("pathway-card");
     expect(pathwayCards).toHaveLength(pathwayMetadata.length);
   });
 });
@@ -69,8 +71,10 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "B",
       name: { full: "Pathway B", short: "Power, Europe, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: ["Europe"],
-      modelTempIncrease: "2°C",
+      // Geography matches by ISO overlap now, so coverage carries real codes.
+      // "Europe" here is represented by Germany (DE), "Asia" by Japan (JP).
+      geography: { country: ["DE"] },
+      modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Capacity"],
@@ -80,8 +84,8 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "C",
       name: { full: "Pathway C", short: "empty sectors[], empty geo[], 1.5°C" },
       sectors: [], // -> Sector "None"
-      geography: [], // -> Geography "None"
-      modelTempIncrease: "1.5°C",
+      geography: {}, // -> Geography "None"
+      modelTempIncrease: 1.5,
       pathwayType: "NZi2050",
       modelYearNetzero: 2040,
       metric: [],
@@ -91,7 +95,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "D",
       name: { full: "Pathway D", short: "Steel, Asia, no temp" },
       sectors: [{ name: "Steel" }],
-      geography: ["Asia"],
+      geography: { country: ["JP"] },
       modelTempIncrease: undefined, // -> Temperature "None"
       pathwayType: "BAU",
       modelYearNetzero: 2030,
@@ -102,8 +106,8 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "E",
       name: { full: "Pathway E", short: "Power, Europe+Asia, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: ["Europe", "Asia"],
-      modelTempIncrease: "2°C",
+      geography: { country: ["DE", "JP"] },
+      modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Generation"],
@@ -227,12 +231,13 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
     ]);
   });
 
-  it("Geography: ANY vs ALL toggle affects results (Europe + Asia)", async () => {
+  it("Geography: ANY vs ALL toggle affects results (Germany + Japan)", async () => {
     await openDropdown(/geography/i);
-    await selectOption("Europe");
-    await selectOption("Asia");
+    // Select two country options; matching is by ISO overlap.
+    await selectOption("Germany");
+    await selectOption("Japan");
 
-    // ANY (default): shows anything with Europe OR Asia → B, D, E
+    // ANY (default): shows anything covering DE OR JP → B, D, E
     expectVisible([
       "Power, Europe, 2°C",
       "Steel, Asia, no temp",
@@ -241,7 +246,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
 
     // Switch to ALL inside the open menu
     await u.click(screen.getByTestId("mode-toggle"));
-    // Only E has both Europe and Asia
+    // Only E covers both DE and JP
     expectVisible(["Power, Europe+Asia, 2°C"]);
     expectHidden([
       "Power, Europe, 2°C",

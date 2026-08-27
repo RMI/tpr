@@ -17,22 +17,51 @@
       }
     ]
   },
-  "name": { "full": "Net-Zero Scenario", "short": "NZ" },
+  "name": {
+    "full": "Net-Zero Scenario",
+    "short": "NZ"
+  },
   "description": "Cost-optimized pathway to achieve net-zero emissions in 2050 with rapid renewables growth.",
-  "geography": ["VN"],
+  "geography": {
+    "country": ["VN"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
-    { "name": "Agriculture", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -46,11 +75,26 @@
         "Nuclear"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Net Zero scenario outlines a cost-optimal, policy-enabled pathway for achieving Vietnam's net-zero greenhouse gas emissions target by 2050. The scenario caps 2050 emissions from the energy sector at 101 Mt and process emissions from the industrial sector at 20 Mt. Coal capacity is allowed early retirement, operational flexibility is introduced for gas plants after 2030, and solar land potential is doubled from EREA's Baseline scenario to 272 GW. \n\nThe power sector plays a pivotal role, with emissions from the sector peaking at 124 Mt in 2035, in comparison to 173 Mt in 2030 in the Baseline scenario. Electrification of the end-use sectors (specifically transport and heavy industry) are key in decarbonization of end-use demands toward 2050. Carbon capture also plays a role in addressing residual emissions from heavy industry. Fuel costs are reduced by 33% in 2050 in the Net Zero scenario compared to the Baseline scenario, however there is an increase in capital expenditures and operation and maintenance costs. Air pollution costs (i.e., the costs associated with the impact of air pollution on human health) are reduced by 18% compared to Baseline.\n\n#### Core Drivers\n\n*Policy and emissions constraints:* The Net Zero pathway introduces emissions caps for the power sector and industry, accompanied by a phaseout of high-emitting assets with supportive policies for early coal retirement. These ensure that Vietnam's emissions peak by 2030 and achieve neutrality by 2050.\n\n*Technology costs and deployment:* The Net Zero pathway is cost-optimized within the core emissions constraints. The interaction between falling renewable energy costs and expanded land availability for solar and wind shifts the least-cost solution of Vietnam's energy system toward large-scale renewable energy deployment. Solar is the largest contributor due to its low investment costs and distributed location, doubling its share in the power mix by 2030 and reaching 42% of generation in 2050.\n\n#### Application to Transition Assessment\n\nEREA's Net Zero pathway is a normative scenario encoding both aspirational policy objectives and least-cost optimization, offering useful transition benchmarks for corporate planning for Vietnam. It quantifies both the timing and the scale of the change required, providing practitioners a reference for feasibility analysis and corporate transition planning. As a single-country pathway, the Net Zero pathway does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nFor corporate transition assessment, the Net Zero scenario provides useful benchmarks for assessing the alignment of a company's plan with a cost-efficient pathway to achieve net-zero objectives. Misalignment to the Net Zero pathway may be a useful indicator of potential future risks such as noncompliance with evolving energy policies or reduced competitiveness where low-carbon technologies are being prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. However, as the Net Zero pathway includes significant aspirational goals and policies that have not been implemented, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness.\n\nThe inclusion of detailed technology costs and deployment projections in a cost-optimized model makes the Net Zero pathway a strong candidate for contextualizing the commercial and technical feasibility of transition strategies under a net-zero-by-2050 ambition.\n\nThe Net Zero pathway includes 10-year resolution projections for generation and capacity using a detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Net Zero pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
   "metric": [

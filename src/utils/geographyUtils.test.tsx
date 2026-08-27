@@ -4,9 +4,12 @@ import {
   sortGeographiesForDetails,
   normalizeGeography,
   assertKnownCountryISO2,
+  pathwayISOCoverage,
+  isGeographyAbsent,
+  regionMemberCodes,
 } from "./geographyUtils";
 import { makeGeographyOptions } from "./searchUtils";
-import type { PathwayMetadataType } from "../types";
+import type { Geography, PathwayMetadataType } from "../types";
 
 describe("normalizeGeography", () => {
   it("normalizeGeography drops zero-width and NBSP then trims", () => {
@@ -89,6 +92,27 @@ describe("sortGeographiesForDetails", () => {
     const out = sortGeographiesForDetails(input);
     expect(out).toEqual(["Global", "Region B", "Region A", "DE", "DK"]);
   });
+
+  it("returns [] for non-array input instead of throwing", () => {
+    // Callers should flatten structured geography first, but guard defensively:
+    // a raw Geography object (or nullish) must degrade to [], not crash with
+    // `input.map is not a function`.
+    const structuredGeography = {
+      global: true,
+      regions: { Europe: [] },
+      country: ["US"],
+    };
+    expect(() =>
+      sortGeographiesForDetails(structuredGeography as unknown as unknown[]),
+    ).not.toThrow();
+    expect(
+      sortGeographiesForDetails(structuredGeography as unknown as unknown[]),
+    ).toEqual([]);
+    expect(sortGeographiesForDetails(null as unknown as unknown[])).toEqual([]);
+    expect(
+      sortGeographiesForDetails(undefined as unknown as unknown[]),
+    ).toEqual([]);
+  });
 });
 
 describe("assertKnownCountryISO2 (strict ISO2 validation)", () => {
@@ -106,6 +130,24 @@ describe("assertKnownCountryISO2 (strict ISO2 validation)", () => {
   });
 });
 
+// Build the structured geography object from a flat list of tokens by
+// classifying each one (global / region label / country code). flattenGeography
+// is the inverse, so makeGeographyOptions sees the same tokens as before.
+const toGeographyObject = (tokens: string[]) => {
+  const geo: {
+    global?: boolean;
+    regions?: Record<string, string[]>;
+    country?: string[];
+  } = {};
+  for (const t of tokens) {
+    const kind = geographyKind(t);
+    if (kind === "global") geo.global = true;
+    else if (kind === "country") (geo.country ??= []).push(t);
+    else (geo.regions ??= {})[t] = [];
+  }
+  return geo;
+};
+
 const mkPathway = (id: string, geography: string[]): PathwayMetadataType =>
   ({
     id,
@@ -114,7 +156,7 @@ const mkPathway = (id: string, geography: string[]): PathwayMetadataType =>
     pathwayType: "Mitigation",
     modelYearEnd: 2050,
     modelTempIncrease: 1.5,
-    geography,
+    geography: toGeographyObject(geography),
     sectors: [],
     publisher: "RMI",
     publicationYear: 2024,
@@ -161,5 +203,111 @@ describe("makeGeographyOptions", () => {
     const opts = makeGeographyOptions(pathways);
     expect(opts.map((o) => o.value)).toEqual(["CN"]);
     expect(opts.map((o) => o.label)).toEqual(["People's Republic of China"]);
+  });
+});
+
+describe("pathwayISOCoverage", () => {
+  it("unions country[] and all region members", () => {
+    const cov = pathwayISOCoverage({
+      regions: { "South East Asia": ["ID", "TH"], "Europe": ["DE"] },
+      country: ["US"],
+    });
+    expect([...cov].sort()).toEqual(["DE", "ID", "TH", "US"]);
+  });
+
+  it("does NOT expand the global flag (global-only → empty set)", () => {
+    expect(pathwayISOCoverage({ global: true }).size).toBe(0);
+  });
+
+  it("drops invalid / non-ISO entries and handles missing/empty geography", () => {
+    // "USA" (3 letters) and "" fail toISO2; "ZZ" is two letters but not a real
+    // country, so it must be dropped too (result is only recognised codes).
+    expect([
+      ...pathwayISOCoverage({ country: ["US", "USA", "", "ZZ"] }),
+    ]).toEqual(["US"]);
+    expect(pathwayISOCoverage(undefined).size).toBe(0);
+    expect(pathwayISOCoverage({}).size).toBe(0);
+    expect(pathwayISOCoverage({ regions: { X: [] } }).size).toBe(0);
+  });
+});
+
+describe("regionMemberCodes", () => {
+  it("returns the pathway's own members for a region, A→Z by ISO2", () => {
+    expect(
+      regionMemberCodes(
+        {
+          regions: {
+            "South East Asia": ["VN", "ID", "TH"],
+            "Europe": ["DE"],
+          },
+          country: ["US"],
+        },
+        "South East Asia",
+      ),
+    ).toEqual(["ID", "TH", "VN"]);
+  });
+
+  it("matches the label by its normalized form", () => {
+    // The badge token comes from flattenGeography, so the lookup has to survive
+    // stray whitespace / zero-width characters on either side.
+    const geo = { regions: { " South East Asia ": ["ID"] } } as Geography;
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["ID"]);
+    expect(
+      regionMemberCodes({ regions: { Europe: ["DE"] } }, "\u200BEurope"),
+    ).toEqual(["DE"]);
+  });
+
+  it("returns [] for a region the publication left unmapped", () => {
+    // The NGFS shape: a declared region label with no member codes.
+    expect(
+      regionMemberCodes(
+        { regions: { "South East Asia": [] } },
+        "South East Asia",
+      ),
+    ).toEqual([]);
+  });
+
+  it("returns [] for labels that are not one of the pathway's regions", () => {
+    const geo: Geography = { regions: { Europe: ["DE"] }, country: ["US"] };
+    expect(regionMemberCodes(geo, "Africa")).toEqual([]);
+    expect(regionMemberCodes(geo, "US")).toEqual([]); // a country, not a region
+    expect(regionMemberCodes(geo, "Global")).toEqual([]);
+    expect(regionMemberCodes(geo, "")).toEqual([]);
+  });
+
+  it("returns [] when there is no geography or no regions at all", () => {
+    expect(regionMemberCodes(undefined, "Europe")).toEqual([]);
+    expect(regionMemberCodes(null, "Europe")).toEqual([]);
+    expect(regionMemberCodes({}, "Europe")).toEqual([]);
+    expect(
+      regionMemberCodes({ global: true, country: ["US"] }, "Europe"),
+    ).toEqual([]);
+  });
+
+  it("drops entries that are not recognised ISO-3166-1 alpha-2 codes", () => {
+    // Same filter as pathwayISOCoverage: "USA" is 3 letters, "ZZ" is two letters
+    // but not a real country, "" is blank.
+    const geo = {
+      regions: { Mixed: ["US", "USA", "", "ZZ", "de"] },
+    } as unknown as Geography;
+    expect(regionMemberCodes(geo, "Mixed")).toEqual(["DE", "US"]);
+  });
+
+  it("collapses duplicate codes", () => {
+    const geo = {
+      regions: { Doubled: ["TH", "th", "TH", "ID"] },
+    } as unknown as Geography;
+    expect(regionMemberCodes(geo, "Doubled")).toEqual(["ID", "TH"]);
+  });
+});
+
+describe("isGeographyAbsent", () => {
+  it("is true only when flattening yields no tokens", () => {
+    expect(isGeographyAbsent(undefined)).toBe(true);
+    expect(isGeographyAbsent({})).toBe(true);
+    // A region label with empty members is still PRESENT (carries a token).
+    expect(isGeographyAbsent({ regions: { X: [] } })).toBe(false);
+    expect(isGeographyAbsent({ global: true })).toBe(false);
+    expect(isGeographyAbsent({ country: ["US"] })).toBe(false);
   });
 });

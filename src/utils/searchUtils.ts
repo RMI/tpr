@@ -3,7 +3,16 @@ import {
   normalizeGeography,
   geographyLabel,
   sortGeographiesForDetails,
+  flattenGeography,
+  pathwayISOCoverage,
+  isGeographyAbsent,
 } from "./geographyUtils";
+import {
+  FILTER_REGION_LABELS,
+  GLOBAL_REGION_LABEL,
+  ALL_COUNTRY_CODES,
+  selectedGeographyToISO,
+} from "./filterRegions";
 import { matchesOptionalFacetAny, matchesOptionalFacetAll } from "./facets";
 import { ABSENT_FILTER_TOKEN } from "./absent";
 import { buildOptionsFromValues, hasAbsent, withAbsentOption } from "./facets";
@@ -37,9 +46,21 @@ export function getGlobalFacetOptions(pathways: PathwayMetadataType[]) {
     pathways.map((d) => d.modelTempIncrease),
   );
 
-  // Geography (structured options via makeGeographyOptions)
-  const geographyOptionsRaw: GeoOption[] = makeGeographyOptions(pathways);
-  const sawAbsentGeography = hasAbsent(pathways.map((d) => d.geography));
+  // Geography: the dropdown vocabulary is the predetermined filter-region set
+  // (#797/#783) — "Global", every defined multi-country region, and all ISO
+  // countries — sourced from filterRegions.ts, NOT scanned from pathway data.
+  const geographyOptionsRaw: GeoOption[] = geographyFilterOptions();
+  // A pathway counts as "absent" geography (surfacing the "None" facet) when
+  // flattening yields no tokens — i.e. an empty/missing geography object. Note
+  // this is stricter than the old flat-array model, where an empty `[]` was
+  // treated as present (`[] != null`); an empty structured object now maps to
+  // `null` here and is reported as absent.
+  const sawAbsentGeography = hasAbsent(
+    pathways.map((d) => {
+      const flat = flattenGeography(d.geography);
+      return flat.length > 0 ? flat : null;
+    }),
+  );
   const geographyOptions = withAbsentOption(
     geographyOptionsRaw,
     sawAbsentGeography,
@@ -152,12 +173,32 @@ function matchesNumericRange(
   return gteMin && lteMax;
 }
 
+// The geography dropdown vocabulary (#797). Fixed, publication-independent set:
+// "Global", every defined multi-country filter region, and all ISO countries —
+// so the same region can be filtered regardless of how any single pathway named
+// it, and countries a pathway never lists are still selectable. Sorted
+// global → regions → countries (A→Z) and labelled via geographyLabel (country
+// full names; "Global"/region labels pass through). The ABSENT/"None" option is
+// added separately by the caller, gated on the data actually having gaps.
+export function geographyFilterOptions(): GeoOption[] {
+  const values: string[] = [
+    GLOBAL_REGION_LABEL,
+    ...FILTER_REGION_LABELS,
+    ...ALL_COUNTRY_CODES,
+  ];
+  const sorted = sortGeographiesForDetails(values);
+  return sorted.map((v) => ({ value: v, label: geographyLabel(v) }));
+}
+
+// NOTE (#797): superseded by geographyFilterOptions as the dropdown source —
+// the vocabulary no longer comes from scanning pathway data. Kept (and still
+// unit-tested) for now; safe to remove in a follow-up once no longer referenced.
 export function makeGeographyOptions(
   pathways: PathwayMetadataType[],
 ): GeoOption[] {
   const seen = new Set<string>();
   for (const s of pathways) {
-    for (const g of s.geography ?? []) {
+    for (const g of flattenGeography(s.geography)) {
       const v = normalizeGeography(g);
       if (v) seen.add(v);
     }
@@ -173,7 +214,7 @@ export function makeGeographyOptions(
 // - "download": pathway id exists in index.byPathway
 // - "link": has link to data set
 // - "unavailable": otherwise
-export type DataAvailability = "Download" | "Foo" | "Unavailable";
+export type DataAvailability = "Download" | "Link" | "Unavailable";
 
 function availabilityFor(pathway: PathwayMetadataType): DataAvailability {
   const hasDownload = Boolean(index?.byPathway?.[pathway.id]);
@@ -317,28 +358,55 @@ export const filterPathways = (
       }
     }
 
-    // Geography filter (array + mode + missing-aware + normalization)
+    // Geography filter (#797/#783): match by ISO-code overlap, not label text.
+    // Each selection is expanded to its ISO set (region → members, country →
+    // singleton, "Global" → special, "None" → the empty-geography bucket) and
+    // compared against the pathway's ISO coverage. This is inclusion only —
+    // ranking/containment scoring belongs to #869.
     {
       const selected = toArray(filters.geography);
-      const norm = (s: string) => normalizeGeography(s).toUpperCase();
-      // IMPORTANT: preserve the ABSENT token; only normalize concrete selections
-      const normalizedSelected = selected.map((t) =>
-        t === ABSENT_FILTER_TOKEN ? t : norm(t),
-      );
-      const mode = pickMode("geography", filters.modes);
-      const ok =
-        mode === "ALL"
-          ? matchesOptionalFacetAll(
-              normalizedSelected,
-              pathway.geography ?? [],
-              (g) => norm(g),
-            )
-          : matchesOptionalFacetAny(
-              normalizedSelected,
-              pathway.geography ?? [],
-              (g) => norm(g),
-            );
-      if (!ok) return false;
+      if (selected.length > 0) {
+        const mode = pickMode("geography", filters.modes);
+
+        let wantAbsent = false;
+        let wantGlobal = false;
+        const isoSets: Set<string>[] = [];
+        for (const token of selected) {
+          const d = selectedGeographyToISO(token);
+          if (d.kind === "absent") wantAbsent = true;
+          else if (d.kind === "global") wantGlobal = true;
+          else isoSets.push(d.iso);
+        }
+
+        const geo = pathway.geography;
+        const pGlobal = !!(
+          geo &&
+          typeof geo === "object" &&
+          !Array.isArray(geo) &&
+          geo.global === true
+        );
+        const pCoverage = pathwayISOCoverage(geo);
+        const pAbsent = isGeographyAbsent(geo);
+
+        // An empty selection set (unknown/legacy token) overlaps nothing, so a
+        // stale selection can never spuriously match — and a global-only
+        // pathway has empty coverage, so a below-global filter never keeps it.
+        const overlaps = (set: Set<string>) => {
+          if (set.size === 0) return false;
+          for (const code of set) if (pCoverage.has(code)) return true;
+          return false;
+        };
+
+        const ok =
+          mode === "ALL"
+            ? (!wantAbsent || pAbsent) &&
+              (!wantGlobal || pGlobal) &&
+              isoSets.every(overlaps)
+            : (wantAbsent && pAbsent) ||
+              (wantGlobal && pGlobal) ||
+              isoSets.some(overlaps);
+        if (!ok) return false;
+      }
     }
 
     // Sector filter (array + mode + missing-aware)
@@ -468,6 +536,7 @@ export const filterPathways = (
     // Search term
     if (filters.searchTerm && filters.searchTerm.trim() !== "") {
       const searchTerm = filters.searchTerm.toLowerCase();
+      const geographyTokens = flattenGeography(pathway.geography);
       const searchFields = [
         pathway.name.full,
         pathway.name.short,
@@ -475,8 +544,8 @@ export const filterPathways = (
         pathway.pathwayType,
         pathway.modelYearNetzero,
         pathway.modelTempIncrease,
-        ...pathway.geography,
-        ...pathway.geography.map((s) => geographyLabel(s)),
+        ...geographyTokens,
+        ...geographyTokens.map((s) => geographyLabel(s)),
         ...pathway.sectors.map((s) => s.name),
         ...pathway.metric,
         pathway.publication.publisher.full,

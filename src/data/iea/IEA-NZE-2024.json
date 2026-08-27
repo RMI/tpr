@@ -2,7 +2,10 @@
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "IEA-NZE-2024",
   "publication": {
-    "title": { "full": "World Energy Outlook 2024", "short": "WEO" },
+    "title": {
+      "full": "World Energy Outlook 2024",
+      "short": "WEO"
+    },
     "publisher": {
       "full": "International Energy Agency",
       "short": "IEA"
@@ -21,22 +24,48 @@
       }
     ]
   },
-  "name": { "full": "Net Zero Emissions by 2050 Scenario", "short": "NZE" },
+  "name": {
+    "full": "Net Zero Emissions by 2050 Scenario",
+    "short": "NZE"
+  },
   "description": "Normative global 1.5°C aligned pathway that achieves net zero emissions by 2050.",
-  "geography": ["Global"],
+  "geography": {
+    "global": true
+  },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.5,
   "modelYearStart": 2023,
   "modelYearEnd": 2100,
   "modelYearNetzero": 2050,
   "sectors": [
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -52,10 +81,22 @@
         "Other"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe IEA Net Zero Emissions by 2050 (NZE) Scenario is a normative 1.5 aligned pathway, outlining how the global energy sector can reach net zero CO2 emissions by 2050. It assumes that advanced economies achieve net zero earlier (by mid 2040s), with emerging markets following by 2050. As a normative scenario, the NZE provides a detailed description of one pathway to reach a targeted future state, but it does not attempt to predict which policies or outcomes are most probable. The NZE pathway corresponds to a 50% probability of 1.5°C of warming by 2100. This is a more ambitious outcome than the IEA’s Announced Pledges Scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), indicating a significant gap remains between announced governmental pledges and the trajectory described by the NZE pathway.\n\n#### Core Drivers\n\nThe NZE pathway is driven through a combination of wide-reaching policy, significant cost declines for existing green technologies, significant efficiency improvement and demand shifts, and the introduction of significant new technologies.\n\n*Policy:* The NZE pathway expands upon the policies considered in the APS pathway, most notably by introducing a more significant global carbon price for power, industry, and transport. A carbon price is introduced in all regions by 2030, with prices rising to USD$250/tCO2 in advanced economies, and USD$200/tCO2 in major emerging markets by 2050. Additionally, while the IEA NZE makes note of how the phase-out of fossil fuel subsidies need to be carefully designed to limit impacts on household budgets, they are largely removed in the NZE by 2030.\n\n*Technology costs:* The IEA NZE pathway assumes an S-curve trajectory of cost decline, with rapid early reductions as deployment scales up, followed by gradual flattening. This pattern applies across most renewables and transition technologies, including solar PV, offshore wind, battery EVs, and hydrogen fuel cells.\n\n*Technology shifts:* The NZE pathway is primarily driven by the rapid deployment of clean technology. Renewable energy capacity, led by solar PV and wind, approximately triples between 2023 and 2030, and reaches nearly 90% of global electricity by 2050. EVs account for approximately 60% of new car sales by 2030, and dominate the global fleet by 2050. Additionally, CCUS scales from 40Mt in 2023 to over 1Gt in 2030, and over 6Gt in 2050. This rapid expansion of clean technologies enables the peak of unabated fossil-fuel demand before 2030 and its subsequent decline by about 80% by 2050, marking the global phase down of coal, oil, and gas. \n\n*Falling energy demand:* The NZE pathway models significant energy efficiency improvements, alongside meaningful shifts in individual consumption patterns, which significantly reduce potential energy demand. Total energy consumption in the NZE pathway falls from well over 400 EJ in 2023 to under 350 EJ in 2050, a much larger decline than is observed in most similar pathways.\n\n#### Application to Transition Assessment\n\nIEA NZE is a global, temperature constrained normative scenario. As such, the NZE provides a direct connection between the described pathway and a global temperature outcome. It is well-suited for science-based target setting and net zero strategy alignment and is one of the most widely-used pathways to benchmark strategies against a projected 1.5°C temperature rise.\n\nAs a normative pathway, NZE models a potential pathway to achieve a target temperature outcome and introduces significant new policies and market shifts as part of the process. As a result, (mis)alignment to the NZE pathway is less directly connected to regulatory risk or potential shifts in market share, as objectives within the NZE pathway may differ significantly from currently stated jurisdictional goals. Users interested in assessing the policy alignment or technological and commercial feasibility of corporate transition strategies should review where underlying NZE assumptions diverge from current trends, and consider supplementing NZE with additional pathways that model a range of different policies and technology developments.\n\nThe NZE provides benchmark data on 5- and 10-year intervals and uses a moderately detailed breakdown of specific generation technologies such as coal, onshore wind, offshore wind, solar PV, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers. However, NZE provides data only at the global level. This limits its suitability for assessing region- or jurisdiction-specific implications for company transition strategies.",
   "metric": [

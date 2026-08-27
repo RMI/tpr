@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "react-router";
 import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
 import BadgeArray from "../components/BadgeArray";
 import {
+  flattenGeography,
   geographyKind,
   geographyLabel,
   geographyVariant,
   normalizeGeography,
   sortGeographiesForDetails,
+  REGION_MAPPING_DISCLAIMER,
 } from "../utils/geographyUtils";
 import { ArrowLeft, Info } from "lucide-react";
 import {
@@ -28,6 +30,7 @@ import PublicationBlock from "../components/PublicationBlock";
 import { PlotSelector, TimeSeries } from "../components/PlotSelector";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import TextWithTooltip from "../components/TextWithTooltip";
+import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import {
   pathwayToolAvailability,
   sortByAvailability,
@@ -117,7 +120,7 @@ const PathwayDetailPage: React.FC = () => {
   const sortedGeos = useMemo(
     () =>
       sortByAvailability(
-        sortGeographiesForDetails(pathway?.geography ?? []),
+        sortGeographiesForDetails(flattenGeography(pathway?.geography)),
         (geo) => availability.hasGeography(geo),
       ),
     [pathway, availability],
@@ -305,7 +308,16 @@ const PathwayDetailPage: React.FC = () => {
                         className="text-rmigray-400 cursor-help"
                       />
                     }
-                    tooltip={GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                    tooltip={
+                      <>
+                        <span className="block">
+                          {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                        </span>
+                        <span className="mt-2 block italic">
+                          {REGION_MAPPING_DISCLAIMER}
+                        </span>
+                      </>
+                    }
                     ariaLabel="Geography availability information"
                     position="right"
                   />
@@ -318,6 +330,14 @@ const PathwayDetailPage: React.FC = () => {
                       : `${base}-pub`;
                   })}
                   toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+                  tooltipGetter={(geo) =>
+                    geographyKind(geo) === "region" ? (
+                      <RegionMembersTooltip
+                        geography={pathway.geography}
+                        label={geo}
+                      />
+                    ) : undefined
+                  }
                   visibleCount={Infinity}
                 >
                   {sortedGeos}

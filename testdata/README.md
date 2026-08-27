@@ -1,4 +1,4 @@
-# PBTAR Test data
+# TPR Test data
 
-The files in this directory contain testing data for PBTAR.
+The files in this directory contain testing data for TPR.
 These are not real pathways.

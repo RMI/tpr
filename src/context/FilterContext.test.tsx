@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter, Routes, Route, Link } from "react-router-dom";
+import { MemoryRouter, Routes, Route, Link } from "react-router";
 import userEvent from "@testing-library/user-event";
 import {
   FilterProvider,

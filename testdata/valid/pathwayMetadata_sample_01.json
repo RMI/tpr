@@ -1,10 +1,17 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
   "id": "sample-01",
-  "name": { "full": "Sample Pathway 01" },
+  "name": {
+    "full": "Sample Pathway 01"
+  },
   "publication": {
-    "title": { "full": "Example Title" },
-    "publisher": { "full": "ASEAN Centre for Energy", "short": "ACE" },
+    "title": {
+      "full": "Example Title"
+    },
+    "publisher": {
+      "full": "ASEAN Centre for Energy",
+      "short": "ACE"
+    },
     "year": 2024
   },
   "description": "First Sample Pathway. qwerty description.",
@@ -13,9 +20,14 @@
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "modelTempIncrease": 1,
-  "geography": ["Global"],
+  "geography": {
+    "global": true
+  },
   "sectors": [
-    { "name": "Land Use", "technologies": ["Precision Agriculture"] }
+    {
+      "name": "Land Use",
+      "technologies": ["Precision Agriculture"]
+    }
   ],
   "pathwayOverview": "QWERTY Overview.",
   "expertOverview": "Example Expert Recommendation.",

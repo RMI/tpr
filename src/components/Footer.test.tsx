@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router";
 import Footer from "./Footer";
 
 describe("Footer component", () => {
@@ -33,7 +33,7 @@ describe("Footer component", () => {
     expect(feedbackLink).toBeInTheDocument();
     expect(feedbackLink.closest("a")).toHaveAttribute(
       "href",
-      "mailto:tomwhite+pbtar@rmi.org",
+      "mailto:tomwhite+tpr@rmi.org",
     );
   });
 

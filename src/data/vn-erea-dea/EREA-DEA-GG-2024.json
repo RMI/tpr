@@ -17,22 +17,51 @@
       }
     ]
   },
-  "name": { "full": "Green Growth Scenario", "short": "GG" },
+  "name": {
+    "full": "Green Growth Scenario",
+    "short": "GG"
+  },
   "description": "Net-zero pathway with economic shifts toward low-emissions-intensity sectors.",
-  "geography": ["VN"],
+  "geography": {
+    "country": ["VN"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
-    { "name": "Agriculture", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -46,11 +75,26 @@
         "Nuclear"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Green Growth scenario is a variation of the Net-Zero pathway that focuses on a less energy-intensive economic development trajectory, while still achieving the country's 2050 net-zero target. It assumes a faster shift in GDP contributions away from energy-intensive industries and toward the services sector, while maintaining the same overall GDP growth rate. This means that while the growth in energy demand in Vietnam is still high under this scenario, it is lower than that of other scenarios.\n\nIn this scenario, the structure of the economy shifts, with industry's share of GDP dropping to 30% (as opposed to 40% in the regular Net Zero case), while services grow to 60% (as opposed to 50%). Other than this shift, the Green Growth scenario does not introduce new climate policies or technology cost changes beyond the Net Zero scenario, and any differences are due to the changes in economic composition.\n\n#### Core Drivers\n\n*Macroeconomic shifts:* The principal driver for the Green Growth pathway is the shift from heavy industry to services and high-value manufacturing. This lowers the emissions intensity while sustaining GDP growth. Cumulative emissions are 21% lower than the Baseline scenario and 6% lower than the Net Zero scenario. By moderating output in heavy industry like steel and cement, this scenario achieves energy savings and reduces demand for carbon capture and storage compared to the Net Zero scenario.\n\n*Industrial composition:* Within industry, the scenario prioritizes high-value, lower-intensity products like electronics, chips, semiconductors, batteries, and automobiles. This reduces the relative share of carbon-intensive subsectors like cement and steel, cutting the overall energy intensity of industrial production. In this shift, workforce retraining enables labor mobility from these heavier industries into industries that are higher-value.\nOther core drivers, such as policy landscape and technology costs, are shared with EREA's Net Zero pathway.\n\n#### Application to Transition Assessment\n\nThe Green Growth scenario provides a structural economic lens for transition analysis, showing how changes in economic composition (rather than just technology policy) can shape energy demand, investment, and emissions outcomes. As a single-country pathway, the Green Growth pathway does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nThe Green Growth pathway has similar applications and interpretations to EREA's Net Zero pathway. Users may opt for the Green Growth pathway if they perceive the economic assumptions underpinning Green Growth's shifts as more plausible than the Net Zero base case scenario, or they may combine both pathways to identify sensitivity in corporate plans to sectoral shifts. Under the Green Growth pathway, companies in heavy industry and energy-intensive sectors may face slower growth and capital contraction in comparison to service-oriented and high-value manufacturing firms. Misalignment with this pathway could therefore signal potential long-term risk for firms whose business models rely on large amounts of energy consumption per unit of output.\n\nThe Green Growth pathway includes 10-year resolution projections for generation and capacity using a detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Green Growth pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
   "metric": [

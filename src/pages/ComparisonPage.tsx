@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
@@ -10,10 +10,12 @@ import {
 } from "../utils/timeseriesIndex";
 import { TimeSeries } from "../components/PlotSelector";
 import {
+  flattenGeography,
   geographyKind,
   geographyLabel,
   geographyVariant,
   normalizeGeography,
+  REGION_MAPPING_DISCLAIMER,
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import BadgeArray from "../components/BadgeArray";
@@ -133,7 +135,7 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
     {pathways.map((pathway, idx) => {
       const availability = availabilities[idx];
       const sorted = sortByAvailability(
-        sortGeographiesForDetails(pathway.geography ?? []),
+        sortGeographiesForDetails(flattenGeography(pathway.geography)),
         (geo) => availability.hasGeography(geo),
       );
       return (
@@ -336,10 +338,19 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
-              tooltip={GEOGRAPHY_AVAILABILITY_TOOLTIP}
+              tooltip={
+                <>
+                  <span className="block">
+                    {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                  </span>
+                  <span className="mt-2 block italic">
+                    {REGION_MAPPING_DISCLAIMER}
+                  </span>
+                </>
+              }
               ariaLabel="Geography availability information"
               position="right"
             />
@@ -363,7 +374,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={SECTOR_AVAILABILITY_TOOLTIP}
@@ -409,7 +420,7 @@ const ComparisonPage: React.FC = () => {
               text={
                 <Info
                   size={14}
-                  className="text-rmigray-400 cursor-help"
+                  className="text-white/80 cursor-help"
                 />
               }
               tooltip={METRIC_AVAILABILITY_TOOLTIP}

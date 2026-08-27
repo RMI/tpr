@@ -15,7 +15,7 @@ export type EmissionsScope =
   import("./common/emissionsScope.v1").EmissionsScopeV1;
 
 /**
- * A schema for the pathway timeseries dataset in PBTAR.
+ * A schema for the pathway timeseries dataset in TPR.
  */
 export interface PathwayTimeseriesV1 {
   /**

@@ -29,7 +29,9 @@
     "short": "EP LA"
   },
   "description": "Business-as-usual pathway with significant hydropower and coal use.",
-  "geography": ["LA"],
+  "geography": {
+    "country": ["LA"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2020,
   "modelYearEnd": 2050,

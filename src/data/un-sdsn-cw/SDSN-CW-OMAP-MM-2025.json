@@ -29,7 +29,9 @@
     "short": "OMAP MM"
   },
   "description": "Myanmar-specific high ambition near-zero emissions pathway.",
-  "geography": ["MM"],
+  "geography": {
+    "country": ["MM"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,

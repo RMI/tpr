@@ -17,9 +17,14 @@
       }
     ]
   },
-  "name": { "full": "Existing Policy Scenario MY", "short": "EP MY" },
+  "name": {
+    "full": "Existing Policy Scenario MY",
+    "short": "EP MY"
+  },
   "description": "Extrapolation of current policy and market conditions for Malaysia’s energy system.",
-  "geography": ["MY"],
+  "geography": {
+    "country": ["MY"]
+  },
   "pathwayType": "Predictive",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,

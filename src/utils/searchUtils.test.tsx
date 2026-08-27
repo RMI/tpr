@@ -1,7 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { filterPathways, getGlobalFacetOptions } from "./searchUtils";
+import {
+  filterPathways,
+  getGlobalFacetOptions,
+  geographyFilterOptions,
+} from "./searchUtils";
 import type { FiltersWithArrays } from "./searchUtils";
 import { ABSENT_FILTER_TOKEN } from "./absent";
+import { FILTER_REGION_LABELS, ALL_COUNTRY_CODES } from "./filterRegions";
 import { PathwayMetadataType, SearchFilters } from "../types";
 
 import sample01 from "../../testdata/valid/pathwayMetadata_sample_01.json" assert { type: "json" };
@@ -159,13 +164,12 @@ const mockFullPathways: PathwayMetadataType[] = [rawFullPathway];
 describe("searchUtils - array results", () => {
   //
   // Mock pathway data
-  const geography: string[] = [
-    "Global",
-    "Europe and Central Asia",
-    "North America",
-    "South East Asia",
-    "US",
-  ];
+  // Tokens from the #797 filter vocabulary that all resolve, by ISO overlap, to
+  // the full pathway's coverage ({DE,FR,GB,US,CA,MX,ID,TH,VN} + global):
+  //   "Global"          → whole-world flag
+  //   "Southeast Asia"  → defined filter region; overlaps SEA members ID/TH/VN
+  //   "DE"/"CA"/"US"    → ISO codes present via region members / standalone
+  const geography: string[] = ["Global", "Southeast Asia", "DE", "CA", "US"];
 
   const sectors: string[] = [
     "Land Use",
@@ -229,7 +233,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "B",
       name: "B",
       sectors: [{ name: "Power" }],
-      geography: ["Europe"],
+      geography: { regions: { Europe: [] } },
       modelTempIncrease: 2.0,
       pathwayType: "Normative",
       modelYearNetzero: 2040,
@@ -241,7 +245,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "C",
       name: "C",
       sectors: [{ name: "Steel" }],
-      geography: ["Asia"],
+      geography: { regions: { Asia: [] } },
       modelTempIncrease: 1.5,
       pathwayType: "Exploratory",
       modelYearNetzero: 2030,
@@ -299,24 +303,26 @@ describe("filterPathways (array-backed facets)", () => {
   });
 
   it("geography: ALL mode requires all tokens; ANY is default", () => {
-    // Add a pathway with two geos
+    // Matching is by ISO overlap, so use country codes: B covers DE, C covers
+    // JP, and B2 covers both.
     const many: PathwayMetadataType[] = [
-      ...pathways,
+      { ...pathways[1], id: "B", name: "B", geography: { country: ["DE"] } },
+      { ...pathways[2], id: "C", name: "C", geography: { country: ["JP"] } },
       {
         ...pathways[1],
         id: "B2",
         name: "B2",
-        geography: ["Europe", "Asia"],
+        geography: { country: ["DE", "JP"] },
       },
     ];
-    // ANY (default): Europe OR Asia → B, C, B2
+    // ANY (default): DE OR JP → B, C, B2
     let out = filterPathways(many, {
-      geography: ["Europe", "Asia"],
+      geography: ["DE", "JP"],
     });
     expect(out.map((s) => s.id)).toEqual(["B", "C", "B2"]);
-    // ALL: must have both → only B2
+    // ALL: must cover both → only B2
     out = filterPathways(many, {
-      geography: ["Europe", "Asia"],
+      geography: ["DE", "JP"],
       modes: { geography: "ALL" },
     });
     expect(out.map((s) => s.id)).toEqual(["B2"]);
@@ -508,5 +514,148 @@ describe("getGlobalFacetOptions", () => {
     expect(sectorOptions.map((o) => o.label)).toContain("None");
     // geographyOptions uses withAbsentOption; presence of ABSENT is encoded as an extra option
     expect(geographyOptions.map((o) => o.label)).toContain("None");
+  });
+});
+
+describe("geography ISO-overlap matching (#797/#783)", () => {
+  // Fixtures with POPULATED region members — matching is by ISO overlap, so
+  // empty-member regions carry no coverage. Note SEA uses the pathway spelling
+  // "South East Asia" while the filter vocabulary uses "Southeast Asia": the
+  // matcher compares ISO members, never the label string.
+  const p = (
+    id: string,
+    geography: PathwayMetadataType["geography"],
+  ): PathwayMetadataType =>
+    ({ id, name: id, geography }) as PathwayMetadataType;
+
+  const pathways: PathwayMetadataType[] = [
+    p("g", { global: true }),
+    p("sea", { regions: { "South East Asia": ["ID", "TH", "VN"] } }),
+    p("cn", { country: ["CN"] }),
+    p("mix", {
+      global: true,
+      regions: { "Europe and Central Asia": ["DE", "FR"] },
+      country: ["US"],
+    }),
+    p("mix2", {
+      global: true,
+      regions: { "South East Asia": ["TH"] },
+      country: ["US"],
+    }),
+    p("empty", {}),
+    p("emptyreg", { regions: { "South East Asia": [] } }),
+  ];
+  const ids = (f: SearchFilters) =>
+    filterPathways(pathways, f).map((x) => x.id);
+
+  it("'Global' keeps only whole-world pathways", () => {
+    expect(ids({ geography: ["Global"] })).toEqual(["g", "mix", "mix2"]);
+  });
+
+  it("a defined region matches by ISO overlap and excludes global-only pathways", () => {
+    // "Southeast Asia" (10 ASEAN codes) overlaps sea (ID/TH/VN) and mix2 (TH),
+    // but not the global-only 'g' (empty coverage) despite its global flag.
+    expect(ids({ geography: ["Southeast Asia"] })).toEqual(["sea", "mix2"]);
+  });
+
+  it("region label spelling differences don't matter (ISO members compared)", () => {
+    // sea's key is "South East Asia"; the filter label is "Southeast Asia".
+    expect(ids({ geography: ["Southeast Asia"] })).toContain("sea");
+  });
+
+  it("a single country code matches via country and via region members", () => {
+    expect(ids({ geography: ["CN"] })).toEqual(["cn"]);
+    // US appears as a standalone country of mix/mix2.
+    expect(ids({ geography: ["US"] })).toEqual(["mix", "mix2"]);
+  });
+
+  it("a country present only in a region's members still matches", () => {
+    // DE is a member of mix's "Europe and Central Asia" region, not its country[].
+    expect(ids({ geography: ["DE"] })).toEqual(["mix"]);
+  });
+
+  it("an unknown/legacy token matches nothing and never throws", () => {
+    expect(ids({ geography: ["Europe"] })).toEqual([]);
+  });
+
+  it("a valid ISO code no pathway covers yields no matches", () => {
+    expect(ids({ geography: ["AQ"] })).toEqual([]);
+  });
+
+  it("ABSENT/'None' matches only empty geography, not empty-member regions", () => {
+    expect(ids({ geography: [ABSENT_FILTER_TOKEN] })).toEqual(["empty"]);
+  });
+
+  it("ANY unions selections; ALL requires overlap with every selection", () => {
+    expect(ids({ geography: ["Southeast Asia", "US"] })).toEqual([
+      "sea",
+      "mix",
+      "mix2",
+    ]);
+    expect(
+      ids({
+        geography: ["Southeast Asia", "US"],
+        modes: { geography: "ALL" },
+      }),
+    ).toEqual(["mix2"]);
+  });
+
+  it("ALL with Global + a region needs both the global flag and ISO overlap", () => {
+    expect(
+      ids({
+        geography: ["Global", "Southeast Asia"],
+        modes: { geography: "ALL" },
+      }),
+    ).toEqual(["mix2"]);
+  });
+
+  it("ALL with ABSENT + a concrete code is unsatisfiable", () => {
+    expect(
+      ids({
+        geography: [ABSENT_FILTER_TOKEN, "CN"],
+        modes: { geography: "ALL" },
+      }),
+    ).toEqual([]);
+  });
+
+  it("no geography filter returns everything", () => {
+    expect(ids({ geography: [] }).length).toBe(pathways.length);
+  });
+});
+
+describe("geographyFilterOptions (#797 dropdown vocabulary)", () => {
+  it("is the fixed filter vocabulary: Global + defined regions + all ISO countries", () => {
+    const opts = geographyFilterOptions();
+    expect(opts.length).toBe(
+      1 + FILTER_REGION_LABELS.length + ALL_COUNTRY_CODES.length,
+    );
+    const values = opts.map((o) => o.value);
+    expect(values).toContain("Global");
+    expect(values).toContain("Southeast Asia");
+    expect(values).toContain("CN");
+    expect(values).toContain("US");
+  });
+
+  it("is NOT derived from pathway data (all-global dataset still lists countries)", () => {
+    const onlyGlobal: PathwayMetadataType[] = [
+      { ...mockPathways[0], id: "g", geography: { global: true } },
+    ];
+    const { geographyOptions } = getGlobalFacetOptions(onlyGlobal);
+    // TH/Southeast Asia are absent from the dataset yet still offered.
+    expect(geographyOptions.map((o) => o.value)).toContain("TH");
+    expect(geographyOptions.map((o) => o.value)).toContain("Southeast Asia");
+  });
+
+  it("orders Global first, then regions, then countries; labels countries by name", () => {
+    const opts = geographyFilterOptions();
+    expect(opts[0].value).toBe("Global");
+    const firstCountryIdx = opts.findIndex((o) => /^[A-Z]{2}$/.test(o.value));
+    const regionIdx = opts.findIndex((o) => o.value === "Southeast Asia");
+    expect(regionIdx).toBeGreaterThan(0);
+    expect(regionIdx).toBeLessThan(firstCountryIdx);
+    // Country options carry a display name, not the raw code.
+    const us = opts.find((o) => o.value === "US");
+    expect(us?.label).not.toBe("US");
+    expect(us?.label?.length).toBeGreaterThan(2);
   });
 });

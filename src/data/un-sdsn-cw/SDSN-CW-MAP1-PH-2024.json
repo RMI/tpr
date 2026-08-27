@@ -31,7 +31,9 @@
     "short": "MAP1 PH"
   },
   "description": "Philippines-specific renewable-nuclear hybrid pathway with near-zero power sector emissions by 2060.",
-  "geography": ["PH"],
+  "geography": {
+    "country": ["PH"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2019,
   "modelYearEnd": 2060,

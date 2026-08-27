@@ -17,22 +17,51 @@
       }
     ]
   },
-  "name": { "full": "Net-Zero+ Scenario", "short": "NZ+" },
+  "name": {
+    "full": "Net-Zero+ Scenario",
+    "short": "NZ+"
+  },
   "description": "Ambitious pathway to absolute zero emissions, with significant new technology.",
-  "geography": ["VN"],
+  "geography": {
+    "country": ["VN"]
+  },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2045,
   "sectors": [
-    { "name": "Agriculture", "technologies": [] },
-    { "name": "Buildings", "technologies": [] },
-    { "name": "Steel", "technologies": [] },
-    { "name": "Cement", "technologies": [] },
-    { "name": "Chemicals", "technologies": [] },
-    { "name": "Coal Mining", "technologies": [] },
-    { "name": "Oil (Upstream)", "technologies": [] },
-    { "name": "Gas (Upstream)", "technologies": [] },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
     {
       "name": "Power",
       "technologies": [
@@ -46,11 +75,26 @@
         "Nuclear"
       ]
     },
-    { "name": "Automotive", "technologies": [] },
-    { "name": "Aviation", "technologies": [] },
-    { "name": "Rail", "technologies": [] },
-    { "name": "Shipping", "technologies": [] },
-    { "name": "Other", "technologies": [] }
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
   ],
   "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Net Zero+ scenario is a more ambitious extension of the Net Zero pathway, tightening the carbon limit to achieve 0 Mt of energy sector emissions by 2050. It tests how far Vietnam can push tech deployment and system transformation, and it investigates which technology areas applied to which sectors would be most cost-efficient to further reduce emissions.\n\nCompared to the Net Zero pathway, Net Zero+ adds faster and greater renewable build-out, as well as carbon capture and direct air capture, with 10 Mt being captured in 2050. Additionally, Net Zero+ introduces nuclear power build-out starting in 2040 that reaches 28 GW by 2050, as well as greater amounts of hydrogen produced for the decarbonization of industry and transport (573 PJ produced compared to 334 PJ in the Net Zero scenario). Fuel cost savings as compared to Baseline are greater in the Net Zero+ scenario than in the Net Zero pathway. Net Zero+ has the highest capital expenditure requirements of any of the EREA pathways. This scenario offers the greatest reduction in air pollution costs (i.e., the costs associated with the impact of air pollution on human health): 34% less than Baseline.\n\n#### Core Drivers\n\n*Policy and emissions constraints:* Net Zero+ is driven by stricter carbon restraint, targeting 0 Mt of energy sector emissions by 2050, and pushes all feasible technological levers to their limits. The pathway pushes beyond the National Climate Change Strategy baseline by eliminating all energy-related emissions. Net Zero+ reflects a complete phaseout of unabated fossil fuels, and it requires high ambition and systemic transformation across all sectors, including power, industry, transport, and buildings. The pathway includes near total phaseout of unabated coal and natural gas by 2050.\n\n*Technology costs and deployment:* The Net Zero+ pathway projects very high renewable energy build-out, supported by declining technology costs, with 35 GW of new capacity added per year between 2040 and 2050. This significantly exceeds the projected build-out rate of 27 GW per year in the Net Zero pathway. The Net Zero+ pathway includes significant deployment of new technology, including nuclear power via small modular reactors. Nuclear power contributes up to 28 GW by 2050. Carbon capture, including direct air capture, plays a significant role in reducing emissions.\n\n#### Application to Transition Assessment\n\nNet Zero+ represents the most ambitious pathway from EREA and offers a stringent benchmark for alignment with absolute zero emissions. For corporate transition assessment, Net Zero+ functions as a stretch pathway to evaluate whether business models and investment pipelines are compatible with an absolute net-zero future. Alignment with this pathway implies readiness for technologies such as nuclear, direct air capture, and large hydrogen production, in addition to large-scale renewable build-out. As a single-country pathway, Net Zero+ does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nAs a highly ambitious normative pathway, Net Zero+ includes significant interventions that exceed existing goals. As a result, (mis)alignment to Net Zero+ is less directly connected to regulatory risk or potential shifts in market share, but the pathway provides the most robust signal of alignment to possible future ambition. Because Net Zero+ also explores the near total phaseout of unabated coal and gas by 2050, it enables a forward-looking assessment of which generation assets would be most exposed to transition risk and potential stranding under a fully decarbonized energy system.\n\nThe inclusion of detailed technology costs and deployment projections in a cost-optimized model makes the Net Zero+ pathway useful for contextualizing the commercial and technical feasibility of transition strategies under a high-ambition scenario. Given the strength of the pathway's assumptions, users interested in assessing the feasibility of corporate transition strategies should supplement Net Zero+ with additional pathways providing a range of input assumptions.\n\nThe Net Zero+ pathway includes 10-year resolution projections for generation and capacity using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Net Zero+ pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
   "metric": [
