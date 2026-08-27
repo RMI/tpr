@@ -78,10 +78,10 @@ const posts: UpdatePost[] = [
           occurs, which technologies drive it, and how regional conditions
           change implementation.
         </p>
-        <h3 className="text-lg font-semibold text-rmigray-800">
+        <h4 className="text-lg font-semibold text-rmigray-800">
           Insight #1: Global ambition and regional context provide different
           insights
-        </h3>
+        </h4>
         <p>
           IEA NZE and GECO 1.5°C are global pathways. They provide benchmarks
           for understanding the scale and pace of change required to meet
@@ -121,10 +121,10 @@ const posts: UpdatePost[] = [
           for the question being assessed and where multiple pathways may be
           needed.
         </p>
-        <h3 className="text-lg font-semibold text-rmigray-800">
+        <h4 className="text-lg font-semibold text-rmigray-800">
           Insight #2: Similar pathway goals can produce different regional
           benchmarks
-        </h3>
+        </h4>
         <p>
           Comparing GECO 1.5°C and ACE CNS at the Southeast Asia regional level
           shows that pathways with similarly ambitious long-term goals can still
