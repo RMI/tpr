@@ -24,8 +24,5 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Python venv
-.venv/
-
 # Generated/copied files
 public/data/**/*
