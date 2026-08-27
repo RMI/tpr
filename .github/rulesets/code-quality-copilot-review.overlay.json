@@ -4,9 +4,7 @@
   "conditions": {
     "ref_name": {
       "exclude": [],
-      "include": [
-        "~DEFAULT_BRANCH"
-      ]
+      "include": ["~DEFAULT_BRANCH"]
     }
   },
   "rules": {

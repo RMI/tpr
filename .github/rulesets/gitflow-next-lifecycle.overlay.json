@@ -2,10 +2,7 @@
   "template": "gitflow-next-lifecycle",
   "conditions": {
     "ref_name": {
-      "include": [
-        "refs/heads/next",
-        "refs/heads/hotfix/**"
-      ],
+      "include": ["refs/heads/next", "refs/heads/hotfix/**"],
       "exclude": []
     }
   }

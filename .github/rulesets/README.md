@@ -14,20 +14,24 @@ calls that action.
 ## Overlay files (`*.overlay.json`)
 
 Each ruleset is described by a small **overlay** that names a shared template and
-lists only what this repo changes on top of it. A key is checked *only if* an
+lists only what this repo changes on top of it. A key is checked _only if_ an
 overlay (or its template) defines it — everything else GitHub returns is ignored.
 
 ```jsonc
 {
-  "template": "gitflow-main",          // required: a template from RMI/actions
-  "rules": {                            // sparse overrides, keyed by rule type
+  "template": "gitflow-main", // required: a template from RMI/actions
+  "rules": {
+    // sparse overrides, keyed by rule type
     "pull_request": {
-      "parameters": { "required_approving_review_count": 1 }
+      "parameters": { "required_approving_review_count": 1 },
     },
-    "required_status_checks": {         // required-check contexts are per-repo
-      "parameters": { "required_status_checks": [ /* ...this repo's checks... */ ] }
-    }
-  }
+    "required_status_checks": {
+      // required-check contexts are per-repo
+      "parameters": {
+        "required_status_checks": [/* ...this repo's checks... */],
+      },
+    },
+  },
 }
 ```
 
@@ -41,7 +45,7 @@ Current overlays here: `gitflow-main`, `gitflow-production`,
 
 ## Changing a ruleset
 
-The overlay is the *intended* state; the live GitHub ruleset is *reality*. To
+The overlay is the _intended_ state; the live GitHub ruleset is _reality_. To
 change one, update **both** so they match (CI verifies they do):
 
 1. Edit the relevant `*.overlay.json` here.
@@ -49,7 +53,7 @@ change one, update **both** so they match (CI verifies they do):
    (or via `gh api`).
 3. Push — the rulesets check confirms the overlay and the live ruleset agree.
 
-To change a setting for *all* RMI repos rather than just this one, change the
+To change a setting for _all_ RMI repos rather than just this one, change the
 template in [RMI/actions](https://github.com/RMI/actions) instead of overriding
 it here.
 
