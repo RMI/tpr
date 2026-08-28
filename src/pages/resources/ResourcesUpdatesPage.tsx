@@ -165,7 +165,7 @@ const posts: UpdatePost[] = [
         </p>
         <p>
           The comparison view also highlights subtle differences in geographic
-          coverage. While ACE defines Southeast Asia as the ASEAN Member States,
+          coverage. ACE defines Southeast Asia as the ASEAN Member States, and
           JRC GECO uses a broader regional definition that additionally includes
           Mongolia, North Korea, and Taiwan<sup>1</sup>. As a result, benchmark
           differences may reflect both modeling assumptions and differences in
