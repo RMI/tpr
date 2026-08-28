@@ -6,6 +6,7 @@ import { PathwayMetadataType } from "../types";
 import BadgeArray from "../components/BadgeArray";
 import Badge from "../components/Badge";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
+import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import {
   flattenGeography,
   geographyKind,
@@ -507,7 +508,15 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <SectionPlaceholder title="Data Availability" />
+            <section>
+              <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                Data Availability
+              </h2>
+              <DataAvailabilityTable
+                dataAvailability={pathway.dataAvailability}
+                downloadHref={datasets[0]?.path}
+              />
+            </section>
           </TabPanel>
         </div>
       </div>
