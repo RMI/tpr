@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "PHDOE-REFERENCE-2023",
   "publication": {
     "title": {
@@ -28,28 +28,20 @@
   "geography": {
     "country": ["PH"]
   },
-  "pathwayType": "Exploratory",
+  "pathwayType": "Predictive",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Renewables",
-        "Other"
-      ]
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
     }
   ],
-  "pathwayOverview": "The Philippines Department of Energy Reference scenario follows current development trends and strategies. It includes existing plants and committed power projects and WESM-registered capacities as of May 2023. It targets 35% of renewable electricity in 2030 and 50% by 2050.\nIt aims for an energy intensity reduction consistent with regional targets: a 10% EV adoption rate by 2040, stable biofuel blending (2%) and a 5% reduction in energy use based on energy efficiency and conservation (EEC) actions.",
-  "expertOverview": "#### Pathway Description\n\nThe Reference scenario is a predictive power sector pathway for the Philippines based on present development trends. This policy pathway has strong data coverage on investment, job creation and energy supply and extrapolates the direction of the Philippines energy transition, aligning with the National Renewable Energy Program (NREP) power generation mix target by 2040 and following that target until 2050, which also includes capacity targets and grid capacity extensions based on the Competitive Renewable Energy Zone (CREZ). The Reference scenario also makes strong socio-economic assumptions, especially regarding an annual real GDP growth averaging more than 6% until 2050.\n\nEmissions grow substantially in the Reference pathway, due to consistently high GDP growth and increasing energy demand. Coal-fired power generation plateaus after 2028 but does not decrease significantly, while emissions from oil and gas consumption continue to increase. \n\n#### Core Drivers\n\nThe Reference pathway is driven by a detailed mix of economic growth assumptions, existing policies, and declining technology costs.\n\n*Socio-economic trends:* Energy demand is driven by high economic growth (well over 6% real GDP growth p.a. on average), which shows in similar developments of energy demand across different pathways from the Philippines DoE.\n\n*Policies:* Support of EVs, biofuel blending mandates, and energy efficiency initiatives all help reduce energy intensity. The capacities planned under the Power Development Plan and specifically renewable energy additions in line with NREP and CREZ programs help build out renewables capacity and make it accessible to wider parts of the country.\n\n*Technology costs:* Technology costs start at the 2022 level of the National Renewable Energy Laboratory database. Declining technology costs of varying degrees help make renewable energy and enabling infrastructure more cost effective, with particularly sharp decreases in battery storage, solar, and onshore wind.\n\n*Demand shifts, investment needs, and technology deployment:* Demand for electricity grows faster than for any other energy carrier. The corresponding increase in investment requirements grows most heavily in renewable energy generation as well as downstream end uses and related infrastructure, such as EVs and EV-charging stations. Investments in battery energy storage systems remain relatively small in the Reference scenario.\n\n#### Application to Transition Assessment\n\nThe Reference scenario provides a baseline business-as-usual reference. It does not anticipate any accelerations or increased ambitions in transition policies but instead extrapolates current trends and legislated policies. As a country-level pathway, the Reference pathway does not model a global temperature rise and should not be used to directly set or measure temperature alignment targets.\n\nDue to its strong focus on modeling existing policy and market trends, the Reference pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of country-specific market shifts. Misalignment to the Reference pathway indicates that a company or plan may already be lagging forecast rates of change, potentially exposing them to regulatory risks or declining market share as other segments of the energy sector are encouraged to grow. As Reference does not include aspirational targets or potential future policies, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition forecast in Reference may still be exposed to future risks if new policies or technology shifts occur. The inclusion of detailed technology cost and deployment projection makes the Reference pathway a strong candidate for contextualizing the commercial and technical feasibility of transition strategies in the absence of additional policy shifts. \n\nThe Reference pathway includes year-by-year projections for generation and capacity using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Reference pathway has limited applicability to companies with diversified operations across multiple geographies, but offers excellent detail and specificity for companies in the Philippines.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -58,16 +50,33 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant increase",
-    "energyEfficiency": "Significant improvement",
-    "energyDemand": "Significant increase",
-    "electrification": "Moderate increase",
-    "policyTypes": ["Subsidies", "Target technology shares", "Other"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (unspecified GHGs)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "By sector, part of value chain"
-  }
+    "emissionsTrajectory": [],
+    "energyEfficiency": [],
+    "energyDemand": [],
+    "electrification": [],
+    "policyTypes": [],
+    "technologyCostTrend": [],
+    "emissionsScope": [],
+    "policyAmbition": [],
+    "technologyCostsDetail": [],
+    "newTechnologiesIncluded": [],
+    "investmentNeeds": []
+  },
+  "coreDrivers": {
+    "policies": "Current plans/programs plus energy efficiency, renewable deployment, HELE, emerging technologies, EVs, natural gas and grid modernization.",
+    "emissionsTargets": "NDC contribution and reductions relative to the earlier NDC BAU, without a net-zero commitment.",
+    "technologyCosts": "Consumer affordability and financing conditions; no REF-specific technology cost trajectory.",
+    "investmentChange": "No REF-specific quantitative investment requirement reported.",
+    "macroeconomicDrivers": "Energy security, affordability, reliability and industrial development.",
+    "behavioralShifts": "Energy-efficiency and conservation practices across sectors.",
+    "otherDrivers": "Climate resilience, environmental compliance, energy security and stakeholder engagement."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The policy strategy for the pathway is shaped by RPS, FIT/GEAP, energy efficency, grid modernization and techology policy.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    }
+  ]
 }

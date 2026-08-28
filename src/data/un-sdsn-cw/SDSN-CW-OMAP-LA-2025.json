@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-OMAP-LA-2025",
   "publication": {
     "title": {
@@ -30,19 +30,21 @@
   },
   "description": "Pathway balancing high renewables uptake with minimal coal use and reduced hydropower investment.",
   "geography": {
-    "country": ["LA"]
+    "regions": {
+      "LA": ["LA"]
+    }
   },
   "pathwayType": "Normative",
-  "modelYearStart": 2020,
+  "modelYearStart": 2018,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal", "Hydro", "Solar", "Wind", "Biomass"]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Optimized More Ambitious Policy (OMAP) scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. It builds on the More Ambitious Policy (MAP) scenario by applying a least-cost optimization approach, seeking the lowest-cost pathway to reach near-zero emissions in Laos’s power sector and economy-wide. The resulting trajectory differs from MAP in several ways. Unlike in MAP, the power sector does not reach true-zero emissions in OMAP, with residual emissions from biomass totaling 22,960 metric tons, less than 1% of 2020 levels. \n\nAdditionally, this pathway meets demand with less total capacity (25.6 GW in 2050, versus 40.9 GW in the More Ambitious Policy scenario), and it does so using renewables, which are cheaper than hydro (hydropower peaks at 10 GW in 2050, compared to 26 GW in the More Ambitious Policy scenario). As a result, the total power system costs in OMAP are lower than in both the MAP pathway and the Existing Policy pathway, indicating that the large-scale investments in the OMAP pathway significantly improve future cost-competitiveness. \n\n#### Core Drivers\n\nThe OMAP pathway is primarily driven by cost optimization under a more ambitious policy set, with deployment of low-cost renewable resources. \n\n*Policy:* Similarly to the MAP scenario, the OMAP model is required to reach near net-zero emissions. This includes requirements for renewables-based generation and policy-supported phasedown of coal power, which is largely retired by 2050. This phaseout date differs from the MAP scenario, which substantively phases down coal-fired generation by 2040. \n\n*Technology cost and deployment:* The OMAP pathway is driven by cost optimization. Declining costs for solar and wind lead these resources to be less expensive than capital-intensive hydropower or coal power, leading to reduced hydropower development and significantly expanded wind and solar capacity build-out. As a result, cumulative power sector investment costs are lower in OMAP than in the MAP or Existing Policy pathways, although they are higher than in the Optimized Existing Policy pathway. \n\n#### Application to Transition Assessment\n\nThe Optimized More Ambitious Policy pathway builds on the MAP pathway and fills a similar role in transition assessments, with the added advantage of incorporating strong cost-optimization dynamics. It provides a benchmark for companies seeking alignment with accelerated national transition goals in Laos under a least-cost trajectory. As a country-level pathway, the OMAP pathway does not model a global temperature rise and should not be used to directly set or measure temperature alignment targets. However, as a detailed projection of aspirational targets, it may be a relevant benchmark for the ambition of company goals. \n\nAs a detailed, country-level policy pathway, OMAP provides valuable information for comparing companies to Laos-specific trajectories. Misalignment to the MAP pathway may be a useful indicator of potential future risks such as exposure to evolving energy policies or reduced competitiveness where low-carbon technologies are prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. \n\nAs the OMAP pathway includes significant aspirational policies and targets that have not yet been implemented, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. Because the pathway includes a strong focus on cost optimization, it is a useful candidate for contextualizing the commercial and technical feasibility of transition strategies under accelerated transition objectives.\n\nThe OMAP pathway models power and energy systems to 2050, providing country-level projections for generation and capacity at 10-year intervals, with a high-level breakdown by energy source such as coal, gas, and renewables. Due to its country-specific nature, the OMAP pathway has limited applicability to companies with operations across multiple geographies, but it offers greater detail and specificity for companies in Laos, as compared to global or regional pathways.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -51,16 +53,134 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "Significant increase",
-    "policyTypes": ["Target technology shares", "Phaseout dates"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Total costs",
-    "newTechnologiesIncluded": ["No information"],
-    "investmentNeeds": "Total investment"
-  }
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards",
+          "Other"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Hydro additions are aligned with the NDC until 2030, but doesn't continue after 2030. As coal power is phased out in 2040 and needs to be replaced, additional wind and solar are added to the pathway.",
+    "emissionsTargets": "Near-zero 2050 and coal phase-out by 2040 constrain the pathway.",
+    "technologyCosts": "Least-cost optimization determines dispatch and generation mix.",
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and some ambitous electrification assumptions in housings and transportation drive electricity demand.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Hydro additions are aligned with the NDC until 2030, but doesn't continue after 2030. As coal power is phased out in 2040 and needs to be replaced, additional wind and solar are added to the pathway.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The scenario provider suggests that the pathway would be more easily achievable with: supportive rules for clean-energy investment and regional trading cooperation.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "OMAP used a Least Cost approach, and total investment is then less important than in MAP for the same level of ambition. Cross-border electricity trade with Thailand is economically important, but the pathway does not provide forward-looking trade volumes or prices that determine the OMAP outcome.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "OMAP deals with demand-side behavior through much stronger exogenous electrification assumptions, including 50% passenger EV penetration in 2030 and 100% in 2050 and substantially higher electric-truck uptake. This raises electricity demand, but consumer preferences itself is not modeled endogenously.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "OMAP uses a different optimized mix with less hydropower and more wind and solar but likewise provides no quantified transmission expansion. Grid integration is therefore an implementation dependency that is not explicitly resolved in the pathway.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "This scenario does't reach hydro maximum potential by 2050. Solar and Wind compensates the lack in hydro generation versus other scenarios.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Seasonal water availability affects hydropower adequacy in the dry season. Laos power grid is already dependant on Thailand during that period. OMAP is less reliant on hydro power capacity, but this reduction is for cost-optimization reasons and not due to environmental or ecosystem constraints.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The electrical system requires substantial human resources for its operation. This is not measured in this analysis.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }

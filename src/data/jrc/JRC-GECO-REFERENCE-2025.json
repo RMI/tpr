@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "JRC-GECO-REFERENCE-2025",
   "publication": {
     "title": {
@@ -30,67 +30,192 @@
   "description": "Global model extrapolating trends under currently legislated policies.",
   "geography": {
     "global": true,
-    "country": [
-      "GB",
-      "RU",
-      "UA",
-      "AR",
-      "BR",
-      "CA",
-      "CN",
-      "CH",
-      "MX",
-      "US",
-      "EG",
-      "ZA",
-      "IR",
-      "SA",
-      "TR",
-      "IN",
-      "ID",
-      "MY",
-      "TH",
-      "VN",
-      "AU",
-      "KR",
-      "NZ"
-    ]
+    "regions": {
+      "EU": [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
+      "Rest Central America": [
+        "BS",
+        "BB",
+        "BZ",
+        "BM",
+        "CR",
+        "CU",
+        "DM",
+        "DO",
+        "SV",
+        "GD",
+        "GT",
+        "HT",
+        "HN",
+        "JM",
+        "NI",
+        "AW",
+        "BQ",
+        "CW",
+        "SX",
+        "PA",
+        "ST",
+        "LC",
+        "VC",
+        "TT"
+      ],
+      "Rest South America": [
+        "BO",
+        "CO",
+        "EC",
+        "GY",
+        "PY",
+        "PE",
+        "SR",
+        "UY",
+        "VE"
+      ],
+      "Rest Balkans": ["AL", "BA", "MK", "MD", "ME", "RS"],
+      "Rest of Commonwealth of Independent States": [
+        "AM",
+        "AZ",
+        "BY",
+        "GE",
+        "KZ",
+        "KG",
+        "TJ",
+        "TM",
+        "UZ"
+      ],
+      "Mediterranean Middle East": ["IL", "JO", "LB", "SY"],
+      "Rest of Persian Gulf": ["BH", "IQ", "KW", "OM", "QA", "AE", "YE"],
+      "Morocco & Tunisia": ["MA", "TN"],
+      "Algeria & Libya": ["DZ", "LY"],
+      "Rest Sub-Saharan Africa": [
+        "AO",
+        "BJ",
+        "BW",
+        "BF",
+        "BI",
+        "CM",
+        "CV",
+        "CF",
+        "TD",
+        "KM",
+        "CG",
+        "CD",
+        "CI",
+        "DJ",
+        "GQ",
+        "ER",
+        "ET",
+        "GA",
+        "GM",
+        "GH",
+        "GN",
+        "GW",
+        "KE",
+        "LS",
+        "LR",
+        "MG",
+        "MW",
+        "ML",
+        "MR",
+        "MU",
+        "MZ",
+        "NA",
+        "NE",
+        "NG",
+        "RW",
+        "SN",
+        "SL",
+        "SO",
+        "SD",
+        "SZ",
+        "TZ",
+        "TG",
+        "UG",
+        "ZM"
+      ],
+      "Rest South Asia": ["AF", "BD", "BT", "MV", "NP", "PK", "SC", "LK"],
+      "Rest South East Asia": [
+        "BN",
+        "KH",
+        "LA",
+        "MN",
+        "MM",
+        "KP",
+        "PH",
+        "SG",
+        "TW"
+      ],
+      "Rest Pacific": ["FJ", "KI", "PG", "WS", "SB", "TO", "VU"],
+      "AR": ["AR"],
+      "AU": ["AU"],
+      "BR": ["BR"],
+      "CA": ["CA"],
+      "CH": ["CH"],
+      "CL": ["CL"],
+      "CN": ["CN"],
+      "EG": ["EG"],
+      "GB": ["GB"],
+      "ID": ["ID"],
+      "IN": ["IN"],
+      "IR": ["IR"],
+      "IS": ["IS"],
+      "JP": ["JP"],
+      "KR": ["KR"],
+      "MX": ["MX"],
+      "MY": ["MY"],
+      "NO": ["NO"],
+      "NZ": ["NZ"],
+      "RU": ["RU"],
+      "SA": ["SA"],
+      "TH": ["TH"],
+      "TR": ["TR"],
+      "UA": ["UA"],
+      "US": ["US"],
+      "VN": ["VN"],
+      "ZA": ["ZA"]
+    }
   },
   "pathwayType": "Predictive",
   "modelTempIncrease": 2.6,
   "modelYearStart": 2022,
-  "modelYearEnd": 2100,
+  "modelYearEnd": 2070,
   "sectors": [
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
     {
       "name": "Agriculture",
       "technologies": []
     },
     {
       "name": "Buildings",
-      "technologies": []
-    },
-    {
-      "name": "Steel",
-      "technologies": []
-    },
-    {
-      "name": "Cement",
-      "technologies": []
-    },
-    {
-      "name": "Chemicals",
-      "technologies": []
-    },
-    {
-      "name": "Coal Mining",
-      "technologies": []
-    },
-    {
-      "name": "Oil (Upstream)",
-      "technologies": []
-    },
-    {
-      "name": "Gas (Upstream)",
       "technologies": []
     },
     {
@@ -104,6 +229,7 @@
         "Wind",
         "Solar",
         "Biomass",
+        "Renewables",
         "Other"
       ]
     },
@@ -124,11 +250,19 @@
       "technologies": []
     },
     {
-      "name": "Other",
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
       "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. Its Reference scenario reflects a continuation of currently legislated and implemented policies only, without incorporating aspirational pledges or long-term strategies. Under this scenario, global CO₂ emissions remain relatively flat in the medium term, with only limited reductions after peaking in the 2020s. The Reference pathway leads to a global temperature increase of approximately 2.6 °C by 2100, significantly above the Paris Agreement goals.\n\n#### Core Drivers\n\n*Policy:* The Reference pathway assumes no new policies are introduced beyond already legislated measures. However, existing carbon pricing, energy development policies, and technology subsidies continue to play a significant role in shaping pathway projections.\n\n*Demand shifts:* Energy demand continues to grow steadily, driven by economic and population growth, particularly in emerging and developing economies.  Electrification proceeds more slowly and unevenly across sectors and regions, reflecting existing infrastructure and policy baselines. Demand-side transformations (e.g. in transport, heating, or diets) are limited and not systematically supported by policy.\n\n*Technology Costs, Deployment, and Investment:* Technology cost assumptions reflect ongoing learning and cost declines. Ongoing cost declines support the competitiveness of clean energy technology, leading to increased global deployment of solar, wind, batteries, and clean hydrogen. Investment in clean energy rises moderately, but significantly below the levels projected in GECO’s more ambitious pathways. However, fossil fuel fired generation maintains significant market share, with investments in significant new unabated fossil fuel infrastructure continuing in many regions.\n\n#### Application to Transition Assessment\n\nGECO Reference is a predictive pathway based on detailed modeling of current stated policies, market conditions, and technology trends, and provides a valuable base-case projection for benchmarking future transition impacts in the absence of significant policy or market shifts. As a global integrated assessment model, GECO Reference provides a direct connection between the described pathway and a global temperature outcome. While this allows assessing the ambition of stated targets or plans against a 2.6°C outcome, this high level of implied temperature rise is not applicable for most institutional targets.\n\nDue to its strong focus on modeling existing policy and market trends, the Reference pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of market shifts. Misalignment to the Reference pathway indicates that a company or plan may already be lagging forecast rates of change, potentially exposing them to regulatory risks or declining market share as other segments of the energy sector are encouraged to grow. As Reference does not include aspirational targets or potential future policies, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition forecast in Reference may still be exposed to future risks if new policies or technology shifts occur.\n\nThe inclusion of detailed technology cost and deployment projection makes the Reference pathway a strong candidate for contextualizing the commercial and technical feasibility of transition strategies in the absence of additional policy shifts.\n\nThe Reference pathway provides capacity and generation technology on 5-year increments, using a moderately detailed breakdown of technologies including coal, wind, solar, and battery storage. The pathway provides benchmarks at a range of geographic granularity, including global results, EU-specific results, country-specific results for 24 non-EU countries, and 13 residual regions. These granular benchmarks provide valuable information for assessing specific decarbonization levers and project pipelines within company plans, and can allow temperature alignment assessments within granular geographic scope. Users may wish to supplement country-specific GECO 1.5°C pathway data with bottom-up, country-specific models where available, such as those published by the Philippines Department of Energy.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -137,29 +271,4503 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Minor decrease",
-    "energyEfficiency": "Moderate improvement",
-    "energyDemand": "Minor increase",
-    "electrification": "Significant increase",
+    "emissionsTrajectory": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Algeria & Libya",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Morocco & Tunisia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Central America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South East Asia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AU",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "BR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CL",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EG",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "GB",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ID",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "KR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MX",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MY",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "NZ",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "RU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "SA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TH",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "UA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "US",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "VN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ZA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Global",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Shipping",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Algeria & Libya",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Mediterranean Middle East",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Morocco & Tunisia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest Central America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest South East Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Algeria & Libya",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Mediterranean Middle East",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Morocco & Tunisia",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest Central America",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest South America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest South East Asia",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Algeria & Libya",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest Central America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest Pacific",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest South America",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest South Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest South East Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "AR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "AU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "CA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "CL",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "CN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "EG",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "EU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "GB",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "ID",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "IR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "JP",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "KR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "MX",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "MY",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "NZ",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "RU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "SA",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "TH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "TR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "UA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "US",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "VN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "ZA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "AR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "AU",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "CL",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "CN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "EG",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "EU",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "GB",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ID",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "IR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "MX",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "MY",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "NZ",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "SA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "TH",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "TR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "UA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "VN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ZA",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "AR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "AU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "BR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "CL",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "EG",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "ID",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "IN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "IR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "MX",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "MY",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "NZ",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "SA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "TH",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "TR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "VN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "ZA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Rail",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "ZA",
+        "value": "No information"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Algeria & Libya",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Central America",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Pacific",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South America",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South Asia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South East Asia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AR",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AU",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "BR",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CA",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CL",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EG",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EU",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "GB",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ID",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IR",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "JP",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "KR",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MX",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MY",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "NZ",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "RU",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "SA",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TH",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TR",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "UA",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "US",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "VN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ZA",
+        "value": "Significant improvement"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Algeria & Libya",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Central America",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South East Asia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AR",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "BR",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CL",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ID",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MX",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MY",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "NZ",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "RU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "SA",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "UA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ZA",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Global",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Global",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Shipping",
+        "geography": "Global",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Algeria & Libya",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Morocco & Tunisia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest Central America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest South East Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Algeria & Libya",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Mediterranean Middle East",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Morocco & Tunisia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest Central America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest South America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest South Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest South East Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Algeria & Libya",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest Central America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest South America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest South Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest South East Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Algeria & Libya",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest Central America",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest Pacific",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest South America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest South East Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Algeria & Libya",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Mediterranean Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Morocco & Tunisia",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest Central America",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest South East Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Algeria & Libya",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Mediterranean Middle East",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Morocco & Tunisia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest Central America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest South America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest South East Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "AR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "AU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "CA",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "CL",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "CN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "EU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "GB",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "ID",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "IR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "JP",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "KR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "MX",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "MY",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "NZ",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "RU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "SA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "TH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "TR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "UA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "US",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "VN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "ZA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "AR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "AU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "BR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "CL",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "ID",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "IR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "MX",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "MY",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "NZ",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "SA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "TH",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "TR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "UA",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "VN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "ZA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "AR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "AU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CA",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CL",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "EU",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "MX",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "MY",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "NZ",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "SA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "TH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "UA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "ZA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "AR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "AU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "BR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "CA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "CL",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "CN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "IR",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "MX",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "MY",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "NZ",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "SA",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "TH",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "TR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "UA",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ZA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "CL",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "EG",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "EU",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "IR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "NZ",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "UA",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Rail",
+        "geography": "AR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "AU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Rail",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "CA",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Rail",
+        "geography": "CL",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "CN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "EU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "GB",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "IR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "JP",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Rail",
+        "geography": "KR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "MX",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "MY",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "NZ",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Rail",
+        "geography": "RU",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Rail",
+        "geography": "SA",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "TH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "TR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "UA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "US",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Rail",
+        "geography": "ZA",
+        "value": "Moderate increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Algeria & Libya",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Mediterranean Middle East",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Morocco & Tunisia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Central America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Pacific",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest South East Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "AU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "BR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CL",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "CN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EG",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "EU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "GB",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "IR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "JP",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "KR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MX",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "MY",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "NZ",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "RU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "SA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "UA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "US",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "VN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "cross-sector",
+        "geography": "ZA",
+        "value": "Moderate increase"
+      }
+    ],
     "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Subsidies",
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": [
+          "Carbon price",
+          "Target technology shares",
+          "Performance standards",
+          "Phaseout dates",
+          "Subsidies",
+          "Other"
+        ]
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "No information",
+    "technologyCostTrend": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Shipping",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
     "newTechnologiesIncluded": [
-      "CCUS",
-      "DAC",
-      "Green H2/ammonia",
-      "SAF",
-      "Battery storage"
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": ["CCUS", "DAC", "Green H2/ammonia", "SAF", "Battery storage"]
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": ["SAF", "Green H2/ammonia"]
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["CCUS", "Green H2/ammonia", "Battery storage"]
+      },
+      {
+        "sector": "Rail",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Shipping",
+        "geography": "Global",
+        "value": ["No information"]
+      }
     ],
-    "investmentNeeds": "By technology"
-  }
+    "investmentNeeds": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "By technology"
+      },
+      {
+        "sector": "Agriculture",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Automotive",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Coal Mining",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Gas (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Oil (Upstream)",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "By technology"
+      },
+      {
+        "sector": "Rail",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Shipping",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The pathway is aligned with current and legislated policies: the pathway includes policies legislated as of June 2024 with no additional pledged targets.",
+    "emissionsTargets": "Legislated policies drive emissions forecast; resulting a pathway with a 2.6°C end-century warming.",
+    "technologyCosts": "Technology learning are endogenously developed in POLES-JRC; cost trend decreases as much as the technology is being adopted.",
+    "investmentChange": "Annual power-sector investment increases by 40% through 2050, with wind and solar accounting for around two-thirds of total investment, while fossil-fuel power investment remains material. However, GDP doubles over the same period, meaning that power-sector investment declines as a share of GDP.",
+    "macroeconomicDrivers": "Population and GDP assumptions are shared across the GECO scenarios and set the activity baseline. Inputs combine World Bank, IMF, OECD/SSP2, EU Ageing Report and JRC-IIASA sources.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Legislated power policies drive the mix with exogenous capacity additions and technology mix inputs, but they do not require full decarbonisation and the pathway remains exposed to fossil fuel.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The GEM-E3 Social Accounting Matrix supports assessment of the Market & economics dependency by quantifying sectoral input–output relationships and international trade flows, allowing the pathway analysis to identify how each sector depends on upstream markets, production costs and imported inputs.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Renewables penetration is lower in this scenario, as fossil fuel power plants remains active. This means lower demand on grid flexibility and lower constraint on transmission lines. This is not detailed in the report.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Wind, solar and other renewables are associated with potentials and supply curves per country. This scenario depends on country legislated plan, and ressource availability will only be an indirect barrier.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Low: renewable-power employment grows in the Reference pathway, implying some workforce expansion, but GECO does not identify shortages, skills bottlenecks or higher unemployment.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Existing policy context is included but no deep aviation decarbonisation constraint is imposed. Any industry related targets is not included in the scenario.",
+      "sector": "Aviation",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The GEM-E3 Social Accounting Matrix supports assessment of the Market & economics dependency by quantifying sectoral input–output relationships and international trade flows, allowing the pathway analysis to identify how each sector depends on upstream markets, production costs and imported inputs.",
+      "sector": "Aviation",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Sustainable-fuel supply logistics are not defined as a bottleneck constraint in Reference.",
+      "sector": "Aviation",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }

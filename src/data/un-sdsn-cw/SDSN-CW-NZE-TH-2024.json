@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-NZE-TH-2024",
   "publication": {
     "title": {
@@ -31,7 +31,7 @@
     "country": ["TH"]
   },
   "pathwayType": "Normative",
-  "modelYearStart": 2019,
+  "modelYearStart": 2018,
   "modelYearEnd": 2060,
   "sectors": [
     {
@@ -48,7 +48,7 @@
       ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Near Zero Emission (NZE) scenario from the ASEAN Green Future project is a normative pathway that reduces Thailand’s GHG emissions from the power sector as much as possible by 2060, based on a least-cost optimization using the LEAP-NEMO modeling framework. Some restrictions are implemented, including limits on renewable energy installed capacity by different energy sources. This constrains renewable energy sources to 70% of total electricity generation in 2050. \n\nThe NZE scenario is an optimistic outlook that models a faster ramp-up of renewable energy than is currently targeted in Thailand’s power and energy plans. It assumes some new technologies can be scaled to reduce power sector emissions starting in the 2030s, namely clean hydrogen and carbon capture and storage (CCS). By 2037, natural gas (including CCS) contributes only 30% of installed power capacity in the NZE scenario, whereas gas-fired power capacity still accounts for 39% and 42% of total capacity in the accompanying MAP and EXT scenarios, respectively. By 2050, natural gas contributes 18% of total capacity in the NZE scenario, and coal capacity is completely phased out. \n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.\n\n#### Core Drivers\n\nGDP growth, continuing urbanization, and technology shifts (some driven by cost changes) all contribute to sustained electricity demand growth over the full time frame of the pathway and to a faster ramp-up of renewables deployment than in the EXT and MAP scenarios. \n\n*Technology costs and deployment:* The NZE assumes that capital and fixed operations and maintenance costs will decrease significantly for key renewable energy sources over time. This applies most to solar PV and wind, but also to hydrogen and bioenergy, which scale faster than in the EXT and MAP scenarios. The assumed 70% maximum share of renewable energy capacity in Thailand is reached in 2050, with only small increases in capacity between 2050 and 2060. \n\n*Emissions minimization and technology phaseouts:* The least-cost optimization approach to minimizing GHGs in the NZE scenario leads to a brief peak of power sector emissions in 2030, followed by a sharp reversal of the emissions trend, driven by rapid expansion of renewables, the introduction of CCS, and declining shares of fossil fuel power generation. The NZE scenario phases out oil-fired power generation in 2030 and coal-fired power generation in 2050.\n\n#### Application to Transition Assessment\n\nThe Near Zero Emission scenario is a normative pathway for climate transition analysis, using least-cost optimization to reach the lowest feasible level of GHG emissions in the Thai power sector by 2060.\n\nThe NZE scenario focuses on minimizing power sector GHG emissions in a cost-efficient way, with restrictions on overall renewable energy build-out and individual energy source potential. The pathway does not detail specific policies that are needed to achieve these outcomes. Instead, the cost-competitiveness of renewables and the introduction of new technologies such as clean hydrogen and CCS drive much of the change.\n\nAs a detailed projection of aspirational power sector targets, the NZE scenario may be a relevant benchmark for the ambition of company targets and investment plans in Thailand. Misalignment with the NZE pathway may indicate future risks such as noncompliance with ambitious energy policies or reduced competitiveness where low-carbon technologies are incentivized. As the NZE scenario may require the implementation of additional policies and targets, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in the future. Alignment may indicate that a company is strategically positioned to benefit from market and policy shifts toward renewables. However, alignment can also indicate some level of risk, should those market and policy shifts not materialize along the timeline anticipated by a company.\n\nThe NZE scenario includes detailed information on technology costs, technology deployment projections, fuel costs, and capacity potential of individual energy sources, which can be used in assessing the commercial and technical feasibility of a company’s investment plans and transition strategy.\n\nAnnual projections for capacity, generation, and emissions use a moderately detailed breakdown by energy sources such as coal, gas, wind, solar, bioenergy, and hydro. These are useful for analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the NZE pathway has limited applicability to companies with diversified operations across multiple geographies, but it offers solid detail and specificity for operations in Thailand.",
+  "pathwayDescription": "The Near Zero Emission (NZE) scenario from the ASEAN Green Future project is a normative pathway that reduces Thailand’s GHG emissions from the power sector as much as possible by 2060, based on a least-cost optimization using the LEAP-NEMO modeling framework. Some restrictions are implemented, including limits on renewable energy installed capacity by different energy sources. This constrains renewable energy sources to 70% of total electricity generation in 2050.\n\nThe NZE scenario is an optimistic outlook that models a faster ramp-up of renewable energy than is currently targeted in Thailand’s power and energy plans. It assumes some new technologies can be scaled to reduce power sector emissions starting in the 2030s, namely clean hydrogen and carbon capture and storage (CCS). By 2037, natural gas (including CCS) contributes only 30% of installed power capacity in the NZE scenario, whereas gas-fired power capacity still accounts for 39% and 42% of total capacity in the accompanying MAP and EXT scenarios, respectively. By 2050, natural gas contributes 18% of total capacity in the NZE scenario, and coal capacity is completely phased out.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -57,21 +57,127 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Moderate decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Phaseout dates",
-      "Performance standards",
-      "Other"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Moderate decrease"
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["CCUS", "Green H2/ammonia"],
-    "investmentNeeds": "No information"
-  }
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["CCUS", "Green H2/ammonia"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Near-zero policy and constraint assumptions drive NZE: fossil power phaseouts, 70% renewable electricity by 2050, CCUS and hydrogen from 2030, and strong transport/end-use electrification.",
+    "emissionsTargets": "The pathway targets the lowest feasible GHG emissions in the power sector by 2060; it is near-zero but not net zero.",
+    "technologyCosts": "Technology unit costs are a core driver because LEAP-NEMO selects least-cost capacity expansion and dispatch under given technology constraints. This means that declining costs for solar, wind, gas with CCS, and hydrogen power capacity affects deployment rates.",
+    "investmentChange": null,
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics. Sectoral value-added projections are based on World Bank indicators, assuming they remain stable. All these indicators are common demand drivers rather than pathway-specific differentiators.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "NZE is not feasible without strong policy design, including coal power phaseout by 2050 and oil/diesel power phaseout by 2030. This helps reach the 70% renewable electricity by 2050 target.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "NZE requires stronger regulatory intervention than the EXT and MAP pathways to enforce fossil fuel based power phaseouts and advanced-technology market entry.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "NZE depends on large end-use uptake assumptions that reshape power demand, especially EVs, hydrogen vehicles, electric rail, efficient appliances, and electric cooking.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "NZE requires very large system buildout and integration—about 186.87 GW of capacity by 2060, including 65 GW solar, 45 GW wind, 15 GW gas-CCS, hydrogen power, imports, and grid modernization—making infrastructure more binding than in the EXT and MAP pathways.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "NZE relies on technologies not used in EXT/MAP, especially natural gas with CCS and clean hydrogen power starting in 2030, alongside steep renewable deployment and fuel-economy/efficiency improvements.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "NZE explicitly uses maximum-capacity constraints and reaches a plateau because of renewable potential and fossil-fuel limits. Solar, wind, biomass, and hydro potential as well as electricity imports become material system constraints.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }
