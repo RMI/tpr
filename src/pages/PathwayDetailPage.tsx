@@ -8,6 +8,7 @@ import Badge from "../components/Badge";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
+import AssumptionsTrends from "../components/AssumptionsTrends";
 import {
   flattenGeography,
   geographyKind,
@@ -50,22 +51,6 @@ const DETAIL_TABS: TabDef[] = [
   { id: "timeseries", label: "Timeseries" },
   { id: "scope", label: "Scope & Granularity" },
 ];
-
-/**
- * Placeholder for a wireframe section not yet built. The Assumptions & Trends
- * cards (`coreDrivers`), the Dependencies table, and the Data Availability table
- * are backed by the metadata-v2 schema on this branch and land in follow-up
- * commits; this labeled slot keeps the tab structure visible in the meantime.
- */
-const SectionPlaceholder: React.FC<{
-  title: string;
-  children?: React.ReactNode;
-}> = ({ title, children }) => (
-  <div className="rounded-lg border border-dashed border-neutral-300 bg-neutral-50 p-6 text-rmigray-600 mb-6">
-    <h3 className="text-lg font-medium text-rmigray-800 mb-1">{title}</h3>
-    <p className="text-sm">{children ?? "Coming soon."}</p>
-  </div>
-);
 
 const PathwayDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -488,7 +473,12 @@ const PathwayDetailPage: React.FC = () => {
           >
             <div className="space-y-6">
               {expertOverview}
-              <SectionPlaceholder title="Assumptions & Trends Overview" />
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Assumptions & Trends Overview
+                </h2>
+                <AssumptionsTrends coreDrivers={pathway.coreDrivers} />
+              </section>
               <section>
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
                   Dependencies
