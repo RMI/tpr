@@ -7,6 +7,7 @@ import BadgeArray from "../components/BadgeArray";
 import Badge from "../components/Badge";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
+import DependenciesTable from "../components/DependenciesTable";
 import {
   flattenGeography,
   geographyKind,
@@ -488,7 +489,12 @@ const PathwayDetailPage: React.FC = () => {
             <div className="space-y-6">
               {expertOverview}
               <SectionPlaceholder title="Assumptions & Trends Overview" />
-              <SectionPlaceholder title="Dependencies" />
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Dependencies
+                </h2>
+                <DependenciesTable dependencies={pathway.dependencies} />
+              </section>
             </div>
           </TabPanel>
 
