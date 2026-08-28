@@ -33,13 +33,20 @@ import {
   technologyBelongsToSector,
 } from "../src/utils/timeseriesTaxonomy.ts";
 import countryCodeSchema from "../src/schema/common/countryCode.v1.json" with { type: "json" };
+import pathwayMetadataV2Schema from "../src/schema/pathwayMetadata.v2.json" with { type: "json" };
+import sectorSchema from "../src/schema/common/sector.v1.json" with { type: "json" };
+import technologySchema from "../src/schema/common/technology.v1.json" with { type: "json" };
+import metricSchema from "../src/schema/common/metric.v1.json" with { type: "json" };
+import emissionsScopeSchema from "../src/schema/common/emissionsScope.v1.json" with { type: "json" };
 
 /** Valid ISO 3166-1 alpha-2 codes, from the schema (rejects e.g. "XK"). */
 const VALID_COUNTRIES = new Set<string>(
   (countryCodeSchema as { enum?: string[] }).enum ?? [],
 );
 
-const V2_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
+const V2_ID =
+  (pathwayMetadataV2Schema as { $id?: string }).$id ??
+  "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
 
 /** Widest sentinels, mirroring src/utils/validateScopes.ts. */
 const CROSS_SECTOR = "cross-sector";
@@ -67,179 +74,62 @@ const SHEET_BASENAMES = {
 } as const;
 
 // --------------------------------------------------------------------------
-// Controlled vocabularies (copied from src/schema/**; this script must not edit
-// the schema, only satisfy it).
+// Controlled vocabularies, read from src/schema/** at load time so they cannot
+// drift from the schema this output must validate against. Only the Excel-to-
+// schema *mappings* below are literals -- those have no schema representation.
 // --------------------------------------------------------------------------
 
-const SECTORS = [
-  "Land Use",
-  "Agriculture",
-  "Buildings",
-  "Steel",
-  "Cement",
-  "Chemicals",
-  "Coal Mining",
-  "Oil (Upstream)",
-  "Gas (Upstream)",
-  "Power",
-  "Automotive",
-  "Aviation",
-  "Rail",
-  "Shipping",
-  "Other",
-] as const;
-
-const METRICS = [
-  "Emissions Intensity",
-  "Capacity",
-  "Generation",
-  "Technology Mix",
-  "Absolute Emissions",
-] as const;
-
-const TECHNOLOGIES = [
-  "Precision Agriculture",
-  "Agroforestry",
-  "Bioenergy Crops",
-  "Energy Efficiency",
-  "Smart Grids",
-  "Renewable Heating",
-  "Heat Pumps",
-  "Building Automation",
-  "Smart Appliances",
-  "Insulation",
-  "Carbon Capture and Storage",
-  "Electrification",
-  "Process Optimization",
-  "Hydrogen Use",
-  "Coal",
-  "Oil",
-  "Gas",
-  "Wind",
-  "Solar",
-  "Nuclear",
-  "Biomass",
-  "Hydro",
-  "Renewables",
-  "Electric Vehicles",
-  "Hydrogen Vehicles",
-  "Biofuels",
-  "Public Transport",
-  "Active Mobility",
-  "Aviation Efficiency",
-  "Maritime Efficiency",
-  "Other",
-] as const;
-
-const PATHWAY_TYPES = ["Normative", "Exploratory", "Predictive"] as const;
-
-/** Per-field value enums for the scalar keyFeatures fields. */
-const KF_SCALAR_ENUMS: Record<string, readonly string[]> = {
-  emissionsTrajectory: [
-    "No information",
-    "Significant increase",
-    "Moderate increase",
-    "Minor increase",
-    "Low or no change",
-    "Minor decrease",
-    "Moderate decrease",
-    "Significant decrease",
-  ],
-  energyEfficiency: [
-    "No information",
-    "Significant deterioration",
-    "Moderate deterioration",
-    "Minor deterioration",
-    "Low or no change",
-    "Minor improvement",
-    "Moderate improvement",
-    "Significant improvement",
-  ],
-  energyDemand: [
-    "No information",
-    "Significant decrease",
-    "Moderate decrease",
-    "Minor decrease",
-    "Low or no change",
-    "Minor increase",
-    "Moderate increase",
-    "Significant increase",
-  ],
-  electrification: [
-    "No information",
-    "Significant decrease",
-    "Moderate decrease",
-    "Minor decrease",
-    "Low or no change",
-    "Minor increase",
-    "Moderate increase",
-    "Significant increase",
-  ],
-  technologyCostTrend: [
-    "No information",
-    "Increase",
-    "Low or no change",
-    "Decrease",
-  ],
-  emissionsScope: [
-    "No information",
-    "CO2",
-    "CO2e (Kyoto)",
-    "CO2e (CO2, Methane)",
-    "CO2e (unspecified GHGs)",
-    "Other emissions scope",
-  ],
-  policyAmbition: [
-    "No information",
-    "No policies included",
-    "Current/legislated policies",
-    "Current and drafted policies",
-    "NDCs, unconditional only",
-    "NDCs incl. conditional targets",
-    "High ambition policies",
-    "Other policy ambition",
-  ],
-  technologyCostsDetail: [
-    "No information",
-    "Total costs",
-    "Capital costs, O&M, etc.",
-    "Other cost breakdown",
-  ],
-  investmentNeeds: [
-    "No information",
-    "Total investment",
-    "By sector",
-    "By sector, part of value chain",
-    "By technology",
-    "By tech, part of value chain",
-  ],
+/** Just enough of the JSON Schema shape to pull enums out of. */
+type SchemaNode = {
+  enum?: string[];
+  type?: string;
+  $ref?: string;
+  items?: SchemaNode;
+  properties?: Record<string, SchemaNode>;
+  $defs?: Record<string, SchemaNode>;
+  definitions?: Record<string, SchemaNode>;
 };
 
-/** Per-field token enums for the two array-valued keyFeatures fields. */
-const KF_ARRAY_ENUMS: Record<string, readonly string[]> = {
-  policyTypes: [
-    "No information",
-    "Carbon price",
-    "Feed-in tariffs",
-    "Performance standards",
-    "Phaseout dates",
-    "Subsidies",
-    "Target technology shares",
-    "Other",
-    "None",
-  ],
-  newTechnologiesIncluded: [
-    "No information",
-    "No new technologies",
-    "CCUS",
-    "DAC",
-    "Green H2/ammonia",
-    "SAF",
-    "Battery storage",
-    "EGS/AGS",
-    "Other new technologies",
-  ],
+/** The `displayName` enum of a common vocabulary schema (sector/tech/metric). */
+function displayNameEnum(schema: SchemaNode): string[] {
+  return (schema.$defs ?? schema.definitions ?? {}).displayName?.enum ?? [];
+}
+
+const SECTORS = displayNameEnum(sectorSchema as SchemaNode);
+const METRICS = displayNameEnum(metricSchema as SchemaNode);
+const TECHNOLOGIES = displayNameEnum(technologySchema as SchemaNode);
+
+const V2_PROPS = (pathwayMetadataV2Schema as SchemaNode).properties ?? {};
+const PATHWAY_TYPES = V2_PROPS.pathwayType?.enum ?? [];
+const EVIDENCE_TYPES =
+  V2_PROPS.dependencies?.items?.properties?.evidence_type?.enum ?? [];
+
+/**
+ * Per-field keyFeatures value enums, read straight from the v2 schema. A field's
+ * `value` is either an enum string (scalar), an array of enum strings
+ * (policyTypes / newTechnologiesIncluded), or a $ref to a shared enum schema
+ * (emissionsScope). KF_ARRAY_FIELDS records which fields are arrays.
+ */
+const REF_ENUMS: Record<string, string[]> = {
+  "emissionsScope.v1.json": (emissionsScopeSchema as SchemaNode).enum ?? [],
 };
+const KF_SCALAR_ENUMS: Record<string, readonly string[]> = {};
+const KF_ARRAY_ENUMS: Record<string, readonly string[]> = {};
+const KF_ARRAY_FIELDS = new Set<string>();
+for (const [field, spec] of Object.entries(
+  V2_PROPS.keyFeatures?.properties ?? {},
+)) {
+  const value = spec.items?.properties?.value;
+  if (!value) continue;
+  if (value.$ref) {
+    KF_SCALAR_ENUMS[field] = REF_ENUMS[value.$ref.split("/").pop() ?? ""] ?? [];
+  } else if (value.type === "array") {
+    KF_ARRAY_ENUMS[field] = value.items?.enum ?? [];
+    KF_ARRAY_FIELDS.add(field);
+  } else {
+    KF_SCALAR_ENUMS[field] = value.enum ?? [];
+  }
+}
 
 /** Excel key_features column header -> v2 keyFeatures field name. */
 const KF_COLUMN_TO_FIELD: Record<string, string> = {
@@ -255,8 +145,6 @@ const KF_COLUMN_TO_FIELD: Record<string, string> = {
   "New technologies included": "newTechnologiesIncluded",
   "Investment needs": "investmentNeeds",
 };
-
-const KF_ARRAY_FIELDS = new Set(["policyTypes", "newTechnologiesIncluded"]);
 
 /** Excel core_drivers column header -> v2 coreDrivers field name. */
 const CORE_DRIVER_COLUMNS: Array<[string, string]> = [
@@ -285,13 +173,6 @@ const DEPENDENCY_COLUMNS: Array<[string, string]> = [
   ],
   ["Labor availability", "Labor availability"],
 ];
-
-const EVIDENCE_TYPES = [
-  "Quantitative",
-  "Qualitative",
-  "Anecdotal",
-  "No evidence",
-] as const;
 
 /**
  * Geography tokens that keyFeatures rows use but the metadata `Regions` cell
