@@ -20,7 +20,7 @@ npm run schema:check
 
 That checks every file under `src/data` and `testdata/valid`. You can preview a file as it will appear in the UI with `npm run dev`.
 
-If you have changed a schema rather than a data file, run `npm run schema` instead — it validates and then regenerates the TypeScript types in `src/types/` and the HTML schema reference in `public/schema/`. Both are checked in, and CI fails if they are out of date.
+If you have changed a schema rather than a data file, run `npm run schema` instead — it validates and then regenerates the TypeScript types in `src/types/`. Those are checked in, and CI fails if they are out of date.
 
 ### Two schema versions
 
