@@ -27,45 +27,20 @@
   "description": "ASEAN-specific pathway exploring impact of unconditional NDCs and existing policies.",
   "geography": {
     "regions": {
-      "South East Asia": [
-        "BN",
-        "KH",
-        "ID",
-        "LA",
-        "MY",
-        "MM",
-        "PH",
-        "SG",
-        "TH",
-        "VN"
-      ]
+      "ASEAN": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
     }
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
-    {
-      "name": "Land Use",
-      "technologies": []
-    },
     {
       "name": "Buildings",
       "technologies": []
     },
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": ["Coal"]
     },
     {
       "name": "Other",
@@ -84,95 +59,177 @@
     "emissionsTrajectory": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Moderate decrease"
       }
     ],
     "energyEfficiency": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": "Moderate improvement"
+        "geography": "ASEAN",
+        "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "No information"
       }
     ],
     "electrification": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Low or no change"
       }
     ],
     "policyTypes": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": [
-          "Phaseout dates",
-          "Subsidies",
-          "Target technology shares",
-          "Performance standards",
-          "Other"
-        ]
+        "geography": "ASEAN",
+        "value": ["Target technology shares", "Performance standards", "Other"]
       }
     ],
     "technologyCostTrend": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Low or no change"
       }
     ],
     "emissionsScope": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "CO2e (unspecified GHGs)"
       }
     ],
     "policyAmbition": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "NDCs, unconditional only"
       }
     ],
     "technologyCostsDetail": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
         "value": "Capital costs, O&M, etc."
       }
     ],
     "newTechnologiesIncluded": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": ["Green H2/ammonia", "SAF"]
+        "geography": "ASEAN",
+        "value": ["Green H2/ammonia", "SAF", "Other new technologies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": ["Green H2/ammonia", "Other new technologies"]
       }
     ],
     "investmentNeeds": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": "By sector"
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "By technology"
       }
     ]
   },
   "coreDrivers": {
-    "policies": null,
+    "policies": "National renewable-energy and efficiency targets, power development plans, energy-access measures and unconditional NDCs drive the outcomes of the ATS pathway.",
     "emissionsTargets": null,
     "technologyCosts": null,
-    "investmentChange": null,
-    "macroeconomicDrivers": null,
+    "investmentChange": "Average annual Power investment rises from USD 34.8bn in 2023–2030 to USD 46.3bn in 2041–2050. This comes from significant investment in solar and wind that more than offsets the lower fossil fuel investment needs compared to BAS.",
+    "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
     "behavioralShifts": null,
     "otherDrivers": null
   },
-  "dependencies": []
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "National PDPs, renewable energy and energy efficiency targets, and unconditional NDCs directly determine the ATS power build-out.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Implementing diverse national plans and standards is necessary, but the report does not quantify permitting or market-rule constraints.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Introdction of nuclear power generation to the region may may require education for public acceptance.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Stable electrification rates limit on adoption of new end-use technologies.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "A 69.4% renewable capacity share by 2050 (more than double the share in the start year) increases grid-integration needs, although ATS does not model energy storage.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Faster uptake of RE means that net import of natural gas starts in 2030, later than in the BAS pathway. Land use for biofuels in ATS is similar to that of BAS. The increase land use for RE therefore raises overall land use requirements. Pathway targets are not constrained by RE potential.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Faster fossil retirement in ATS creates materially larger job losses and retraining needs than BAS. The net difference in energy jobs is not very large though.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-OMAP-MM-2025",
   "publication": {
     "title": {
@@ -30,26 +30,20 @@
   },
   "description": "Myanmar-specific high ambition near-zero emissions pathway.",
   "geography": {
-    "country": ["MM"]
+    "regions": {
+      "MM": ["MM"]
+    }
   },
   "pathwayType": "Normative",
-  "modelYearStart": 2019,
+  "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Gas",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Optimized More Ambitious Pathway (OMAP) is a normative, least-cost decarbonization scenario for Myanmar that seeks to achieve near-zero power-sector emissions by 2050. This scenario is complemented by the Existing Policy Pathway (EPP)—a scenario which reflects achieving current policy objectives in Myanmar—and the Optimized Existing Policy Pathway (OEPP)—a scenario with the same assumptions as the Existing Policy Pathway, but constructed using a cost optimization module.\n\nOMAP builds on the same socio-economic foundation as the EPP and OEPP scenario, but applies stringent emissions constraints, accelerated electrification, and enhanced efficiency measures. On the supply side, OMAP shifts decisively away from fossil fuels, restricting additions of new thermal capacity and limiting expansion of large hydropower, due to existing challenges with hydropower in the region. The pathway instead prioritizes major growth in solar, biomass, geothermal, and energy-storage technologies, with capacity expansion optimized using a Next Energy Modeling Optimization (NEMO) module to meet demand reliably at the lowest system cost under the high-ambition constraint. NEMO is an open-source energy system optimization tool developed by the Stockholm Environment Institute. \n\nElectricity demand rises substantially as economic activity grows and electrification expands across households, transport, and industrial sectors. Urbanization increases energy service needs while efficiency gains moderate demand growth relative to economic activity. Full access to electricity is reached early in the modeling period, supporting broader social and economic development.\n\n#### Core Drivers\n\nOMAP is driven by a combination of strong demand-side electrification, enhanced energy-efficiency measures, and aggressive build-out of renewable energy. The scenario assumes declining technology costs for solar, wind, storage, and other enabling technologies, as well as increasing appliance ownership, rising urbanization, full electrification of households, and growth in vehicle ownership. System optimization is guided by cost, resource-potential limits, and a uniform discount rate across the modeling horizon.\n\n*Policy:* In OMAP, the Myanmar power sector needs to reach near-zero emissions by 2050. OMAP reflects a policy environment in which Myanmar actively pursues deep decarbonization. Fossil-fuel development is constrained, coal and gas play only a transitional role and are phased out of the power sector by 2035, and renewable energy becomes the central pillar of the power system. Efficiency programs, electrification targets, and enabling infrastructure, such as storage and grid upgrades, are assumed to advance in line with long-term climate ambitions. \n\n*Demand growth:* Electricity demand in Myanmar increases more than twice as much in the OMAP scenario between 2020 and 2050 compared to the EPP and OEPP scenarios, driven by higher rates of electrification in all other sectors. For example, in the industrial sector, electrification is expected to reach 20% of energy needs by 2030 and 70% by 2050.\n\n*Technology costs & infrastructure requirements:* The pathway uses internationally recognized cost baselines and assumes continued declines across renewables and storage technologies. Falling capital and operating costs make solar, biomass, geothermal, and storage economically favorable compared with fossil-fuel options under an ambitious carbon-constrained regime. Battery storage plays an increasingly important role in balancing renewable variability, however, Myanmar is still very reliant on power imports, which supply 22% of total demand in 2050.\n\n#### Application to Transition Assessment\n\nOMAP is an ambitious pathway illustrating how Myanmar could achieve near-zero power-sector emissions by mid-century. Although not aligned to a global temperature pathway, it offers a high-ambition Myanmar-specific benchmark for assessing corporates. Alignment with OMAP indicates strategic readiness for a renewables-driven, low-carbon power system. Misalignment may suggest exposure to future competitiveness, regulatory, or technology-transition risks in the case of a rapid transition in Myanmar. The pathway’s detailed projections of renewable growth, electrification, and system transformation also make it a useful reference for evaluating the feasibility of corporate plans within Myanmar’s evolving energy context.\n\nAlthough this scenario focuses solely on the power sector, it remains closely linked to other sectors, as increased electricity use is essential for their decarbonization. Under this scenario, Myanmar is projected to become a substantial importer of electricity by 2050. For industries that depend heavily on electric power, this trend represents an additional dependency that will need to be accounted for when assessing companies with significant power consumption.\n\nThe scenario provides benchmark data at 10-year intervals with a granular technology breakdown, including gas, coal, hydro, wind, solar, biomass and geothermal.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -58,20 +52,133 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "No information",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Phaseout dates",
-      "Performance standards"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Significant decrease"
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "By technology"
-  }
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The scenario includes more ambitious targets for electricity demand. Fossil Fuel capacities are progressively phased out and low carbon technology additions are optimised based on NEMO optimization tools.",
+    "emissionsTargets": "OMAP aims to achieve near-zero emissions from electricity generation by 2050, by introducing constraints to limit the use of fossil fuels.",
+    "technologyCosts": "Technology capital, O&M and fuel costs affect least-cost capacity choices. Low-carbon technology should replace high carbon power generation, and the selection of technology is made based on technology costs.",
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP and medium population growth extracted from World Bank combined with stronger electrification and efficiency assumptions drive power generation demand growth. The growth is much more signififcant than the one forecasted by Myanmar target. Electricity demand, for example, is twice higher in 2050 in this scenario than in a scenario following Myanmar targets regarding power generation demand.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The pathway assumes significantly more electrification and power demand by 2050. Current policies are not enough and cost optimisation is used to maximise investment costs while still filling demand.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The pathway plans some important increase in electricity demand. Power additions are not enough to meet demand, and 14% of electricity needs in Myanmar comes from import in 2050.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Local opposition to large hydropower already stricked in Myanmar. This scenario is more using solar potential in Myanmar due to cost efficiency and is not planning any hydro addition in Myanmar.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Adoption of efficient appliances, electric cooking, EVs and electrified industrial processes substantially raises electricity demand while reducing demand-side emissions.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "OMAP requires 9 GW batteries to maintain reserve margin at a safe level above 30%. It also accounts for 3 GW imports and diversified firm generation by 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "As solar expansion is important in this scenario, this scenario also highly rely on battery storage, reaching 9GW of battery storage by 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "OMAP nearly exhausts modeled solar and geothermal potentials. It therefore doesn't build out any hydro capacity, limiting risks from breakdown due to more severe droughts.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Drought and climate variability threaten hydropower reliability. Biomass is also important in the pathway with 5GW required by 2050, on the 6GW of technical potential assessed in Myanmar.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    }
+  ]
 }

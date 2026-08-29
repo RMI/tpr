@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-EP-LA-2025",
   "publication": {
     "title": {
@@ -30,30 +30,145 @@
   },
   "description": "Business-as-usual pathway with significant hydropower and coal use.",
   "geography": {
-    "country": ["LA"]
+    "regions": {
+      "LA": ["LA"]
+    }
   },
-  "pathwayType": "Predictive",
-  "modelYearStart": 2020,
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2018,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal", "Hydro", "Solar", "Wind", "Biomass"]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Existing Policy pathway models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. The Existing Policy scenario reflects Laos’s current energy policy trajectory, which in practice translates to a significant build-out of hydropower, contributing to over 80% of generation by 2050. The pathway projects moderate growth from other sources, primarily coal-fired plants, with a small amount of wind and biomass capacity. This build-out of hydropower does gradually reduce the role of coal-burning plants over time, slightly reducing emissions, but the Existing Policy scenario falls short of a net-zero ambition. \n\nIn addition to coal remaining in the generation mix, end-use demand sectors remain generally unchanged in their emissions, with emissions increasing between 2020 and 2050. The Existing Policy scenario depicts a status quo, or business-as-usual, energy future for Laos, characterized by significant hydropower growth but an extremely limited emissions decline.\n\n#### Core Drivers\n\nThe Existing Policy scenario reflects current policy and market trends, with continued reliance on hydropower and coal.\n\n*Policy:* The Existing Policy pathway includes no carbon price or emissions targets beyond what is currently legislated. Coal capacity grows from 2.56 GW in 2020 to 4 GW in 2050 and continues to be the sole source of power sector emissions. This results in only incremental declines in power sector emissions.\n\n*Technology deployment:* The pathway is calibrated to existing national policy plans, such as hydropower expansion goals (e.g., 13,000 MW by 2030 and 26,000 MW by 2050), which reflect Laos’s official NDC goals. Large dams fulfill domestic demand growth and enable electricity exports, with most coal-generated electricity being exported to Thailand. Non-hydro renewable power remains limited, with approximately 900 MW of solar and 2,100 MW of wind power capacity in 2050.\n\n#### Application to Transition Assessment\n\nThe Existing Policy scenario serves as a critical baseline for climate transition analysis. It represents the business-as-usual trajectory, and therefore it depicts a future in which Laos’s power sector follows the present policy path without any new climate interventions. The Existing Policy scenario offers a conservative planning case that helps financial actors understand the outcomes of current policies in Laos, which is useful for benchmarking. It also shows that significant emissions reductions are not a given without additional incentives or actions.\n\nDue to its strong focus on modeling current policy and market trends, the Existing Policy scenario is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of country-specific market shifts. Misalignment with the pathway indicates that a company or plan may already be lagging behind forecast rates of change, potentially exposing it to regulatory risks or declining market share as other segments of the energy sector are encouraged to grow. \n\nBecause the pathway does not include aspirational targets or potential future policies, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition that is forecast in the Existing Policy scenario may still be exposed to future risks if new policies are introduced or technology shifts occur. The scenario can be used to identify exposure to fossil-based energy infrastructure. Businesses that have ties to coal supply chains or that depend on carbon-intensive power may remain profitable in the short term but may face regulatory risk or lose competitiveness if regional trade partners, such as Thailand, impose decarbonization standards. \n\nThe Existing Policy pathway models power and energy systems to 2050, providing country-level projections for generation and capacity at 10-year intervals, with a high-level breakdown by energy source such as coal, gas, and renewables. Due to its country-specific nature, the Existing Policy pathway has limited applicability to companies with operations across multiple geographies, but it offers greater detail and specificity for companies in Laos, as compared to global or regional pathways.",
+  "pathwayDescription": null,
   "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
   "keyFeatures": {
-    "emissionsTrajectory": "Minor decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "Moderate increase",
-    "policyTypes": ["Target technology shares"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "Total costs",
-    "newTechnologiesIncluded": ["No information"],
-    "investmentNeeds": "Total investment"
-  }
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Moderate increase"
+      }
+    ],
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["Target technology shares", "Performance standards", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Current and drafted policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Hydro capacity additions in 2030 is aligned with NDCs, then additional additions are included based on ressource potential assessment.",
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "behavioralShifts": null,
+    "otherDrivers": "Hydropower resource potential is the main constraint for end-year capacity mix."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Current policy is implemented through fixed capacity assumptions: hydropower expands toward the assessed resource potential with a 2030 targets aligned with NDC while coal remains in the system through 2050. The pathway therefore does not use policy to eliminate coal.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The regulatory framework is represented mainly through national plans and standards, not detailed market design or permitting.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "EP follows the existing-policy build-out rather than a least-cost solution. Cross-border electricity trade with Thailand is economically important, but the pathway does not provide forward-looking trade volumes or prices that determine the EP outcome.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "EP imposes demand-side adoption assumptions exogenously, including passenger EV penetration of 30% in 2030 and 60% in 2050 and lower electric-truck uptake. These assumptions increase power demand but are not framed as a power-sector bottleneck.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "EP expands significantly hydro capacities. Hydropower facilities are typically situated in isolated regions and require integration with the national system to distribute energy nationwide. However, EP does not quantify transmission expansion or model grid integration as a constraint.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Hydropower maxiumum potential ressources is reached by 2050 and is the limit to hydro expansion in Lao.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Seasonal water availability affects hydropower adequacy in the dry season. Laos power grid is already dependant on Thailand during that period. EP does not introduce a future change in hydrology or an environmental constraint on hydro deployment. EP therefore proceeds using the stated hydro potential without modelling future ecosystem/climate impacts.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The electrical system requires substantial human resources for its operation. This is not measured in this analysis.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }

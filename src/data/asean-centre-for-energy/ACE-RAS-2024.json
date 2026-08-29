@@ -27,52 +27,27 @@
   "description": "ASEAN-specific pathway exploring impact of unconditional NDCs and long-term pledges.",
   "geography": {
     "regions": {
-      "South East Asia": [
-        "BN",
-        "KH",
-        "ID",
-        "LA",
-        "MY",
-        "MM",
-        "PH",
-        "SG",
-        "TH",
-        "VN"
-      ]
+      "ASEAN": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
     }
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
-    {
-      "name": "Land Use",
-      "technologies": []
-    },
     {
       "name": "Buildings",
       "technologies": []
     },
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": ["Coal"]
     },
     {
       "name": "Other",
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Regional Aspiration Scenario (RAS) is an exploratory pathway which assumes that every ASEAN member state fully achieves both its unconditional and conditional transition targets on time, including Nationally Determined Contributions (NDCs), national power development plans (PDPs), and the enhanced scenarios of the national energy roadmaps of each ASEAN member state (e.g., the Clean Energy Scenario in the Philippines). The RAS pathway includes the 2025 ASEAN Plan of Action for Energy Cooperation (APAEC) targets for renewable energy generation and energy efficiency. The RAS pathway extends the ACE ATS pathway, covering all policies included in ATS with the inclusion of additional aspirational goals. The RAS also differs from the ATS pathway in using a least-cost optimization approach, which results in both a faster build-out of renewable energy and lower utilization rates for fossil fuel power plans. \n\nEmissions remain stable in the RAS until 2030, after which they start to decrease very slightly at a rate of approximately 0.1% per year across the energy sector. Emissions from power generation decrease much more rapidly to approximately a third of 2022 emissions by 2050. Emissions in the industry and residential sectors also drop significantly compared to the ATS.",
+  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Regional Aspiration Scenario (RAS) is an exploratory pathway which assumes that every ASEAN member state fully achieves both its unconditional and conditional transition targets on time, including Nationally Determined Contributions (NDCs), national power development plans (PDPs), and the enhanced scenarios of the national energy roadmaps of each ASEAN member state (e.g., the Clean Energy Scenario in the Philippines). The RAS pathway includes the 2025 ASEAN Plan of Action for Energy Cooperation (APAEC) targets for renewable energy generation and energy efficiency. The RAS pathway extends the ACE ATS pathway, covering all policies included in ATS with the inclusion of additional aspirational goals. The RAS also differs from the ATS pathway in using a least-cost optimization approach, which results in both a faster build-out of renewable energy and lower utilization rates for fossil fuel power plans.\n\nEmissions remain stable in the RAS until 2030, after which they start to decrease very slightly at a rate of approximately 0.1% per year across the energy sector. Emissions from power generation decrease much more rapidly to approximately a third of 2022 emissions by 2050. Emissions in the industry and residential sectors also drop significantly compared to the ATS.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -84,95 +59,198 @@
     "emissionsTrajectory": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Moderate decrease"
       }
     ],
     "energyEfficiency": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "No information"
       }
     ],
     "electrification": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Low or no change"
       }
     ],
     "policyTypes": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": [
-          "Phaseout dates",
-          "Subsidies",
-          "Target technology shares",
-          "Performance standards",
-          "Other"
-        ]
+        "geography": "ASEAN",
+        "value": ["Target technology shares", "Performance standards", "Other"]
       }
     ],
     "technologyCostTrend": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "Low or no change"
       }
     ],
     "emissionsScope": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "CO2e (unspecified GHGs)"
       }
     ],
     "policyAmbition": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
         "value": "NDCs incl. conditional targets"
       }
     ],
     "technologyCostsDetail": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
+        "geography": "ASEAN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
         "value": "Capital costs, O&M, etc."
       }
     ],
     "newTechnologiesIncluded": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": ["Battery storage", "Green H2/ammonia", "SAF"]
+        "geography": "ASEAN",
+        "value": [
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": [
+          "Green H2/ammonia",
+          "Battery storage",
+          "Other new technologies"
+        ]
       }
     ],
     "investmentNeeds": [
       {
         "sector": "cross-sector",
-        "geography": "South East Asia",
-        "value": "By sector"
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "By technology"
       }
     ]
   },
   "coreDrivers": {
-    "policies": null,
+    "policies": "Accelerated regional EE/RE measures, conditional NDCs and harmonised standards drive RAS beyond national targets.",
     "emissionsTargets": null,
-    "technologyCosts": null,
-    "investmentChange": null,
-    "macroeconomicDrivers": null,
+    "technologyCosts": "Least-cost optimisation determines the power build-out based on granular technology-level capital costs and O&M costs, although unit costs are assumed static. Lower renewable costs increase solar and wind deployment.",
+    "investmentChange": "Average annual Power investment rises from USD 45.6bn in 2023–2030 to USD 190.3bn in 2041–2050. Even more investment is needed for solar and wind than in ATS and additionaly some new technologies come online that require investment.",
+    "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
     "behavioralShifts": null,
     "otherDrivers": null
   },
-  "dependencies": []
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Accelerated regional renewable energy and energy efficiency aspirations based on APAEC Phase II and conditional NDCs are required to deliver the RAS power mix.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Regionally coordinated and harmonised standards and rules for interconnected power and storage materially affect grid decarbonisation.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Increasing private sector investment will be required to meet the target capacity buildouts, specifically through more PPAs.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Public opinion polls mentioned that show a majority of people support a coal phaseout in ASEAN countries. Introdction of nuclear power generation to the region may may require education for public acceptance.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Rather stable electrification rates limit on adoption of new end-use technologies.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "BESS scale up crucial for integration of variable renewables and maintaining grid stability and reliability.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "The RAS pathway mainly relies on large deployment of BESS capacity to integrate the fast scale p of variable renewables.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Natural gas will have to be imported starting in 2033. RAS observes a moderate reduction in land use for biofuels compared to BAS and ATS, due to other technologies preferred in least cost optimization. The increase in land use needs for wind and solar in addition to the moderate decrease from biofuels still leads to an increase in land use in total.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The rapid fossil fuel power decommissioning in RAS creates a large mid-transition workforce shock and substantial retraining need. Later on, the effect softens and new jobs in RE dampen the blow.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }

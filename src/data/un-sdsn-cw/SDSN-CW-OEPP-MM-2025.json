@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-OEPP-MM-2025",
   "publication": {
     "title": {
@@ -30,18 +30,20 @@
   },
   "description": "Myanmar-specific cost-optimized pathway following current energy policies and NDCs.",
   "geography": {
-    "country": ["MM"]
+    "regions": {
+      "MM": ["MM"]
+    }
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2019,
+  "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal", "Gas", "Hydro", "Solar"]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Optimized Existing Policy Pathway (OEPP) is a cost-optimized scenario that reflects Myanmar’s current and announced policies while allowing the model to select the least-cost technology mix required to meet rising electricity demand. This scenario is complemented by the Existing Policy Pathway (EPP)—a scenario which also reflects achieving current policy objectives in Myanmar, but without cost optimization—and the Optimized More Ambitious Pathway (OMAP)—a scenario where Myanmar reaches Near-Zero emissions in the power sector by 2050—from the same developers. \n\nThe OEPP follows the same power demand trajectory as the Existing Policies Pathway. The OEPP further uses the same socio-economic and policy foundations as EPP but integrates a system-level optimization module to determine the most economical combination of generation and storage assets. The scenario maintains Myanmar’s existing policy ambitions, including incremental renewable expansion and sectoral efficiency improvements, but does not impose any emissions constraint.\n\nElectricity demand continues to rise steadily due to economic growth, increasing electrification, and progress toward universal access. The optimization process accelerates renewable deployment compared with EPP where cost-effective, particularly in solar PV and small hydro facilities, while limiting uneconomic fossil-fuel expansion. However, the pathway still retains a material role for gas generation until the end of the model period. While coal is gradually phased out, gas capacity remains necessary to maintain system adequacy in the absence of stronger policy constraints. In this scenario, the continued role of gas-fired generation prevents a decline in electricity supply by 2050 (in contrast to EPP), enabling Myanmar to meet 100% of power demand domestically.\n\n#### Core Drivers\n\nThe OEPP is driven by growing GDP, existing policy commitments and NDC targets, technology cost declines that moderately improve competitiveness of renewables, and the least-cost optimization of technology choices under those constraints. \n\n*Policies:* The pathway reflects Myanmar’s current official commitments, including energy-efficiency targets and the goal of achieving 39% renewable electricity generation by 2030. Policies are centered on incremental renewable expansion, moderate grid investment, and the continued use of natural gas as a flexible, stabilizing resource in the power mix. Unlike OMAP, OEPP does not assume major additional climate ambition, accelerated fossil-fuel phaseout, or transformative policy interventions.\n\n*Technology costs:* OEPP applies the same internationally recognized cost inputs as the broader AGF scenario suite. However, low-cost renewables are deployed much more quickly in this scenario than in EPP due to OEPP’s least-cost optimization. \n\n*Technology deployment:* Despite cost declines for renewables, the optimization identifies a structural need for firm capacity, including gas, due to insufficient renewable expansion to meet peak demand. Hydropower remains a significant contributor, but OEPP avoids major new large hydro projects given cost, environmental, and timeline constraints. This scenario also avoids wind development as wind potential is not sufficient to be cost efficient. Investments rise in solar PV, grid reinforcement, and modest storage additions, while gas investments focus on maintaining system reliability rather than expanding fossil-fuel reliance. In this scenario, Myanmar is self-sufficient in power generation in 2050.\n\n*Demand shifts:* Electricity demand increases across all sectors, driven by economic growth and rising urbanization. Electrification continues to expand in transport, buildings, and industry but at a slower pace than in the OMAP scenario.\n\n#### Application to Transition Assessment\n\nOEPP provides a benchmark for assessing how the Myanmar power system may evolve under current policies while accounting for least-cost optimization outcomes. It remains a conservative pathway in terms of climate ambition, but its optimization-based structure makes it useful for evaluating whether power generation investments and infrastructure plans reflect the most economically efficient path forward.\n\nMisalignment with OEPP, such as insufficient renewables investment relative to cost-optimal projections may indicate competitive risks as Myanmar’s system gradually incorporates more low-cost solar and storage.\n\nThe scenario provides capacity and generation projections at 10-year intervals with a granular technology breakdown, covering gas, coal, hydro, solar, and wind.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -50,20 +52,133 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant increase",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Phaseout dates",
-      "Performance standards"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Significant increase"
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current and drafted policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "By technology"
-  }
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "\"Demand side sector energy demand follows Myanmar official targets. To fulfil this demand, the optimisation tool NEMO was utilised to determine the least-cost generation mix while ensuring a reserve margin above 30% at all times\".",
+    "emissionsTargets": null,
+    "technologyCosts": "Technology capital, O&M and fuel costs affect least-cost capacity choices; falling solar and battery costs support deployment.",
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "behavioralShifts": null,
+    "otherDrivers": "A >30% reserve-margin constraint is a key design driver."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "National targets shapes power generation demand. A least cost approach is added to determine capacity additions.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The scenario’s power technology mix retains meaningful exposure to natural gas, increasing its vulnerability to gas price volatility and potential supply disruptions.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Local opposition to large hydropower already stricked in Myanmar. This scenario doesn't forecast any addition in hydropower.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Consumer and client are assumed to follow Myanmar power demand target.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "OEPP is built with same scenario ambition than Existing Policy Scenario but capacity additions are based on least cost optimization and power grid system needs to maintain reserve margin at a safe level above 30%.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Battery storage plays an important role in the OEPP scenario, reaching an installed capacity of 1.47 GW by 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "OEPP remains exposed to domestic gas and LNG supply constraints and price volatility. Its plateau in hydropower capacity, however, keeps incremental exposure to drought-related risks relatively low.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Drought and climate variability threaten hydropower reliability.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }
