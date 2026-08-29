@@ -261,8 +261,17 @@ const PathwayDetailPage: React.FC = () => {
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
                   Expert Overview
                 </h2>
+                {/*
+                  v1's single `expertOverview` blob held three sections. In v2
+                  only the description survives as prose: "Core Drivers" becomes
+                  the structured `coreDrivers` object, and "Application to
+                  Transition Assessment" is retired because the new UI does not
+                  display it (#898). So this renders one field, not a set of
+                  sub-headed blocks. #859 owns the real presentation, including
+                  whether this heading keeps its name.
+                */}
                 <div className="prose text-rmigray-700">
-                  <Markdown>{pathway.expertOverview}</Markdown>
+                  <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
                 </div>
               </section>
 

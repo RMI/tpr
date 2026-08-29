@@ -1,0 +1,246 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "pathway-v2-full",
+  "name": {
+    "full": "Full V2 Pathway",
+    "short": "Full V2"
+  },
+  "publication": {
+    "title": {
+      "full": "Example Title",
+      "short": "Example"
+    },
+    "subtitle": "Exercising every v2 shape",
+    "author": ["Doe, Jane"],
+    "publisher": {
+      "full": "TransitionZero"
+    },
+    "year": 2024,
+    "month": 6,
+    "day": 1,
+    "city": "London",
+    "license": "CC BY 4.0",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.example.com/"
+      }
+    ]
+  },
+  "description": "A v2 pathway exercising multi-scope key features.",
+  "pathwayType": "Normative",
+  "modelTempIncrease": 1.5,
+  "modelYearStart": 2020,
+  "modelYearEnd": 2050,
+  "modelYearNetzero": 2050,
+  "geography": {
+    "global": true,
+    "regions": {
+      "South East Asia": ["ID", "TH", "VN"],
+      "North America": ["CA", "MX", "US"]
+    },
+    "country": ["SG"]
+  },
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": ["Solar", "Wind", "Coal"]
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "A pathway whose key features vary by sector and geography, used to exercise the scoped-entry shape end to end.",
+  "metric": [
+    "Emissions Intensity",
+    "Capacity",
+    "Generation",
+    "Technology Mix",
+    "Absolute Emissions"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "South East Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "TH",
+        "value": "Minor decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Minor increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Moderate increase"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": ["Carbon price", "Subsidies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "South East Asia",
+        "value": ["Target technology shares", "Phaseout dates", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": ["CCUS", "DAC", "Green H2/ammonia", "Battery storage"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["No new technologies"]
+      }
+    ],
+    "investmentNeeds": []
+  },
+  "coreDrivers": {
+    "policies": "Carbon pricing across both covered sectors.",
+    "emissionsTargets": "Net zero by 2050 with interim 2030 milestones.",
+    "technologyCosts": null,
+    "investmentChange": "Investment roughly doubles by 2040.",
+    "macroeconomicDrivers": null,
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Grid buildout must keep pace with renewable additions.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Hydrogen direct reduction must reach commercial scale.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": "The full timeseries file covers all five metrics for Power at annual resolution from 2022 to 2050. Steel is described in the publication only.",
+    "byMetric": [
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": "Power generation",
+        "geography": "Global",
+        "geographyCoverage": "Global",
+        "timeResolution": "1-year",
+        "dataFormat": "In tool",
+        "access": null,
+        "granularity": ["Solar", "Wind", "Coal"],
+        "scopeLimitations": "Excludes off-grid generation."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": "Storage",
+        "geography": "South East Asia",
+        "geographyCoverage": "Regional",
+        "timeResolution": "5-year",
+        "dataFormat": "Tabular in publication",
+        "access": "Free",
+        "granularity": null,
+        "scopeLimitations": null
+      },
+      {
+        "metricName": "Technology Mix",
+        "sector": "Power",
+        "sectorSegment": "Transmission & Distribution",
+        "geography": "SG",
+        "geographyCoverage": "Country",
+        "timeResolution": "Single year (2050)",
+        "dataFormat": "Text in publication",
+        "access": "Paywalled",
+        "granularity": null,
+        "scopeLimitations": "Grid losses only."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Steel",
+        "sectorSegment": "No information",
+        "geography": "Global",
+        "geographyCoverage": "Global",
+        "timeResolution": "No information",
+        "dataFormat": "Text in publication",
+        "access": "Free",
+        "granularity": null,
+        "scopeLimitations": null
+      }
+    ]
+  }
+}

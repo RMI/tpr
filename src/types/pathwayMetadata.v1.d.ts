@@ -41,7 +41,7 @@ export interface PathwayMetadataV1 {
   description: string;
   publication: Publication;
   /**
-   * Type of the pathway pathway.
+   * Type of the pathway.
    */
   pathwayType: "Normative" | "Exploratory" | "Predictive";
   /**
