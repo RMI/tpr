@@ -9,6 +9,7 @@ import { stackOffsetExpand } from "d3-shape";
 import "d3-transition";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
+import type { HoveredPoint } from "./PlotSelector";
 
 interface DataPoint {
   sector: string;
@@ -33,6 +34,8 @@ interface NormalizedStackedAreaChartProps {
   marginLeft?: number;
   sector?: string;
   metric?: string;
+  externalHoveredPoint?: HoveredPoint | null;
+  onHoverPoint?: (point: HoveredPoint | null) => void;
 }
 
 const technologyColors = {
@@ -59,6 +62,8 @@ export default function NormalizedStackedAreaChart({
   marginLeft = 40,
   sector = "power",
   metric = "technologyMix",
+  externalHoveredPoint,
+  onHoverPoint,
 }: NormalizedStackedAreaChartProps) {
   const [d3data] = useState<DataPoint[]>(() =>
     data.data.filter((d) => d.sector === sector && d.metric === metric),
@@ -76,6 +81,23 @@ export default function NormalizedStackedAreaChart({
   const legend = useRef<SVGGElement>(null);
   const guideline = useRef<SVGLineElement>(null);
   const tooltip_grp = useRef<SVGGElement>(null);
+
+  const isPointerOver = useRef(false);
+  const lastHoveredYear = useRef<string | null>(null);
+  const onHoverPointRef = useRef(onHoverPoint);
+  useEffect(() => {
+    onHoverPointRef.current = onHoverPoint;
+  }, [onHoverPoint]);
+
+  // Pixel x-position of every year in the current dataset, kept fresh by
+  // the main effect below, so the cross-chart hover-sync effect can look
+  // up a matching year without re-running the (expensive, transitioning)
+  // main effect on every sibling-chart pointer move.
+  const yearPositionsRef = useRef<{ year: string; x: number }[]>([]);
+  const tooltipApiRef = useRef<{
+    renderTooltip: (xPixel: number, year: string, muted: boolean) => void;
+    hideTooltip: () => void;
+  } | null>(null);
 
   // Memoize scales and data transformations
   const chartSetup = useMemo(() => {
@@ -251,6 +273,7 @@ export default function NormalizedStackedAreaChart({
       year: d.data.year as string,
       x: x(parse(d.data.year as string) ?? new Date()),
     }));
+    yearPositionsRef.current = yearPositions;
 
     svg
       .on("pointerenter", pointerentered)
@@ -258,14 +281,20 @@ export default function NormalizedStackedAreaChart({
       .on("pointerleave", pointerleft)
       .on("touchstart", (event: TouchEvent) => event.preventDefault());
 
-    function pointermoved(event: PointerEvent) {
-      const [xm] = pointer(event);
-      const i = leastIndex(yearPositions, (d) => Math.abs(d.x - xm));
-      if (i === undefined || i < 0) return;
-      const { x: xPixel, year } = yearPositions[i];
+    // Shows the tooltip (all technologies' percentages) for a single year.
+    // Used both for this chart's own local hover (muted: false) and, from
+    // the effect below, to sync a matching tooltip in when a sibling
+    // comparison-view panel is hovered at a year this chart also has data
+    // for (muted: true).
+    function renderTooltip(xPixel: number, year: string, muted: boolean) {
+      const i = yearPositions.findIndex((d) => d.year === year);
+      if (i < 0) return;
 
-      guidelineElem.attr("x1", xPixel).attr("x2", xPixel);
-      dot.attr("transform", `translate(${xPixel},${height - marginBottom})`);
+      guidelineElem.attr("x1", xPixel).attr("x2", xPixel).attr("display", null);
+      dot
+        .attr("transform", `translate(${xPixel},${height - marginBottom})`)
+        .attr("display", null)
+        .attr("opacity", muted ? 0.6 : 1);
 
       const tooltipLines = [
         `${capitalizeWords(metric)}: ${year}`,
@@ -290,14 +319,38 @@ export default function NormalizedStackedAreaChart({
       size(tooltipTextElem, tooltipBoxElem, xPixel);
     }
 
+    function hideTooltip() {
+      guidelineElem.attr("display", "none");
+      dot.attr("display", "none").attr("opacity", 1);
+    }
+
+    tooltipApiRef.current = { renderTooltip, hideTooltip };
+
+    function pointermoved(event: PointerEvent) {
+      const [xm] = pointer(event);
+      const i = leastIndex(yearPositions, (d) => Math.abs(d.x - xm));
+      if (i === undefined || i < 0) return;
+      const { x: xPixel, year } = yearPositions[i];
+
+      if (lastHoveredYear.current !== year) {
+        lastHoveredYear.current = year;
+        onHoverPointRef.current?.({ year, technology: null });
+      }
+
+      renderTooltip(xPixel, year, false);
+    }
+
     function pointerentered() {
+      isPointerOver.current = true;
       guidelineElem.attr("display", null);
-      dot.attr("display", null);
+      dot.attr("display", null).attr("opacity", 1);
     }
 
     function pointerleft() {
-      guidelineElem.attr("display", "none");
-      dot.attr("display", "none");
+      isPointerOver.current = false;
+      lastHoveredYear.current = null;
+      onHoverPointRef.current?.(null);
+      hideTooltip();
     }
 
     // Positions the tooltip box beside the vertical guideline (not on top of
@@ -373,6 +426,28 @@ export default function NormalizedStackedAreaChart({
     height,
     width,
   ]);
+
+  // Show a synced tooltip when a sibling comparison-view panel is hovered
+  // at a year this chart also has data for. Skipped while the pointer is
+  // over this chart itself, since its own pointermoved/pointerleft
+  // handlers already own the tooltip in that case.
+  useEffect(() => {
+    if (isPointerOver.current) return;
+    const api = tooltipApiRef.current;
+    if (!api) return;
+
+    const year = externalHoveredPoint?.year;
+    const match =
+      year != null
+        ? yearPositionsRef.current.find((d) => d.year === year)
+        : undefined;
+
+    if (match) {
+      api.renderTooltip(match.x, match.year, true);
+    } else {
+      api.hideTooltip();
+    }
+  }, [externalHoveredPoint]);
 
   return (
     <div className="flex flex-col items-center">

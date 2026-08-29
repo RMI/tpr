@@ -26,6 +26,168 @@ const posts: UpdatePost[] = [
   //   ),
   // },
   {
+    title: "Why comparing energy transition pathways matters",
+    date: "August 27, 2026",
+    body: (
+      <>
+        <p>
+          Energy transition pathways are essential for Corporate Transition
+          Assessments (CTAs). They provide benchmarks for evaluating whether a
+          company’s emissions targets, investments, technology strategy, and
+          asset portfolio are consistent with its transition plan and the
+          broader sectoral transition trends.
+        </p>
+        <p>
+          However, selecting an appropriate pathway is rarely straightforward.
+          Sector pathways targeting similar climate outcomes can differ
+          significantly in geographic scope, energy-demand assumptions,
+          technology cost and deployment trends, and the pace of emissions
+          reductions, among other factors. This makes it difficult for users to
+          decide which pathway to use as a benchmark for a CTA or understand how
+          the choice of pathway affects the assessment’s conclusions.
+        </p>
+        <p>
+          The new comparison view in RMI’s Transition Pathway Repository helps
+          users understand how assumptions and scopes vary across pathways. It
+          allows users to examine up to three pathways side by side, including
+          their geographic and sector coverage, key model assumptions, trends,
+          and quantitative benchmarks. This makes it easier to understand not
+          only where pathways agree, but also why they differ.
+        </p>
+        <p>
+          The following comparison of three ambitious power-sector pathways
+          demonstrates the value of this new feature. The pathways being
+          compared are:
+        </p>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>
+            International Energy Agency’s Net Zero Emissions by 2050 Scenario
+            (IEA NZE)
+          </li>
+          <li>
+            European Commission Joint Research Centre’s Global Energy and
+            Climate Outlook 1.5°C Scenario (GECO 1.5°C)
+          </li>
+          <li>
+            ASEAN Centre for Energy’s Carbon Neutrality Scenario (ACE CNS)
+          </li>
+        </ul>
+        <p>
+          All three pathways model substantial power-sector decarbonization. Yet
+          comparing them reveals different views of how quickly the transition
+          occurs, which technologies drive it, and how regional conditions
+          change implementation.
+        </p>
+        <h4 className="text-lg font-semibold text-rmigray-800">
+          Insight #1: Global ambition and regional context provide different
+          insights
+        </h4>
+        <p>
+          IEA NZE and GECO 1.5°C are global pathways. They provide benchmarks
+          for understanding the scale and pace of change required to meet
+          ambitious international climate goals. ACE CNS focuses specifically on
+          Southeast Asia and reflects the region’s growing electricity demand,
+          existing power mix, renewable resource potential, national
+          commitments, and infrastructure needs.
+        </p>
+        <p>
+          Although GECO 1.5°C is developed as a global pathway, its results can
+          be viewed at the Southeast Asian and country levels. This can provide
+          useful geographic detail, but the regional results also inherit
+          globally applied assumptions, including assumptions about policy and
+          carbon pricing. As global results are translated to the regional
+          level, some country- and region-specific information may therefore be
+          generalized or simplified. In comparison, ACE CNS was developed
+          through regional and national energy system modeling, using data from
+          ASEAN Member States, allowing it to reflect regional conditions more
+          directly.
+        </p>
+        <img
+          src="/updates/how-to-comparison-view-1.png"
+          alt="Comparison view showing pathway summary cards and policy assumptions side by side."
+          loading="lazy"
+          className="w-full rounded-xl border border-neutral-200 shadow-sm"
+        />
+        <p>
+          GECO 1.5°C may be most appropriate for testing whether a Southeast
+          Asia electricity company’s overall ambition is consistent with a 1.5°C
+          future, but the ACE CNS provides a more relevant benchmark for
+          evaluating whether a company’s technology development and transition
+          plans are feasible given local constraints.
+        </p>
+        <p>
+          The comparison tool does not identify one pathway as ‘the best’.
+          Instead, it helps users determine which pathway is most appropriate
+          for the question being assessed and where multiple pathways may be
+          needed.
+        </p>
+        <h4 className="text-lg font-semibold text-rmigray-800">
+          Insight #2: Similar pathway goals can produce different regional
+          benchmarks
+        </h4>
+        <p>
+          Comparing GECO 1.5°C and ACE CNS at the Southeast Asia regional level
+          shows that pathways with similarly ambitious long-term goals can still
+          produce materially different regional benchmarks. GECO uses a global
+          modeling framework on Southeast Asia, while ACE CNS is constructed
+          specifically around the ASEAN energy system. This provides a useful
+          test of how different assumptions and modeling approaches shape the
+          transition shown for the same region.
+        </p>
+        <p>
+          The difference is evident in the pathways’ near-term power sector
+          benchmarks. ACE CNS shows a slower decline in emissions intensity than
+          the Southeast Asian results from GECO. This corresponds with a slower
+          buildout of wind and solar capacity in ACE CNS, while its power system
+          retains a larger role for existing generation sources, including
+          fossil fuels. This comparison, therefore, shows that selecting the
+          same apparent high ambition and geography does not necessarily yield
+          the same transition trajectory.
+        </p>
+        <img
+          src="/updates/how-to-comparison-view-2.png"
+          alt="Comparison view showing pathway summary cards and benchmark capacity plots side by side."
+          loading="lazy"
+          className="w-full rounded-xl border border-neutral-200 shadow-sm"
+        />
+        <p>
+          These differences reflect the pathways’ assumptions around regional
+          constraints and technology costs. Both GECO 1.5°C and ACE CNS use
+          least-cost optimization approaches to identify cost-effective
+          transition pathways, but they use different modeling frameworks and
+          assumptions. CNS is intended to balance decarbonization with regional
+          energy security, affordability, and development needs. At the same
+          time, different assumptions about future technology costs and
+          deployment can influence how quickly technologies become competitive
+          in cost-optimization models. The comparison view does not provide
+          every assumption and modeling difference for comparison, but it will
+          highlight differences in outputs that warrant a deeper look.
+        </p>
+        <p>
+          The comparison view also highlights subtle differences in geographic
+          coverage. ACE defines Southeast Asia as the ASEAN Member States, and
+          JRC GECO uses a broader regional definition that additionally includes
+          Mongolia, North Korea, and Taiwan<sup>1</sup>. As a result, benchmark
+          differences may reflect both modeling assumptions and differences in
+          regional boundaries.
+        </p>
+        <p>
+          As a result of these differences, a company may appear more or less
+          aligned depending on which regional benchmark is used. Rather than
+          treating one pathway result as definitive, users can consider which
+          pathway assumptions are most relevant to their use case.
+        </p>
+        <div className="mt-6 border-t border-neutral-200 pt-4">
+          <p className="text-sm text-rmigray-500">
+            <sup>1</sup> Country and regional representations follow the
+            conventions used in the underlying data sources and do not reflect
+            any institutional point of view by RMI.
+          </p>
+        </div>
+      </>
+    ),
+  },
+  {
     title:
       "Four lessons learned from evaluating the transition pathway landscape in the Southeast Asia power sector",
     date: "May 15, 2026",
@@ -184,6 +346,9 @@ const ResourcesUpdatesPage: React.FC = () => {
           </div>
         </section>
 
+        {/* No OnPageIndex on this page (#802): it has only one top-level h2
+            ("Latest updates" below), so a table of contents would have
+            nothing to navigate to. */}
         <section className="mx-auto mt-12 max-w-5xl">
           <div className="max-w-5xl">
             <h2 className="text-2xl font-semibold text-rmigray-800 mt-8">

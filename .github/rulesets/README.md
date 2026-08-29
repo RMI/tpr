@@ -1,46 +1,66 @@
 # GitHub Rulesets
 
-These json files represent [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets).
+This directory defines the [GitHub Rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/about-rulesets)
+this repo expects to be in effect. CI compares them against the repo's **live**
+rulesets and fails if they drift.
 
-Each is created by exporting an existing ruleset in effect in this repo.
+The check logic and the shared ruleset **templates** are maintained centrally in
+[**RMI/actions**](https://github.com/RMI/actions) — see
+[`actions/admin/rulesets-check`](https://github.com/RMI/actions/tree/main/actions/admin/rulesets-check)
+for the full template list, overlay format, and merge semantics. This repo's
+workflow ([`admin-check_rulesets.yml`](../workflows/admin-check_rulesets.yml))
+calls that action.
 
-# Export
+## Overlay files (`*.overlay.json`)
 
-To create a ruleset file from an existing ruleset (usually created through the web UI):
+Each ruleset is described by a small **overlay** that names a shared template and
+lists only what this repo changes on top of it. A key is checked _only if_ an
+overlay (or its template) defines it — everything else GitHub returns is ignored.
 
-- In Repo Settings, on the sidebar, go to "Rules" -> "Rulesets".
-- Find the ruleset you want to export.
-- In the "..." (three dots) menu, "Export Ruleset".
+```jsonc
+{
+  "template": "gitflow-main", // required: a template from RMI/actions
+  "rules": {
+    // sparse overrides, keyed by rule type
+    "pull_request": {
+      "parameters": { "required_approving_review_count": 1 },
+    },
+    "required_status_checks": {
+      // required-check contexts are per-repo
+      "parameters": {
+        "required_status_checks": [/* ...this repo's checks... */],
+      },
+    },
+  },
+}
+```
 
-# Import
+A template-only overlay (`{ "template": "gitflow-next-pr" }`) means "use the
+template verbatim". For a ruleset that maps to no shared template (this repo's
+`code-quality-copilot-review`), use the `blank` template and author the whole
+thing in the overlay.
 
-NOTE: If you are updating an existing ruleset, see "Update" below.
+Current overlays here: `gitflow-main`, `gitflow-production`,
+`gitflow-next-lifecycle`, `gitflow-next-pr`, `code-quality-copilot-review`.
 
-To import a new ruleset (from a file) into the repo's settings:
+## Changing a ruleset
 
-- In Repo Settings, on the sidebar, go to "Rules" -> "Rulesets".
-- Click the green "New Ruleset" -> "Import a ruleset".
-- Navigate to a JSON file (on your local machine) that defines the ruleset you want.
-- Scroll to bottom of page and **"Create"**
+The overlay is the _intended_ state; the live GitHub ruleset is _reality_. To
+change one, update **both** so they match (CI verifies they do):
 
-# Update
+1. Edit the relevant `*.overlay.json` here.
+2. Update the live ruleset to match, in **Repo Settings → Rules → Rulesets**
+   (or via `gh api`).
+3. Push — the rulesets check confirms the overlay and the live ruleset agree.
 
-If you want to alter an existing ruleset (such as adding required checks, see [PR#189](https://github.com/RMI/tpr/pull/189)):
+To change a setting for _all_ RMI repos rather than just this one, change the
+template in [RMI/actions](https://github.com/RMI/actions) instead of overriding
+it here.
 
-- In Repo Settings, on the sidebar, go to "Rules" -> "Rulesets".
-- Find the ruleset you want to update.
-- Click on the ruleset name (not three-dots) to see rulest definition in the WebUI.
-  - Rename the ruleset (suggestion `rule-name` -> `rule-name-old`)
-  - Set "Enforcement Status" to "Disabled"
-  - Scroll to bottom of page and **"Save Changes"**
-- Return to "Rulesets" main page, and import the updated definiton (see above, "Import").
-- Repeat if changing multiple rulesets
-- _(Testing):_
-  - Trigger an empty commit: `git commit -m "Trigger CI" --allow-empty` and push to trigger checking action
-  - The action **should fail**.
-  - You should see in the `diff`:
-    - You will also see the `*_old` actions as having no comparisons.
-  - If there are no differences in the ruleset you updated, then it has imported as expected, and you can delete the `*_old` ruleset in the Repo settings.
-    - "Rulesets" -> "`*_old`" -> "..." \_. "Delete ruleset".
-  - Trigger a new empty commit and push.
-  - There should be no diffs, and actions run cleanly with new rulesets in effect.
+## Notes
+
+- `bypass_actors` and other volatile/identity fields are intentionally **not**
+  tracked (see the acknowledged-untracked list in RMI/actions). Bypass lists are
+  treated as UI-managed policy, not verified by CI.
+- New properties GitHub adds to the ruleset schema are caught centrally by a
+  nightly coverage check in RMI/actions, not by this repo's PR check.
