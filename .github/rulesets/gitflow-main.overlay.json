@@ -1,0 +1,43 @@
+{
+  "template": "gitflow-main",
+  "rules": {
+    "required_status_checks": {
+      "parameters": {
+        "required_status_checks": [
+          {
+            "context": "Build and Release / Build and Release",
+            "integration_id": 15368
+          },
+          {
+            "context": "Deploy to SWA / Build and Deploy Job",
+            "integration_id": 15368
+          },
+          {
+            "context": "Formatting / Run Prettier Check",
+            "integration_id": 15368
+          },
+          {
+            "context": "JSON Schema / Run JSON validator",
+            "integration_id": 15368
+          },
+          {
+            "context": "JSON Schema / Check generated types",
+            "integration_id": 15368
+          },
+          {
+            "context": "Linting / Run ESLint",
+            "integration_id": 15368
+          },
+          {
+            "context": "Unit Tests / Run unit tests",
+            "integration_id": 15368
+          },
+          {
+            "context": "Check generated timeseries index / Check generated timeseries index",
+            "integration_id": 15368
+          }
+        ]
+      }
+    }
+  }
+}

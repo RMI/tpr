@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, within } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import ResourcesMethodologyPage from "./ResourcesMethodologyPage";
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
@@ -63,5 +63,28 @@ describe("ResourcesMethodologyPage — Regions note", () => {
       </MemoryRouter>,
     );
     expect(flatText(container)).not.toContain(REGION_MAPPING_DISCLAIMER);
+  });
+});
+
+describe("ResourcesMethodologyPage — on-page index (#802)", () => {
+  it("lists the page's top-level sections, in order, excluding the hero subtitle", () => {
+    render(
+      <MemoryRouter>
+        <ResourcesMethodologyPage />
+      </MemoryRouter>,
+    );
+
+    const nav = screen.getByRole("navigation", { name: "On this page" });
+    // First link is the "Back to top" entry, not one of the page's sections.
+    const links = within(nav).getAllByRole("link").slice(1);
+
+    expect(links.map((link) => link.textContent)).toEqual([
+      "Key definitions",
+      "Expert overview",
+      "Meta data classification",
+      "Scope and granularity classification",
+      "Narrative and assumptions classification",
+      "What to do next",
+    ]);
   });
 });
