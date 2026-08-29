@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-EXT-TH-2024",
   "publication": {
     "title": {
@@ -31,7 +31,7 @@
     "country": ["TH"]
   },
   "pathwayType": "Predictive",
-  "modelYearStart": 2019,
+  "modelYearStart": 2018,
   "modelYearEnd": 2060,
   "sectors": [
     {
@@ -48,7 +48,7 @@
       ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Existing Policy (EXT) scenario from the ASEAN Green Future project reflects Thailand’s current energy policy trajectory, integrating policy targets for renewable energy deployment and energy efficiency improvements. The EXT scenario is based on frameworks and policy plans such as the Energy Efficiency Plan 2018–2037, the Alternative Energy Development Plan 2018–2037, and the Power Development Plan 2018–2037. All these frameworks and plans end in 2037, beyond which the pathway assumes that the renewables share and energy efficiency remain constant through 2060.\n\nThe EXT is a relatively conservative outlook, without deployment at scale of new technologies (e.g., carbon capture or green hydrogen), that assumes limited ambition in renewables deployment overall. As a result, emissions from the power sector continue to increase in this pathway.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.\n\n#### Core Drivers\n\nGDP growth, continuing urbanization, and technology shifts all contribute to sustained electricity demand growth over the full time frame of the pathway. \n\n*Policies:* The EXT assumes that the Thai power sector will reach energy efficiency targets and renewable energy share targets that are in line with existing government plans. This means that power capacity, generation, and emissions from the power sector are driven primarily by these policy targets. No further significant changes are modeled beyond the 2037 time horizon of these policy targets, and renewable energy and energy efficiency are held constant from that point until 2060. \n\n*Technology deployment and electrification:* Access to efficient lighting in residential buildings and efficiency improvements in industry moderate the growth of electricity demand despite continued economic growth.\n\n#### Application to Transition Assessment\n\nThe EXT scenario serves as a conservative baseline for energy transition analysis in Thailand, following the present policy path without any new climate interventions.\n\nThe EXT pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines to current government policies. Misalignment to the EXT pathway indicates that a company or plan may already be falling behind forecast rates of change. This could signal exposure to regulatory risk or declining market share as low-carbon segments of the power sector are encouraged to grow. \n\nThe EXT scenario does not include aspirational targets or potential future policies (see the More Ambitious Policy scenario and Near Zero Emission scenario that accompany the EXT scenario), which means that it can be viewed as a conservative projection of potential market dynamics. By extension, company plans that exceed the rate of transition that is forecast in the EXT scenario may still be exposed to future risks if new policies are implemented or technology shifts occur faster than modeled. \n\nThe EXT scenario does not include details about technology costs, supply chain dependencies, or investment needs, which means that it has clear limitations in assessing the commercial and technical feasibility of transition strategies.\n\nAnnual projections for power capacity, electricity generation, and emissions use a moderately detailed breakdown by energy sources including coal, natural gas, wind, solar, and biomass. These are relevant and useful for analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the EXT scenario has limited applicability to companies with diversified operations across multiple geographies, but it offers solid detail and specificity for operations in Thailand.",
+  "pathwayDescription": "The Existing Policy (EXT) scenario from the ASEAN Green Future project reflects Thailand’s current energy policy trajectory, integrating policy targets for renewable energy deployment and energy efficiency improvements. The EXT scenario is based on frameworks and policy plans such as the Energy Efficiency Plan 2018–2037, the Alternative Energy Development Plan 2018–2037, and the Power Development Plan 2018–2037. All these frameworks and plans end in 2037, beyond which the pathway assumes that the renewables share and energy efficiency remain constant through 2060.\n\nThe EXT is a relatively conservative outlook, without deployment at scale of new technologies (e.g., carbon capture or green hydrogen), that assumes limited ambition in renewables deployment overall. As a result, emissions from the power sector continue to increase in this pathway.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -57,20 +57,117 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Moderate increase",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Moderate increase"
+      }
     ],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "No information",
-    "newTechnologiesIncluded": ["No new technologies"],
-    "investmentNeeds": "No information"
-  }
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["Target technology shares", "Performance standards"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Current Thai energy and power plans drive the pathway, which assumes that energy efficiency and renewable capacity share targets are met as laid out in: PDP2018, AEDP2018 and EEP2018. Electric vehicle uptake follows targets based on LT-LEDS.",
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics. Sectoral value-added projections are based on World Bank indicators, assuming they remain stable. All these indicators are common demand drivers rather than pathway-specific differentiators.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Existing policy plans are the main enabling strategy for the EXT pathway, especially PDP2018 RE and capacity targets and EEP2018/AEDP2018 efficiency and renewable-energy measures. These policies keep renewables growing but leave fossil generation dominant in 2060.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The regulatory framework is represented mainly through national plans and standards, not detailed market design or permitting. Its bindingness is low because the capacity trajectory follows plan-based targets rather than unconstrained market outcomes.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "End-use electricity demand depends on household appliances and EV uptake, but the EXT pathway frames these as policy or planing assumptions rather than consumer willingness or preference changes.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Electricity generation growth, imports, and renewables deployment imply grid and cross-border infrastructure needs, but the pathway does not quantify bottlenecks in transmission lines or storage.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Resource availability is acknowledged through Thailand's large RE potential and imported electricity, but the EXT pathway deploys renewables far below the reported technical potential, so resource limits are not binding.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }

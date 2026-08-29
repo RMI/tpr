@@ -4,6 +4,11 @@ import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
 import BadgeArray from "../components/BadgeArray";
+import Badge from "../components/Badge";
+import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
+import DataAvailabilityTable from "../components/DataAvailabilityTable";
+import DependenciesTable from "../components/DependenciesTable";
+import AssumptionsTrends from "../components/AssumptionsTrends";
 import {
   flattenGeography,
   geographyKind,
@@ -39,11 +44,20 @@ import {
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
 
+// The four tabs from Jacob's wireframe. The first is the default (see useActiveTab).
+const DETAIL_TABS: TabDef[] = [
+  { id: "at-a-glance", label: "At a glance" },
+  { id: "overview", label: "Overview" },
+  { id: "timeseries", label: "Timeseries" },
+  { id: "scope", label: "Scope & Granularity" },
+];
+
 const PathwayDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [pathway, setPathway] = useState<PathwayMetadataType | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeseriesdata, setTimeseriesdata] = useState<TimeSeries | null>(null);
+  const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
 
   useEffect(() => {
     setLoading(true);
@@ -178,6 +192,156 @@ const PathwayDetailPage: React.FC = () => {
     );
   }
 
+  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels. Kept
+  // in the default "At a glance" tab so they are in the DOM on first render (the
+  // page tests query these badges and their ⓘ tooltips directly).
+  const coveragePanels = (
+    <>
+      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Geographies
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={
+              <>
+                <span className="block">{GEOGRAPHY_AVAILABILITY_TOOLTIP}</span>
+                <span className="mt-2 block italic">
+                  {REGION_MAPPING_DISCLAIMER}
+                </span>
+              </>
+            }
+            ariaLabel="Geography availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedGeos.map((geo) => {
+            const base = geographyVariant(geographyKind(geo));
+            return availability.hasGeography(geo) ? base : `${base}-pub`;
+          })}
+          toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+          tooltipGetter={(geo) =>
+            geographyKind(geo) === "region" ? (
+              <RegionMembersTooltip
+                geography={pathway.geography}
+                label={geo}
+              />
+            ) : undefined
+          }
+          visibleCount={Infinity}
+        >
+          {sortedGeos}
+        </BadgeArray>
+      </div>
+
+      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Sectors
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={SECTOR_AVAILABILITY_TOOLTIP}
+            ariaLabel="Sector availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedSectors.map((s) =>
+            availability.hasSector(s.name) ? "sector" : "sector-pub",
+          )}
+          tooltipGetter={getSectorTooltip}
+          visibleCount={Infinity}
+        >
+          {sortedSectors.map((s) => s.name)}
+        </BadgeArray>
+      </div>
+
+      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Benchmark Metrics
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={METRIC_AVAILABILITY_TOOLTIP}
+            ariaLabel="Benchmark metric availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedMetrics.map((m) =>
+            availability.hasMetric(m) ? "metric" : "metric-pub",
+          )}
+          tooltipGetter={getMetricTooltip}
+          visibleCount={Infinity}
+        >
+          {sortedMetrics}
+        </BadgeArray>
+      </div>
+    </>
+  );
+
+  const expertOverview = (
+    <section className="mb-8">
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+        Expert Overview
+      </h2>
+      {/*
+        v2 replaces v1's single `expertOverview` blob with `pathwayDescription`
+        (the surviving prose; core drivers move to the structured `coreDrivers`
+        object). null means no description is available. #859 owns the final
+        presentation, including whether this heading keeps its name.
+      */}
+      <div className="prose text-rmigray-700">
+        <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
+      </div>
+    </section>
+  );
+
+  const plotPanel = (
+    <PlotSelector
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      className="mb-6"
+    />
+  );
+
+  const supplementalInfo = (
+    <section>
+      <div className="prose text-rmigray-700">
+        <h4>Supplemental Information</h4>
+        <PublicationBlock publication={pathway.publication} />
+
+        {tsIndexLoaded && datasets.length > 0
+          ? datasets.map((d) => {
+              const label = d.label ?? d.datasetId;
+              const summary = summarizeSummary(d.summary);
+              return (
+                <DownloadDataset
+                  key={d.datasetId}
+                  label={label}
+                  href={d.path}
+                  summary={summary}
+                />
+              );
+            })
+          : null}
+      </div>
+    </section>
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Link
@@ -191,8 +355,8 @@ const PathwayDetailPage: React.FC = () => {
         Back to pathways
       </Link>
 
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="bg-bluespruce p-6 text-white">
+      <div className="bg-white rounded-lg shadow-md">
+        <div className="bg-bluespruce p-6 text-white rounded-t-lg">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">
             {pathway.name.full +
               (pathway.name.short ? ` (${pathway.name.short})` : "")}
@@ -254,149 +418,102 @@ const PathwayDetailPage: React.FC = () => {
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-7">
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Expert Overview
-                </h2>
-                <div className="prose text-rmigray-700">
-                  <Markdown>{pathway.expertOverview}</Markdown>
-                </div>
-              </section>
-
-              <section className="mt-8">
-                <div className="prose text-rmigray-700">
-                  <h4>Supplemental Information</h4>
-                  <PublicationBlock publication={pathway.publication} />
-
-                  {tsIndexLoaded && datasets.length > 0
-                    ? datasets.map((d) => {
-                        const label = d.label ?? d.datasetId;
-                        const summary = summarizeSummary(d.summary);
-                        return (
-                          <DownloadDataset
-                            key={d.datasetId}
-                            label={label}
-                            href={d.path}
-                            summary={summary}
-                          />
-                        );
-                      })
-                    : null}
-                </div>
-              </section>
-            </div>
-
-            <div className="md:col-span-5">
-              <PlotSelector
-                timeseriesdata={timeseriesdata}
-                datasetId={datasets[0]?.datasetId}
-                className="mb-6"
-              />
-
-              <KeyFeatures keyFeatures={pathway.keyFeatures} />
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Geographies
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={
-                      <>
-                        <span className="block">
-                          {GEOGRAPHY_AVAILABILITY_TOOLTIP}
-                        </span>
-                        <span className="mt-2 block italic">
-                          {REGION_MAPPING_DISCLAIMER}
-                        </span>
-                      </>
-                    }
-                    ariaLabel="Geography availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedGeos.map((geo) => {
-                    const base = geographyVariant(geographyKind(geo));
-                    return availability.hasGeography(geo)
-                      ? base
-                      : `${base}-pub`;
-                  })}
-                  toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
-                  tooltipGetter={(geo) =>
-                    geographyKind(geo) === "region" ? (
-                      <RegionMembersTooltip
-                        geography={pathway.geography}
-                        label={geo}
-                      />
-                    ) : undefined
-                  }
-                  visibleCount={Infinity}
-                >
-                  {sortedGeos}
-                </BadgeArray>
-              </div>
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Sectors
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={SECTOR_AVAILABILITY_TOOLTIP}
-                    ariaLabel="Sector availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedSectors.map((s) =>
-                    availability.hasSector(s.name) ? "sector" : "sector-pub",
-                  )}
-                  tooltipGetter={getSectorTooltip}
-                  visibleCount={Infinity}
-                >
-                  {sortedSectors.map((s) => s.name)}
-                </BadgeArray>
-              </div>
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Benchmark Metrics
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={METRIC_AVAILABILITY_TOOLTIP}
-                    ariaLabel="Benchmark metric availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedMetrics.map((m) =>
-                    availability.hasMetric(m) ? "metric" : "metric-pub",
-                  )}
-                  tooltipGetter={getMetricTooltip}
-                  visibleCount={Infinity}
-                >
-                  {sortedMetrics}
-                </BadgeArray>
-              </div>
-            </div>
+        {/*
+          Sticky bar: a compact Sector summary plus the tab list, so the tabs stay
+          reachable as the page scrolls. A Geography summary is intentionally NOT
+          duplicated here — the availability-aware Geographies panel below owns the
+          geography labels, and repeating them would collide with the page tests'
+          text queries. Adding it (and moving the availability panels into Scope &
+          Granularity per the wireframe) is a flagged follow-up.
+        */}
+        <div className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-neutral-200 rounded-t-none">
+          <div className="px-6 pt-3 flex flex-wrap items-center gap-2">
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-rmigray-500 mr-1">
+              Sector
+            </span>
+            {pathway.sectors.map((s) => (
+              <Badge
+                key={s.name}
+                variant="sector"
+              >
+                {s.name}
+              </Badge>
+            ))}
           </div>
+          <Tabs
+            tabs={DETAIL_TABS}
+            activeId={activeTab}
+            onChange={setActiveTab}
+            label="Pathway detail sections"
+            idBase="pathway"
+            className="px-6 pt-2"
+          />
+        </div>
+
+        <div className="p-6">
+          <TabPanel
+            id="at-a-glance"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+              <div className="md:col-span-7">{expertOverview}</div>
+              <div className="md:col-span-5">
+                {plotPanel}
+                <KeyFeatures keyFeatures={pathway.keyFeatures} />
+                {coveragePanels}
+              </div>
+            </div>
+          </TabPanel>
+
+          <TabPanel
+            id="overview"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-6">
+              {expertOverview}
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Assumptions & Trends Overview
+                </h2>
+                <AssumptionsTrends coreDrivers={pathway.coreDrivers} />
+              </section>
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Dependencies
+                </h2>
+                <DependenciesTable dependencies={pathway.dependencies} />
+              </section>
+            </div>
+          </TabPanel>
+
+          <TabPanel
+            id="timeseries"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
+              <div className="md:col-span-7">{supplementalInfo}</div>
+              <div className="md:col-span-5">{plotPanel}</div>
+            </div>
+          </TabPanel>
+
+          <TabPanel
+            id="scope"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <section>
+              <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                Data Availability
+              </h2>
+              <DataAvailabilityTable
+                dataAvailability={pathway.dataAvailability}
+                downloadHref={datasets[0]?.path}
+              />
+            </section>
+          </TabPanel>
         </div>
       </div>
     </div>

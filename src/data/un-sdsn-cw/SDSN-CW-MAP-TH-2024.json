@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-MAP-TH-2024",
   "publication": {
     "title": {
@@ -31,7 +31,7 @@
     "country": ["TH"]
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2019,
+  "modelYearStart": 2018,
   "modelYearEnd": 2060,
   "sectors": [
     {
@@ -48,7 +48,7 @@
       ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe More Ambitious Policy (MAP) scenario from the ASEAN Green Future project reflects and expands on Thailand’s Existing Policy (EXT) scenario, integrating policy targets around renewable energy shares and energy efficiency improvements. The MAP scenario is based on frameworks and policy plans such as the Energy Efficiency Plan 2018–2037, the Alternative Energy Development Plan 2018–2037, and the Power Development Plan 2018–2037. All these frameworks and plans have targets until 2037, after which the MAP scenario assumes a continuation of the growth trend for both energy efficiency improvements and renewable electricity share until 2060.\n\nThe MAP is still a somewhat conservative outlook in the sense that it does not raise the ambition of Thailand’s energy transition significantly in the near term compared to existing policies. It assumes that no significant new technologies are deployed at scale and that the deployment rate of renewable electricity capacity only starts to diverge from the EXT scenario after 2037. However, by assuming continued increases in both energy efficiency and renewable energy share, MAP brings emissions back down to 2024 levels around 2050, most notably through replacing coal- and gas-fired power plants with expanding renewable energy capacity.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.\n\n#### Core Drivers\n\nGDP growth, continuing urbanization, and technology shifts all contribute to sustained electricity demand growth over the full time frame of the pathway. \n\n*Policies:* The MAP scenario assumes that the Thai power sector will reach energy efficiency targets and renewable energy share targets that are in line with existing government plans, and then it extrapolates continued improvements in these parameters to 2060. Changes in power capacity, generation, and emissions are driven primarily by these policy targets until the end of the pathway’s time frame in 2060.\n\n*Technology deployment and electrification:* Growing shares of EVs and electric trains in transport; access to efficient lighting, cooling, and cooking in residential buildings; and efficiency improvements in industry all contribute to growing electricity demand and a reduction in GHG emissions.\n\n#### Application to Transition Assessment\n\nThe MAP scenario is an exploratory pathway for energy transition analysis that follows many of the assumptions from the EXT scenario from the same developers, and extends those assumptions from 2037 until 2060. Effectively this scenario explores a case where existing policy objectives are met and followed up with updated targets in the future.\n\nWith its focus on existing policies and their extension into future decades, the MAP pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against government policies. Misalignment to the MAP scenario indicates that a company or plan may already be falling behind forecast rates of change. This could signal exposure to regulatory risk or declining market share as low-carbon segments of the power sector are encouraged to grow. \n\nWhile the MAP scenario includes aspirational 2060 targets extrapolated from existing 2037 targets, it is still a relatively conservative projection of the energy transition and does not differ strongly from the EXT scenario until 2037. Therefore, company plans that exceed the rate of transition that is forecast in the MAP scenario may still be exposed to future risks if more stringent policies are implemented before 2037 or if technology shifts occur faster than modeled.\n\nThe MAP scenario does not include details about technology costs, supply chain dependencies, or investment needs, which means that it has clear limitations in assessing the commercial and technical feasibility of transition strategies.\n\nAnnual projections for power capacity, electricity generation, and emissions use a moderately detailed breakdown by energy sources such as coal, natural gas, wind, solar, and biomass. These are relevant and useful for analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the MAP scenario has limited applicability to companies with diversified operations across multiple geographies, but it offers solid detail and specificity for operations in Thailand.",
+  "pathwayDescription": "The More Ambitious Policy (MAP) scenario from the ASEAN Green Future project reflects and expands on Thailand’s Existing Policy (EXT) scenario, integrating policy targets around renewable energy shares and energy efficiency improvements. The MAP scenario is based on frameworks and policy plans such as the Energy Efficiency Plan 2018–2037, the Alternative Energy Development Plan 2018–2037, and the Power Development Plan 2018–2037. All these frameworks and plans have targets until 2037, after which the MAP scenario assumes a continuation of the growth trend for both energy efficiency improvements and renewable electricity share until 2060.\n\nThe MAP is still a somewhat conservative outlook in the sense that it does not raise the ambition of Thailand’s energy transition significantly in the near term compared to existing policies. It assumes that no significant new technologies are deployed at scale and that the deployment rate of renewable electricity capacity only starts to diverge from the EXT scenario after 2037. However, by assuming continued increases in both energy efficiency and renewable energy share, MAP brings emissions back down to 2024 levels around 2050, most notably through replacing coal- and gas-fired power plants with expanding renewable energy capacity.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -57,20 +57,117 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Low or no change",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Low or no change"
+      }
     ],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Other policy ambition",
-    "technologyCostsDetail": "No information",
-    "newTechnologiesIncluded": ["No new technologies"],
-    "investmentNeeds": "No information"
-  }
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["Target technology shares", "Performance standards"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Other policy ambition"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "MAP assumes that policy targets after 2037 become more ambitious and keep driving energy efficiency, electric cooking, renewable industrial energy, EV/electric rail shares, and higher RE capacity.",
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics. Sectoral value-added projections are based on World Bank indicators, assuming they remain stable. All these indicators are common demand drivers rather than pathway-specific differentiators.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The MAP pathway depends more strongly than EXT on policy strategy because it extends and strengthens efficiency, EV, electric rail, T&D-loss, and RE-capacity targets to 2060. These policy assumptions help halve 2060 power emissions relative to EXT.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The pathway requires strengthened standards and target-setting, especially T&D loss reduction and efficiency/technology-share mandates, but it does not model permitting or electricity-market reforms.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "The MAP pathway relies on stronger uptake of electric cooking, EVs, and electric trains than EXT. These assumptions materially shift electricity demand, especially transport demand, but are treated as policy promotion rather than consumer-choice modeling.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "MAP requires substantially more renewable and import capacity than EXT, plus T&D-loss reductions. Grid integration and system infrastructure are therefore more binding than in EXT. Additional needs are not quantified for transmission lines or storage.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "MAP deploys more RE capacity than EXT, so solar, wind, and biomass potential and imports are more relevant. But the capacity remains far below reported technical potential and no binding raw-material constraint is stated.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }

@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json",
+  "title": "Sector Segment",
+  "description": "Segments within a sector",
+  "type": "object",
+  "properties": {
+    "displayName": { "$ref": "#/$defs/displayName" }
+  },
+  "required": ["displayName"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "displayName": {
+      "description": "Display name of the sector segment as presented in tables.",
+      "$comment": "Segments are sector-specific: 'Storage' is meaningful for Power and meaningless for Land Use. draft-07 cannot condition this enum on a sibling 'sector' value -- and the if/then form that could collapses the generated object type to an index signature (see validateScopes.ts) -- so membership is enforced by validateScopedEntries against SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts. Only Power's segments are defined so far; 'No information' is legal under every sector, so a pathway in a sector whose segments nobody has written down yet can still record data availability.",
+      "type": "string",
+      "enum": [
+        "No information",
+        "Power generation",
+        "Storage",
+        "Transmission & Distribution"
+      ]
+    }
+  }
+}
