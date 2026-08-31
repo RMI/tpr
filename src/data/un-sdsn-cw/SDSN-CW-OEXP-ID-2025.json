@@ -1,0 +1,77 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "UNSDSN-CW-OEXP-ID-2025",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Optimizing Indonesia's Power Sector Decarbonization"
+    },
+    "author": [
+      "Alin Halimatussadiah",
+      "Muhammad Yudha Pratama",
+      "Rafika Farah Maulia",
+      "Sarah Natalia Gultom",
+      "Ali Kafiyatullah"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2025,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/Indonesia%20Phase%202.1%20%26%202.2%20Report%20-%20Finalised.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Optimized Existing Policy Scenario ID",
+    "short": "OEXP ID"
+  },
+  "description": "Indonesia least-cost current policies pathway. Early coal retirements but slow decarbonization.",
+  "geography": ["ID"],
+  "pathwayType": "Normative",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2060,
+  "ssp": "SSP2",
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Optimized Existing Policies Pathway (OEXP) models how Indonesia’s power sector would evolve if system developments were guided solely by least-cost optimization within the bounds of the country’s current policy environment. OEXP has the same policy constraints as the complementary Existing Policy Pathway (EXP) from the same developers, but the introduction of cost optimization results in different outcomes.\n\nUnlike the non-optimized pathway (EXP), OEXP results in the retirement of coal-fired power plants by 2030 because of declining economic competitiveness. However, coal re-enters the generation mix in 2033 in a limited role as an inexpensive backup source, indicating reliability constraints and underscoring gaps in renewable integration and storage. By 2060, hydropower becomes the dominant generation source, replacing solar as the most competitive option due to its higher capacity factor and dependable baseload characteristics. Levelized cost of electricity declines marginally relative to the EXP due to greater renewable deployment.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Technology mix and cost:* Least-cost optimization drives the OEXP pathway, with technologies selected based on the lowest combination of capital costs, fuel costs, and lifecycle operating costs. Solar becomes cost-attractive due to falling capital costs, but hydropower ultimately dominates because of its high capacity factor which makes it more economically efficient for system reliability. Coal retains a limited role for grid balancing as progress is slow in scaling batteries and pumped-storage hydro.\n\n#### Application to Transition Assessment\n\nOEXP provides a view for assessing financial feasibility and the outlook for cost competitiveness of different generation technologies (note that market and contractual constraints mean the least-cost pathway is not necessarily the most feasible or likely). The pathway demonstrates that even without policy changes, market forces alone can render coal economically non-viable from a cost perspective. This insight is especially valuable for financial institutions evaluating stranded-asset risk or assessing whether corporate capital plans overstate the long-term economic role of coal.\n\nThe OEXP results also enhance technology feasibility assessments by clarifying which technologies outperform others on a cost basis (with the selected cost assumptions). Firms relying on long-lived fossil generation or slow adoption of renewables may face structural cost disadvantages under a cost optimized system. Finally, OEXP helps highlight where structural gaps, such as battery storage, create constraints that companies must actively manage.\n\nThe OEXP results provide system-level insights into generation mix evolution, capacity changes, emissions reductions, and cost outcomes under least-cost optimization, but they do not include asset-level build schedules or project-specific retirement timelines. As a result, the outputs offer a high-level view of how the power system would reconfigure itself when guided solely by economic considerations, rather than a detailed infrastructure roadmap.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Significant decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": ["Target technology shares"],
+    "technologyCostTrend": "Decrease",
+    "technologyDeploymentTrend": "Minor technology deployment",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "Current and drafted policies",
+    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "newTechnologiesIncluded": ["Battery storage"],
+    "supplyChain": "Exogenous input or fuel price",
+    "investmentNeeds": "No information",
+    "infrastructureRequirements": "No information"
+  }
+}
