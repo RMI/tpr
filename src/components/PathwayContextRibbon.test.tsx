@@ -206,32 +206,23 @@ describe("PathwayContextRibbon", () => {
     });
   });
 
-  it("clears an axis when its pressed badge is clicked again", async () => {
+  it("ignores a click on the already-selected badge", async () => {
+    // Both axes always carry a value, so there is no "no selection" state to
+    // toggle back to; re-clicking is a no-op rather than a clear.
     const onScopeChange = vi.fn();
     renderRibbon({ sector: "Power", geography: null }, onScopeChange);
 
     await userEvent.click(screen.getByRole("button", { name: "Power" }));
 
-    expect(onScopeChange).toHaveBeenCalledWith({
-      sector: null,
-      geography: null,
-    });
+    expect(onScopeChange).not.toHaveBeenCalled();
   });
 
-  it("offers a Clear control only for an axis that is scoped", async () => {
-    const onScopeChange = vi.fn();
-    const { unmount } = renderRibbon(NO_SCOPE, onScopeChange);
-    expect(
-      screen.queryByRole("button", { name: "Clear sector" }),
-    ).not.toBeInTheDocument();
-    unmount();
+  it("offers no clear control", () => {
+    renderRibbon({ sector: "Power", geography: "Global" });
 
-    renderRibbon({ sector: "Power", geography: null }, onScopeChange);
-    await userEvent.click(screen.getByRole("button", { name: "Clear sector" }));
-    expect(onScopeChange).toHaveBeenCalledWith({
-      sector: null,
-      geography: null,
-    });
+    expect(
+      screen.queryByRole("button", { name: /^Clear/ }),
+    ).not.toBeInTheDocument();
   });
 
   it("keeps the selected token visible rather than hidden behind '+N more'", () => {

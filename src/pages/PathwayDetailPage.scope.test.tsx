@@ -158,52 +158,68 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   });
 
   it(
-    "starts unscoped, with every option offered and nothing filtered",
+    "opens on the widest geography and the Power sector",
     async () => {
       await mountDetailPage();
       await screen.findByText("The description prose.", undefined, WAIT);
 
-      // Every declared token is selectable, and none is pressed.
-      for (const name of ["Power", "Steel", "Global", "South East Asia"]) {
-        expect(screen.getByRole("button", { name })).toHaveAttribute(
-          "aria-pressed",
-          "false",
-        );
-      }
+      // Widest declared token first: this fixture is global, so Global.
+      expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+      expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+      expect(screen.getByRole("button", { name: "Steel" })).toHaveAttribute(
+        "aria-pressed",
+        "false",
+      );
       expect(
-        screen.queryByRole("button", { name: "Clear sector" }),
-      ).not.toBeInTheDocument();
+        screen.getByRole("button", { name: "South East Asia" }),
+      ).toHaveAttribute("aria-pressed", "false");
 
-      clickTab("Scope & Granularity");
-      await screen.findByRole("rowheader", { name: "Capacity" }, WAIT);
-      expect(screen.getAllByRole("rowheader")).toHaveLength(3);
-      expect(screen.queryByText(/^Showing /)).not.toBeInTheDocument();
+      // Every declared token stays offered, whether selected or not.
+      expect(
+        screen.queryByRole("button", { name: /^Clear/ }),
+      ).not.toBeInTheDocument();
     },
     TEST_TIMEOUT,
   );
 
   it(
-    "filters the availability table by the selected geography",
+    "opens with the tables already narrowed to that scope",
     async () => {
-      await mountDetailPage();
-      await screen.findByText("The description prose.", undefined, WAIT);
+      await mountDetailPage("/pathway/detail-scope?tab=scope");
+      await screen.findByRole("rowheader", { name: "Capacity" }, WAIT);
 
-      clickTab("Scope & Granularity");
+      // Power + Global: the Power/SEA and Steel/Global rows are both excluded.
+      expect(
+        screen.getAllByRole("rowheader").map((th) => th.textContent),
+      ).toEqual(["Capacity"]);
+      expect(
+        screen.getByText("Showing 1 of 3 rows for Power in Global."),
+      ).toBeInTheDocument();
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "re-filters the availability table when the geography changes",
+    async () => {
+      await mountDetailPage("/pathway/detail-scope?tab=scope");
       await screen.findByRole("rowheader", { name: "Capacity" }, WAIT);
 
       await selectScope("South East Asia");
 
-      // The regional row plus both Global rows; Global answers any selection.
+      // Still Power, now regional: the regional row joins, and the Global row
+      // stays because a global row answers any selection.
       expect(
         screen.getAllByRole("rowheader").map((th) => th.textContent),
-      ).toEqual(["Capacity", "Generation", "Absolute Emissions"]);
-
-      await selectScope("Global");
+      ).toEqual(["Capacity", "Generation"]);
       expect(
-        screen.getAllByRole("rowheader").map((th) => th.textContent),
-      ).toEqual(["Capacity", "Absolute Emissions"]);
-      expect(
-        screen.getByText("Showing 2 of 3 rows for Global."),
+        screen.getByText("Showing 2 of 3 rows for Power in South East Asia."),
       ).toBeInTheDocument();
     },
     TEST_TIMEOUT,
@@ -263,23 +279,29 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   );
 
   it(
-    "clears an axis from the ribbon",
+    "seeds a matching search selection instead of the default",
     async () => {
+      // Arriving from a search for Thailand: the geography axis takes the
+      // pathway's region containing TH, while the sector axis, which the search
+      // said nothing about, still takes its default.
+      sessionStorage.setItem(
+        "pathway-filters",
+        JSON.stringify({ geography: "TH", searchTerm: "" }),
+      );
+
       await mountDetailPage();
       await screen.findByText("The description prose.", undefined, WAIT);
 
-      await selectScope("Steel");
-      expect(screen.getByRole("button", { name: "Steel" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      );
-
-      await userEvent.click(
-        screen.getByRole("button", { name: "Clear sector" }),
-      );
-      expect(screen.getByRole("button", { name: "Steel" })).toHaveAttribute(
+      expect(
+        screen.getByRole("button", { name: "South East Asia" }),
+      ).toHaveAttribute("aria-pressed", "true");
+      expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
         "aria-pressed",
         "false",
+      );
+      expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
       );
     },
     TEST_TIMEOUT,

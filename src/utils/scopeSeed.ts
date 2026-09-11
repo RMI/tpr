@@ -136,8 +136,9 @@ export function seedGeographyFromFilters(
 
 /**
  * Pre-select the detail page's scope from the search selection the reader
- * arrived with (#872). Both axes degrade to null independently, and a null axis
- * means "no preference", which renders the page exactly as it does unfiltered.
+ * arrived with (#872). Each axis degrades to null independently, meaning "the
+ * search said nothing about this axis" — `resolveInitialScope` then supplies the
+ * default for it.
  */
 export function seedScopeFromFilters(
   filters: Pick<SearchFilters, "sector" | "geography">,
@@ -146,5 +147,59 @@ export function seedScopeFromFilters(
   return {
     sector: seedSectorFromFilters(filters.sector, pathway),
     geography: seedGeographyFromFilters(filters.geography, pathway),
+  };
+}
+
+/** The sector the tool is built around; every pathway migrated so far has it. */
+export const DEFAULT_SECTOR = "Power";
+
+/**
+ * What the detail page opens on when the search said nothing.
+ *
+ * Geography takes the pathway's widest declared token —
+ * `sortGeographiesForDetails` already ranks global > region > country, so its
+ * first entry is the broadest: `Global` for the IEA pathways, `South East Asia`
+ * for ACE.
+ *
+ * Sector takes Power where the pathway declares it, since that is the sector
+ * the tool is built around and the only one with timeseries. Otherwise the
+ * first declared sector, so the axis still carries a value — the ribbon has no
+ * clear affordance, and an axis with nothing selected would be unreachable
+ * again once the reader had picked something.
+ */
+export function defaultScopeFor(
+  pathway: PathwayMetadataType,
+): PathwayScopeSelection {
+  const sectors = (pathway.sectors ?? []).map((s) => s.name as string);
+  const geographies = sortGeographiesForDetails(
+    flattenGeography(pathway.geography),
+  );
+
+  return {
+    sector: sectors.includes(DEFAULT_SECTOR)
+      ? DEFAULT_SECTOR
+      : (sectors[0] ?? null),
+    geography: geographies[0] ?? null,
+  };
+}
+
+/**
+ * The scope the detail page opens with: whatever the search selected, and the
+ * default for each axis the search left unset.
+ *
+ * Per-axis rather than all-or-nothing, so arriving from a search for Thailand
+ * alone gives Thailand plus the default sector rather than dropping the sector
+ * default entirely.
+ */
+export function resolveInitialScope(
+  filters: Pick<SearchFilters, "sector" | "geography">,
+  pathway: PathwayMetadataType,
+): PathwayScopeSelection {
+  const seeded = seedScopeFromFilters(filters, pathway);
+  const fallback = defaultScopeFor(pathway);
+
+  return {
+    sector: seeded.sector ?? fallback.sector,
+    geography: seeded.geography ?? fallback.geography,
   };
 }

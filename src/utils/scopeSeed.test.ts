@@ -4,6 +4,8 @@ import {
   seedSectorFromFilters,
   seedGeographyFromFilters,
   seedScopeFromFilters,
+  defaultScopeFor,
+  resolveInitialScope,
 } from "./scopeSeed";
 import { geographyScopeOverlaps } from "./keyFeatureScope";
 import { ABSENT_FILTER_TOKEN } from "./absent";
@@ -213,5 +215,78 @@ describe("seedScopeFromFilters invariants", () => {
     expect(
       seedScopeFromFilters({ sector: null, geography: null }, pathway()),
     ).toEqual({ sector: null, geography: null });
+  });
+});
+
+describe("defaultScopeFor", () => {
+  it("opens on the widest declared geography", () => {
+    // sortGeographiesForDetails ranks global > region > country.
+    expect(defaultScopeFor(pathway()).geography).toBe("Global");
+    expect(defaultScopeFor(ace).geography).toBe("South East Asia");
+  });
+
+  it("opens on Power where the pathway declares it", () => {
+    expect(defaultScopeFor(pathway()).sector).toBe("Power");
+  });
+
+  it("falls back to the first declared sector when Power is absent", () => {
+    const p = pathway({
+      sectors: [
+        { name: "Cement", technologies: [] },
+        { name: "Steel", technologies: [] },
+      ],
+    } as unknown as Partial<PathwayMetadataType>);
+
+    expect(defaultScopeFor(p).sector).toBe("Cement");
+  });
+
+  it("leaves an axis null when the pathway declares nothing for it", () => {
+    const p = pathway({
+      sectors: [],
+      geography: { global: false, regions: {}, country: [] },
+    });
+
+    expect(defaultScopeFor(p)).toEqual({ sector: null, geography: null });
+  });
+});
+
+describe("resolveInitialScope", () => {
+  it("uses the defaults when the search selected nothing", () => {
+    expect(
+      resolveInitialScope({ sector: null, geography: null }, pathway()),
+    ).toEqual({ sector: "Power", geography: "Global" });
+  });
+
+  it("prefers the search selection on both axes", () => {
+    expect(
+      resolveInitialScope(
+        { sector: "Steel", geography: "TH" },
+        pathway({
+          geography: {
+            global: true,
+            regions: { "South East Asia": ["ID", "TH", "VN"] },
+            country: [],
+          },
+        } as unknown as Partial<PathwayMetadataType>),
+      ),
+    ).toEqual({ sector: "Steel", geography: "South East Asia" });
+  });
+
+  it("fills in only the axis the search left unset", () => {
+    // Per-axis, not all-or-nothing: a geography-only search still gets the
+    // sector default.
+    expect(
+      resolveInitialScope({ sector: null, geography: "Global" }, pathway()),
+    ).toEqual({ sector: "Power", geography: "Global" });
+
+    expect(
+      resolveInitialScope({ sector: "Steel", geography: null }, pathway()),
+    ).toEqual({ sector: "Steel", geography: "Global" });
+  });
+
+  it("falls back to the default when the search names something the pathway lacks", () => {
+    expect(
+      resolveInitialScope({ sector: "Cement", geography: "BR" }, ace),
+    ).toEqual({ sector: "Power", geography: "South East Asia" });
   });
 });

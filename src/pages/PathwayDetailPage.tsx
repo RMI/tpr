@@ -9,7 +9,7 @@ import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
 import PathwayContextRibbon from "../components/PathwayContextRibbon";
 import { useFilters } from "../context/FilterContext";
-import { seedScopeFromFilters } from "../utils/scopeSeed";
+import { resolveInitialScope } from "../utils/scopeSeed";
 import {
   flattenGeography,
   geographyKind,
@@ -63,14 +63,13 @@ const PathwayDetailPage: React.FC = () => {
   const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
 
   /*
-    The scope ribbon's selection (#872). Seeded from the search filters the
-    reader arrived with, then held locally: browsing a pathway must never
-    disturb the search they came from, so this deliberately does not write back
-    to the shared filter state.
+    The scope ribbon's selection (#872). Seeded per axis from the search filters
+    the reader arrived with, and from `defaultScopeFor` for whichever axis the
+    search left unset — so the page always opens on a definite scope rather than
+    on an unfiltered view the ribbon does not describe.
 
-    Both axes start null when there is nothing to inherit, and a null axis means
-    "no preference" — so an unfiltered page renders exactly as it did before
-    this control existed.
+    Held locally: browsing a pathway must never disturb the search they came
+    from, so this deliberately does not write back to the shared filter state.
   */
   const { filters } = useFilters();
   const [scope, setScope] = useState<PathwayScopeSelection>({
@@ -84,7 +83,7 @@ const PathwayDetailPage: React.FC = () => {
     // exist until it does — so seed on arrival, once per pathway.
     if (!pathway || seededFor.current === pathway.id) return;
     seededFor.current = pathway.id;
-    setScope(seedScopeFromFilters(filters, pathway));
+    setScope(resolveInitialScope(filters, pathway));
   }, [pathway, filters]);
 
   useEffect(() => {

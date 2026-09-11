@@ -69,32 +69,25 @@ const ROW_CONTROL_CLASS =
   "text-[10px] underline text-rmigray-500 hover:text-bluespruce focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-1 rounded";
 
 /**
- * One scope axis: its label, its options as toggle badges, and the two controls
- * that keep it usable — clearing the axis, and revealing options that the
- * single-row collapse has pushed into "+N more", which would otherwise be
- * visible in the overflow tooltip but not selectable.
+ * One scope axis: its label, its options as toggle badges, and a control that
+ * reveals options the single-row collapse has pushed into "+N more", which
+ * would otherwise be visible in the overflow tooltip but not selectable.
  *
- * The controls sit in the label cell rather than beside the badges so they
- * never take part in BadgeArray's width measurement.
+ * There is no clear control: both axes always carry a value (see
+ * `defaultScopeFor`), so "no selection" is not a state the reader can reach or
+ * would benefit from.
+ *
+ * The control sits in the label cell rather than beside the badges so it never
+ * takes part in BadgeArray's width measurement.
  */
 const RibbonRow: React.FC<{
   label: string;
   labelId: string;
-  /** Present only when this axis is scoped. */
-  onClear?: () => void;
   expandable: boolean;
   expanded: boolean;
   onToggleExpand: () => void;
   children: React.ReactNode;
-}> = ({
-  label,
-  labelId,
-  onClear,
-  expandable,
-  expanded,
-  onToggleExpand,
-  children,
-}) => (
+}> = ({ label, labelId, expandable, expanded, onToggleExpand, children }) => (
   <>
     <div className="flex flex-col items-start pt-1">
       <span
@@ -103,15 +96,6 @@ const RibbonRow: React.FC<{
       >
         {label}
       </span>
-      {onClear && (
-        <button
-          type="button"
-          onClick={onClear}
-          className={ROW_CONTROL_CLASS}
-        >
-          {`Clear ${label.toLowerCase()}`}
-        </button>
-      )}
       {expandable && (
         <button
           type="button"
@@ -253,11 +237,6 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <RibbonRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              onClear={
-                scope.sector === null
-                  ? undefined
-                  : () => onScopeChange({ ...scope, sector: null })
-              }
               expandable={sectors.length > 1}
               expanded={expanded.sector}
               onToggleExpand={() =>
@@ -272,7 +251,13 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
                 maxRows={expanded.sector ? Infinity : 1}
                 selected={scope.sector}
-                onSelect={(next) => onScopeChange({ ...scope, sector: next })}
+                // BadgeArray reports null when the pressed badge is clicked
+                // again. Ignored: an axis always carries a value.
+                onSelect={(next) =>
+                  next === null
+                    ? undefined
+                    : onScopeChange({ ...scope, sector: next })
+                }
               >
                 {sectors}
               </BadgeArray>
@@ -281,11 +266,6 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <RibbonRow
               label="Geography"
               labelId={`${baseId}-geography`}
-              onClear={
-                scope.geography === null
-                  ? undefined
-                  : () => onScopeChange({ ...scope, geography: null })
-              }
               expandable={geographies.length > 1}
               expanded={expanded.geography}
               onToggleExpand={() =>
