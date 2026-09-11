@@ -168,14 +168,14 @@ const seaRow: ByMetricRow = {
 
 const sgRow: ByMetricRow = {
   ...inToolRow,
-  metricName: "Emissions intensity",
+  metricName: "Emissions Intensity",
   geography: "SG",
   geographyCoverage: "Country",
 };
 
 const steelRow: ByMetricRow = {
   ...publicationRow,
-  metricName: "Absolute emissions",
+  metricName: "Absolute Emissions",
   sector: "Steel",
 };
 
@@ -218,7 +218,7 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
   it("filters by sector with plain equality", () => {
     // There is no cross-sector availability, so no widening applies here.
     renderScoped({ sector: "Steel", geography: null });
-    expect(rowHeaders()).toEqual(["Absolute emissions"]);
+    expect(rowHeaders()).toEqual(["Absolute Emissions"]);
   });
 
   it("keeps Global rows when a region is selected", () => {
@@ -228,7 +228,7 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
     expect(rowHeaders()).toEqual([
       "Capacity",
       "Generation",
-      "Absolute emissions",
+      "Absolute Emissions",
     ]);
   });
 
@@ -236,8 +236,8 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
     renderScoped({ sector: null, geography: "SG" });
     expect(rowHeaders()).toEqual([
       "Capacity",
-      "Emissions intensity",
-      "Absolute emissions",
+      "Emissions Intensity",
+      "Absolute Emissions",
     ]);
   });
 
@@ -245,7 +245,7 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
     // Selecting Global narrows, matching the search matcher: it does not
     // quietly match every narrower scope.
     renderScoped({ sector: null, geography: "Global" });
-    expect(rowHeaders()).toEqual(["Capacity", "Absolute emissions"]);
+    expect(rowHeaders()).toEqual(["Capacity", "Absolute Emissions"]);
   });
 
   it("intersects the two axes", () => {

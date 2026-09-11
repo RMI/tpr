@@ -104,8 +104,8 @@ describe("DependenciesTable", () => {
 describe("DependenciesTable — sector scoping (#872)", () => {
   const multiSector = [
     row({ dependency_name: "Policy strategy", sector: "Power" }),
-    row({ dependency_name: "Grid buildout", sector: "Power" }),
-    row({ dependency_name: "Scrap supply", sector: "Steel" }),
+    row({ dependency_name: "Technology", sector: "Power" }),
+    row({ dependency_name: "Resource availability", sector: "Steel" }),
   ];
 
   const names = () =>
@@ -123,7 +123,7 @@ describe("DependenciesTable — sector scoping (#872)", () => {
         sector="Steel"
       />,
     );
-    expect(names()).toEqual(["Scrap supply"]);
+    expect(names()).toEqual(["Resource availability"]);
   });
 
   it("hides the Sector column once one sector is selected", () => {
