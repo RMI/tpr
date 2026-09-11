@@ -356,6 +356,7 @@ const PathwayDetailPage: React.FC = () => {
       datasetId={datasets[0]?.datasetId}
       pathwayGeography={pathway.geography}
       plotTypes={PLOT_ORDER.slice(0, 3)}
+      title="Plots Overview"
     />
   );
 
@@ -364,6 +365,7 @@ const PathwayDetailPage: React.FC = () => {
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
       pathwayGeography={pathway.geography}
+      title="Benchmark Plots"
     />
   );
 
@@ -492,12 +494,7 @@ const PathwayDetailPage: React.FC = () => {
           >
             <div className="space-y-8">
               {pathwayDescription}
-              <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Plots Overview
-                </h2>
-                {plotsOverview}
-              </section>
+              {plotsOverview}
               {assumptionsSummary}
             </div>
           </TabPanel>
@@ -524,12 +521,7 @@ const PathwayDetailPage: React.FC = () => {
             idBase="pathway"
           >
             <div className="space-y-8">
-              <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Benchmark Plots
-                </h2>
-                {benchmarkPlots}
-              </section>
+              {benchmarkPlots}
               {supplementalInfo}
             </div>
           </TabPanel>

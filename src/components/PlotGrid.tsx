@@ -29,6 +29,8 @@ interface PlotGridProps {
   requestedGeography?: string | null;
   /** Which plots to render, in order. Defaults to all of them. */
   plotTypes?: PlotType[];
+  /** Panel heading. Omit for a bare grid with no surrounding panel. */
+  title?: React.ReactNode;
   className?: string;
 }
 
@@ -49,6 +51,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
   pathwayGeography,
   requestedGeography = null,
   plotTypes,
+  title,
   className = "",
 }) => {
   const availableGeographies = useMemo(() => {
@@ -75,11 +78,27 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
     return wanted.filter((opt) => hasDataForMetric(timeseriesdata, opt.value));
   }, [plotTypes, timeseriesdata]);
 
+  /**
+   * The surrounding panel, matching the Key Features panel so the two sections
+   * of a tab read as one system. Omitting `title` yields a bare grid.
+   */
+  const panel = (content: React.ReactNode) =>
+    title ? (
+      <div
+        className={`bg-neutral-50 border border-neutral-200 rounded-lg p-4 ${className}`}
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3">{title}</h3>
+        {content}
+      </div>
+    ) : (
+      <div className={className}>{content}</div>
+    );
+
   if (panels.length === 0 || !resolution.used) {
-    return (
-      <p className={`text-sm text-rmigray-400 italic ${className}`}>
+    return panel(
+      <p className="text-sm text-rmigray-400 italic">
         No timeseries data available for this pathway.
-      </p>
+      </p>,
     );
   }
 
@@ -87,14 +106,14 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
   const usedKind = geographyKind(used);
   const usedLabel = geographyLabel(normalizeGeography(used));
 
-  return (
-    <div className={`grid grid-cols-1 lg:grid-cols-2 gap-6 ${className}`}>
+  return panel(
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {panels.map((opt) => (
         <figure
           key={opt.value}
-          className="min-w-0 m-0"
+          className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
         >
-          <figcaption className="text-sm font-medium text-rmigray-800 mb-1">
+          <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
             {opt.label}
           </figcaption>
 
@@ -132,7 +151,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
           ) : null}
         </figure>
       ))}
-    </div>
+    </div>,
   );
 };
 

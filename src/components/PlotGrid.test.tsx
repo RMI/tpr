@@ -150,6 +150,72 @@ describe("PlotGrid", () => {
     expect(screen.getByText("Vietnam")).toBeInTheDocument();
   });
 
+  it("renders each plot as its own bordered card", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={timeseries(
+          { metric: "capacity", geography: "Global" },
+          { metric: "generation", geography: "Global" },
+        )}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    const cards = screen
+      .getAllByText(/^(Capacity|Generation)$/)
+      .map((caption) => caption.parentElement as HTMLElement);
+
+    expect(cards).toHaveLength(2);
+    cards.forEach((card) => {
+      expect(card.tagName).toBe("FIGURE");
+      expect(card).toHaveClass("bg-white");
+      expect(card).toHaveClass("rounded-lg");
+      expect(card).toHaveClass("border");
+    });
+  });
+
+  it("wraps the grid in a titled panel only when given a title", () => {
+    const data = timeseries({ metric: "capacity", geography: "Global" });
+
+    const { unmount } = render(
+      <PlotGrid
+        timeseriesdata={data}
+        pathwayGeography={SEA}
+        title="Benchmark Plots"
+      />,
+    );
+    expect(
+      screen.getByRole("heading", { name: "Benchmark Plots" }),
+    ).toBeInTheDocument();
+    unmount();
+
+    render(
+      <PlotGrid
+        timeseriesdata={data}
+        pathwayGeography={SEA}
+      />,
+    );
+    expect(screen.queryByRole("heading")).not.toBeInTheDocument();
+  });
+
+  it("keeps the titled panel when there is nothing to plot", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={null}
+        pathwayGeography={SEA}
+        title="Benchmark Plots"
+      />,
+    );
+
+    // The heading should not vanish just because the data did.
+    expect(
+      screen.getByRole("heading", { name: "Benchmark Plots" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText("No timeseries data available for this pathway."),
+    ).toBeInTheDocument();
+  });
+
   it("reports no data when the pathway has no timeseries at all", () => {
     render(
       <PlotGrid
