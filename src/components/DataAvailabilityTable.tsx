@@ -80,7 +80,8 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
     return (
       <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 text-rmigray-600">
         <p className="text-sm">
-          No data availability information has been recorded for this pathway yet.
+          No data availability information has been recorded for this pathway
+          yet.
         </p>
         {overall ? (
           <p className="mt-2 text-sm text-rmigray-700">{overall}</p>
@@ -117,9 +118,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 // makes a stable key.
                 key={`${row.metricName}|${row.sectorSegment}|${row.geography}`}
                 className={
-                  i % 2 === 0
-                    ? "align-top bg-white"
-                    : "align-top bg-neutral-50"
+                  i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
                 }
               >
                 <th

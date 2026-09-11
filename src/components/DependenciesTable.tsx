@@ -12,9 +12,10 @@ interface DependenciesTableProps {
 
 // Evidence strength → pill colors, strongest to weakest, reusing theme tokens.
 const EVIDENCE_STYLES: Record<DependencyRow["evidence_type"], string> = {
-  Quantitative: "bg-pinishgreen-200 text-pinishgreen-800 border-pinishgreen-800",
-  Qualitative: "bg-rmiblue-100 text-rmiblue-800 border-rmiblue-200",
-  Anecdotal: "bg-solar-100 text-solar-800 border-solar-200",
+  "Quantitative":
+    "bg-pinishgreen-200 text-pinishgreen-800 border-pinishgreen-800",
+  "Qualitative": "bg-rmiblue-100 text-rmiblue-800 border-rmiblue-200",
+  "Anecdotal": "bg-solar-100 text-solar-800 border-solar-200",
   "No evidence": "bg-neutral-100 text-rmigray-600 border-neutral-300",
 };
 
@@ -49,8 +50,7 @@ const DependenciesTable: React.FC<DependenciesTableProps> = ({
     );
   }
 
-  const showSector =
-    new Set(dependencies.map((d) => d.sector)).size > 1;
+  const showSector = new Set(dependencies.map((d) => d.sector)).size > 1;
 
   return (
     <div className="overflow-x-auto rounded-lg border border-neutral-200">

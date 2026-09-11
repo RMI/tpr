@@ -49,7 +49,10 @@ describe("DataAvailabilityTable", () => {
   it("shows an empty state (with the overall note) when byMetric is empty", () => {
     render(
       <DataAvailabilityTable
-        dataAvailability={availability([], "Hosted as a single timeseries file.")}
+        dataAvailability={availability(
+          [],
+          "Hosted as a single timeseries file.",
+        )}
       />,
     );
     expect(
@@ -80,15 +83,21 @@ describe("DataAvailabilityTable", () => {
       ).toBeInTheDocument();
     }
     // Two data rows, each keyed by its metric via a row header cell.
-    expect(screen.getByRole("rowheader", { name: "Capacity" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("rowheader", { name: "Capacity" }),
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("rowheader", { name: "Investment requirement" }),
     ).toBeInTheDocument();
   });
 
   it("joins granularity technologies and renders authored cell values", () => {
-    render(<DataAvailabilityTable dataAvailability={availability([inToolRow])} />);
-    const row = screen.getByRole("rowheader", { name: "Capacity" }).closest("tr")!;
+    render(
+      <DataAvailabilityTable dataAvailability={availability([inToolRow])} />,
+    );
+    const row = screen
+      .getByRole("rowheader", { name: "Capacity" })
+      .closest("tr")!;
     const cells = within(row);
     expect(cells.getByText("Solar, Wind")).toBeInTheDocument();
     expect(cells.getByText("Utility-scale only")).toBeInTheDocument();
@@ -107,14 +116,20 @@ describe("DataAvailabilityTable", () => {
   });
 
   it("falls back to plain 'In tool' text when no download href is available", () => {
-    render(<DataAvailabilityTable dataAvailability={availability([inToolRow])} />);
-    expect(screen.queryByRole("link", { name: "Download" })).not.toBeInTheDocument();
+    render(
+      <DataAvailabilityTable dataAvailability={availability([inToolRow])} />,
+    );
+    expect(
+      screen.queryByRole("link", { name: "Download" }),
+    ).not.toBeInTheDocument();
     expect(screen.getByText("In tool")).toBeInTheDocument();
   });
 
   it("shows publication format with its access, and em-dashes for null cells", () => {
     render(
-      <DataAvailabilityTable dataAvailability={availability([publicationRow])} />,
+      <DataAvailabilityTable
+        dataAvailability={availability([publicationRow])}
+      />,
     );
     const row = screen
       .getByRole("rowheader", { name: "Investment requirement" })
@@ -129,7 +144,10 @@ describe("DataAvailabilityTable", () => {
   it("renders the overall note above the table", () => {
     render(
       <DataAvailabilityTable
-        dataAvailability={availability([inToolRow], "Covers the power sector only.")}
+        dataAvailability={availability(
+          [inToolRow],
+          "Covers the power sector only.",
+        )}
       />,
     );
     expect(

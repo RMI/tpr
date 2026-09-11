@@ -40,7 +40,9 @@ describe("DependenciesTable", () => {
       .closest("tr")!;
     const cells = within(policyRow);
     expect(cells.getByText("Quantitative")).toBeInTheDocument();
-    expect(cells.getByText("Assumes sustained carbon pricing.")).toBeInTheDocument();
+    expect(
+      cells.getByText("Assumes sustained carbon pricing."),
+    ).toBeInTheDocument();
 
     expect(
       screen.getByRole("rowheader", { name: "Technology" }),
