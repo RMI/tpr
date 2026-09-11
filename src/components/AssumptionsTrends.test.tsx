@@ -19,17 +19,15 @@ describe("AssumptionsTrends", () => {
   it("renders a card for every driver, labeled", () => {
     render(<AssumptionsTrends coreDrivers={allNull} />);
     for (const label of [
-      "Policies",
-      "Emissions targets",
-      "Technology costs",
-      "Investment",
+      "Policy drivers",
+      "Emissions target (driver)",
+      "Technology cost drivers",
+      "Investment change",
       "Macroeconomic drivers",
       "Behavioral shifts",
       "Other drivers",
     ]) {
-      expect(
-        screen.getByRole("heading", { name: label }),
-      ).toBeInTheDocument();
+      expect(screen.getByRole("heading", { name: label })).toBeInTheDocument();
     }
   });
 
@@ -47,7 +45,8 @@ describe("AssumptionsTrends", () => {
         coreDrivers={{
           ...allNull,
           policies: "Assumes high-ambition carbon pricing across the region.",
-          technologyCosts: "Falling solar PV and battery costs drive the buildout.",
+          technologyCosts:
+            "Falling solar PV and battery costs drive the buildout.",
         }}
       />,
     );
