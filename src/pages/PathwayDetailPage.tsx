@@ -313,11 +313,16 @@ const PathwayDetailPage: React.FC = () => {
     Lives on At a glance only; the Overview tab leads with the drivers instead.
   */
   const pathwayDescription = (
-    <section className="mb-8">
+    <section>
       <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
         Pathway Description
       </h2>
-      <div className="prose text-rmigray-700">
+      {/*
+        `max-w-none` overrides the 65ch line-length cap `prose` applies by
+        default, which otherwise left most of the tab width empty and pushed
+        the plots below the fold.
+      */}
+      <div className="prose max-w-none text-rmigray-700">
         <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
       </div>
     </section>
