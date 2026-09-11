@@ -23,7 +23,32 @@ const fixtures = [
     sectors: [{ name: "Power", technologies: [] }],
     metric: ["Capacity"],
     geography: { global: true, regions: {}, country: [] },
-    keyFeatures: { emissionsTrajectory: "Significant decrease" },
+    // Scoped v2 entries, not v1 bare values: `widestValue` returns undefined
+    // for anything that is not an array, so a v1-shaped fixture renders every
+    // feature as "No information" and can never prove a value reached a pill.
+    keyFeatures: {
+      emissionsTrajectory: [
+        {
+          sector: "cross-sector",
+          geography: "Global",
+          value: "Significant decrease",
+        },
+      ],
+      policyAmbition: [
+        {
+          sector: "cross-sector",
+          geography: "Global",
+          value: "High ambition policies",
+        },
+      ],
+      policyTypes: [
+        {
+          sector: "cross-sector",
+          geography: "Global",
+          value: ["Carbon price"],
+        },
+      ],
+    },
     coreDrivers: {
       policies: "Carbon pricing sustained across the region.",
       emissionsTargets: null,
@@ -170,6 +195,12 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
       expect(
         screen.getAllByText("Not a core driver for this pathway."),
       ).toHaveLength(6);
+
+      // The scoped keyFeature value reaches the pill as *selected*, so the
+      // driver prose and its enumerated counterpart really do render together.
+      expect(screen.getByText("Carbon price").closest("span")).toHaveClass(
+        "bg-rmiblue-100",
+      );
 
       // The prose block belongs to At a glance, not here.
       expect(

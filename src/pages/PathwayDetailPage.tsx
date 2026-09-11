@@ -376,8 +376,15 @@ const PathwayDetailPage: React.FC = () => {
 
   const supplementalInfo = (
     <section>
+      {/*
+        An h2 outside the prose wrapper, matching the other tab section
+        headings. It was an unstyled h4 inside the prose, which skipped two
+        levels below the page's h1 and took its size from prose's defaults.
+      */}
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+        Supplemental Information
+      </h2>
       <div className="prose text-rmigray-700">
-        <h4>Supplemental Information</h4>
         <PublicationBlock publication={pathway.publication} />
 
         {tsIndexLoaded && datasets.length > 0
