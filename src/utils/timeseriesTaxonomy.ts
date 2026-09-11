@@ -89,14 +89,22 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
         "Electricity generation via wind turbines, both onshore and offshore.",
     },
   },
+  // Keys alphabetical, matching the technologies and metrics above. The order
+  // surfaces through segmentsForSector, which feeds validateScopes' "legal
+  // values" error messages.
   segments: {
+    fuelExtractionAndProcessing: {
+      displayName: "Fuel extraction and processing",
+      definition:
+        "Extraction and processing of fuels used as energy carriers for power generation.",
+    },
     powerGeneration: {
       displayName: "Power generation",
       definition:
         "Generation of electricity at the plant, before it reaches the grid.",
     },
     storage: {
-      displayName: "Storage",
+      displayName: "Energy storage",
       definition:
         "Storing electricity for later dispatch (batteries, pumped hydro).",
     },

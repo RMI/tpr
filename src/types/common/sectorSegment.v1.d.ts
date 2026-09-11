@@ -9,8 +9,9 @@
  */
 export type DisplayName =
   | "No information"
+  | "Energy storage"
+  | "Fuel extraction and processing"
   | "Power generation"
-  | "Storage"
   | "Transmission & Distribution";
 
 /**

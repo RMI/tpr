@@ -208,7 +208,7 @@
       {
         "metricName": "Generation",
         "sector": "Power",
-        "sectorSegment": "Storage",
+        "sectorSegment": "Energy storage",
         "geography": "South East Asia",
         "geographyCoverage": "Regional",
         "timeResolution": "5-year",

@@ -168,10 +168,11 @@ describe("metricsForSector / metricBelongsToSector (#870)", () => {
 });
 
 describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
-  it("resolves Power to its three segments", () => {
+  it("resolves Power to its four segments, in taxonomy order", () => {
     expect(segmentsForSector("Power")).toEqual([
+      "Fuel extraction and processing",
       "Power generation",
-      "Storage",
+      "Energy storage",
       "Transmission & Distribution",
     ]);
   });
@@ -187,7 +188,7 @@ describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
   });
 
   it("says yes for a segment of a defined sector", () => {
-    expect(segmentBelongsToSector("Storage", "Power")).toBe("yes");
+    expect(segmentBelongsToSector("Energy storage", "Power")).toBe("yes");
   });
 
   it("says no for a segment outside a defined sector's list", () => {
@@ -195,7 +196,7 @@ describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
   });
 
   it("says unknown for a named segment under an undefined sector", () => {
-    expect(segmentBelongsToSector("Storage", "Steel")).toBe("unknown");
+    expect(segmentBelongsToSector("Energy storage", "Steel")).toBe("unknown");
   });
 
   it("says yes to the sentinel under every sector, defined or not", () => {
