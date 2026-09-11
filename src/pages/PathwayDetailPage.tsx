@@ -1,13 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "react-router";
 import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
-import { PathwayMetadataType } from "../types";
-import BadgeArray from "../components/BadgeArray";
+import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
 import PathwayContextRibbon from "../components/PathwayContextRibbon";
+import { useFilters } from "../context/FilterContext";
+import { seedScopeFromFilters } from "../utils/scopeSeed";
 import {
   flattenGeography,
   geographyKind,
@@ -59,6 +61,31 @@ const PathwayDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [timeseriesdata, setTimeseriesdata] = useState<TimeSeries | null>(null);
   const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
+
+  /*
+    The scope ribbon's selection (#872). Seeded from the search filters the
+    reader arrived with, then held locally: browsing a pathway must never
+    disturb the search they came from, so this deliberately does not write back
+    to the shared filter state.
+
+    Both axes start null when there is nothing to inherit, and a null axis means
+    "no preference" — so an unfiltered page renders exactly as it did before
+    this control existed.
+  */
+  const { filters } = useFilters();
+  const [scope, setScope] = useState<PathwayScopeSelection>({
+    sector: null,
+    geography: null,
+  });
+  const seededFor = useRef<string | null>(null);
+
+  useEffect(() => {
+    // The pathway arrives after a load delay, and the legal token set does not
+    // exist until it does — so seed on arrival, once per pathway.
+    if (!pathway || seededFor.current === pathway.id) return;
+    seededFor.current = pathway.id;
+    setScope(seedScopeFromFilters(filters, pathway));
+  }, [pathway, filters]);
 
   useEffect(() => {
     setLoading(true);
@@ -226,7 +253,7 @@ const PathwayDetailPage: React.FC = () => {
           />
         </h3>
         <BadgeArray
-          variant={sortedGeos.map((geo) => {
+          variant={sortedGeos.map((geo): BadgeVariant => {
             const base = geographyVariant(geographyKind(geo));
             return availability.hasGeography(geo) ? base : `${base}-pub`;
           })}
@@ -487,7 +514,11 @@ const PathwayDetailPage: React.FC = () => {
           The card above deliberately has no `overflow-hidden`, which is what
           lets this stick at all.
         */}
-        <PathwayContextRibbon pathway={pathway}>
+        <PathwayContextRibbon
+          pathway={pathway}
+          scope={scope}
+          onScopeChange={setScope}
+        >
           <Tabs
             tabs={DETAIL_TABS}
             activeId={activeTab}

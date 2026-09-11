@@ -106,16 +106,22 @@ async function mountDetailPage(
   }));
 
   const { default: PathwayDetailPage } = await import("./PathwayDetailPage");
+  // Imported from the same post-reset module graph as the page. A static import
+  // would resolve to a different FilterContext instance than the one the page's
+  // useFilters reads, and the provider would not be found.
+  const { FilterProvider } = await import("../context/FilterContext");
 
   render(
-    <MemoryRouter initialEntries={[initialEntry]}>
-      <Routes>
-        <Route
-          path="/pathway/:id"
-          element={<PathwayDetailPage />}
-        />
-      </Routes>
-    </MemoryRouter>,
+    <FilterProvider>
+      <MemoryRouter initialEntries={[initialEntry]}>
+        <Routes>
+          <Route
+            path="/pathway/:id"
+            element={<PathwayDetailPage />}
+          />
+        </Routes>
+      </MemoryRouter>
+    </FilterProvider>,
   );
 }
 

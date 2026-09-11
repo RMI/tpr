@@ -8,7 +8,9 @@ import React, {
 import Badge, { BadgeMaybeAbsent } from "./Badge";
 import TextWithTooltip from "./TextWithTooltip";
 
-type Variant = React.ComponentProps<typeof Badge>["variant"];
+/** The badge variants, exported so callers can annotate a computed variant list. */
+export type BadgeVariant = React.ComponentProps<typeof Badge>["variant"];
+type Variant = BadgeVariant;
 type Scalar = string | number;
 
 export type BadgeArrayProps<T extends string | number> = Omit<
