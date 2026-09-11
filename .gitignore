@@ -10,6 +10,10 @@
 # Frontend: Node modules
 node_modules/
 
+# Python virtualenv used by the schema-doc tooling. Never commit it: a plain
+# `git add -A` otherwise sweeps in ~2,700 files of binaries and .pyc.
+.venv/
+
 # Frontend: Build output
 build/
 dist/
