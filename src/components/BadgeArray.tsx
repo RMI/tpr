@@ -33,6 +33,14 @@ export type BadgeArrayProps<T extends string | number> = Omit<
   renderLabel?: (label: React.ReactNode) => React.ReactNode;
   /** Max rows to display before collapsing into “+N more”. Use Infinity for unlimited rows. Default: 1. */
   maxRows?: number;
+  /**
+   * Turns the badges into single-select toggles. Pass `onSelect` to opt in;
+   * `selected` marks which item reads as pressed. Without `onSelect` the markup
+   * is unchanged, so existing callers are unaffected.
+   */
+  selected?: T | null;
+  /** Receives the clicked item, or null when it was already selected. */
+  onSelect?: (next: T | null) => void;
 };
 
 export default function BadgeArray<T extends Scalar = Scalar>({
@@ -43,6 +51,9 @@ export default function BadgeArray<T extends Scalar = Scalar>({
   toLabel,
   renderLabel,
   maxRows = 1,
+  selected,
+  onSelect,
+  className,
   ...rest
 }: BadgeArrayProps<T>) {
   // Memoize to keep stable reference across renders and satisfy hooks deps.
@@ -234,23 +245,55 @@ export default function BadgeArray<T extends Scalar = Scalar>({
       >
         +0 more
       </span>
-      {arr.slice(0, finalVisible).map((value, idx) => (
-        <span
-          key={idx}
-          ref={(el) => (itemRefs.current[idx] = el)}
-          className="inline-block"
-        >
-          <BadgeMaybeAbsent
-            variant={variants[idx]}
-            tooltip={tooltipGetter?.(value as T)}
-            toLabel={toLabel}
-            renderLabel={renderLabel}
-            {...rest}
+      {arr.slice(0, finalVisible).map((value, idx) => {
+        const isSelected =
+          onSelect != null && value != null && value === selected;
+        // Ring and weight, never colour: colour already encodes the badge's
+        // variant (a geography's kind, say), so reusing it for selection would
+        // overload one channel with two meanings.
+        const itemClassName = [
+          className,
+          isSelected
+            ? "ring-2 ring-bluespruce ring-offset-1 ring-offset-white font-semibold"
+            : "",
+        ]
+          .filter(Boolean)
+          .join(" ");
+
+        return (
+          <span
+            // Keyed by value, not index: the caller may reorder (the scope
+            // ribbon pins the selected token first), and index keys would make
+            // React rewrite existing nodes in place, silently moving focus to a
+            // different token.
+            key={value == null ? `__empty-${idx}` : String(value)}
+            ref={(el) => {
+              itemRefs.current[idx] = el;
+            }}
+            className="inline-block"
           >
-            {value}
-          </BadgeMaybeAbsent>
-        </span>
-      ))}
+            <BadgeMaybeAbsent
+              variant={variants[idx]}
+              tooltip={tooltipGetter?.(value as T)}
+              toLabel={toLabel}
+              renderLabel={renderLabel}
+              className={itemClassName || undefined}
+              buttonProps={
+                onSelect
+                  ? {
+                      "aria-pressed": isSelected,
+                      "onClick": () =>
+                        onSelect(isSelected ? null : (value as T)),
+                    }
+                  : undefined
+              }
+              {...rest}
+            >
+              {value}
+            </BadgeMaybeAbsent>
+          </span>
+        );
+      })}
       {showMore && (
         <TextWithTooltip
           text={

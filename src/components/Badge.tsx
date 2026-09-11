@@ -25,6 +25,14 @@ interface BadgeProps {
     | "sector-pub"
     | "metric-pub";
   className?: string;
+  /**
+   * When set, the badge renders as a `<button>` carrying these attributes
+   * instead of a static span — for badges that are also controls, such as the
+   * detail page's scope ribbon (#872). A tooltipped badge routes this through
+   * TextWithTooltip's `as="button"`, because nesting a button around its
+   * `tabindex` trigger would be invalid markup.
+   */
+  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 const Badge: React.FC<BadgeProps> = ({
@@ -32,6 +40,7 @@ const Badge: React.FC<BadgeProps> = ({
   tooltip,
   variant = "default",
   className,
+  buttonProps,
 }) => {
   const getVariantStyles = () => {
     switch (variant) {
@@ -79,9 +88,18 @@ const Badge: React.FC<BadgeProps> = ({
     : badgeStylesBase;
 
   // If no tooltip, just return the basic badge
-  // If no tooltip, just return the basic badge
   if (!tooltip) {
-    return <span className={badgeStyles}>{children}</span>;
+    return buttonProps ? (
+      <button
+        type="button"
+        className={badgeStyles}
+        {...buttonProps}
+      >
+        {children}
+      </button>
+    ) : (
+      <span className={badgeStyles}>{children}</span>
+    );
   }
 
   // With tooltip, use the TextWithTooltip component
@@ -90,6 +108,8 @@ const Badge: React.FC<BadgeProps> = ({
       text={<span className={badgeStyles}>{children}</span>}
       tooltip={tooltip}
       position="right"
+      as={buttonProps ? "button" : "span"}
+      buttonProps={buttonProps}
     />
   );
 };
