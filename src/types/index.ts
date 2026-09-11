@@ -30,6 +30,16 @@ export type GeographyCountry = NonNullable<GeographyV1["country"]>;
 // A single ISO-3166-1 alpha-2 country code.
 export type GeographyCode = GeographyCountry[number];
 
+/**
+ * The detail page's scope selection (#872): one sector and one geography, each
+ * a token the pathway itself declares. `null` on an axis means "no preference",
+ * which is also the cross-sector / widest-geography position for #869.
+ */
+export type PathwayScopeSelection = {
+  sector: string | null;
+  geography: string | null;
+};
+
 export type TemperatureTarget = number;
 export type YearTarget =
   "2030" | "2040" | "2050" | "2060" | "2070" | "2100" | "N/A";
