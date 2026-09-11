@@ -2,12 +2,12 @@ import { describe, test, expect } from "vitest";
 import {
   pathwayTypeTooltips,
   sectorTooltips,
-  sectorSegmentTooltips,
   getPathwayTypeTooltip,
   getSectorTooltip,
   getSectorSegmentTooltip,
   unknownTooltip,
 } from "./tooltipUtils";
+import { segmentsForSector, UNSEGMENTED } from "./timeseriesTaxonomy";
 
 import pathwayMetadata from "../schema/pathwayMetadata.v1.json";
 import sectorSchema from "../schema/common/sector.v1.json" with { type: "json" };
@@ -148,29 +148,61 @@ describe("sectors.name tooltip coverage (from common/sector.v1.json)", () => {
   });
 });
 
-// Sector segments have no schema enum to check against, and the copy is not
-// written yet, so this only pins the placeholder contract: every segment
-// resolves to the honest fallback, and whatever is eventually added is a real
-// non-empty string. It is deliberately NOT run through
-// expectTooltipCoverage — there is no enum to be in sync with.
-describe("sector segment tooltips (placeholder)", () => {
-  test("falls back to the unknown tooltip while the copy is unwritten", () => {
-    expect(getSectorSegmentTooltip("Power generation")).toBe(unknownTooltip);
-    expect(getSectorSegmentTooltip("anything at all")).toBe(unknownTooltip);
-  });
-
-  test("returns an authored tooltip once one exists for the segment", () => {
-    const [segment] = Object.keys(sectorSegmentTooltips);
-    if (segment === undefined) return; // still empty: nothing to assert yet
-    expect(getSectorSegmentTooltip(segment)).toBe(
-      sectorSegmentTooltips[segment],
+// Sector segments have no schema enum to check against, so the taxonomy itself
+// is the reference: getSectorSegmentTooltip reads each segment's definition out
+// of SECTORS_BY_KEY rather than a record in tooltipUtils. That makes the
+// coverage check below taxonomy-driven instead of enum-driven, which is why it
+// is not run through expectTooltipCoverage.
+describe("sector segment tooltips (from the timeseries taxonomy)", () => {
+  test("returns the taxonomy definition for each of Power's segments", () => {
+    expect(
+      getSectorSegmentTooltip("Power", "Fuel extraction and processing"),
+    ).toBe(
+      "Extraction and processing of fuels used as energy carriers for power generation.",
+    );
+    expect(getSectorSegmentTooltip("Power", "Power generation")).toBe(
+      "Generation of electricity at the plant, before it reaches the grid.",
+    );
+    expect(getSectorSegmentTooltip("Power", "Energy storage")).toBe(
+      "Storing electricity for later dispatch (batteries, pumped hydro).",
+    );
+    expect(
+      getSectorSegmentTooltip("Power", "Transmission & Distribution"),
+    ).toBe(
+      "Moving electricity from generators to consumers, including grid losses.",
     );
   });
 
-  test("any authored tooltip is a non-empty string", () => {
-    const empties = Object.entries(sectorSegmentTooltips)
-      .filter(([, val]) => typeof val !== "string" || val.trim().length === 0)
-      .map(([k]) => k);
-    expect(empties).toEqual([]);
+  test("every segment Power defines resolves to a real tooltip", () => {
+    const segments = segmentsForSector("Power") ?? [];
+    expect(segments.length).toBeGreaterThan(0);
+
+    const missing = segments.filter(
+      (segment) => getSectorSegmentTooltip("Power", segment) === unknownTooltip,
+    );
+    expect(missing).toEqual([]);
+  });
+
+  test("segment tooltips end with a period, like the others", () => {
+    const bad = (segmentsForSector("Power") ?? []).filter(
+      (segment) => !getSectorSegmentTooltip("Power", segment).endsWith("."),
+    );
+    expect(bad).toEqual([]);
+  });
+
+  test("falls back for a segment name the sector does not define", () => {
+    expect(getSectorSegmentTooltip("Power", "Refining")).toBe(unknownTooltip);
+  });
+
+  test("falls back for a sector whose segments nobody has written down", () => {
+    // Steel is a real sector with no segments defined (#870).
+    expect(getSectorSegmentTooltip("Steel", "Energy storage")).toBe(
+      unknownTooltip,
+    );
+  });
+
+  test("falls back for the universal unsegmented sentinel", () => {
+    // UNSEGMENTED is legal under every sector but is not a segment definition.
+    expect(getSectorSegmentTooltip("Power", UNSEGMENTED)).toBe(unknownTooltip);
   });
 });

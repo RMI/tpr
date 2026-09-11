@@ -11,11 +11,21 @@ import {
   normalizeGeography,
 } from "../utils/geographyUtils";
 import { resolveGeography } from "../utils/geographyFallback";
-import { getMetricDefinition } from "../utils/timeseriesTaxonomy";
+import {
+  getMetricDefinition,
+  getSectorDefinition,
+} from "../utils/timeseriesTaxonomy";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 
 /** Panel size for the small multiples — two columns at desktop width. */
 const PANEL_DIMS = { width: 420, height: 260 };
+
+/**
+ * The plots are power-sector only: `PlotPanel` and `MultiLineChart` both
+ * hardcode `sector="power"`. Naming it once here keeps that assumption visible
+ * and gives the segment tooltip the sector it needs to scope its lookup.
+ */
+const PLOT_SECTOR = getSectorDefinition("power");
 
 interface PlotGridProps {
   timeseriesdata: TimeSeries | null;
@@ -109,56 +119,69 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
 
   return panel(
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      {panels.map((opt) => (
-        <figure
-          key={opt.value}
-          className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
-        >
-          <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
-            {opt.label}
-          </figcaption>
+      {panels.map((opt) => {
+        // `sectorScope` is optional on MetricDefinition, so a metric may simply
+        // not declare a segment — render the badge only when one exists rather
+        // than an empty pill.
+        const segment = getMetricDefinition(
+          PLOT_SECTOR.key,
+          opt.value,
+        ).sectorScope;
 
-          <PlotPanel
-            timeseriesdata={timeseriesdata}
-            datasetId={datasetId}
-            plotType={opt.value}
-            selectedGeography={used}
-            dims={PANEL_DIMS}
-          />
+        return (
+          <figure
+            key={opt.value}
+            className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
+          >
+            <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
+              {opt.label}
+            </figcaption>
 
-          {/* Which geography and sector segment this panel actually shows —
+            <PlotPanel
+              timeseriesdata={timeseriesdata}
+              datasetId={datasetId}
+              plotType={opt.value}
+              selectedGeography={used}
+              dims={PANEL_DIMS}
+            />
+
+            {/* Which geography and sector segment this panel actually shows —
               the reader cannot tell from the chart itself. */}
-          <div className="mt-1 flex flex-wrap items-center">
-            <Badge
-              variant={geographyVariant(usedKind)}
-              tooltip={
-                usedKind === "region" ? (
-                  <RegionMembersTooltip
-                    geography={pathwayGeography}
-                    label={used}
-                  />
-                ) : undefined
-              }
-            >
-              {usedLabel}
-            </Badge>
-            <Badge
-              variant="sectorSegment"
-              tooltip={getSectorSegmentTooltip(
-                getMetricDefinition("power", opt.value).sectorScope,
-              )}
-            >
-              {getMetricDefinition("power", opt.value).sectorScope}
-            </Badge>
-          </div>
+            <div className="mt-1 flex flex-wrap items-center">
+              <Badge
+                variant={geographyVariant(usedKind)}
+                tooltip={
+                  usedKind === "region" ? (
+                    <RegionMembersTooltip
+                      geography={pathwayGeography}
+                      label={used}
+                    />
+                  ) : undefined
+                }
+              >
+                {usedLabel}
+              </Badge>
+              {segment ? (
+                <Badge
+                  variant="sectorSegment"
+                  tooltip={getSectorSegmentTooltip(
+                    PLOT_SECTOR.displayName,
+                    segment,
+                  )}
+                >
+                  {segment}
+                </Badge>
+              ) : null}
+            </div>
 
-          {resolution.fellBack && resolution.requested ? (
-            <p className="mt-1 text-xs text-rmigray-500 italic">
-              {`${geographyLabel(resolution.requested)} is not available for this pathway; showing ${usedLabel}.`}
-            </p>
-          ) : null}
-        </figure>
-      ))}
+            {resolution.fellBack && resolution.requested ? (
+              <p className="mt-1 text-xs text-rmigray-500 italic">
+                {`${geographyLabel(resolution.requested)} is not available for this pathway; showing ${usedLabel}.`}
+              </p>
+            ) : null}
+          </figure>
+        );
+      })}
     </div>,
   );
 };
