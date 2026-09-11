@@ -8,7 +8,6 @@ import Badge from "../components/Badge";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
-import AssumptionsTrends from "../components/AssumptionsTrends";
 import {
   flattenGeography,
   geographyKind,
@@ -194,12 +193,17 @@ const PathwayDetailPage: React.FC = () => {
     );
   }
 
-  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels. Kept
-  // in the default "At a glance" tab so they are in the DOM on first render (the
-  // page tests query these badges and their ⓘ tooltips directly).
+  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels,
+  // shown on the Scope & Granularity tab beneath the Data Availability table.
+  // Each is a labelled landmark so tests (and screen-reader users) can address
+  // one panel rather than matching a geography label that also appears in the
+  // sticky context ribbon.
   const coveragePanels = (
     <>
-      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      <section
+        aria-label="Geographies"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
         <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
           Geographies
           <TextWithTooltip
@@ -239,9 +243,12 @@ const PathwayDetailPage: React.FC = () => {
         >
           {sortedGeos}
         </BadgeArray>
-      </div>
+      </section>
 
-      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      <section
+        aria-label="Sectors"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
         <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
           Sectors
           <TextWithTooltip
@@ -265,9 +272,12 @@ const PathwayDetailPage: React.FC = () => {
         >
           {sortedSectors.map((s) => s.name)}
         </BadgeArray>
-      </div>
+      </section>
 
-      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      <section
+        aria-label="Benchmark Metrics"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
         <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
           Benchmark Metrics
           <TextWithTooltip
@@ -291,25 +301,47 @@ const PathwayDetailPage: React.FC = () => {
         >
           {sortedMetrics}
         </BadgeArray>
-      </div>
+      </section>
     </>
   );
 
-  const expertOverview = (
+  /*
+    v2 replaced v1's single `expertOverview` blob with `pathwayDescription` (the
+    surviving prose; core drivers moved to the structured `coreDrivers` object),
+    and the heading now names the field it renders — settling the open question
+    #859 left about what to call it. null means no description is available.
+    Lives on At a glance only; the Overview tab leads with the drivers instead.
+  */
+  const pathwayDescription = (
     <section className="mb-8">
       <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-        Expert Overview
+        Pathway Description
       </h2>
-      {/*
-        v2 replaces v1's single `expertOverview` blob with `pathwayDescription`
-        (the surviving prose; core drivers move to the structured `coreDrivers`
-        object). null means no description is available. #859 owns the final
-        presentation, including whether this heading keeps its name.
-      */}
       <div className="prose text-rmigray-700">
         <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
       </div>
     </section>
+  );
+
+  /*
+    The same component and config render both the full driver/feature grid and
+    the At-a-glance subset, so the two cannot drift apart.
+  */
+  const assumptionsPanel = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      coreDrivers={pathway.coreDrivers}
+      title="Assumptions & Trends Overview"
+    />
+  );
+
+  const assumptionsSummary = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      coreDrivers={pathway.coreDrivers}
+      groups={["policies", "emissions", "technology"]}
+      title="Assumptions & Trends Overview"
+    />
   );
 
   /*
@@ -473,13 +505,15 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              <div className="md:col-span-7">{expertOverview}</div>
-              <div className="md:col-span-5">
+            <div className="space-y-8">
+              {pathwayDescription}
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Plots Overview
+                </h2>
                 {plotsOverview}
-                <KeyFeatures keyFeatures={pathway.keyFeatures} />
-                {coveragePanels}
-              </div>
+              </section>
+              {assumptionsSummary}
             </div>
           </TabPanel>
 
@@ -489,13 +523,7 @@ const PathwayDetailPage: React.FC = () => {
             idBase="pathway"
           >
             <div className="space-y-6">
-              {expertOverview}
-              <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Assumptions & Trends Overview
-                </h2>
-                <AssumptionsTrends coreDrivers={pathway.coreDrivers} />
-              </section>
+              {assumptionsPanel}
               <section>
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
                   Dependencies
@@ -526,15 +554,25 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <section>
-              <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                Data Availability
-              </h2>
-              <DataAvailabilityTable
-                dataAvailability={pathway.dataAvailability}
-                downloadHref={datasets[0]?.path}
-              />
-            </section>
+            <div className="space-y-8">
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Data Availability
+                </h2>
+                <DataAvailabilityTable
+                  dataAvailability={pathway.dataAvailability}
+                  downloadHref={datasets[0]?.path}
+                />
+              </section>
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Coverage
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {coveragePanels}
+                </div>
+              </section>
+            </div>
           </TabPanel>
         </div>
       </div>

@@ -107,12 +107,20 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
     "shows the At a glance tab by default and defers other tabs' content",
     async () => {
       await mountDetailPage();
-      // Expert Overview prose is on the default tab.
+      // The Pathway Description prose is on the default tab.
       await screen.findByText(
         "The full pathway description prose.",
         undefined,
         WAIT,
       );
+      // At a glance carries only the first three driver/feature groups.
+      expect(
+        screen.getAllByRole("heading", { level: 4 }).map((h) => h.textContent),
+      ).toEqual(["Policies", "Emissions", "Technology"]);
+      expect(
+        screen.getByText("Carbon pricing sustained across the region."),
+      ).toBeInTheDocument();
+
       // Overview- and Scope-only content is not mounted yet.
       expect(
         screen.queryByText("Assumes sustained carbon pricing."),
@@ -120,12 +128,15 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
       expect(
         screen.queryByRole("columnheader", { name: "Time resolution" }),
       ).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("region", { name: "Geographies" }),
+      ).not.toBeInTheDocument();
     },
     TEST_TIMEOUT,
   );
 
   it(
-    "routes coreDrivers and dependencies into the Overview tab",
+    "routes the full driver/feature grid and dependencies into the Overview tab",
     async () => {
       await mountDetailPage();
       await screen.findByText(
@@ -136,18 +147,34 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
 
       clickTab("Overview");
 
-      // Assumptions & Trends: the described driver and a null-driver note.
       await screen.findByRole(
         "heading",
         { name: "Assumptions & Trends Overview" },
         WAIT,
       );
+      // All six groups here, against At a glance's three.
+      expect(
+        screen.getAllByRole("heading", { level: 4 }).map((h) => h.textContent),
+      ).toEqual([
+        "Policies",
+        "Emissions",
+        "Technology",
+        "Investment",
+        "Energy System",
+        "Other",
+      ]);
       expect(
         screen.getByText("Carbon pricing sustained across the region."),
       ).toBeInTheDocument();
+      // Six of the fixture's seven drivers are null.
       expect(
-        screen.getAllByText("Not a core driver for this pathway.").length,
-      ).toBeGreaterThan(0);
+        screen.getAllByText("Not a core driver for this pathway."),
+      ).toHaveLength(6);
+
+      // The prose block belongs to At a glance, not here.
+      expect(
+        screen.queryByText("The full pathway description prose."),
+      ).not.toBeInTheDocument();
 
       // Dependencies table row.
       expect(
@@ -180,9 +207,22 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
       expect(
         screen.getByRole("columnheader", { name: "Time resolution" }),
       ).toBeInTheDocument();
+      // "Capacity" is now both a Benchmark Metrics badge and a table row
+      // header on this tab, so stay specific about which one is meant.
       expect(
         screen.getByRole("rowheader", { name: "Capacity" }),
       ).toBeInTheDocument();
+
+      // The coverage panels moved here, beneath the table.
+      const table = screen.getByRole("heading", { name: "Data Availability" });
+      const coverage = screen.getByRole("heading", { name: "Coverage" });
+      expect(
+        table.compareDocumentPosition(coverage) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+      for (const name of ["Geographies", "Sectors", "Benchmark Metrics"]) {
+        expect(screen.getByRole("region", { name })).toBeInTheDocument();
+      }
     },
     TEST_TIMEOUT,
   );

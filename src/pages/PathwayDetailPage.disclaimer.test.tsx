@@ -53,7 +53,9 @@ async function mountDetailPage(): Promise<void> {
   const { default: PathwayDetailPage } = await import("./PathwayDetailPage");
 
   render(
-    <MemoryRouter initialEntries={["/pathway/detail-disclaimer"]}>
+    // The coverage panels carrying these ⓘ triggers live on the Scope &
+    // Granularity tab, so deep-link straight to it rather than clicking through.
+    <MemoryRouter initialEntries={["/pathway/detail-disclaimer?tab=scope"]}>
       <Routes>
         <Route
           path="/pathway/:id"
