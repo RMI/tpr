@@ -41,6 +41,58 @@ describe("KeyFeatures", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders only the requested groups", () => {
+    render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        groups={["policies"]}
+      />,
+    );
+
+    expect(screen.getByText("Policy Environment")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Emissions Boundary & Trajectory"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Energy System & Transition Levers"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Technology & Feasibility Assumptions"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("renders a custom panel title, and none when it is null", () => {
+    const { unmount } = render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        title="Assumptions & Trends Overview"
+      />,
+    );
+    expect(
+      screen.getByRole("heading", { name: "Assumptions & Trends Overview" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Key Features")).not.toBeInTheDocument();
+    unmount();
+
+    render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        title={null}
+      />,
+    );
+    expect(screen.queryByText("Key Features")).not.toBeInTheDocument();
+  });
+
+  it("renders nothing when the requested group set is empty", () => {
+    const { container } = render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        groups={[]}
+      />,
+    );
+    expect(container).toBeEmptyDOMElement();
+  });
+
   it("single-select: selected pill has blue classes, unselected have neutral classes", () => {
     render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
 

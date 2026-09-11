@@ -49,13 +49,25 @@ export type FeatureConfig =
   | SentimentFeatureConfig
   | NeutralFeatureConfig;
 
+/**
+ * Stable identifiers for the feature groups.
+ *
+ * Callers select groups by id rather than by label so a typo is a type error
+ * instead of a silently empty panel, and so relabelling a group does not break
+ * every call site.
+ */
+export type KeyFeatureGroupId =
+  "emissions" | "energy" | "policies" | "technology";
+
 interface GroupConfig {
+  id: KeyFeatureGroupId;
   label: string;
   features: FeatureConfig[];
 }
 
 export const GROUPS: GroupConfig[] = [
   {
+    id: "emissions",
     label: "Emissions Boundary & Trajectory",
     features: [
       {
@@ -89,6 +101,7 @@ export const GROUPS: GroupConfig[] = [
     ],
   },
   {
+    id: "energy",
     label: "Energy System & Transition Levers",
     features: [
       {
@@ -139,6 +152,7 @@ export const GROUPS: GroupConfig[] = [
     ],
   },
   {
+    id: "policies",
     label: "Policy Environment",
     features: [
       {
@@ -173,6 +187,7 @@ export const GROUPS: GroupConfig[] = [
     ],
   },
   {
+    id: "technology",
     label: "Technology & Feasibility Assumptions",
     features: [
       {
@@ -442,18 +457,44 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
   return null;
 };
 
+/**
+ * The groups that actually carry key features.
+ *
+ * The comparison page renders a header bar per group and then its feature rows,
+ * so a group holding only core drivers would appear there as an empty bar.
+ */
+export const FEATURE_GROUPS: GroupConfig[] = GROUPS.filter(
+  (group) => group.features.length > 0,
+);
+
 interface KeyFeaturesProps {
   keyFeatures: PathwayMetadataType["keyFeatures"];
+  /** Which groups to render, by id. Defaults to all of them. */
+  groups?: KeyFeatureGroupId[];
+  /** Panel heading. Defaults to "Key Features". */
+  title?: React.ReactNode;
 }
 
-const KeyFeatures: React.FC<KeyFeaturesProps> = ({ keyFeatures }) => {
+const KeyFeatures: React.FC<KeyFeaturesProps> = ({
+  keyFeatures,
+  groups,
+  title = "Key Features",
+}) => {
+  const visible = groups
+    ? GROUPS.filter((group) => groups.includes(group.id))
+    : GROUPS;
+
+  if (visible.length === 0) return null;
+
   return (
     <div className="bg-neutral-50 border border-neutral-200 rounded-lg px-4 pt-4 pb-2 mb-6">
-      <h3 className="text-lg font-medium text-rmigray-800 mb-3">
-        Key Features
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {GROUPS.map((group, idx) => (
+      {title ? (
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3">{title}</h3>
+      ) : null}
+      <div
+        className={`grid grid-cols-1 ${visible.length > 1 ? "md:grid-cols-2" : ""}`}
+      >
+        {visible.map((group, idx) => (
           <div
             key={group.label}
             className={[
