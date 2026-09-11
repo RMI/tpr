@@ -127,7 +127,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
 
           {/* Which geography and sector segment this panel actually shows —
               the reader cannot tell from the chart itself. */}
-          <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-rmigray-500">
+          <div className="mt-1 flex flex-wrap items-center">
             <Badge
               variant={geographyVariant(usedKind)}
               tooltip={
@@ -141,7 +141,9 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
             >
               {usedLabel}
             </Badge>
-            <span>{getMetricDefinition("power", opt.value).sectorScope}</span>
+            <Badge variant="sectorSegment">
+              {getMetricDefinition("power", opt.value).sectorScope}
+            </Badge>
           </div>
 
           {resolution.fellBack && resolution.requested ? (

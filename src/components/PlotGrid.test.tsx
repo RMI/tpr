@@ -118,6 +118,27 @@ describe("PlotGrid", () => {
     expect(screen.getByText("Power generation")).toBeInTheDocument();
   });
 
+  it("renders both indicators as badges, in distinct colours", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={timeseries({
+          metric: "capacity",
+          geography: "South East Asia",
+        })}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    const segment = screen.getByText("Power generation");
+    expect(segment).toHaveClass("bg-rmipink-100");
+    expect(segment).toHaveClass("rounded-full");
+
+    // The geography indicator keeps its own family, so the pair reads as two
+    // different dimensions rather than one run of pills.
+    const geography = screen.getByText("South East Asia").closest("span");
+    expect(geography).toHaveClass("bg-pinishgreen-200");
+  });
+
   it("explains the fallback when the requested geography is unavailable", () => {
     render(
       <PlotGrid

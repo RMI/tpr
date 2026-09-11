@@ -16,6 +16,7 @@ interface BadgeProps {
     | "geographyRegion"
     | "geographyCountry"
     | "sector"
+    | "sectorSegment"
     | "metric"
     | "keyFeature"
     | "geographyGlobal-pub"
@@ -48,6 +49,11 @@ const Badge: React.FC<BadgeProps> = ({
         return "bg-pinishgreen-100 text-pinishgreen-800 border-pinishgreen-200";
       case "sector":
         return "bg-solar-100 text-solar-800 border-solar-200";
+      // A segment is a subdivision of a sector, so it gets its own family
+      // rather than a shade of the sector amber — the two appear side by side
+      // under every plot and need to be told apart at a glance.
+      case "sectorSegment":
+        return "bg-rmipink-100 text-rmipink-800 border-rmipink-200";
       case "metric":
         return "bg-rmipurple-100 text-rmipurple-800 border-rmipurple-200";
       case "keyFeature":
