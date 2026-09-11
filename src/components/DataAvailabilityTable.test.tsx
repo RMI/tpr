@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import DataAvailabilityTable from "./DataAvailabilityTable";
 import { PathwayMetadataType } from "../types";
@@ -318,5 +318,77 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
     );
 
     expect(screen.getByText("Hosted as one file.")).toBeInTheDocument();
+  });
+});
+
+describe("DataAvailabilityTable — conditional scope columns", () => {
+  const headers = () =>
+    screen.getAllByRole("columnheader").map((th) => th.textContent);
+
+  it("hides both scope columns when the visible rows agree", () => {
+    // The pre-existing fixtures are all Power/Global, which is why the older
+    // tests' column expectations are unaffected by this change.
+    render(
+      <DataAvailabilityTable
+        dataAvailability={availability([inToolRow, publicationRow])}
+      />,
+    );
+
+    expect(headers()).not.toContain("Sector");
+    expect(headers()).not.toContain("Geography scope");
+  });
+
+  it("shows them when the visible rows disagree", () => {
+    render(
+      <DataAvailabilityTable dataAvailability={availability(scopedRows)} />,
+    );
+
+    expect(headers()).toEqual([
+      "Metric",
+      "Sector",
+      "Sector segment",
+      "Geography scope",
+      "Granularity",
+      "Scope limitations",
+      "Geography coverage",
+      "Time resolution",
+      "Data format",
+    ]);
+  });
+
+  it("renders the geography scope by label", () => {
+    render(
+      <DataAvailabilityTable dataAvailability={availability(scopedRows)} />,
+    );
+    expect(screen.getByText("Singapore")).toBeInTheDocument();
+  });
+
+  it("collapses a column the selection has made constant", () => {
+    // Filtering to one sector makes the Sector column repeat the ribbon's own
+    // selection on every row, so it goes away.
+    renderScoped({ sector: "Power", geography: null });
+
+    expect(headers()).not.toContain("Sector");
+    expect(headers()).toContain("Geography scope");
+  });
+
+  it("keys rows by the full scope tuple, including sector", () => {
+    // Two rows differing only in sector: with sector missing from the key these
+    // collided, and React silently rendered one of them twice.
+    const errorSpy = vi.spyOn(console, "error").mockImplementation(() => {});
+    render(
+      <DataAvailabilityTable
+        dataAvailability={availability([
+          inToolRow,
+          { ...inToolRow, sector: "Steel" },
+        ])}
+      />,
+    );
+
+    expect(errorSpy.mock.calls.flat().join(" ")).not.toMatch(
+      /same key|duplicate key/i,
+    );
+    expect(screen.getAllByRole("rowheader")).toHaveLength(2);
+    errorSpy.mockRestore();
   });
 });

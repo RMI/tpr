@@ -5,6 +5,7 @@ import type {
   PathwayScopeSelection,
 } from "../types";
 import { pathwayScopeOverlaps } from "../utils/keyFeatureScope";
+import { geographyLabel, normalizeGeography } from "../utils/geographyUtils";
 import { scopeSelectionLabel } from "../utils/scopeLabel";
 import ScopeFilterNotice from "./ScopeFilterNotice";
 
@@ -35,9 +36,18 @@ interface DataAvailabilityTableProps {
 // Shown wherever a cell has nothing authored (null granularity / scope, etc.).
 const EMPTY = "—";
 
-const COLUMNS = [
-  "Metric",
-  "Sector segment",
+/*
+  The scope columns are conditional, using the same data-driven rule
+  DependenciesTable applies: show a column only when the visible rows disagree
+  about it. Filtering to one sector or one geography therefore collapses that
+  column away, since repeating the ribbon's selection on every row is noise —
+  and the notice above the table already names the scope.
+
+  "Geography scope" is deliberately not called "Geography": the existing
+  "Geography coverage" column is a coverage class (Global / Regional /
+  Country), not a scope, and the two must stay tellable apart.
+*/
+const BASE_COLUMNS = [
   "Granularity",
   "Scope limitations",
   "Geography coverage",
@@ -130,6 +140,16 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
 
   // Distinct from the case above: rows exist, the selection just excludes them.
   // Saying "none recorded for this pathway" here would be untrue.
+  const showSector = new Set(rows.map((row) => row.sector)).size > 1;
+  const showScope = new Set(rows.map((row) => row.geography)).size > 1;
+  const columns = [
+    "Metric",
+    ...(showSector ? ["Sector"] : []),
+    "Sector segment",
+    ...(showScope ? ["Geography scope"] : []),
+    ...BASE_COLUMNS,
+  ];
+
   if (rows.length === 0 && scopeLabel !== null) {
     return (
       <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 text-rmigray-600">
@@ -165,7 +185,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
         <table className="min-w-full border-collapse text-sm">
           <thead>
             <tr className="bg-bluespruce text-left text-white">
-              {COLUMNS.map((col) => (
+              {columns.map((col) => (
                 <th
                   key={col}
                   scope="col"
@@ -179,10 +199,11 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
           <tbody>
             {rows.map((row, i) => (
               <tr
-                // Rows have no natural id; the (metric, segment, geography) tuple
-                // is unique per pathway (enforced by schema-check-files.ts), so it
-                // makes a stable key.
-                key={`${row.metricName}|${row.sectorSegment}|${row.geography}`}
+                // Rows have no natural id. The uniqueness tuple the schema
+                // enforces is (metricName, sector, sectorSegment, geography) —
+                // sector was missing here, so a multi-sector pathway reporting
+                // the same metric in two sectors produced duplicate keys.
+                key={`${row.metricName}|${row.sector}|${row.sectorSegment}|${row.geography}`}
                 className={
                   i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
                 }
@@ -193,9 +214,17 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 >
                   {row.metricName}
                 </th>
+                {showSector ? (
+                  <td className="px-3 py-2 text-rmigray-700">{row.sector}</td>
+                ) : null}
                 <td className="px-3 py-2 text-rmigray-700">
                   {row.sectorSegment}
                 </td>
+                {showScope ? (
+                  <td className="px-3 py-2 text-rmigray-700">
+                    {geographyLabel(normalizeGeography(row.geography))}
+                  </td>
+                ) : null}
                 <td className="px-3 py-2 text-rmigray-700">
                   {formatGranularity(row.granularity)}
                 </td>
