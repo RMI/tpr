@@ -378,15 +378,16 @@ const PathwayDetailPage: React.FC = () => {
 
   /*
     The benchmark plots as small multiples rather than one plot behind a
-    dropdown. `requestedGeography` is left at its default (null → the broadest
-    geography in the data) until the global header geography selector lands;
-    that selector is the only thing this prop is waiting for.
+    dropdown, scoped by the ribbon's selection: a null axis means no preference,
+    which resolves geography to the broadest series available.
   */
   const plotsOverview = (
     <PlotGrid
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
       pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
       plotTypes={PLOT_ORDER.slice(0, 3)}
       title="Plots Overview"
     />
@@ -397,6 +398,8 @@ const PathwayDetailPage: React.FC = () => {
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
       pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
       title="Benchmark Plots"
     />
   );
@@ -553,7 +556,10 @@ const PathwayDetailPage: React.FC = () => {
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
                   Dependencies
                 </h2>
-                <DependenciesTable dependencies={pathway.dependencies} />
+                <DependenciesTable
+                  dependencies={pathway.dependencies}
+                  sector={scope.sector}
+                />
               </section>
             </div>
           </TabPanel>
@@ -582,6 +588,8 @@ const PathwayDetailPage: React.FC = () => {
                 <DataAvailabilityTable
                   dataAvailability={pathway.dataAvailability}
                   downloadHref={datasets[0]?.path}
+                  scope={scope}
+                  pathwayGeography={pathway.geography}
                 />
               </section>
               <section>
