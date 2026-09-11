@@ -4,10 +4,10 @@ import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
 import BadgeArray from "../components/BadgeArray";
-import Badge from "../components/Badge";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
+import PathwayContextRibbon from "../components/PathwayContextRibbon";
 import {
   flattenGeography,
   geographyKind,
@@ -468,27 +468,12 @@ const PathwayDetailPage: React.FC = () => {
         </div>
 
         {/*
-          Sticky bar: a compact Sector summary plus the tab list, so the tabs stay
-          reachable as the page scrolls. A Geography summary is intentionally NOT
-          duplicated here — the availability-aware Geographies panel below owns the
-          geography labels, and repeating them would collide with the page tests'
-          text queries. Adding it (and moving the availability panels into Scope &
-          Granularity per the wireframe) is a flagged follow-up.
+          The sector/geography context and the tab list stay in view as the page
+          scrolls, and the title header collapses into a slim bar behind them.
+          The card above deliberately has no `overflow-hidden`, which is what
+          lets this stick at all.
         */}
-        <div className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-neutral-200 rounded-t-none">
-          <div className="px-6 pt-3 flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-rmigray-500 mr-1">
-              Sector
-            </span>
-            {pathway.sectors.map((s) => (
-              <Badge
-                key={s.name}
-                variant="sector"
-              >
-                {s.name}
-              </Badge>
-            ))}
-          </div>
+        <PathwayContextRibbon pathway={pathway}>
           <Tabs
             tabs={DETAIL_TABS}
             activeId={activeTab}
@@ -497,7 +482,7 @@ const PathwayDetailPage: React.FC = () => {
             idBase="pathway"
             className="px-6 pt-2"
           />
-        </div>
+        </PathwayContextRibbon>
 
         <div className="p-6">
           <TabPanel

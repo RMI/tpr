@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import PlotGrid from "./PlotGrid";
-import type { TimeSeries } from "./PlotSelector";
 import type { Geography } from "../types";
 
 vi.mock("./MultiLineChart", () => ({
@@ -33,7 +32,7 @@ function rows(metric: string, geography: string) {
 function timeseries(...groups: { metric: string; geography: string }[]) {
   return {
     data: groups.flatMap((g) => rows(g.metric, g.geography)),
-  } as TimeSeries;
+  };
 }
 
 describe("PlotGrid", () => {
