@@ -62,9 +62,7 @@ describe("BadgeArray", () => {
   it("throws when variant array length does not match children length", () => {
     expect(() =>
       render(
-        <BadgeArray variant={["sector"] as string[]}>
-          {["Power", "Aviation"]}
-        </BadgeArray>,
+        <BadgeArray variant={["sector"]}>{["Power", "Aviation"]}</BadgeArray>,
       ),
     ).toThrow(/length must match/);
   });

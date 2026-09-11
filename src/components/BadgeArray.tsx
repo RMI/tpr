@@ -13,7 +13,7 @@ type Scalar = string | number;
 
 export type BadgeArrayProps<T extends string | number> = Omit<
   React.ComponentProps<typeof BadgeMaybeAbsent>,
-  "tooltip"
+  "tooltip" | "children" | "variant" | "toLabel" | "renderLabel"
 > & {
   /** Provide an array of scalar-ish values as children: {['A', 'B', null, 42]} */
   children: Array<T | null | undefined>;
@@ -23,8 +23,12 @@ export type BadgeArrayProps<T extends string | number> = Omit<
   visibleCount?: number;
   /** Provide original item for tooltip content; still receives the raw item. */
   tooltipGetter?: (item: T) => React.ReactNode;
-  /** Optionally map each raw item to a display label (allows non-scalars). */
-  toLabel?: (item: T | null | undefined) => React.ReactNode;
+  /**
+   * Optionally map each raw item to a display label. Returns a string because
+   * the label is handed to BadgeMaybeAbsent, which renders it into a Badge
+   * (whose children are scalar) and may pass it through `renderLabel`.
+   */
+  toLabel?: (item: T | null | undefined) => string;
   /** Optionally post-process a mapped label (e.g., highlight). */
   renderLabel?: (label: React.ReactNode) => React.ReactNode;
   /** Max rows to display before collapsing into “+N more”. Use Infinity for unlimited rows. Default: 1. */
