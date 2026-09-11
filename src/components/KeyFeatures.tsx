@@ -527,25 +527,24 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
   if (visible.length === 0) return null;
 
   return (
-    <div className="bg-neutral-50 border border-neutral-200 rounded-lg px-4 pt-4 pb-2 mb-6">
+    <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
       {title ? (
         <h3 className="text-lg font-medium text-rmigray-800 mb-3">{title}</h3>
       ) : null}
+      {/*
+        Each group is its own card, so the grid `gap` owns all separation — no
+        index-derived borders, which could not have expressed "first row" across
+        two different column counts anyway.
+      */}
       <div
-        className={`grid grid-cols-1 ${visible.length > 1 ? "md:grid-cols-2" : ""}`}
+        className={`grid grid-cols-1 gap-4 ${
+          visible.length > 1 ? "md:grid-cols-2 lg:grid-cols-3" : ""
+        }`}
       >
-        {visible.map((group, idx) => (
+        {visible.map((group) => (
           <div
             key={group.label}
-            className={[
-              "py-4",
-              idx >= 2 ? "border-t border-neutral-200" : "",
-              idx % 2 === 1
-                ? "md:pl-6 md:border-l md:border-neutral-200"
-                : "md:pr-6",
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            className="rounded-lg border border-neutral-200 bg-white p-4"
           >
             <h4 className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
               {group.label}

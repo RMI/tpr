@@ -239,30 +239,49 @@ describe("KeyFeatures", () => {
     expect(label).not.toHaveClass("bg-rmiblue-100");
   });
 
-  it("applies horizontal divider classes to bottom-row groups only", () => {
+  it("renders every group as its own bordered card", () => {
     render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
     const groups = screen
       .getAllByRole("heading", { level: 4 })
       .map((h) => h.parentElement as HTMLElement);
 
-    // top row — no border-t
-    expect(groups[0]).not.toHaveClass("border-t");
-    expect(groups[1]).not.toHaveClass("border-t");
-    // bottom row — border-t present
-    expect(groups[2]).toHaveClass("border-t");
-    expect(groups[3]).toHaveClass("border-t");
+    expect(groups).toHaveLength(6);
+    groups.forEach((g) => {
+      expect(g).toHaveClass("bg-white");
+      expect(g).toHaveClass("rounded-lg");
+      expect(g).toHaveClass("border");
+      // Separation is the grid gap's job now, not a per-group edge border.
+      expect(g).not.toHaveClass("border-t");
+      expect(g).not.toHaveClass("md:border-l");
+    });
   });
 
-  it("does not render old box styling on any group", () => {
+  it("separates the cards with a grid gap rather than derived borders", () => {
     render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
-    const groups = screen
-      .getAllByRole("heading", { level: 4 })
-      .map((h) => h.parentElement as HTMLElement);
+    const grid = (
+      screen.getAllByRole("heading", { level: 4 })[0]
+        .parentElement as HTMLElement
+    ).parentElement as HTMLElement;
 
-    groups.forEach((g) => {
-      expect(g).not.toHaveClass("bg-white");
-      expect(g).not.toHaveClass("rounded-md");
-    });
+    expect(grid).toHaveClass("gap-4");
+    expect(grid).toHaveClass("md:grid-cols-2");
+    expect(grid).toHaveClass("lg:grid-cols-3");
+  });
+
+  it("does not add grid columns when only one group is shown", () => {
+    render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        groups={["policies"]}
+      />,
+    );
+    const grid = (
+      screen.getAllByRole("heading", { level: 4 })[0]
+        .parentElement as HTMLElement
+    ).parentElement as HTMLElement;
+
+    expect(grid).not.toHaveClass("md:grid-cols-2");
+    expect(grid).not.toHaveClass("lg:grid-cols-3");
   });
 
   it("renders without crashing when a feature value is missing", () => {
