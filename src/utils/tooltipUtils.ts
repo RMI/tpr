@@ -61,6 +61,23 @@ export const getMetricTooltip = (metric: Metric): string => {
   return metricTooltips[metric] || unknownTooltip;
 };
 
+/**
+ * Sector-segment tooltips, keyed by the `sectorScope` string the timeseries
+ * taxonomy reports (e.g. "Power generation").
+ *
+ * PLACEHOLDER: intentionally empty, so every segment badge currently falls back
+ * to `unknownTooltip`. The copy is not authored yet, and a wrong definition
+ * would be worse than an honest "no tooltip available" — note that the
+ * taxonomy's own `segments` definitions are keyed differently ("generation",
+ * "storage", "transmissionAndDistribution") and do not describe these strings.
+ * Fill this record in when the segment copy lands.
+ */
+export const sectorSegmentTooltips: Record<string, string> = {};
+
+export const getSectorSegmentTooltip = (segment: string): string => {
+  return sectorSegmentTooltips[segment] || unknownTooltip;
+};
+
 export type KeyFeatureSection = keyof PathwayMetadataType["keyFeatures"];
 
 /**

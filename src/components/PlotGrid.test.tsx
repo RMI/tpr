@@ -139,6 +139,24 @@ describe("PlotGrid", () => {
     expect(geography).toHaveClass("bg-pinishgreen-200");
   });
 
+  it("makes the sector segment badge hoverable", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={timeseries({
+          metric: "capacity",
+          geography: "South East Asia",
+        })}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    // The tooltip copy is still a placeholder, but the trigger has to be wired
+    // now so filling the record in is a one-file change.
+    expect(
+      screen.getByText("Power generation").closest("[tabindex]"),
+    ).not.toBeNull();
+  });
+
   it("explains the fallback when the requested geography is unavailable", () => {
     render(
       <PlotGrid

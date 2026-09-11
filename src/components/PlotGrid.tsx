@@ -12,6 +12,7 @@ import {
 } from "../utils/geographyUtils";
 import { resolveGeography } from "../utils/geographyFallback";
 import { getMetricDefinition } from "../utils/timeseriesTaxonomy";
+import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 
 /** Panel size for the small multiples — two columns at desktop width. */
 const PANEL_DIMS = { width: 420, height: 260 };
@@ -141,7 +142,12 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
             >
               {usedLabel}
             </Badge>
-            <Badge variant="sectorSegment">
+            <Badge
+              variant="sectorSegment"
+              tooltip={getSectorSegmentTooltip(
+                getMetricDefinition("power", opt.value).sectorScope,
+              )}
+            >
               {getMetricDefinition("power", opt.value).sectorScope}
             </Badge>
           </div>

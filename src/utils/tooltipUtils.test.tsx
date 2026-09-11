@@ -2,8 +2,10 @@ import { describe, test, expect } from "vitest";
 import {
   pathwayTypeTooltips,
   sectorTooltips,
+  sectorSegmentTooltips,
   getPathwayTypeTooltip,
   getSectorTooltip,
+  getSectorSegmentTooltip,
   unknownTooltip,
 } from "./tooltipUtils";
 
@@ -143,5 +145,32 @@ describe("sectors.name tooltip coverage (from common/sector.v1.json)", () => {
     schemaValues: sectorEnum,
     record: sectorTooltips,
     getter: getSectorTooltip,
+  });
+});
+
+// Sector segments have no schema enum to check against, and the copy is not
+// written yet, so this only pins the placeholder contract: every segment
+// resolves to the honest fallback, and whatever is eventually added is a real
+// non-empty string. It is deliberately NOT run through
+// expectTooltipCoverage — there is no enum to be in sync with.
+describe("sector segment tooltips (placeholder)", () => {
+  test("falls back to the unknown tooltip while the copy is unwritten", () => {
+    expect(getSectorSegmentTooltip("Power generation")).toBe(unknownTooltip);
+    expect(getSectorSegmentTooltip("anything at all")).toBe(unknownTooltip);
+  });
+
+  test("returns an authored tooltip once one exists for the segment", () => {
+    const [segment] = Object.keys(sectorSegmentTooltips);
+    if (segment === undefined) return; // still empty: nothing to assert yet
+    expect(getSectorSegmentTooltip(segment)).toBe(
+      sectorSegmentTooltips[segment],
+    );
+  });
+
+  test("any authored tooltip is a non-empty string", () => {
+    const empties = Object.entries(sectorSegmentTooltips)
+      .filter(([, val]) => typeof val !== "string" || val.trim().length === 0)
+      .map(([k]) => k);
+    expect(empties).toEqual([]);
   });
 });
