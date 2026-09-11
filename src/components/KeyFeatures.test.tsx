@@ -26,19 +26,29 @@ const mockKeyFeatures: PathwayMetadataType["keyFeatures"] = {
   investmentNeeds: wide("By technology"),
 } as unknown as PathwayMetadataType["keyFeatures"];
 
+const mockCoreDrivers = {
+  policies: "Carbon pricing sustained region-wide.",
+  emissionsTargets: null,
+  technologyCosts: "Solar and battery costs keep falling.",
+  investmentChange: null,
+  macroeconomicDrivers: "Steady GDP growth to 2030.",
+  behavioralShifts: null,
+  otherDrivers: null,
+} as unknown as PathwayMetadataType["coreDrivers"];
+
 describe("KeyFeatures", () => {
-  it("renders all four group headers", () => {
+  it("renders all six group headers in wireframe order", () => {
     render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
     expect(
-      screen.getByText("Emissions Boundary & Trajectory"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("Energy System & Transition Levers"),
-    ).toBeInTheDocument();
-    expect(screen.getByText("Policy Environment")).toBeInTheDocument();
-    expect(
-      screen.getByText("Technology & Feasibility Assumptions"),
-    ).toBeInTheDocument();
+      screen.getAllByRole("heading", { level: 4 }).map((h) => h.textContent),
+    ).toEqual([
+      "Policies",
+      "Emissions",
+      "Technology",
+      "Investment",
+      "Energy System",
+      "Other",
+    ]);
   });
 
   it("renders only the requested groups", () => {
@@ -49,16 +59,59 @@ describe("KeyFeatures", () => {
       />,
     );
 
-    expect(screen.getByText("Policy Environment")).toBeInTheDocument();
     expect(
-      screen.queryByText("Emissions Boundary & Trajectory"),
+      screen.getAllByRole("heading", { level: 4 }).map((h) => h.textContent),
+    ).toEqual(["Policies"]);
+  });
+
+  it("renders core drivers above the features of their own group", () => {
+    render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        coreDrivers={mockCoreDrivers}
+      />,
+    );
+
+    const prose = screen.getByText("Carbon pricing sustained region-wide.");
+    const policiesGroup = screen
+      .getAllByRole("heading", { level: 4 })
+      .find((h) => h.textContent === "Policies")?.parentElement as HTMLElement;
+
+    // The driver belongs to Policies, and reads before that group's pills.
+    expect(policiesGroup).toContainElement(prose);
+    const ambition = screen.getByText("Policy ambition");
+    expect(
+      prose.compareDocumentPosition(ambition) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("renders the featureless Other group from its drivers alone", () => {
+    render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        coreDrivers={mockCoreDrivers}
+        groups={["other"]}
+      />,
+    );
+
+    expect(screen.getByText("Macroeconomic drivers")).toBeInTheDocument();
+    expect(screen.getByText("Behavioral shifts")).toBeInTheDocument();
+    expect(screen.getByText("Other drivers")).toBeInTheDocument();
+    expect(screen.getByText("Steady GDP growth to 2030.")).toBeInTheDocument();
+  });
+
+  it("renders no driver prose at all when coreDrivers is omitted", () => {
+    // This is what keeps the comparison page free of core-driver content.
+    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+
+    expect(
+      screen.queryByText("Carbon pricing sustained region-wide."),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText("Energy System & Transition Levers"),
+      screen.queryByText("Not a core driver for this pathway."),
     ).not.toBeInTheDocument();
-    expect(
-      screen.queryByText("Technology & Feasibility Assumptions"),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Policy drivers")).not.toBeInTheDocument();
   });
 
   it("renders a custom panel title, and none when it is null", () => {
