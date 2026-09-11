@@ -172,7 +172,11 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
 
       clickTab("Scope & Granularity");
 
-      await screen.findByText("Hosted as a single timeseries file.", undefined, WAIT);
+      await screen.findByText(
+        "Hosted as a single timeseries file.",
+        undefined,
+        WAIT,
+      );
       expect(
         screen.getByRole("columnheader", { name: "Time resolution" }),
       ).toBeInTheDocument();
@@ -184,16 +188,46 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
   );
 
   it(
+    "puts the benchmark plots above Supplemental Information on the Timeseries tab",
+    async () => {
+      await mountDetailPage();
+      await screen.findByText(
+        "The full pathway description prose.",
+        undefined,
+        WAIT,
+      );
+
+      clickTab("Timeseries");
+
+      const plots = await screen.findByRole(
+        "heading",
+        { name: "Benchmark Plots" },
+        WAIT,
+      );
+      // datasetsForPathway is stubbed empty, so there is nothing to plot.
+      expect(
+        screen.getByText("No timeseries data available for this pathway."),
+      ).toBeInTheDocument();
+
+      // Supplemental Information was demoted from the left column to the bottom.
+      const supplemental = screen.getByRole("heading", {
+        name: "Supplemental Information",
+      });
+      expect(
+        plots.compareDocumentPosition(supplemental) &
+          Node.DOCUMENT_POSITION_FOLLOWING,
+      ).toBeTruthy();
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
     "deep-links straight to a tab from the ?tab= query param",
     async () => {
       await mountDetailPage("/pathway/detail-tabs?tab=scope");
 
       // The Data Availability table renders without any tab click.
-      await screen.findByRole(
-        "rowheader",
-        { name: "Capacity" },
-        WAIT,
-      );
+      await screen.findByRole("rowheader", { name: "Capacity" }, WAIT);
       expect(
         screen.getByRole("tab", { name: "Scope & Granularity" }),
       ).toHaveAttribute("aria-selected", "true");

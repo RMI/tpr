@@ -17,6 +17,9 @@ export const PLOT_OPTIONS: { value: PlotType; label: string }[] = [
   { value: "generation", label: "Generation" },
 ];
 
+/** Just the plot types, in canonical order — for callers taking a subset. */
+export const PLOT_ORDER: PlotType[] = PLOT_OPTIONS.map((opt) => opt.value);
+
 /** Does this pathway carry a plottable series for `metric` at any geography? */
 export function hasDataForMetric(
   data: TimeSeries | null,

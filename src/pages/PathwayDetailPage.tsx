@@ -32,7 +32,9 @@ import {
   summarizeSummary,
 } from "../utils/timeseriesIndex";
 import PublicationBlock from "../components/PublicationBlock";
-import { PlotSelector, TimeSeries } from "../components/PlotSelector";
+import type { TimeSeries } from "../components/PlotSelector";
+import PlotGrid from "../components/PlotGrid";
+import { PLOT_ORDER } from "../components/PlotPanel";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import TextWithTooltip from "../components/TextWithTooltip";
 import RegionMembersTooltip from "../components/RegionMembersTooltip";
@@ -310,11 +312,26 @@ const PathwayDetailPage: React.FC = () => {
     </section>
   );
 
-  const plotPanel = (
-    <PlotSelector
+  /*
+    The benchmark plots as small multiples rather than one plot behind a
+    dropdown. `requestedGeography` is left at its default (null → the broadest
+    geography in the data) until the global header geography selector lands;
+    that selector is the only thing this prop is waiting for.
+  */
+  const plotsOverview = (
+    <PlotGrid
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
-      className="mb-6"
+      pathwayGeography={pathway.geography}
+      plotTypes={PLOT_ORDER.slice(0, 3)}
+    />
+  );
+
+  const benchmarkPlots = (
+    <PlotGrid
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      pathwayGeography={pathway.geography}
     />
   );
 
@@ -459,7 +476,7 @@ const PathwayDetailPage: React.FC = () => {
             <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
               <div className="md:col-span-7">{expertOverview}</div>
               <div className="md:col-span-5">
-                {plotPanel}
+                {plotsOverview}
                 <KeyFeatures keyFeatures={pathway.keyFeatures} />
                 {coveragePanels}
               </div>
@@ -493,9 +510,14 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              <div className="md:col-span-7">{supplementalInfo}</div>
-              <div className="md:col-span-5">{plotPanel}</div>
+            <div className="space-y-8">
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Benchmark Plots
+                </h2>
+                {benchmarkPlots}
+              </section>
+              {supplementalInfo}
             </div>
           </TabPanel>
 
