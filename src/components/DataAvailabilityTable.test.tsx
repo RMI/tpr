@@ -156,3 +156,167 @@ describe("DataAvailabilityTable", () => {
     expect(screen.getByRole("table")).toBeInTheDocument();
   });
 });
+
+// A pathway spanning two sectors and three geography scopes, so a selection has
+// something to exclude on either axis.
+const seaRow: ByMetricRow = {
+  ...inToolRow,
+  metricName: "Generation",
+  geography: "South East Asia",
+  geographyCoverage: "Regional",
+};
+
+const sgRow: ByMetricRow = {
+  ...inToolRow,
+  metricName: "Emissions intensity",
+  geography: "SG",
+  geographyCoverage: "Country",
+};
+
+const steelRow: ByMetricRow = {
+  ...publicationRow,
+  metricName: "Absolute emissions",
+  sector: "Steel",
+};
+
+const scopedRows = [inToolRow, seaRow, sgRow, steelRow];
+
+const pathwayGeography = {
+  global: true,
+  regions: { "South East Asia": ["ID", "TH", "VN"] },
+  country: ["SG"],
+} as unknown as NonNullable<PathwayMetadataType["geography"]>;
+
+const renderScoped = (
+  scope: { sector: string | null; geography: string | null },
+  rows: ByMetricRow[] = scopedRows,
+) =>
+  render(
+    <DataAvailabilityTable
+      dataAvailability={availability(rows)}
+      scope={scope}
+      pathwayGeography={pathwayGeography}
+    />,
+  );
+
+const rowHeaders = () =>
+  screen.getAllByRole("rowheader").map((th) => th.textContent);
+
+describe("DataAvailabilityTable — scope filtering (#872)", () => {
+  it("shows every row when no scope prop is passed", () => {
+    render(
+      <DataAvailabilityTable dataAvailability={availability(scopedRows)} />,
+    );
+    expect(rowHeaders()).toHaveLength(4);
+  });
+
+  it("shows every row when both axes are null", () => {
+    renderScoped({ sector: null, geography: null });
+    expect(rowHeaders()).toHaveLength(4);
+  });
+
+  it("filters by sector with plain equality", () => {
+    // There is no cross-sector availability, so no widening applies here.
+    renderScoped({ sector: "Steel", geography: null });
+    expect(rowHeaders()).toEqual(["Absolute emissions"]);
+  });
+
+  it("keeps Global rows when a region is selected", () => {
+    // A Global-scoped row answers any selection; the country row does not,
+    // because SG is not one of the region's members in this fixture.
+    renderScoped({ sector: null, geography: "South East Asia" });
+    expect(rowHeaders()).toEqual([
+      "Capacity",
+      "Generation",
+      "Absolute emissions",
+    ]);
+  });
+
+  it("keeps Global rows when a country is selected", () => {
+    renderScoped({ sector: null, geography: "SG" });
+    expect(rowHeaders()).toEqual([
+      "Capacity",
+      "Emissions intensity",
+      "Absolute emissions",
+    ]);
+  });
+
+  it("shows only globally-scoped rows when Global is selected", () => {
+    // Selecting Global narrows, matching the search matcher: it does not
+    // quietly match every narrower scope.
+    renderScoped({ sector: null, geography: "Global" });
+    expect(rowHeaders()).toEqual(["Capacity", "Absolute emissions"]);
+  });
+
+  it("intersects the two axes", () => {
+    renderScoped({ sector: "Power", geography: "South East Asia" });
+    expect(rowHeaders()).toEqual(["Capacity", "Generation"]);
+  });
+
+  it("reports how much the selection is hiding", () => {
+    renderScoped({ sector: "Steel", geography: null });
+    expect(
+      screen.getByText("Showing 1 of 4 rows for Steel."),
+    ).toBeInTheDocument();
+  });
+
+  it("says nothing when the selection hides nothing", () => {
+    renderScoped({ sector: null, geography: null });
+    expect(screen.queryByText(/^Showing /)).not.toBeInTheDocument();
+  });
+
+  it("names the geography by label, not by code", () => {
+    renderScoped({ sector: null, geography: "SG" });
+    expect(
+      screen.getByText("Showing 3 of 4 rows for Singapore."),
+    ).toBeInTheDocument();
+  });
+
+  it("distinguishes filtered-empty from nothing-recorded", () => {
+    renderScoped({ sector: "Cement", geography: null });
+
+    expect(
+      screen.getByText("No data availability is recorded for Cement."),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/The 4 recorded rows are at other scopes/),
+    ).toBeInTheDocument();
+    // The unfiltered copy would be a lie here: rows do exist.
+    expect(
+      screen.queryByText(/has been recorded for this pathway yet/),
+    ).not.toBeInTheDocument();
+  });
+
+  it("keeps the unfiltered empty state when nothing is authored", () => {
+    render(
+      <DataAvailabilityTable
+        dataAvailability={availability([])}
+        scope={{ sector: "Steel", geography: null }}
+        pathwayGeography={pathwayGeography}
+      />,
+    );
+
+    expect(
+      screen.getByText(/has been recorded for this pathway yet/),
+    ).toBeInTheDocument();
+  });
+
+  it("uses the singular when exactly one row is hidden", () => {
+    renderScoped({ sector: "Cement", geography: null }, [inToolRow]);
+    expect(
+      screen.getByText(/The one recorded row is at another scope/),
+    ).toBeInTheDocument();
+  });
+
+  it("keeps the overall note in the filtered-empty state", () => {
+    render(
+      <DataAvailabilityTable
+        dataAvailability={availability(scopedRows, "Hosted as one file.")}
+        scope={{ sector: "Cement", geography: null }}
+        pathwayGeography={pathwayGeography}
+      />,
+    );
+
+    expect(screen.getByText("Hosted as one file.")).toBeInTheDocument();
+  });
+});

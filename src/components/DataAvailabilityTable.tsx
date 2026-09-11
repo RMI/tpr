@@ -1,5 +1,12 @@
 import React from "react";
-import { PathwayMetadataType } from "../types";
+import type {
+  Geography,
+  PathwayMetadataType,
+  PathwayScopeSelection,
+} from "../types";
+import { pathwayScopeOverlaps } from "../utils/keyFeatureScope";
+import { scopeSelectionLabel } from "../utils/scopeLabel";
+import ScopeFilterNotice from "./ScopeFilterNotice";
 
 // The per-metric data-availability rows (#870). Derived from the schema type so
 // this stays in lockstep with the metadata contract.
@@ -13,6 +20,16 @@ interface DataAvailabilityTableProps {
    * format cell into a download link; omitted when nothing is hosted.
    */
   downloadHref?: string;
+  /**
+   * The detail page's scope selection (#872). A null axis does not filter, and
+   * omitting the prop entirely leaves every row visible.
+   */
+  scope?: PathwayScopeSelection;
+  /**
+   * The pathway's own geography, needed to resolve a region token to its member
+   * countries. Same prop shape PlotGrid takes, for the same reason.
+   */
+  pathwayGeography?: Geography | null;
 }
 
 // Shown wherever a cell has nothing authored (null granularity / scope, etc.).
@@ -72,11 +89,32 @@ const DataFormatCell: React.FC<{ row: ByMetricRow; downloadHref?: string }> = ({
 const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   dataAvailability,
   downloadHref,
+  scope,
+  pathwayGeography,
 }) => {
-  const rows = dataAvailability?.byMetric ?? [];
+  const allRows = dataAvailability?.byMetric ?? [];
   const overall = dataAvailability?.overall ?? null;
 
-  if (rows.length === 0) {
+  const sector = scope?.sector ?? null;
+  const geography = scope?.geography ?? null;
+  const scopeActive = sector !== null || geography !== null;
+  const scopeLabel = scopeSelectionLabel({ sector, geography });
+
+  /*
+    Sector is a plain equality: the schema states there is no cross-sector
+    availability, because availability is a property of a concrete dataset.
+    Geography is an overlap against the pathway's own vocabulary — these tokens
+    are the same scope tokens keyFeatures use, which is what the schema comment
+    on `byMetric[].geography` anticipates.
+  */
+  const rows = allRows.filter(
+    (row) =>
+      (sector === null || row.sector === sector) &&
+      (geography === null ||
+        pathwayScopeOverlaps(row.geography, geography, pathwayGeography)),
+  );
+
+  if (allRows.length === 0) {
     return (
       <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 text-rmigray-600">
         <p className="text-sm">
@@ -90,10 +128,38 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
     );
   }
 
+  // Distinct from the case above: rows exist, the selection just excludes them.
+  // Saying "none recorded for this pathway" here would be untrue.
+  if (rows.length === 0 && scopeLabel !== null) {
+    return (
+      <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-6 text-rmigray-600">
+        <p className="text-sm">
+          {`No data availability is recorded for ${scopeLabel}.`}
+        </p>
+        <p className="mt-2 text-sm">
+          {allRows.length === 1
+            ? "The one recorded row is at another scope — clear the sector or geography selection above to see it."
+            : `The ${allRows.length} recorded rows are at other scopes — clear the sector or geography selection above to see them.`}
+        </p>
+        {overall ? (
+          <p className="mt-2 text-sm text-rmigray-700">{overall}</p>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
     <section>
       {overall ? (
         <p className="mb-4 text-sm text-rmigray-700">{overall}</p>
+      ) : null}
+      {scopeActive && scopeLabel !== null && rows.length < allRows.length ? (
+        <ScopeFilterNotice
+          shown={rows.length}
+          total={allRows.length}
+          label={scopeLabel}
+          noun="rows"
+        />
       ) : null}
       <div className="overflow-x-auto rounded-lg border border-neutral-200">
         <table className="min-w-full border-collapse text-sm">
