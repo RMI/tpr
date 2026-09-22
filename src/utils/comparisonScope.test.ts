@@ -1,6 +1,11 @@
 import { describe, it, expect } from "vitest";
 import {
   columnGeographyOptions,
+  columnsGeographyDivergence,
+  decodeColumnGeographies,
+  defaultGeographyForColumn,
+  encodeColumnGeographies,
+  resolveSharedSector,
   sharedSectors,
   sectorsCompatible,
   comparisonBlock,
@@ -29,6 +34,9 @@ const pathway = ({
 }: Shape): PathwayMetadataType =>
   ({
     id,
+    // `columnsGeographyDivergence` labels a column by pathway name, not by
+    // publisher — two pathways from one publisher have to stay distinguishable.
+    name: { full: `Pathway ${id}`, short: id },
     publication: { publisher: { short: publisher, full: `${publisher} Long` } },
     sectors: sectors.map((name) => ({ name, technologies: [] })),
     geography: { global, regions, country },
@@ -469,5 +477,273 @@ describe("missing sector data is tolerated, not treated as a clash", () => {
   it("still blocks a genuine clash alongside missing data", () => {
     const cement = pathway({ id: "cem", publisher: "X", sectors: ["Cement"] });
     expect(comparisonBlock([iea, sectorless, cement])).not.toBeNull();
+  });
+});
+
+describe("encode/decodeColumnGeographies", () => {
+  it("round-trips a per-column selection", () => {
+    const selection = {
+      "IEA-APS-2024": "Southeast Asia",
+      "ACE-ATS-2024": "South East Asia",
+    };
+    expect(decodeColumnGeographies(encodeColumnGeographies(selection))).toEqual(
+      selection,
+    );
+  });
+
+  it("keys by pathway id, not by column position", () => {
+    // Reordering ?ids= must not repoint a column at another pathway's choice.
+    const encoded = encodeColumnGeographies({ b: "Global", a: "VN" });
+    expect(decodeColumnGeographies(encoded)).toEqual({ b: "Global", a: "VN" });
+  });
+
+  it("percent-encodes spaces so the param stays one token per column", () => {
+    expect(encodeColumnGeographies({ x: "South East Asia" })).toBe(
+      "x:South%20East%20Asia",
+    );
+  });
+
+  it("survives a token containing the delimiters", () => {
+    // No shipped token does, but region labels are publisher prose.
+    const selection = { x: "Asia, Pacific: East" };
+    expect(decodeColumnGeographies(encodeColumnGeographies(selection))).toEqual(
+      selection,
+    );
+  });
+
+  it("reads an empty param as no selection", () => {
+    expect(decodeColumnGeographies(null)).toEqual({});
+    expect(decodeColumnGeographies("")).toEqual({});
+  });
+
+  it("drops unparseable entries rather than repairing them", () => {
+    // A stale or hand-edited link degrades to the per-column defaults, the
+    // same rule useUrlParamState follows for a single value.
+    expect(decodeColumnGeographies("no-colon,x:Global,:empty-id,y:")).toEqual({
+      x: "Global",
+    });
+  });
+
+  it("does not throw on a malformed escape", () => {
+    expect(decodeColumnGeographies("x:%zz,y:Global")).toEqual({ y: "Global" });
+  });
+
+  it("omits empty selections when encoding", () => {
+    expect(encodeColumnGeographies({ x: "", y: "Global" })).toBe("y:Global");
+  });
+});
+
+describe("resolveSharedSector", () => {
+  it("defaults to Power when shared", () => {
+    expect(resolveSharedSector({ sector: null }, [iea, ace])).toBe("Power");
+  });
+
+  it("falls back to the first shared sector when Power is not shared", () => {
+    const a = pathway({
+      id: "a",
+      publisher: "P",
+      sectors: ["Steel", "Cement"],
+    });
+    const b = pathway({
+      id: "b",
+      publisher: "P",
+      sectors: ["Cement", "Steel"],
+    });
+    expect(resolveSharedSector({ sector: null }, [a, b])).toBe("Steel");
+  });
+
+  it("prefers a search sector that is shared", () => {
+    expect(resolveSharedSector({ sector: "Buildings" }, [iea, ace])).toBe(
+      "Buildings",
+    );
+  });
+
+  it("ignores a search sector the pathways do not share", () => {
+    expect(resolveSharedSector({ sector: "Cement" }, [iea, ace])).toBe("Power");
+  });
+
+  it("degrades to null for an empty comparison", () => {
+    expect(resolveSharedSector({ sector: null }, [])).toBeNull();
+  });
+});
+
+describe("defaultGeographyForColumn", () => {
+  const options = (...tokens: string[]) =>
+    tokens.map((token) => ({
+      token,
+      label: token,
+      kind: "region" as const,
+      available: true,
+    }));
+
+  it("leads with the first option, which is the broadest with data", () => {
+    // columnGeographyOptions ranks plottable geographies first, so this means
+    // "the broadest geography that actually charts" rather than merely the
+    // broadest declared.
+    expect(
+      defaultGeographyForColumn(
+        { geography: null },
+        ace,
+        options("South East Asia", "Global"),
+      ),
+    ).toBe("South East Asia");
+  });
+
+  it("prefers the search selection, in this publication's own spelling", () => {
+    // "Southeast Asia" is the filter vocabulary; ACE writes it with a space.
+    expect(
+      defaultGeographyForColumn(
+        { geography: "Southeast Asia" },
+        ace,
+        options("Global", "South East Asia"),
+      ),
+    ).toBe("South East Asia");
+  });
+
+  it("ignores a search selection this column cannot offer", () => {
+    expect(
+      defaultGeographyForColumn(
+        { geography: "Europe" },
+        ace,
+        options("South East Asia"),
+      ),
+    ).toBe("South East Asia");
+  });
+
+  it("degrades to null for a column with no geographies", () => {
+    expect(defaultGeographyForColumn({ geography: null }, ace, [])).toBeNull();
+  });
+});
+
+describe("columnsGeographyDivergence", () => {
+  it("says nothing for a single column", () => {
+    expect(
+      columnsGeographyDivergence({ [ace.id]: "South East Asia" }, [ace]),
+    ).toEqual({ kind: "none" });
+  });
+
+  it("says nothing when a column has made no choice", () => {
+    expect(
+      columnsGeographyDivergence({ [ace.id]: "South East Asia" }, [ace, ace2]),
+    ).toEqual({ kind: "none" });
+  });
+
+  it("says nothing when both columns cover the same countries", () => {
+    expect(
+      columnsGeographyDivergence(
+        { [ace.id]: "South East Asia", [ace2.id]: "South East Asia" },
+        [ace, ace2],
+      ),
+    ).toEqual({ kind: "none" });
+  });
+
+  it("says nothing when both columns are global", () => {
+    const other = pathway({
+      id: "og",
+      publisher: "SDSN",
+      sectors: ["Power"],
+      global: true,
+    });
+    expect(
+      columnsGeographyDivergence({ [iea.id]: "Global", [other.id]: "Global" }, [
+        iea,
+        other,
+      ]),
+    ).toEqual({ kind: "none" });
+  });
+
+  it("says nothing for two spellings of the same country set", () => {
+    // The genuine improvement over comparing names: IEA writes "Southeast
+    // Asia" and ACE writes "South East Asia". If they cover the same
+    // countries, the columns ARE like-for-like and warning would be noise.
+    const ieaMatching = pathway({
+      id: "iea-matching",
+      publisher: "IEA",
+      sectors: ["Power"],
+      regions: { "Southeast Asia": ["ID", "TH", "VN"] },
+    });
+    expect(
+      columnsGeographyDivergence(
+        { [ieaMatching.id]: "Southeast Asia", [ace.id]: "South East Asia" },
+        [ieaMatching, ace],
+      ),
+    ).toEqual({ kind: "none" });
+  });
+
+  it("names the countries only one column includes", () => {
+    // The real ACE-vs-IEA discrepancy: IEA's list carries Timor-Leste.
+    const ieaSameSpelling = pathway({
+      id: "iea2",
+      publisher: "IEA",
+      sectors: ["Power"],
+      regions: { "South East Asia": ["ID", "TH", "VN", "TL"] },
+    });
+    const result = columnsGeographyDivergence(
+      { [ieaSameSpelling.id]: "South East Asia", [ace.id]: "South East Asia" },
+      [ieaSameSpelling, ace],
+    );
+
+    expect(result.kind).toBe("membersDiffer");
+    if (result.kind === "membersDiffer") {
+      expect(result.token).toBe("South East Asia");
+      expect(result.exclusives).toEqual([
+        { column: ieaSameSpelling.name.short, countries: ["TL"] },
+      ]);
+    }
+  });
+
+  it("keys the difference by column, so two pathways from one publisher do not collide", () => {
+    // geographyDivergence keyed by publisher label, which made IEA-APS and
+    // IEA-STEPS indistinguishable.
+    const a = pathway({
+      id: "a",
+      publisher: "IEA",
+      sectors: ["Power"],
+      regions: { SEA: ["ID", "TH"] },
+    });
+    const b = pathway({
+      id: "b",
+      publisher: "IEA",
+      sectors: ["Power"],
+      regions: { SEA: ["ID"] },
+    });
+    const result = columnsGeographyDivergence({ a: "SEA", b: "SEA" }, [a, b]);
+
+    expect(result.kind).toBe("membersDiffer");
+    if (result.kind === "membersDiffer") {
+      expect(result.exclusives.map((e) => e.column)).toEqual([a.name.short]);
+    }
+  });
+
+  it("reports columns scoped to different geographies", () => {
+    const result = columnsGeographyDivergence(
+      { [iea.id]: "Global", [ace.id]: "South East Asia" },
+      [iea, ace],
+    );
+
+    expect(result.kind).toBe("differentGeographies");
+    if (result.kind === "differentGeographies") {
+      expect(result.columns).toEqual([
+        { column: iea.name.short, label: "Global" },
+        { column: ace.name.short, label: "South East Asia" },
+      ]);
+    }
+  });
+
+  it("treats an unmapped region as unknown, not as different", () => {
+    // A data gap must not look like a rule — the same principle the sector
+    // restriction follows. Real case: regions: { Europe: [] }.
+    const unmapped = pathway({
+      id: "u",
+      publisher: "Z",
+      sectors: ["Power"],
+      regions: { Europe: [] },
+    });
+    expect(
+      columnsGeographyDivergence(
+        { [unmapped.id]: "Europe", [ace.id]: "South East Asia" },
+        [unmapped, ace],
+      ),
+    ).toEqual({ kind: "none" });
   });
 });
