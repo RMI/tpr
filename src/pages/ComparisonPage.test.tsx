@@ -91,6 +91,21 @@ const fixtures = [
   },
 ] as const;
 
+/*
+  Mounting this page is slow and contention-sensitive: vi.resetModules() forces
+  a fresh dynamic import and a second async effect re-renders once the (stubbed)
+  timeseries index resolves. Under full-suite parallelism that can overrun RTL's
+  default 1000 ms budget, so every findBy* here carries a generous one.
+
+  The per-test timeout is raised file-wide rather than argument-by-argument (as
+  PathwayDetailPage.*.test.tsx does it) because every test in this file mounts
+  the same way — a query budget at or above vitest's default 5 s testTimeout
+  would otherwise surface a real failure as an unhelpful "test timed out"
+  instead of the query's own error. Closes #896.
+*/
+const WAIT = { timeout: 10_000 };
+vi.setConfig({ testTimeout: 20_000 });
+
 async function mountWithFixtures(ids: string): Promise<void> {
   // Reset the module graph so the mocks below apply to the next import.
   vi.resetModules();
@@ -138,7 +153,7 @@ describe("ComparisonPage — structured geography", () => {
 
     // Both pathway summary cards render (proves the page did not crash).
     expect(
-      await screen.findByText("PubA: Comparison Pathway A"),
+      await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT),
     ).toBeInTheDocument();
     expect(screen.getByText("PubB: Comparison Pathway B")).toBeInTheDocument();
 
@@ -155,7 +170,11 @@ describe("ComparisonPage — structured geography", () => {
     await mountWithFixtures("cmp-a");
 
     expect(
-      await screen.findByText("Select at least 2 pathways to compare."),
+      await screen.findByText(
+        "Select at least 2 pathways to compare.",
+        undefined,
+        WAIT,
+      ),
     ).toBeInTheDocument();
   });
 });
@@ -177,7 +196,11 @@ describe("ComparisonPage — pathways with no sector in common", () => {
     await mountWithFixtures("cmp-a,cmp-c");
 
     expect(
-      await screen.findByText("These pathways cannot be compared"),
+      await screen.findByText(
+        "These pathways cannot be compared",
+        undefined,
+        WAIT,
+      ),
     ).toBeInTheDocument();
     expect(
       screen.getByText(/PubC: Comparison Pathway C shares no sector/),
@@ -198,7 +221,11 @@ describe("ComparisonPage — pathways with no sector in common", () => {
     );
 
     await mountWithFixtures("cmp-a,cmp-c");
-    await screen.findByText("These pathways cannot be compared");
+    await screen.findByText(
+      "These pathways cannot be compared",
+      undefined,
+      WAIT,
+    );
 
     expect(sessionStorage.getItem("pathway-comparison")).toBe(
       JSON.stringify(["cmp-a", "cmp-b"]),
@@ -209,7 +236,7 @@ describe("ComparisonPage — pathways with no sector in common", () => {
     await mountWithFixtures("cmp-a,cmp-b");
 
     expect(
-      await screen.findByText("PubA: Comparison Pathway A"),
+      await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT),
     ).toBeInTheDocument();
     expect(
       screen.queryByText("These pathways cannot be compared"),
@@ -240,7 +267,7 @@ describe("ComparisonPage — shared scope", () => {
   it("takes the scope from the URL", async () => {
     await mountWithFixtures("cmp-a,cmp-b&sector=Power&geography=Europe");
 
-    await screen.findByText("PubA: Comparison Pathway A");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
     const pressed = screen
       .getAllByRole("button")
       .filter((b) => b.getAttribute("aria-pressed") === "true")
@@ -254,7 +281,7 @@ describe("ComparisonPage — shared scope", () => {
     // Global is the broadest option, and sharedGeographyOptions ranks it first.
     await mountWithFixtures("cmp-a,cmp-b");
 
-    await screen.findByText("PubA: Comparison Pathway A");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
     const pressed = screen
       .getAllByRole("button")
       .filter((b) => b.getAttribute("aria-pressed") === "true")
@@ -267,7 +294,7 @@ describe("ComparisonPage — shared scope", () => {
   it("ignores a geography no compared pathway declares", async () => {
     await mountWithFixtures("cmp-a,cmp-b&geography=Atlantis");
 
-    await screen.findByText("PubA: Comparison Pathway A");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
     const pressed = screen
       .getAllByRole("button")
       .filter((b) => b.getAttribute("aria-pressed") === "true")
@@ -281,7 +308,7 @@ describe("ComparisonPage — shared scope", () => {
     // PubB publishes no Global, so its column cannot show the selection —
     // the reader meets that before the figures it affects.
     await mountWithFixtures("cmp-a,cmp-b&geography=Global");
-    await screen.findByText("PubA: Comparison Pathway A");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     expect(
       screen.getByText(/PubB does not publish Global/),
@@ -298,7 +325,7 @@ describe("ComparisonPage — shared scope", () => {
 
   it("leaves the section order alone when they agree", async () => {
     await mountWithFixtures("cmp-a,cmp-d&geography=Global");
-    await screen.findByText("PubA: Comparison Pathway A");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     expect(screen.queryByText(/does not publish/)).toBeNull();
 
