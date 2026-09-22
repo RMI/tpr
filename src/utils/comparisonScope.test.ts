@@ -331,3 +331,32 @@ describe("resolveSharedScope", () => {
     });
   });
 });
+
+describe("missing sector data is tolerated, not treated as a clash", () => {
+  // `sectors` is required by the schema but has no minItems, so an empty list
+  // is valid data. It must read as unknown rather than as incompatible.
+  const sectorless = pathway({ id: "unknown", publisher: "Q", sectors: [] });
+
+  it("skips a sector-less pathway when intersecting", () => {
+    expect(sharedSectors([iea, sectorless])).toEqual(sharedSectors([iea]));
+  });
+
+  it("returns nothing when no pathway declares a sector", () => {
+    expect(sharedSectors([sectorless])).toEqual([]);
+  });
+
+  it("lets a sector-less pathway be added", () => {
+    expect(sectorsCompatible([iea], sectorless)).toBe(true);
+    expect(sectorsCompatible([sectorless], iea)).toBe(true);
+  });
+
+  it("never blocks a comparison on missing data alone", () => {
+    expect(comparisonBlock([iea, sectorless])).toBeNull();
+    expect(comparisonBlock([sectorless, sectorless])).toBeNull();
+  });
+
+  it("still blocks a genuine clash alongside missing data", () => {
+    const cement = pathway({ id: "cem", publisher: "X", sectors: ["Cement"] });
+    expect(comparisonBlock([iea, sectorless, cement])).not.toBeNull();
+  });
+});

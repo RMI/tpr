@@ -45,13 +45,17 @@ const sectorNames = (pathway: PathwayMetadataType): string[] =>
 /**
  * Sector names every compared pathway declares, in the first pathway's order.
  *
- * Empty means the set cannot be compared — see {@link comparisonBlock}.
+ * Pathways declaring no sectors at all are skipped rather than emptying the
+ * intersection. `sectors` is required by the schema but carries no `minItems`,
+ * so `sectors: []` is valid — and a pathway with no sector data should read as
+ * unknown, never as incompatible. A data gap must not look like a rule.
  */
 export function sharedSectors(
   pathways: readonly PathwayMetadataType[],
 ): string[] {
-  if (pathways.length === 0) return [];
-  const [first, ...rest] = pathways;
+  const declaring = pathways.filter((p) => sectorNames(p).length > 0);
+  if (declaring.length === 0) return [];
+  const [first, ...rest] = declaring;
   return sectorNames(first).filter((name) =>
     rest.every((p) => sectorNames(p).includes(name)),
   );
@@ -95,10 +99,14 @@ export function comparisonBlock(
 ): ComparisonBlock | null {
   if (pathways.length < 2) return null;
 
-  const offenders: PathwayMetadataType[] = [];
-  let running = sectorNames(pathways[0]);
+  // Only pathways that actually declare sectors can prove an incompatibility.
+  const declaring = pathways.filter((p) => sectorNames(p).length > 0);
+  if (declaring.length < 2) return null;
 
-  for (const pathway of pathways.slice(1)) {
+  const offenders: PathwayMetadataType[] = [];
+  let running = sectorNames(declaring[0]);
+
+  for (const pathway of declaring.slice(1)) {
     const next = running.filter((name) => sectorNames(pathway).includes(name));
     if (next.length === 0) {
       offenders.push(pathway);
