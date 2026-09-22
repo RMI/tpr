@@ -309,6 +309,7 @@ const ComparisonPage: React.FC = () => {
               pathwayId: p.id,
               timeseriesdata: null,
               datasetId: undefined,
+              pathwayGeography: p.geography,
             };
           }
           const first = datasets[0];
@@ -321,12 +322,14 @@ const ComparisonPage: React.FC = () => {
               pathwayId: p.id,
               timeseriesdata: data,
               datasetId: first.datasetId,
+              pathwayGeography: p.geography,
             };
           } catch {
             return {
               pathwayId: p.id,
               timeseriesdata: null,
               datasetId: first.datasetId,
+              pathwayGeography: p.geography,
             };
           }
         }),
@@ -399,7 +402,11 @@ const ComparisonPage: React.FC = () => {
       <>
         {/* ── Benchmark Metric Plots ── */}
         <div className="mt-8">
-          <ComparisonPlots entries={plotEntries} />
+          <ComparisonPlots
+            entries={plotEntries}
+            requestedGeography={scope.geography}
+            requestedSector={scope.sector}
+          />
         </div>
       </>
     ),
