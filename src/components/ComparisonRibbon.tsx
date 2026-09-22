@@ -2,7 +2,10 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { X, Plus, GitCompareArrows, Trash2 } from "lucide-react";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
+import { useFilters } from "../context/FilterContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import { resolveSharedScope } from "../utils/comparisonScope";
+import type { PathwayMetadataType } from "../types";
 
 const SLOTS = [0, 1, 2] as const;
 
@@ -14,13 +17,34 @@ const ComparisonRibbon: React.FC = () => {
     ribbonExpanded: expanded,
     setRibbonExpanded: setExpanded,
   } = useComparison();
+  const { filters } = useFilters();
   const navigate = useNavigate();
 
   const canCompare = comparedPathwayIds.length >= 2;
 
+  /*
+    Carry the reader's search scope into the comparison URL.
+
+    Seeding here rather than on the comparison page keeps that page a pure
+    function of its URL, and makes a shared link reproduce what the sender
+    saw — a page seeding from `useFilters()` on mount would resolve an absent
+    param against the *recipient's* session filters instead.
+  */
   const handleCompare = () => {
     if (!canCompare) return;
-    void navigate(`/compare?ids=${comparedPathwayIds.join(",")}`);
+
+    const pathways = comparedPathwayIds
+      .map((id) => pathwayMetadata.find((p) => p.id === id))
+      .filter((p): p is PathwayMetadataType => p !== undefined);
+    const scope = resolveSharedScope(filters, pathways);
+
+    const params = [`ids=${comparedPathwayIds.join(",")}`];
+    if (scope.sector !== null)
+      params.push(`sector=${encodeURIComponent(scope.sector)}`);
+    if (scope.geography !== null)
+      params.push(`geography=${encodeURIComponent(scope.geography)}`);
+
+    void navigate(`/compare?${params.join("&")}`);
   };
 
   if (!expanded) {
