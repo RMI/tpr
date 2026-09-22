@@ -23,9 +23,11 @@ import {
 } from "../utils/timeseriesIndex";
 import { TimeSeries } from "../components/PlotSelector";
 import {
+  geographyKind,
   geographyVariant,
   REGION_MAPPING_DISCLAIMER,
 } from "../utils/geographyUtils";
+import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
@@ -156,6 +158,24 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
             })}
             toLabel={(token) =>
               options.find((o) => o.token === token)?.label ?? ""
+            }
+            /*
+              Region membership, the same tooltip the card view and both detail
+              page surfaces carry. Regions only: "Global" and a country name
+              have no members to list, and a tooltip-less badge stays a plain
+              span with no focus trigger.
+
+              `tooltipGetter` receives the raw child, which here is the
+              publisher's own token — exactly what `regionMemberCodes` matches
+              on. No `searchTerm`: nothing is being searched on this page.
+            */
+            tooltipGetter={(token) =>
+              geographyKind(token) === "region" ? (
+                <RegionMembersTooltip
+                  geography={pathway.geography}
+                  label={token}
+                />
+              ) : undefined
             }
             visibleCount={Infinity}
           >

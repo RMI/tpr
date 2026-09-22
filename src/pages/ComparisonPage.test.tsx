@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 
@@ -24,7 +30,13 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: { Europe: [] }, country: ["US"] },
+    geography: {
+      global: true,
+      // One region with a published mapping and one without, so both arms of
+      // the member tooltip are reachable.
+      regions: { "Europe": ["DE", "FR", "IT"], "Unmapped Region": [] },
+      country: ["US"],
+    },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "cross-sector", geography: "Global", value: "foo" },
@@ -346,5 +358,99 @@ describe("ComparisonPage — shared scope", () => {
 
     expect(columnTrigger("A")).toHaveTextContent("Europe");
     expect(columnTrigger("B")).toHaveTextContent("Germany");
+  });
+});
+
+describe("ComparisonPage — region geography tooltips", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+    vi.restoreAllMocks();
+  });
+
+  /**
+   * The Geographies coverage section. Scoped, because the scope header's
+   * dropdown trigger shows a geography label too — an unscoped getByText would
+   * be ambiguous.
+   */
+  const geographiesSection = async (): Promise<HTMLElement> => {
+    const heading = await screen.findByRole(
+      "heading",
+      { name: /Geographies/ },
+      WAIT,
+    );
+    return heading.closest(".grid") as HTMLElement;
+  };
+
+  /**
+   * Focus is the keyboard equivalent of hover in TextWithTooltip, and the only
+   * one jsdom drives reliably. The tooltip portals to document.body, so it is
+   * queried unscoped even though the trigger is not.
+   */
+  const openTooltipFor = async (
+    scope: HTMLElement,
+    label: string,
+  ): Promise<HTMLElement> => {
+    const trigger = within(scope).getByText(label).closest("[tabindex]");
+    let tooltip: HTMLElement | null = null;
+    await waitFor(() => {
+      fireEvent.focus(trigger as HTMLElement);
+      tooltip = screen.getByRole("tooltip");
+    }, WAIT);
+    return tooltip as unknown as HTMLElement;
+  };
+
+  it("lists a region's member countries by name", async () => {
+    await mountWithFixtures("cmp-a,cmp-b");
+    const section = await geographiesSection();
+
+    const tooltip = await openTooltipFor(section, "Europe");
+    expect(tooltip).toHaveTextContent("3 countries");
+    expect(tooltip).toHaveTextContent("Germany");
+    expect(tooltip).toHaveTextContent("France");
+    expect(tooltip).toHaveTextContent("Italy");
+  });
+
+  it("uses each column's own mapping", async () => {
+    // Region membership is publication-specific, so the tooltip has to read
+    // the pathway whose column the badge sits in.
+    await mountWithFixtures("cmp-a,cmp-b");
+    const section = await geographiesSection();
+
+    // Pathway B declares no regions at all, so only A's Europe is present.
+    expect(within(section).getAllByText("Europe")).toHaveLength(1);
+    expect(await openTooltipFor(section, "Europe")).toHaveTextContent(
+      "Germany",
+    );
+  });
+
+  it("says so when a declared region has no published mapping", async () => {
+    await mountWithFixtures("cmp-a,cmp-b");
+    const section = await geographiesSection();
+
+    const tooltip = await openTooltipFor(section, "Unmapped Region");
+    expect(tooltip).toHaveTextContent("No country mapping available");
+  });
+
+  it("leaves Global and country badges without a tooltip trigger", async () => {
+    // Neither has members to list, so they stay plain spans — nothing to
+    // hover, and no focus stop for a keyboard reader to land on.
+    await mountWithFixtures("cmp-a,cmp-b");
+    const section = await geographiesSection();
+
+    expect(
+      within(section).getByText("Global").closest("[tabindex]"),
+    ).toBeNull();
+    expect(
+      within(section)
+        .getByText("United States of America")
+        .closest("[tabindex]"),
+    ).toBeNull();
+    expect(
+      within(section).getByText("Germany").closest("[tabindex]"),
+    ).toBeNull();
   });
 });
