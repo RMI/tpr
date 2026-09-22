@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  columnGeographyOptions,
   sharedSectors,
   sectorsCompatible,
   comparisonBlock,
@@ -136,6 +137,101 @@ describe("comparisonBlock", () => {
     expect(block).not.toBeNull();
     expect(block?.offenders.map((p) => p.id)).toEqual(["cement"]);
     expect(block?.sharedBefore).toEqual(["Buildings", "Power", "Other"]);
+  });
+});
+
+describe("columnGeographyOptions", () => {
+  /** Stub availability: these tokens are plottable, nothing else is. */
+  const holding = (...tokens: string[]) => ({
+    hasSector: () => true,
+    hasMetric: () => true,
+    hasGeography: (raw: string) => tokens.includes(raw),
+  });
+
+  const nothing = holding();
+
+  it("offers only this pathway's own geographies", () => {
+    const tokens = columnGeographyOptions(ace, nothing).map((o) => o.token);
+    expect(tokens).toEqual(["South East Asia"]);
+    // IEA's spelling belongs to IEA's column, not this one.
+    expect(tokens).not.toContain("Southeast Asia");
+  });
+
+  it("labels plainly, with no publisher suffix", () => {
+    // The column carries the provenance, so the label does not have to.
+    expect(columnGeographyOptions(iea, nothing).map((o) => o.label)).toContain(
+      "Southeast Asia",
+    );
+    expect(
+      columnGeographyOptions(iea, nothing)
+        .map((o) => o.label)
+        .join(" "),
+    ).not.toContain("(IEA)");
+  });
+
+  it("names a country by name rather than its ISO code", () => {
+    const withCountry = pathway({
+      id: "wc",
+      publisher: "Z",
+      sectors: ["Power"],
+      country: ["US"],
+    });
+    const option = columnGeographyOptions(withCountry, nothing)[0];
+
+    expect(option.token).toBe("US");
+    expect(option.label).toBe("United States of America");
+  });
+
+  it("orders global above regions above countries", () => {
+    const mixed = pathway({
+      id: "m",
+      publisher: "Z",
+      sectors: ["Power"],
+      global: true,
+      regions: { "North America": ["US"] },
+      country: ["SG"],
+    });
+    expect(columnGeographyOptions(mixed, nothing).map((o) => o.kind)).toEqual([
+      "global",
+      "region",
+      "country",
+    ]);
+  });
+
+  it("leads with what this tool can actually plot", () => {
+    // 13 of IEA's 15 declared geographies have no timeseries rows, so the two
+    // that do have to come first or they are lost in the list.
+    const options = columnGeographyOptions(iea, holding("Southeast Asia"));
+
+    expect(options[0].token).toBe("Southeast Asia");
+    expect(options[0].available).toBe(true);
+    expect(options.slice(1).every((o) => !o.available)).toBe(true);
+  });
+
+  it("keeps the kind ordering within each availability group", () => {
+    const mixed = pathway({
+      id: "m",
+      publisher: "Z",
+      sectors: ["Power"],
+      global: true,
+      regions: { "North America": ["US"] },
+      country: ["SG"],
+    });
+    // Only the country is plottable, so it leads; the rest keep global→region.
+    expect(
+      columnGeographyOptions(mixed, holding("SG")).map((o) => o.kind),
+    ).toEqual(["country", "global", "region"]);
+  });
+
+  it("flags everything unavailable when the pathway has no timeseries", () => {
+    const options = columnGeographyOptions(iea, nothing);
+    expect(options.length).toBeGreaterThan(0);
+    expect(options.every((o) => !o.available)).toBe(true);
+  });
+
+  it("degrades to an empty list for a pathway declaring no geography", () => {
+    const none = pathway({ id: "n", publisher: "Z", sectors: ["Power"] });
+    expect(columnGeographyOptions(none, nothing)).toEqual([]);
   });
 });
 

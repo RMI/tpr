@@ -14,6 +14,10 @@ import {
 } from "./geographyUtils";
 import { GLOBAL_SCOPE, scopeISOSet } from "./keyFeatureScope";
 import {
+  sortByAvailability,
+  type PathwayToolAvailability,
+} from "./timeseriesAvailability";
+import {
   DEFAULT_SECTOR,
   collapseSelection,
   seedGeographyFromFilters,
@@ -117,6 +121,50 @@ export function comparisonBlock(
   }
 
   return offenders.length > 0 ? { sharedBefore: running, offenders } : null;
+}
+
+export interface ColumnGeographyOption {
+  /** The publisher's own spelling — the scope value, and what lands in the URL. */
+  token: string;
+  /** Badge text: country names for ISO-2 tokens, region labels as written. */
+  label: string;
+  kind: GeographyKind;
+  /** Whether this tool holds timeseries data for it, or only the publication does. */
+  available: boolean;
+}
+
+/**
+ * One pathway's own geographies, ordered and flagged exactly as the comparison
+ * page's Geographies coverage section shows them.
+ *
+ * Geography is the one axis that cannot be pooled across compared pathways: a
+ * token resolves to an ISO set only against its own publication's `regions`
+ * mapping, and across the loadable pathways no token is declared by more than
+ * one publisher. So each column offers its own list, and this is the single
+ * place that list is derived — the header's per-column control and the coverage
+ * section both read it, so the two cannot drift.
+ *
+ * Ordering: global → regions → countries (`sortGeographiesForDetails`), then
+ * stable-partitioned available-first, so what the reader can actually plot
+ * leads.
+ */
+export function columnGeographyOptions(
+  pathway: PathwayMetadataType,
+  availability: PathwayToolAvailability,
+): ColumnGeographyOption[] {
+  // sortGeographiesForDetails normalizes and drops empty tokens, so these are
+  // already clean enough to use as values.
+  const tokens = sortGeographiesForDetails(flattenGeography(pathway.geography));
+
+  return sortByAvailability(
+    tokens.map((token) => ({
+      token,
+      label: geographyLabel(token),
+      kind: geographyKind(token),
+      available: availability.hasGeography(token),
+    })),
+    (option) => option.available,
+  );
 }
 
 export interface SharedGeographyOption {

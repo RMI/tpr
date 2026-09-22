@@ -3,6 +3,7 @@ import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import {
+  columnGeographyOptions,
   comparisonBlock,
   geographyDivergence,
   resolveSharedScope,
@@ -19,13 +20,8 @@ import {
 } from "../utils/timeseriesIndex";
 import { TimeSeries } from "../components/PlotSelector";
 import {
-  flattenGeography,
-  geographyKind,
-  geographyLabel,
   geographyVariant,
-  normalizeGeography,
   REGION_MAPPING_DISCLAIMER,
-  sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import getTemperatureColor from "../utils/getTemperatureColor";
@@ -142,25 +138,25 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
 }) => (
   <>
     {pathways.map((pathway, idx) => {
-      const availability = availabilities[idx];
-      const sorted = sortByAvailability(
-        sortGeographiesForDetails(flattenGeography(pathway.geography)),
-        (geo) => availability.hasGeography(geo),
-      );
+      // Same helper the scope header's per-column control reads, so this
+      // read-only view and the selectable one cannot drift.
+      const options = columnGeographyOptions(pathway, availabilities[idx]);
       return (
         <div
           key={pathway.id}
           className="min-w-0"
         >
           <BadgeArray
-            variant={sorted.map((geo): BadgeVariant => {
-              const base = geographyVariant(geographyKind(geo));
-              return availability.hasGeography(geo) ? base : `${base}-pub`;
+            variant={options.map((option): BadgeVariant => {
+              const base = geographyVariant(option.kind);
+              return option.available ? base : `${base}-pub`;
             })}
-            toLabel={(geo) => geographyLabel(normalizeGeography(geo ?? ""))}
+            toLabel={(token) =>
+              options.find((o) => o.token === token)?.label ?? ""
+            }
             visibleCount={Infinity}
           >
-            {sorted}
+            {options.map((option) => option.token)}
           </BadgeArray>
         </div>
       );
