@@ -14,7 +14,11 @@ import {
   geographyFallbackNote,
   resolveGeography,
 } from "../utils/geographyFallback";
-import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
+import {
+  getMetricDefinition,
+  getSectorDefinition,
+} from "../utils/timeseriesTaxonomy";
+import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 import { useElementWidth } from "../hooks/useElementWidth";
 
 /**
@@ -208,6 +212,13 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
 
   const hasAnyData = availablePlotOptions.length > 0;
 
+  // Which part of the sector the selected metric describes. One value for the
+  // whole grid, because it follows the shared plot type rather than the pathway.
+  const segment = getMetricDefinition(
+    PLOT_SECTOR.key,
+    selectedPlot,
+  ).sectorScope;
+
   const handlePlotChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedPlot(e.target.value as PlotType);
@@ -267,7 +278,16 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
         )}
       </div>
 
-      {/* N chart panels — auto-placed one per column */}
+      {/*
+        Which part of the sector the selected metric describes. A property of
+        the metric, not of the pathway, so every column shows the same one —
+        but it belongs in each column's caption alongside the geography, the
+        way the detail page captions its small multiples.
+
+        `sectorScope` is optional on MetricDefinition, so a metric may declare
+        no segment; render the badge only when one exists rather than an empty
+        pill.
+      */}
       {entries.map((entry, idx) => {
         const resolution = resolutions[idx];
         const used = resolution?.used ?? "";
@@ -313,6 +333,17 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
                 >
                   {geographyLabel(normalizeGeography(used))}
                 </Badge>
+                {segment ? (
+                  <Badge
+                    variant="sectorSegment"
+                    tooltip={getSectorSegmentTooltip(
+                      PLOT_SECTOR.displayName,
+                      segment,
+                    )}
+                  >
+                    {segment}
+                  </Badge>
+                ) : null}
               </div>
             ) : null}
             {note ? (

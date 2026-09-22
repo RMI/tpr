@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ComparisonPlots from "./ComparisonPlots";
 import type { ComparisonPlotsEntry } from "./ComparisonPlots";
@@ -184,6 +184,66 @@ describe("ComparisonPlots", () => {
     mockedMultiLineChart.mock.calls.forEach(([props]) => {
       expect(props.yMin).toBe(10);
       expect(props.yMax).toBe(500);
+    });
+  });
+
+  describe("sector segment badge", () => {
+    it("captions each column with the part of the sector the metric covers", async () => {
+      // Matches the detail page's small multiples, which caption each panel
+      // with its geography and its sector segment.
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        makeEntry("p2", ["Global"]),
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global", p2: "Global" }}
+        />,
+      );
+
+      // One per column: the segment follows the shared plot type, but it
+      // belongs in each column's caption next to that column's geography.
+      expect(await screen.findAllByText("Power generation")).toHaveLength(2);
+    });
+
+    it("carries the segment's definition as a tooltip", async () => {
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        makeEntry("p2", ["Global"]),
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global", p2: "Global" }}
+        />,
+      );
+
+      // Badge renders its tooltip through TextWithTooltip, whose trigger is the
+      // outer tabIndex span — the text node itself carries no listeners.
+      const trigger = (
+        await screen.findAllByText("Power generation")
+      )[0].closest("[tabindex]") as HTMLElement;
+      fireEvent.focus(trigger);
+      expect(await screen.findByRole("tooltip")).toHaveTextContent(
+        /generation/i,
+      );
+    });
+
+    it("omits the badge for a column with nothing to plot", () => {
+      // No chart, no caption — the same rule the geography badge follows.
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        { pathwayId: "p2", timeseriesdata: null },
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global" }}
+        />,
+      );
+
+      expect(screen.getAllByText("Power generation")).toHaveLength(1);
     });
   });
 
