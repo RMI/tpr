@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 
 // Structured-geography fixtures (the post-migration `{ global, regions, country }`
@@ -157,12 +158,18 @@ describe("ComparisonPage — structured geography", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("PubB: Comparison Pathway B")).toBeInTheDocument();
 
-    // Geography badges reflect the flattened structured object:
-    //   global → "Global", region key → "Europe", ISO-2 → country name.
-    expect(screen.getByText("Global")).toBeInTheDocument();
-    expect(screen.getByText("Europe")).toBeInTheDocument();
+    /*
+      Geography badges reflect the flattened structured object:
+        global → "Global", region key → "Europe", ISO-2 → country name.
+
+      getAllByText rather than getByText: the scope header's per-column
+      dropdown mirrors the coverage section, so a token the column has selected
+      appears twice on the page by design.
+    */
+    expect(screen.getAllByText("Global").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Europe").length).toBeGreaterThan(0);
     expect(screen.getByText("United States of America")).toBeInTheDocument();
-    expect(screen.getByText("Germany")).toBeInTheDocument();
+    expect(screen.getAllByText("Germany").length).toBeGreaterThan(0);
     expect(screen.getByText("France")).toBeInTheDocument();
   });
 
@@ -254,85 +261,90 @@ describe("ComparisonPage — shared scope", () => {
     vi.restoreAllMocks();
   });
 
-  /**
-   * The Geographies heading, and the first group heading Key Features renders.
-   * "Policies" is FEATURE_GROUPS[0]; the pathway cards also carry h3s, so a
-   * bare `querySelector("h3")` would anchor on a card instead.
-   */
-  const orderAnchors = () => ({
-    geographies: screen.getByRole("heading", { name: /Geographies/ }),
-    keyFeatures: screen.getByRole("heading", { name: "Policies" }),
-  });
+  /** The geography control for one column, by the pathway it belongs to. */
+  const columnTrigger = (name: string) =>
+    screen.getByRole("button", { name: `Geography for ${name}` });
 
-  it("takes the scope from the URL", async () => {
-    await mountWithFixtures("cmp-a,cmp-b&sector=Power&geography=Europe");
+  it("takes each column's geography from the URL", async () => {
+    await mountWithFixtures(
+      "cmp-a,cmp-b&sector=Power&geography=cmp-a:Europe,cmp-b:DE",
+    );
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
-    const pressed = screen
-      .getAllByRole("button")
-      .filter((b) => b.getAttribute("aria-pressed") === "true")
-      .map((b) => b.textContent);
 
-    expect(pressed).toContain("Power");
-    expect(pressed).toContain("Europe (PubA)");
+    expect(columnTrigger("A")).toHaveTextContent("Europe");
+    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(
+      screen
+        .getAllByRole("button")
+        .filter((b) => b.getAttribute("aria-pressed") === "true")
+        .map((b) => b.textContent),
+    ).toEqual(["Power"]);
   });
 
-  it("defaults the scope when the URL carries none", async () => {
-    // Global is the broadest option, and sharedGeographyOptions ranks it first.
+  it("defaults each column independently when the URL carries none", async () => {
+    // A leads with Global, the broadest it declares; B declares only
+    // countries, so it leads with the first of those.
     await mountWithFixtures("cmp-a,cmp-b");
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
-    const pressed = screen
-      .getAllByRole("button")
-      .filter((b) => b.getAttribute("aria-pressed") === "true")
-      .map((b) => b.textContent);
 
-    expect(pressed).toContain("Power");
-    expect(pressed).toContain("Global (PubA)");
+    expect(columnTrigger("A")).toHaveTextContent("Global");
+    expect(columnTrigger("B")).toHaveTextContent("Germany");
   });
 
-  it("ignores a geography no compared pathway declares", async () => {
-    await mountWithFixtures("cmp-a,cmp-b&geography=Atlantis");
+  it("ignores a token the column does not declare", async () => {
+    // B declares no Europe, so it falls back to its own default rather than
+    // showing a geography it does not publish.
+    await mountWithFixtures(
+      "cmp-a,cmp-b&geography=cmp-a:Atlantis,cmp-b:Europe",
+    );
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
-    const pressed = screen
-      .getAllByRole("button")
-      .filter((b) => b.getAttribute("aria-pressed") === "true")
-      .map((b) => b.textContent);
 
-    expect(pressed).toContain("Global (PubA)");
-    expect(pressed).not.toContain("Atlantis");
+    expect(columnTrigger("A")).toHaveTextContent("Global");
+    expect(columnTrigger("B")).toHaveTextContent("Germany");
   });
 
-  it("floats Geographies above the other sections when publishers disagree", async () => {
-    // PubB publishes no Global, so its column cannot show the selection —
-    // the reader meets that before the figures it affects.
-    await mountWithFixtures("cmp-a,cmp-b&geography=Global");
+  it("warns that the columns are not showing the same geography", async () => {
+    await mountWithFixtures("cmp-a,cmp-b&geography=cmp-a:US,cmp-b:DE");
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     expect(
-      screen.getByText(/PubB does not publish Global/),
+      screen.getByText(/not showing the same geography/),
     ).toBeInTheDocument();
-
-    const { geographies, keyFeatures } = orderAnchors();
-    // DOM order, not CSS `order`: these sections hold focusable tooltip
-    // triggers, so reading and tab order must match the visual order.
-    expect(
-      geographies.compareDocumentPosition(keyFeatures) &
-        Node.DOCUMENT_POSITION_FOLLOWING,
-    ).toBeTruthy();
   });
 
-  it("leaves the section order alone when they agree", async () => {
-    await mountWithFixtures("cmp-a,cmp-d&geography=Global");
+  it("keeps the Geographies section in place when the columns diverge", async () => {
+    /*
+      The section used to float above the plots on any divergence. With a
+      control under each column in the header, the discrepancy is stated where
+      the reader chose it, so the order stays fixed.
+
+      "Policies" is FEATURE_GROUPS[0]; the pathway cards also carry h3s, so a
+      bare querySelector("h3") would anchor on a card instead.
+    */
+    await mountWithFixtures("cmp-a,cmp-b&geography=cmp-a:US,cmp-b:DE");
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(screen.queryByText(/does not publish/)).toBeNull();
+    const geographies = screen.getByRole("heading", { name: /Geographies/ });
+    const keyFeatures = screen.getByRole("heading", { name: "Policies" });
 
-    const { geographies, keyFeatures } = orderAnchors();
     expect(
       geographies.compareDocumentPosition(keyFeatures) &
         Node.DOCUMENT_POSITION_PRECEDING,
     ).toBeTruthy();
+  });
+
+  it("changes one column without disturbing the other", async () => {
+    await mountWithFixtures("cmp-a,cmp-b");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
+
+    const user = userEvent.setup();
+    await user.click(columnTrigger("A"));
+    await user.click(screen.getByRole("option", { name: "Europe" }));
+
+    expect(columnTrigger("A")).toHaveTextContent("Europe");
+    expect(columnTrigger("B")).toHaveTextContent("Germany");
   });
 });

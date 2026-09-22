@@ -1,14 +1,15 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ComparisonScopeHeader from "./ComparisonScopeHeader";
 import { MockIntersectionObserver } from "../test/mockIntersectionObserver";
 import {
-  sharedGeographyOptions,
+  columnGeographyOptions,
+  columnsGeographyDivergence,
   sharedSectors,
-  geographyDivergence,
+  type ColumnGeographyOption,
 } from "../utils/comparisonScope";
-import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import type { PathwayMetadataType } from "../types";
 
 /*
   The two real shapes this header has to reconcile: IEA, which declares Global
@@ -38,27 +39,58 @@ const ace = {
   },
 } as unknown as PathwayMetadataType;
 
-const ace2 = {
-  ...ace,
-  id: "ACE-BAS-2024",
-  name: { full: "Baseline Scenario", short: "BAS" },
-} as unknown as PathwayMetadataType;
+/** Availability stub: these tokens are plottable, nothing else is. */
+const holding = (...tokens: string[]) => ({
+  hasSector: () => true,
+  hasMetric: () => true,
+  hasGeography: (raw: string) => tokens.includes(raw),
+});
 
-const renderHeader = (
+const optionsFor = (
   pathways: PathwayMetadataType[],
-  scope: PathwayScopeSelection,
-  onScopeChange: (next: PathwayScopeSelection) => void = () => {},
-) =>
+  available: string[] = [],
+): Record<string, ColumnGeographyOption[]> =>
+  Object.fromEntries(
+    pathways.map((p) => [
+      p.id,
+      columnGeographyOptions(p, holding(...available)),
+    ]),
+  );
+
+interface Options {
+  pathways?: PathwayMetadataType[];
+  selectedSector?: string | null;
+  selectedGeographies?: Record<string, string | null>;
+  available?: string[];
+}
+
+const renderHeader = ({
+  pathways = [iea, ace],
+  selectedSector = "Power",
+  selectedGeographies = {
+    [iea.id]: "Southeast Asia",
+    [ace.id]: "South East Asia",
+  },
+  available = [],
+}: Options = {}) => {
+  const onSectorChange = vi.fn();
+  const onGeographyChange = vi.fn();
+
   render(
     <ComparisonScopeHeader
       pathways={pathways}
       sectorOptions={sharedSectors(pathways)}
-      geographyOptions={sharedGeographyOptions(pathways)}
-      scope={scope}
-      onScopeChange={onScopeChange}
-      divergence={geographyDivergence(scope.geography, pathways)}
+      selectedSector={selectedSector}
+      onSectorChange={onSectorChange}
+      geographyOptions={optionsFor(pathways, available)}
+      selectedGeographies={selectedGeographies}
+      onGeographyChange={onGeographyChange}
+      divergence={columnsGeographyDivergence(selectedGeographies, pathways)}
     />,
   );
+
+  return { onSectorChange, onGeographyChange, user: userEvent.setup() };
+};
 
 /** Drive the sentinel past the top of the viewport. */
 const scrollPast = () =>
@@ -68,14 +100,17 @@ const scrollPast = () =>
     observer?.trigger(sentinel as Element, false, { top: -10 });
   });
 
+const columnTrigger = (name: string) =>
+  screen.getByRole("button", { name: `Geography for ${name}` });
+
 describe("ComparisonScopeHeader", () => {
   beforeEach(() => {
     MockIntersectionObserver.instances.length = 0;
   });
 
-  describe("axes", () => {
+  describe("sector axis", () => {
     it("offers only the sectors every compared pathway declares", () => {
-      renderHeader([iea, ace], { sector: "Power", geography: null });
+      renderHeader();
 
       expect(screen.getByRole("button", { name: "Power" })).toBeInTheDocument();
       expect(
@@ -85,183 +120,179 @@ describe("ComparisonScopeHeader", () => {
       expect(screen.queryByRole("button", { name: "Steel" })).toBeNull();
     });
 
-    it("offers every declared geography, labelled by publisher", () => {
-      // Cross-publisher comparisons share no geography by name, so an
-      // intersection here would leave the axis empty.
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
-
-      expect(
-        screen.getByRole("button", { name: "Global (IEA)" }),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole("button", { name: "Southeast Asia (IEA)" }),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole("button", { name: "South East Asia (ACE)" }),
-      ).toBeInTheDocument();
-    });
-
-    it("drops the publisher suffix when the pathways share one", () => {
-      renderHeader([ace, ace2], {
-        sector: "Power",
-        geography: "South East Asia",
-      });
-
-      expect(
-        screen.getByRole("button", { name: "South East Asia" }),
-      ).toBeInTheDocument();
-    });
-
-    it("names a country option rather than echoing its ISO code", () => {
-      renderHeader([iea], { sector: "Power", geography: "Global" });
-
-      expect(
-        screen.getByRole("button", { name: /United States of America/ }),
-      ).toBeInTheDocument();
-    });
-
-    it("groups each axis under its label", () => {
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
-
-      const groups = screen.getAllByRole("group");
-      expect(groups.map((g) => g.getAttribute("aria-labelledby"))).toHaveLength(
-        2,
-      );
-      expect(screen.getByText("Sector")).toBeInTheDocument();
-      expect(screen.getByText("Geography")).toBeInTheDocument();
-    });
-  });
-
-  describe("selection", () => {
-    it("marks exactly one badge pressed per axis", () => {
-      renderHeader([ace, ace2], {
-        sector: "Power",
-        geography: "South East Asia",
-      });
+    it("marks the selected sector pressed", () => {
+      renderHeader();
 
       const pressed = screen
         .getAllByRole("button")
         .filter((b) => b.getAttribute("aria-pressed") === "true");
-      expect(pressed.map((b) => b.textContent)).toEqual([
-        "Power",
-        "South East Asia",
-      ]);
+      expect(pressed.map((b) => b.textContent)).toEqual(["Power"]);
     });
 
-    it("reports a new selection without disturbing the other axis", async () => {
-      const onScopeChange = vi.fn();
-      renderHeader(
-        [ace, ace2],
-        { sector: "Power", geography: "South East Asia" },
-        onScopeChange,
-      );
+    it("reports a new sector", async () => {
+      const { onSectorChange, user } = renderHeader();
+      await user.click(screen.getByRole("button", { name: "Buildings" }));
 
-      await userEvent.click(screen.getByRole("button", { name: "Buildings" }));
-
-      expect(onScopeChange).toHaveBeenCalledWith({
-        sector: "Buildings",
-        geography: "South East Asia",
-      });
+      expect(onSectorChange).toHaveBeenCalledWith("Buildings");
     });
 
-    it("reports the token, not the publisher-suffixed label", async () => {
-      // The token is what lands in the URL and what each column resolves.
-      const onScopeChange = vi.fn();
-      renderHeader(
-        [iea, ace],
-        { sector: "Power", geography: "Global" },
-        onScopeChange,
-      );
+    it("ignores a click on the already-selected sector", async () => {
+      // The axis always carries a value, so deselection is not reachable.
+      const { onSectorChange, user } = renderHeader();
+      await user.click(screen.getByRole("button", { name: "Power" }));
 
-      await userEvent.click(
-        screen.getByRole("button", { name: "South East Asia (ACE)" }),
-      );
-
-      expect(onScopeChange).toHaveBeenCalledWith({
-        sector: "Power",
-        geography: "South East Asia",
-      });
+      expect(onSectorChange).not.toHaveBeenCalled();
     });
 
-    it("ignores a click on the already-selected badge", async () => {
-      // An axis always carries a value, so deselection is not a state to reach.
-      const onScopeChange = vi.fn();
-      renderHeader(
-        [ace, ace2],
-        { sector: "Power", geography: "South East Asia" },
-        onScopeChange,
-      );
-
-      await userEvent.click(screen.getByRole("button", { name: "Power" }));
-      expect(onScopeChange).not.toHaveBeenCalled();
-    });
-
-    it("keeps the selected geography out of the overflow", () => {
-      // jsdom has no layout, so this asserts the pinning rather than the
-      // collapse: the selection leads the list it is measured from.
-      renderHeader([iea, ace], {
-        sector: "Power",
-        geography: "South East Asia",
-      });
-
-      const group = screen.getAllByRole("group")[1];
-      const first = group.querySelectorAll("button")[0];
-      expect(first).toHaveAccessibleName("South East Asia (ACE)");
+    it("stays one shared row rather than one per column", () => {
+      // Sector is a closed vocabulary with a shared intersection, unlike
+      // geography — the asymmetry in this header is deliberate.
+      renderHeader();
+      expect(screen.getAllByRole("button", { name: "Power" })).toHaveLength(1);
     });
   });
 
-  describe("region tooltips", () => {
-    it("lists the members of the publisher whose spelling the badge shows", async () => {
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
+  describe("geography, per column", () => {
+    it("gives every column its own control, named for its pathway", () => {
+      renderHeader();
 
-      // ACE's spelling, so ACE's membership: no Timor-Leste.
-      fireEvent.focus(
-        screen.getByRole("button", { name: "South East Asia (ACE)" }),
-      );
-      expect(await screen.findByText(/Indonesia/)).toBeInTheDocument();
-      expect(screen.queryByText(/Timor-Leste/)).toBeNull();
+      expect(columnTrigger("APS")).toBeInTheDocument();
+      expect(columnTrigger("ATS")).toBeInTheDocument();
+    });
+
+    it("shows each column's own current geography", () => {
+      renderHeader();
+
+      expect(columnTrigger("APS")).toHaveTextContent("Southeast Asia");
+      expect(columnTrigger("ATS")).toHaveTextContent("South East Asia");
+    });
+
+    it("offers only the geographies that column's publisher declares", async () => {
+      const { user } = renderHeader();
+      await user.click(columnTrigger("ATS"));
+
+      const names = screen
+        .getAllByRole("option")
+        .map((o) => o.textContent?.trim());
+      expect(names).toEqual(["South East Asia"]);
+      // IEA's spelling belongs to IEA's column.
+      expect(names).not.toContain("Southeast Asia");
+    });
+
+    it("labels options plainly, with no publisher suffix", async () => {
+      // The column carries the provenance, so "(IEA)" would be pure noise —
+      // and across the loadable pathways it disambiguates nothing anyway.
+      const { user } = renderHeader();
+      await user.click(columnTrigger("APS"));
+
+      const names = screen
+        .getAllByRole("option")
+        .map((o) => o.textContent?.trim());
+      expect(names).toContain("Southeast Asia");
+      expect(names.join(" ")).not.toContain("(");
+    });
+
+    it("changes only the column that was used", async () => {
+      const { onGeographyChange, user } = renderHeader();
+      await user.click(columnTrigger("APS"));
+      await user.click(screen.getByRole("option", { name: "Global" }));
+
+      expect(onGeographyChange).toHaveBeenCalledTimes(1);
+      expect(onGeographyChange).toHaveBeenCalledWith(iea.id, "Global");
+    });
+
+    it("groups the controls under one axis label", () => {
+      renderHeader();
+
+      const group = screen.getByRole("group", { name: "Geography" });
+      expect(
+        within(group).getAllByRole("button", { name: /^Geography for/ }),
+      ).toHaveLength(2);
+    });
+
+    it("degrades to a disabled control for a pathway with no geography", () => {
+      const bare = {
+        ...ace,
+        id: "bare",
+        name: { full: "Bare", short: "BARE" },
+        geography: { regions: {}, country: [] },
+      } as unknown as PathwayMetadataType;
+
+      renderHeader({
+        pathways: [iea, bare],
+        selectedGeographies: { [iea.id]: "Global", bare: null },
+      });
+
+      expect(columnTrigger("BARE")).toBeDisabled();
     });
   });
 
-  describe("geography divergence", () => {
-    it("says nothing when the publishers agree", () => {
-      renderHeader([ace, ace2], {
-        sector: "Power",
-        geography: "South East Asia",
-      });
+  describe("availability", () => {
+    it("shades the geographies this tool cannot plot", async () => {
+      // 13 of IEA's 15 declared geographies carry no timeseries rows.
+      const { user } = renderHeader({ available: ["Southeast Asia"] });
+      await user.click(columnTrigger("APS"));
 
-      expect(screen.queryByText(/do not agree/)).toBeNull();
-      expect(screen.queryByText(/does not publish/)).toBeNull();
+      const region = screen.getByRole("option", { name: "Southeast Asia" });
+      expect(region.querySelector(".bg-transparent")).toBeNull();
+
+      const global = screen.getByRole("option", { name: "Global" });
+      expect(global.querySelector(".bg-transparent")).not.toBeNull();
     });
 
-    it("says which publisher does not publish the selection", () => {
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
+    it("leads with what can be plotted", async () => {
+      const { user } = renderHeader({ available: ["Southeast Asia"] });
+      await user.click(columnTrigger("APS"));
+
+      expect(screen.getAllByRole("option")[0]).toHaveAccessibleName(
+        "Southeast Asia",
+      );
+    });
+  });
+
+  describe("divergence", () => {
+    it("says nothing when the columns cover the same countries", () => {
+      const matching = {
+        ...iea,
+        geography: { regions: { "Southeast Asia": ["ID", "TH", "VN"] } },
+      } as unknown as PathwayMetadataType;
+
+      renderHeader({
+        pathways: [matching, ace],
+        selectedGeographies: {
+          [iea.id]: "Southeast Asia",
+          [ace.id]: "South East Asia",
+        },
+      });
+
+      expect(screen.queryByText(/not like-for-like/)).toBeNull();
+    });
+
+    it("names the countries only one column includes", () => {
+      // IEA's South East Asia carries Timor-Leste; ACE's does not.
+      renderHeader({
+        selectedGeographies: {
+          [iea.id]: "Southeast Asia",
+          [ace.id]: "South East Asia",
+        },
+      });
 
       expect(
-        screen.getByText(
-          /ACE does not publish Global\. Its column falls back to the closest geography it does cover/,
-        ),
+        screen.getByText(/only APS includes Timor-Leste/),
       ).toBeInTheDocument();
     });
 
-    it("names the countries only one publisher includes", () => {
-      // Both spell it the same way here, but IEA's list carries TL.
-      const ieaSameSpelling = {
-        ...iea,
-        geography: {
-          regions: { "South East Asia": ["ID", "TH", "VN", "TL"] },
-          country: [],
+    it("says so when the columns are scoped to different geographies", () => {
+      renderHeader({
+        selectedGeographies: {
+          [iea.id]: "Global",
+          [ace.id]: "South East Asia",
         },
-      } as unknown as PathwayMetadataType;
-
-      renderHeader([ieaSameSpelling, ace], {
-        sector: "Power",
-        geography: "South East Asia",
       });
 
       expect(
         screen.getByText(
-          /Publishers do not agree on what South East Asia covers: only IEA includes Timor-Leste\./,
+          /These columns are not showing the same geography: APS shows Global/,
         ),
       ).toBeInTheDocument();
     });
@@ -269,14 +300,14 @@ describe("ComparisonScopeHeader", () => {
 
   describe("condensed bar", () => {
     it("stays collapsed until the cards scroll away", () => {
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
+      renderHeader();
 
       const bar = screen.getByText("APS").closest("div[aria-hidden='true']");
       expect(bar).toHaveClass("h-0");
     });
 
     it("names each column once the cards scroll away", () => {
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
+      renderHeader();
       scrollPast();
 
       const bar = screen.getByText("APS").closest("div[aria-hidden='true']");
@@ -285,7 +316,7 @@ describe("ComparisonScopeHeader", () => {
     });
 
     it("holds no focusables, so nothing hides in a collapsed bar", () => {
-      renderHeader([iea, ace], { sector: "Power", geography: "Global" });
+      renderHeader();
 
       const bar = screen.getByText("APS").closest("div[aria-hidden='true']");
       expect(bar?.querySelectorAll("button, a, input")).toHaveLength(0);

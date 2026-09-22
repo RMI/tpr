@@ -101,9 +101,9 @@ describe("ComparisonPlots", () => {
     expect(screen.queryByText("Geography")).not.toBeInTheDocument();
   });
 
-  it("resolves the shared geography separately for each column", async () => {
-    // p1 publishes EU; p2 does not, so its column falls back and says so
-    // rather than rendering empty.
+  it("resolves each column's own request", async () => {
+    // Both columns ask for EU; p1 publishes it, p2 does not, so p2 falls back
+    // and says so rather than rendering empty.
     const entries = [
       makeEntry("p1", ["Global", "EU"]),
       makeEntry("p2", ["Global"]),
@@ -111,7 +111,7 @@ describe("ComparisonPlots", () => {
     render(
       <ComparisonPlots
         entries={entries}
-        requestedGeography="EU"
+        requestedGeographies={{ p1: "EU", p2: "EU" }}
       />,
     );
 
@@ -123,6 +123,26 @@ describe("ComparisonPlots", () => {
     expect(screen.getByText("Global")).toBeInTheDocument();
   });
 
+  it("lets each column show a different geography", async () => {
+    // The point of per-column selection: no shared token exists between many
+    // real publishers, so the columns have to be able to differ.
+    const entries = [
+      makeEntry("p1", ["Global", "EU"]),
+      makeEntry("p2", ["Global"]),
+    ];
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedGeographies={{ p1: "EU", p2: "Global" }}
+      />,
+    );
+
+    // Both columns resolved exactly what they asked for, so neither falls back.
+    expect(await screen.findByText("EU")).toBeInTheDocument();
+    expect(screen.getByText("Global")).toBeInTheDocument();
+    expect(screen.queryByText(/showing .* instead/i)).toBeNull();
+  });
+
   it("shows the per-panel no-data message when a column has nothing to resolve", () => {
     const entries = [
       makeEntry("p1", ["Global"]),
@@ -131,7 +151,7 @@ describe("ComparisonPlots", () => {
     render(
       <ComparisonPlots
         entries={entries}
-        requestedGeography="Global"
+        requestedGeographies={{ p1: "Global", p2: "Global" }}
       />,
     );
 
@@ -153,7 +173,7 @@ describe("ComparisonPlots", () => {
     render(
       <ComparisonPlots
         entries={entries}
-        requestedGeography="EU"
+        requestedGeographies={{ p1: "EU", p2: "Global" }}
       />,
     );
     await userEvent

@@ -31,6 +31,12 @@ const CHART_DIMS: Record<number, { width: number; height: number }> = {
 const WIDTH_STEP = 20;
 
 /**
+ * Stable empty default for `requestedGeographies`. An inline `{}` would be a
+ * new object every render, invalidating the memo below on every pass.
+ */
+const NO_REQUESTS: Readonly<Record<string, string | null>> = Object.freeze({});
+
+/**
  * The plots are power-sector only: `PlotPanel` and `MultiLineChart` both
  * hardcode `sector="power"`. Naming it once here keeps that assumption visible,
  * matching `PlotGrid`.
@@ -54,12 +60,15 @@ export interface ComparisonPlotsEntry {
 interface ComparisonPlotsProps {
   entries: ComparisonPlotsEntry[];
   /**
-   * The shared geography the reader asked for, in the publisher's own spelling.
-   * One request, resolved per column: a token that one publisher declares may
-   * be absent from another's data, so each column reports what it actually
-   * shows. Null means "no preference", resolving to the broadest available.
+   * Each column's requested geography, keyed by pathway id and written in that
+   * publisher's own spelling.
+   *
+   * Per column rather than one shared value because tokens are
+   * publication-specific — a token one publisher declares may not exist in
+   * another's data at all. A missing or null entry means "no preference",
+   * resolving to the broadest geography that column has.
    */
-  requestedGeography?: string | null;
+  requestedGeographies?: Readonly<Record<string, string | null>>;
   /**
    * The shared sector the reader asked for. The plots are Power-only, so any
    * other sector gets an explanation rather than Power series relabelled.
@@ -69,7 +78,7 @@ interface ComparisonPlotsProps {
 
 const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   entries,
-  requestedGeography = null,
+  requestedGeographies = NO_REQUESTS,
   requestedSector = null,
 }) => {
   const n = entries.length;
@@ -117,10 +126,11 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   /*
     One resolution per column.
 
-    There is no geography control here: the scope header above owns that axis.
-    Two geography controls on one page would contradict each other, and this
-    one offered the raw union of every column's timeseries tokens — a list in
-    which most entries were unplottable for most columns.
+    There is no geography control here: the scope header above owns that axis,
+    one dropdown per column. Two geography controls on one page would
+    contradict each other, and this one offered the raw union of every column's
+    timeseries tokens — a list in which most entries were unplottable for most
+    columns.
   */
   const resolutions = useMemo(
     () =>
@@ -131,11 +141,11 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
         });
         return resolveGeography(
           [...available],
-          requestedGeography,
+          requestedGeographies[entry.pathwayId] ?? null,
           entry.pathwayGeography ?? null,
         );
       }),
-    [entries, requestedGeography],
+    [entries, requestedGeographies],
   );
 
   // Shared y-axis bounds across all pathways for the current plot type.
@@ -181,12 +191,20 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
     setHoveredPoint(point);
   }, []);
 
-  // Switching plot type or geography remounts every panel; without this, a
-  // hover captured just before the switch would linger and apply to the
-  // newly-mounted panels until the next real hover/leave event.
+  /*
+    Switching plot type or geography remounts every panel; without this, a
+    hover captured just before the switch would linger and apply to the
+    newly-mounted panels until the next real hover/leave event.
+
+    Keyed on what the panels actually RESOLVED to, not on the requested
+    selection: the request arrives as an object, and depending on its identity
+    would clear the shared hover on every render that happened to rebuild it,
+    which is the same failure mode as putting `dims` in PlotPanel's key.
+  */
+  const resolvedKey = resolutions.map((r) => r.used ?? "").join("|");
   useEffect(() => {
     setHoveredPoint(null);
-  }, [selectedPlot, requestedGeography]);
+  }, [selectedPlot, resolvedKey]);
 
   const hasAnyData = availablePlotOptions.length > 0;
 

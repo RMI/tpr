@@ -272,7 +272,19 @@ describe("ComparisonRibbon", () => {
         // function of its URL.
         const { params } = await clickCompare();
         expect(params.get("sector")).toBe("Power");
-        expect(params.get("geography")).toBe("South East Asia");
+        // Geography is per column, keyed by pathway id.
+        expect(params.get("geography")).toBe(
+          "p1:South East Asia,p2:South East Asia",
+        );
+      });
+
+      it("seeds each column in its own publisher's spelling", async () => {
+        // The whole reason geography is per column: one reader selection maps
+        // onto a different token for each publication.
+        const { params } = await clickCompare({ geography: "Southeast Asia" });
+        expect(params.get("geography")).toBe(
+          "p1:South East Asia,p2:South East Asia",
+        );
       });
 
       it("prefers a search sector the pathways share", async () => {
@@ -288,7 +300,7 @@ describe("ComparisonRibbon", () => {
       it("percent-encodes a token containing spaces", async () => {
         // Geography tokens are publisher prose, not slugs.
         const { search } = await clickCompare();
-        expect(search).toContain("geography=South%20East%20Asia");
+        expect(search).toContain("p1:South%20East%20Asia");
       });
     });
   });

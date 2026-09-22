@@ -1,11 +1,9 @@
 import React from "react";
-import type { GeographyDivergence } from "../utils/comparisonScope";
+import type { ColumnGeographyDivergence } from "../utils/comparisonScope";
 import { geographyLabel } from "../utils/geographyUtils";
 
 interface GeographyDivergenceNoticeProps {
-  /** The selected geography token, in the publisher's own spelling. */
-  token: string;
-  divergence: GeographyDivergence;
+  divergence: ColumnGeographyDivergence;
 }
 
 // Pinned to "en" so the copy is deterministic rather than following the
@@ -16,48 +14,49 @@ const conjoin = (items: string[]): string =>
   );
 
 /**
- * Says that the compared publishers describe the selected geography
- * differently, and how.
+ * Says that the columns are not showing the same thing, and how.
  *
- * Two distinct failures, each with its own consequence for the reader:
+ * Two cases, each with its own consequence for the reader:
  *
- *  - `notDeclared` — a publisher does not publish this geography at all, so its
- *    column is showing something else entirely.
- *  - `membersDiffer` — everyone publishes it, but they disagree on which
- *    countries it contains, so the columns are not like-for-like.
+ *  - `membersDiffer` — the columns name one geography but their publishers
+ *    disagree on which countries it contains.
+ *  - `differentGeographies` — the columns are scoped to different geographies
+ *    altogether, which per-column selection makes possible and sometimes
+ *    deliberate.
  *
  * Props in, prose out, following `ScopeFilterNotice`. No `aria-live`: this can
- * only change in response to the reader's own click on the scope badges, so a
- * live announcement would interrupt rather than inform.
+ * only change in response to the reader's own choice in a column's dropdown, so
+ * a live announcement would interrupt rather than inform.
  */
 export const GeographyDivergenceNotice: React.FC<
   GeographyDivergenceNoticeProps
-> = ({ token, divergence }) => {
+> = ({ divergence }) => {
   if (divergence.kind === "none") return null;
 
-  const label = geographyLabel(token);
-
-  if (divergence.kind === "notDeclared") {
-    const many = divergence.missing.length > 1;
+  if (divergence.kind === "membersDiffer") {
+    const differences = divergence.exclusives.map(
+      ({ column, countries }) =>
+        `only ${column} includes ${conjoin(countries.map(geographyLabel))}`,
+    );
     return (
-      <p className="mt-1 text-xs text-rmigray-700">
-        {`${conjoin(divergence.missing)} ${many ? "do" : "does"} not publish ${label}. ${
-          many ? "Their columns fall" : "Its column falls"
-        } back to the closest geography ${many ? "they" : "it"} does cover, named under each chart.`}
+      <p className="mt-2 text-xs text-rmigray-700">
+        {`Publishers do not agree on what ${geographyLabel(
+          divergence.token,
+        )} covers: ${conjoin(
+          differences,
+        )}. Figures below are not exactly like-for-like.`}
       </p>
     );
   }
 
-  const differences = divergence.exclusives.map(
-    ({ publisher, countries }) =>
-      `only ${publisher} includes ${conjoin(countries.map(geographyLabel))}`,
+  const shown = divergence.columns.map(
+    ({ column, label }) => `${column} shows ${label}`,
   );
-
   return (
-    <p className="mt-1 text-xs text-rmigray-700">
-      {`Publishers do not agree on what ${label} covers: ${conjoin(
-        differences,
-      )}. Figures below are not exactly like-for-like.`}
+    <p className="mt-2 text-xs text-rmigray-700">
+      {`These columns are not showing the same geography: ${conjoin(
+        shown,
+      )}. Figures below are not like-for-like.`}
     </p>
   );
 };

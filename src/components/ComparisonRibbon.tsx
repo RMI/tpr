@@ -4,7 +4,14 @@ import { X, Plus, GitCompareArrows, Trash2 } from "lucide-react";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import { useFilters } from "../context/FilterContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
-import { resolveSharedScope } from "../utils/comparisonScope";
+import {
+  columnGeographyOptions,
+  defaultGeographyForColumn,
+  encodeColumnGeographies,
+  resolveSharedSector,
+} from "../utils/comparisonScope";
+import { index } from "../data/index.gen";
+import { pathwayToolAvailability } from "../utils/timeseriesAvailability";
 import type { PathwayMetadataType } from "../types";
 
 const SLOTS = [0, 1, 2] as const;
@@ -36,13 +43,29 @@ const ComparisonRibbon: React.FC = () => {
     const pathways = comparedPathwayIds
       .map((id) => pathwayMetadata.find((p) => p.id === id))
       .filter((p): p is PathwayMetadataType => p !== undefined);
-    const scope = resolveSharedScope(filters, pathways);
+
+    const sector = resolveSharedSector(filters, pathways);
+
+    /*
+      Geography is one value per column, translated into each publication's own
+      vocabulary — the reader's "Southeast Asia" becomes ACE's "South East
+      Asia" and IEA's "Southeast Asia" independently, rather than one of them
+      winning and the other falling back.
+    */
+    const geographies: Record<string, string> = {};
+    for (const pathway of pathways) {
+      const options = columnGeographyOptions(
+        pathway,
+        pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
+      );
+      const token = defaultGeographyForColumn(filters, pathway, options);
+      if (token !== null) geographies[pathway.id] = token;
+    }
 
     const params = [`ids=${comparedPathwayIds.join(",")}`];
-    if (scope.sector !== null)
-      params.push(`sector=${encodeURIComponent(scope.sector)}`);
-    if (scope.geography !== null)
-      params.push(`geography=${encodeURIComponent(scope.geography)}`);
+    if (sector !== null) params.push(`sector=${encodeURIComponent(sector)}`);
+    const encoded = encodeColumnGeographies(geographies);
+    if (encoded !== "") params.push(`geography=${encoded}`);
 
     void navigate(`/compare?${params.join("&")}`);
   };

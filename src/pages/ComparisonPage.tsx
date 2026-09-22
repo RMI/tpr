@@ -4,13 +4,16 @@ import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import {
   columnGeographyOptions,
+  columnsGeographyDivergence,
   comparisonBlock,
-  geographyDivergence,
-  resolveSharedScope,
-  sharedGeographyOptions,
+  decodeColumnGeographies,
+  defaultGeographyForColumn,
+  encodeColumnGeographies,
+  resolveSharedSector,
   sharedSectors,
+  type ColumnGeographyOption,
 } from "../utils/comparisonScope";
-import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import { PathwayMetadataType } from "../types";
 import { useUrlParamState } from "../hooks/useUrlParamState";
 import ComparisonScopeHeader from "../components/ComparisonScopeHeader";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
@@ -180,7 +183,7 @@ const SectionHeading: React.FC<{ children: React.ReactNode }> = ({
 // ── Main page ────────────────────────────────────────────────────────────────
 
 const ComparisonPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { setComparedPathwayIds } = useComparison();
 
   // Parse IDs from URL — the source of truth for which pathways to compare.
@@ -219,59 +222,6 @@ const ComparisonPage: React.FC = () => {
   */
   const block = useMemo(() => comparisonBlock(pathways), [pathways]);
 
-  /*
-    The shared scope, backed by the URL.
-
-    `pathwayMetadata` is read at module load and `ids` resolve synchronously
-    above, so the legal option set exists at first render — no deferred seeding
-    effect is needed here, unlike the detail page.
-
-    The default is computed with no filters: `ComparisonRibbon` already wrote
-    the reader's search scope into the URL at navigation time, so resolving an
-    absent param against session filters here would mean a shared link showed
-    the recipient's scope rather than the sender's.
-  */
-  const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
-  const geographyOptions = useMemo(
-    () => sharedGeographyOptions(pathways),
-    [pathways],
-  );
-  const geographyTokens = useMemo(
-    () => geographyOptions.map((o) => o.token),
-    [geographyOptions],
-  );
-  const defaults = useMemo(
-    () => resolveSharedScope({ sector: null, geography: null }, pathways),
-    [pathways],
-  );
-
-  const [sector, setSector] = useUrlParamState({
-    param: "sector",
-    options: sectorOptions,
-    defaultValue: defaults.sector,
-  });
-  const [geography, setGeography] = useUrlParamState({
-    param: "geography",
-    options: geographyTokens,
-    defaultValue: defaults.geography,
-  });
-
-  const scope: PathwayScopeSelection = useMemo(
-    () => ({ sector, geography }),
-    [sector, geography],
-  );
-
-  // One axis changes per click, so this never pushes two history entries.
-  const handleScopeChange = (next: PathwayScopeSelection): void => {
-    if (next.sector !== sector) setSector(next.sector);
-    if (next.geography !== geography) setGeography(next.geography);
-  };
-
-  const divergence = useMemo(
-    () => geographyDivergence(geography, pathways),
-    [geography, pathways],
-  );
-
   // Sync URL IDs back into context so the ribbon stays current, including when
   // the URL resolves to 0–1 valid IDs (clears stale state). Skipped for a
   // blocked set only: a bad link must not clobber the reader's own selection.
@@ -286,6 +236,105 @@ const ComparisonPage: React.FC = () => {
     () =>
       pathways.map((p) => pathwayToolAvailability(index.byPathway[p.id] ?? [])),
     [pathways],
+  );
+
+  /*
+    The scope, backed by the URL.
+
+    `pathwayMetadata` is read at module load and `ids` resolve synchronously
+    above, so the legal option sets exist at first render — no deferred seeding
+    effect is needed here, unlike the detail page.
+
+    Defaults are computed with no filters: `ComparisonRibbon` already wrote the
+    reader's search scope into the URL at navigation time, so resolving an
+    absent param against session filters here would mean a shared link showed
+    the recipient's scope rather than the sender's.
+  */
+  const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
+
+  const [sector, setSector] = useUrlParamState({
+    param: "sector",
+    options: sectorOptions,
+    defaultValue: useMemo(
+      () => resolveSharedSector({ sector: null }, pathways),
+      [pathways],
+    ),
+  });
+
+  /** Each column's own geographies, keyed by pathway id. */
+  const geographyOptions = useMemo(() => {
+    const byPathway: Record<string, ColumnGeographyOption[]> = {};
+    pathways.forEach((pathway, idx) => {
+      byPathway[pathway.id] = columnGeographyOptions(
+        pathway,
+        availabilities[idx],
+      );
+    });
+    return byPathway;
+  }, [pathways, availabilities]);
+
+  const geographyDefaults = useMemo(() => {
+    const byPathway: Record<string, string | null> = {};
+    for (const pathway of pathways) {
+      byPathway[pathway.id] = defaultGeographyForColumn(
+        { geography: null },
+        pathway,
+        geographyOptions[pathway.id] ?? [],
+      );
+    }
+    return byPathway;
+  }, [pathways, geographyOptions]);
+
+  /*
+    Geography is one value per column, so it cannot use `useUrlParamState` —
+    that hook is a single scalar validated against a single option set. The
+    same four behaviours are kept by hand: validate each column's token against
+    that column's options, delete the param when every column is at its
+    default, a functional updater so `?ids=` and `?sector=` survive, and
+    `{ replace: false }` so Back steps through selections.
+  */
+  const selectedGeographies = useMemo(() => {
+    const fromUrl = decodeColumnGeographies(searchParams.get("geography"));
+    const resolved: Record<string, string | null> = {};
+    for (const pathway of pathways) {
+      const requested = fromUrl[pathway.id];
+      const legal = (geographyOptions[pathway.id] ?? []).some(
+        (option) => option.token === requested,
+      );
+      resolved[pathway.id] = legal
+        ? requested
+        : (geographyDefaults[pathway.id] ?? null);
+    }
+    return resolved;
+  }, [searchParams, pathways, geographyOptions, geographyDefaults]);
+
+  const handleGeographyChange = (pathwayId: string, next: string): void => {
+    const merged: Record<string, string> = {};
+    for (const pathway of pathways) {
+      const token =
+        pathway.id === pathwayId ? next : selectedGeographies[pathway.id];
+      // Only non-default choices need saying; a column at its default stays
+      // out of the URL so the common case has no `geography` param at all.
+      if (token && token !== geographyDefaults[pathway.id]) {
+        merged[pathway.id] = token;
+      }
+    }
+
+    setSearchParams(
+      (prev) => {
+        const params = new URLSearchParams(prev);
+        const encoded = encodeColumnGeographies(merged);
+        if (encoded === "") params.delete("geography");
+        else params.set("geography", encoded);
+        return params;
+      },
+      { replace: false },
+    );
+  };
+
+  const divergence = useMemo(
+    () => columnsGeographyDivergence(selectedGeographies, pathways),
+    [selectedGeographies, pathways],
   );
 
   // Timeseries data state: one entry per pathway
@@ -400,8 +449,8 @@ const ComparisonPage: React.FC = () => {
         <div className="mt-8">
           <ComparisonPlots
             entries={plotEntries}
-            requestedGeography={scope.geography}
-            requestedSector={scope.sector}
+            requestedGeographies={selectedGeographies}
+            requestedSector={sector}
           />
         </div>
       </>
@@ -552,18 +601,18 @@ const ComparisonPage: React.FC = () => {
   };
 
   /*
-    Geographies lead when publishers describe the selected one differently:
-    Alex asked for the geo section to float to the top in exactly that case, so
-    the reader meets the discrepancy before the figures it affects.
-
-    Conditional DOM order rather than CSS `order`: these sections are full of
-    focusable tooltip triggers, so reading and tab order have to match the
-    visual order (WCAG 1.3.2, 2.4.3).
+    A fixed order. The geographies section used to float to the top whenever
+    the columns disagreed; with a geography control in the header under each
+    column, the discrepancy is stated where the reader chose it and the section
+    stays put.
   */
-  const sectionOrder =
-    divergence.kind === "none"
-      ? ["plots", "keyFeatures", "geographies", "sectors", "metrics"]
-      : ["geographies", "plots", "keyFeatures", "sectors", "metrics"];
+  const sectionOrder = [
+    "plots",
+    "keyFeatures",
+    "geographies",
+    "sectors",
+    "metrics",
+  ];
 
   const colClass =
     n === 2 ? "grid grid-cols-2 gap-6" : "grid grid-cols-3 gap-6";
@@ -599,9 +648,11 @@ const ComparisonPage: React.FC = () => {
       <ComparisonScopeHeader
         pathways={pathways}
         sectorOptions={sectorOptions}
+        selectedSector={sector}
+        onSectorChange={setSector}
         geographyOptions={geographyOptions}
-        scope={scope}
-        onScopeChange={handleScopeChange}
+        selectedGeographies={selectedGeographies}
+        onGeographyChange={handleGeographyChange}
         divergence={divergence}
       />
 
