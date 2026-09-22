@@ -15,12 +15,20 @@ import {
   resolveGeography,
 } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
+import { useElementWidth } from "../hooks/useElementWidth";
 
-// Width/height per panel depending on how many pathways are compared
+/**
+ * Panel size before the columns have been measured, and the panel height
+ * throughout: #842 asks for width only, and a constant height is what keeps
+ * the columns baseline-aligned with each other.
+ */
 const CHART_DIMS: Record<number, { width: number; height: number }> = {
   2: { width: 400, height: 240 },
   3: { width: 320, height: 240 },
 };
+
+/** Quantise the measured width so a window drag does not re-run d3 per pixel. */
+const WIDTH_STEP = 20;
 
 /**
  * The plots are power-sector only: `PlotPanel` and `MultiLineChart` both
@@ -65,7 +73,26 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   requestedSector = null,
 }) => {
   const n = entries.length;
-  const dims = CHART_DIMS[n] ?? CHART_DIMS[3];
+
+  /*
+    Size the charts to the column they sit in (#842), rather than to a constant
+    that only matched one viewport width.
+
+    One observer suffices: every column is `1fr`, so they share a width. The
+    charts already re-scale on a width change — MultiLineChart and
+    NormalizedStackedAreaChart both list `width` in their effect deps — so no
+    remount is needed, and `dims` stays OUT of PlotPanel's key: keying on it
+    would drop the shared hover state on every resize tick.
+  */
+  const [columnWidth, firstColumnRef] = useElementWidth(WIDTH_STEP);
+  const fallbackDims = CHART_DIMS[n] ?? CHART_DIMS[3];
+  const dims = useMemo(
+    () => ({
+      width: columnWidth ?? fallbackDims.width,
+      height: fallbackDims.height,
+    }),
+    [columnWidth, fallbackDims],
+  );
 
   // Derive which plot types have data across any pathway (for any geography)
   const availablePlotOptions = useMemo(
@@ -232,6 +259,8 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
         return (
           <div
             key={entry.pathwayId}
+            // Only the first column is measured; they are all `1fr`.
+            ref={idx === 0 ? firstColumnRef : undefined}
             className="min-w-0"
           >
             <PlotPanel
