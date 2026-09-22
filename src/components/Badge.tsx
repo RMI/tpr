@@ -69,10 +69,13 @@ const Badge: React.FC<BadgeProps> = ({
         return "bg-rmiblue-100 text-rmiblue-800 border-rmiblue-200";
       case "geographyGlobal-pub":
         return "bg-transparent text-pinishgreen-800 border-pinishgreen-800";
+      // `pinishgreen` defines only 100/200/400/800 in `@theme`, so the 500/600/700
+      // these two used to reference produced no colour at all — an outlined badge
+      // with no text and no border. They follow `sector-pub` and `metric-pub`
+      // instead: the family's 800 for text, its 400 for the outline.
       case "geographyRegion-pub":
-        return "bg-transparent text-pinishgreen-700 border-pinishgreen-500";
       case "geographyCountry-pub":
-        return "bg-transparent text-pinishgreen-600 border-pinishgreen-400";
+        return "bg-transparent text-pinishgreen-800 border-pinishgreen-400";
       case "sector-pub":
         return "bg-transparent text-solar-800 border-solar-400";
       case "metric-pub":
