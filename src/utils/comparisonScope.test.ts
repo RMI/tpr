@@ -154,6 +154,21 @@ describe("sharedGeographyOptions", () => {
     expect(labels).toContain("South East Asia (ACE)");
   });
 
+  it("labels a country token by name, not by ISO code", () => {
+    // The label is what the badge shows, so it follows the detail page's
+    // geographyLabel treatment rather than echoing the raw token.
+    const withCountry = pathway({
+      id: "wc",
+      publisher: "Z",
+      sectors: ["Power"],
+      country: ["US"],
+    });
+    const option = sharedGeographyOptions([withCountry])[0];
+
+    expect(option.token).toBe("US");
+    expect(option.label).toBe("United States of America");
+  });
+
   it("suppresses the publisher suffix when they all share one", () => {
     // "(ACE)" on every option of an ACE-only comparison is pure noise.
     const options = sharedGeographyOptions([ace, ace2]);

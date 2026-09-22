@@ -71,6 +71,24 @@ const fixtures = [
     geography: { global: true, regions: {}, country: [] },
     keyFeatures: {},
   },
+  {
+    // Same publisher as A and Global-only, so A + D agree on Global and the
+    // divergence notice stays silent — the case where the section order is
+    // left alone.
+    id: "cmp-d",
+    name: { full: "Comparison Pathway D", short: "D" },
+    description: "Pathway D description",
+    pathwayType: "Net Zero",
+    publication: {
+      publisher: { full: "Publisher A", short: "PubA" },
+      title: { full: "Publication D", short: "PubTitleD" },
+      year: 2025,
+    },
+    sectors: [{ name: "Power" }],
+    metric: ["Capacity"],
+    geography: { global: true, regions: {}, country: [] },
+    keyFeatures: {},
+  },
 ] as const;
 
 async function mountWithFixtures(ids: string): Promise<void> {
@@ -196,5 +214,98 @@ describe("ComparisonPage — pathways with no sector in common", () => {
     expect(
       screen.queryByText("These pathways cannot be compared"),
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("ComparisonPage — shared scope", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+    vi.restoreAllMocks();
+  });
+
+  /**
+   * The Geographies heading, and the first group heading Key Features renders.
+   * "Policies" is FEATURE_GROUPS[0]; the pathway cards also carry h3s, so a
+   * bare `querySelector("h3")` would anchor on a card instead.
+   */
+  const orderAnchors = () => ({
+    geographies: screen.getByRole("heading", { name: /Geographies/ }),
+    keyFeatures: screen.getByRole("heading", { name: "Policies" }),
+  });
+
+  it("takes the scope from the URL", async () => {
+    await mountWithFixtures("cmp-a,cmp-b&sector=Power&geography=Europe");
+
+    await screen.findByText("PubA: Comparison Pathway A");
+    const pressed = screen
+      .getAllByRole("button")
+      .filter((b) => b.getAttribute("aria-pressed") === "true")
+      .map((b) => b.textContent);
+
+    expect(pressed).toContain("Power");
+    expect(pressed).toContain("Europe (PubA)");
+  });
+
+  it("defaults the scope when the URL carries none", async () => {
+    // Global is the broadest option, and sharedGeographyOptions ranks it first.
+    await mountWithFixtures("cmp-a,cmp-b");
+
+    await screen.findByText("PubA: Comparison Pathway A");
+    const pressed = screen
+      .getAllByRole("button")
+      .filter((b) => b.getAttribute("aria-pressed") === "true")
+      .map((b) => b.textContent);
+
+    expect(pressed).toContain("Power");
+    expect(pressed).toContain("Global (PubA)");
+  });
+
+  it("ignores a geography no compared pathway declares", async () => {
+    await mountWithFixtures("cmp-a,cmp-b&geography=Atlantis");
+
+    await screen.findByText("PubA: Comparison Pathway A");
+    const pressed = screen
+      .getAllByRole("button")
+      .filter((b) => b.getAttribute("aria-pressed") === "true")
+      .map((b) => b.textContent);
+
+    expect(pressed).toContain("Global (PubA)");
+    expect(pressed).not.toContain("Atlantis");
+  });
+
+  it("floats Geographies above the other sections when publishers disagree", async () => {
+    // PubB publishes no Global, so its column cannot show the selection —
+    // the reader meets that before the figures it affects.
+    await mountWithFixtures("cmp-a,cmp-b&geography=Global");
+    await screen.findByText("PubA: Comparison Pathway A");
+
+    expect(
+      screen.getByText(/PubB does not publish Global/),
+    ).toBeInTheDocument();
+
+    const { geographies, keyFeatures } = orderAnchors();
+    // DOM order, not CSS `order`: these sections hold focusable tooltip
+    // triggers, so reading and tab order must match the visual order.
+    expect(
+      geographies.compareDocumentPosition(keyFeatures) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("leaves the section order alone when they agree", async () => {
+    await mountWithFixtures("cmp-a,cmp-d&geography=Global");
+    await screen.findByText("PubA: Comparison Pathway A");
+
+    expect(screen.queryByText(/does not publish/)).toBeNull();
+
+    const { geographies, keyFeatures } = orderAnchors();
+    expect(
+      geographies.compareDocumentPosition(keyFeatures) &
+        Node.DOCUMENT_POSITION_PRECEDING,
+    ).toBeTruthy();
   });
 });

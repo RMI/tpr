@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PathwayMetadataType, PathwayScopeSelection, Sector } from "../types";
 import BadgeArray from "./BadgeArray";
+import ScopeAxisRow, { pinSelected } from "./ScopeAxisRow";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import {
   flattenGeography,
@@ -56,65 +57,6 @@ export function useCondensedOnScroll(): [
 
   return [condensed, sentinelRef];
 }
-
-/** Move the selected token to the front so a selection can never hide in "+N more". */
-function pinSelected(items: string[], selected: string | null): string[] {
-  if (selected === null || !items.includes(selected)) return items;
-  return [selected, ...items.filter((item) => item !== selected)];
-}
-
-const LABEL_CLASS =
-  "text-[10px] font-semibold uppercase tracking-wider text-rmigray-500";
-const ROW_CONTROL_CLASS =
-  "text-[10px] underline text-rmigray-500 hover:text-bluespruce focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-1 rounded";
-
-/**
- * One scope axis: its label, its options as toggle badges, and a control that
- * reveals options the single-row collapse has pushed into "+N more", which
- * would otherwise be visible in the overflow tooltip but not selectable.
- *
- * There is no clear control: both axes always carry a value (see
- * `defaultScopeFor`), so "no selection" is not a state the reader can reach or
- * would benefit from.
- *
- * The control sits in the label cell rather than beside the badges so it never
- * takes part in BadgeArray's width measurement.
- */
-const RibbonRow: React.FC<{
-  label: string;
-  labelId: string;
-  expandable: boolean;
-  expanded: boolean;
-  onToggleExpand: () => void;
-  children: React.ReactNode;
-}> = ({ label, labelId, expandable, expanded, onToggleExpand, children }) => (
-  <>
-    <div className="flex flex-col items-start pt-1">
-      <span
-        id={labelId}
-        className={LABEL_CLASS}
-      >
-        {label}
-      </span>
-      {expandable && (
-        <button
-          type="button"
-          onClick={onToggleExpand}
-          className={ROW_CONTROL_CLASS}
-        >
-          {expanded ? "Show fewer" : "Show all"}
-        </button>
-      )}
-    </div>
-    <div
-      role="group"
-      aria-labelledby={labelId}
-      className="min-w-0 py-0.5"
-    >
-      {children}
-    </div>
-  </>
-);
 
 interface PathwayContextRibbonProps {
   pathway: PathwayMetadataType;
@@ -234,7 +176,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
 
         <div className="bg-white/95 backdrop-blur border-b border-neutral-200">
           <div className="px-6 pt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-start">
-            <RibbonRow
+            <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
               expandable={sectors.length > 1}
@@ -261,9 +203,9 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
               >
                 {sectors}
               </BadgeArray>
-            </RibbonRow>
+            </ScopeAxisRow>
 
-            <RibbonRow
+            <ScopeAxisRow
               label="Geography"
               labelId={`${baseId}-geography`}
               expandable={geographies.length > 1}
@@ -286,7 +228,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
               >
                 {geographies}
               </BadgeArray>
-            </RibbonRow>
+            </ScopeAxisRow>
           </div>
           {children}
         </div>

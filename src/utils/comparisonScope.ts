@@ -7,6 +7,7 @@ import type {
 import {
   flattenGeography,
   geographyKind,
+  geographyLabel,
   normalizeGeography,
   sortGeographiesForDetails,
   type GeographyKind,
@@ -121,7 +122,10 @@ export function comparisonBlock(
 export interface SharedGeographyOption {
   /** The publisher's own spelling, used as the scope value and in the URL. */
   token: string;
-  /** Badge text: the token, suffixed by publisher only when publishers differ. */
+  /**
+   * Badge text: the token's display label (country names for ISO-2 tokens),
+   * suffixed by publisher only when the compared publishers differ.
+   */
   label: string;
   kind: GeographyKind;
   /** Publisher labels declaring this token, in column order. */
@@ -188,12 +192,15 @@ export function sharedGeographyOptions(
       ordered.indexOf(a) - ordered.indexOf(b),
   );
 
-  return ranked.map((option) => ({
-    ...option,
-    label: annotate
-      ? `${option.token} (${option.publishers.join(", ")})`
-      : option.token,
-  }));
+  return ranked.map((option) => {
+    // `geographyLabel` turns an ISO-2 token into a country name and leaves
+    // region labels and "Global" alone, matching the detail page's badges.
+    const base = geographyLabel(option.token);
+    return {
+      ...option,
+      label: annotate ? `${base} (${option.publishers.join(", ")})` : base,
+    };
+  });
 }
 
 export type GeographyDivergence =

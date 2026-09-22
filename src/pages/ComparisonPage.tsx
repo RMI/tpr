@@ -2,8 +2,16 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
-import { comparisonBlock } from "../utils/comparisonScope";
-import { PathwayMetadataType } from "../types";
+import {
+  comparisonBlock,
+  geographyDivergence,
+  resolveSharedScope,
+  sharedGeographyOptions,
+  sharedSectors,
+} from "../utils/comparisonScope";
+import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import { useUrlParamState } from "../hooks/useUrlParamState";
+import ComparisonScopeHeader from "../components/ComparisonScopeHeader";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import {
   fetchTimeseriesIndex,
@@ -215,6 +223,59 @@ const ComparisonPage: React.FC = () => {
   */
   const block = useMemo(() => comparisonBlock(pathways), [pathways]);
 
+  /*
+    The shared scope, backed by the URL.
+
+    `pathwayMetadata` is read at module load and `ids` resolve synchronously
+    above, so the legal option set exists at first render — no deferred seeding
+    effect is needed here, unlike the detail page.
+
+    The default is computed with no filters: `ComparisonRibbon` already wrote
+    the reader's search scope into the URL at navigation time, so resolving an
+    absent param against session filters here would mean a shared link showed
+    the recipient's scope rather than the sender's.
+  */
+  const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
+  const geographyOptions = useMemo(
+    () => sharedGeographyOptions(pathways),
+    [pathways],
+  );
+  const geographyTokens = useMemo(
+    () => geographyOptions.map((o) => o.token),
+    [geographyOptions],
+  );
+  const defaults = useMemo(
+    () => resolveSharedScope({ sector: null, geography: null }, pathways),
+    [pathways],
+  );
+
+  const [sector, setSector] = useUrlParamState({
+    param: "sector",
+    options: sectorOptions,
+    defaultValue: defaults.sector,
+  });
+  const [geography, setGeography] = useUrlParamState({
+    param: "geography",
+    options: geographyTokens,
+    defaultValue: defaults.geography,
+  });
+
+  const scope: PathwayScopeSelection = useMemo(
+    () => ({ sector, geography }),
+    [sector, geography],
+  );
+
+  // One axis changes per click, so this never pushes two history entries.
+  const handleScopeChange = (next: PathwayScopeSelection): void => {
+    if (next.sector !== sector) setSector(next.sector);
+    if (next.geography !== geography) setGeography(next.geography);
+  };
+
+  const divergence = useMemo(
+    () => geographyDivergence(geography, pathways),
+    [geography, pathways],
+  );
+
   // Sync URL IDs back into context so the ribbon stays current, including when
   // the URL resolves to 0–1 valid IDs (clears stale state). Skipped for a
   // blocked set only: a bad link must not clobber the reader's own selection.
@@ -329,6 +390,178 @@ const ComparisonPage: React.FC = () => {
     );
   }
 
+  /*
+    The five comparison sections, as nodes rather than inline JSX, so their
+    order can be a data decision below.
+  */
+  const sectionNodes: Record<string, React.ReactNode> = {
+    plots: (
+      <>
+        {/* ── Benchmark Metric Plots ── */}
+        <div className="mt-8">
+          <ComparisonPlots entries={plotEntries} />
+        </div>
+      </>
+    ),
+    keyFeatures: (
+      <>
+        {/* ── Key Features ── */}
+        <div className="mt-8">
+          <ComparisonKeyFeatures pathways={pathways} />
+        </div>
+      </>
+    ),
+    geographies: (
+      <>
+        {/* ── Geographies ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Geographies
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip={
+                  <>
+                    <span className="block">
+                      {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                    </span>
+                    <span className="mt-2 block italic">
+                      {REGION_MAPPING_DISCLAIMER}
+                    </span>
+                  </>
+                }
+                ariaLabel="Geography availability information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          <ComparisonGeographies
+            pathways={pathways}
+            availabilities={availabilities}
+          />
+        </div>
+      </>
+    ),
+    sectors: (
+      <>
+        {/* ── Sectors ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Sectors
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip={SECTOR_AVAILABILITY_TOOLTIP}
+                ariaLabel="Sector availability information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          {pathways.map((p, idx) => {
+            const sortedSectors = sortByAvailability(p.sectors, (s) =>
+              availabilities[idx].hasSector(s.name),
+            );
+            return (
+              <div
+                key={p.id}
+                className="min-w-0"
+              >
+                <BadgeArray
+                  variant={sortedSectors.map((s) =>
+                    availabilities[idx].hasSector(s.name)
+                      ? "sector"
+                      : "sector-pub",
+                  )}
+                  tooltipGetter={getSectorTooltip}
+                  visibleCount={Infinity}
+                >
+                  {sortedSectors.map((s) => s.name)}
+                </BadgeArray>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    ),
+    metrics: (
+      <>
+        {/* ── Benchmark Metrics (badge arrays) ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Benchmark Metrics
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip={METRIC_AVAILABILITY_TOOLTIP}
+                ariaLabel="Benchmark metric availability information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          {pathways.map((p, idx) => {
+            const sortedMetrics = sortByAvailability(p.metric, (m) =>
+              availabilities[idx].hasMetric(m),
+            );
+            return (
+              <div
+                key={p.id}
+                className="min-w-0"
+              >
+                <BadgeArray
+                  variant={sortedMetrics.map((m) =>
+                    availabilities[idx].hasMetric(m) ? "metric" : "metric-pub",
+                  )}
+                  tooltipGetter={getMetricTooltip}
+                  visibleCount={Infinity}
+                >
+                  {sortedMetrics}
+                </BadgeArray>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    ),
+  };
+
+  /*
+    Geographies lead when publishers describe the selected one differently:
+    Alex asked for the geo section to float to the top in exactly that case, so
+    the reader meets the discrepancy before the figures it affects.
+
+    Conditional DOM order rather than CSS `order`: these sections are full of
+    focusable tooltip triggers, so reading and tab order have to match the
+    visual order (WCAG 1.3.2, 2.4.3).
+  */
+  const sectionOrder =
+    divergence.kind === "none"
+      ? ["plots", "keyFeatures", "geographies", "sectors", "metrics"]
+      : ["geographies", "plots", "keyFeatures", "sectors", "metrics"];
+
   const colClass =
     n === 2 ? "grid grid-cols-2 gap-6" : "grid grid-cols-3 gap-6";
 
@@ -346,8 +579,12 @@ const ComparisonPage: React.FC = () => {
         Back to pathways
       </Link>
 
-      {/* ── Pathway summary cards ── */}
-      <div className={`${colClass} sticky top-0 z-20`}>
+      {/*
+        The cards are static. A sticky scope header and three sticky ~200px
+        cards cannot share a viewport; the header's condensed bar restates the
+        column names once these have scrolled away.
+      */}
+      <div className={colClass}>
         {pathways.map((p) => (
           <PathwaySummaryCard
             key={p.id}
@@ -356,141 +593,18 @@ const ComparisonPage: React.FC = () => {
         ))}
       </div>
 
-      {/* ── Benchmark Metric Plots ── */}
-      <div className="mt-8">
-        <ComparisonPlots entries={plotEntries} />
-      </div>
+      <ComparisonScopeHeader
+        pathways={pathways}
+        sectorOptions={sectorOptions}
+        geographyOptions={geographyOptions}
+        scope={scope}
+        onScopeChange={handleScopeChange}
+        divergence={divergence}
+      />
 
-      {/* ── Key Features ── */}
-      <div className="mt-8">
-        <ComparisonKeyFeatures pathways={pathways} />
-      </div>
-
-      {/* ── Geographies ── */}
-      <div
-        className="grid gap-x-6 mt-8"
-        style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
-      >
-        <SectionHeading>
-          <span className="flex items-center gap-1.5">
-            Geographies
-            <TextWithTooltip
-              text={
-                <Info
-                  size={14}
-                  className="text-white/80 cursor-help"
-                />
-              }
-              tooltip={
-                <>
-                  <span className="block">
-                    {GEOGRAPHY_AVAILABILITY_TOOLTIP}
-                  </span>
-                  <span className="mt-2 block italic">
-                    {REGION_MAPPING_DISCLAIMER}
-                  </span>
-                </>
-              }
-              ariaLabel="Geography availability information"
-              position="right"
-            />
-          </span>
-        </SectionHeading>
-        <ComparisonGeographies
-          pathways={pathways}
-          availabilities={availabilities}
-        />
-      </div>
-
-      {/* ── Sectors ── */}
-      <div
-        className="grid gap-x-6 mt-8"
-        style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
-      >
-        <SectionHeading>
-          <span className="flex items-center gap-1.5">
-            Sectors
-            <TextWithTooltip
-              text={
-                <Info
-                  size={14}
-                  className="text-white/80 cursor-help"
-                />
-              }
-              tooltip={SECTOR_AVAILABILITY_TOOLTIP}
-              ariaLabel="Sector availability information"
-              position="right"
-            />
-          </span>
-        </SectionHeading>
-        {pathways.map((p, idx) => {
-          const sortedSectors = sortByAvailability(p.sectors, (s) =>
-            availabilities[idx].hasSector(s.name),
-          );
-          return (
-            <div
-              key={p.id}
-              className="min-w-0"
-            >
-              <BadgeArray
-                variant={sortedSectors.map((s) =>
-                  availabilities[idx].hasSector(s.name)
-                    ? "sector"
-                    : "sector-pub",
-                )}
-                tooltipGetter={getSectorTooltip}
-                visibleCount={Infinity}
-              >
-                {sortedSectors.map((s) => s.name)}
-              </BadgeArray>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* ── Benchmark Metrics (badge arrays) ── */}
-      <div
-        className="grid gap-x-6 mt-8"
-        style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
-      >
-        <SectionHeading>
-          <span className="flex items-center gap-1.5">
-            Benchmark Metrics
-            <TextWithTooltip
-              text={
-                <Info
-                  size={14}
-                  className="text-white/80 cursor-help"
-                />
-              }
-              tooltip={METRIC_AVAILABILITY_TOOLTIP}
-              ariaLabel="Benchmark metric availability information"
-              position="right"
-            />
-          </span>
-        </SectionHeading>
-        {pathways.map((p, idx) => {
-          const sortedMetrics = sortByAvailability(p.metric, (m) =>
-            availabilities[idx].hasMetric(m),
-          );
-          return (
-            <div
-              key={p.id}
-              className="min-w-0"
-            >
-              <BadgeArray
-                variant={sortedMetrics.map((m) =>
-                  availabilities[idx].hasMetric(m) ? "metric" : "metric-pub",
-                )}
-                tooltipGetter={getMetricTooltip}
-                visibleCount={Infinity}
-              >
-                {sortedMetrics}
-              </BadgeArray>
-            </div>
-          );
-        })}
-      </div>
+      {sectionOrder.map((key) => (
+        <React.Fragment key={key}>{sectionNodes[key]}</React.Fragment>
+      ))}
     </div>
   );
 };
