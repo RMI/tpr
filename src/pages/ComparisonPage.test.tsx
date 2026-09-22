@@ -42,7 +42,9 @@ const fixtures = [
       title: { full: "Publication B", short: "PubTitleB" },
       year: 2023,
     },
-    sectors: [{ name: "Steel" }],
+    // Shares Power with pathway A: a comparison needs one sector in common,
+    // and these tests are about geography, not the sector restriction.
+    sectors: [{ name: "Steel" }, { name: "Power" }],
     metric: ["Generation"],
     geography: { country: ["DE", "FR"] },
     keyFeatures: {
@@ -50,6 +52,24 @@ const fixtures = [
         { sector: "cross-sector", geography: "DE", value: "bar" },
       ],
     },
+  },
+  {
+    // Shares no sector with A or B, so a comparison including it has no shared
+    // sector axis at all. No shipped pathway can do this — all seven declare
+    // Power — so the restriction is provable only by fixture.
+    id: "cmp-c",
+    name: { full: "Comparison Pathway C", short: "C" },
+    description: "Pathway C description",
+    pathwayType: "BAU",
+    publication: {
+      publisher: { full: "Publisher C", short: "PubC" },
+      title: { full: "Publication C", short: "PubTitleC" },
+      year: 2022,
+    },
+    sectors: [{ name: "Cement" }],
+    metric: ["Generation"],
+    geography: { global: true, regions: {}, country: [] },
+    keyFeatures: {},
   },
 ] as const;
 
@@ -119,5 +139,62 @@ describe("ComparisonPage — structured geography", () => {
     expect(
       await screen.findByText("Select at least 2 pathways to compare."),
     ).toBeInTheDocument();
+  });
+});
+
+describe("ComparisonPage — pathways with no sector in common", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+    vi.restoreAllMocks();
+  });
+
+  it("blocks the comparison and names the offending pathway", async () => {
+    // The tray cannot assemble this set (PathwayCard blocks it), but `?ids=` is
+    // read straight from the query string, so a hand-edited or stale shared
+    // link still reaches the page.
+    await mountWithFixtures("cmp-a,cmp-c");
+
+    expect(
+      await screen.findByText("These pathways cannot be compared"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/PubC: Comparison Pathway C shares no sector/),
+    ).toBeInTheDocument();
+
+    // The comparison itself is not rendered.
+    expect(
+      screen.queryByText("PubA: Comparison Pathway A"),
+    ).not.toBeInTheDocument();
+  });
+
+  it("leaves the reader's own selection alone", async () => {
+    // Syncing `?ids=` into the tray would replace a perfectly good selection
+    // with the broken one from the link.
+    sessionStorage.setItem(
+      "pathway-comparison",
+      JSON.stringify(["cmp-a", "cmp-b"]),
+    );
+
+    await mountWithFixtures("cmp-a,cmp-c");
+    await screen.findByText("These pathways cannot be compared");
+
+    expect(sessionStorage.getItem("pathway-comparison")).toBe(
+      JSON.stringify(["cmp-a", "cmp-b"]),
+    );
+  });
+
+  it("still compares a set that shares only one sector", async () => {
+    await mountWithFixtures("cmp-a,cmp-b");
+
+    expect(
+      await screen.findByText("PubA: Comparison Pathway A"),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByText("These pathways cannot be compared"),
+    ).not.toBeInTheDocument();
   });
 });

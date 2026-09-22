@@ -37,7 +37,9 @@ const fixtures = [
       title: { full: "Publication B", short: "PubTitleB" },
       year: 2023,
     },
-    sectors: [{ name: "Steel" }],
+    // Shares Power with pathway A: a comparison needs one sector in common,
+    // and these tests are about geography, not the sector restriction.
+    sectors: [{ name: "Steel" }, { name: "Power" }],
     metric: ["Generation"],
     geography: { country: ["DE"] },
     keyFeatures: { emissionsTrajectory: "bar" },

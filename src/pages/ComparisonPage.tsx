@@ -2,8 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import { comparisonBlock } from "../utils/comparisonScope";
 import { PathwayMetadataType } from "../types";
-import { useComparison } from "../context/ComparisonContext";
+import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import {
   fetchTimeseriesIndex,
   datasetsForPathway,
@@ -195,14 +196,8 @@ const ComparisonPage: React.FC = () => {
         seen.add(id);
         return true;
       })
-      .slice(0, 3);
+      .slice(0, MAX_COMPARED);
   }, [searchParams]);
-
-  // Always sync URL IDs back into context so the ribbon stays current,
-  // including when the URL resolves to 0–1 valid IDs (clears stale state).
-  useEffect(() => {
-    setComparedPathwayIds(ids);
-  }, [ids, setComparedPathwayIds]);
 
   const pathways = useMemo(
     () =>
@@ -211,6 +206,22 @@ const ComparisonPage: React.FC = () => {
         .filter((p): p is PathwayMetadataType => p !== undefined),
     [ids],
   );
+
+  /*
+    Alex's hard restriction: a comparison needs one sector in common. The tray
+    can no longer assemble an illegal set (see PathwayCard), but `?ids=` is
+    read straight from the query string and validated only for existence, so a
+    hand-edited or stale shared link still has to be caught here.
+  */
+  const block = useMemo(() => comparisonBlock(pathways), [pathways]);
+
+  // Sync URL IDs back into context so the ribbon stays current, including when
+  // the URL resolves to 0–1 valid IDs (clears stale state). Skipped for a
+  // blocked set only: a bad link must not clobber the reader's own selection.
+  useEffect(() => {
+    if (block !== null) return;
+    setComparedPathwayIds(ids);
+  }, [ids, block, setComparedPathwayIds]);
 
   const n = pathways.length;
 
@@ -267,6 +278,35 @@ const ComparisonPage: React.FC = () => {
       cancelled = true;
     };
   }, [pathways]);
+
+  if (block !== null) {
+    const names = block.offenders
+      .map(
+        (p) =>
+          `${p.publication.publisher.short ?? p.publication.publisher.full}: ${p.name.full}`,
+      )
+      .join(", ");
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <h2 className="text-xl font-semibold text-rmigray-800 mb-2">
+          These pathways cannot be compared
+        </h2>
+        <p className="text-rmigray-600 mb-4 max-w-xl mx-auto">
+          {`${names} shares no sector with the others, and a comparison needs one sector in common.`}
+        </p>
+        <Link
+          to="/pathway"
+          className="inline-flex items-center text-bluespruce hover:text-energy"
+        >
+          <ArrowLeft
+            size={16}
+            className="mr-1"
+          />
+          Back to pathways
+        </Link>
+      </div>
+    );
+  }
 
   // Guard: need at least 2 valid pathways
   if (ids.length < 2) {
