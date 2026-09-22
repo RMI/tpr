@@ -154,6 +154,23 @@ export function geographyKind(raw: string): GeographyKind {
   return "region";
 }
 
+/**
+ * A publication-independent identity for a geography token, folding away
+ * spelling differences only: case, spacing and punctuation.
+ *
+ * Publishers spell the same region differently — IEA declares "Southeast Asia"
+ * while ACE and IEA's own timeseries files carry "South East Asia" (#945). This
+ * is deliberately a spelling fold and NOT a synonym table: "ASEAN" does not
+ * merge with "South East Asia", and no ISO-similarity threshold is involved,
+ * because a fuzzy match is unreviewable. Two tokens share a key only when they
+ * are the same words written differently.
+ */
+export function canonicalGeographyKey(raw: string): string {
+  return normalizeGeography(raw)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
+}
+
 // geographyLabel does not support mapping for ISO-3 country codes, region
 // codes, or other ISO standards.
 export function geographyLabel(raw: string): string {
