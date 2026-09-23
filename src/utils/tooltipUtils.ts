@@ -4,6 +4,7 @@ import type {
   PathwayType,
   Sector,
 } from "../types";
+import { segmentDefinitionFor } from "./timeseriesTaxonomy";
 
 export const unknownTooltip = "No tooltip available.";
 
@@ -59,6 +60,30 @@ export const metricTooltips: Record<string, string> = {
 
 export const getMetricTooltip = (metric: Metric): string => {
   return metricTooltips[metric] || unknownTooltip;
+};
+
+/**
+ * Sector-segment tooltips, sourced from the timeseries taxonomy rather than a
+ * record in this file.
+ *
+ * The other tooltip maps here are hand-written because their schema enums carry
+ * no prose. Segments are different: `SECTORS_BY_KEY` already defines each one,
+ * and the strings the data carries are exactly those segments' display names, so
+ * a record here would be a second copy to drift out of sync.
+ *
+ * Segments are sector-specific (#870) — "Energy storage" means something under
+ * Power and nothing under Land Use — hence the sector parameter. A missing
+ * segment (a sector whose segments nobody has written down, or an unrecognised
+ * name) falls back to {@link unknownTooltip}.
+ */
+export const getSectorSegmentTooltip = (
+  sectorDisplayName: string,
+  segmentDisplayName: string,
+): string => {
+  return (
+    segmentDefinitionFor(sectorDisplayName, segmentDisplayName)?.definition ??
+    unknownTooltip
+  );
 };
 
 export type KeyFeatureSection = keyof PathwayMetadataType["keyFeatures"];

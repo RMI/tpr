@@ -553,11 +553,15 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
 
   it("rejects a named segment under a sector with no segments defined", () => {
     const errors = withRows([
-      row({ sector: "Steel", sectorSegment: "Storage", granularity: null }),
+      row({
+        sector: "Steel",
+        sectorSegment: "Energy storage",
+        granularity: null,
+      }),
     ]);
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("/sectorSegment");
-    expect(errors[0]).toContain('"Storage"');
+    expect(errors[0]).toContain('"Energy storage"');
     // Names the one segment that is legal, and how to define the rest.
     expect(errors[0]).toContain('"No information"');
     expect(errors[0]).toContain("SECTORS_BY_KEY");
@@ -632,7 +636,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
 
   it.each([
     ["metric", { metricName: "Generation" }],
-    ["segment", { sectorSegment: "Storage" }],
+    ["segment", { sectorSegment: "Energy storage" }],
     ["geography", { geography: "SG" }],
     [
       "sector",

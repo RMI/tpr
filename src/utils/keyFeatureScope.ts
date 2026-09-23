@@ -17,7 +17,7 @@
  * that is #869's resolver, which is where strict containment belongs, as the basis
  * for ranking rather than as a hard filter.
  */
-import type { GeographyCode, PathwayMetadataType } from "../types";
+import type { Geography, GeographyCode, PathwayMetadataType } from "../types";
 import { pathwayISOCoverage, toISO2 } from "./geographyUtils";
 import { selectedGeographyToISO } from "./filterRegions";
 import { ABSENT_FILTER_TOKEN } from "./absent";
@@ -86,18 +86,71 @@ export function entryISOSet(
   entryGeography: string,
   pathway: PathwayMetadataType,
 ): Set<GeographyCode> | null {
-  if (entryGeography === GLOBAL_SCOPE) return null;
+  return scopeISOSet(entryGeography, pathway.geography);
+}
 
-  const geo = pathway.geography;
-  if (entryGeography === CROSS_REGION) return pathwayISOCoverage(geo);
+/**
+ * {@link entryISOSet} against a bare `Geography`, for callers that hold the
+ * geography but not the whole pathway. Same rules, same `null`-means-everything
+ * contract — `entryISOSet` is a thin wrapper over this.
+ */
+export function scopeISOSet(
+  token: string,
+  geo: Geography | null | undefined,
+): Set<GeographyCode> | null {
+  if (token === GLOBAL_SCOPE) return null;
 
-  const members = geo?.regions?.[entryGeography];
+  if (token === CROSS_REGION) return pathwayISOCoverage(geo);
+
+  const members = geo?.regions?.[token];
   if (Array.isArray(members)) return new Set(members);
 
-  const iso = toISO2(entryGeography);
+  const iso = toISO2(token);
   if (iso) return new Set([iso as GeographyCode]);
 
   return new Set();
+}
+
+/**
+ * Do two of THIS pathway's own scope tokens cover a common ISO code?
+ *
+ * The sibling of {@link geographyScopeOverlaps}, and the one to use when the
+ * selection comes from the pathway itself — the detail page's scope ribbon
+ * (#872), whose options are `flattenGeography(pathway.geography)`.
+ *
+ * They are not interchangeable. `geographyScopeOverlaps` resolves its *query*
+ * through `selectedGeographyToISO`, which knows only the publication-independent
+ * filter vocabulary: a `FILTER_REGIONS` key, "Global", or an ISO-3166 alpha-2
+ * code. A publication's own region label is none of those, so it resolves to the
+ * empty set and overlaps nothing. Concretely: the filter vocabulary's key is
+ * "Southeast Asia", while ACE publishes "South East Asia" — passing the latter as
+ * a query would hide the very rows the reader selected. IEA's "Eurasia",
+ * "Asia Pacific" and "Central and South America" are absent from it too.
+ *
+ * Both sides therefore resolve through the pathway's own `regions` mapping. The
+ * two documented invariants of the search path are preserved: overlap rather
+ * than containment, and "Global" as a distinct predicate — a Global entry
+ * answers anything, but selecting Global is answered only by a Global entry, so
+ * it narrows rather than quietly matching everything.
+ *
+ * #869's resolver will need this same own-vocabulary comparison.
+ */
+export function pathwayScopeOverlaps(
+  entryGeography: string,
+  selectedToken: string,
+  geo: Geography | null | undefined,
+): boolean {
+  const entrySet = scopeISOSet(entryGeography, geo);
+  if (entrySet === null) return true; // a Global entry answers anything
+
+  const querySet = scopeISOSet(selectedToken, geo);
+  if (querySet === null) return false; // only a Global entry answers Global
+
+  // An unrecognised token, or a region the publication never mapped, yields an
+  // empty set and so overlaps nothing — a stale selection matches nothing
+  // rather than everything.
+  for (const code of querySet) if (entrySet.has(code)) return true;
+  return false;
 }
 
 /**

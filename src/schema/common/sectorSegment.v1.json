@@ -13,12 +13,13 @@
   "$defs": {
     "displayName": {
       "description": "Display name of the sector segment as presented in tables.",
-      "$comment": "Segments are sector-specific: 'Storage' is meaningful for Power and meaningless for Land Use. draft-07 cannot condition this enum on a sibling 'sector' value -- and the if/then form that could collapses the generated object type to an index signature (see validateScopes.ts) -- so membership is enforced by validateScopedEntries against SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts. Only Power's segments are defined so far; 'No information' is legal under every sector, so a pathway in a sector whose segments nobody has written down yet can still record data availability.",
+      "$comment": "Segments are sector-specific: 'Energy storage' is meaningful for Power and meaningless for Land Use. draft-07 cannot condition this enum on a sibling 'sector' value -- and the if/then form that could collapses the generated object type to an index signature (see validateScopes.ts) -- so membership is enforced by validateScopedEntries against SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts. Only Power's segments are defined so far; 'No information' is legal under every sector, so a pathway in a sector whose segments nobody has written down yet can still record data availability.",
       "type": "string",
       "enum": [
         "No information",
+        "Energy storage",
+        "Fuel extraction and processing",
         "Power generation",
-        "Storage",
         "Transmission & Distribution"
       ]
     }

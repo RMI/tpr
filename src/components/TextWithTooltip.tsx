@@ -7,6 +7,17 @@ interface TextWithTooltipProps {
   ariaLabel?: string;
   className?: string;
   position?: "right" | "top" | "bottom" | "left";
+  /**
+   * What the trigger element is. Defaults to a `span` with `tabIndex={0}`.
+   *
+   * Use `"button"` when the tooltipped thing is also a control. Wrapping this
+   * component in a `<button>` instead is not an option: a button may contain no
+   * descendant with `tabindex`, so the markup would be invalid, it would offer
+   * two tab stops, and the blur-on-click below would fight the click handler.
+   */
+  as?: "span" | "button";
+  /** Forwarded to the trigger when `as="button"` (e.g. `aria-pressed`, `onClick`). */
+  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 // Arrow component that uses Tailwind classes
@@ -51,10 +62,17 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
   ariaLabel,
   className = "",
   position = "right",
+  as = "span",
+  buttonProps,
 }) => {
   // Generate a unique ID for this tooltip instance
   const tooltipId = useId();
-  const triggerRef = useRef<HTMLSpanElement>(null);
+  // HTMLElement, not HTMLSpanElement: the trigger may be a button. Every
+  // listener below is attached imperatively to this node, so they are agnostic.
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const setTriggerRef = (el: HTMLElement | null): void => {
+    triggerRef.current = el;
+  };
   const [tooltipPosition, setTooltipPosition] = useState<{
     top: number;
     left: number;
@@ -62,12 +80,12 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
   const [isVisible, setIsVisible] = useState(false);
 
   // Handle click to blur (remove focus) from tooltip trigger
-  const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     e.currentTarget.blur();
   };
 
   // Handle keydown to allow dismissing tooltip with Escape key
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Escape") {
       e.currentTarget.blur();
       setIsVisible(false);
@@ -209,17 +227,33 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
 
   return (
     <>
-      <span
-        ref={triggerRef}
-        className={`relative inline-block cursor-help ${className}`}
-        tabIndex={0}
-        aria-label={ariaLabel}
-        onClick={handleClick}
-        onKeyDown={handleKeyDown}
-        aria-describedby={isVisible ? tooltipId : undefined}
-      >
-        {text}
-      </span>
+      {as === "button" ? (
+        <button
+          type="button"
+          ref={setTriggerRef}
+          className={`relative inline-block cursor-pointer ${className}`}
+          aria-label={ariaLabel}
+          // No blur-on-click here: the click is the control's actual action, and
+          // blurring would also dismiss the tooltip the reader just opened.
+          onKeyDown={handleKeyDown}
+          aria-describedby={isVisible ? tooltipId : undefined}
+          {...buttonProps}
+        >
+          {text}
+        </button>
+      ) : (
+        <span
+          ref={setTriggerRef}
+          className={`relative inline-block cursor-help ${className}`}
+          tabIndex={0}
+          aria-label={ariaLabel}
+          onClick={handleClick}
+          onKeyDown={handleKeyDown}
+          aria-describedby={isVisible ? tooltipId : undefined}
+        >
+          {text}
+        </span>
+      )}
 
       {isVisible &&
         tooltipPosition &&

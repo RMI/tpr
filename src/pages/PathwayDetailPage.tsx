@@ -1,14 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "react-router";
 import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
-import { PathwayMetadataType } from "../types";
-import BadgeArray from "../components/BadgeArray";
-import Badge from "../components/Badge";
+import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
-import AssumptionsTrends from "../components/AssumptionsTrends";
+import PathwayContextRibbon from "../components/PathwayContextRibbon";
+import { useFilters } from "../context/FilterContext";
+import { resolveInitialScope } from "../utils/scopeSeed";
 import {
   flattenGeography,
   geographyKind,
@@ -32,7 +33,9 @@ import {
   summarizeSummary,
 } from "../utils/timeseriesIndex";
 import PublicationBlock from "../components/PublicationBlock";
-import { PlotSelector, TimeSeries } from "../components/PlotSelector";
+import type { TimeSeries } from "../components/PlotSelector";
+import PlotGrid from "../components/PlotGrid";
+import { PLOT_ORDER } from "../components/PlotPanel";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import TextWithTooltip from "../components/TextWithTooltip";
 import RegionMembersTooltip from "../components/RegionMembersTooltip";
@@ -58,6 +61,30 @@ const PathwayDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [timeseriesdata, setTimeseriesdata] = useState<TimeSeries | null>(null);
   const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
+
+  /*
+    The scope ribbon's selection (#872). Seeded per axis from the search filters
+    the reader arrived with, and from `defaultScopeFor` for whichever axis the
+    search left unset — so the page always opens on a definite scope rather than
+    on an unfiltered view the ribbon does not describe.
+
+    Held locally: browsing a pathway must never disturb the search they came
+    from, so this deliberately does not write back to the shared filter state.
+  */
+  const { filters } = useFilters();
+  const [scope, setScope] = useState<PathwayScopeSelection>({
+    sector: null,
+    geography: null,
+  });
+  const seededFor = useRef<string | null>(null);
+
+  useEffect(() => {
+    // The pathway arrives after a load delay, and the legal token set does not
+    // exist until it does — so seed on arrival, once per pathway.
+    if (!pathway || seededFor.current === pathway.id) return;
+    seededFor.current = pathway.id;
+    setScope(resolveInitialScope(filters, pathway));
+  }, [pathway, filters]);
 
   useEffect(() => {
     setLoading(true);
@@ -192,12 +219,17 @@ const PathwayDetailPage: React.FC = () => {
     );
   }
 
-  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels. Kept
-  // in the default "At a glance" tab so they are in the DOM on first render (the
-  // page tests query these badges and their ⓘ tooltips directly).
+  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels,
+  // shown on the Scope & Granularity tab beneath the Data Availability table.
+  // Each is a labelled landmark so tests (and screen-reader users) can address
+  // one panel rather than matching a geography label that also appears in the
+  // sticky context ribbon.
   const coveragePanels = (
     <>
-      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      <section
+        aria-label="Geographies"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
         <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
           Geographies
           <TextWithTooltip
@@ -220,7 +252,7 @@ const PathwayDetailPage: React.FC = () => {
           />
         </h3>
         <BadgeArray
-          variant={sortedGeos.map((geo) => {
+          variant={sortedGeos.map((geo): BadgeVariant => {
             const base = geographyVariant(geographyKind(geo));
             return availability.hasGeography(geo) ? base : `${base}-pub`;
           })}
@@ -237,9 +269,12 @@ const PathwayDetailPage: React.FC = () => {
         >
           {sortedGeos}
         </BadgeArray>
-      </div>
+      </section>
 
-      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      <section
+        aria-label="Sectors"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
         <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
           Sectors
           <TextWithTooltip
@@ -263,9 +298,12 @@ const PathwayDetailPage: React.FC = () => {
         >
           {sortedSectors.map((s) => s.name)}
         </BadgeArray>
-      </div>
+      </section>
 
-      <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      <section
+        aria-label="Benchmark Metrics"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
         <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
           Benchmark Metrics
           <TextWithTooltip
@@ -289,39 +327,93 @@ const PathwayDetailPage: React.FC = () => {
         >
           {sortedMetrics}
         </BadgeArray>
-      </div>
+      </section>
     </>
   );
 
-  const expertOverview = (
-    <section className="mb-8">
+  /*
+    v2 replaced v1's single `expertOverview` blob with `pathwayDescription` (the
+    surviving prose; core drivers moved to the structured `coreDrivers` object),
+    and the heading now names the field it renders — settling the open question
+    #859 left about what to call it. null means no description is available.
+    Lives on At a glance only; the Overview tab leads with the drivers instead.
+  */
+  const pathwayDescription = (
+    <section>
       <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-        Expert Overview
+        Pathway Description
       </h2>
       {/*
-        v2 replaces v1's single `expertOverview` blob with `pathwayDescription`
-        (the surviving prose; core drivers move to the structured `coreDrivers`
-        object). null means no description is available. #859 owns the final
-        presentation, including whether this heading keeps its name.
+        `max-w-none` overrides the 65ch line-length cap `prose` applies by
+        default, which otherwise left most of the tab width empty and pushed
+        the plots below the fold.
       */}
-      <div className="prose text-rmigray-700">
+      <div className="prose max-w-none text-rmigray-700">
         <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
       </div>
     </section>
   );
 
-  const plotPanel = (
-    <PlotSelector
+  /*
+    The same component and config render both the full driver/feature grid and
+    the At-a-glance subset, so the two cannot drift apart.
+  */
+  const assumptionsPanel = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      coreDrivers={pathway.coreDrivers}
+      title="Assumptions & Trends Overview"
+    />
+  );
+
+  const assumptionsSummary = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      coreDrivers={pathway.coreDrivers}
+      groups={["policies", "emissions", "technology"]}
+      title="Assumptions & Trends Overview"
+    />
+  );
+
+  /*
+    The benchmark plots as small multiples rather than one plot behind a
+    dropdown, scoped by the ribbon's selection: a null axis means no preference,
+    which resolves geography to the broadest series available.
+  */
+  const plotsOverview = (
+    <PlotGrid
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
-      className="mb-6"
+      pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
+      plotTypes={PLOT_ORDER.slice(0, 3)}
+      title="Plots Overview"
+    />
+  );
+
+  const benchmarkPlots = (
+    <PlotGrid
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
+      title="Benchmark Plots"
     />
   );
 
   const supplementalInfo = (
     <section>
+      {/*
+        An h2 outside the prose wrapper, matching the other tab section
+        headings. It was an unstyled h4 inside the prose, which skipped two
+        levels below the page's h1 and took its size from prose's defaults.
+      */}
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+        Supplemental Information
+      </h2>
       <div className="prose text-rmigray-700">
-        <h4>Supplemental Information</h4>
         <PublicationBlock publication={pathway.publication} />
 
         {tsIndexLoaded && datasets.length > 0
@@ -419,27 +511,16 @@ const PathwayDetailPage: React.FC = () => {
         </div>
 
         {/*
-          Sticky bar: a compact Sector summary plus the tab list, so the tabs stay
-          reachable as the page scrolls. A Geography summary is intentionally NOT
-          duplicated here — the availability-aware Geographies panel below owns the
-          geography labels, and repeating them would collide with the page tests'
-          text queries. Adding it (and moving the availability panels into Scope &
-          Granularity per the wireframe) is a flagged follow-up.
+          The sector/geography context and the tab list stay in view as the page
+          scrolls, and the title header collapses into a slim bar behind them.
+          The card above deliberately has no `overflow-hidden`, which is what
+          lets this stick at all.
         */}
-        <div className="sticky top-0 z-20 bg-white/95 backdrop-blur border-b border-neutral-200 rounded-t-none">
-          <div className="px-6 pt-3 flex flex-wrap items-center gap-2">
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-rmigray-500 mr-1">
-              Sector
-            </span>
-            {pathway.sectors.map((s) => (
-              <Badge
-                key={s.name}
-                variant="sector"
-              >
-                {s.name}
-              </Badge>
-            ))}
-          </div>
+        <PathwayContextRibbon
+          pathway={pathway}
+          scope={scope}
+          onScopeChange={setScope}
+        >
           <Tabs
             tabs={DETAIL_TABS}
             activeId={activeTab}
@@ -448,7 +529,7 @@ const PathwayDetailPage: React.FC = () => {
             idBase="pathway"
             className="px-6 pt-2"
           />
-        </div>
+        </PathwayContextRibbon>
 
         <div className="p-6">
           <TabPanel
@@ -456,13 +537,10 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              <div className="md:col-span-7">{expertOverview}</div>
-              <div className="md:col-span-5">
-                {plotPanel}
-                <KeyFeatures keyFeatures={pathway.keyFeatures} />
-                {coveragePanels}
-              </div>
+            <div className="space-y-8">
+              {pathwayDescription}
+              {plotsOverview}
+              {assumptionsSummary}
             </div>
           </TabPanel>
 
@@ -472,18 +550,15 @@ const PathwayDetailPage: React.FC = () => {
             idBase="pathway"
           >
             <div className="space-y-6">
-              {expertOverview}
-              <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Assumptions & Trends Overview
-                </h2>
-                <AssumptionsTrends coreDrivers={pathway.coreDrivers} />
-              </section>
+              {assumptionsPanel}
               <section>
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
                   Dependencies
                 </h2>
-                <DependenciesTable dependencies={pathway.dependencies} />
+                <DependenciesTable
+                  dependencies={pathway.dependencies}
+                  sector={scope.sector}
+                />
               </section>
             </div>
           </TabPanel>
@@ -493,9 +568,9 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-              <div className="md:col-span-7">{supplementalInfo}</div>
-              <div className="md:col-span-5">{plotPanel}</div>
+            <div className="space-y-8">
+              {benchmarkPlots}
+              {supplementalInfo}
             </div>
           </TabPanel>
 
@@ -504,15 +579,27 @@ const PathwayDetailPage: React.FC = () => {
             activeId={activeTab}
             idBase="pathway"
           >
-            <section>
-              <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                Data Availability
-              </h2>
-              <DataAvailabilityTable
-                dataAvailability={pathway.dataAvailability}
-                downloadHref={datasets[0]?.path}
-              />
-            </section>
+            <div className="space-y-8">
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Data Availability
+                </h2>
+                <DataAvailabilityTable
+                  dataAvailability={pathway.dataAvailability}
+                  downloadHref={datasets[0]?.path}
+                  scope={scope}
+                  pathwayGeography={pathway.geography}
+                />
+              </section>
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Coverage
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {coveragePanels}
+                </div>
+              </section>
+            </div>
           </TabPanel>
         </div>
       </div>

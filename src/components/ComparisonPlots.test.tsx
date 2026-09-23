@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ComparisonPlots from "./ComparisonPlots";
 import type { ComparisonPlotsEntry } from "./ComparisonPlots";
@@ -12,10 +12,6 @@ vi.mock("./MultiLineChart", () => ({
 vi.mock("./NormalizedStackedAreaChart", () => ({
   default: vi.fn(() => <div data-testid="stacked-area-chart" />),
 }));
-vi.mock("../utils/geographyUtils", () => ({
-  geographyLabel: (geo: string) => geo,
-}));
-
 const mockedMultiLineChart = vi.mocked(MultiLineChart);
 const mockedStackedAreaChart = vi.mocked(NormalizedStackedAreaChart);
 
@@ -59,6 +55,7 @@ function makeMetricEntry(
   pathwayId: string,
   metric: string,
   values: number[],
+  geography = "Global",
 ): ComparisonPlotsEntry {
   return {
     pathwayId,
@@ -66,7 +63,7 @@ function makeMetricEntry(
       data: values.map((value, i) => ({
         sector: "power",
         metric,
-        geography: "Global",
+        geography,
         year: String(2020 + i * 10),
         value,
         unit: "MtCO2e",
@@ -93,47 +90,190 @@ describe("ComparisonPlots", () => {
     ).toBeInTheDocument();
   });
 
-  it("hides the geography selector when all entries share one geography", () => {
-    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["Global"])];
+  it("offers no geography control of its own", () => {
+    // The scope header above owns that axis; two geography controls on one page
+    // would contradict each other, and this one listed the raw union of every
+    // column's timeseries tokens.
+    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["EU"])];
     render(<ComparisonPlots entries={entries} />);
+
+    expect(screen.getAllByRole("combobox")).toHaveLength(1);
     expect(screen.queryByText("Geography")).not.toBeInTheDocument();
   });
 
-  it("shows the geography selector when entries cover multiple geographies", () => {
-    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["EU"])];
-    render(<ComparisonPlots entries={entries} />);
-    expect(screen.getByText("Geography")).toBeInTheDocument();
-  });
-
-  it("populates geography selector with the union of geographies across all entries", () => {
-    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["EU"])];
-    render(<ComparisonPlots entries={entries} />);
-    // Plot type is the first combobox; Geography is the second
-    const geoSelect = screen.getAllByRole("combobox")[1];
-    const options = Array.from(geoSelect.querySelectorAll("option")).map(
-      (o) => o.textContent,
-    );
-    expect(options).toContain("Global");
-    expect(options).toContain("EU");
-  });
-
-  it("shows the per-panel no-data message when a pathway lacks data for the selected geography", async () => {
-    // p1 has both Global and EU; p2 only has Global
+  it("resolves each column's own request", async () => {
+    // Both columns ask for EU; p1 publishes it, p2 does not, so p2 falls back
+    // and says so rather than rendering empty.
     const entries = [
       makeEntry("p1", ["Global", "EU"]),
       makeEntry("p2", ["Global"]),
     ];
-    render(<ComparisonPlots entries={entries} />);
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedGeographies={{ p1: "EU", p2: "EU" }}
+      />,
+    );
 
-    // Switch to EU — p2 has no EU data
-    const geoSelect = screen.getAllByRole("combobox")[1];
-    await userEvent.setup().selectOptions(geoSelect, "EU");
+    expect(
+      await screen.findByText(/showing Global instead/i),
+    ).toBeInTheDocument();
+    // Both columns name what they actually show.
+    expect(screen.getByText("EU")).toBeInTheDocument();
+    expect(screen.getByText("Global")).toBeInTheDocument();
+  });
+
+  it("lets each column show a different geography", async () => {
+    // The point of per-column selection: no shared token exists between many
+    // real publishers, so the columns have to be able to differ.
+    const entries = [
+      makeEntry("p1", ["Global", "EU"]),
+      makeEntry("p2", ["Global"]),
+    ];
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedGeographies={{ p1: "EU", p2: "Global" }}
+      />,
+    );
+
+    // Both columns resolved exactly what they asked for, so neither falls back.
+    expect(await screen.findByText("EU")).toBeInTheDocument();
+    expect(screen.getByText("Global")).toBeInTheDocument();
+    expect(screen.queryByText(/showing .* instead/i)).toBeNull();
+  });
+
+  it("shows the per-panel no-data message when a column has nothing to resolve", () => {
+    const entries = [
+      makeEntry("p1", ["Global"]),
+      { pathwayId: "p2", timeseriesdata: null },
+    ];
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedGeographies={{ p1: "Global", p2: "Global" }}
+      />,
+    );
 
     expect(
       screen.getByText(
         /currently no data available for the selected combination/i,
       ),
     ).toBeInTheDocument();
+  });
+
+  it("scales the shared y-axis to the rows each column actually shows", async () => {
+    // p1 resolves EU; p2 falls back to Global. Filtering every column on the
+    // requested token would compute the axis from rows no chart shows and drop
+    // p2's range entirely.
+    const entries = [
+      makeMetricEntry("p1", "absoluteEmissions", [100, 200], "EU"),
+      makeMetricEntry("p2", "absoluteEmissions", [10, 500], "Global"),
+    ];
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedGeographies={{ p1: "EU", p2: "Global" }}
+      />,
+    );
+    await userEvent
+      .setup()
+      .selectOptions(screen.getAllByRole("combobox")[0], "Absolute Emissions");
+
+    expect(mockedMultiLineChart.mock.calls.length).toBeGreaterThan(0);
+    mockedMultiLineChart.mock.calls.forEach(([props]) => {
+      expect(props.yMin).toBe(10);
+      expect(props.yMax).toBe(500);
+    });
+  });
+
+  describe("sector segment badge", () => {
+    it("captions each column with the part of the sector the metric covers", async () => {
+      // Matches the detail page's small multiples, which caption each panel
+      // with its geography and its sector segment.
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        makeEntry("p2", ["Global"]),
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global", p2: "Global" }}
+        />,
+      );
+
+      // One per column: the segment follows the shared plot type, but it
+      // belongs in each column's caption next to that column's geography.
+      expect(await screen.findAllByText("Power generation")).toHaveLength(2);
+    });
+
+    it("carries the segment's definition as a tooltip", async () => {
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        makeEntry("p2", ["Global"]),
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global", p2: "Global" }}
+        />,
+      );
+
+      // Badge renders its tooltip through TextWithTooltip, whose trigger is the
+      // outer tabIndex span — the text node itself carries no listeners.
+      const trigger = (
+        await screen.findAllByText("Power generation")
+      )[0].closest("[tabindex]") as HTMLElement;
+      fireEvent.focus(trigger);
+      expect(await screen.findByRole("tooltip")).toHaveTextContent(
+        /generation/i,
+      );
+    });
+
+    it("omits the badge for a column with nothing to plot", () => {
+      // No chart, no caption — the same rule the geography badge follows.
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        { pathwayId: "p2", timeseriesdata: null },
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global" }}
+        />,
+      );
+
+      expect(screen.getAllByText("Power generation")).toHaveLength(1);
+    });
+  });
+
+  it("explains itself rather than relabelling Power series for another sector", () => {
+    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["Global"])];
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedSector="Steel"
+      />,
+    );
+
+    expect(
+      screen.getByText(
+        /cover the Power sector only.*nothing to show for Steel/,
+      ),
+    ).toBeInTheDocument();
+    expect(screen.queryByTestId("stacked-area-chart")).not.toBeInTheDocument();
+  });
+
+  it("renders the plots for the Power sector", () => {
+    const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["Global"])];
+    render(
+      <ComparisonPlots
+        entries={entries}
+        requestedSector="Power"
+      />,
+    );
+
+    expect(screen.getAllByTestId("stacked-area-chart")).toHaveLength(2);
   });
 
   it("renders absolute emissions and emissions intensity as line charts", async () => {

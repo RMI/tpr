@@ -1,6 +1,7 @@
 // src/components/TextWithTooltip.test.tsx
-import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import TextWithTooltip from "./TextWithTooltip";
 
 describe("TextWithTooltip component", () => {
@@ -49,5 +50,84 @@ describe("TextWithTooltip component", () => {
 
     // We can't easily test the portal content, so we'll assume it works
     // if the component doesn't throw errors
+  });
+});
+
+describe("TextWithTooltip as a button trigger", () => {
+  it("defaults to a focusable span, not a button", () => {
+    render(
+      <TextWithTooltip
+        text="Power"
+        tooltip="A sector"
+      />,
+    );
+
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    expect(screen.getByText("Power").closest("[tabindex]")).not.toBeNull();
+  });
+
+  it("renders a real button when asked, with no nested tab stop", () => {
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Power"
+        tooltip="A sector"
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("type", "button");
+    // A button may contain no descendant with tabindex; that invalid markup
+    // (and its double tab stop) is the reason this mode exists.
+    expect(button.querySelector("[tabindex]")).toBeNull();
+  });
+
+  it("forwards button props such as aria-pressed and onClick", async () => {
+    const onClick = vi.fn();
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Power"
+        tooltip="A sector"
+        buttonProps={{ "aria-pressed": true, onClick }}
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    expect(button).toHaveAttribute("aria-pressed", "true");
+
+    await userEvent.click(button);
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps showing its tooltip on focus", async () => {
+    render(
+      <TextWithTooltip
+        as="button"
+        text="South East Asia"
+        tooltip="Ten member countries"
+      />,
+    );
+
+    fireEvent.focus(screen.getByRole("button"));
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "Ten member countries",
+    );
+  });
+
+  it("does not blur itself on click in button mode", async () => {
+    // The span trigger blurs on click to dismiss the tooltip. A button's click
+    // is the action, so blurring would fight it and hide what was just opened.
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Power"
+        tooltip="A sector"
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    await userEvent.click(button);
+    expect(button).toHaveFocus();
   });
 });
