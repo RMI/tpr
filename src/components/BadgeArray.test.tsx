@@ -1,5 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { render, screen, waitFor } from "@testing-library/react";
+import { describe, it, expect, vi } from "vitest";
+import { render, screen, waitFor, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import BadgeArray from "./BadgeArray";
 
 describe("BadgeArray", () => {
@@ -62,9 +63,7 @@ describe("BadgeArray", () => {
   it("throws when variant array length does not match children length", () => {
     expect(() =>
       render(
-        <BadgeArray variant={["sector"] as string[]}>
-          {["Power", "Aviation"]}
-        </BadgeArray>,
+        <BadgeArray variant={["sector"]}>{["Power", "Aviation"]}</BadgeArray>,
       ),
     ).toThrow(/length must match/);
   });
@@ -298,5 +297,130 @@ describe("auto-fit & maxRows", () => {
         !el.classList.contains("invisible"),
     );
     expect(token).toBeTruthy();
+  });
+});
+
+describe("BadgeArray single-select toggles", () => {
+  it("renders static spans and no buttons without onSelect", () => {
+    // The regression guard for the four existing callers: opting out must
+    // leave the markup exactly as it was.
+    const { container } = render(<BadgeArray>{["Power", "Steel"]}</BadgeArray>);
+
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+    expect(container.querySelectorAll("span").length).toBeGreaterThan(0);
+  });
+
+  it("renders each badge as a toggle button when onSelect is given", () => {
+    render(
+      <BadgeArray
+        onSelect={() => {}}
+        visibleCount={Infinity}
+      >
+        {["Power", "Steel"]}
+      </BadgeArray>,
+    );
+
+    expect(screen.getAllByRole("button")).toHaveLength(2);
+    for (const button of screen.getAllByRole("button")) {
+      expect(button).toHaveAttribute("aria-pressed", "false");
+    }
+  });
+
+  it("marks the selected item pressed", () => {
+    render(
+      <BadgeArray
+        selected="Steel"
+        onSelect={() => {}}
+        visibleCount={Infinity}
+      >
+        {["Power", "Steel"]}
+      </BadgeArray>,
+    );
+
+    expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+    expect(screen.getByRole("button", { name: "Steel" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+  });
+
+  it("reports the clicked item", async () => {
+    const onSelect = vi.fn();
+    render(
+      <BadgeArray
+        onSelect={onSelect}
+        visibleCount={Infinity}
+      >
+        {["Power", "Steel"]}
+      </BadgeArray>,
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Steel" }));
+    expect(onSelect).toHaveBeenCalledWith("Steel");
+  });
+
+  it("reports null when the already-selected item is clicked", async () => {
+    const onSelect = vi.fn();
+    render(
+      <BadgeArray
+        selected="Steel"
+        onSelect={onSelect}
+        visibleCount={Infinity}
+      >
+        {["Power", "Steel"]}
+      </BadgeArray>,
+    );
+
+    // Re-clicking the pressed badge is how an axis is cleared.
+    await userEvent.click(screen.getByRole("button", { name: "Steel" }));
+    expect(onSelect).toHaveBeenCalledWith(null);
+  });
+
+  it("keeps focus on the clicked token when the caller reorders", () => {
+    // The scope ribbon pins the selected token first, so the array order
+    // changes between renders. Index keys would rewrite nodes in place and
+    // leave focus on whatever token moved into that slot.
+    const { rerender } = render(
+      <BadgeArray
+        onSelect={() => {}}
+        visibleCount={Infinity}
+      >
+        {["Power", "Steel", "Cement"]}
+      </BadgeArray>,
+    );
+
+    const steel = screen.getByRole("button", { name: "Steel" });
+    steel.focus();
+    expect(steel).toHaveFocus();
+
+    rerender(
+      <BadgeArray
+        selected="Steel"
+        onSelect={() => {}}
+        visibleCount={Infinity}
+      >
+        {["Steel", "Power", "Cement"]}
+      </BadgeArray>,
+    );
+
+    expect(screen.getByRole("button", { name: "Steel" })).toHaveFocus();
+  });
+
+  it("still renders a tooltip on a toggle badge", async () => {
+    render(
+      <BadgeArray
+        onSelect={() => {}}
+        tooltipGetter={(item) => `About ${item}`}
+        visibleCount={Infinity}
+      >
+        {["Power"]}
+      </BadgeArray>,
+    );
+
+    fireEvent.focus(screen.getByRole("button"));
+    expect(await screen.findByRole("tooltip")).toHaveTextContent("About Power");
   });
 });

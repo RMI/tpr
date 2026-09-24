@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "ACE-ATS-2024",
   "publication": {
     "title": {
@@ -27,52 +27,27 @@
   "description": "ASEAN-specific pathway exploring impact of unconditional NDCs and existing policies.",
   "geography": {
     "regions": {
-      "South East Asia": [
-        "BN",
-        "KH",
-        "ID",
-        "LA",
-        "MY",
-        "MM",
-        "PH",
-        "SG",
-        "TH",
-        "VN"
-      ]
+      "ASEAN": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
     }
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
-    {
-      "name": "Land Use",
-      "technologies": []
-    },
     {
       "name": "Buildings",
       "technologies": []
     },
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": ["Coal"]
     },
     {
       "name": "Other",
       "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE ASEAN Member States Targets Scenario (ATS) is an exploratory pathway which assumes that every ASEAN member state fully achieves its unconditional transition targets on time, including unconditional goals set via Nationally Determined Contributions (NDCs). This pathway models the impact of existing policies, such as national power development plans (PDPs), and the implementation of these stated targets. The ATS pathway models more ambitious energy efficiency targets, as well as a faster deployment of low-carbon energy technologies, especially from renewable energy. The ATS pathway does not include more aspirational national objectives, such as conditional NDCs or long-term net zero goals. For examples of pathways that include these policies, see the ACE Regional Aspiration Scenario (RAS) and IEA Announced Pledges Scenario (APS).\n\nPower generation emissions decline -2.4% per year, resulting in a total decrease of 74% relative to power emissions in the Baseline Scenario. However, the ATS pathway projects to an average annual emissions increase of 0.8% across the full energy sector. \n\n#### Core Drivers\n\nThe ATS pathway is primarily influenced by existing and announced policies and does not consider declining technology costs or significant new technologies.\n\n*Policy:* Unconditional national policies are the primary driver of transition outcomes in the ATS pathway. Energy efficiency targets and renewable energy targets, including detailed plans from national power development plans, drive significant renewables deployment and emissions reductions. Power capacity deployment follows the plans detailed in NDCs and PDPs until the final year laid out in these policies, and ATS simulates further additions based on the technology mix at the end year of the policy plans.\n\nThe ATS pathway assumes technology costs remain fixed at current levels across the full trajectory. The ATS pathway provides information on demand shifts, investment flows, and technology deployment, but these factors are driven primarily by modeled policy shifts. \n\n#### Application to Transition Assessment\n\nACE ATS is an exploratory, policy-focused pathway, which provides useful values for assessing the alignment of corporate plans to region-wide policy impacts. As a region-specific pathway, ACE ATS is not directly linked to a global implied temperature rise, limiting its use as a quantitative benchmark the ambition of climate targets.\n\nThe ATS is particularly well-suited for evaluating the alignment of corporate targets, strategies, and investment pipelines with the stated ambitions of the jurisdictions in which they operate. Its strong policy orientation allows for a meaningful comparison between corporate actions and national development priorities. A misalignment with the ATS may signal potential exposure to future regulatory risks, such as non-compliance with evolving energy policies or reduced competitiveness in markets where low-carbon technologies are being prioritized. Alignment, in the other hand, may indicate that a company is strategically positioned to benefit from market shifts. The ATS pathway includes the impacts of stated policies and targets which have not yet been implemented; therefore, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. However, the ATS pathway excludes aspirational goals such as conditional NDCs, making the pathway a relatively conservative choice for evaluating potential policy alignment and impact.\n\nDue to its assumption of static technology costs and limited modelling of specific technology deployment, the ATS pathway has more limited applications in assessing the commercial or technological feasibility of specific transition strategies. Users interested in these applications may consider supplementing the ATS pathway with additional pathways that provide more detailed and dynamic technology cost and deployment projections.\n\nATS provides national targets. These targets are presented with fine granularity, enabling detailed national policy alignment assessments. The pathway also includes regional-level projections for generation and capacity on 5-year intervals and using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. This data is relevant and useful for analyzing specific decarbonization levers and project investment pipelines within company plans, and supports region-specific benchmark, but does not enable country-specific comparisons of changes in generation or capacity.",
+  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE ASEAN Member States Targets Scenario (ATS) is an exploratory pathway which assumes that every ASEAN member state fully achieves its unconditional transition targets on time, including unconditional goals set via Nationally Determined Contributions (NDCs). This pathway models the impact of existing policies, such as national power development plans (PDPs), and the implementation of these stated targets. The ATS pathway models more ambitious energy efficiency targets, as well as a faster deployment of low-carbon energy technologies, especially from renewable energy. The ATS pathway does not include more aspirational national objectives, such as conditional NDCs or long-term net zero goals. For examples of pathways that include these policies, see the ACE Regional Aspiration Scenario (RAS) and IEA Announced Pledges Scenario (APS).\n\nPower generation emissions decline -2.4% per year, resulting in a total decrease of 74% relative to power emissions in the Baseline Scenario. However, the ATS pathway projects to an average annual emissions increase of 0.8% across the full energy sector.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -81,22 +56,180 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Moderate increase",
-    "energyEfficiency": "Moderate improvement",
-    "energyDemand": "Significant increase",
-    "electrification": "Low or no change",
-    "policyTypes": [
-      "Phaseout dates",
-      "Subsidies",
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+    "emissionsTrajectory": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Moderate decrease"
+      }
     ],
-    "technologyCostTrend": "Low or no change",
-    "emissionsScope": "CO2e (unspecified GHGs)",
-    "policyAmbition": "NDCs, unconditional only",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Green H2/ammonia", "SAF"],
-    "investmentNeeds": "By sector"
-  }
+    "energyEfficiency": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "Significant improvement"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "Low or no change"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": ["Target technology shares", "Performance standards", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "Low or no change"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "NDCs, unconditional only"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": ["Green H2/ammonia", "SAF", "Other new technologies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": ["Green H2/ammonia", "Other new technologies"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "cross-sector",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "National renewable-energy and efficiency targets, power development plans, energy-access measures and unconditional NDCs drive the outcomes of the ATS pathway.",
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": "Average annual Power investment rises from USD 34.8bn in 2023–2030 to USD 46.3bn in 2041–2050. This comes from significant investment in solar and wind that more than offsets the lower fossil fuel investment needs compared to BAS.",
+    "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "National PDPs, renewable energy and energy efficiency targets, and unconditional NDCs directly determine the ATS power build-out.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Implementing diverse national plans and standards is necessary, but the report does not quantify permitting or market-rule constraints.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Introdction of nuclear power generation to the region may may require education for public acceptance.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Stable electrification rates limit on adoption of new end-use technologies.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "A 69.4% renewable capacity share by 2050 (more than double the share in the start year) increases grid-integration needs, although ATS does not model energy storage.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Faster uptake of RE means that net import of natural gas starts in 2030, later than in the BAS pathway. Land use for biofuels in ATS is similar to that of BAS. The increase land use for RE therefore raises overall land use requirements. Pathway targets are not constrained by RE potential.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Faster fossil retirement in ATS creates materially larger job losses and retraining needs than BAS. The net difference in energy jobs is not very large though.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }

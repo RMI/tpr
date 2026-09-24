@@ -1,10 +1,13 @@
 import React from "react";
 import { PathwayMetadataType } from "../types";
 import { getKeyFeatureTooltip } from "../utils/tooltipUtils";
+import { widestValue } from "../utils/keyFeatureScope";
 import TextWithTooltip from "./TextWithTooltip";
 import Badge from "./Badge";
 import SentimentScale, { getSentimentPalette } from "./SentimentScale";
 import NeutralScale, { NEUTRAL_SELECTED_COLOR } from "./NeutralScale";
+import { CoreDriverItem } from "./CoreDrivers";
+import type { CoreDriverKey, CoreDrivers } from "./CoreDrivers";
 
 const PILL_SELECTED =
   "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-rmiblue-100 text-rmiblue-800 border-rmiblue-200 mr-2 mb-1";
@@ -48,28 +51,78 @@ export type FeatureConfig =
   | SentimentFeatureConfig
   | NeutralFeatureConfig;
 
+/**
+ * Stable identifiers for the feature groups.
+ *
+ * Callers select groups by id rather than by label so a typo is a type error
+ * instead of a silently empty panel, and so relabelling a group does not break
+ * every call site.
+ */
+export type KeyFeatureGroupId =
+  "policies" | "emissions" | "technology" | "investment" | "energy" | "other";
+
 interface GroupConfig {
+  id: KeyFeatureGroupId;
   label: string;
   features: FeatureConfig[];
+  /**
+   * Core drivers belonging to this theme. Rendered above the group's features,
+   * so the authored narrative reads first and the enumerated values qualify it.
+   */
+  drivers?: CoreDriverKey[];
 }
 
+/**
+ * The six themed groups of the "Assumptions & Trends Overview".
+ *
+ * Each group interleaves the free-text `coreDrivers` narrative with the
+ * enumerated `keyFeatures` values for the same theme — a pathway's policy
+ * story and its policy pills belong together, not in two separate sections.
+ * Group order is the wireframe's reading order; the first three are also the
+ * subset the At-a-glance tab shows.
+ */
 export const GROUPS: GroupConfig[] = [
   {
-    label: "Emissions Boundary & Trajectory",
+    id: "policies",
+    label: "Policies",
+    drivers: ["policies"],
     features: [
       {
-        key: "emissionsScope",
-        label: "Emissions scope",
-        type: "single-select",
-        options: [
-          "No information",
-          "CO2",
-          "CO2e (Kyoto)",
-          "CO2e (CO2, Methane)",
-          "CO2e (unspecified GHGs)",
-          "Other emissions scope",
+        key: "policyAmbition",
+        label: "Policy ambition",
+        type: "neutral",
+        scaleValues: [
+          "No policies included",
+          "Current/legislated policies",
+          "Current and drafted policies",
+          "NDCs, unconditional only",
+          "NDCs incl. conditional targets",
+          "High ambition policies",
+          "Other policy ambition",
         ],
       },
+      {
+        key: "policyTypes",
+        label: "Policy types",
+        type: "multi-select",
+        options: [
+          "Carbon price",
+          "Feed-in tariffs",
+          "Performance standards",
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Other",
+          "None",
+        ],
+      },
+    ],
+  },
+  {
+    id: "emissions",
+    label: "Emissions",
+    drivers: ["emissionsTargets"],
+    features: [
       {
         key: "emissionsTrajectory",
         label: "Emissions trajectory",
@@ -85,26 +138,84 @@ export const GROUPS: GroupConfig[] = [
         ],
         greenEnd: "first",
       },
+      {
+        key: "emissionsScope",
+        label: "Emissions scope",
+        type: "single-select",
+        options: [
+          "No information",
+          "CO2",
+          "CO2e (Kyoto)",
+          "CO2e (CO2, Methane)",
+          "CO2e (unspecified GHGs)",
+          "Other emissions scope",
+        ],
+      },
     ],
   },
   {
-    label: "Energy System & Transition Levers",
+    id: "technology",
+    label: "Technology",
+    drivers: ["technologyCosts"],
     features: [
       {
-        key: "energyEfficiency",
-        label: "Energy efficiency",
+        key: "technologyCostTrend",
+        label: "Technology cost trend",
         type: "sentiment",
-        scaleValues: [
-          "Significant deterioration",
-          "Moderate deterioration",
-          "Minor deterioration",
-          "Low or no change",
-          "Minor improvement",
-          "Moderate improvement",
-          "Significant improvement",
-        ],
-        greenEnd: "last",
+        scaleValues: ["Decrease", "Low or no change", "Increase"],
+        greenEnd: "first",
       },
+      {
+        key: "technologyCostsDetail",
+        label: "Technology costs detail",
+        type: "neutral",
+        scaleValues: [
+          "Total costs",
+          "Capital costs, O&M, etc.",
+          "Other cost breakdown",
+        ],
+      },
+      {
+        key: "newTechnologiesIncluded",
+        label: "New technologies included",
+        type: "multi-select",
+        options: [
+          "No information",
+          "No new technologies",
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "EGS/AGS",
+          "Other new technologies",
+        ],
+      },
+    ],
+  },
+  {
+    id: "investment",
+    label: "Investment",
+    drivers: ["investmentChange"],
+    features: [
+      {
+        key: "investmentNeeds",
+        label: "Investment needs",
+        type: "neutral",
+        scaleValues: [
+          "Total investment",
+          "By sector",
+          "By sector, part of value chain",
+          "By technology",
+          "By tech, part of value chain",
+        ],
+      },
+    ],
+  },
+  {
+    id: "energy",
+    label: "Energy System",
+    features: [
       {
         key: "energyDemand",
         label: "Energy demand",
@@ -135,91 +246,31 @@ export const GROUPS: GroupConfig[] = [
         ],
         greenEnd: "last",
       },
-    ],
-  },
-  {
-    label: "Policy Environment",
-    features: [
       {
-        key: "policyTypes",
-        label: "Policy types",
-        type: "multi-select",
-        options: [
-          "Carbon price",
-          "Feed-in tariffs",
-          "Performance standards",
-          "Phaseout dates",
-          "Subsidies",
-          "Target technology shares",
-          "Other",
-          "None",
-        ],
-      },
-      {
-        key: "policyAmbition",
-        label: "Policy ambition",
-        type: "neutral",
-        scaleValues: [
-          "No policies included",
-          "Current/legislated policies",
-          "Current and drafted policies",
-          "NDCs, unconditional only",
-          "NDCs incl. conditional targets",
-          "High ambition policies",
-          "Other policy ambition",
-        ],
-      },
-    ],
-  },
-  {
-    label: "Technology & Feasibility Assumptions",
-    features: [
-      {
-        key: "newTechnologiesIncluded",
-        label: "New technologies included",
-        type: "multi-select",
-        options: [
-          "No information",
-          "No new technologies",
-          "CCUS",
-          "DAC",
-          "Green H2/ammonia",
-          "SAF",
-          "Battery storage",
-          "EGS/AGS",
-          "Other new technologies",
-        ],
-      },
-      {
-        key: "technologyCostTrend",
-        label: "Technology cost trend",
+        key: "energyEfficiency",
+        label: "Energy efficiency",
         type: "sentiment",
-        scaleValues: ["Decrease", "Low or no change", "Increase"],
-        greenEnd: "first",
-      },
-      {
-        key: "technologyCostsDetail",
-        label: "Technology costs detail",
-        type: "neutral",
         scaleValues: [
-          "Total costs",
-          "Capital costs, O&M, etc.",
-          "Other cost breakdown",
+          "Significant deterioration",
+          "Moderate deterioration",
+          "Minor deterioration",
+          "Low or no change",
+          "Minor improvement",
+          "Moderate improvement",
+          "Significant improvement",
         ],
-      },
-      {
-        key: "investmentNeeds",
-        label: "Investment needs",
-        type: "neutral",
-        scaleValues: [
-          "Total investment",
-          "By sector",
-          "By sector, part of value chain",
-          "By technology",
-          "By tech, part of value chain",
-        ],
+        greenEnd: "last",
       },
     ],
+  },
+  {
+    // Drivers with no enumerated counterpart. Featureless, so a surface that
+    // renders only features shows nothing here — the comparison page skips
+    // the group when none of its drivers is described.
+    id: "other",
+    label: "Other",
+    drivers: ["macroeconomicDrivers", "behavioralShifts", "otherDrivers"],
+    features: [],
   },
 ];
 
@@ -238,7 +289,11 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
   labelClassName = "text-xs font-medium text-rmigray-500",
   showLabel = true,
 }) => {
-  const rawValue = keyFeatures[feature.key];
+  // v2 stores each feature as scoped {sector, geography, value} entries (#858).
+  // Render the value at the broadest scope, which reproduces v1's output exactly
+  // for codemod-migrated data (one entry, at its widest scope). #869 replaces this
+  // with a scope-aware resolver and #859 adds the badge that names the scope.
+  const rawValue = widestValue(keyFeatures[feature.key]);
 
   const label = <p className={`${labelClassName} mb-1.5`}>{feature.label}</p>;
 
@@ -439,32 +494,62 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
 interface KeyFeaturesProps {
   keyFeatures: PathwayMetadataType["keyFeatures"];
+  /**
+   * The pathway's core drivers. Omit to render key features alone — no driver
+   * prose appears unless this is supplied.
+   */
+  coreDrivers?: CoreDrivers;
+  /** Which groups to render, by id. Defaults to all of them. */
+  groups?: KeyFeatureGroupId[];
+  /** Panel heading. Defaults to "Key Features". */
+  title?: React.ReactNode;
 }
 
-const KeyFeatures: React.FC<KeyFeaturesProps> = ({ keyFeatures }) => {
+const KeyFeatures: React.FC<KeyFeaturesProps> = ({
+  keyFeatures,
+  coreDrivers,
+  groups,
+  title = "Key Features",
+}) => {
+  const visible = groups
+    ? GROUPS.filter((group) => groups.includes(group.id))
+    : GROUPS;
+
+  if (visible.length === 0) return null;
+
   return (
-    <div className="bg-neutral-50 border border-neutral-200 rounded-lg px-4 pt-4 pb-2 mb-6">
-      <h3 className="text-lg font-medium text-rmigray-800 mb-3">
-        Key Features
-      </h3>
-      <div className="grid grid-cols-1 md:grid-cols-2">
-        {GROUPS.map((group, idx) => (
+    <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
+      {title ? (
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3">{title}</h3>
+      ) : null}
+      {/*
+        Each group is its own card, so the grid `gap` owns all separation — no
+        index-derived borders, which could not have expressed "first row" across
+        two different column counts anyway.
+      */}
+      <div
+        className={`grid grid-cols-1 gap-4 ${
+          visible.length > 1 ? "md:grid-cols-2 lg:grid-cols-3" : ""
+        }`}
+      >
+        {visible.map((group) => (
           <div
             key={group.label}
-            className={[
-              "py-4",
-              idx >= 2 ? "border-t border-neutral-200" : "",
-              idx % 2 === 1
-                ? "md:pl-6 md:border-l md:border-neutral-200"
-                : "md:pr-6",
-            ]
-              .filter(Boolean)
-              .join(" ")}
+            className="rounded-lg border border-neutral-200 bg-white p-4"
           >
             <h4 className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
               {group.label}
             </h4>
             <div className="space-y-4">
+              {coreDrivers
+                ? (group.drivers ?? []).map((driverKey) => (
+                    <CoreDriverItem
+                      key={driverKey}
+                      driverKey={driverKey}
+                      coreDrivers={coreDrivers}
+                    />
+                  ))
+                : null}
               {group.features.map((feature) => (
                 <FeatureItem
                   key={feature.key}

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-MAP-LA-2025",
   "publication": {
     "title": {
@@ -30,31 +30,151 @@
   },
   "description": "Policy-supported coal phaseout and renewables deployment significantly reduce emissions by 2050.",
   "geography": {
-    "country": ["LA"]
+    "regions": {
+      "LA": ["LA"]
+    }
   },
   "pathwayType": "Normative",
-  "modelYearStart": 2020,
+  "modelYearStart": 2018,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal", "Hydro", "Solar", "Wind", "Biomass"]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe More Ambitious Policy (MAP) scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. MAP builds upon the Existing Policy scenario by introducing additional interventions to significantly reduce emissions by 2050. Coal-fired power plants are nearly phased out by 2040, and while hydropower build-out is similar to that under the Existing Policy scenario, solar power and wind energy are also built out to replace the retiring coal capacity. Solar capacity reaches 7,000 MW by 2050, versus just ~900 MW in the Existing Policy scenario, and wind grows to 3,000 MW by 2050, compared to 2,100 MW in the Existing Policy scenario. These investments lead to a dramatically cleaner generation mix. \n\nAdditionally, the More Ambitious Policy scenario addresses emissions reductions on the demand side, with greater adoption of electric vehicles, plus electrification of domestic and industrial processes. The More Ambitious Policy scenario assumes that the share of EVs in passenger transport reaches 100%, and that electrification of freight trucks reaches 90%. Notably, achieving this pathway requires significantly higher investment, with US$132.3 million needed for the MAP scenario, which is three times the investment needed under the Existing Policy scenario.\n\n#### Core Drivers\n\nThe MAP pathway is primarily driven by new policy commitments and accelerated deployment of hydropower, wind, and solar. \n\n*Policy:* The MAP scenario is predicated on enhanced climate commitments, effectively incorporating a net-zero emissions goal for 2050 into energy planning. This means the scenario imposes constraints or targets that go beyond the current NDC, with climate ambition as the guiding driver. \n\n*Technology deployment:* In this scenario, no new coal plants are added, and existing coal plants phase down by 2040, which nearly eliminates the only source of power sector emissions. Achieving near zero power sector emissions by 2050 would not be feasible without the phasing down of coal plants. Replacement and additional capacity come entirely through expansion of hydropower, solar, and wind capacity, with solar and wind seeing much greater levels of deployment than under the Existing Policy pathway. \n\n#### Application to Transition Assessment\n\nThe MAP scenario is an exploratory policy pathway modeling a potential future under expanded policy action in Laos’s power sector. It provides a benchmark for companies seeking alignment with accelerated national transition goals in Laos. As a country-level pathway, MAP does not model a global temperature rise and should not be used to directly set or measure temperature alignment targets. However, as a detailed projection of aspirational targets, it may be a relevant benchmark for the ambition of company goals. \n\nAs a detailed, country-level policy pathway, MAP provides valuable information for comparing companies to Laos-specific trajectories. Misalignment to the MAP pathway may be a useful indicator of potential future risks such as exposure to evolving energy policies or reduced competitiveness where low-carbon technologies are prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. As the MAP pathway includes significant aspirational policies and targets that have not yet been implemented, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. \n\nThe MAP pathway models power and energy systems to 2050, providing country-level projections for generation and capacity at 10-year intervals, with a high-level breakdown by energy source such as coal, gas, and renewables. Due to its country-specific nature, the MAP pathway has limited applicability to companies with operations across multiple geographies, but it offers greater detail and specificity for companies in Laos, as compared to global or regional pathways.",
+  "pathwayDescription": null,
   "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "Significant increase",
-    "policyTypes": ["Target technology shares", "Phaseout dates"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Total costs",
-    "newTechnologiesIncluded": ["No information"],
-    "investmentNeeds": "Total investment"
-  }
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards",
+          "Other"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Hydro additions are aligned with the NDC until 2030 and continue until the maximum hydro potential in Lao. As coal power is phased out in 2040 and needs to be replaced, additional wind and solar are added to the pathway.",
+    "emissionsTargets": "Near-zero 2050 and coal phase-out by 2040 constrain the pathway.",
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and some ambitous electrification assumptions in housings and transportation drive electricity demand.",
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "MAP deals with the policy dependency by imposing a more ambitious renewable build-out and a stated coal phase-out by 2040. These assumptions drive the shift toward near-zero power emissions.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The scenario provider suggests that the pathway would be more easily achievable with: supportive rules for clean-energy investment and regional trading cooperation.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "MAP prioritizes the more ambitious decarbonization assumptions and requires substantial clean-power investment; economics is therefore accommodated through higher investment rather than used to determine the technology mix through least-cost optimization. Cross-border electricity trade with Thailand is economically important, but the pathway does not provide forward-looking trade volumes or prices that determine the MAP outcome.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "MAP deals with demand-side behavior through much stronger exogenous electrification assumptions, including 50% passenger EV penetration in 2030 and 100% in 2050 and substantially higher electric-truck uptake. This raises electricity demand, but consumer preferences itself is not modeled endogenously.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "MAP combines the full hydro build-out with much larger wind and solar capacity, increasing the importance of system integration, but the pathway does not quantify the grid infrastructure required to enable that mix.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Hydropower maxiumum potential ressources is reached by 2050 and is the limit to hydro expansion in Lao. Hydro is then seconded by additional wind and solar capacity to reach near-zero emissions power in Lao.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Seasonal water availability affects hydropower adequacy in the dry season. Laos power grid is already dependant on Thailand during that period. MAP does not introduce a future change in hydrology or an environmental constraint on hydro deployment. MAP therefore proceeds using the stated hydro potential without modelling future ecosystem/climate impacts.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The electrical system requires substantial human resources for its operation. This is not measured in this analysis.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }

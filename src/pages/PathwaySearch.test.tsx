@@ -65,7 +65,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: [],
-      keyFeatures: { emissionsTrajectory: "foo" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "cross-sector", geography: "DE", value: "foo" },
+        ],
+      },
     },
     {
       id: "B",
@@ -78,7 +82,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Capacity"],
-      keyFeatures: { emissionsTrajectory: "foo" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "cross-sector", geography: "DE", value: "foo" },
+        ],
+      },
     },
     {
       id: "C",
@@ -89,7 +97,9 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "NZi2050",
       modelYearNetzero: 2040,
       metric: [],
-      keyFeatures: { emissionsTrajectory: "foo" },
+      keyFeatures: {
+        emissionsTrajectory: [], // no geography declared -> no scope to attach a value to
+      },
     },
     {
       id: "D",
@@ -100,7 +110,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "BAU",
       modelYearNetzero: 2030,
       metric: ["Capacity", "Generation"],
-      keyFeatures: { emissionsTrajectory: "bar" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "cross-sector", geography: "JP", value: "bar" },
+        ],
+      },
     },
     {
       id: "E",
@@ -111,7 +125,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Generation"],
-      keyFeatures: { emissionsTrajectory: "bar" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "cross-sector", geography: "DE", value: "bar" },
+        ],
+      },
     },
   ] as const;
 

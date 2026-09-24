@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-OEP-LA-2025",
   "publication": {
     "title": {
@@ -30,30 +30,145 @@
   },
   "description": "Cost-optimized pathway under current policies with coal and hydropower expansion.",
   "geography": {
-    "country": ["LA"]
+    "regions": {
+      "LA": ["LA"]
+    }
   },
-  "pathwayType": "Exploratory",
-  "modelYearStart": 2020,
+  "pathwayType": "Normative",
+  "modelYearStart": 2018,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal", "Hydro", "Solar", "Wind", "Biomass"]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Optimized Existing Policy scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. The Optimized Existing Policy (OEP) scenario applies a market-optimal lens to the same policy context as the Existing Policy scenario, but it removes the policy-prescribed constraints on the power generation mix and optimizes for minimum system cost while still satisfying energy demand growth under existing policies. Under this scenario, the result is a more carbon-intensive but economically efficient variant of the Existing Policy pathway. \n\nNotably, total electricity generation in this scenario far exceeds that in the baseline, as the model maximizes Laos’s low-cost resources (especially hydropower) to produce as much power as needed at the lowest cost. By 2050, annual generation is 132.8 TWh in the OEP scenario, compared to only 57.3 TWh under the baseline, despite having the same installed capacity, indicating much higher utilization rates. \n\n#### Core Drivers\n\nThe OEP pathway is driven by cost optimization under market conditions with limited policy intervention. \n\n*Cost optimization:* Economic optimization is the defining driver of this scenario. It determines the cheapest mix of generation to meet electricity demand, without introducing any new climate constraints. This means that capital and operating costs dictate the outcome, and as such no additional renewables beyond those already mandated by policy are built unless they are cost-competitive.\n\n*Technology deployment:* Hydropower experiences large-scale expansions similar to those in the Existing Policy scenario. With no carbon price or emissions cap, coal-fired power remains in the mix as a low-cost source for baseload and export. The model keeps coal capacity at 4 GW through 2050, but generation is slightly higher in this scenario, resulting in higher power sector emissions in 2050 than in the Existing Policy scenario.\n\n#### Application to Transition Assessment\n\nAs a cost-optimized extension of the Existing Policy scenario, the Optimized Existing Policy scenario serves as a useful baseline for climate transition analysis. It represents a potential business-as-usual trajectory in which Laos’s power sector follows the present policy path without any new climate interventions. The OEP scenario offers a conservative planning case that helps financial actors understand the outcomes of current policies in Laos, which is useful for benchmarking. It also shows that significant emissions reductions are not a given without additional incentives or actions.\n\nDue to its focus on modeling cost optimization within existing policy, the OEP scenario is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a cost-driven forecast of country-specific market shifts. Misalignment with the pathway indicates that a company or plan may already be lagging behind potential rates of change, potentially exposing it to regulatory risks or declining market share as other segments of the energy sector grow. Because the pathway includes a strong focus on cost optimization, it is a useful candidate for contextualizing the commercial and technical feasibility of transition strategies under the aggressive least-cost parameters described by the OEP pathway. Strategies that exceed the pace of change forecast under OEP may imply reliance on future policy or technology shifts. \n\nThe OEP pathway models power and energy systems to 2050, providing country-level projections for generation and capacity at 10-year intervals, with a high-level breakdown by energy source such as coal, gas, and renewables. Due to its country-specific nature, the OEP pathway has limited applicability to companies with operations across multiple geographies, but it offers greater detail and specificity for companies in Laos, as compared to global or regional pathways.",
+  "pathwayDescription": null,
   "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant increase",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "Moderate increase",
-    "policyTypes": ["Target technology shares"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "Total costs",
-    "newTechnologiesIncluded": ["No information"],
-    "investmentNeeds": "Total investment"
-  }
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Moderate increase"
+      }
+    ],
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["Target technology shares", "Performance standards", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Current and drafted policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Hydro capacity additions in 2030 aligned with NDCs, then additional additions are included based on ressource potential assessment and least cost optimization.",
+    "emissionsTargets": null,
+    "technologyCosts": "Least-cost optimization determines dispatch and generation mix.",
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "behavioralShifts": null,
+    "otherDrivers": "Hydropower resource potential is the main constraint for end-year capacity mix."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Hydro capacity additions in 2030 aligned with NDCs, then additional additions are included based on ressource potential assessment.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The regulatory framework is represented mainly through national plans and standards, not detailed market design or permitting.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "OEP deals with economics explicitly through least-cost optimization: with the same installed capacity as EP, generation shifts heavily toward hydropower and coal while wind, solar, and biomass generation fall to zero in 2050.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "EP imposes demand-side adoption assumptions exogenously, including passenger EV penetration of 30% in 2030 and 60% in 2050 and lower electric-truck uptake. These assumptions increase power demand but are not framed as a power-sector bottleneck.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "OEP expands significantly hydro capacities. Hydropower facilities are typically situated in isolated regions and require integration with the national system to distribute energy nationwide. However, OEP does not quantify transmission expansion or model grid integration as a constraint. Hydro power plant are able to generate twice more electricity than in EP. This implies greater utilization of the hydro system, but no corresponding pathway-specific transmission/logistics expansion is modelled.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Hydropower maxiumum potential ressources is reached by 2050 and is the limit to hydro expansion in Lao. Even if the same amount of hydropower capacity is build out by 2050, those capacities generate twice more power than in Existing Policies pathway. These shifts are due to an optimizing the use of existing resources with least cost,.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Seasonal water availability affects hydropower adequacy in the dry season. Laos power grid is already dependant on Thailand during that period. OEP does not introduce a future change in hydrology or an environmental constraint on hydro deployment. OEP therefore proceeds using the stated hydro potential without modelling future ecosystem/climate impacts.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The electrical system requires substantial human resources for its operation. This is not measured in this analysis.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }

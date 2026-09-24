@@ -1,11 +1,22 @@
 import type { FacetMode } from "../utils/searchUtils";
 import type { PathwayMetadataV1 } from "./pathwayMetadata.v1";
+import type { PathwayMetadataV2 } from "./pathwayMetadata.v2";
 import type { PublicationV1 } from "./common/publication.v1";
 import type { GeographyV1 } from "./common/geography.v1";
 
-// Re-export the (current) versioned pathway metadata type as generic
-export type PathwayMetadataType = PathwayMetadataV1;
+// Re-export the (current) versioned pathway metadata type as generic.
+// v2 as of #858: src/data/pathwayMetadata.ts validates against v2, so only v2
+// documents reach the app and this is the shape every consumer sees.
+export type PathwayMetadataType = PathwayMetadataV2;
 export type PublicationType = PublicationV1;
+
+// Both versions are exported for the migration window. v1 and v2 documents
+// coexist in src/data — validateData routes each by its own $schema $id.
+export type { PathwayMetadataV1, PathwayMetadataV2 };
+
+/** A single scoped keyFeatures entry: {sector, geography, value} (#858). */
+export type ScopedKeyFeature<K extends keyof PathwayMetadataV2["keyFeatures"]> =
+  PathwayMetadataV2["keyFeatures"][K][number];
 
 // Enum-like types derived from the schema
 export type PathwayType = PathwayMetadataType["pathwayType"];
@@ -18,6 +29,16 @@ export type GeographyRegions = NonNullable<GeographyV1["regions"]>;
 export type GeographyCountry = NonNullable<GeographyV1["country"]>;
 // A single ISO-3166-1 alpha-2 country code.
 export type GeographyCode = GeographyCountry[number];
+
+/**
+ * The detail page's scope selection (#872): one sector and one geography, each
+ * a token the pathway itself declares. `null` on an axis means "no preference",
+ * which is also the cross-sector / widest-geography position for #869.
+ */
+export type PathwayScopeSelection = {
+  sector: string | null;
+  geography: string | null;
+};
 
 export type TemperatureTarget = number;
 export type YearTarget =

@@ -1,0 +1,39 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "pathway-v2-minimal",
+  "name": { "full": "Minimal V2 Pathway" },
+  "publication": {
+    "title": { "full": "Example Title" },
+    "publisher": { "full": "TransitionZero" },
+    "year": 2024
+  },
+  "description": "A minimal v2 pathway file that passes schema validation.",
+  "pathwayType": "Exploratory",
+  "geography": { "regions": { "South East Asia": [] } },
+  "sectors": [{ "name": "Other", "technologies": [] }],
+  "pathwayDescription": null,
+  "metric": ["Capacity"],
+  "keyFeatures": {
+    "emissionsTrajectory": [],
+    "energyEfficiency": [],
+    "energyDemand": [],
+    "electrification": [],
+    "policyTypes": [],
+    "technologyCostTrend": [],
+    "emissionsScope": [],
+    "policyAmbition": [],
+    "technologyCostsDetail": [],
+    "newTechnologiesIncluded": [],
+    "investmentNeeds": []
+  },
+  "coreDrivers": {
+    "policies": null,
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": null,
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": []
+}

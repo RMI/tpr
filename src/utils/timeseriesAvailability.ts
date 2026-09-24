@@ -1,6 +1,10 @@
 // src/utils/timeseriesAvailability.ts
 import { SECTORS_BY_KEY } from "./timeseriesTaxonomy";
-import { geographyLabel, normalizeGeography } from "./geographyUtils";
+import {
+  canonicalGeographyKey,
+  geographyLabel,
+  normalizeGeography,
+} from "./geographyUtils";
 
 interface TimeseriesSummary {
   sectors?: string[];
@@ -65,20 +69,35 @@ export function pathwayToolAvailability(
   const sectorNames = new Set<string>();
   const metricNames = new Set<string>();
   const geoStrings = new Set<string>();
+  const geoKeys = new Set<string>();
 
   for (const ds of datasets) {
     for (const v of sectorDisplayNames(ds.summary)) sectorNames.add(v);
     for (const v of metricDisplayNames(ds.summary)) metricNames.add(v);
-    for (const v of parseSummary(ds.summary).geographies ?? [])
+    for (const v of parseSummary(ds.summary).geographies ?? []) {
       geoStrings.add(v);
+      geoKeys.add(canonicalGeographyKey(v));
+    }
   }
 
   return {
     hasSector: (name) => sectorNames.has(name),
     hasMetric: (name) => metricNames.has(name),
+    /*
+      Three attempts, widening: the display label, the raw token, then a
+      spelling fold.
+
+      The fold matters because a publisher's metadata and its own timeseries can
+      spell one region two ways — IEA-APS declares "Southeast Asia" while its
+      data carries "South East Asia" (#945). `resolveGeography` already matches
+      those through `canonicalGeographyKey`, so without this an exact-match test
+      would report the region as absent from the tool while the charts plot it
+      perfectly. The two surfaces have to tell the same story.
+    */
     hasGeography: (rawGeo) => {
       const label = geographyLabel(normalizeGeography(rawGeo));
-      return geoStrings.has(label) || geoStrings.has(rawGeo);
+      if (geoStrings.has(label) || geoStrings.has(rawGeo)) return true;
+      return geoKeys.has(canonicalGeographyKey(rawGeo));
     },
   };
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-EPP-MM-2025",
   "publication": {
     "title": {
@@ -30,18 +30,20 @@
   },
   "description": "Myanmar-specific pathway following current energy policies and NDCs.",
   "geography": {
-    "country": ["MM"]
+    "regions": {
+      "MM": ["MM"]
+    }
   },
-  "pathwayType": "Predictive",
-  "modelYearStart": 2019,
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal", "Gas", "Hydro", "Wind", "Solar"]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Existing Policies Pathway (EPP) is a predictive power-sector scenario for Myanmar that models the evolution of the energy system under current policies and to meet Nationally Determined Contribution (NDC) targets. This scenario is complemented by the Optimized Existing Policy Pathway—a scenario with the same assumptions but constructed using a cost optimization module—and the Optimized More Ambitious Pathway—a scenario where Myanmar reaches Near-Zero emissions in the power sector by 2050—from the same developers.\n\nEPP projects electricity demand growth across all major sectors and reflects planned additions of gas, hydro, and solar capacity, alongside retirements of aging thermal assets. While the pathway includes moderate expansion of renewables, it does not assume major policy shifts or other large-scale low-carbon interventions. As a result, the system experiences increasing reliability challenges, with reserve margin tightening significantly over time due to growing demand and limited new firm-capacity additions. Electricity generation in Myanmar increases by 57% from 2020 to 2040, but then declines by 16% between 2040 and 2050, resulting in a domestic electricity supply shortfall. Direct emissions from the power sector in Myanmar decrease, as coal and gas capacity are phased out by 2050, but this may be compensated for by power imports which reach 14% of demand by 2050.\n\n#### Core Drivers\n\nEPP is driven by growing GDP, existing policy commitments and NDC targets, and technology cost declines that moderately improve competitiveness of renewables.\n\n*Policies:* The pathway reflects Myanmar’s currently enacted policies and announced plans, including incremental renewable additions. It incorporates sectoral energy efficiency goals and supply-side targets, such as increasing renewable energy’s share of generation to 39% by 2030 (28% from hydropower and 11% from other renewables).\n\n*Demand shift:* Electricity demand increases across all sectors, driven by economic growth and rising urbanization. Electrification continues to expand in transport, buildings, and industry but at a slower pace than in the OMAP scenario.\n\n*Technology costs and deployment rate:* Cost assumptions reflect global technology trends, with declining renewable and storage costs improving their long-term economic viability but not triggering large-scale deployment under existing policy conditions. This scenario forecasts a minor increase in renewables technology deployment. Coal and gas power plants are decommissioned by 2050, but renewables expansion is not fast enough to compensate. As a result, Myanmar imports 14% of total power by 2050, increasing dependency on other ASEAN countries.\n\n#### Application to Transition Assessment\n\nThe EPP serves as a conservative, business-as-usual baseline for Myanmar’s power sector. It is not designed to represent an ambitious or low-carbon trajectory and should not be used for temperature alignment assessments. Instead, it provides a reference for assessing how company plans compare against a continuation of current national trends. Misalignment with the EPP pathway, such as slower renewable deployment or insufficient capacity additions, may indicate potential exposure to near-term market or reliability risks. Conversely, exceeding the EPP trajectory does not necessarily signal overperformance, given that more ambitious policy updates are not reflected in this baseline pathway.\n\nThe scenario provides capacity and generation projections at 10-year intervals with a granular technology breakdown, covering gas, coal, hydro, solar, and wind.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -50,20 +52,127 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "No information",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Phaseout dates",
-      "Performance standards"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Significant decrease"
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current and drafted policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["No new technologies"],
-    "investmentNeeds": "By technology"
-  }
+    "energyEfficiency": [],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "CO2e (Kyoto)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "\"Demand side sector energy demand follows Myanmar official targets. To fulffil those additional demands, the scenario follows Myanmar official technology shares targets in 2030, sourced from a World Bank report. Myanmar also issued NDC Capacity targets additions, but due to political instability, challenges with natural gas supply, and the lack of foreign investment, the country power development landscape has changed.\".",
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "behavioralShifts": null,
+    "otherDrivers": "Aging-plant retirements and supply constraints are a dominant driver. It leads to a shrtage in supply in the power sector."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "National targets shapes power generation demand. An additional renewables technology share target is added in 2030. Myanmar also issued NDC Capacity targets additions, but due to political instability, challenges with natural gas supply, and the lack of foreign investment, the country power development landscape has changed, and those capacity additions are not the most likely to happen.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Renewables capacity expansion is aligned with policies but is unsufficient to meet demand due to gas power plant retirement. Significant electricty import would be necessary to supply demand.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Local opposition to large hydropower already stricked in Myanmar. This scenario significantly rely on hydro expansion.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Consumer and client are assumed to follow Myanmar power demand target.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "EPP's reserve margin falls to -51% due to inadequate replacement capacity. This negative reserve margin indicates a significant shortage of available capacity to meet peak demand, increasing the risk of frequent power shortages nationwide.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "EPP significantly depends on hydropower and imports after gas retirements. Hydropower availability may be reduced over time due to more severe droughts and changes in rain patterns.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Drought and climate variability threaten hydropower reliability.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
 }

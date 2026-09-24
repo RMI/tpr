@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "JETP-CIPP-2023",
   "publication": {
     "title": {
@@ -23,7 +23,9 @@
   },
   "description": "Power transition strategy driven by managed coal phasedown and renewables scale-up.",
   "geography": {
-    "country": ["ID"]
+    "regions": {
+      "ID": ["ID"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
@@ -35,16 +37,17 @@
         "Coal",
         "Oil",
         "Gas",
+        "Nuclear",
         "Hydro",
         "Wind",
         "Solar",
         "Biomass",
-        "Nuclear",
+        "Renewables",
         "Other"
       ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Indonesia JETP Comprehensive Investment and Policy Plan (CIPP) outlines a conditional decarbonization pathway for the Indonesian power sector. Developed under the Just Energy Transition Partnership (JETP), it defines the targets, investment requirements, and enabling policies needed to meet Indonesia’s stated energy transition goals. The CIPP is a non-binding strategy document that does not model a global temperature outcome, but it does provide quantitative benchmarks for Indonesia’s transition to a net-zero power system.\n\nThe pathway outlines a rapid pace of power grid transition, with renewables rising to 44% of on-grid generation by 2030. The pathway limits grid emissions to 250 Mt by 2030, with continued significant declines through 2050. \n\n#### Core Drivers\n\nThe CIPP pathway is driven primarily by an emissions cap, targeted coal power plant retirement, and large-scale deployment of renewables, supported by declining costs.\n\n*Targets and policies:* A key driver of JETP CIPP’s decarbonization pathway is an emissions cap, combined with a phasedown of coal-fired power generation. The plan models a constraint that limits on-grid emissions to 250 Mt in 2030, reducing to 175 Mt by 2040. Early retirements of coal power play a significant role, with 1.7 GW of capacity phased down by 2040, followed by accelerated retirements from 2045 to 2050. Additionally, a number of fossil fuel–based power plants are retrofitted to run on bioenergy or ammonia instead of coal, and on hydrogen instead of gas.\n\n*Technology costs:* The JETP pathway assumes S-curve cost declines for renewable power. The levelized cost of utility-scale solar PV falls from US$58/MWh in 2022 to around US$40/MWh in 2030 and US$30/MWh in 2050, while onshore wind falls from US$80/MWh in 2022 to around US$55/MWh in 2030 and US$43/MWh in 2050.\n\n*Investment and technology deployment:* The JETP pathway outlines a capital mobilization plan for Indonesia’s power transition. Implementation of the plan requires at least US$97.1 billion between 2023 and 2030, and US$580.3 billion between 2023 and 2050. Transmission expansion to enable the growth of renewables is a core component of this investment, with 14,000 km of lines costing up to US$19.7 billion by 2030. In addition to large-scale deployment of mature transmission and renewables technologies, the CIPP pathway includes retrofit deployment for fossil fuel power plants to incorporate bioenergy and ammonia co-firing (for coal-fired facilities) and hydrogen (for gas-fired facilities).\n\n#### Application to Transition Assessment\n\nThe CIPP pathway is designed to demonstrate options for an accelerated transition of Indonesia’s energy system, introducing additional interventions and assumptions to reach stated goals. As a country-level pathway, the CIPP pathway does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets. However, as a detailed projection of aspirational national goals, it may be a relevant benchmark for the ambition of company targets.\n\nAs a detailed, country-level policy pathway, CIPP provides valuable information for comparing companies to Indonesia-specific trajectories. Misalignment to the CIPP pathway may be a useful indicator of potential future risks such as noncompliance with evolving energy policies or reduced competitiveness where low-carbon technologies are prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. As the CIPP pathway includes measures that have not yet been implemented, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness.\n\nThe CIPP pathway includes five-year resolution projections for generation and capacity using a moderately detailed breakdown by energy sources including coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. The CIPP pathway is limited to on-grid generation, and users interested in companies with significant captive power assets should be cautious in making direct comparisons. Due to its country-specific nature, the CIPP pathway has limited applicability to companies with diversified operations across multiple geographies, but it offers greater detail and specificity for companies in Indonesia, as compared to global or regional pathways.",
+  "pathwayDescription": "The Indonesia JETP Comprehensive Investment and Policy Plan (CIPP) outlines a conditional decarbonization pathway for the Indonesian power sector. Developed under the Just Energy Transition Partnership (JETP), it defines the targets, investment requirements, and enabling policies needed to meet Indonesia’s stated energy transition goals. The CIPP is a non-binding strategy document that does not model a global temperature outcome, but it does provide quantitative benchmarks for Indonesia’s transition to a net-zero power system.\n\nThe pathway outlines a rapid pace of power grid transition, with renewables rising to 44% of on-grid generation by 2030. The pathway limits grid emissions to 250 Mt by 2030, with continued significant declines through 2050.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -53,23 +56,138 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "Significant increase",
-    "electrification": "No information",
-    "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Target technology shares",
-      "Subsidies",
-      "Performance standards",
-      "Other"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Significant decrease"
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage", "CCUS", "Green H2/ammonia"],
-    "investmentNeeds": "By tech, part of value chain"
-  }
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards",
+          "Other"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "CO2"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": [
+          "Green H2/ammonia",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "By tech, part of value chain"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Policies are reformed to support renewables scaling and coal phased down. RE/VRE target shares and phaseout/early retirement targets are embedded. Market-policy drivers: LCR reform, bankable PPAs/procurement and removal of coal price distortions are policy enablers.",
+    "emissionsTargets": "The pathway uses an on-grid CO2 emissions cap of 250 Mt in 2030, a reduction to 175 Mt by 2040, and near net-zero emissions by 2050. This is a central normative constraint.",
+    "technologyCosts": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive new generation options by 2030.",
+    "investmentChange": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive new generation options by 2030.",
+    "macroeconomicDrivers": "Estimates from the Ministry of Energy and Mineral Resources point to 6% GDP growth p.a. until 2030, 7% p.a. from 2030 to 2040, and then a convergence to high income countries between 2040 and 2050, while the population is estimated to grow from 276 mio. in 2022 to 324 mio. in 2050. Electricity demand growth is an important inpu in the JETP, with an assumed 6.0% annual demand growth including captive connections.",
+    "behavioralShifts": null,
+    "otherDrivers": "Grid integration and system flexibility are major additional drivers: transmission follows RUPTL to 2030, large-island interconnection starts from 2029, coal flexible utilization is explicitly included, and storage grows to 38 GW by 2050. Captive load connections affect demand, while captive generation decarbonization is planned separately."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The pathway depends on a policy package to enable grid decarbonization and coal phase-down, including an emissions cap, RE/VRE share targets, early coal retirement/managed phase-out, LCR reform, procurement/PPA reform, PLN financial sustainability and financial-policy support. These policies are intended to lower renewable costs, expose coal's true cost and make renewable procurement/investment bankable.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Regulatory reform is a binding enabler for renewable procurement and coal phase-out. The pathway calls for LCR reform, competitive procurement, bankable PPAs, legal clarity for early retirement and flexible coal use and captive power decarbonization. THese regulatory reforms affect pace and financeability of renewables scale up and coal phase-out.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The JETP agreement includes US$ 20bn in required investments, half of which are committed through public funding and half of which are meant to be privately finacned. A GFANZ working group including international financial institutions aims to mobilize that private capital and the expected financing structures are manifold from plain public and private financing instruments, to blended finance and philantropic grants.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "The pathway treats just transition and equitable risk/opportunity sharing as necessary for implementation, especially for communities and workers affected by coal phase-out and project deployment, but does not quantify the impacts in detail.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The pathway outcome depends on power transmission/distribution expansion, large-island interconnections, grid-scale energy storage and operational flexibility to integrate 38 GW variable RE by 2030 and 309 GW by 2050. It identifies grid forecasting, merit-order dispatch, new substations and transmission capacity, energy storage and ancillary services, demand response, and digitalization as required over time.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Technology readiness/deployment is material for storage, solar/wind scale-up, nuclear, and later low-carbon fuels for repurposed coal/gas plants. Hydrogen-based fuels grow to 81.4 TWh generation and 31.4 GW capacity by 2050, while aggregate storage reaches 38 GW. Both are currently non-existent on the Indonesian energy mix.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Labor/skills and job-transition needs are relevant because coal phase-down and renewable supply-chain development affect employment. Additional investment is projected to create over 400000 new jobs by 2030, but the CIPP acknowledges that phaseout of coal power will requrie re-skilling programs to cushion the impact of job losses in that area.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ]
 }

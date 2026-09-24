@@ -14,6 +14,7 @@ import {
   selectedGeographyToISO,
 } from "./filterRegions";
 import { matchesOptionalFacetAny, matchesOptionalFacetAll } from "./facets";
+import { entryValues, valuesInScope } from "./keyFeatureScope";
 import { ABSENT_FILTER_TOKEN } from "./absent";
 import { buildOptionsFromValues, hasAbsent, withAbsentOption } from "./facets";
 import { sortPathwayType } from "./sortUtils";
@@ -81,15 +82,28 @@ export function getGlobalFacetOptions(pathways: PathwayMetadataType[]) {
     pathways.map((d) => d.metric).flat(),
   );
 
-  // emissionsTrajectory
-  const emissionsTrajectoryOptions = buildOptionsFromValues(
-    pathways.map((d) => d.keyFeatures.emissionsTrajectory).flat(),
-  );
+  // emissionsTrajectory / policyAmbition (#858: scoped entries, not scalars).
+  // Options are the union of the values across every scope a pathway declares —
+  // deliberately unfiltered, so the dropdown lists everything selectable rather
+  // than shifting as the user narrows sector/geography.
+  //
+  // The ABSENT bucket has to be added explicitly, as it is for sectors below. In
+  // v1 a pathway missing the field contributed `undefined`, which
+  // buildOptionsFromValues read as absent; in v2 an empty entries array
+  // contributes *no* elements, so nothing would signal absence and the "None"
+  // option would vanish even though the filter still honours the token.
+  const scopedFacetOptions = (
+    field: "emissionsTrajectory" | "policyAmbition",
+  ) => {
+    const values = pathways.map((d) => entryValues(d.keyFeatures?.[field]));
+    return withAbsentOption(
+      buildOptionsFromValues(values.flat()),
+      values.some((v) => v.length === 0),
+    );
+  };
 
-  // Policy ambition
-  const policyAmbitionOptions = buildOptionsFromValues(
-    pathways.map((d) => d.keyFeatures.policyAmbition).flat(),
-  );
+  const emissionsTrajectoryOptions = scopedFacetOptions("emissionsTrajectory");
+  const policyAmbitionOptions = scopedFacetOptions("policyAmbition");
 
   const dataAvailabilityOptions = buildOptionsFromValues(
     pathways.map((d) => availabilityFor(d)).flat(),
@@ -435,68 +449,45 @@ export const filterPathways = (
       if (!ok) return false;
     }
 
-    // emissionsTrajectory filter
+    // emissionsTrajectory / policyAmbition filters (#858).
+    //
+    // These two are keyFeature fields *and* search facets. In v1 each held one
+    // scalar; in v2 each holds scoped {sector, geography, value} entries, so a
+    // pathway can carry several values at once and the question becomes "which
+    // value, at which scope?".
+    //
+    // Answer, per the product decision: the value at the scope the user is
+    // looking at. `valuesInScope` narrows the entries to those whose scope
+    // contains the active sector/geography selection, and matching then works
+    // exactly like the sector and metric facets above — an ANY/ALL match over a
+    // list of values, with an empty list treated as the ABSENT bucket. A pathway
+    // holding the selected value only at some *other* scope is not a match.
+    //
+    // Containment only: no fallback ranking, no "how far did we broaden" cost.
+    // That is #869, and it is what will turn a non-match at the queried scope
+    // into a ranked broader-scope match rather than an exclusion.
     {
-      const selected = toArray(filters.emissionsTrajectory);
-      if (selected.length) {
-        const hasAbsent = selected.includes(ABSENT_FILTER_TOKEN);
-        const concrete = selected.filter((t) => t !== ABSENT_FILTER_TOKEN);
-        const v = pathway.keyFeatures?.emissionsTrajectory ?? null;
-        const mode = pickMode("emissionsTrajectory", filters.modes);
-        let ok = true;
+      const scopeQuery = {
+        sectors: toArray(filters.sector),
+        geographies: toArray(filters.geography),
+      };
+      const scopedFacetOk = (
+        facet: "emissionsTrajectory" | "policyAmbition",
+      ): boolean => {
+        const selected = toArray(filters[facet]);
+        if (selected.length === 0) return true;
+        const values = valuesInScope(
+          pathway.keyFeatures?.[facet],
+          scopeQuery,
+          pathway,
+        );
+        return pickMode(facet, filters.modes) === "ALL"
+          ? matchesOptionalFacetAll(selected, values, (s) => s)
+          : matchesOptionalFacetAny(selected, values, (s) => s);
+      };
 
-        if (mode === "ANY") {
-          ok =
-            (v == null && hasAbsent) ||
-            (v != null && (concrete.length ? concrete.includes(v) : false));
-        } else {
-          // ALL: for single-valued fields, all selected tokens must hold.
-          // That is only possible when exactly one token is selected:
-          //  - [ABSENT]  -> v == null
-          //  - [X]       -> v == X
-          // Any combination (ABSENT + X, or X + Y) cannot be satisfied.
-          if (hasAbsent && concrete.length === 0) {
-            ok = v == null;
-          } else if (!hasAbsent && concrete.length === 1) {
-            ok = v != null && v === concrete[0];
-          } else {
-            ok = false;
-          }
-        }
-        if (!ok) return false;
-      }
-    }
-
-    // policyAmbition filter
-    {
-      const selected = toArray(filters.policyAmbition);
-      if (selected.length) {
-        const hasAbsent = selected.includes(ABSENT_FILTER_TOKEN);
-        const concrete = selected.filter((t) => t !== ABSENT_FILTER_TOKEN);
-        const v = pathway.keyFeatures?.policyAmbition ?? null;
-        const mode = pickMode("policyAmbition", filters.modes);
-        let ok = true;
-
-        if (mode === "ANY") {
-          ok =
-            (v == null && hasAbsent) ||
-            (v != null && (concrete.length ? concrete.includes(v) : false));
-        } else {
-          // ALL: for single-valued fields, all selected tokens must hold.
-          // That is only possible when exactly one token is selected:
-          //  - [ABSENT]  -> v == null
-          //  - [X]       -> v == X
-          // Any combination (ABSENT + X, or X + Y) cannot be satisfied.
-          if (hasAbsent && concrete.length === 0) {
-            ok = v == null;
-          } else if (!hasAbsent && concrete.length === 1) {
-            ok = v != null && v === concrete[0];
-          } else {
-            ok = false;
-          }
-        }
-        if (!ok) return false;
-      }
+      if (!scopedFacetOk("emissionsTrajectory")) return false;
+      if (!scopedFacetOk("policyAmbition")) return false;
     }
 
     // dataAvailability filter

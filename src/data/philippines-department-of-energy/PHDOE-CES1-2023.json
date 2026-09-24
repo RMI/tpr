@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "PHDOE-CES1-2023",
   "publication": {
     "title": {
@@ -28,28 +28,20 @@
   "geography": {
     "country": ["PH"]
   },
-  "pathwayType": "Exploratory",
+  "pathwayType": "Normative",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Nuclear",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Renewables",
-        "Other"
-      ]
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
     }
   ],
-  "pathwayOverview": "The CES1 scenario forecasts more than 50% of renewables generation by 2050. Nuclear capacity is added from 2032 to achieve this, along with 19GW of offshore wind, following the NREP. CES1 also targets higher adoption of low carbon solutions: EV penetration of 50% in 2040, a 10% reduction in energy use based on energy efficiency and conservation (EEC) actions, and a 5% biofuel blending. CES1 and CES2 have the same assumptions except offshore wind buildout.",
-  "expertOverview": "#### Pathway Description\n\nThe Clean Energy Scenario 1 (CES1) is an explorative power sector pathway for the Philippines developed by the Philippines Department of Energy (DoE) that builds on the assumptions of the Reference scenario. The Pathway includes the National Renewable Energy Program’s (NREP) power generation mix target of 50% renewable energy by 2040, and adds expanded build out of renewable energy capacity through 2050, including a major tranche of 19 GW of offshore wind capacity. Nuclear capacity is added to the grid and the lifetime of coal power plants is capped.\n\nThe CES 1 pathway makes strong socio-economic assumptions, with annual real GDP growth averaging well over 6% until 2050 driving significant increases in energy demand. As a result, emissions continue to grow, although at a significantly lower rate than in the DoE’s Reference scenario. Coal generation quickly plateaus, while natural gas and oil consumption continue to rise, driven by industry, transport, and other end-use sectors.\n\n#### Core Drivers\n\nThe CES1 pathway is driven primarily by increased policy support for renewable generation and low-carbon technology, alongside continued economic growth and declining technology costs.\n\n*Policies:* Increased policy support for EVs, biofuel blending mandates, and energy efficiency initiatives all help reduce energy intensity. The capacities planned under the Power Development Plan in line with NREP and Competitive Renewable Energy Zone (CREZ) programs cause significant renewable energy expansion and make it accessible to wider parts of the country. The CES1 pathway also includes achieving all regional energy efficiency targets. \n\n*Technology costs:* Technology costs start at the 2022 level of the National Renewable Energy Laboratory database. Declining technology costs of varying degrees help make renewable energy and enabling infrastructure more cost effective, with particularly sharp decreases in battery storage, solar, and onshore wind.\n\n*Demand shifts, investment needs, and technology deployment:* In terms of total final energy consumption, demand for electricity grows faster than demand for any other energy carrier. Bio-diesel demand also grows substantially, and notably faster than in the reference scenario, which corresponds to the higher blending rate mandate. The corresponding increase in investment requirements grows most heavily in renewable energy generation as well as downstream end uses and related infrastructure, such as EVs, EV-charging stations, and battery energy storage systems.\n\n#### Application to Transition Assessment\n\nThe CES1 is an exploratory pathway that is designed to demonstrate options for a faster decarbonization of the Philippine energy sector, with assumptions that are more ambitious than current and legislated policies. As a country-level pathway, the CES1 pathway does not model a global temperature rise and as such should not be used to directly set or measure temperature alignment targets. However, as a detailed projection of aspirational policy targets, it may be a relevant benchmark for the ambition of company targets.\n\nAs a detailed, country-level policy pathway, CES1 provides valuable information for comparing companies to Philippines-specific trajectories. Misalignment to the CES1 pathway may be a useful indicator of potential future risks such as non-compliance with evolving energy policies or reduced competitiveness where low-carbon technologies are being prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. As the CES1 pathway includes aspirational policies and targets which have not yet been implemented misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. Alignment to the CES1 pathway gives a stronger indication that a company is keeping pace with national ambition than alignment to a more limited policy pathway such as the Reference pathway.\n\nDue to its detailed modeling of current and future technology, market, and economic trends, the CES1 pathway provides useful information for contextualizing the technological and commercial feasibility of company strategies.\n\nThe CES1 pathway includes year-by-year projections for generation and capacity using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. As a country-specific pathway, the CES1 pathway has limited applicability to companies with diversified operations across multiple geographies, but offers excellent detail for companies in the Philippines.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -58,16 +50,26 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Moderate increase",
-    "energyEfficiency": "Significant improvement",
-    "energyDemand": "Significant increase",
-    "electrification": "Moderate increase",
-    "policyTypes": ["Subsidies", "Target technology shares", "Other"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (unspecified GHGs)",
-    "policyAmbition": "Current and drafted policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "By sector, part of value chain"
-  }
+    "emissionsTrajectory": [],
+    "energyEfficiency": [],
+    "energyDemand": [],
+    "electrification": [],
+    "policyTypes": [],
+    "technologyCostTrend": [],
+    "emissionsScope": [],
+    "policyAmbition": [],
+    "technologyCostsDetail": [],
+    "newTechnologiesIncluded": [],
+    "investmentNeeds": []
+  },
+  "coreDrivers": {
+    "policies": "Enhanced energy-efficiency, renewable-energy, alternative-fuel and emerging-technology measures supporting the NDC.",
+    "emissionsTargets": "21.7% cumulative reduction from REF and energy-sector emissions offset by 2037.",
+    "technologyCosts": "Affordability, financing and aggregate build cost for clean-energy technologies.",
+    "investmentChange": "Part of a collective USD477.4 billion CES1/CES2 build requirement.",
+    "macroeconomicDrivers": "Clean transition balanced with affordability, reliability, energy security and development.",
+    "behavioralShifts": "Stronger implementation of energy-efficiency practices and stakeholder participation.",
+    "otherDrivers": "Climate finance, technology transfer, institutional capacity and resilience."
+  },
+  "dependencies": []
 }

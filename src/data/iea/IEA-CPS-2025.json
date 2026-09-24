@@ -1,0 +1,506 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "IEA-CPS-2025",
+  "publication": {
+    "title": {
+      "full": "World Energy Outlook 2025",
+      "short": "WEO"
+    },
+    "publisher": {
+      "full": "International Energy Agency",
+      "short": "IEA"
+    },
+    "year": 2025,
+    "city": "Paris",
+    "license": "CC BY-NC-SA 4.0",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.iea.org/reports/world-energy-outlook-2025"
+      },
+      {
+        "description": "Dataset",
+        "url": "https://www.iea.org/data-and-statistics/data-product/world-energy-outlook-2025-free-dataset"
+      }
+    ]
+  },
+  "name": {
+    "full": "Current Policies Scenario",
+    "short": "CPS"
+  },
+  "description": "Legislated-policy WEO pathway; cautious technology uptake.",
+  "geography": {
+    "global": true,
+    "regions": {
+      "Africa": [
+        "DZ",
+        "EG",
+        "LY",
+        "MA",
+        "TN",
+        "AO",
+        "BJ",
+        "BW",
+        "CM",
+        "CI",
+        "CD",
+        "GQ",
+        "ER",
+        "ET",
+        "GA",
+        "GH",
+        "KE",
+        "SZ",
+        "MG",
+        "MU",
+        "MZ",
+        "NA",
+        "NE",
+        "NG",
+        "CG",
+        "RW",
+        "SN",
+        "ZA",
+        "SS",
+        "SD",
+        "TZ",
+        "TG",
+        "UG",
+        "ZM",
+        "ZW"
+      ],
+      "Asia Pacific": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN",
+        "AU",
+        "BD",
+        "KP",
+        "IN",
+        "JP",
+        "KR",
+        "MN",
+        "NP",
+        "NZ",
+        "PK",
+        "CN",
+        "LK",
+        "TW"
+      ],
+      "Atlantic Basin": [],
+      "Brazil": ["BR"],
+      "Central and South America": [
+        "AR",
+        "BO",
+        "VE",
+        "BR",
+        "CL",
+        "CO",
+        "CR",
+        "CU",
+        "CW",
+        "DO",
+        "EC",
+        "SV",
+        "GT",
+        "GY",
+        "HT",
+        "HN",
+        "JM",
+        "NI",
+        "PA",
+        "PY",
+        "PE",
+        "SR",
+        "TT",
+        "UY"
+      ],
+      "China": ["CN", "HK"],
+      "East of Suez": [],
+      "Eurasia": ["AM", "AZ", "GE", "KZ", "KG", "TJ", "TM", "UZ", "RU"],
+      "Europe": [
+        "AL",
+        "BY",
+        "BA",
+        "GI",
+        "IS",
+        "IL",
+        "ME",
+        "MK",
+        "NO",
+        "MD",
+        "RS",
+        "CH",
+        "TR",
+        "UA",
+        "GB",
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
+      "European Union": [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
+      "India": ["IN"],
+      "Japan": ["JP"],
+      "Japan and Korea": ["JP", "KR"],
+      "Middle East": [
+        "BH",
+        "IR",
+        "IQ",
+        "JO",
+        "KW",
+        "LB",
+        "OM",
+        "QA",
+        "SA",
+        "SY",
+        "AE",
+        "YE"
+      ],
+      "Non-OPEC plus": [],
+      "North America": ["CA", "MX", "US"],
+      "OPECplus": [
+        "DZ",
+        "AO",
+        "VE",
+        "GQ",
+        "GA",
+        "IQ",
+        "IR",
+        "KW",
+        "LY",
+        "NG",
+        "CG",
+        "SA",
+        "AE",
+        "AZ",
+        "BH",
+        "BN",
+        "KZ",
+        "MY",
+        "MX",
+        "OM",
+        "RU",
+        "SS",
+        "SD"
+      ],
+      "Russia": ["RU"],
+      "Southeast Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ],
+      "United States": ["US"]
+    }
+  },
+  "pathwayType": "Predictive",
+  "modelTempIncrease": 2.9,
+  "modelYearStart": 2024,
+  "modelYearEnd": 2050,
+  "sectors": [
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Renewables",
+        "Other"
+      ]
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "The Announced Pledges Scenario (APS) provides a pathway in which all countries achieve their aspirational energy transition goals, including national and regional net zero emissions pledges, in addition to their currently legislated policies. As an exploratory scenario, APS provides a detailed description of a possible future, but does not attempt to predict which announced policies will be implemented. The APS pathway corresponds to 1.7°C of warming by 2100 (50% probability). This is significantly lower than the IEA’s current policies scenario (STEPS), which forecasts 2.4°C of warming by 2100 (50% probability), but still higher than the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability). This indicates that the policies and pledges incorporated into APS significantly increase the pace of the transition compared to status quo conditions.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Minor decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Significant improvement"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Minor increase"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": [
+          "Carbon price",
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Feed-in tariffs",
+          "Performance standards",
+          "Other"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "CO2"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "cross-sector",
+        "geography": "Global",
+        "value": "By tech, part of value chain"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "By tech, part of value chain"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "CPS is driven by a narrow reading of current, adopted policy instruments: existing carbon prices, standards, subsidies, technology targets, phaseout dates, tariffs/rate design and other regulation are applied only where legislated.",
+    "emissionsTargets": null,
+    "technologyCosts": "Technology costs affect deployment through the GEC modelling framework; clean technology learning occurs over time, but CPS has slower deployment and higher fossil fuel demand/resource-cost pressure than STEPS/NZE.",
+    "investmentChange": "Average annual energy investment in 2025-2035 remains broadly similar to 2024 levels, with higher upstream oil and gas needs than STEPS because fossil fuel demand is stronger.",
+    "macroeconomicDrivers": "GDP and population assumptions are common across scenarios and help drive rising energy-service demand; CPS shows higher final energy demand because efficiency and clean-technology uptake are more cautious.",
+    "behavioralShifts": null,
+    "otherDrivers": "Energy security, slower grid integration and technology supply-chain constraints are prominent drivers; the CPS assumes higher grid integration challenges and slower adoption of new technologies."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Moderate: Existing legislated policy support enables some renewables, storage and efficiency gains, but no policy strengthening after expiry makes policy support less binding for accelerated power decarbonisation. Mode: Explicit.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "High: Slower grid integration and permitting/market constraints materially slow renewables and storage deployment in the power sector. Mode: Explicit and quantitative proxy.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Moderate: Higher fossil fuel demand and prices keep gas/coal more relevant in power; declining clean-technology costs still support renewables, but at a slower pace than STEPS. Mode: Quantitative proxy.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Low: Public acceptance is not identified as a dominant CPS power constraint, but siting/permitting for grids, renewables and nuclear could slow projects. Mode: Scenario-design inference.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Low: Demand-side flexibility and smart charging are helpful but less binding in CPS because end-use electrification is slower than STEPS/NZE. Mode: Quantitative proxy.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "High: Grid, storage and flexibility infrastructure constrain deployment; CPS still requires about 1 400 GW of battery capacity by 2035 and faces rising peak demand. Mode: Quantitative proxy.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Moderate: CPS assumes no major breakthroughs and slower deployment/integration of new energy technologies, limiting the pace of low-emissions power transformation. Mode: Explicit.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Moderate: Critical mineral and clean technology supply chains are concentrated, but lower CPS transition demand reduces volume pressure while keeping concentration risk higher. Mode: Explicit.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "High: Higher long-run warming raises weather-related reliability risks for power grids, thermal plants, hydropower and cooling-driven peaks. Mode: Explicit.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Cannot assess: The pathway implies grid, storage and generation workforce needs, but the attached materials do not provide pathway-specific labor bottlenecks for Power. Mode: Scenario-design inference.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ]
+}
