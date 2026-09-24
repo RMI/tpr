@@ -1,0 +1,76 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "id": "UNSDSN-CW-EXP-ID-2025",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Optimizing Indonesia's Power Sector Decarbonization"
+    },
+    "author": [
+      "Alin Halimatussadiah",
+      "Muhammad Yudha Pratama",
+      "Rafika Farah Maulia",
+      "Sarah Natalia Gultom",
+      "Ali Kafiyatullah"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2025,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/Indonesia%20Phase%202.1%20%26%202.2%20Report%20-%20Finalised.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Existing Policy Scenario ID",
+    "short": "EXP ID"
+  },
+  "description": "Indonesia-specific current policies pathway. Slow decarbonization and fossil reliance through 2060.",
+  "geography": ["ID"],
+  "pathwayType": "Predictive",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2060,
+  "ssp": "SSP2",
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
+    }
+  ],
+  "expertOverview": "#### Pathway Description\n\nThe Existing Policies Pathway (EXP) reflects a continuation of Indonesia’s currently implemented energy and electrification policies. It does not assume any acceleration beyond today’s mandates, nor does it incorporate early coal retirements or enhanced renewable energy deployment beyond those embedded in the National Electricity Supply Plan (RUKN). \n\nThe EXP produces an energy mix characterized by slow diversification. Coal-fired power plant capacity continues to expand in line with the RUKN, with no early retirement actions incorporated. Renewable energy capacity rises but not at a pace sufficient to structurally shift system reliance away from fossil fuels.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nThis pathway is shaped by moderate socioeconomic growth, limited policy intervention, and incremental technology shifts. \n\n*Policies:* Existing policies and regulations guide system development, but they do not provide sufficient incentives to accelerate coal phaseout or catalyze large-scale renewable deployment.\n\n*Socioeconomic trends:* Demand growth is led by residential and services sectors, while industrial electrification remains limited, resulting in modest overall system transformation.\n\n#### Application to Transition Assessment\n\nThe EXP serves as a conservative reference case that enables financial institutions to understand corporate exposure in a slow-transition environment. The pathway is particularly relevant for evaluating technology and market feasibility in the current environment if existing trends persist. \n\nAlignment of investments with the EXP implies alignment with the status quo. This sets a floor on the level of ambition for companies in Indonesia, and could highlight potential transition risks for companies moving even slower than this pathway projects. Likewise, the EXP can indicate where companies are moving well ahead of what is projected in the current environment, and flag potential risks from the current lack of supportive policies.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": "Moderate decrease",
+    "energyEfficiency": "No information",
+    "energyDemand": "No information",
+    "electrification": "No information",
+    "policyTypes": ["Target technology shares"],
+    "technologyCostTrend": "No information",
+    "technologyDeploymentTrend": "No new technologies deployed",
+    "emissionsScope": "CO2e (Kyoto)",
+    "policyAmbition": "Current and drafted policies",
+    "technologyCostsDetail": "No information",
+    "newTechnologiesIncluded": ["No new technologies"],
+    "supplyChain": "No information",
+    "investmentNeeds": "No information",
+    "infrastructureRequirements": "No information"
+  }
+}
