@@ -1,7 +1,8 @@
 import React, { useRef } from "react";
 import { Link } from "react-router";
-import AccordionItem from "../../components/AccordionItem";
+import InfoCallout from "../../components/InfoCallout";
 import OnPageIndex from "../../components/OnPageIndex";
+import PageHeader from "../../components/PageHeader";
 
 const quickStartCards = [
   {
@@ -44,24 +45,24 @@ const QuickStartCard: React.FC<{
   priorities: string[];
 }> = ({ title, priorities }) => {
   return (
-    <article className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-      <div className="border-b border-neutral-200 bg-gradient-to-r from-rmiblue-50 via-white to-white p-5 md:p-6">
-        <h3 className="text-xl font-semibold leading-8 text-rmigray-800">
+    <article className="overflow-hidden rounded-lg border border-rmiblue-200 bg-white shadow-sm">
+      <div className="border-b border-rmiblue-200 p-6">
+        <h3 className="text-lg font-semibold leading-8 text-rmigray-800">
           {title}
         </h3>
       </div>
 
-      <div className="p-6 md:p-7">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
+      <div className="p-6">
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-800">
           Prioritize
         </p>
         <ul className="mt-4 space-y-3 text-rmigray-700">
           {priorities.map((priority) => (
             <li
               key={priority}
-              className="flex gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-4"
+              className="flex gap-3"
             >
-              <span className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-energy-700" />
+              <span className="mt-2.5 h-2 w-2 flex-none rounded-full bg-energy-700" />
               <span className="leading-7">{priority}</span>
             </li>
           ))}
@@ -71,33 +72,33 @@ const QuickStartCard: React.FC<{
   );
 };
 
-const CollapsibleRow: React.FC<{
+/**
+ * One of the five steps. Always visible — the step used to be collapsed
+ * behind a disclosure button, which also kept it out of the on-page index
+ * (#955). The "Step N" label sits outside the heading so the index entry
+ * reads as the step's title alone.
+ */
+const Step: React.FC<{
+  id: string;
+  label: string;
   title: string;
   children: React.ReactNode;
-}> = ({ title, children }) => {
-  const [stepLabel, ...titleParts] = title.split(": ");
-  const heading = titleParts.join(": ");
-
-  return (
-    <AccordionItem
-      header={
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-700">
-            {stepLabel}
-          </p>
-          <span className="mt-3 block text-xl font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-            {heading}
-          </span>
-        </div>
-      }
-      panelClassName="mt-5 rounded-2xl border border-neutral-200 bg-neutral-50 p-5 text-rmigray-700 leading-7"
+}> = ({ id, label, title, children }) => (
+  <div className="mt-10">
+    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-800">
+      {label}
+    </p>
+    <h3
+      id={id}
+      className="mt-2 scroll-mt-8 text-lg font-semibold text-rmigray-800"
     >
-      <div className="[&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>p+ul]:mt-3 [&>p]:text-rmigray-700">
-        {children}
-      </div>
-    </AccordionItem>
-  );
-};
+      {title}
+    </h3>
+    <div className="mt-4 max-w-3xl text-rmigray-700 leading-7 [&>ul]:list-disc [&>ul]:pl-5 [&>ul]:space-y-1 [&>p+ul]:mt-3">
+      {children}
+    </div>
+  </div>
+);
 
 const GuideScreenshot: React.FC<{ src: string; alt: string }> = ({
   src,
@@ -107,17 +108,19 @@ const GuideScreenshot: React.FC<{ src: string; alt: string }> = ({
     src={src}
     alt={alt}
     loading="lazy"
-    className="w-full rounded-xl border border-neutral-200 shadow-sm"
+    className="w-full rounded-md border border-neutral-200 shadow-sm"
   />
 );
 
 type Guide = {
+  id: string;
   title: string;
   content: React.ReactNode;
 };
 
 const guides: Guide[] = [
   {
+    id: "how-to-compare-pathways",
     title: "How to compare pathways using the TPR",
     content: (
       <>
@@ -225,17 +228,18 @@ const guides: Guide[] = [
   },
 ];
 
-const GuideItemBlock: React.FC<Guide> = ({ title, content }) => (
-  <AccordionItem
-    header={
-      <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-        {title}
-      </span>
-    }
-    panelClassName="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
-  >
-    <div className="space-y-4 leading-7">{content}</div>
-  </AccordionItem>
+const GuideItemBlock: React.FC<Guide> = ({ id, title, content }) => (
+  <div className="mt-8">
+    <h3
+      id={id}
+      className="scroll-mt-8 text-lg font-semibold text-rmigray-800"
+    >
+      {title}
+    </h3>
+    <div className="mt-4 max-w-3xl space-y-4 leading-7 text-rmigray-700">
+      {content}
+    </div>
+  </div>
 );
 
 const ResourcesHowToChooseAPathwayPage: React.FC = () => {
@@ -243,54 +247,40 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
 
   return (
     <div className="bg-gray-50">
-      <div className="container mx-auto px-4 py-8 md:py-10">
-        <section className="relative overflow-hidden rounded-[1.75rem] bg-rmiblue-800 px-6 py-8 text-white shadow-lg md:px-10 md:py-11">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-energy-700/10" />
-          <div className="absolute -right-10 top-0 h-32 w-32 rounded-full bg-white/7 blur-2xl" />
-          <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-energy-500/8 blur-2xl" />
+      <PageHeader
+        title="How to Choose a Pathway"
+        subtitle="Five steps to identify the pathways that fit your assessment question"
+      >
+        <p>
+          Different energy transition pathways answer different questions. A
+          pathway that is useful for assessing company target ambition may not
+          be the best fit for assessing policy exposure or technology
+          feasibility.
+        </p>
+        <p>
+          The Transition Pathways Repository (TPR) helps you compare pathways in
+          a more structured way so you can choose the ones that are most useful
+          for your application.
+        </p>
+      </PageHeader>
 
-          <div className="relative">
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-              How to Choose a Pathway
-            </h1>
-
-            <h2 className="mt-6 text-xl font-semibold leading-8 text-white/95 md:text-2xl">
-              Five steps to identify the pathways that fit your assessment
-              question
-            </h2>
-
-            <div className="mt-8 space-y-4 text-sm leading-7 text-white/85 md:text-base">
-              <p>
-                Different energy transition pathways answer different questions.
-                A pathway that is useful for assessing company target ambition
-                may not be the best fit for assessing policy exposure or
-                technology feasibility.
-              </p>
-              <p>
-                The Transition Pathways Repository (TPR) helps you compare
-                pathways in a more structured way so you can choose the ones
-                that are most useful for your application.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div className="mt-12 xl:mt-14 grid gap-8 xl:grid-cols-[16rem_1fr]">
+      <div className="container mx-auto px-4 pt-6 pb-12">
+        <div className="grid gap-8 xl:grid-cols-[16rem_1fr]">
           <OnPageIndex containerRef={contentRef} />
 
           <div
             ref={contentRef}
-            className="min-w-0"
+            className="min-w-0 max-w-5xl"
           >
-            <section className="mx-auto max-w-5xl rounded-[2rem] bg-white px-6 py-8 shadow-sm md:px-8 md:py-10">
-              <div className="max-w-5xl">
+            <section className="border-b border-neutral-300 py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="five-steps"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Five steps to finding the right pathway
                 </h2>
-                <p className="mt-4 text-rmigray-700 leading-7">
+                <p className="mt-4 max-w-3xl text-rmigray-700 leading-7">
                   Selecting appropriate pathways for a transition-related
                   question follows a straightforward process, as laid out in
                   RMI’s{" "}
@@ -306,164 +296,161 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-8 grid max-w-5xl gap-8 xl:grid-cols-[1.15fr,0.85fr]">
-                <div className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-                  <div className="border-b border-neutral-200 bg-gradient-to-r from-rmiblue-50 via-white to-white p-6 md:p-7">
-                    <h3 className="text-xl font-semibold text-rmigray-800">
-                      The five-step process to selecting a pathway
-                    </h3>
-                  </div>
+              <Step
+                id="define-the-intended-application"
+                label="Step 1"
+                title="Define the intended application"
+              >
+                <p>
+                  The ‘right’ pathway depends on the use case, so it is
+                  important to clarify what question you need the pathway help
+                  answer. This will then inform the decisions made in the
+                  following steps. The more specific you can be, the easier it
+                  will be to narrow down your options.
+                </p>
+                <p className="mt-3">Example questions could include:</p>
+                <ul className="mt-3">
+                  <li>
+                    Are a company’s emissions targets still ambitious given
+                    local policy constraints?
+                  </li>
+                  <li>
+                    Are a company’s solar deployment targets feasible given
+                    local land-use constraints?
+                  </li>
+                  <li>
+                    Is a company on track to align with the NDC targets in the
+                    jurisdictions where they operate?
+                  </li>
+                  <li>
+                    What external constraints are preventing a company from
+                    achieving their transition goals?
+                  </li>
+                </ul>
+              </Step>
 
-                  <div className="divide-y divide-neutral-200/80">
-                    <CollapsibleRow title="Step 1: Define the intended application">
-                      <p>
-                        The ‘right’ pathway depends on the use case, so it is
-                        important to clarify what question you need the pathway
-                        help answer. This will then inform the decisions made in
-                        the following steps. The more specific you can be, the
-                        easier it will be to narrow down your options.
-                      </p>
-                      <p className="mt-3">Example questions could include:</p>
-                      <ul className="mt-3">
-                        <li>
-                          Are a company’s emissions targets still ambitious
-                          given local policy constraints?
-                        </li>
-                        <li>
-                          Are a company’s solar deployment targets feasible
-                          given local land-use constraints?
-                        </li>
-                        <li>
-                          Is a company on track to align with the NDC targets in
-                          the jurisdictions where they operate?
-                        </li>
-                        <li>
-                          What external constraints are preventing a company
-                          from achieving their transition goals?
-                        </li>
-                      </ul>
-                    </CollapsibleRow>
+              <Step
+                id="check-credibility"
+                label="Step 2"
+                title="Check credibility"
+              >
+                <p>
+                  Review who produced the pathway and whether it was developed
+                  through a robust process.
+                </p>
+                <p className="mt-3">Useful questions include:</p>
+                <ul className="mt-3">
+                  <li>
+                    Was it developed by an organization with strong technical
+                    expertise?
+                  </li>
+                  <li>Was it reviewed by relevant experts or stakeholders?</li>
+                  <li>Does the methodology appear technically sound?</li>
+                </ul>
+                <p className="mt-3">
+                  Pathways hosted on the TPR are all considered credible
+                  according to these criteria. Note that this does not mean that
+                  experts agree with the outcomes of each pathway, but that for
+                  the input assumptions made, the outputs have been
+                  appropriately modeled.
+                </p>
 
-                    <CollapsibleRow title="Step 2: Check credibility">
-                      <p>
-                        Review who produced the pathway and whether it was
-                        developed through a robust process.
-                      </p>
-                      <p className="mt-3">Useful questions include:</p>
-                      <ul className="mt-3">
-                        <li>
-                          Was it developed by an organization with strong
-                          technical expertise?
-                        </li>
-                        <li>
-                          Was it reviewed by relevant experts or stakeholders?
-                        </li>
-                        <li>Does the methodology appear technically sound?</li>
-                      </ul>
-                      <p className="mt-3">
-                        Pathways hosted on the TPR are all considered credible
-                        according to these criteria. Note that this does not
-                        mean that experts agree with the outcomes of each
-                        pathway, but that for the input assumptions made, the
-                        outputs have been appropriately modeled.
-                      </p>
-                    </CollapsibleRow>
+                <InfoCallout className="mt-6">
+                  <p>
+                    <b>Credible does not mean suitable.</b> Pathway credibility
+                    is necessary, but not sufficient. A pathway can be robust
+                    and well developed, yet still be too broad, too generic, or
+                    missing the benchmark data needed for a given application.
+                  </p>
+                </InfoCallout>
+              </Step>
 
-                    <CollapsibleRow title="Step 3: Review pathway features">
-                      <p>
-                        Look at the main characteristics of the pathway and
-                        evaluate whether they are appropriate for the question
-                        being asked.
-                      </p>
-                      <p className="mt-3">These include:</p>
-                      <ul className="mt-3">
-                        <li>Pathway type,</li>
-                        <li>Temperature outcome,</li>
-                        <li>Sector and geographic scope,</li>
-                        <li>
-                          Main drivers of change (e.g., policies or technology
-                          costs),
-                        </li>
-                        <li>
-                          Trends and outcomes (e.g., technology deployment or
-                          emissions trends).
-                        </li>
-                      </ul>
-                      <p className="mt-3">
-                        These features will help you interpret the results. See
-                        the{" "}
-                        <Link
-                          to="/resources/methodology"
-                          className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
-                        >
-                          <b>Methodology section</b>
-                        </Link>{" "}
-                        for more details.
-                      </p>
-                      <p className="mt-3">
-                        You can find these features in the pathway summary and
-                        key features sections of the TPR.
-                      </p>
-                    </CollapsibleRow>
+              <Step
+                id="review-pathway-features"
+                label="Step 3"
+                title="Review pathway features"
+              >
+                <p>
+                  Look at the main characteristics of the pathway and evaluate
+                  whether they are appropriate for the question being asked.
+                </p>
+                <p className="mt-3">These include:</p>
+                <ul className="mt-3">
+                  <li>Pathway type,</li>
+                  <li>Temperature outcome,</li>
+                  <li>Sector and geographic scope,</li>
+                  <li>
+                    Main drivers of change (e.g., policies or technology costs),
+                  </li>
+                  <li>
+                    Trends and outcomes (e.g., technology deployment or
+                    emissions trends).
+                  </li>
+                </ul>
+                <p className="mt-3">
+                  These features will help you interpret the results. See the{" "}
+                  <Link
+                    to="/resources/methodology"
+                    className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+                  >
+                    <b>Methodology section</b>
+                  </Link>{" "}
+                  for more details.
+                </p>
+                <p className="mt-3">
+                  You can find these features in the pathway summary and key
+                  features sections of the TPR.
+                </p>
+              </Step>
 
-                    <CollapsibleRow title="Step 4: Check granularity">
-                      <p>
-                        Check whether the pathway is granular enough for your
-                        application across:
-                      </p>
-                      <ul className="mt-3">
-                        <li>Geography</li>
-                        <li>Technology</li>
-                        <li>Time</li>
-                      </ul>
-                      <p className="mt-3">
-                        For example, a pathway that groups all renewables
-                        together may not be detailed enough to assess the
-                        feasibility of the rate of geothermal deployment. And a
-                        pathway that provides outputs for Southeast Asia as a
-                        whole may not be granular enough to assess policy risk
-                        in Indonesia.
-                      </p>
-                      <p className="mt-3">
-                        This information is available in the expert overview and
-                        key features of each pathway in the TPR.
-                      </p>
-                    </CollapsibleRow>
+              <Step
+                id="check-granularity"
+                label="Step 4"
+                title="Check granularity"
+              >
+                <p>
+                  Check whether the pathway is granular enough for your
+                  application across:
+                </p>
+                <ul className="mt-3">
+                  <li>Geography</li>
+                  <li>Technology</li>
+                  <li>Time</li>
+                </ul>
+                <p className="mt-3">
+                  For example, a pathway that groups all renewables together may
+                  not be detailed enough to assess the feasibility of the rate
+                  of geothermal deployment. And a pathway that provides outputs
+                  for Southeast Asia as a whole may not be granular enough to
+                  assess policy risk in Indonesia.
+                </p>
+                <p className="mt-3">
+                  This information is available in the expert overview and key
+                  features of each pathway in the TPR.
+                </p>
+              </Step>
 
-                    <CollapsibleRow title="Step 5: Confirm benchmark data availability">
-                      <p>
-                        Finally, check whether the pathway provides the actual
-                        output data you need. A pathway may model a sector in
-                        detail but still not publish the specific benchmark
-                        metrics needed for comparison with company data.
-                      </p>
-                      <p className="mt-3">
-                        You can see what data is available in the pathway expert
-                        overview, as well as the standardized data download in
-                        the TPR.
-                      </p>
-                    </CollapsibleRow>
-                  </div>
-                </div>
-
-                <aside className="self-start rounded-2xl border border-energy-200 bg-neutral-100 p-7 shadow-sm">
-                  <h2 className="text-xl font-semibold text-rmigray-800">
-                    Credible does not mean suitable
-                  </h2>
-                  <div className="mt-5 space-y-4 text-rmigray-700 leading-7">
-                    <p>Pathway credibility is necessary, but not sufficient.</p>
-                    <p>
-                      A pathway can be robust and well developed, yet still be
-                      too broad, too generic, or missing the benchmark data
-                      needed for a given application.
-                    </p>
-                  </div>
-                </aside>
-              </div>
+              <Step
+                id="confirm-benchmark-data-availability"
+                label="Step 5"
+                title="Confirm benchmark data availability"
+              >
+                <p>
+                  Finally, check whether the pathway provides the actual output
+                  data you need. A pathway may model a sector in detail but
+                  still not publish the specific benchmark metrics needed for
+                  comparison with company data.
+                </p>
+                <p className="mt-3">
+                  You can see what data is available in the pathway expert
+                  overview, as well as the standardized data download in the
+                  TPR.
+                </p>
+              </Step>
             </section>
 
-            <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
-              <div className="max-w-5xl">
+            <section className="border-b border-neutral-300 py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="pathway-characteristics"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
@@ -472,7 +459,7 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                 </h2>
               </div>
 
-              <div className="mt-8 grid max-w-5xl grid-cols-1 gap-6 xl:grid-cols-2">
+              <div className="mt-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
                 {quickStartCards.map((card) => (
                   <QuickStartCard
                     key={card.title}
@@ -483,41 +470,38 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
               </div>
             </section>
 
-            <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-rmiblue-100 bg-rmiblue-50/60 px-6 py-8 shadow-sm md:px-8 md:py-10">
-              <div className="max-w-5xl">
+            <section className="border-b border-neutral-300 py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="how-to-guides"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   How-to guides
                 </h2>
-                <p className="mt-4 text-rmigray-700 leading-7">
+                <p className="mt-4 max-w-3xl text-rmigray-700 leading-7">
                   Short click-through guides for specific TPR features.
                 </p>
               </div>
 
-              <div className="mt-8 max-w-5xl overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-                <div className="divide-y divide-neutral-200/80">
-                  {guides.map((guide) => (
-                    <GuideItemBlock
-                      key={guide.title}
-                      title={guide.title}
-                      content={guide.content}
-                    />
-                  ))}
-                </div>
-              </div>
+              {guides.map((guide) => (
+                <GuideItemBlock
+                  key={guide.id}
+                  id={guide.id}
+                  title={guide.title}
+                  content={guide.content}
+                />
+              ))}
             </section>
 
-            <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-neutral-200 bg-neutral-100/80 px-6 py-8 shadow-sm md:px-8 md:py-10">
-              <div className="max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
+            <section className="py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="what-to-do-next"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   What to do next
                 </h2>
-                <ul className="mt-5 list-disc space-y-3 pl-6 text-rmigray-700 marker:text-lg">
+                <ul className="mt-5 max-w-3xl list-disc space-y-3 pl-6 text-rmigray-700 marker:text-lg">
                   <li className="font-semibold leading-7">
                     <Link
                       to="/pathway"

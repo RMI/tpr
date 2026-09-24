@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useRef } from "react";
+import OnPageIndex from "../../components/OnPageIndex";
+import PageHeader from "../../components/PageHeader";
 
 type UpdatePost = {
+  /** Slug used for the post heading's `id`. It is what the on-page index
+   * links to, so keep it stable once a post is published even if the title
+   * is later reworded. */
+  id: string;
   title: string;
   date: string;
   body: React.ReactNode;
@@ -10,6 +16,7 @@ const posts: UpdatePost[] = [
   // Add new posts at the top so the latest update appears first.
   // Example:
   // {
+  //   id: "power-sector-coverage-expanded",
   //   title: "Power sector coverage expanded for Southeast Asia",
   //   date: "May 7, 2026",
   //   body: (
@@ -26,6 +33,7 @@ const posts: UpdatePost[] = [
   //   ),
   // },
   {
+    id: "why-comparing-pathways-matters",
     title: "Why comparing energy transition pathways matters",
     date: "August 27, 2026",
     body: (
@@ -78,10 +86,10 @@ const posts: UpdatePost[] = [
           occurs, which technologies drive it, and how regional conditions
           change implementation.
         </p>
-        <h4 className="text-lg font-semibold text-rmigray-800">
+        <h3 className="text-lg font-semibold text-rmigray-800">
           Insight #1: Global ambition and regional context provide different
           insights
-        </h4>
+        </h3>
         <p>
           IEA NZE and GECO 1.5°C are global pathways. They provide benchmarks
           for understanding the scale and pace of change required to meet
@@ -106,7 +114,7 @@ const posts: UpdatePost[] = [
           src="/updates/how-to-comparison-view-1.png"
           alt="Comparison view showing pathway summary cards and policy assumptions side by side."
           loading="lazy"
-          className="w-full rounded-xl border border-neutral-200 shadow-sm"
+          className="w-full rounded-md border border-neutral-200 shadow-sm"
         />
         <p>
           GECO 1.5°C may be most appropriate for testing whether a Southeast
@@ -121,10 +129,10 @@ const posts: UpdatePost[] = [
           for the question being assessed and where multiple pathways may be
           needed.
         </p>
-        <h4 className="text-lg font-semibold text-rmigray-800">
+        <h3 className="text-lg font-semibold text-rmigray-800">
           Insight #2: Similar pathway goals can produce different regional
           benchmarks
-        </h4>
+        </h3>
         <p>
           Comparing GECO 1.5°C and ACE CNS at the Southeast Asia regional level
           shows that pathways with similarly ambitious long-term goals can still
@@ -148,7 +156,7 @@ const posts: UpdatePost[] = [
           src="/updates/how-to-comparison-view-2.png"
           alt="Comparison view showing pathway summary cards and benchmark capacity plots side by side."
           loading="lazy"
-          className="w-full rounded-xl border border-neutral-200 shadow-sm"
+          className="w-full rounded-md border border-neutral-200 shadow-sm"
         />
         <p>
           These differences reflect the pathways’ assumptions around regional
@@ -188,6 +196,7 @@ const posts: UpdatePost[] = [
     ),
   },
   {
+    id: "four-lessons-southeast-asia-power",
     title:
       "Four lessons learned from evaluating the transition pathway landscape in the Southeast Asia power sector",
     date: "May 15, 2026",
@@ -270,6 +279,7 @@ const posts: UpdatePost[] = [
     ),
   },
   {
+    id: "introducing-the-tpr",
     title:
       "Introducing the Transition Pathways Repository: Making Transition Analysis Actionable",
     date: "December 11, 2025",
@@ -326,67 +336,55 @@ const posts: UpdatePost[] = [
 ];
 
 const ResourcesUpdatesPage: React.FC = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   return (
     <div className="bg-gray-50">
-      <div className="container mx-auto px-4 py-8 md:py-10">
-        <section className="relative overflow-hidden rounded-[1.75rem] bg-rmiblue-800 px-6 py-8 text-white shadow-lg md:px-10 md:py-11">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-energy-700/10" />
-          <div className="absolute -right-10 top-0 h-32 w-32 rounded-full bg-white/7 blur-2xl" />
-          <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-energy-500/8 blur-2xl" />
+      <PageHeader
+        title="Updates"
+        subtitle="Check out the latest from our team on the Transition Pathways Repository (TPR) and its use cases."
+      />
 
-          <div className="relative">
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Updates
-            </h1>
+      <div className="container mx-auto px-4 pt-6 pb-12">
+        {/* Each post is its own top-level heading, so the index doubles as a
+            list of updates. Supersedes the note from #802, which applied
+            when the whole feed sat under a single "Latest updates" h2. */}
+        <div className="grid gap-8 xl:grid-cols-[16rem_1fr]">
+          <OnPageIndex containerRef={contentRef} />
 
-            <p className="mt-6 text-xl font-semibold leading-8 text-white/95 md:text-2xl">
-              Check out the latest from our team on the Transition Pathways
-              Repository (TPR) and its use cases.
-            </p>
-          </div>
-        </section>
-
-        {/* No OnPageIndex on this page (#802): it has only one top-level h2
-            ("Latest updates" below), so a table of contents would have
-            nothing to navigate to. */}
-        <section className="mx-auto mt-12 max-w-5xl">
-          <div className="max-w-5xl">
-            <h2 className="text-2xl font-semibold text-rmigray-800 mt-8">
-              Latest updates
-            </h2>
-          </div>
-
-          {posts.length > 0 ? (
-            <div className="mt-8 max-w-5xl space-y-6">
-              {posts.map((post) => (
+          <div
+            ref={contentRef}
+            className="min-w-0 max-w-5xl"
+          >
+            {posts.length > 0 ? (
+              posts.map((post) => (
                 <article
-                  key={`${post.date}-${post.title}`}
-                  className="rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm"
+                  key={post.id}
+                  className="border-b border-neutral-300 py-10 last:border-b-0"
                 >
-                  <div>
-                    <h3 className="text-2xl font-semibold text-rmigray-800">
-                      {post.title}
-                    </h3>
-                    <p className="mt-2 text-sm font-medium text-rmigray-500">
-                      {post.date}
-                    </p>
-                  </div>
+                  <h2
+                    id={post.id}
+                    className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+                  >
+                    {post.title}
+                  </h2>
+                  <p className="mt-2 text-sm font-medium text-rmigray-500">
+                    {post.date}
+                  </p>
 
-                  <div className="mt-6 space-y-4 text-rmigray-700 leading-7">
+                  <div className="mt-6 max-w-3xl space-y-4 text-rmigray-700 leading-7">
                     {post.body}
                   </div>
                 </article>
-              ))}
-            </div>
-          ) : (
-            <div className="mt-8 max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
+              ))
+            ) : (
               <p className="text-rmigray-700 leading-7">
                 No posts have been added yet. When you are ready, add a new
                 entry to the `posts` array at the top of this file.
               </p>
-            </div>
-          )}
-        </section>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
