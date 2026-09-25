@@ -5,9 +5,10 @@ import type {
   PathwayScopeSelection,
 } from "../types";
 import { pathwayScopeOverlaps } from "../utils/keyFeatureScope";
-import { geographyLabel, normalizeGeography } from "../utils/geographyUtils";
+import { geographyLabel } from "../utils/geographyUtils";
 import { scopeSelectionLabel } from "../utils/scopeLabel";
 import ScopeFilterNotice from "./ScopeFilterNotice";
+import TextWithTooltip from "./TextWithTooltip";
 
 // The per-metric data-availability rows (#870). Derived from the schema type so
 // this stays in lockstep with the metadata contract.
@@ -16,11 +17,6 @@ type ByMetricRow = DataAvailability["byMetric"][number];
 
 interface DataAvailabilityTableProps {
   dataAvailability: PathwayMetadataType["dataAvailability"];
-  /**
-   * Link to the hosted timeseries download. Used to turn an "In tool" row's Data
-   * format cell into a download link; omitted when nothing is hosted.
-   */
-  downloadHref?: string;
   /**
    * The detail page's scope selection (#872). A null axis does not filter, and
    * omitting the prop entirely leaves every row visible.
@@ -33,19 +29,21 @@ interface DataAvailabilityTableProps {
   pathwayGeography?: Geography | null;
 }
 
-// Shown wherever a cell has nothing authored (null granularity / scope, etc.).
-const EMPTY = "—";
-
 /*
-  The scope columns are conditional, using the same data-driven rule
-  DependenciesTable applies: show a column only when the visible rows disagree
-  about it. Filtering to one sector or one geography therefore collapses that
-  column away, since repeating the ribbon's selection on every row is noise —
-  and the notice above the table already names the scope.
+  Sector is a conditional column, using the same data-driven rule
+  DependenciesTable applies: show it only when the visible rows disagree about
+  it. Filtering to one sector therefore collapses it away, since repeating the
+  ribbon's selection on every row is noise — and the notice above the table
+  already names the scope.
 
-  "Geography scope" is deliberately not called "Geography": the existing
-  "Geography coverage" column is a coverage class (Global / Regional /
-  Country), not a scope, and the two must stay tellable apart.
+  Geography does NOT get that treatment, though a separate "Geography scope"
+  column once did. Decision 0021 retired the Global/Regional/Country class that
+  used to fill "Geography coverage", because the cookbook's Geography coverage
+  IS the token list the scope column held -- so the two merged. The surviving
+  column stays unconditional, for two reasons: a row carries several
+  geographies and is matched by overlap, so the cell is not the selection
+  echoed back; and with the column conditional, a pathway with a single
+  availability row would show its geography nowhere at all.
 */
 const BASE_COLUMNS = [
   "Granularity",
@@ -55,50 +53,65 @@ const BASE_COLUMNS = [
   "Data format",
 ] as const;
 
-const formatGranularity = (granularity: ByMetricRow["granularity"]): string =>
-  granularity && granularity.length > 0 ? granularity.join(", ") : EMPTY;
+/*
+  How many geographies a cell shows before collapsing the rest behind an
+  ellipsis. Coverage lists run long -- a pathway projecting one metric per
+  country puts a dozen or more tokens in one cell -- and the first few are
+  enough to tell the row apart at a glance.
+*/
+const GEOGRAPHIES_SHOWN = 3;
 
 /**
- * The Data format cell. "In tool" rows point at the hosted download (the data is
- * the timeseries we serve); publication rows show where the data lives and, when
- * relevant, whether it is paywalled.
+ * A row's geography list as one comparable string.
+ *
+ * `geography` is an array now, so a bare `row.geography` compares by reference:
+ * a Set of them is always the size of the row count, and it interpolates into a
+ * React key by joining anyway. Both call sites want the same value, so it is
+ * named once.
  */
-const DataFormatCell: React.FC<{ row: ByMetricRow; downloadHref?: string }> = ({
-  row,
-  downloadHref,
+const geographyKey = (row: ByMetricRow): string => row.geography.join(",");
+
+/**
+ * The Geography coverage cell: the geographies this metric covers, truncated.
+ *
+ * The full list is in the tooltip rather than the cell because it is the
+ * exception that needs it — most rows carry one or two tokens, and letting the
+ * long ones set the column width would squeeze every other column.
+ */
+const GeographyCell: React.FC<{ geography: ByMetricRow["geography"] }> = ({
+  geography,
 }) => {
-  if (row.dataFormat === "In tool") {
-    return downloadHref ? (
-      <a
-        href={downloadHref}
-        className="text-energy-800 underline hover:text-energy-700"
-      >
-        Download
-      </a>
-    ) : (
-      <span>In tool</span>
-    );
-  }
+  // Country codes become country names; region labels and the sentinels pass
+  // through. Same treatment the geography badges give a token elsewhere.
+  const labels = geography.map(geographyLabel);
+  const all = labels.join(", ");
+  const shown = labels.slice(0, GEOGRAPHIES_SHOWN).join(", ");
+  if (labels.length <= GEOGRAPHIES_SHOWN) return <span>{shown}</span>;
   return (
-    <span>
-      {row.dataFormat}
-      {row.access ? (
-        <span className="text-rmigray-500"> · {row.access}</span>
-      ) : null}
-    </span>
+    <TextWithTooltip
+      text={`${shown}, …`}
+      tooltip={all}
+      ariaLabel={`Geography coverage: ${all}`}
+    />
   );
 };
 
 /**
  * The "Data Availability" table for the Scope & Granularity tab: one row per
- * authored (metric, sector segment, geography) combination describing where and
- * how that metric's data can be obtained (#870). `dataAvailability` is optional
- * and authored incrementally, so an absent or empty set is a normal state, not an
- * error — it renders an explanatory empty state rather than a bare table.
+ * authored (metric, sector segment, geography set) combination describing where
+ * and how that metric's data can be obtained (#870). `dataAvailability` is
+ * optional and authored incrementally, so an absent or empty set is a normal
+ * state, not an error — it renders an explanatory empty state rather than a bare
+ * table.
+ *
+ * Every cell has a value: the cookbook replaces a blank with `Unspecified` (the
+ * pathway does not say) or `Not covered` (the pair is not covered), so there is
+ * no em-dash placeholder here. Nor is there a download link — `dataFormat`
+ * describes the source publication only, and what this tool hosts is shown by
+ * `DownloadDataset` further down the page.
  */
 const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   dataAvailability,
-  downloadHref,
   scope,
   pathwayGeography,
 }) => {
@@ -120,8 +133,13 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   const rows = allRows.filter(
     (row) =>
       (sector === null || row.sector === sector) &&
+      // A row covering several geographies is in scope when *any* of them
+      // overlaps the selection -- the row describes one dataset spanning the
+      // whole list, so matching part of it matches the row.
       (geography === null ||
-        pathwayScopeOverlaps(row.geography, geography, pathwayGeography)),
+        row.geography.some((token) =>
+          pathwayScopeOverlaps(token, geography, pathwayGeography),
+        )),
   );
 
   if (allRows.length === 0) {
@@ -141,12 +159,10 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   // Distinct from the case above: rows exist, the selection just excludes them.
   // Saying "none recorded for this pathway" here would be untrue.
   const showSector = new Set(rows.map((row) => row.sector)).size > 1;
-  const showScope = new Set(rows.map((row) => row.geography)).size > 1;
   const columns = [
     "Metric",
     ...(showSector ? ["Sector"] : []),
     "Sector segment",
-    ...(showScope ? ["Geography scope"] : []),
     ...BASE_COLUMNS,
   ];
 
@@ -203,7 +219,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 // enforces is (metricName, sector, sectorSegment, geography) —
                 // sector was missing here, so a multi-sector pathway reporting
                 // the same metric in two sectors produced duplicate keys.
-                key={`${row.metricName}|${row.sector}|${row.sectorSegment}|${row.geography}`}
+                key={`${row.metricName}|${row.sector}|${row.sectorSegment}|${geographyKey(row)}`}
                 className={
                   i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
                 }
@@ -220,29 +236,19 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 <td className="px-3 py-2 text-rmigray-700">
                   {row.sectorSegment}
                 </td>
-                {showScope ? (
-                  <td className="px-3 py-2 text-rmigray-700">
-                    {geographyLabel(normalizeGeography(row.geography))}
-                  </td>
-                ) : null}
                 <td className="px-3 py-2 text-rmigray-700">
-                  {formatGranularity(row.granularity)}
+                  {row.granularity.join(", ")}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
-                  {row.scopeLimitations ?? EMPTY}
+                  {row.scopeLimitations}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
-                  {row.geographyCoverage}
+                  <GeographyCell geography={row.geography} />
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
                   {row.timeResolution}
                 </td>
-                <td className="px-3 py-2 text-rmigray-700">
-                  <DataFormatCell
-                    row={row}
-                    downloadHref={downloadHref}
-                  />
-                </td>
+                <td className="px-3 py-2 text-rmigray-700">{row.dataFormat}</td>
               </tr>
             ))}
           </tbody>

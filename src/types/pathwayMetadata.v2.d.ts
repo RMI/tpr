@@ -121,7 +121,7 @@ export type ScopeSector10 = import("./common/scopeSector.v2").ScopeSectorV2;
 export type ScopeGeography10 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * Geography this row applies to. Same scope token as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography11 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -505,7 +505,7 @@ export interface PathwayMetadataV2 {
     evidence_type: "Quantitative" | "Qualitative" | "Anecdotal" | "No evidence";
   }[];
   /**
-   * Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- `dataFormat` says unavailable.
+   * Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- a row's `Not covered` values say unavailable.
    */
   dataAvailability?: {
     /**
@@ -513,7 +513,7 @@ export interface PathwayMetadataV2 {
      */
     overall: string | null;
     /**
-     * One row per (metricName, sector, sectorSegment, geography). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else.
+     * One row per (metricName, sector, sectorSegment, geography set). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else. The cookbook expects a row for every allowable (sector, metric) pair in a covered sector, with an uncovered pair recorded as 'Not covered' rather than omitted.
      */
     byMetric: {
       /**
@@ -528,40 +528,62 @@ export interface PathwayMetadataV2 {
        * Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.
        */
       sectorSegment: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"];
-      geography: ScopeGeography11;
       /**
-       * How geographically granular the underlying data is. A coverage class, not a scope -- `geography` above carries the scope.
+       * Geographies this row covers, as the cookbook's `Geography coverage`: a subset of the pathway's own declared geography, enforced by scripts/schema-check-files.ts. Same scope tokens as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers. `Unspecified` where the pathway does not say which, `Not covered` where the sector-metric pair is not covered; either must then be the only member.
+       *
+       * @minItems 1
        */
-      geographyCoverage: "Global" | "Regional" | "Country";
+      geography: [ScopeGeography11, ...ScopeGeography11[]];
       /**
        * How finely the underlying data is resolved over time.
        */
       timeResolution:
-        | "No information"
-        | "Single year (2050)"
-        | "Medium-term"
-        | "10-year"
-        | "5-10-year"
-        | "5-year"
-        | "1-year"
-        | "Other";
+        | "2050 data point"
+        | "Medium-term data point"
+        | "10-year steps"
+        | "5-year steps"
+        | "1-year steps"
+        | "5/10-year steps"
+        | "Other time resolution"
+        | "Unspecified"
+        | "Not covered";
       /**
-       * Where the data can be obtained, and in what form. `In tool` rows link to the timeseries download.
+       * In what form the source publication reports this metric's values.
        */
-      dataFormat: "In tool" | "Tabular in publication" | "Text in publication";
+      dataFormat: "Tabular" | "Text" | "Figure" | "Not covered";
       /**
-       * Whether reaching the data at the publisher costs money. Must be null exactly when `dataFormat` is `In tool` -- enforced by scripts/schema-check-files.ts.
+       * Dimensions the metric is broken down by. Members are either technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies -- or values from the granularityBreakdown vocabulary. `Unspecified` where the pathway does not clarify the breakdown, `Not covered` where the sector-metric pair is not covered; either must then be the only member.
+       *
+       * @minItems 1
        */
-      access: "Free" | "Paywalled" | null;
+      granularity: [
+        (
+          | import("./common/technology.v1").TechnologyV1["displayName"]
+          | (
+              | "Scope 1"
+              | "Scope 1 & 2"
+              | "Scope 1, 2 & 3"
+              | "Scope 1 & 3"
+              | "Unspecified"
+              | "Not covered"
+            )
+        ),
+        ...(
+          | import("./common/technology.v1").TechnologyV1["displayName"]
+          | (
+              | "Scope 1"
+              | "Scope 1 & 2"
+              | "Scope 1, 2 & 3"
+              | "Scope 1 & 3"
+              | "Unspecified"
+              | "Not covered"
+            )
+        )[],
+      ];
       /**
-       * Dimensions the metric is broken down by, or null where it is reported as a single series. Values are technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies.
+       * Caveats on what the data does and does not cover, in prose: the boundaries of the sector model, what is in and out of scope, and for emissions metrics the emissions scope. `Unspecified` where the pathway does not say, `Not covered` where the sector-metric pair is not covered.
        */
-      granularity:
-        import("./common/technology.v1").TechnologyV1["displayName"][] | null;
-      /**
-       * Caveats on what the data does and does not cover, in prose. Null where there are none.
-       */
-      scopeLimitations: string | null;
+      scopeLimitations: string;
     }[];
   };
 }
