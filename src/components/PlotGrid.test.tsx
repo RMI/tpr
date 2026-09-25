@@ -171,7 +171,7 @@ describe("PlotGrid", () => {
 
     expect(
       screen.getByText(
-        /Malaysia is not available for this pathway; showing South East Asia\./,
+        "No timeseries data for Malaysia; showing South East Asia instead.",
       ),
     ).toBeInTheDocument();
   });
@@ -185,7 +185,7 @@ describe("PlotGrid", () => {
       />,
     );
 
-    expect(screen.queryByText(/is not available for this pathway/)).toBeNull();
+    expect(screen.queryByText(/No timeseries data for/)).toBeNull();
     expect(screen.getByText("Vietnam")).toBeInTheDocument();
   });
 
@@ -260,6 +260,91 @@ describe("PlotGrid", () => {
       <PlotGrid
         timeseriesdata={null}
         pathwayGeography={SEA}
+      />,
+    );
+
+    expect(
+      screen.getByText("No timeseries data available for this pathway."),
+    ).toBeInTheDocument();
+  });
+});
+
+describe("PlotGrid — scope selection (#872)", () => {
+  const twoPanels = () =>
+    timeseries(
+      { metric: "capacity", geography: "South East Asia" },
+      { metric: "generation", geography: "South East Asia" },
+    );
+
+  it("explains the fallback once for the whole grid, not once per panel", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={twoPanels()}
+        pathwayGeography={SEA}
+        requestedGeography="MY"
+      />,
+    );
+
+    // Two charts, one sentence: every panel resolves to the same geography.
+    expect(screen.getAllByText("Capacity")).toHaveLength(1);
+    expect(screen.getAllByText(/No timeseries data for Malaysia/)).toHaveLength(
+      1,
+    );
+  });
+
+  it("says nothing when the requested geography resolves exactly", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={twoPanels()}
+        pathwayGeography={SEA}
+        requestedGeography="South East Asia"
+      />,
+    );
+
+    expect(screen.queryByText(/No timeseries data for/)).toBeNull();
+  });
+
+  it("renders normally when the selected sector is the one it covers", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={twoPanels()}
+        pathwayGeography={SEA}
+        requestedSector="Power"
+      />,
+    );
+
+    expect(screen.getByText("Capacity")).toBeInTheDocument();
+  });
+
+  it("explains itself rather than showing Power data under another sector", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={twoPanels()}
+        pathwayGeography={SEA}
+        requestedSector="Steel"
+        title="Benchmark Plots"
+      />,
+    );
+
+    expect(
+      screen.getByText(
+        /The benchmark plots cover the Power sector only, so there is nothing to show for Steel/,
+      ),
+    ).toBeInTheDocument();
+    // No charts, but the section keeps its heading.
+    expect(screen.queryByText("Capacity")).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Benchmark Plots" }),
+    ).toBeInTheDocument();
+  });
+
+  it("prefers the no-data message over the sector mismatch", () => {
+    // "This pathway has no timeseries at all" is the more fundamental fact.
+    render(
+      <PlotGrid
+        timeseriesdata={null}
+        pathwayGeography={SEA}
+        requestedSector="Steel"
       />,
     );
 

@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { PathwayMetadataType } from "../types";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import { PathwayMetadataType, PathwayScopeSelection, Sector } from "../types";
 import BadgeArray from "./BadgeArray";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import {
@@ -57,21 +57,73 @@ export function useCondensedOnScroll(): [
   return [condensed, sentinelRef];
 }
 
-/** One label + badge row of the ribbon. */
+/** Move the selected token to the front so a selection can never hide in "+N more". */
+function pinSelected(items: string[], selected: string | null): string[] {
+  if (selected === null || !items.includes(selected)) return items;
+  return [selected, ...items.filter((item) => item !== selected)];
+}
+
+const LABEL_CLASS =
+  "text-[10px] font-semibold uppercase tracking-wider text-rmigray-500";
+const ROW_CONTROL_CLASS =
+  "text-[10px] underline text-rmigray-500 hover:text-bluespruce focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-1 rounded";
+
+/**
+ * One scope axis: its label, its options as toggle badges, and a control that
+ * reveals options the single-row collapse has pushed into "+N more", which
+ * would otherwise be visible in the overflow tooltip but not selectable.
+ *
+ * There is no clear control: both axes always carry a value (see
+ * `defaultScopeFor`), so "no selection" is not a state the reader can reach or
+ * would benefit from.
+ *
+ * The control sits in the label cell rather than beside the badges so it never
+ * takes part in BadgeArray's width measurement.
+ */
 const RibbonRow: React.FC<{
   label: string;
+  labelId: string;
+  expandable: boolean;
+  expanded: boolean;
+  onToggleExpand: () => void;
   children: React.ReactNode;
-}> = ({ label, children }) => (
+}> = ({ label, labelId, expandable, expanded, onToggleExpand, children }) => (
   <>
-    <span className="text-[10px] font-semibold uppercase tracking-wider text-rmigray-500 pt-1">
-      {label}
-    </span>
-    <div className="min-w-0">{children}</div>
+    <div className="flex flex-col items-start pt-1">
+      <span
+        id={labelId}
+        className={LABEL_CLASS}
+      >
+        {label}
+      </span>
+      {expandable && (
+        <button
+          type="button"
+          onClick={onToggleExpand}
+          className={ROW_CONTROL_CLASS}
+        >
+          {expanded ? "Show fewer" : "Show all"}
+        </button>
+      )}
+    </div>
+    <div
+      role="group"
+      aria-labelledby={labelId}
+      className="min-w-0 py-0.5"
+    >
+      {children}
+    </div>
   </>
 );
 
 interface PathwayContextRibbonProps {
   pathway: PathwayMetadataType;
+  /**
+   * The active scope. `null` on an axis means no preference, which leaves every
+   * consumer rendering exactly as it does unfiltered.
+   */
+  scope: PathwayScopeSelection;
+  onScopeChange: (next: PathwayScopeSelection) => void;
   /** The tab list, rendered at the bottom of the sticky stack. */
   children: React.ReactNode;
 }
@@ -95,14 +147,22 @@ interface PathwayContextRibbonProps {
  */
 export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   pathway,
+  scope,
+  onScopeChange,
   children,
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
+  const [expanded, setExpanded] = useState({ sector: false, geography: false });
+  const baseId = useId();
 
-  const geographies = sortGeographiesForDetails(
-    flattenGeography(pathway.geography),
+  const geographies = pinSelected(
+    sortGeographiesForDetails(flattenGeography(pathway.geography)),
+    scope.geography,
   );
-  const sectors = pathway.sectors.map((s) => s.name);
+  const sectors = pinSelected(
+    pathway.sectors.map((s) => s.name),
+    scope.sector,
+  );
 
   const tooltipForGeography = useCallback(
     (geo: string) =>
@@ -174,22 +234,55 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
 
         <div className="bg-white/95 backdrop-blur border-b border-neutral-200">
           <div className="px-6 pt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-start">
-            <RibbonRow label="Sector">
-              <BadgeArray
+            <RibbonRow
+              label="Sector"
+              labelId={`${baseId}-sector`}
+              expandable={sectors.length > 1}
+              expanded={expanded.sector}
+              onToggleExpand={() =>
+                setExpanded((prev) => ({ ...prev, sector: !prev.sector }))
+              }
+            >
+              <BadgeArray<string>
                 variant="sector"
-                tooltipGetter={getSectorTooltip}
+                // The scope selection is `string` so a stale value degrades
+                // rather than failing to type; the lookup falls back to
+                // "No tooltip available." for anything unrecognised.
+                tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
+                maxRows={expanded.sector ? Infinity : 1}
+                selected={scope.sector}
+                // BadgeArray reports null when the pressed badge is clicked
+                // again. Ignored: an axis always carries a value.
+                onSelect={(next) =>
+                  next === null
+                    ? undefined
+                    : onScopeChange({ ...scope, sector: next })
+                }
               >
                 {sectors}
               </BadgeArray>
             </RibbonRow>
 
-            <RibbonRow label="Geography">
-              <BadgeArray
+            <RibbonRow
+              label="Geography"
+              labelId={`${baseId}-geography`}
+              expandable={geographies.length > 1}
+              expanded={expanded.geography}
+              onToggleExpand={() =>
+                setExpanded((prev) => ({ ...prev, geography: !prev.geography }))
+              }
+            >
+              <BadgeArray<string>
                 variant={geographies.map((geo) =>
                   geographyVariant(geographyKind(geo)),
                 )}
                 toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
                 tooltipGetter={tooltipForGeography}
+                maxRows={expanded.geography ? Infinity : 1}
+                selected={scope.geography}
+                onSelect={(next) =>
+                  onScopeChange({ ...scope, geography: next })
+                }
               >
                 {geographies}
               </BadgeArray>

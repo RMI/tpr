@@ -57,18 +57,26 @@ async function mountDetailPage(id: string): Promise<void> {
   }));
 
   const { default: PathwayDetailPage } = await import("./PathwayDetailPage");
+  // Imported from the same post-reset module graph as the page. A static import
+  // would resolve to a different FilterContext instance than the one the page's
+  // useFilters reads, and the provider would not be found.
+  const { FilterProvider } = await import("../context/FilterContext");
 
+  // The coverage panels these tests query live on the Scope & Granularity tab,
+  // so deep-link straight to it rather than clicking through. FilterProvider
+  // mirrors production (App.tsx wraps the router); the page reads the inherited
+  // search selection, and useFilters throws outside a provider.
   render(
-    // The coverage panels these tests query live on the Scope & Granularity
-    // tab, so deep-link straight to it rather than clicking through.
-    <MemoryRouter initialEntries={[`/pathway/${id}?tab=scope`]}>
-      <Routes>
-        <Route
-          path="/pathway/:id"
-          element={<PathwayDetailPage />}
-        />
-      </Routes>
-    </MemoryRouter>,
+    <FilterProvider>
+      <MemoryRouter initialEntries={[`/pathway/${id}?tab=scope`]}>
+        <Routes>
+          <Route
+            path="/pathway/:id"
+            element={<PathwayDetailPage />}
+          />
+        </Routes>
+      </MemoryRouter>
+    </FilterProvider>,
   );
 }
 

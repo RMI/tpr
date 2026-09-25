@@ -1,8 +1,9 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { render, screen, act } from "@testing-library/react";
+import { describe, it, expect, beforeEach, vi } from "vitest";
+import { render, screen, act, fireEvent } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import PathwayContextRibbon from "./PathwayContextRibbon";
 import { MockIntersectionObserver } from "../test/mockIntersectionObserver";
-import type { PathwayMetadataType } from "../types";
+import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
 
 const pathway = {
   id: "ribbon-fixture",
@@ -18,9 +19,18 @@ const pathway = {
   },
 } as unknown as PathwayMetadataType;
 
-const renderRibbon = () =>
+const NO_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
+
+const renderRibbon = (
+  scope: PathwayScopeSelection = NO_SCOPE,
+  onScopeChange: (next: PathwayScopeSelection) => void = () => {},
+) =>
   render(
-    <PathwayContextRibbon pathway={pathway}>
+    <PathwayContextRibbon
+      pathway={pathway}
+      scope={scope}
+      onScopeChange={onScopeChange}
+    >
       <div role="tablist">
         <button role="tab">At a glance</button>
       </div>
@@ -61,15 +71,24 @@ describe("PathwayContextRibbon", () => {
     expect(screen.getByText("United States of America")).toBeInTheDocument();
   });
 
-  it("gives region badges a member-country tooltip, and others none", () => {
+  it("gives region badges a member-country tooltip, and others none", async () => {
     renderRibbon();
 
-    const trigger = (label: string) =>
-      screen.getByText(label).closest("[tabindex]");
+    // Every badge is now a toggle button, so the distinction is behavioural
+    // rather than structural: only a region has members worth listing.
+    const region = screen.getByRole("button", { name: "South East Asia" });
+    fireEvent.focus(region);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent("Vietnam");
+    // Blur explicitly: fireEvent.focus does not move real focus, so the open
+    // tooltip would otherwise linger and mask the assertions below.
+    fireEvent.blur(region);
 
-    expect(trigger("South East Asia")).not.toBeNull();
-    expect(trigger("Global")).toBeNull();
-    expect(trigger("United States of America")).toBeNull();
+    for (const name of ["Global", "United States of America"]) {
+      const badge = screen.getByRole("button", { name });
+      fireEvent.focus(badge);
+      expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+      fireEvent.blur(badge);
+    }
   });
 
   it("keeps the tab list rendered and reachable", () => {
@@ -134,6 +153,8 @@ describe("PathwayContextRibbon", () => {
             modelTempIncrease: null,
           } as unknown as PathwayMetadataType
         }
+        scope={NO_SCOPE}
+        onScopeChange={() => {}}
       >
         <div role="tablist" />
       </PathwayContextRibbon>,
@@ -143,6 +164,86 @@ describe("PathwayContextRibbon", () => {
     expect(screen.getByText("Normative")).toBeInTheDocument();
     expect(screen.queryByText("2050")).not.toBeInTheDocument();
     expect(screen.queryByText("1.5°C")).not.toBeInTheDocument();
+  });
+
+  it("labels each axis as a group", () => {
+    renderRibbon();
+
+    expect(screen.getByRole("group", { name: "Sector" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("group", { name: "Geography" }),
+    ).toBeInTheDocument();
+  });
+
+  it("presses the badge matching the active scope, and only that one", () => {
+    renderRibbon({ sector: "Power", geography: "Global" });
+
+    expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
+      "aria-pressed",
+      "true",
+    );
+    expect(
+      screen.getByRole("button", { name: "South East Asia" }),
+    ).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("merges a click into the existing scope rather than replacing it", async () => {
+    const onScopeChange = vi.fn();
+    renderRibbon({ sector: "Power", geography: null }, onScopeChange);
+
+    await userEvent.click(
+      screen.getByRole("button", { name: "South East Asia" }),
+    );
+
+    // The sector axis must survive a geography click.
+    expect(onScopeChange).toHaveBeenCalledWith({
+      sector: "Power",
+      geography: "South East Asia",
+    });
+  });
+
+  it("ignores a click on the already-selected badge", async () => {
+    // Both axes always carry a value, so there is no "no selection" state to
+    // toggle back to; re-clicking is a no-op rather than a clear.
+    const onScopeChange = vi.fn();
+    renderRibbon({ sector: "Power", geography: null }, onScopeChange);
+
+    await userEvent.click(screen.getByRole("button", { name: "Power" }));
+
+    expect(onScopeChange).not.toHaveBeenCalled();
+  });
+
+  it("offers no clear control", () => {
+    renderRibbon({ sector: "Power", geography: "Global" });
+
+    expect(
+      screen.queryByRole("button", { name: /^Clear/ }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("keeps the selected token visible rather than hidden behind '+N more'", () => {
+    // The ribbon pins the selection first, so a single-row collapse can never
+    // swallow the badge that says what the reader is looking at.
+    // The scope holds the raw token ("US"); the badge renders its label.
+    renderRibbon({ sector: null, geography: "US" });
+
+    const geographyGroup = screen.getByRole("group", { name: "Geography" });
+    const first = geographyGroup.querySelector("button");
+    expect(first).toHaveTextContent("United States of America");
+  });
+
+  it("reveals the remaining options on request", async () => {
+    renderRibbon();
+
+    const toggle = screen.getByRole("button", { name: "Show all" });
+    await userEvent.click(toggle);
+    expect(
+      screen.getByRole("button", { name: "Show fewer" }),
+    ).toBeInTheDocument();
   });
 
   it("respects reduced motion on the collapse transition", () => {

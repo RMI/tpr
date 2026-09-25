@@ -4,6 +4,8 @@ import {
   sectorScopeContains,
   entryISOSet,
   geographyScopeOverlaps,
+  pathwayScopeOverlaps,
+  scopeISOSet,
   entriesInScope,
   valuesInScope,
   widestValue,
@@ -363,5 +365,84 @@ describe("valuesInScope", () => {
       "a",
       "b",
     ]);
+  });
+});
+
+describe("scopeISOSet", () => {
+  it("matches entryISOSet, taking a bare geography", () => {
+    const p = pathway();
+    for (const token of [
+      "Global",
+      "cross-region",
+      "South East Asia",
+      "Unmapped Region",
+      "US",
+      "not a real token",
+    ]) {
+      expect(scopeISOSet(token, p.geography)).toEqual(entryISOSet(token, p));
+    }
+  });
+});
+
+describe("pathwayScopeOverlaps", () => {
+  const geo = pathway().geography;
+
+  it("matches a publication's own region label against its own rows", () => {
+    expect(
+      pathwayScopeOverlaps("South East Asia", "South East Asia", geo),
+    ).toBe(true);
+  });
+
+  it("is why geographyScopeOverlaps cannot be used for a ribbon selection", () => {
+    // The contrast that justifies this function existing. The query side of
+    // geographyScopeOverlaps only knows the publication-independent filter
+    // vocabulary, which has "Southeast Asia" and not ACE's "South East Asia",
+    // so a publication token resolves to the empty set and matches nothing.
+    expect(
+      geographyScopeOverlaps("South East Asia", "South East Asia", pathway()),
+    ).toBe(false);
+  });
+
+  it("lets a Global entry answer any selection", () => {
+    expect(pathwayScopeOverlaps("Global", "South East Asia", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("Global", "US", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("Global", "Global", geo)).toBe(true);
+  });
+
+  it("answers a Global selection only with a Global entry", () => {
+    // Selecting Global narrows; it does not quietly match everything.
+    expect(pathwayScopeOverlaps("South East Asia", "Global", geo)).toBe(false);
+    expect(pathwayScopeOverlaps("US", "Global", geo)).toBe(false);
+  });
+
+  it("matches a country entry against a region that contains it", () => {
+    expect(pathwayScopeOverlaps("ID", "South East Asia", geo)).toBe(true);
+    // US is a standalone country, not a member of the region.
+    expect(pathwayScopeOverlaps("US", "South East Asia", geo)).toBe(false);
+  });
+
+  it("matches a region entry against a country selection inside it", () => {
+    expect(pathwayScopeOverlaps("South East Asia", "TH", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("South East Asia", "US", geo)).toBe(false);
+  });
+
+  it("treats an unmapped region as matching nothing but Global entries", () => {
+    // The NGFS shape: a declared region the publication never mapped.
+    expect(
+      pathwayScopeOverlaps("South East Asia", "Unmapped Region", geo),
+    ).toBe(false);
+    expect(pathwayScopeOverlaps("Global", "Unmapped Region", geo)).toBe(true);
+  });
+
+  it("overlaps a cross-region entry with any covered selection", () => {
+    // cross-region expands to the pathway's whole ISO coverage.
+    expect(pathwayScopeOverlaps("cross-region", "TH", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("cross-region", "US", geo)).toBe(true);
+  });
+
+  it("degrades a stale or unrecognised selection to matching nothing", () => {
+    expect(pathwayScopeOverlaps("South East Asia", "Atlantis", geo)).toBe(
+      false,
+    );
   });
 });

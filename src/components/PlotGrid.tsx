@@ -38,6 +38,12 @@ interface PlotGridProps {
    * header geography selector plugs into.
    */
   requestedGeography?: string | null;
+  /**
+   * The sector from the ribbon's scope selection (#872). The plots are
+   * Power-only, so any other sector gets an explanation rather than Power
+   * series relabelled.
+   */
+  requestedSector?: string | null;
   /** Which plots to render, in order. Defaults to all of them. */
   plotTypes?: PlotType[];
   /** Panel heading. Omit for a bare grid with no surrounding panel. */
@@ -61,6 +67,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
   datasetId,
   pathwayGeography,
   requestedGeography = null,
+  requestedSector = null,
   plotTypes,
   title,
   className = "",
@@ -113,76 +120,104 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
     );
   }
 
+  /*
+    The charts are Power-only: PlotPanel and MultiLineChart both hardcode
+    sector="power", and hasDataForMetric filters on it. Answering a selection
+    for another sector with Power series under its heading would be a lie, so
+    say so instead. The gate is PLOT_SECTOR rather than the sectors present in
+    the data, because the hardcoding lives in PlotPanel — a dataset carrying
+    Steel rows still would not make these charts Steel charts. Move this when
+    PlotPanel takes a sector.
+  */
+  if (requestedSector !== null && requestedSector !== PLOT_SECTOR.displayName) {
+    return panel(
+      <p className="text-sm text-rmigray-600">
+        {`The benchmark plots cover the ${PLOT_SECTOR.displayName} sector only, so there is nothing to show for ${requestedSector}. Clear the sector selection above to see them.`}
+      </p>,
+    );
+  }
+
   const used = resolution.used;
   const usedKind = geographyKind(used);
   const usedLabel = geographyLabel(normalizeGeography(used));
 
   return panel(
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-      {panels.map((opt) => {
-        // `sectorScope` is optional on MetricDefinition, so a metric may simply
-        // not declare a segment — render the badge only when one exists rather
-        // than an empty pill.
-        const segment = getMetricDefinition(
-          PLOT_SECTOR.key,
-          opt.value,
-        ).sectorScope;
+    <>
+      {/*
+        One sentence for the whole grid, not one per panel: every panel resolves
+        to the same geography, so repeating it under each chart said the same
+        thing up to five times.
 
-        return (
-          <figure
-            key={opt.value}
-            className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
-          >
-            <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
-              {opt.label}
-            </figcaption>
+        The wording avoids claiming the geography is unavailable "for this
+        pathway" — once the request comes from the ribbon it is one of the
+        pathway's own declared geographies, and what is missing is the
+        timeseries, not the coverage.
+      */}
+      {resolution.fellBack && resolution.requested ? (
+        <p className="mb-3 text-sm text-rmigray-600">
+          {`No timeseries data for ${geographyLabel(resolution.requested)}; showing ${usedLabel} instead.`}
+        </p>
+      ) : null}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        {panels.map((opt) => {
+          // `sectorScope` is optional on MetricDefinition, so a metric may simply
+          // not declare a segment — render the badge only when one exists rather
+          // than an empty pill.
+          const segment = getMetricDefinition(
+            PLOT_SECTOR.key,
+            opt.value,
+          ).sectorScope;
 
-            <PlotPanel
-              timeseriesdata={timeseriesdata}
-              datasetId={datasetId}
-              plotType={opt.value}
-              selectedGeography={used}
-              dims={PANEL_DIMS}
-            />
+          return (
+            <figure
+              key={opt.value}
+              className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
+            >
+              <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
+                {opt.label}
+              </figcaption>
 
-            {/* Which geography and sector segment this panel actually shows —
+              <PlotPanel
+                timeseriesdata={timeseriesdata}
+                datasetId={datasetId}
+                plotType={opt.value}
+                selectedGeography={used}
+                dims={PANEL_DIMS}
+              />
+
+              {/* Which geography and sector segment this panel actually shows —
               the reader cannot tell from the chart itself. */}
-            <div className="mt-1 flex flex-wrap items-center">
-              <Badge
-                variant={geographyVariant(usedKind)}
-                tooltip={
-                  usedKind === "region" ? (
-                    <RegionMembersTooltip
-                      geography={pathwayGeography}
-                      label={used}
-                    />
-                  ) : undefined
-                }
-              >
-                {usedLabel}
-              </Badge>
-              {segment ? (
+              <div className="mt-1 flex flex-wrap items-center">
                 <Badge
-                  variant="sectorSegment"
-                  tooltip={getSectorSegmentTooltip(
-                    PLOT_SECTOR.displayName,
-                    segment,
-                  )}
+                  variant={geographyVariant(usedKind)}
+                  tooltip={
+                    usedKind === "region" ? (
+                      <RegionMembersTooltip
+                        geography={pathwayGeography}
+                        label={used}
+                      />
+                    ) : undefined
+                  }
                 >
-                  {segment}
+                  {usedLabel}
                 </Badge>
-              ) : null}
-            </div>
-
-            {resolution.fellBack && resolution.requested ? (
-              <p className="mt-1 text-xs text-rmigray-500 italic">
-                {`${geographyLabel(resolution.requested)} is not available for this pathway; showing ${usedLabel}.`}
-              </p>
-            ) : null}
-          </figure>
-        );
-      })}
-    </div>,
+                {segment ? (
+                  <Badge
+                    variant="sectorSegment"
+                    tooltip={getSectorSegmentTooltip(
+                      PLOT_SECTOR.displayName,
+                      segment,
+                    )}
+                  >
+                    {segment}
+                  </Badge>
+                ) : null}
+              </div>
+            </figure>
+          );
+        })}
+      </div>
+    </>,
   );
 };
 

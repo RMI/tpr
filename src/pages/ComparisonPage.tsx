@@ -18,7 +18,7 @@ import {
   REGION_MAPPING_DISCLAIMER,
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
-import BadgeArray from "../components/BadgeArray";
+import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
 import ComparisonKeyFeatures from "../components/ComparisonKeyFeatures";
@@ -144,7 +144,7 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
           className="min-w-0"
         >
           <BadgeArray
-            variant={sorted.map((geo) => {
+            variant={sorted.map((geo): BadgeVariant => {
               const base = geographyVariant(geographyKind(geo));
               return availability.hasGeography(geo) ? base : `${base}-pub`;
             })}
