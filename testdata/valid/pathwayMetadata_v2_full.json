@@ -197,49 +197,51 @@
         "metricName": "Capacity",
         "sector": "Power",
         "sectorSegment": "Power generation",
-        "geography": "Global",
-        "geographyCoverage": "Global",
-        "timeResolution": "1-year",
-        "dataFormat": "In tool",
-        "access": null,
+        "geography": ["Global", "South East Asia", "SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
         "granularity": ["Solar", "Wind", "Coal"],
-        "scopeLimitations": "Excludes off-grid generation."
+        "scopeLimitations": "Excludes off-grid generation. Reports no storage, so no storage breakdown applies."
       },
       {
         "metricName": "Generation",
         "sector": "Power",
         "sectorSegment": "Storage",
-        "geography": "South East Asia",
-        "geographyCoverage": "Regional",
-        "timeResolution": "5-year",
-        "dataFormat": "Tabular in publication",
-        "access": "Free",
-        "granularity": null,
-        "scopeLimitations": null
+        "geography": ["South East Asia"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Text",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Unspecified"
       },
       {
         "metricName": "Technology Mix",
         "sector": "Power",
         "sectorSegment": "Transmission & Distribution",
-        "geography": "SG",
-        "geographyCoverage": "Country",
-        "timeResolution": "Single year (2050)",
-        "dataFormat": "Text in publication",
-        "access": "Paywalled",
-        "granularity": null,
+        "geography": ["SG"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Figure",
+        "granularity": ["Unspecified"],
         "scopeLimitations": "Grid losses only."
       },
       {
         "metricName": "Absolute Emissions",
         "sector": "Steel",
         "sectorSegment": "No information",
-        "geography": "Global",
-        "geographyCoverage": "Global",
-        "timeResolution": "No information",
-        "dataFormat": "Text in publication",
-        "access": "Free",
-        "granularity": null,
-        "scopeLimitations": null
+        "geography": ["Global"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Text",
+        "granularity": ["Scope 1 & 2"],
+        "scopeLimitations": "Ironmaking and steelmaking are modelled together and cannot be separated."
+      },
+      {
+        "metricName": "Emissions Intensity",
+        "sector": "Steel",
+        "sectorSegment": "No information",
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       }
     ]
   }

@@ -28,8 +28,10 @@
  *
  * #870's `dataAvailability` rows are checked here for the same reasons: their
  * `metricName`/`sectorSegment`/`granularity` vocabularies are sector-conditional,
- * their scope must resolve against the pathway's own coverage, and `access` is
- * tied to a sibling property -- none of which draft-07 can express.
+ * their scope must resolve against the pathway's own coverage, and the two
+ * sentinel rules span sibling properties -- a sentinel must be its list's only
+ * member, and `Not covered` describes the whole row rather than one variable.
+ * None of that is expressible in draft-07.
  *
  * Run from `scripts/schema-check-files.ts`, so `npm run schema:check` gates all
  * of it.
@@ -38,6 +40,7 @@
  * merge them into the same `ValidationProblem.errors` list without special-casing.
  */
 import type { PathwayMetadataV2 } from "../types/pathwayMetadata.v2";
+import { dataAvailabilitySchema } from "../schema/common/index.ts";
 import {
   metricBelongsToSector,
   metricsForSector,
@@ -58,6 +61,68 @@ export const CROSS_SECTOR = "cross-sector";
 /** Geography sentinels: widest possible, and a multi-region non-global aggregate. */
 export const GLOBAL_SCOPE = "Global";
 export const CROSS_REGION = "cross-region";
+
+/**
+ * The two authored-absence values every dataAvailability variable shares
+ * (cookbook tpr_cookbook_20260924).
+ *
+ * They are not interchangeable and neither is a null. `Unspecified` says the
+ * pathway covers this (sector, metric) pair but does not state the value;
+ * `Not covered` says it does not cover the pair at all, and so applies to every
+ * variable on the row at once. Keeping both explicit is the same rule #858 sets
+ * for keyFeatures, where an authored "No information" terminates the fallback
+ * chain and an absent entry does not.
+ */
+export const UNSPECIFIED = "Unspecified";
+export const NOT_COVERED = "Not covered";
+
+const SENTINELS: readonly string[] = [UNSPECIFIED, NOT_COVERED];
+
+function isSentinel(value: string): boolean {
+  return SENTINELS.includes(value);
+}
+
+/**
+ * Granularity members drawn from the `granularityBreakdown` vocabulary rather
+ * than from the sector's technologies — emissions scopes and the sentinels.
+ * They are exempt from the technology check below, not from the schema enum.
+ *
+ * Read off the schema rather than restated here, the same way `filterRegions`
+ * derives `ALL_COUNTRY_CODES` from `countryCode.v1`: the two lists must agree,
+ * and a copy is a copy that drifts.
+ */
+const GRANULARITY_BREAKDOWN: ReadonlySet<string> = new Set(
+  (dataAvailabilitySchema.$defs as Record<string, { enum?: string[] }>)
+    ?.granularityBreakdown?.enum ?? [],
+);
+
+function isBreakdownValue(value: string): boolean {
+  return GRANULARITY_BREAKDOWN.has(value);
+}
+
+/**
+ * Whether each of a dataAvailability row's five variables reads `Not covered`.
+ *
+ * One entry per variable rather than a flat list of values, because the rule it
+ * feeds is about agreement *between* variables: either they all say the pair is
+ * uncovered or none of them do. `dataFormat` counts even though its enum has no
+ * `Unspecified` — it does have `Not covered`.
+ */
+function notCoveredByVariable(row: {
+  geography: readonly string[];
+  granularity: readonly string[];
+  timeResolution: string;
+  dataFormat: string;
+  scopeLimitations: string;
+}): boolean[] {
+  return [
+    row.geography.includes(NOT_COVERED),
+    row.granularity.includes(NOT_COVERED),
+    row.timeResolution === NOT_COVERED,
+    row.dataFormat === NOT_COVERED,
+    row.scopeLimitations === NOT_COVERED,
+  ];
+}
 
 type ScopedEntry = { sector: string; geography: string; value: unknown };
 
@@ -255,12 +320,20 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
             ` (allowed: ${quote(declared)})`,
         );
       }
-      if (!geographies.has(row.geography)) {
-        errors.push(
-          `${at}/geography "${row.geography}" is not a geography this pathway` +
-            ` declares (allowed: ${quote(geographies)})`,
-        );
-      }
+      // The cookbook types Geography coverage as "a subset of the geographies
+      // listed at pathway level", so every member is checked the way the single
+      // token used to be. A sentinel stands in for the whole list rather than
+      // naming a place, so it is legal only alone -- checked with the other
+      // sentinels below.
+      row.geography.forEach((token, g) => {
+        if (isSentinel(token)) return;
+        if (!geographies.has(token)) {
+          errors.push(
+            `${at}/geography/${g} "${token}" is not a geography this pathway` +
+              ` declares (allowed: ${quote(geographies)})`,
+          );
+        }
+      });
 
       if (!reported.has(row.metricName)) {
         errors.push(
@@ -300,29 +373,48 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       }
 
       // Same rule as sectors[].technologies (#461): a breakdown dimension has to
-      // be a technology the sector actually has.
-      (row.granularity ?? []).forEach((technology, g) => {
-        if (technologyBelongsToSector(technology, row.sector) !== "yes") {
+      // be a technology the sector actually has. Members of the
+      // granularityBreakdown vocabulary are not technologies and are skipped --
+      // the schema enum is what constrains those.
+      row.granularity.forEach((value, g) => {
+        if (isBreakdownValue(value)) return;
+        if (technologyBelongsToSector(value, row.sector) !== "yes") {
           errors.push(
-            `${at}/granularity/${g} "${technology}" is not a technology of` +
+            `${at}/granularity/${g} "${value}" is not a technology of` +
               ` sector "${row.sector}" ` +
               allowedClause(technologiesForSector(row.sector), "technologies"),
           );
         }
       });
 
-      // `access` describes the cost of reaching the publisher's copy, so it is
-      // meaningless for data we serve ourselves and required for data we do not.
-      const inTool = row.dataFormat === "In tool";
-      if (inTool && row.access !== null) {
+      // A sentinel replaces the list rather than joining it: "Not covered"
+      // alongside a real breakdown would say both that the pair is uncovered and
+      // how it is broken down.
+      for (const [field, values] of [
+        ["geography", row.geography],
+        ["granularity", row.granularity],
+      ] as const) {
+        const sentinel = values.findIndex(isSentinel);
+        if (sentinel !== -1 && values.length > 1) {
+          errors.push(
+            `${at}/${field} lists "${values[sentinel]}" alongside` +
+              ` ${values.length - 1} other value(s). A sentinel stands in for the` +
+              ` whole list, so it must be its only member.`,
+          );
+        }
+      }
+
+      // "Not covered" is a property of the (sector, metric) pair, not of one
+      // variable: the cookbook requires a row for every allowable pair and marks
+      // an uncovered pair across the whole row. A row uncovered for one variable
+      // and authored for another is a half-filled row, not data.
+      const notCovered = notCoveredByVariable(row);
+      if (notCovered.some(Boolean) && !notCovered.every(Boolean)) {
         errors.push(
-          `${at}/access is "${row.access}" but dataFormat is "In tool" -- we host` +
-            ` this data, so there is no publisher paywall to describe. Use null.`,
-        );
-      } else if (!inTool && row.access === null) {
-        errors.push(
-          `${at}/access is null but dataFormat is "${row.dataFormat}" -- say` +
-            ` whether reaching it at the publisher is "Free" or "Paywalled".`,
+          `${at} mixes "${NOT_COVERED}" with other values. "${NOT_COVERED}"` +
+            ` describes the whole (sector, metric) pair, so when it applies every` +
+            ` variable on the row carries it. Use "${UNSPECIFIED}" for a covered` +
+            ` pair the pathway says nothing about.`,
         );
       }
 
@@ -330,7 +422,10 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
         row.metricName,
         row.sector,
         row.sectorSegment,
-        row.geography,
+        // Order within the list is an authoring accident, not data, so the key
+        // is the set: two rows covering the same places collide however they
+        // happen to be written down.
+        [...row.geography].sort().join(","),
       ].join("\u0000");
       const firstSeen = seenRows.get(scope);
       if (firstSeen === undefined) {
@@ -339,7 +434,7 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
         errors.push(
           `${at} duplicates the scope of /dataAvailability/byMetric/${firstSeen}` +
             ` (metric "${row.metricName}", sector "${row.sector}", segment` +
-            ` "${row.sectorSegment}", geography "${row.geography}").` +
+            ` "${row.sectorSegment}", geography ${quote(row.geography)}).` +
             ` Each combination may describe only one row; the table has one cell` +
             ` per column to render it in.`,
         );

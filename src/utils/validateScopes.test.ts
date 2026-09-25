@@ -467,13 +467,11 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     metricName: "Capacity",
     sector: "Power",
     sectorSegment: "Power generation",
-    geography: "South East Asia",
-    geographyCoverage: "Regional",
-    timeResolution: "1-year",
-    dataFormat: "In tool",
-    access: null,
+    geography: ["South East Asia"],
+    timeResolution: "1-year steps",
+    dataFormat: "Tabular",
     granularity: ["Solar"],
-    scopeLimitations: null,
+    scopeLimitations: "Excludes off-grid generation.",
   };
 
   const withRows = (rows: unknown[], over: Record<string, unknown> = {}) =>
@@ -508,10 +506,37 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
   });
 
   it("rejects a geography the pathway does not cover", () => {
-    const errors = withRows([row({ geography: "Narnia" })]);
+    const errors = withRows([row({ geography: ["Narnia"] })]);
     expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("/dataAvailability/byMetric/0/geography");
+    expect(errors[0]).toContain("/dataAvailability/byMetric/0/geography/0");
     expect(errors[0]).toContain('"Narnia"');
+  });
+
+  it("checks every member of the geography list, and indexes them", () => {
+    // The cookbook types Geography coverage as Multiple, so one bad token among
+    // good ones must still be caught — and named by position.
+    const errors = withRows([
+      row({ geography: ["South East Asia", "Narnia", "SG"] }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/geography/1");
+    expect(errors[0]).toContain('"Narnia"');
+  });
+
+  it("accepts a geography list mixing global, region and country scope", () => {
+    // 'Global; Western Europe: [...]; JP: [JP]' in the cookbook's notation: one
+    // metric can be projected at several levels at once. Global is legal only
+    // because this pathway declares it — allowedGeographies gates it on
+    // geography.global, exactly as it does for a keyFeatures entry.
+    expect(
+      withRows([row({ geography: ["Global", "South East Asia", "SG"] })], {
+        geography: {
+          global: true,
+          regions: { "South East Asia": ["ID", "TH", "VN"] },
+          country: ["SG"],
+        },
+      }),
+    ).toEqual([]);
   });
 
   it("rejects a metric the pathway does not report", () => {
@@ -545,7 +570,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
         row({
           sector: "Steel",
           sectorSegment: "No information",
-          granularity: null,
+          granularity: ["Unspecified"],
         }),
       ]),
     ).toEqual([]);
@@ -553,7 +578,11 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
 
   it("rejects a named segment under a sector with no segments defined", () => {
     const errors = withRows([
-      row({ sector: "Steel", sectorSegment: "Storage", granularity: null }),
+      row({
+        sector: "Steel",
+        sectorSegment: "Storage",
+        granularity: ["Unspecified"],
+      }),
     ]);
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("/sectorSegment");
@@ -586,34 +615,69 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     expect(errors[0]).toContain("no technologies are defined");
   });
 
-  it("accepts null granularity — a metric need not be broken down", () => {
-    expect(withRows([row({ granularity: null })])).toEqual([]);
+  it("accepts an emissions scope as granularity", () => {
+    // Not a technology: emissions metrics break down by scope, so the
+    // granularityBreakdown vocabulary is exempt from the technology check.
+    expect(withRows([row({ granularity: ["Scope 1 & 2"] })])).toEqual([]);
   });
 
-  it("rejects a paywall on data we host ourselves", () => {
-    const errors = withRows([
-      row({ dataFormat: "In tool", access: "Paywalled" }),
-    ]);
+  it("accepts Unspecified granularity — the pathway need not say", () => {
+    expect(withRows([row({ granularity: ["Unspecified"] })])).toEqual([]);
+  });
+
+  it.each(["geography", "granularity"])(
+    "rejects a sentinel sharing the %s list with a real value",
+    (field) => {
+      // A sentinel stands in for the whole list. "Not covered" beside a real
+      // breakdown would claim the pair is both uncovered and broken down.
+      const over =
+        field === "geography"
+          ? { geography: ["South East Asia", "Unspecified"] }
+          : { granularity: ["Solar", "Unspecified"] };
+      const errors = withRows([row(over)]);
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain(`/${field}`);
+      expect(errors[0]).toContain("must be its only member");
+    },
+  );
+
+  it("accepts a row that is Not covered across every variable", () => {
+    // The cookbook requires a row for each allowable (sector, metric) pair even
+    // when the pair is uncovered, so this is a normal authored row.
+    expect(
+      withRows([
+        row({
+          geography: ["Not covered"],
+          timeResolution: "Not covered",
+          dataFormat: "Not covered",
+          granularity: ["Not covered"],
+          scopeLimitations: "Not covered",
+        }),
+      ]),
+    ).toEqual([]);
+  });
+
+  it("rejects Not covered mixed with authored values on one row", () => {
+    // "Not covered" is a property of the (sector, metric) pair, so it cannot
+    // apply to one variable and not another.
+    const errors = withRows([row({ dataFormat: "Not covered" })]);
     expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("/access");
-    expect(errors[0]).toContain("we host this data");
+    expect(errors[0]).toContain('mixes "Not covered"');
+    expect(errors[0]).toContain('"Unspecified"');
   });
 
-  it("rejects a null access on data held at the publisher", () => {
-    const errors = withRows([
-      row({ dataFormat: "Text in publication", access: null }),
-    ]);
-    expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("/access");
-    expect(errors[0]).toContain('"Free" or "Paywalled"');
-  });
-
-  it("accepts both publisher access values", () => {
-    for (const access of ["Free", "Paywalled"]) {
-      expect(
-        withRows([row({ dataFormat: "Tabular in publication", access })]),
-      ).toEqual([]);
-    }
+  it("accepts Unspecified across several variables at once", () => {
+    // Unlike "Not covered", Unspecified is per-variable: a covered pair may be
+    // documented for some variables and silent on others.
+    expect(
+      withRows([
+        row({
+          timeResolution: "Unspecified",
+          granularity: ["Unspecified"],
+          scopeLimitations: "Unspecified",
+        }),
+      ]),
+    ).toEqual([]);
   });
 
   it("rejects two rows at the same scope", () => {
@@ -622,7 +686,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     // them in.
     const errors = withRows([
       row(),
-      row({ timeResolution: "5-year", granularity: null }),
+      row({ timeResolution: "5-year steps", granularity: ["Unspecified"] }),
     ]);
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("/dataAvailability/byMetric/1");
@@ -630,13 +694,28 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     expect(errors[0]).toContain("/dataAvailability/byMetric/0");
   });
 
+  it("treats two rows covering the same places as one scope, in any order", () => {
+    // The key is the geography set, not the list: order is an authoring
+    // accident, so reordering must not smuggle a duplicate row past the check.
+    const errors = withRows([
+      row({ geography: ["South East Asia", "SG"] }),
+      row({ geography: ["SG", "South East Asia"], dataFormat: "Text" }),
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("duplicates the scope of");
+  });
+
   it.each([
     ["metric", { metricName: "Generation" }],
     ["segment", { sectorSegment: "Storage" }],
-    ["geography", { geography: "SG" }],
+    ["geography", { geography: ["SG"] }],
     [
       "sector",
-      { sector: "Steel", sectorSegment: "No information", granularity: null },
+      {
+        sector: "Steel",
+        sectorSegment: "No information",
+        granularity: ["Unspecified"],
+      },
     ],
   ])("treats rows differing only by %s as distinct scopes", (_axis, over) => {
     expect(withRows([row(), row(over)])).toEqual([]);
@@ -646,24 +725,28 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     // Guards the NUL-joined key the same way the keyFeatures test does.
     expect(
       withRows([
-        row({ sectorSegment: "Power generation", geography: "SG" }),
-        row({ sectorSegment: "No information", geography: "SG" }),
+        row({ sectorSegment: "Power generation", geography: ["SG"] }),
+        row({ sectorSegment: "No information", geography: ["SG"] }),
       ]),
     ).toEqual([]);
   });
 
   it("indexes each row, and checks them all", () => {
-    const errors = withRows([row(), row({ geography: "Narnia" })]);
+    const errors = withRows([row(), row({ geography: ["Narnia"] })]);
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("/byMetric/1/geography");
   });
 
   it("reports every failing check on one row", () => {
     const errors = withRows([
-      row({ sector: "Cement", geography: "Narnia", access: "Free" }),
+      row({
+        sector: "Cement",
+        geography: ["Narnia"],
+        dataFormat: "Not covered",
+      }),
     ]);
     // undeclared sector, unresolvable geography, granularity under an undefined
-    // sector, and a paywall on hosted data.
+    // sector, and "Not covered" mixed with authored values.
     expect(errors.length).toBeGreaterThanOrEqual(4);
     expect(errors.every((e) => e.includes("/byMetric/0"))).toBe(true);
   });
