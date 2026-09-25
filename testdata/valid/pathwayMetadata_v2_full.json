@@ -211,7 +211,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Text",
         "granularity": ["Unspecified"],
-        "scopeLimitations": "Unspecified"
+        "scopeLimitations": "Battery storage only; pumped hydro is out of scope."
       },
       {
         "metricName": "Technology Mix",

@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import { MemoryRouter, Route, Routes } from "react-router";
 
 // Structured-geography fixture (#799): one region the publication mapped to three
@@ -53,7 +59,9 @@ async function mountDetailPage(id: string): Promise<void> {
   const { default: PathwayDetailPage } = await import("./PathwayDetailPage");
 
   render(
-    <MemoryRouter initialEntries={[`/pathway/${id}`]}>
+    // The coverage panels these tests query live on the Scope & Granularity
+    // tab, so deep-link straight to it rather than clicking through.
+    <MemoryRouter initialEntries={[`/pathway/${id}?tab=scope`]}>
       <Routes>
         <Route
           path="/pathway/:id"
@@ -74,9 +82,19 @@ async function mountDetailPage(id: string): Promise<void> {
 const WAIT = { timeout: 10_000 };
 const TEST_TIMEOUT = 20_000;
 
+/**
+ * The Geographies coverage panel.
+ *
+ * Every query below is scoped to it: the sticky context ribbon shows the same
+ * geography labels on every tab, so an unscoped getByText would match twice.
+ * Awaiting this landmark also stands in for awaiting the page's async mount.
+ */
+const geographiesPanel = (): Promise<HTMLElement> =>
+  screen.findByRole("region", { name: "Geographies" }, WAIT);
+
 /** The TextWithTooltip trigger wrapping a badge (it carries tabIndex=0). */
-const triggerFor = (label: string): HTMLElement => {
-  const badge = screen.getByText(label);
+const triggerFor = (panel: HTMLElement, label: string): HTMLElement => {
+  const badge = within(panel).getByText(label);
   const trigger = badge.closest("[tabindex]");
   if (!(trigger instanceof HTMLElement)) {
     throw new Error(`No tooltip trigger found for badge "${label}"`);
@@ -95,10 +113,14 @@ const triggerFor = (label: string): HTMLElement => {
  * state changes, and the wait then times out with "Unable to find role=tooltip"
  * no matter how long its budget is. Re-firing makes the wait self-healing.
  */
-const openTooltipFor = async (label: string): Promise<HTMLElement> => {
+const openTooltipFor = async (
+  panel: HTMLElement,
+  label: string,
+): Promise<HTMLElement> => {
   let tooltip: HTMLElement | null = null;
   await waitFor(() => {
-    fireEvent.focus(triggerFor(label));
+    fireEvent.focus(triggerFor(panel, label));
+    // The tooltip body is portaled to document.body, so it stays a global query.
     tooltip = screen.getByRole("tooltip");
   }, WAIT);
   return tooltip as unknown as HTMLElement;
@@ -115,12 +137,12 @@ describe("PathwayDetailPage — region geography tooltips", () => {
     async () => {
       await mountDetailPage("detail-a");
 
-      const badge = await screen.findByText("South East Asia", undefined, WAIT);
-      expect(badge).toBeInTheDocument();
+      const panel = await geographiesPanel();
+      expect(within(panel).getByText("South East Asia")).toBeInTheDocument();
 
       // Focus is the keyboard-equivalent of hover in TextWithTooltip, and the
-      // only one jsdom drives reliably; the body is portaled to document.body.
-      const tooltip = await openTooltipFor("South East Asia");
+      // only one jsdom drives reliably.
+      const tooltip = await openTooltipFor(panel, "South East Asia");
       expect(tooltip).toHaveTextContent("3 countries");
       expect(tooltip).toHaveTextContent("Indonesia");
       expect(tooltip).toHaveTextContent("Thailand");
@@ -134,9 +156,10 @@ describe("PathwayDetailPage — region geography tooltips", () => {
     async () => {
       await mountDetailPage("detail-a");
 
-      await screen.findByText("Unmapped Region", undefined, WAIT);
+      const panel = await geographiesPanel();
+      expect(within(panel).getByText("Unmapped Region")).toBeInTheDocument();
 
-      const tooltip = await openTooltipFor("Unmapped Region");
+      const tooltip = await openTooltipFor(panel, "Unmapped Region");
       expect(tooltip).toHaveTextContent("No country mapping available");
     },
     TEST_TIMEOUT,
@@ -147,13 +170,18 @@ describe("PathwayDetailPage — region geography tooltips", () => {
     async () => {
       await mountDetailPage("detail-a");
 
+      const panel = await geographiesPanel();
+
       // "Global" and the country name render as plain badges: no tabbable
       // wrapper, so there is nothing to hover.
-      const global = await screen.findByText("Global", undefined, WAIT);
-      expect(global.closest("[tabindex]")).toBeNull();
-
-      const country = screen.getByText("United States of America");
-      expect(country.closest("[tabindex]")).toBeNull();
+      expect(
+        within(panel).getByText("Global").closest("[tabindex]"),
+      ).toBeNull();
+      expect(
+        within(panel)
+          .getByText("United States of America")
+          .closest("[tabindex]"),
+      ).toBeNull();
     },
     TEST_TIMEOUT,
   );

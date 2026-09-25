@@ -168,8 +168,9 @@ describe("metricsForSector / metricBelongsToSector (#870)", () => {
 });
 
 describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
-  it("resolves Power to its three segments", () => {
+  it("resolves Power to its four segments, in taxonomy order", () => {
     expect(segmentsForSector("Power")).toEqual([
+      "Fuel extraction and processing",
       "Power generation",
       "Energy storage",
       "Transmission & Distribution",

@@ -89,7 +89,15 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
         "Electricity generation via wind turbines, both onshore and offshore.",
     },
   },
+  // Keys alphabetical, matching the technologies and metrics above. The order
+  // surfaces through segmentsForSector, which feeds validateScopes' "legal
+  // values" error messages.
   segments: {
+    fuelExtractionAndProcessing: {
+      displayName: "Fuel extraction and processing",
+      definition:
+        "Extraction and processing of fuels used as energy carriers for power generation.",
+    },
     powerGeneration: {
       displayName: "Power generation",
       definition:
@@ -319,6 +327,27 @@ export function segmentsForSector(
   sectorDisplayName: string,
 ): readonly string[] | undefined {
   return vocabularyFor(sectorDisplayName, "segments");
+}
+
+/**
+ * One of a sector's segments, found by the display name the data carries
+ * (e.g. "Energy storage" under "Power").
+ *
+ * `segmentsForSector` answers "which segments exist"; this answers "what does
+ * this one mean", which is what the UI needs for a tooltip. Returns undefined
+ * both for a sector with no segments defined and for a name that is not one of
+ * them — callers that must tell those apart should use
+ * {@link segmentBelongsToSector}.
+ */
+export function segmentDefinitionFor(
+  sectorDisplayName: string,
+  segmentDisplayName: string,
+): SegmentDefinition | undefined {
+  const defined = SECTORS_BY_DISPLAY_NAME.get(sectorDisplayName)?.segments;
+  if (!defined) return undefined;
+  return Object.values(defined).find(
+    (segment) => segment.displayName === segmentDisplayName,
+  );
 }
 
 /** #870: scope segments to their sector, with {@link UNSEGMENTED} always legal. */

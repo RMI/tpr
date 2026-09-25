@@ -131,6 +131,18 @@ describe("Badge component", () => {
     expect(badge).toHaveClass("border-solar-200");
   });
 
+  it("applies sectorSegment styling when variant is 'sectorSegment'", () => {
+    const { container } = render(
+      <Badge variant="sectorSegment">Power generation</Badge>,
+    );
+    const badge = container.firstChild as HTMLElement;
+    expect(badge).toHaveClass("bg-rmipink-100");
+    expect(badge).toHaveClass("text-rmipink-800");
+    expect(badge).toHaveClass("border-rmipink-200");
+    // Must not be confusable with the sector badge it sits next to.
+    expect(badge).not.toHaveClass("bg-solar-100");
+  });
+
   it("applies metric styling when variant is 'metric'", () => {
     const { container } = render(<Badge variant="metric">Intensity</Badge>);
     const badge = container.firstChild as HTMLElement;

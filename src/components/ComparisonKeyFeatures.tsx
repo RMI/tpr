@@ -1,6 +1,6 @@
 import React from "react";
 import { PathwayMetadataType } from "../types";
-import { GROUPS, FeatureItem } from "./KeyFeatures";
+import { FEATURE_GROUPS, FeatureItem } from "./KeyFeatures";
 
 interface ComparisonKeyFeaturesProps {
   pathways: PathwayMetadataType[];
@@ -16,7 +16,7 @@ const ComparisonKeyFeatures: React.FC<ComparisonKeyFeaturesProps> = ({
       className="grid gap-x-6"
       style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
     >
-      {GROUPS.map((group, groupIdx) => (
+      {FEATURE_GROUPS.map((group, groupIdx) => (
         <React.Fragment key={group.label}>
           {/* Group header — spans all pathway columns, styled as a section heading */}
           <div
