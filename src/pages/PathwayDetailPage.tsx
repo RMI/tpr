@@ -586,7 +586,6 @@ const PathwayDetailPage: React.FC = () => {
                 </h2>
                 <DataAvailabilityTable
                   dataAvailability={pathway.dataAvailability}
-                  downloadHref={datasets[0]?.path}
                   scope={scope}
                   pathwayGeography={pathway.geography}
                 />

@@ -2,50 +2,52 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json",
   "title": "Data Availability",
-  "description": "The closed vocabularies describing how a metric's underlying data can be obtained (#870).",
+  "description": "The closed vocabularies describing how a metric's underlying data can be obtained (#870). Values follow cookbook tpr_cookbook_20260924; see docs/cookbook/split/data_availability in RMI/tpr-tpc.",
   "$comment": "A wrapper object whose only job is to keep every $def reachable from the root: generate-types.ts runs json-schema-to-typescript with unreachableDefinitions:false, so a $def nothing points at emits no type. Same pattern as technology.v1.json and metric.v1.json. Callers $ref the individual $defs, not this object.",
   "type": "object",
   "properties": {
-    "geographyCoverage": { "$ref": "#/$defs/geographyCoverage" },
     "timeResolution": { "$ref": "#/$defs/timeResolution" },
     "dataFormat": { "$ref": "#/$defs/dataFormat" },
-    "access": { "$ref": "#/$defs/access" }
+    "granularityBreakdown": { "$ref": "#/$defs/granularityBreakdown" }
   },
-  "required": ["geographyCoverage", "timeResolution", "dataFormat", "access"],
+  "required": ["timeResolution", "dataFormat", "granularityBreakdown"],
   "additionalProperties": false,
 
   "$defs": {
-    "geographyCoverage": {
-      "description": "How geographically granular the underlying data is.",
-      "$comment": "A coverage class, NOT a scope. It says the data resolves to individual countries; it does not say which. The entry's sibling 'geography' carries the scope.",
-      "type": "string",
-      "enum": ["Global", "Regional", "Country"]
-    },
     "timeResolution": {
-      "description": "How finely the underlying data is resolved over time.",
+      "description": "How finely the underlying data is resolved over time. Where a pathway resolves a metric differently for different geographies, the most granular resolution available is the one recorded.",
+      "$comment": "Spellings are the cookbook's literal allowed values, not abbreviations of them -- authored data comes from the classification workbook, whose validator enforces these exact strings. 'Unspecified' means the pathway does not say; 'Not covered' means this sector-metric pair is not covered at all, in which case every variable on the row reads 'Not covered' (enforced by validateScopedEntries).",
       "type": "string",
       "enum": [
-        "No information",
-        "Single year (2050)",
-        "Medium-term",
-        "10-year",
-        "5-10-year",
-        "5-year",
-        "1-year",
-        "Other"
+        "2050 data point",
+        "Medium-term data point",
+        "10-year steps",
+        "5-year steps",
+        "1-year steps",
+        "5/10-year steps",
+        "Other time resolution",
+        "Unspecified",
+        "Not covered"
       ]
     },
     "dataFormat": {
-      "description": "Where the data can be obtained, and in what form.",
-      "$comment": "#870 specifies this as one enum with parenthetical free|paywall ('tabular-in-pub (free|paywall)'). Split into dataFormat and access because the acceptance criteria call for the tables/text indicator and the free/paywall indicator as separate UI signals; a flat five-member enum would make the table string-match to recover them. 'In tool' means we host it -- those rows link to the timeseries download via the generated index. A downloadable non-timeseries value is expected here once the hosting mechanism is decided.",
+      "description": "In what form the source publication makes the metric's values available to a reader. Where values appear in more than one form the most extractable wins: Tabular before Text before Figure.",
+      "$comment": "Describes the source publication ONLY. Whether this repository hosts a copy is something it knows about itself -- derived from the generated timeseries index -- not a classification judgement about the pathway, which is why decision 0021 dropped the former 'In tool' member along with the separate 'access' (free/paywalled) field. There is deliberately no 'Unspecified' counterpart to timeResolution's: a metric whose values are visible at all has a visible form.",
       "type": "string",
-      "enum": ["In tool", "Tabular in publication", "Text in publication"]
+      "enum": ["Tabular", "Text", "Figure", "Not covered"]
     },
-    "access": {
-      "description": "Whether reaching the data at the publisher costs money. Null when we host it.",
-      "$comment": "Null exactly when dataFormat is 'In tool' -- a paywall on data we serve ourselves is a contradiction. draft-07 cannot tie two sibling properties together, so validateScopedEntries enforces the biconditional.",
-      "type": ["string", "null"],
-      "enum": ["Free", "Paywalled", null]
+    "granularityBreakdown": {
+      "description": "Granularity values that are not technologies. A row's `granularity` is a flat array drawn from this vocabulary or from the sector's technologies, depending on the metric.",
+      "$comment": "Partial, pending the sector-by-metric granularity vocabulary. The cookbook makes granularity conditional on (sector, metric): emissions metrics take an emissions-scope value, breakdown metrics take the sector's technologies, and cost/investment/asset-lifetime metrics reuse the keyFeatures enums verbatim. Only the members reachable through today's metric.v1.json enum are listed here -- the Steel production routes and Aviation propulsion vocabularies need metrics that enum does not yet carry, so they land with the metric-field restructure epic #860 defers. A sentinel must be the array's only member (enforced by validateScopedEntries).",
+      "type": "string",
+      "enum": [
+        "Scope 1",
+        "Scope 1 & 2",
+        "Scope 1, 2 & 3",
+        "Scope 1 & 3",
+        "Unspecified",
+        "Not covered"
+      ]
     }
   }
 }
