@@ -4,6 +4,7 @@ import v2Json from "./pathwayMetadata.v2.json" with { type: "json" };
 import scopeSectorJson from "./common/scopeSector.v2.json" with { type: "json" };
 import sectorJson from "./common/sector.v1.json" with { type: "json" };
 import emissionsScopeJson from "./common/emissionsScope.v1.json" with { type: "json" };
+import dataAvailabilityJson from "./common/dataAvailability.v1.json" with { type: "json" };
 
 /**
  * Guards v2's keyFeatures against silent self-drift.
@@ -31,11 +32,13 @@ interface JsonSchema {
   type?: string | string[];
   enum?: string[];
   items?: JsonSchema;
+  anyOf?: JsonSchema[];
   properties?: Record<string, JsonSchema>;
   required?: string[];
   additionalProperties?: boolean;
   uniqueItems?: boolean;
   minItems?: number;
+  minLength?: number;
   maxLength?: number;
   description?: string;
   tsType?: string;
@@ -46,6 +49,7 @@ const v2 = v2Json as unknown as JsonSchema;
 const scopeSector = scopeSectorJson as unknown as JsonSchema;
 const sector = sectorJson as unknown as JsonSchema;
 const emissionsScope = emissionsScopeJson as unknown as JsonSchema;
+const dataAvailability = dataAvailabilityJson as unknown as JsonSchema;
 
 /** Throwing accessors keep every read type-safe without non-null assertions. */
 function props(schema: JsonSchema, where: string): Record<string, JsonSchema> {
@@ -274,10 +278,8 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
 
   it("declares every row field as required, and admits nothing else", () => {
     const expected = [
-      "access",
       "dataFormat",
       "geography",
-      "geographyCoverage",
       "granularity",
       "metricName",
       "scopeLimitations",
@@ -301,12 +303,8 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
       metricName: "common/metric.v1.json#/$defs/displayName",
       sector: "common/sector.v1.json#/$defs/displayName",
       sectorSegment: "common/sectorSegment.v1.json#/$defs/displayName",
-      geography: "common/scopeGeography.v2.json",
-      geographyCoverage:
-        "common/dataAvailability.v1.json#/$defs/geographyCoverage",
       timeResolution: "common/dataAvailability.v1.json#/$defs/timeResolution",
       dataFormat: "common/dataAvailability.v1.json#/$defs/dataFormat",
-      access: "common/dataAvailability.v1.json#/$defs/access",
     };
     for (const [name, suffix] of Object.entries(refs)) {
       expect(rowProp(name).$ref).toBe(
@@ -316,9 +314,28 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
   });
 
   it("scopes rows the same way keyFeatures does, so the same helpers apply", () => {
-    expect(rowProp("geography").$ref).toBe(
+    // A list here, a single token there -- the cookbook types Geography
+    // coverage as Multiple -- but drawn from the same vocabulary, which is what
+    // lets pathwayScopeOverlaps filter both.
+    expect(items(rowProp("geography"), "geography").$ref).toBe(
       prop(entry("emissionsTrajectory"), "geography", "kf entry").$ref,
     );
+  });
+
+  it("retires the vocabularies decision 0021 dropped", () => {
+    // `geographyCoverage`'s Global/Regional/Country class restated, less
+    // precisely, what the geography token list already says. `access` went with
+    // `In tool`: dataFormat describes the source publication only, so there is
+    // no hosted-vs-publisher axis left for a paywall flag to qualify.
+    const defs = dataAvailability.$defs ?? {};
+    expect(Object.keys(defs).sort()).toEqual([
+      "dataFormat",
+      "granularityBreakdown",
+      "timeResolution",
+    ]);
+    for (const retired of ["geographyCoverage", "access"]) {
+      expect(Object.keys(props(row, "row"))).not.toContain(retired);
+    }
   });
 
   it("uses the plain sector enum, not scopeSector — there is no cross-sector row", () => {
@@ -328,17 +345,40 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
     expect(enumOf(scopeSector, "scopeSector.v2")).toContain("cross-sector");
   });
 
-  it("makes granularity nullable and draws its values from technology.v1", () => {
+  it("draws granularity from technology.v1 and the breakdown vocabulary", () => {
+    // Two sources because the cookbook's granularity is conditional on
+    // (sector, metric): breakdown metrics list technologies, emissions metrics
+    // list a scope. Which applies to which is validateScopedEntries' job.
     const granularity = rowProp("granularity");
-    expect(granularity.type).toEqual(["array", "null"]);
     expect(granularity.uniqueItems).toBe(true);
-    expect(items(granularity, "granularity").$ref).toBe(
+    const branches = items(granularity, "granularity").anyOf ?? [];
+    expect(branches.map((b) => b.$ref)).toEqual([
       "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName",
-    );
+      "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/granularityBreakdown",
+    ]);
   });
 
+  it.each(["geography", "granularity"])(
+    "makes %s a non-empty list rather than nullable",
+    (name) => {
+      // The cookbook replaces null with two distinct sentinels -- Unspecified
+      // (the pathway does not say) and Not covered (the pair is not covered) --
+      // which a bare null cannot tell apart.
+      const field = rowProp(name);
+      expect(field.type).toBe("array");
+      expect(field.minItems).toBe(1);
+    },
+  );
+
   it("caps the free-text fields", () => {
-    expect(rowProp("scopeLimitations").type).toEqual(["string", "null"]);
+    const limitations = rowProp("scopeLimitations");
+    // Not nullable, for the same reason: "Unspecified" and "Not covered" are
+    // authored strings here.
+    expect(limitations.type).toBe("string");
+    expect(limitations.minLength).toBe(1);
+    expect(limitations.maxLength).toBe(500);
+    // `overall` stays nullable: it summarises the pathway, not a metric, so it
+    // has no (sector, metric) pair to be uncovered for.
     expect(prop(da, "overall", "v2.dataAvailability").type).toEqual([
       "string",
       "null",

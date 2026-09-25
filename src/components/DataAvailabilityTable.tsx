@@ -1,5 +1,6 @@
 import React from "react";
 import { PathwayMetadataType } from "../types";
+import TextWithTooltip from "./TextWithTooltip";
 
 // The per-metric data-availability rows (#870). Derived from the schema type so
 // this stays in lockstep with the metadata contract.
@@ -8,15 +9,7 @@ type ByMetricRow = DataAvailability["byMetric"][number];
 
 interface DataAvailabilityTableProps {
   dataAvailability: PathwayMetadataType["dataAvailability"];
-  /**
-   * Link to the hosted timeseries download. Used to turn an "In tool" row's Data
-   * format cell into a download link; omitted when nothing is hosted.
-   */
-  downloadHref?: string;
 }
-
-// Shown wherever a cell has nothing authored (null granularity / scope, etc.).
-const EMPTY = "—";
 
 const COLUMNS = [
   "Metric",
@@ -28,50 +21,51 @@ const COLUMNS = [
   "Data format",
 ] as const;
 
-const formatGranularity = (granularity: ByMetricRow["granularity"]): string =>
-  granularity && granularity.length > 0 ? granularity.join(", ") : EMPTY;
+/*
+  How many geographies a cell shows before collapsing the rest behind an
+  ellipsis. Coverage lists run long -- a pathway projecting one metric per
+  country puts a dozen or more tokens in one cell -- and the first few are
+  enough to tell the row apart at a glance.
+*/
+const GEOGRAPHIES_SHOWN = 3;
 
 /**
- * The Data format cell. "In tool" rows point at the hosted download (the data is
- * the timeseries we serve); publication rows show where the data lives and, when
- * relevant, whether it is paywalled.
+ * The Geography coverage cell: the geographies this metric covers, truncated.
+ *
+ * The full list is in the tooltip rather than the cell because it is the
+ * exception that needs it — most rows carry one or two tokens, and letting the
+ * long ones set the column width would squeeze every other column.
  */
-const DataFormatCell: React.FC<{ row: ByMetricRow; downloadHref?: string }> = ({
-  row,
-  downloadHref,
+const GeographyCell: React.FC<{ geography: ByMetricRow["geography"] }> = ({
+  geography,
 }) => {
-  if (row.dataFormat === "In tool") {
-    return downloadHref ? (
-      <a
-        href={downloadHref}
-        className="text-energy-800 underline hover:text-energy-700"
-      >
-        Download
-      </a>
-    ) : (
-      <span>In tool</span>
-    );
-  }
+  const shown = geography.slice(0, GEOGRAPHIES_SHOWN).join(", ");
+  if (geography.length <= GEOGRAPHIES_SHOWN) return <span>{shown}</span>;
   return (
-    <span>
-      {row.dataFormat}
-      {row.access ? (
-        <span className="text-rmigray-500"> · {row.access}</span>
-      ) : null}
-    </span>
+    <TextWithTooltip
+      text={`${shown}, …`}
+      tooltip={geography.join(", ")}
+      ariaLabel={`Geography coverage: ${geography.join(", ")}`}
+    />
   );
 };
 
 /**
  * The "Data Availability" table for the Scope & Granularity tab: one row per
- * authored (metric, sector segment, geography) combination describing where and
- * how that metric's data can be obtained (#870). `dataAvailability` is optional
- * and authored incrementally, so an absent or empty set is a normal state, not an
- * error — it renders an explanatory empty state rather than a bare table.
+ * authored (metric, sector segment, geography set) combination describing where
+ * and how that metric's data can be obtained (#870). `dataAvailability` is
+ * optional and authored incrementally, so an absent or empty set is a normal
+ * state, not an error — it renders an explanatory empty state rather than a bare
+ * table.
+ *
+ * Every cell has a value: the cookbook replaces a blank with `Unspecified` (the
+ * pathway does not say) or `Not covered` (the pair is not covered), so there is
+ * no em-dash placeholder here. Nor is there a download link — `dataFormat`
+ * describes the source publication only, and what this tool hosts is shown by
+ * `DownloadDataset` further down the page.
  */
 const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   dataAvailability,
-  downloadHref,
 }) => {
   const rows = dataAvailability?.byMetric ?? [];
   const overall = dataAvailability?.overall ?? null;
@@ -116,7 +110,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 // Rows have no natural id; the (metric, segment, geography) tuple
                 // is unique per pathway (enforced by schema-check-files.ts), so it
                 // makes a stable key.
-                key={`${row.metricName}|${row.sectorSegment}|${row.geography}`}
+                key={`${row.metricName}|${row.sectorSegment}|${row.geography.join(",")}`}
                 className={
                   i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
                 }
@@ -131,23 +125,18 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                   {row.sectorSegment}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
-                  {formatGranularity(row.granularity)}
+                  {row.granularity.join(", ")}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
-                  {row.scopeLimitations ?? EMPTY}
+                  {row.scopeLimitations}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
-                  {row.geographyCoverage}
+                  <GeographyCell geography={row.geography} />
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
                   {row.timeResolution}
                 </td>
-                <td className="px-3 py-2 text-rmigray-700">
-                  <DataFormatCell
-                    row={row}
-                    downloadHref={downloadHref}
-                  />
-                </td>
+                <td className="px-3 py-2 text-rmigray-700">{row.dataFormat}</td>
               </tr>
             ))}
           </tbody>
