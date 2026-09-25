@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+  "title": "Scope Sector",
+  "description": "The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.",
+  "$comment": "Members mirror sector.v1.json#/$defs/displayName, plus the 'cross-sector' sentinel. 'cross-sector' means the union of THIS pathway's own declared sectors, not a universal match: an entry scoped 'cross-sector' covers a query for sector X only when X is one of the sectors the pathway declares in its own 'sectors' array. So a pathway covering only Y and Z is NOT a match for a sector-X search, even though its 'cross-sector' values would otherwise be broad enough. That constraint spans sibling data with dynamic keys, which draft-07 cannot express and AJV's $data cannot compute a union for, so it is enforced by validateScopedEntries in src/utils/validateScopes.ts, run from scripts/schema-check-files.ts.",
+  "type": "string",
+  "enum": [
+    "cross-sector",
+    "Land Use",
+    "Agriculture",
+    "Buildings",
+    "Steel",
+    "Cement",
+    "Chemicals",
+    "Coal Mining",
+    "Oil (Upstream)",
+    "Gas (Upstream)",
+    "Power",
+    "Automotive",
+    "Aviation",
+    "Rail",
+    "Shipping",
+    "Other"
+  ],
+  "examples": ["cross-sector", "Power", "Steel"]
+}

@@ -24,7 +24,11 @@ const fixtures = [
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
     geography: { global: true, regions: { Europe: [] }, country: ["US"] },
-    keyFeatures: { emissionsTrajectory: "foo" },
+    keyFeatures: {
+      emissionsTrajectory: [
+        { sector: "cross-sector", geography: "Global", value: "foo" },
+      ],
+    },
   },
   {
     id: "cmp-b",
@@ -41,7 +45,11 @@ const fixtures = [
     sectors: [{ name: "Steel" }],
     metric: ["Generation"],
     geography: { country: ["DE", "FR"] },
-    keyFeatures: { emissionsTrajectory: "bar" },
+    keyFeatures: {
+      emissionsTrajectory: [
+        { sector: "cross-sector", geography: "DE", value: "bar" },
+      ],
+    },
   },
 ] as const;
 

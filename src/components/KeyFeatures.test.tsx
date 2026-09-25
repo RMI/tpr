@@ -3,19 +3,28 @@ import { render, screen } from "@testing-library/react";
 import KeyFeatures from "./KeyFeatures";
 import type { PathwayMetadataType } from "../types";
 
+/**
+ * v2 scopes every keyFeature as {sector, geography, value} entries (#858). These
+ * fixtures use a single widest-scope entry per field — what the codemod produces —
+ * so the rendering assertions below still describe v1's output.
+ */
+const wide = <T,>(value: T) => [
+  { sector: "cross-sector", geography: "Global", value },
+];
+
 const mockKeyFeatures: PathwayMetadataType["keyFeatures"] = {
-  emissionsScope: "CO2",
-  emissionsTrajectory: "Moderate decrease",
-  energyEfficiency: "Minor improvement",
-  energyDemand: "Low or no change",
-  electrification: "Moderate increase",
-  policyTypes: ["Carbon price", "Subsidies"],
-  policyAmbition: "NDCs incl. conditional targets",
-  newTechnologiesIncluded: ["CCUS", "Battery storage"],
-  technologyCostTrend: "Decrease",
-  technologyCostsDetail: "Total costs",
-  investmentNeeds: "By technology",
-};
+  emissionsScope: wide("CO2"),
+  emissionsTrajectory: wide("Moderate decrease"),
+  energyEfficiency: wide("Minor improvement"),
+  energyDemand: wide("Low or no change"),
+  electrification: wide("Moderate increase"),
+  policyTypes: wide(["Carbon price", "Subsidies"]),
+  policyAmbition: wide("NDCs incl. conditional targets"),
+  newTechnologiesIncluded: wide(["CCUS", "Battery storage"]),
+  technologyCostTrend: wide("Decrease"),
+  technologyCostsDetail: wide("Total costs"),
+  investmentNeeds: wide("By technology"),
+} as unknown as PathwayMetadataType["keyFeatures"];
 
 describe("KeyFeatures", () => {
   it("renders all four group headers", () => {
@@ -86,7 +95,7 @@ describe("KeyFeatures", () => {
   it("sentiment feature: unfavorable value uses red scale color", () => {
     const unfavorable = {
       ...mockKeyFeatures,
-      emissionsTrajectory: "Significant increase",
+      emissionsTrajectory: wide("Significant increase"),
     } as unknown as PathwayMetadataType["keyFeatures"];
     render(<KeyFeatures keyFeatures={unfavorable} />);
 
@@ -101,7 +110,9 @@ describe("KeyFeatures", () => {
   it("sentiment feature: no-info value renders a Badge, not a colored text span", () => {
     const noInfo = {
       ...mockKeyFeatures,
-      emissionsTrajectory: undefined,
+      // v2's way of saying "nothing authored at any scope" is an empty entry
+      // array, not a missing field — the field stays required.
+      emissionsTrajectory: [],
     } as unknown as PathwayMetadataType["keyFeatures"];
     render(<KeyFeatures keyFeatures={noInfo} />);
 
