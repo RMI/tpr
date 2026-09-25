@@ -264,8 +264,9 @@ export const GROUPS: GroupConfig[] = [
     ],
   },
   {
-    // Drivers with no enumerated counterpart. Featureless, hence excluded from
-    // FEATURE_GROUPS and so absent from the comparison page.
+    // Drivers with no enumerated counterpart. Featureless, so a surface that
+    // renders only features shows nothing here — the comparison page skips
+    // the group when none of its drivers is described.
     id: "other",
     label: "Other",
     drivers: ["macroeconomicDrivers", "behavioralShifts", "otherDrivers"],
@@ -490,16 +491,6 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   return null;
 };
-
-/**
- * The groups that actually carry key features.
- *
- * The comparison page renders a header bar per group and then its feature rows,
- * so a group holding only core drivers would appear there as an empty bar.
- */
-export const FEATURE_GROUPS: GroupConfig[] = GROUPS.filter(
-  (group) => group.features.length > 0,
-);
 
 interface KeyFeaturesProps {
   keyFeatures: PathwayMetadataType["keyFeatures"];

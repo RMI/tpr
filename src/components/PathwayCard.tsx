@@ -16,6 +16,8 @@ import { prioritizeMatches, prioritizeGeographies } from "../utils/sortUtils";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
+import { pathwayMetadata } from "../data/pathwayMetadata";
+import { sectorsCompatible } from "../utils/comparisonScope";
 import { index } from "../data/index.gen";
 import {
   pathwayToolAvailability,
@@ -49,6 +51,35 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
   const inComparison = isInComparison(pathway.id);
   const comparisonFull =
     comparedPathwayIds.length >= MAX_COMPARED && !inComparison;
+
+  /*
+    Why this pathway cannot be added, or null when it can. One value rather than
+    a fourth branch in each of the button's five conditionals.
+
+    The sector rule is Alex's hard restriction: a comparison needs one sector in
+    common, so the shared scope axis has something in it. Unresolvable ids are
+    skipped, and a pathway declaring no sectors is never the reason — see
+    `sharedSectors`.
+  */
+  const selectedPathways = comparedPathwayIds
+    .map((id) => pathwayMetadata.find((p) => p.id === id))
+    .filter((p): p is PathwayMetadataType => p !== undefined);
+
+  const blockedReason: "full" | "sector" | null = inComparison
+    ? null
+    : comparisonFull
+      ? "full"
+      : sectorsCompatible(selectedPathways, pathway)
+        ? null
+        : "sector";
+
+  const actionLabel = inComparison
+    ? "Remove from comparison"
+    : blockedReason === "full"
+      ? `Comparison full (max ${MAX_COMPARED})`
+      : blockedReason === "sector"
+        ? "Cannot add: no sector in common with your selection"
+        : "Add to comparison";
   const availability = useMemo(
     () => pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
     [pathway.id],
@@ -307,26 +338,14 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
                     ? removeFromComparison(pathway.id)
                     : addToComparison(pathway.id)
                 }
-                disabled={comparisonFull}
-                aria-label={
-                  inComparison
-                    ? "Remove from comparison"
-                    : comparisonFull
-                      ? "Comparison full (max 3)"
-                      : "Add to comparison"
-                }
+                disabled={blockedReason !== null}
+                aria-label={actionLabel}
                 aria-pressed={inComparison}
-                title={
-                  inComparison
-                    ? "Remove from comparison"
-                    : comparisonFull
-                      ? "Comparison full (max 3)"
-                      : "Add to comparison"
-                }
+                title={actionLabel}
                 className={`h-12 w-12 flex-shrink-0 flex items-center justify-center border transition-colors duration-200 ${
                   inComparison
                     ? "bg-bluespruce border-bluespruce text-white hover:bg-energy hover:border-energy"
-                    : comparisonFull
+                    : blockedReason !== null
                       ? "bg-neutral-100 border-neutral-200 text-neutral-300 cursor-not-allowed"
                       : "bg-white border-neutral-200 text-rmigray-500 hover:bg-rmiblue-50 hover:border-rmiblue-300 hover:text-bluespruce"
                 }`}

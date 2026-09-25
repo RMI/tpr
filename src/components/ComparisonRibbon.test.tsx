@@ -1,9 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter } from "react-router";
+import { MemoryRouter, useLocation } from "react-router";
 import ComparisonRibbon from "./ComparisonRibbon";
 import { useComparison } from "../context/ComparisonContext";
+import { useFilters } from "../context/FilterContext";
+import { EMPTY_FILTERS } from "../context/FilterContext";
+import type { SearchFilters } from "../types";
 
 // ── Module mocks ────────────────────────────────────────────────────────────
 
@@ -12,17 +15,26 @@ vi.mock("../context/ComparisonContext", () => ({
   MAX_COMPARED: 3,
 }));
 
+vi.mock("../context/FilterContext", async (importOriginal) => ({
+  ...(await importOriginal<object>()),
+  useFilters: vi.fn(),
+}));
+
 vi.mock("../data/pathwayMetadata", () => ({
   pathwayMetadata: [
     {
       id: "p1",
       name: { full: "Pathway One" },
       publication: { publisher: { short: "Pub1", full: "Publisher One" } },
+      sectors: [{ name: "Power" }, { name: "Steel" }],
+      geography: { regions: { "South East Asia": ["VN"] }, country: [] },
     },
     {
       id: "p2",
       name: { full: "Pathway Two" },
       publication: { publisher: { short: null, full: "Publisher Two" } },
+      sectors: [{ name: "Steel" }, { name: "Power" }],
+      geography: { regions: { "South East Asia": ["VN"] }, country: [] },
     },
   ],
 }));
@@ -39,6 +51,19 @@ const defaultContext = {
   ribbonExpanded: false,
   setRibbonExpanded: vi.fn(),
 };
+
+const setFilters = (filters: Partial<SearchFilters> = {}) => {
+  vi.mocked(useFilters).mockReturnValue({
+    filters: { ...EMPTY_FILTERS, ...filters },
+    setFilters: vi.fn(),
+    resetFilters: vi.fn(),
+  });
+};
+
+/** Prints the query string the ribbon navigated to. */
+const Probe: React.FC = () => (
+  <span data-testid="search">{useLocation().search}</span>
+);
 
 const renderRibbon = (ids: string[] = [], expanded = false) => {
   vi.mocked(useComparison).mockReturnValue({
@@ -58,6 +83,7 @@ const renderRibbon = (ids: string[] = [], expanded = false) => {
 describe("ComparisonRibbon", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    setFilters();
   });
 
   describe("collapsed state (default)", () => {
@@ -212,6 +238,69 @@ describe("ComparisonRibbon", () => {
           .setup()
           .click(screen.getByRole("button", { name: /clear all/i }));
         expect(clear).toHaveBeenCalledOnce();
+      });
+    });
+
+    describe("compare URL", () => {
+      const clickCompare = async (filters: Partial<SearchFilters> = {}) => {
+        setFilters(filters);
+        vi.mocked(useComparison).mockReturnValue({
+          ...defaultContext,
+          comparedPathwayIds: ["p1", "p2"],
+          ribbonExpanded: true,
+        });
+        render(
+          <MemoryRouter>
+            <ComparisonRibbon />
+            <Probe />
+          </MemoryRouter>,
+        );
+        await userEvent
+          .setup()
+          .click(screen.getByRole("button", { name: "Compare" }));
+        const search = screen.getByTestId("search").textContent ?? "";
+        return { search, params: new URLSearchParams(search) };
+      };
+
+      it("carries the compared ids", async () => {
+        const { params } = await clickCompare();
+        expect(params.get("ids")).toBe("p1,p2");
+      });
+
+      it("seeds the scope so a shared link reproduces what the sender saw", async () => {
+        // Seeding at navigation time is what keeps the comparison page a pure
+        // function of its URL.
+        const { params } = await clickCompare();
+        expect(params.get("sector")).toBe("Power");
+        // Geography is per column, keyed by pathway id.
+        expect(params.get("geography")).toBe(
+          "p1:South East Asia,p2:South East Asia",
+        );
+      });
+
+      it("seeds each column in its own publisher's spelling", async () => {
+        // The whole reason geography is per column: one reader selection maps
+        // onto a different token for each publication.
+        const { params } = await clickCompare({ geography: "Southeast Asia" });
+        expect(params.get("geography")).toBe(
+          "p1:South East Asia,p2:South East Asia",
+        );
+      });
+
+      it("prefers a search sector the pathways share", async () => {
+        const { params } = await clickCompare({ sector: "Steel" });
+        expect(params.get("sector")).toBe("Steel");
+      });
+
+      it("ignores a search sector the pathways do not share", async () => {
+        const { params } = await clickCompare({ sector: "Cement" });
+        expect(params.get("sector")).toBe("Power");
+      });
+
+      it("percent-encodes a token containing spaces", async () => {
+        // Geography tokens are publisher prose, not slugs.
+        const { search } = await clickCompare();
+        expect(search).toContain("p1:South%20East%20Asia");
       });
     });
   });

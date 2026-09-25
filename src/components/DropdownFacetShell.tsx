@@ -1,6 +1,7 @@
 import React from "react";
 import clsx from "clsx";
 import { X, ChevronDown } from "lucide-react";
+import { useDropdown } from "../hooks/useDropdown";
 
 type ShellProps = {
   /** e.g., "Temperature (°C)" */
@@ -44,34 +45,18 @@ export default function DropdownFacetShell({
   // Number of characters of ghost text to reserve space for
   reserveSpace = 2,
 }: ShellProps) {
-  const [open, setOpen] = React.useState(false);
-  const triggerRef = React.useRef<HTMLButtonElement | null>(null);
-  const menuRef = React.useRef<HTMLDivElement | null>(null);
+  const { open, triggerRef, menuRef, toggle, close } =
+    useDropdown<HTMLButtonElement>();
   const [menuMinWidthPx, setMenuMinWidthPx] = React.useState<number>(0);
-
-  React.useEffect(() => {
-    const onDocMouseDown = (e: MouseEvent) => {
-      const t = e.target as Node;
-      if (menuRef.current?.contains(t)) return;
-      if (triggerRef.current?.contains(t)) return;
-      setOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", onDocMouseDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDocMouseDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, []);
 
   const updateMenuMinWidth = React.useCallback(() => {
     if (!triggerRef.current) return;
     const w = triggerRef.current.getBoundingClientRect().width;
     setMenuMinWidthPx(Math.max(0, Math.floor(w)));
-  }, []);
+    // `triggerRef` comes from useDropdown rather than a local useRef, so the
+    // hooks lint rule can no longer see that it is a stable ref object. Listing
+    // it is free — the identity never changes — and keeps the rule satisfied.
+  }, [triggerRef]);
   React.useEffect(() => {
     updateMenuMinWidth();
     const onResize = () => updateMenuMinWidth();
@@ -91,7 +76,7 @@ export default function DropdownFacetShell({
             : "text-rmigray-800 bg-white border border-gray-300 hover:bg-gray-50",
           triggerMinWidthClassName,
         )}
-        onClick={() => setOpen(true)}
+        onClick={toggle}
         aria-haspopup="dialog"
         aria-expanded={open}
       >
@@ -170,7 +155,7 @@ export default function DropdownFacetShell({
               {typeof children === "function"
                 ? (children as (api: { close: () => void }) => React.ReactNode)(
                     {
-                      close: () => setOpen(false),
+                      close,
                     },
                   )
                 : children}

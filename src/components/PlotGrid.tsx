@@ -10,7 +10,10 @@ import {
   geographyVariant,
   normalizeGeography,
 } from "../utils/geographyUtils";
-import { resolveGeography } from "../utils/geographyFallback";
+import {
+  geographyFallbackNote,
+  resolveGeography,
+} from "../utils/geographyFallback";
 import {
   getMetricDefinition,
   getSectorDefinition,
@@ -137,6 +140,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
     );
   }
 
+  const fallbackNote = geographyFallbackNote(resolution);
   const used = resolution.used;
   const usedKind = geographyKind(used);
   const usedLabel = geographyLabel(normalizeGeography(used));
@@ -146,17 +150,11 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
       {/*
         One sentence for the whole grid, not one per panel: every panel resolves
         to the same geography, so repeating it under each chart said the same
-        thing up to five times.
-
-        The wording avoids claiming the geography is unavailable "for this
-        pathway" — once the request comes from the ribbon it is one of the
-        pathway's own declared geographies, and what is missing is the
-        timeseries, not the coverage.
+        thing up to five times. The copy lives in `geographyFallbackNote` so the
+        comparison page's columns cannot word the same fact differently.
       */}
-      {resolution.fellBack && resolution.requested ? (
-        <p className="mb-3 text-sm text-rmigray-600">
-          {`No timeseries data for ${geographyLabel(resolution.requested)}; showing ${usedLabel} instead.`}
-        </p>
+      {fallbackNote ? (
+        <p className="mb-3 text-sm text-rmigray-600">{fallbackNote}</p>
       ) : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {panels.map((opt) => {

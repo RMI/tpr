@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { resolveGeography } from "./geographyFallback";
+import { geographyFallbackNote, resolveGeography } from "./geographyFallback";
 import type { Geography } from "../types";
 
 const SEA: Geography = {
@@ -131,5 +131,102 @@ describe("resolveGeography", () => {
     expect(result.used).toBe("Global");
     expect(result.reason).toBe("global");
     expect(result.fellBack).toBe(true);
+  });
+});
+
+describe("resolveGeography — spelling variants", () => {
+  it("matches a region spelled differently, and calls it a match not a fallback", () => {
+    // The live #945 case: IEA-APS declares "Southeast Asia" in its metadata
+    // while its own timeseries carries "South East Asia". Before this arm the
+    // request fell through to Global while the exact series sat in the file.
+    const result = resolveGeography(
+      ["Global", "South East Asia"],
+      "Southeast Asia",
+      SEA,
+    );
+
+    expect(result).toEqual({
+      used: "South East Asia",
+      requested: "Southeast Asia",
+      fellBack: false,
+      reason: "labelVariant",
+    });
+  });
+
+  it("folds case and punctuation too", () => {
+    expect(resolveGeography(["Asia-Pacific"], "asia pacific", SEA).used).toBe(
+      "Asia-Pacific",
+    );
+  });
+
+  it("prefers an exact match over a variant", () => {
+    const result = resolveGeography(
+      ["South East Asia", "Southeast Asia"],
+      "Southeast Asia",
+      SEA,
+    );
+    expect(result.used).toBe("Southeast Asia");
+    expect(result.reason).toBe("exact");
+  });
+
+  it("is a spelling fold, not a synonym table", () => {
+    // Different words stay different: no ISO-similarity threshold is involved.
+    // "ASEAN" still reaches the only option available, but as a reported
+    // fallback rather than a match — which is the distinction that matters.
+    expect(resolveGeography(["South East Asia"], "ASEAN", SEA)).toMatchObject({
+      used: "South East Asia",
+      fellBack: true,
+      reason: "broadest",
+    });
+
+    expect(
+      resolveGeography(["South Asia", "Global"], "South East Asia", SEA),
+    ).toMatchObject({ used: "Global", fellBack: true, reason: "global" });
+  });
+});
+
+describe("geographyFallbackNote", () => {
+  it("explains a fallback, naming both geographies by label", () => {
+    const note = geographyFallbackNote({
+      used: "South East Asia",
+      requested: "MY",
+      fellBack: true,
+      reason: "containingRegion",
+    });
+    expect(note).toBe(
+      "No timeseries data for Malaysia; showing South East Asia instead.",
+    );
+  });
+
+  it("says nothing when the request resolved", () => {
+    for (const reason of ["exact", "labelVariant"] as const) {
+      expect(
+        geographyFallbackNote({
+          used: "South East Asia",
+          requested: "Southeast Asia",
+          fellBack: false,
+          reason,
+        }),
+      ).toBeNull();
+    }
+  });
+
+  it("says nothing when nothing was requested or nothing resolved", () => {
+    expect(
+      geographyFallbackNote({
+        used: "Global",
+        requested: null,
+        fellBack: false,
+        reason: "broadest",
+      }),
+    ).toBeNull();
+    expect(
+      geographyFallbackNote({
+        used: null,
+        requested: "VN",
+        fellBack: false,
+        reason: "none",
+      }),
+    ).toBeNull();
   });
 });

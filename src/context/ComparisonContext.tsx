@@ -1,17 +1,41 @@
 import React, { createContext, use, useState, useCallback } from "react";
+import { pathwayMetadata } from "../data/pathwayMetadata";
+import { comparisonBlock } from "../utils/comparisonScope";
+import type { PathwayMetadataType } from "../types";
 
 const SESSION_KEY = "pathway-comparison";
 export const MAX_COMPARED = 3;
 
+/**
+ * Restore the tray, dropping a selection that can no longer be compared.
+ *
+ * A comparison needs one sector in common. `PathwayCard` stops the reader
+ * assembling an illegal set, but a set stored before the rule existed — or
+ * before a pathway's sectors were re-published — would otherwise sit in the
+ * tray with Compare enabled, leading straight to the page's block message.
+ * Clearing the whole selection is the honest outcome: there is no way to tell
+ * which of the stored pathways the reader would rather keep.
+ *
+ * Unknown ids are tolerated rather than dropped. They resolve to no pathway, so
+ * they cannot prove an incompatibility, and both consumers already filter them
+ * out on their own — `ComparisonPage` against the metadata and the ribbon when
+ * it renders a slot.
+ */
 function loadFromSession(): string[] {
   try {
     const raw = sessionStorage.getItem(SESSION_KEY);
     const parsed = raw ? (JSON.parse(raw) as unknown) : [];
-    return Array.isArray(parsed)
-      ? (parsed as string[])
-          .filter((x) => typeof x === "string")
-          .slice(0, MAX_COMPARED)
-      : [];
+    if (!Array.isArray(parsed)) return [];
+
+    const ids = (parsed as string[])
+      .filter((x) => typeof x === "string")
+      .slice(0, MAX_COMPARED);
+
+    const pathways = ids
+      .map((id) => pathwayMetadata.find((p) => p.id === id))
+      .filter((p): p is PathwayMetadataType => p !== undefined);
+
+    return comparisonBlock(pathways) === null ? ids : [];
   } catch {
     return [];
   }

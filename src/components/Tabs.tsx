@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
-import { useSearchParams } from "react-router";
 import clsx from "clsx";
+import { useUrlParamState } from "../hooks/useUrlParamState";
 
 export interface TabDef {
   /** Stable id used in the URL (`?tab=<id>`) and for aria wiring. */
@@ -14,39 +14,25 @@ export interface TabDef {
  * and shareable and survives reload/back — matching the repo's existing
  * shareable-state convention (ComparisonPage uses `?ids=`).
  *
- * This hook is the single seam that isolates the URL mechanism: swapping to path
- * segments (`/pathway/:id/overview`) later would change only this hook, the route
- * table, and the test mount helpers — no call site.
- *
- * The first tab is the default: an absent or unrecognized `?tab=` resolves to it,
- * and selecting it clears the param to keep the canonical URL clean.
+ * The URL mechanism itself now lives in `useUrlParamState`, which the comparison
+ * page's scope axes share. This stays as the tab-shaped wrapper: the first tab is
+ * the default, an absent or unrecognized `?tab=` resolves to it, and selecting it
+ * clears the param.
  */
 export function useActiveTab(
   tabs: TabDef[],
   paramName = "tab",
 ): [string, (id: string) => void] {
-  const [searchParams, setSearchParams] = useSearchParams();
   const defaultId = tabs[0]?.id ?? "";
-  const raw = searchParams.get(paramName);
-  const activeId = tabs.some((t) => t.id === raw) ? (raw as string) : defaultId;
+  const [value, setValue] = useUrlParamState({
+    param: paramName,
+    options: tabs.map((t) => t.id),
+    defaultValue: defaultId,
+  });
 
-  const setActiveId = (id: string): void => {
-    setSearchParams(
-      (prev) => {
-        const next = new URLSearchParams(prev);
-        if (id === defaultId) {
-          next.delete(paramName);
-        } else {
-          next.set(paramName, id);
-        }
-        return next;
-      },
-      // Push a history entry so the browser Back button steps through tab changes.
-      { replace: false },
-    );
-  };
-
-  return [activeId, setActiveId];
+  // A tab id is always a string: `defaultValue` is non-null, so the hook can
+  // only return null when `tabs` is empty, where "" is the right answer anyway.
+  return [value ?? defaultId, setValue];
 }
 
 interface TabsProps {
