@@ -96,7 +96,7 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
         "Generation of electricity at the plant, before it reaches the grid.",
     },
     storage: {
-      displayName: "Storage",
+      displayName: "Energy storage",
       definition:
         "Storing electricity for later dispatch (batteries, pumped hydro).",
     },
