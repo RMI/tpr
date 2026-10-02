@@ -66,8 +66,14 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       modelYearNetzero: 2050,
       metric: [],
       keyFeatures: {
+        // "across regions", not a country: a pathway declaring no geography can
+        // name no place, so the sentinel is the only token it could carry.
         emissionsTrajectory: [
-          { sector: "across sectors", geography: "DE", value: "foo" },
+          {
+            sector: "across sectors",
+            geography: "across regions",
+            value: "foo",
+          },
         ],
       },
     },

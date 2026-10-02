@@ -128,8 +128,13 @@ export function geographyScopeOverlaps(
   // strips it before calling this, so the guard is only for direct callers.
   if (query.kind === "absent") return true;
 
+  // An unrecognised token resolves to an empty ISO set. Checked before the
+  // Global shortcut below, which would otherwise answer it: a stale selection
+  // must match nothing, including a Global-scoped entry.
+  if (query.kind === "iso" && query.iso.size === 0) return false;
+
   const entrySet = entryISOSet(entryGeography, pathway);
-  if (entrySet === null) return true; // a Global entry answers anything
+  if (entrySet === null) return true; // a Global entry answers any real selection
 
   if (query.kind === "global") return false; // only a Global entry answers Global
   // An unrecognised token, or a region the publication never mapped, yields an
