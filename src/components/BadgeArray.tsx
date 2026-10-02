@@ -308,7 +308,11 @@ export default function BadgeArray<T extends Scalar = Scalar>({
               {arr.slice(finalVisible).map((value, idx) => (
                 <React.Fragment key={idx}>
                   {idx > 0 && ", "}
-                  <span className="whitespace-nowrap">{value}</span>
+                  {/* The same label the visible badges show: a country
+                      code reads as its name here too. */}
+                  <span className="whitespace-nowrap">
+                    {toLabel ? toLabel(value) : value}
+                  </span>
                 </React.Fragment>
               ))}
             </span>

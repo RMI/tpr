@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { render, screen, within, fireEvent } from "@testing-library/react";
 import DataAvailabilityTable from "./DataAvailabilityTable";
 import { PathwayMetadataType } from "../types";
 
@@ -130,7 +130,7 @@ describe("DataAvailabilityTable", () => {
     expect(cells.queryByText("—")).not.toBeInTheDocument();
   });
 
-  it("truncates a long geography list behind a tooltip", () => {
+  it("truncates a long geography list behind '+N more'", async () => {
     render(
       <DataAvailabilityTable
         dataAvailability={availability([
@@ -138,15 +138,19 @@ describe("DataAvailabilityTable", () => {
         ])}
       />,
     );
-    // The first three, then an ellipsis — a per-country pathway would otherwise
-    // set the column width for every other row. Codes render as country names,
-    // the same treatment a geography badge gives a token.
-    expect(
-      screen.getByText("Global, Indonesia, Thailand, …"),
-    ).toBeInTheDocument();
+    // The first three, then "+2 more" — a long list would otherwise set the
+    // column width for every other row. Codes render as country names, the
+    // same treatment a geography badge gives a token, hidden ones included.
+    for (const name of ["Global", "Indonesia", "Thailand"])
+      expect(screen.getByText(name)).toBeInTheDocument();
+    const more = screen.getByText("+2 more");
+    fireEvent.focus(more.closest("[tabindex]")!);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "Vietnam, Singapore",
+    );
   });
 
-  it("shows a short geography list in full, with no ellipsis", () => {
+  it("shows a short geography list in full, with no '+N more'", () => {
     render(
       <DataAvailabilityTable
         dataAvailability={availability([
@@ -154,7 +158,11 @@ describe("DataAvailabilityTable", () => {
         ])}
       />,
     );
-    expect(screen.getByText("Global, Thailand")).toBeInTheDocument();
+    expect(screen.getByText("Global")).toBeInTheDocument();
+    expect(screen.getByText("Thailand")).toBeInTheDocument();
+    // BadgeArray always renders a hidden "+0 more" to measure; a real
+    // overflow token has a non-zero count.
+    expect(screen.queryByText(/^\+[1-9]\d* more$/)).not.toBeInTheDocument();
   });
 
   it("renders the overall note above the table", () => {
@@ -170,6 +178,86 @@ describe("DataAvailabilityTable", () => {
       screen.getByText("Covers the power sector only."),
     ).toBeInTheDocument();
     expect(screen.getByRole("table")).toBeInTheDocument();
+  });
+});
+
+/** The badge element around a cell's text, or null when it is plain text. */
+const badgeOf = (el: HTMLElement) => el.closest<HTMLElement>(".rounded-full");
+
+describe("DataAvailabilityTable — badges", () => {
+  const renderRows = (rows: ByMetricRow[]) =>
+    render(
+      <DataAvailabilityTable
+        dataAvailability={availability(rows)}
+        pathwayGeography={pathwayGeography}
+      />,
+    );
+
+  it("renders sector segments as segment badges", () => {
+    renderRows([capacityRow]);
+    for (const segment of capacityRow.sectorSegment)
+      expect(badgeOf(screen.getByText(segment))).toHaveClass("bg-rmipink-100");
+  });
+
+  it("colours each geography badge by its kind, as elsewhere", () => {
+    renderRows([
+      { ...capacityRow, geography: ["Global", "South East Asia", "SG"] },
+    ]);
+    expect(badgeOf(screen.getByText("Global"))).toHaveClass(
+      "bg-pinishgreen-800",
+    );
+    expect(badgeOf(screen.getByText("South East Asia"))).toHaveClass(
+      "bg-pinishgreen-200",
+    );
+    expect(badgeOf(screen.getByText("Singapore"))).toHaveClass(
+      "bg-pinishgreen-100",
+    );
+  });
+
+  it("lists a region's member countries on its badge", async () => {
+    renderRows([{ ...capacityRow, geography: ["South East Asia"] }]);
+    fireEvent.focus(screen.getByText("South East Asia").closest("[tabindex]")!);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent("Indonesia");
+  });
+
+  it("keeps the other columns as text", () => {
+    renderRows([capacityRow]);
+    for (const text of [
+      "Solar, Wind",
+      "Utility-scale only",
+      "5-year steps",
+      "Tabular",
+    ])
+      expect(badgeOf(screen.getByText(text))).toBeNull();
+  });
+
+  it("shows no badges at all on a Not covered row", () => {
+    // Badging two of its six "Not covered" cells would read as two different
+    // statements about the same row.
+    const nc = "Not covered";
+    renderRows([
+      {
+        ...capacityRow,
+        sectorSegment: [nc],
+        geography: [nc],
+        timeResolution: nc,
+        dataFormat: nc,
+        granularity: [nc],
+        scopeLimitations: nc,
+      },
+    ]);
+    const row = screen
+      .getByRole("rowheader", { name: "Capacity" })
+      .closest("tr")!;
+    expect(within(row).getAllByText(nc)).toHaveLength(6);
+    expect(row.querySelector(".rounded-full")).toBeNull();
+  });
+
+  it("keeps a sentinel-only cell as text on a covered row", () => {
+    renderRows([unspecifiedRow]);
+    expect(badgeOf(screen.getByText("No information"))).toBeNull();
+    // ...while the same row's real geography is still a badge.
+    expect(badgeOf(screen.getByText("Global"))).not.toBeNull();
   });
 });
 

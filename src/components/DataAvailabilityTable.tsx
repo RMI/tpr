@@ -5,10 +5,16 @@ import type {
   PathwayScopeSelection,
 } from "../types";
 import { pathwayScopeOverlaps } from "../utils/keyFeatureScope";
-import { geographyLabel } from "../utils/geographyUtils";
+import {
+  geographyKind,
+  geographyLabel,
+  geographyVariant,
+} from "../utils/geographyUtils";
 import { scopeSelectionLabel } from "../utils/scopeLabel";
+import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
+import BadgeArray from "./BadgeArray";
+import RegionMembersTooltip from "./RegionMembersTooltip";
 import ScopeFilterNotice from "./ScopeFilterNotice";
-import TextWithTooltip from "./TextWithTooltip";
 
 // The per-metric data-availability rows (#870). Derived from the schema type so
 // this stays in lockstep with the metadata contract.
@@ -54,12 +60,31 @@ const BASE_COLUMNS = [
 ] as const;
 
 /*
-  How many geographies a cell shows before collapsing the rest behind an
-  ellipsis. Coverage lists run long -- a pathway projecting one metric per
-  country puts a dozen or more tokens in one cell -- and the first few are
-  enough to tell the row apart at a glance.
+  How many geographies a cell shows before collapsing the rest behind "+N
+  more". Coverage lists run long -- IEA lists 21 regions on some rows -- and the
+  first few are enough to tell the row apart at a glance.
 */
 const GEOGRAPHIES_SHOWN = 3;
+
+/*
+  Sector segment and Geography coverage draw on the same vocabularies as the
+  segment and geography badges elsewhere, so they render as those badges, in
+  the same colours. The other columns stay text: granularity, time resolution
+  and data format have no colour scheme yet, and scope limitations is prose.
+
+  The sentinels are not vocabulary values, so they stay text too. A "Not
+  covered" row is text throughout -- badging its two "Not covered" cells while
+  the other four stay plain would read as two different statements -- and the
+  same goes for a cell holding only "Unspecified" or "No information".
+  validateScopedEntries makes a sentinel stand alone in its cell and makes "Not
+  covered" all-or-nothing across the row, so no cell mixes the two.
+*/
+const SENTINELS = new Set(["Not covered", "Unspecified", "No information"]);
+const isSentinelOnly = (tokens: readonly string[]): boolean =>
+  tokens.every((t) => SENTINELS.has(t));
+const isNotCoveredRow = (row: ByMetricRow): boolean =>
+  row.sectorSegment.includes("Not covered") ||
+  row.geography.includes("Not covered");
 
 /**
  * A row's geography list as one comparable string.
@@ -71,28 +96,55 @@ const GEOGRAPHIES_SHOWN = 3;
  */
 const geographyKey = (row: ByMetricRow): string => row.geography.join(",");
 
-/**
- * The Geography coverage cell: the geographies this metric covers, truncated.
- *
- * The full list is in the tooltip rather than the cell because it is the
- * exception that needs it — most rows carry one or two tokens, and letting the
- * long ones set the column width would squeeze every other column.
- */
-const GeographyCell: React.FC<{ geography: ByMetricRow["geography"] }> = ({
-  geography,
+/** The Sector segment cell: segment badges, with each segment's definition. */
+const SegmentCell: React.FC<{ row: ByMetricRow; plain: boolean }> = ({
+  row,
+  plain,
 }) => {
-  // Country codes become country names; region labels and the sentinels pass
-  // through. Same treatment the geography badges give a token elsewhere.
-  const labels = geography.map(geographyLabel);
-  const all = labels.join(", ");
-  const shown = labels.slice(0, GEOGRAPHIES_SHOWN).join(", ");
-  if (labels.length <= GEOGRAPHIES_SHOWN) return <span>{shown}</span>;
+  if (plain || isSentinelOnly(row.sectorSegment))
+    return <>{row.sectorSegment.join(", ")}</>;
   return (
-    <TextWithTooltip
-      text={`${shown}, …`}
-      tooltip={all}
-      ariaLabel={`Geography coverage: ${all}`}
-    />
+    <BadgeArray<string>
+      variant="sectorSegment"
+      maxRows={Infinity}
+      tooltipGetter={(segment) => getSectorSegmentTooltip(row.sector, segment)}
+    >
+      {row.sectorSegment}
+    </BadgeArray>
+  );
+};
+
+/**
+ * The Geography coverage cell: geography badges, truncated.
+ *
+ * The rest of a long list sits behind "+N more" rather than in the cell
+ * because it is the exception that needs it — most rows carry one token, and
+ * letting the long ones set the column width would squeeze every other column.
+ */
+const GeographyCell: React.FC<{
+  geography: ByMetricRow["geography"];
+  pathwayGeography?: Geography | null;
+  plain: boolean;
+}> = ({ geography, pathwayGeography, plain }) => {
+  if (plain || isSentinelOnly(geography))
+    return <>{geography.map(geographyLabel).join(", ")}</>;
+  return (
+    <BadgeArray<string>
+      variant={geography.map((geo) => geographyVariant(geographyKind(geo)))}
+      // Country codes become country names, as on every geography badge.
+      toLabel={(geo) => geographyLabel(geo ?? "")}
+      tooltipGetter={(geo) =>
+        geographyKind(geo) === "region" ? (
+          <RegionMembersTooltip
+            geography={pathwayGeography}
+            label={geo}
+          />
+        ) : undefined
+      }
+      visibleCount={Math.min(geography.length, GEOGRAPHIES_SHOWN)}
+    >
+      {geography}
+    </BadgeArray>
   );
 };
 
@@ -225,46 +277,60 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
             </tr>
           </thead>
           <tbody>
-            {rows.map((row, i) => (
-              <tr
-                // Rows have no natural id. The uniqueness tuple the schema
-                // enforces is (metricName, sector, sectorSegment, geography) —
-                // sector was missing here, so a multi-sector pathway reporting
-                // the same metric in two sectors produced duplicate keys. Both
-                // list-valued parts are joined, for the same reason the
-                // duplicate check sorts them: the key is the set, not the order.
-                key={`${row.metricName}|${row.sector}|${row.sectorSegment.join(",")}|${geographyKey(row)}`}
-                className={
-                  i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
-                }
-              >
-                <th
-                  scope="row"
-                  className="px-3 py-2 text-left font-medium text-rmigray-800"
+            {rows.map((row, i) => {
+              const plain = isNotCoveredRow(row);
+              return (
+                <tr
+                  // Rows have no natural id. The uniqueness tuple the schema
+                  // enforces is (metricName, sector, sectorSegment, geography) —
+                  // sector was missing here, so a multi-sector pathway reporting
+                  // the same metric in two sectors produced duplicate keys. Both
+                  // list-valued parts are joined, for the same reason the
+                  // duplicate check sorts them: the key is the set, not the order.
+                  key={`${row.metricName}|${row.sector}|${row.sectorSegment.join(",")}|${geographyKey(row)}`}
+                  className={
+                    i % 2 === 0
+                      ? "align-top bg-white"
+                      : "align-top bg-neutral-50"
+                  }
                 >
-                  {row.metricName}
-                </th>
-                {showSector ? (
-                  <td className="px-3 py-2 text-rmigray-700">{row.sector}</td>
-                ) : null}
-                <td className="px-3 py-2 text-rmigray-700">
-                  {row.sectorSegment.join(", ")}
-                </td>
-                <td className="px-3 py-2 text-rmigray-700">
-                  {row.granularity.join(", ")}
-                </td>
-                <td className="px-3 py-2 text-rmigray-700">
-                  {row.scopeLimitations}
-                </td>
-                <td className="px-3 py-2 text-rmigray-700">
-                  <GeographyCell geography={row.geography} />
-                </td>
-                <td className="px-3 py-2 text-rmigray-700">
-                  {row.timeResolution}
-                </td>
-                <td className="px-3 py-2 text-rmigray-700">{row.dataFormat}</td>
-              </tr>
-            ))}
+                  <th
+                    scope="row"
+                    className="px-3 py-2 text-left font-medium text-rmigray-800"
+                  >
+                    {row.metricName}
+                  </th>
+                  {showSector ? (
+                    <td className="px-3 py-2 text-rmigray-700">{row.sector}</td>
+                  ) : null}
+                  <td className="px-3 py-2 text-rmigray-700">
+                    <SegmentCell
+                      row={row}
+                      plain={plain}
+                    />
+                  </td>
+                  <td className="px-3 py-2 text-rmigray-700">
+                    {row.granularity.join(", ")}
+                  </td>
+                  <td className="px-3 py-2 text-rmigray-700">
+                    {row.scopeLimitations}
+                  </td>
+                  <td className="px-3 py-2 text-rmigray-700">
+                    <GeographyCell
+                      geography={row.geography}
+                      pathwayGeography={pathwayGeography}
+                      plain={plain}
+                    />
+                  </td>
+                  <td className="px-3 py-2 text-rmigray-700">
+                    {row.timeResolution}
+                  </td>
+                  <td className="px-3 py-2 text-rmigray-700">
+                    {row.dataFormat}
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
