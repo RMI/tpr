@@ -346,8 +346,8 @@ async function main() {
     }
 
     const orphaned: string[] = [];
-    if (result.coreDriversProse.length > 0) {
-      orphaned.push(`### ${CORE_DRIVERS}\n\n${result.coreDriversProse}`);
+    if (coreDriversProse.length > 0) {
+      orphaned.push(`### ${CORE_DRIVERS}\n\n${coreDriversProse}`);
     } else {
       console.info(`    note: no "${CORE_DRIVERS}" section found`);
     }
