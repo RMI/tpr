@@ -1,6 +1,8 @@
 import type { Geography } from "../types";
 import {
+  canonicalGeographyKey,
   geographyKind,
+  geographyLabel,
   normalizeGeography,
   regionMemberCodes,
   sortGeographiesForDetails,
@@ -24,7 +26,13 @@ export type GeographyResolution = {
   requested: string | null;
   /** True when `used` is broader than (or simply different from) `requested`. */
   fellBack: boolean;
-  reason: "exact" | "containingRegion" | "global" | "broadest" | "none";
+  reason:
+    | "exact"
+    | "labelVariant"
+    | "containingRegion"
+    | "global"
+    | "broadest"
+    | "none";
 };
 
 /**
@@ -77,6 +85,27 @@ export function resolveGeography(
     return { used: exact, requested: wanted, fellBack: false, reason: "exact" };
   }
 
+  /*
+    The same region spelled differently is still the same region, so this is a
+    match rather than a fallback. Without it, IEA-APS asking for its own
+    declared "Southeast Asia" misses its timeseries' "South East Asia", fails
+    the ISO step below (a region label is not an ISO code) and lands on Global —
+    reporting a fallback while the exact series sits in the file. See #945 for
+    the underlying data inconsistency, which this makes harmless.
+  */
+  const wantedKey = canonicalGeographyKey(wanted);
+  const variant = ranked.find(
+    (geo) => canonicalGeographyKey(geo) === wantedKey,
+  );
+  if (variant !== undefined) {
+    return {
+      used: variant,
+      requested: wanted,
+      fellBack: false,
+      reason: "labelVariant",
+    };
+  }
+
   // A requested country may be covered by a region the data does carry.
   const wantedISO = toISO2(wanted);
   if (wantedISO) {
@@ -113,4 +142,25 @@ export function resolveGeography(
     fellBack: true,
     reason: "broadest",
   };
+}
+
+/**
+ * The one-line explanation shown when a resolution had to widen, or null when
+ * it did not.
+ *
+ * Shared by the detail page's plot grid and the comparison page's columns so the
+ * two cannot word the same fact differently. Note the phrasing avoids claiming
+ * the geography is unavailable "for this pathway" — once the request comes from
+ * a scope control it is one of the pathway's own declared geographies, and what
+ * is missing is the timeseries, not the coverage.
+ */
+export function geographyFallbackNote(
+  resolution: GeographyResolution,
+): string | null {
+  if (!resolution.fellBack || !resolution.requested || !resolution.used) {
+    return null;
+  }
+  const requested = geographyLabel(normalizeGeography(resolution.requested));
+  const used = geographyLabel(normalizeGeography(resolution.used));
+  return `No timeseries data for ${requested}; showing ${used} instead.`;
 }

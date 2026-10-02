@@ -1,7 +1,28 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { readFileSync } from "node:fs";
 import Badge, { BadgeMaybeAbsent } from "./Badge";
 import { pathwayTypeTooltips, sectorTooltips } from "../utils/tooltipUtils";
+
+/** Every variant the union offers, so the guard below cannot miss one. */
+const ALL_VARIANTS = [
+  "default",
+  "pathwayType",
+  "temperature",
+  "year",
+  "geographyGlobal",
+  "geographyRegion",
+  "geographyCountry",
+  "sector",
+  "sectorSegment",
+  "metric",
+  "keyFeature",
+  "geographyGlobal-pub",
+  "geographyRegion-pub",
+  "geographyCountry-pub",
+  "sector-pub",
+  "metric-pub",
+] as const;
 
 describe("Badge component", () => {
   it("renders with the provided text", () => {
@@ -168,8 +189,8 @@ describe("Badge component", () => {
       );
       const badge = container.firstChild as HTMLElement;
       expect(badge).toHaveClass("bg-transparent");
-      expect(badge).toHaveClass("text-pinishgreen-700");
-      expect(badge).toHaveClass("border-pinishgreen-500");
+      expect(badge).toHaveClass("text-pinishgreen-800");
+      expect(badge).toHaveClass("border-pinishgreen-400");
     });
 
     it("applies geographyCountry-pub styling with transparent background", () => {
@@ -178,7 +199,7 @@ describe("Badge component", () => {
       );
       const badge = container.firstChild as HTMLElement;
       expect(badge).toHaveClass("bg-transparent");
-      expect(badge).toHaveClass("text-pinishgreen-600");
+      expect(badge).toHaveClass("text-pinishgreen-800");
       expect(badge).toHaveClass("border-pinishgreen-400");
     });
 
@@ -198,6 +219,51 @@ describe("Badge component", () => {
       expect(badge).toHaveClass("bg-transparent");
       expect(badge).toHaveClass("text-rmipurple-800");
       expect(badge).toHaveClass("border-rmipurple-400");
+    });
+  });
+
+  describe("every colour class resolves to a defined theme token", () => {
+    /*
+      Tailwind v4 takes its palette from `@theme` in index.css. A class naming a
+      shade that is not defined there emits no CSS at all and fails silently — an
+      outlined badge with no text colour and no border, which is exactly how
+      geographyRegion-pub and geographyCountry-pub shipped referencing
+      pinishgreen-500/600/700 when the family defines only 100/200/400/800.
+
+      Asserting the class strings one by one cannot catch that, because the class
+      is present either way. This checks them against the theme.
+    */
+    // Read rather than imported: vitest's CSS handling returns "" for
+    // `index.css?raw`, which would make every case below vacuously pass. The
+    // sanity check below stops that happening silently again.
+    const themeCss = readFileSync("src/index.css", "utf8");
+    const defined = new Set(
+      [...themeCss.matchAll(/--color-([a-z0-9]+-[0-9]+)\s*:/g)].map(
+        (m) => m[1],
+      ),
+    );
+
+    // The families index.css owns. Anything else (transparent, white, and
+    // Tailwind's own built-ins) is not ours to verify.
+    const OWNED =
+      /^(?:bg|text|border)-((?:rmi[a-z]+|pinishgreen|solar)-[0-9]+)$/;
+
+    it("has a non-empty theme to check against", () => {
+      // Guards the regex above: an empty set would make every case below vacuous.
+      expect(defined.size).toBeGreaterThan(20);
+      expect(defined).toContain("pinishgreen-800");
+    });
+
+    it.each(ALL_VARIANTS)("%s", (variant) => {
+      const { container } = render(<Badge variant={variant}>Label</Badge>);
+      const badge = container.firstChild as HTMLElement;
+
+      const missing = [...badge.classList]
+        .map((cls) => OWNED.exec(cls)?.[1])
+        .filter((token): token is string => token !== undefined)
+        .filter((token) => !defined.has(token));
+
+      expect(missing).toEqual([]);
     });
   });
 

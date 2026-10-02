@@ -102,7 +102,9 @@ describe("KeyFeatures", () => {
   });
 
   it("renders no driver prose at all when coreDrivers is omitted", () => {
-    // This is what keeps the comparison page free of core-driver content.
+    // Drivers are opt-in: a caller that passes only key features gets only key
+    // features. (This used to be what kept the comparison page driver-free;
+    // that page now builds its own driver rows from the same group config.)
     render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
 
     expect(
