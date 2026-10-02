@@ -75,7 +75,11 @@ const ComparisonRibbon: React.FC = () => {
     const params = [`ids=${pathways.map((p) => p.id).join(",")}`];
     if (sector !== null) params.push(`sector=${encodeURIComponent(sector)}`);
     const encoded = encodeColumnGeographies(geographies);
-    if (encoded !== "") params.push(`geography=${encoded}`);
+    // Encoded again as a whole: the page reads it back through
+    // URLSearchParams.get(), which decodes one layer, so without this a comma
+    // or colon inside a token would come back as a delimiter. The page's own
+    // setter gets the same second layer from URLSearchParams.set().
+    if (encoded !== "") params.push(`geography=${encodeURIComponent(encoded)}`);
 
     void navigate(`/compare?${params.join("&")}`);
   };

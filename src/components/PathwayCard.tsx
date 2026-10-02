@@ -49,8 +49,13 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
     ribbonExpanded,
   } = useComparison();
   const inComparison = isInComparison(pathway.id);
+  // Resolved ids only, so a stale id in session storage neither fills a slot
+  // here nor counts towards the sector check -- the same count the ribbon shows.
+  const selectedPathways = comparedPathwayIds
+    .map((id) => pathwayMetadata.find((p) => p.id === id))
+    .filter((p): p is PathwayMetadataType => p !== undefined);
   const comparisonFull =
-    comparedPathwayIds.length >= MAX_COMPARED && !inComparison;
+    selectedPathways.length >= MAX_COMPARED && !inComparison;
 
   /*
     Why this pathway cannot be added, or null when it can. One value rather than
@@ -61,10 +66,6 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
     skipped, and a pathway declaring no sectors is never the reason — see
     `sharedSectors`.
   */
-  const selectedPathways = comparedPathwayIds
-    .map((id) => pathwayMetadata.find((p) => p.id === id))
-    .filter((p): p is PathwayMetadataType => p !== undefined);
-
   const blockedReason: "full" | "sector" | null = inComparison
     ? null
     : comparisonFull

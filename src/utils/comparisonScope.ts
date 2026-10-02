@@ -75,6 +75,10 @@ export function sectorsCompatible(
   selected: readonly PathwayMetadataType[],
   candidate: PathwayMetadataType,
 ): boolean {
+  // A candidate declaring no sectors is never the reason, as in
+  // `sharedSectors`; without this it would be blocked from an empty tray,
+  // where it is the only pathway and so shares nothing with itself.
+  if (sectorNames(candidate).length === 0) return true;
   return sharedSectors([...selected, candidate]).length > 0;
 }
 
@@ -178,6 +182,11 @@ export type ColumnGeographySelection = Record<string, string>;
  * percent-encoded, so a token containing a comma or colon cannot break the
  * delimiters — none does today, but region labels are publisher prose and
  * being safe costs one function call.
+ *
+ * The result must be encoded once more as a whole when it goes into the query
+ * string (`URLSearchParams.set` does this; a hand-built query needs
+ * `encodeURIComponent`), because `URLSearchParams.get` decodes one layer before
+ * `decodeColumnGeographies` sees it.
  */
 export function encodeColumnGeographies(
   selection: ColumnGeographySelection,
