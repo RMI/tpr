@@ -313,7 +313,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Minor decrease"
       },
@@ -325,14 +325,14 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate increase"
       },
@@ -344,14 +344,14 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate increase"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "Carbon price",
@@ -366,28 +366,28 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "CO2"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Current and drafted policies"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Capital costs, O&M, etc."
       },
@@ -399,7 +399,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "CCUS",
@@ -421,7 +421,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "By tech, part of value chain"
       },
@@ -434,11 +434,11 @@
   },
   "coreDrivers": {
     "policies": "STEPS is driven by current policies plus formally tabled policies and official strategies, including carbon pricing, standards, subsidies, technology targets, phaseouts, tariffs/rate design and other market/regulatory policies.",
-    "emissionsTargets": null,
+    "emissionsTargets": "not applicable.",
     "technologyCosts": "Technology costs affect outcomes through learning-by-doing; faster clean technology deployment than CPS lowers costs faster and supports more renewables, electrification and storage.",
     "investmentChange": "Average annual energy investment in 2025-2035 rises to over USD 3.4 trillion, with greater spending on renewables, grids/storage, efficiency and electrification than CPS.",
     "macroeconomicDrivers": "GDP and population assumptions are common across scenarios; economic growth and emerging-market demand drive energy-service growth, but policies and technology adoption moderate final energy demand relative to CPS.",
-    "behavioralShifts": null,
+    "behavioralShifts": "not applicable.",
     "otherDrivers": "Energy security, LNG market balances, grid integration, critical minerals and data centre/cooling demand are important contextual drivers and dependencies shaping STEPS outcomes."
   },
   "dependencies": [

@@ -88,7 +88,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant decrease"
       },
@@ -100,14 +100,14 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant decrease"
       },
@@ -119,14 +119,14 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant increase"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "Carbon price",
@@ -141,28 +141,28 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "CO2"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "High ambition policies"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Capital costs, O&M, etc."
       },
@@ -174,7 +174,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "CCUS",
@@ -200,7 +200,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "By tech, part of value chain"
       },
@@ -217,7 +217,7 @@
     "technologyCosts": "Technology costs affect the least-cost and feasible scaling of renewables, storage, hydrogen, CCUS and other low-emissions technologies; faster deployment accelerates learning and cost decline.",
     "investmentChange": "Average annual energy investment in 2025-2035 reaches nearly USD 4.8 trillion, much higher than CPS/STEPS, especially for efficiency/electrification, renewables, grids/storage and low-emissions fuels.",
     "macroeconomicDrivers": "GDP and population assumptions are common across scenarios; NZE meets similar energy-service needs with much lower final energy through rapid efficiency gains and electrification.",
-    "behavioralShifts": null,
+    "behavioralShifts": "not applicable.",
     "otherDrivers": "NZE strongly depends on rapid transformation of the energy sector and large-scale CO2 removals that are currently unproven at scale, creating a material feasibility driver."
   },
   "dependencies": [

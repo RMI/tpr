@@ -59,7 +59,9 @@ const ids = (list: PathwayMetadataType[]) => list.map((p) => p.id).sort();
 
 describe("emissionsTrajectory facet over scoped entries", () => {
   const wide = pathway("wide", {
-    emissionsTrajectory: [e("cross-sector", "Global", "Significant decrease")],
+    emissionsTrajectory: [
+      e("across sectors", "Global", "Significant decrease"),
+    ],
   });
   const perSector = pathway("perSector", {
     emissionsTrajectory: [
@@ -69,7 +71,7 @@ describe("emissionsTrajectory facet over scoped entries", () => {
   });
   const regional = pathway("regional", {
     emissionsTrajectory: [
-      e("cross-sector", "South East Asia", "Significant decrease"),
+      e("across sectors", "South East Asia", "Significant decrease"),
     ],
   });
   const empty = pathway("empty", { emissionsTrajectory: [] });
@@ -173,11 +175,11 @@ describe("emissionsTrajectory facet over scoped entries", () => {
     expect(ids(filterPathways(all, filters))).not.toContain("wide");
   });
 
-  it("cross-sector does not answer a sector the pathway never declares", () => {
+  it("across sectors does not answer a sector the pathway never declares", () => {
     const powerOnly = pathway("powerOnly", {
       sectors: ["Power"],
       emissionsTrajectory: [
-        e("cross-sector", "Global", "Significant decrease"),
+        e("across sectors", "Global", "Significant decrease"),
       ],
     });
     const filters: FiltersWithArrays = {
@@ -236,7 +238,7 @@ describe("region filters vs publication region membership", () => {
   // geography facet alone (which has always used overlap) kept the pathway.
   const regional = pathway("regional", {
     emissionsTrajectory: [
-      e("cross-sector", "South East Asia", "Significant decrease"),
+      e("across sectors", "South East Asia", "Significant decrease"),
     ],
   });
 
@@ -291,7 +293,7 @@ describe("Sector=None combined with a scoped facet", () => {
     metric: [],
     keyFeatures: {
       emissionsTrajectory: [
-        e("cross-sector", "Global", "Significant decrease"),
+        e("across sectors", "Global", "Significant decrease"),
       ],
       policyAmbition: [],
     },
@@ -341,9 +343,9 @@ describe("getGlobalFacetOptions over scoped entries", () => {
   const all = [
     pathway("a", {
       emissionsTrajectory: [
-        e("cross-sector", "Global", "Significant decrease"),
+        e("across sectors", "Global", "Significant decrease"),
       ],
-      policyAmbition: [e("cross-sector", "Global", "High ambition policies")],
+      policyAmbition: [e("across sectors", "Global", "High ambition policies")],
     }),
     pathway("b", {
       emissionsTrajectory: [

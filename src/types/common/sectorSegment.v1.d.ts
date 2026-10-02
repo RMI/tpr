@@ -9,9 +9,19 @@
  */
 export type DisplayName =
   | "No information"
+  | "Unspecified"
+  | "Not covered"
+  | "Upstream energy and fuels"
+  | "Passenger transport"
+  | "Freight transport"
+  | "Fuel extraction and processing"
   | "Power generation"
-  | "Storage"
-  | "Transmission & Distribution";
+  | "Energy storage"
+  | "Transmission and distribution"
+  | "Mining"
+  | "Ironmaking"
+  | "Steelmaking"
+  | "Downstream";
 
 /**
  * Segments within a sector

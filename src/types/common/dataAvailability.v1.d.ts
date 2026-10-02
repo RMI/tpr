@@ -5,37 +5,54 @@
  */
 
 /**
- * How geographically granular the underlying data is.
- */
-export type GeographyCoverage = "Global" | "Regional" | "Country";
-/**
- * How finely the underlying data is resolved over time.
+ * How finely the underlying data is resolved over time. Where a pathway resolves a metric differently for different geographies, the most granular resolution available is the one recorded.
  */
 export type TimeResolution =
+  | "2050 data point"
+  | "Medium-term data point"
+  | "10-year steps"
+  | "5-year steps"
+  | "1-year steps"
+  | "5/10-year steps"
+  | "Other time resolution"
+  | "Unspecified"
+  | "Not covered";
+/**
+ * In what form the source publication makes the metric's values available to a reader. Where values appear in more than one form the most extractable wins: Tabular before Text before Figure.
+ */
+export type DataFormat = "Tabular" | "Text" | "Figure" | "Not covered";
+/**
+ * Granularity values that are not technologies. A row's `granularity` is a flat array drawn from this vocabulary or from the sector's technologies, depending on the metric.
+ */
+export type GranularityBreakdown =
   | "No information"
-  | "Single year (2050)"
-  | "Medium-term"
-  | "10-year"
-  | "5-10-year"
-  | "5-year"
-  | "1-year"
-  | "Other";
-/**
- * Where the data can be obtained, and in what form.
- */
-export type DataFormat =
-  "In tool" | "Tabular in publication" | "Text in publication";
-/**
- * Whether reaching the data at the publisher costs money. Null when we host it.
- */
-export type Access = "Free" | "Paywalled" | null;
+  | "Unspecified"
+  | "Not covered"
+  | "Scope 1"
+  | "Scope 1 & 2"
+  | "Scope 1, 2 & 3"
+  | "Scope 1 & 3"
+  | "Total costs"
+  | "Capital costs, O&M, etc."
+  | "Other cost breakdown"
+  | "Total investment"
+  | "By sector"
+  | "By sector, part of value chain"
+  | "By technology"
+  | "By tech, part of value chain"
+  | "High-carbon assets lifetime assumed constant"
+  | "High-carbon assets lifetime face early retirement policy"
+  | "International connections only"
+  | "International and national transmission lines"
+  | "Transmission and distribution"
+  | "Scrap share as EAF input"
+  | "Scrap share as steel total input";
 
 /**
- * The closed vocabularies describing how a metric's underlying data can be obtained (#870).
+ * The closed vocabularies describing how a metric's underlying data can be obtained (#870). Values follow cookbook tpr_cookbook_20260924; see docs/cookbook/split/data_availability in RMI/tpr-tpc.
  */
 export interface DataAvailabilityV1 {
-  geographyCoverage: GeographyCoverage;
   timeResolution: TimeResolution;
   dataFormat: DataFormat;
-  access: Access;
+  granularityBreakdown: GranularityBreakdown;
 }

@@ -49,9 +49,9 @@ const V2_ID =
   "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
 
 /** Widest sentinels, mirroring src/utils/validateScopes.ts. */
-const CROSS_SECTOR = "cross-sector";
+const ACROSS_SECTORS = "across sectors";
 const GLOBAL_SCOPE = "Global";
-const CROSS_REGION = "cross-region";
+const ACROSS_REGIONS = "across regions";
 
 /**
  * Workbook sheet selection -- the single source of truth. The data is not
@@ -106,13 +106,34 @@ const EVIDENCE_TYPES =
 
 /**
  * Per-field keyFeatures value enums, read straight from the v2 schema. A field's
- * `value` is either an enum string (scalar), an array of enum strings
- * (policyTypes / newTechnologiesIncluded), or a $ref to a shared enum schema
- * (emissionsScope). KF_ARRAY_FIELDS records which fields are arrays.
+ * `value` takes one of four shapes:
+ *
+ *  - an inline enum (most fields);
+ *  - an array of enum strings (policyTypes / newTechnologiesIncluded);
+ *  - a `$ref` to a shared enum schema;
+ *  - an `anyOf` composing a `$ref` with an inline enum — emissionsScope, which
+ *    draws its gas vocabulary from `emissionsScope.v1.json` (shared with
+ *    pathwayTimeseries.v1) and adds the scope sentinel locally.
+ *
+ * The last shape is why `membersOf` is recursive rather than a branch per case.
+ * Returning `[]` for an unrecognised shape is what it used to do for an
+ * unhandled one, and it fails quietly: `matchEnum` then rejects every cell and
+ * the whole field is dropped from every pathway. Hence the assertion below.
+ *
+ * KF_ARRAY_FIELDS records which fields are arrays.
  */
 const REF_ENUMS: Record<string, string[]> = {
   "emissionsScope.v1.json": (emissionsScopeSchema as SchemaNode).enum ?? [],
 };
+
+function membersOf(node: SchemaNode | undefined): readonly string[] {
+  if (!node) return [];
+  if (node.enum) return node.enum;
+  if (node.$ref) return REF_ENUMS[node.$ref.split("/").pop() ?? ""] ?? [];
+  if (node.anyOf) return node.anyOf.flatMap(membersOf);
+  return [];
+}
+
 const KF_SCALAR_ENUMS: Record<string, readonly string[]> = {};
 const KF_ARRAY_ENUMS: Record<string, readonly string[]> = {};
 const KF_ARRAY_FIELDS = new Set<string>();
@@ -121,13 +142,27 @@ for (const [field, spec] of Object.entries(
 )) {
   const value = spec.items?.properties?.value;
   if (!value) continue;
-  if (value.$ref) {
-    KF_SCALAR_ENUMS[field] = REF_ENUMS[value.$ref.split("/").pop() ?? ""] ?? [];
-  } else if (value.type === "array") {
-    KF_ARRAY_ENUMS[field] = value.items?.enum ?? [];
+  if (value.type === "array") {
+    KF_ARRAY_ENUMS[field] = membersOf(value.items);
     KF_ARRAY_FIELDS.add(field);
   } else {
-    KF_SCALAR_ENUMS[field] = value.enum ?? [];
+    KF_SCALAR_ENUMS[field] = membersOf(value);
+  }
+}
+
+// An empty vocabulary is never legitimate, and silently means "drop every value
+// this field has". Better to refuse to run than to emit 60 files quietly
+// missing a field.
+for (const [field, members] of [
+  ...Object.entries(KF_SCALAR_ENUMS),
+  ...Object.entries(KF_ARRAY_ENUMS),
+]) {
+  if (members.length === 0) {
+    throw new Error(
+      `keyFeatures.${field}: could not read a value vocabulary out of the v2` +
+        ` schema. Extend membersOf() to cover its 'value' shape -- leaving it` +
+        ` empty would drop every ${field} cell in the workbook.`,
+    );
   }
 }
 
@@ -465,15 +500,26 @@ async function readWorkbook(path: string, prefix: string): Promise<Sheets> {
 // --------------------------------------------------------------------------
 
 /** Cells that mean "no value at this scope" -- the entry is omitted entirely. */
+/**
+ * Whether a cell records nothing at all, as against recording an absence.
+ *
+ * The `not applicable` / `not available` prefixes used to be here, and taking
+ * them out is the point of the change. Cookbook decision 0023 made those
+ * authored values rather than empty cells: `Not applicable at this scope level`
+ * says this row is not the widest scope the field is calculated for, and
+ * `Not Applicable` says the measure is meaningless for the sector at any scope.
+ * #858 added both to the schema, and the epic turns on the distinction — an
+ * explicit value terminates #869's fallback chain where an absent entry keeps
+ * broadening. Swallowing them here threw away exactly what they were added to
+ * express.
+ *
+ * A consequence worth keeping: a cell still carrying a pre-0023 spelling now
+ * fails `matchEnum` and is reported in `badValues` instead of vanishing, so the
+ * importer's own report names the cells left to correct.
+ */
 export function isAbsent(raw: string): boolean {
   const l = raw.trim().toLowerCase();
-  return (
-    l === "" ||
-    l === "null" ||
-    l === "n/a" ||
-    l.startsWith("not applicable") ||
-    l.startsWith("not available")
-  );
+  return l === "" || l === "null" || l === "n/a";
 }
 
 export function matchEnum(
@@ -598,7 +644,7 @@ export function buildGeography(
 
 /** Every geography token entries on this pathway may name (mirrors validateScopes). */
 export function allowedGeographies(geo: Geography | undefined): Set<string> {
-  const allowed = new Set<string>([CROSS_REGION]);
+  const allowed = new Set<string>([ACROSS_REGIONS]);
   if (!geo) return allowed;
   if (geo.global === true) allowed.add(GLOBAL_SCOPE);
   for (const [label, members] of Object.entries(geo.regions ?? {})) {
@@ -636,11 +682,11 @@ export function resolveGeography(
 }
 
 function sectorBreadth(s: string): number {
-  return s === CROSS_SECTOR ? 0 : 1;
+  return s === ACROSS_SECTORS ? 0 : 1;
 }
 function geographyBreadth(g: string): number {
   if (g === GLOBAL_SCOPE) return 0;
-  if (g === CROSS_REGION) return 1;
+  if (g === ACROSS_REGIONS) return 1;
   return /^[A-Z]{2}$/.test(g) ? 3 : 2;
 }
 
@@ -677,10 +723,21 @@ function buildKeyFeatures(
   for (const row of rows) {
     const rawSector = row["Key features sector scope"] ?? "";
     const rawGeo = row["Key features regional scope"] ?? "";
+    /*
+      The sheet's sector-scope sentinel is the schema's, so this normalizes
+      case and nothing else. It used to translate `across sectors` into a
+      repo-local `cross-sector`; #858 settled on the cookbook's spelling, so
+      that translation now produces a value the schema rejects -- and did so for
+      40 of this workbook's 98 key-feature rows.
+    */
     let sector: string | null;
-    if (/^across sectors$/i.test(rawSector.trim())) sector = CROSS_SECTOR;
+    if (rawSector.trim().toLowerCase() === ACROSS_SECTORS)
+      sector = ACROSS_SECTORS;
     else sector = normalizeSector(rawSector);
-    if (!sector || (sector !== CROSS_SECTOR && !declaredSectors.has(sector))) {
+    if (
+      !sector ||
+      (sector !== ACROSS_SECTORS && !declaredSectors.has(sector))
+    ) {
       badSectors.add(rawSector.trim() || "(blank)");
       continue;
     }
@@ -728,7 +785,14 @@ function buildKeyFeatures(
     parts.push(`undeclared sector scopes {${[...badSectors].join(", ")}}`);
   if (badGeos.size)
     parts.push(`unresolved geographies {${[...badGeos].join(", ")}}`);
-  if (badValues.size) parts.push(`${badValues.size} off-enum value(s) dropped`);
+  // Named, not just counted: these are the cells to correct in the workbook,
+  // and a bare count says nothing about which. `badSectors` and `badGeos` above
+  // have always named theirs; this one is now the more useful of the three,
+  // since isAbsent stopped hiding retired scope-sentinel spellings from it.
+  if (badValues.size)
+    parts.push(
+      `${badValues.size} off-enum value(s) dropped {${[...badValues].join(", ")}}`,
+    );
   if (dupScopes) parts.push(`${dupScopes} duplicate-scope value(s) collapsed`);
   if (parts.length > 1) report.note(`${id}: ${parts.join("; ")}`);
 

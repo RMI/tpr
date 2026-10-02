@@ -5,11 +5,12 @@
   "description": "Technologies for sectors",
   "type": "object",
   "properties": {
-    "displayName": { "$ref": "#/$defs/displayName" }
+    "displayName": {
+      "$ref": "#/$defs/displayName"
+    }
   },
   "required": ["displayName"],
   "additionalProperties": false,
-
   "$defs": {
     "displayName": {
       "description": "Display name of the technology as presented in charts or tables.",
@@ -45,8 +46,29 @@
         "Active Mobility",
         "Aviation Efficiency",
         "Maritime Efficiency",
+        "Geothermal",
+        "Energy storage",
+        "BOF",
+        "BF-BOF",
+        "BF-BOF+PCI",
+        "BF-BOF+CCUS",
+        "DRI-Melt-BOF",
+        "EAF",
+        "Scrap-EAF",
+        "DRI-EAF",
+        "DRI-EAF+H2",
+        "DRI-EAF+CCS",
+        "Electrolyser/Electrowinning",
+        "Jet Fuel",
+        "SAF",
+        "Electricity",
+        "Hydrogen",
+        "HEFA",
+        "PtL",
+        "AtJ",
         "Other"
-      ]
+      ],
+      "$comment": "Flat across sectors, with membership enforced per sector by technologyBelongsToSector against SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts -- draft-07 cannot condition this enum on a sibling sector, and the if/then form that could collapses the generated object type to an index signature (see validateScopes.ts). Spellings follow cookbook metadata/technology_coverage.md. 'Renewables' and the pre-cookbook entries have no cookbook counterpart and are kept for backwards compatibility with v1 data (#858); they simply belong to no sector's list."
     }
   }
 }

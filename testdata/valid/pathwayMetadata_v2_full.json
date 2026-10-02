@@ -44,11 +44,17 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Solar", "Wind", "Coal"]
+      "technologies": ["Solar", "Wind", "Coal"],
+      "segments": [
+        "Power generation",
+        "Energy storage",
+        "Transmission and distribution"
+      ]
     },
     {
       "name": "Steel",
-      "technologies": []
+      "technologies": [],
+      "segments": ["Ironmaking", "Steelmaking"]
     }
   ],
   "pathwayDescription": "A pathway whose key features vary by sector and geography, used to exercise the scoped-entry shape end to end.",
@@ -62,7 +68,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate decrease"
       },
@@ -79,7 +85,7 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate improvement"
       },
@@ -91,14 +97,14 @@
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Minor increase"
       }
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant increase"
       },
@@ -110,7 +116,7 @@
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": ["Carbon price", "Subsidies"]
       },
@@ -122,21 +128,21 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "CO2e (Kyoto)"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "High ambition policies"
       },
@@ -148,14 +154,14 @@
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Capital costs, O&M, etc."
       }
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": ["CCUS", "DAC", "Green H2/ammonia", "Battery storage"]
       },
@@ -196,50 +202,52 @@
       {
         "metricName": "Capacity",
         "sector": "Power",
-        "sectorSegment": "Power generation",
-        "geography": "Global",
-        "geographyCoverage": "Global",
-        "timeResolution": "1-year",
-        "dataFormat": "In tool",
-        "access": null,
+        "sectorSegment": ["Fuel extraction and processing", "Power generation"],
+        "geography": ["Global", "South East Asia", "SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
         "granularity": ["Solar", "Wind", "Coal"],
-        "scopeLimitations": "Excludes off-grid generation."
+        "scopeLimitations": "Excludes off-grid generation. Reports no storage, so no storage breakdown applies."
       },
       {
         "metricName": "Generation",
         "sector": "Power",
-        "sectorSegment": "Storage",
-        "geography": "South East Asia",
-        "geographyCoverage": "Regional",
-        "timeResolution": "5-year",
-        "dataFormat": "Tabular in publication",
-        "access": "Free",
-        "granularity": null,
-        "scopeLimitations": null
+        "sectorSegment": ["Energy storage"],
+        "geography": ["South East Asia"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Text",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Battery storage only; pumped hydro is out of scope."
       },
       {
-        "metricName": "Technology Mix",
+        "metricName": "Transmission lines",
         "sector": "Power",
-        "sectorSegment": "Transmission & Distribution",
-        "geography": "SG",
-        "geographyCoverage": "Country",
-        "timeResolution": "Single year (2050)",
-        "dataFormat": "Text in publication",
-        "access": "Paywalled",
-        "granularity": null,
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["SG"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Figure",
+        "granularity": ["International and national transmission lines"],
         "scopeLimitations": "Grid losses only."
       },
       {
-        "metricName": "Absolute Emissions",
+        "metricName": "Absolute emissions",
         "sector": "Steel",
-        "sectorSegment": "No information",
-        "geography": "Global",
-        "geographyCoverage": "Global",
-        "timeResolution": "No information",
-        "dataFormat": "Text in publication",
-        "access": "Free",
-        "granularity": null,
-        "scopeLimitations": null
+        "sectorSegment": ["Ironmaking", "Steelmaking"],
+        "geography": ["Global"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Text",
+        "granularity": ["Scope 1 & 2"],
+        "scopeLimitations": "Ironmaking and steelmaking are modelled together and cannot be separated."
+      },
+      {
+        "metricName": "Emissions intensity (total)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       }
     ]
   }

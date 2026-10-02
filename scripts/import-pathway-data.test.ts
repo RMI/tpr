@@ -79,12 +79,36 @@ describe("value normalization", () => {
     expect(matchEnum("carbon price", ["Carbon price"])).toBe("Carbon price");
     expect(matchEnum("nonsense", demand)).toBeNull();
   });
-  it("treats NULL / not-applicable / blank as absent", () => {
+  it("treats only NULL / n/a / blank as absent", () => {
     expect(isAbsent("NULL")).toBe(true);
-    expect(isAbsent("Not applicable at that scope level")).toBe(true);
-    expect(isAbsent("Not available at this scope")).toBe(true);
+    expect(isAbsent("n/a")).toBe(true);
     expect(isAbsent("")).toBe(true);
+    expect(isAbsent("   ")).toBe(true);
     expect(isAbsent("No information")).toBe(false);
+  });
+
+  it("does not treat the scope sentinels as absent", () => {
+    // Cookbook decision 0023 made these authored values, and #858 added them to
+    // the schema. They used to be swallowed here, which discarded the very
+    // distinction they exist to draw: an explicit value terminates #869's
+    // fallback chain where an absent entry keeps broadening.
+    expect(isAbsent("Not applicable at this scope level")).toBe(false);
+    expect(isAbsent("Not Applicable")).toBe(false);
+  });
+
+  it("reports a pre-0023 spelling rather than hiding it", () => {
+    // Not absent, and not an enum member either, so it lands in the importer's
+    // badValues report -- which is what names the cells still to correct in the
+    // workbook. Previously it disappeared silently.
+    for (const retired of [
+      "Not available at this scope",
+      "Not applicable at that scope level",
+    ]) {
+      expect(isAbsent(retired)).toBe(false);
+      expect(matchEnum(retired, ["Not applicable at this scope level"])).toBe(
+        null,
+      );
+    }
   });
   it("ensures a trailing period and splits mixed-delimiter lists", () => {
     expect(ensurePeriod("foo")).toBe("foo.");

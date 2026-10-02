@@ -58,7 +58,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Significant increase"
       },
@@ -75,14 +75,24 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Significant improvement"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Significant increase"
       },
@@ -99,42 +109,67 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": ["None"]
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Low or no change"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "CO2e (unspecified GHGs)"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "No policies included"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Capital costs, O&M, etc."
       },
@@ -151,7 +186,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": ["No new technologies"]
       },
@@ -163,7 +198,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "No information"
       },

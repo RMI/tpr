@@ -17,65 +17,65 @@ export type Publication = import("./common/publication.v1").PublicationV1;
  */
 export type Geography = import("./common/geography.v1").GeographyV1;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector1 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography1 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector2 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography2 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector3 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography3 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector4 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography4 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector5 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography5 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector6 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography6 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -85,43 +85,43 @@ export type ScopeGeography6 =
 export type EmissionsScope =
   import("./common/emissionsScope.v1").EmissionsScopeV1;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector7 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography7 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector8 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography8 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector9 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography9 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector10 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography10 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * Geography this row applies to. Same scope token as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography11 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -222,8 +222,32 @@ export interface PathwayMetadataV2 {
       | "Active Mobility"
       | "Aviation Efficiency"
       | "Maritime Efficiency"
+      | "Geothermal"
+      | "Energy storage"
+      | "BOF"
+      | "BF-BOF"
+      | "BF-BOF+PCI"
+      | "BF-BOF+CCUS"
+      | "DRI-Melt-BOF"
+      | "EAF"
+      | "Scrap-EAF"
+      | "DRI-EAF"
+      | "DRI-EAF+H2"
+      | "DRI-EAF+CCS"
+      | "Electrolyser/Electrowinning"
+      | "Jet Fuel"
+      | "SAF"
+      | "Electricity"
+      | "Hydrogen"
+      | "HEFA"
+      | "PtL"
+      | "AtJ"
       | "Other"
     )[];
+    /**
+     * Segments of this sector's value chain that the pathway covers -- it provides at least one relevant output metric for each. Members must be segments of this entry's `name`, enforced by scripts/schema-check-files.ts.
+     */
+    segments?: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"][];
   }[];
   /**
    * Narrative description of the pathway. Replaces v1's expertOverview: in the v1 corpus this is the '#### Pathway Description' section of it. v1's separate pathwayOverview field is retired without replacement, not merged in here -- the two texts restate each other, so merging them read as immediate self-repetition. null means no description is available.
@@ -231,7 +255,7 @@ export interface PathwayMetadataV2 {
   pathwayDescription: string | null;
   metric: import("./common/metric.v1").MetricV1["displayName"][];
   /**
-   * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
+   * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'across sectors' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
    */
   keyFeatures: {
     /**
@@ -264,7 +288,8 @@ export interface PathwayMetadataV2 {
         | "Low or no change"
         | "Minor improvement"
         | "Moderate improvement"
-        | "Significant improvement";
+        | "Significant improvement"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Captures the change in total energy consumption, driven by factors such as socio-economic development, technology shifts and consumer behavior. Scoped: see keyFeatures.
@@ -296,7 +321,9 @@ export interface PathwayMetadataV2 {
         | "Low or no change"
         | "Minor increase"
         | "Moderate increase"
-        | "Significant increase";
+        | "Significant increase"
+        | "Not Applicable"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Identifies the types of policies modeled as drivers of the pathway, such as carbon pricing, subsidies, or mandated phaseouts of specific technologies. Scoped: see keyFeatures.
@@ -318,6 +345,7 @@ export interface PathwayMetadataV2 {
           | "Target technology shares"
           | "Other"
           | "None"
+          | "Not applicable at this scope level"
         ),
         ...(
           | "No information"
@@ -329,6 +357,7 @@ export interface PathwayMetadataV2 {
           | "Target technology shares"
           | "Other"
           | "None"
+          | "Not applicable at this scope level"
         )[],
       ];
     }[];
@@ -338,7 +367,12 @@ export interface PathwayMetadataV2 {
     technologyCostTrend: {
       sector: ScopeSector5;
       geography: ScopeGeography5;
-      value: "No information" | "Increase" | "Low or no change" | "Decrease";
+      value:
+        | "No information"
+        | "Increase"
+        | "Low or no change"
+        | "Decrease"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Defines which greenhouse gases are covered in the pathway's modeled emissions. Scoped: see keyFeatures.
@@ -346,7 +380,7 @@ export interface PathwayMetadataV2 {
     emissionsScope: {
       sector: ScopeSector6;
       geography: ScopeGeography6;
-      value: EmissionsScope;
+      value: EmissionsScope | "Not applicable at this scope level";
     }[];
     /**
      * Represents the overall stringency and intent of modeled policies relative to climate targets, often reflecting if and how far the included policies go beyond currently legislated ones. Scoped: see keyFeatures.
@@ -362,7 +396,8 @@ export interface PathwayMetadataV2 {
         | "NDCs, unconditional only"
         | "NDCs incl. conditional targets"
         | "High ambition policies"
-        | "Other policy ambition";
+        | "Other policy ambition"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Specifies the level of granularity in cost data, such as total system costs or detailed CAPEX/OPEX breakdowns. Scoped: see keyFeatures.
@@ -374,7 +409,8 @@ export interface PathwayMetadataV2 {
         | "No information"
         | "Total costs"
         | "Capital costs, O&M, etc."
-        | "Other cost breakdown";
+        | "Other cost breakdown"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Lists emerging or breakthrough technologies that are explicitly modeled within the pathway. These are considered in technology deployment too. Scoped: see keyFeatures.
@@ -395,7 +431,9 @@ export interface PathwayMetadataV2 {
           | "SAF"
           | "Battery storage"
           | "EGS/AGS"
+          | "SMR"
           | "Other new technologies"
+          | "Not applicable at this scope level"
         ),
         ...(
           | "No information"
@@ -406,7 +444,9 @@ export interface PathwayMetadataV2 {
           | "SAF"
           | "Battery storage"
           | "EGS/AGS"
+          | "SMR"
           | "Other new technologies"
+          | "Not applicable at this scope level"
         )[],
       ];
     }[];
@@ -422,7 +462,8 @@ export interface PathwayMetadataV2 {
         | "By sector"
         | "By sector, part of value chain"
         | "By technology"
-        | "By tech, part of value chain";
+        | "By tech, part of value chain"
+        | "Not applicable at this scope level";
     }[];
   };
   /**
@@ -505,7 +546,7 @@ export interface PathwayMetadataV2 {
     evidence_type: "Quantitative" | "Qualitative" | "Anecdotal" | "No evidence";
   }[];
   /**
-   * Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- `dataFormat` says unavailable.
+   * Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- a row's `Not covered` values say unavailable.
    */
   dataAvailability?: {
     /**
@@ -513,55 +554,114 @@ export interface PathwayMetadataV2 {
      */
     overall: string | null;
     /**
-     * One row per (metricName, sector, sectorSegment, geography). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else.
+     * One row per (metricName, sector, sectorSegment, geography set). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else. The cookbook expects a row for every allowable (sector, metric) pair in a covered sector, with an uncovered pair recorded as 'Not covered' rather than omitted.
      */
     byMetric: {
       /**
-       * Metric this row describes. Must be a metric the pathway itself reports (one of its own `metric` values) and a metric of its `sector` -- both enforced by scripts/schema-check-files.ts.
+       * Metric this row describes -- the cookbook's 'Metrics - Extended', which is a different vocabulary from the pathway-level `metric` field (register item D16). Must be a metric of this row's `sector`, enforced by scripts/schema-check-files.ts.
        */
-      metricName: import("./common/metric.v1").MetricV1["displayName"];
+      metricName: import("./common/dataAvailabilityMetric.v1").DataAvailabilityMetricV1["displayName"];
       /**
        * Display name of a sector.
        */
       sector: import("./common/sector.v1").SectorV1["displayName"];
       /**
-       * Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.
+       * Segments of this row's sector that the metric covers. `Unspecified` where the pathway names none, `Not covered` where the sector-metric pair is not covered; either must then be the only member. Members must be segments of this row's `sector`, enforced by scripts/schema-check-files.ts.
+       *
+       * @minItems 1
        */
-      sectorSegment: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"];
-      geography: ScopeGeography11;
+      sectorSegment: [
+        import("./common/sectorSegment.v1").SectorSegmentV1["displayName"],
+        ...import("./common/sectorSegment.v1").SectorSegmentV1["displayName"][],
+      ];
       /**
-       * How geographically granular the underlying data is. A coverage class, not a scope -- `geography` above carries the scope.
+       * Geographies this row covers, as the cookbook's `Geography coverage`: a subset of the pathway's own declared geography, enforced by scripts/schema-check-files.ts. Same scope tokens as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers. `Unspecified` where the pathway does not say which, `Not covered` where the sector-metric pair is not covered; either must then be the only member.
+       *
+       * @minItems 1
        */
-      geographyCoverage: "Global" | "Regional" | "Country";
+      geography: [ScopeGeography11, ...ScopeGeography11[]];
       /**
        * How finely the underlying data is resolved over time.
        */
       timeResolution:
-        | "No information"
-        | "Single year (2050)"
-        | "Medium-term"
-        | "10-year"
-        | "5-10-year"
-        | "5-year"
-        | "1-year"
-        | "Other";
+        | "2050 data point"
+        | "Medium-term data point"
+        | "10-year steps"
+        | "5-year steps"
+        | "1-year steps"
+        | "5/10-year steps"
+        | "Other time resolution"
+        | "Unspecified"
+        | "Not covered";
       /**
-       * Where the data can be obtained, and in what form. `In tool` rows link to the timeseries download.
+       * In what form the source publication reports this metric's values.
        */
-      dataFormat: "In tool" | "Tabular in publication" | "Text in publication";
+      dataFormat: "Tabular" | "Text" | "Figure" | "Not covered";
       /**
-       * Whether reaching the data at the publisher costs money. Must be null exactly when `dataFormat` is `In tool` -- enforced by scripts/schema-check-files.ts.
+       * Dimensions the metric is broken down by. Members are either technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies -- or values from the granularityBreakdown vocabulary. `Unspecified` where the pathway does not clarify the breakdown, `Not covered` where the sector-metric pair is not covered; either must then be the only member.
+       *
+       * @minItems 1
        */
-      access: "Free" | "Paywalled" | null;
+      granularity: [
+        (
+          | import("./common/technology.v1").TechnologyV1["displayName"]
+          | (
+              | "No information"
+              | "Unspecified"
+              | "Not covered"
+              | "Scope 1"
+              | "Scope 1 & 2"
+              | "Scope 1, 2 & 3"
+              | "Scope 1 & 3"
+              | "Total costs"
+              | "Capital costs, O&M, etc."
+              | "Other cost breakdown"
+              | "Total investment"
+              | "By sector"
+              | "By sector, part of value chain"
+              | "By technology"
+              | "By tech, part of value chain"
+              | "High-carbon assets lifetime assumed constant"
+              | "High-carbon assets lifetime face early retirement policy"
+              | "International connections only"
+              | "International and national transmission lines"
+              | "Transmission and distribution"
+              | "Scrap share as EAF input"
+              | "Scrap share as steel total input"
+            )
+        ),
+        ...(
+          | import("./common/technology.v1").TechnologyV1["displayName"]
+          | (
+              | "No information"
+              | "Unspecified"
+              | "Not covered"
+              | "Scope 1"
+              | "Scope 1 & 2"
+              | "Scope 1, 2 & 3"
+              | "Scope 1 & 3"
+              | "Total costs"
+              | "Capital costs, O&M, etc."
+              | "Other cost breakdown"
+              | "Total investment"
+              | "By sector"
+              | "By sector, part of value chain"
+              | "By technology"
+              | "By tech, part of value chain"
+              | "High-carbon assets lifetime assumed constant"
+              | "High-carbon assets lifetime face early retirement policy"
+              | "International connections only"
+              | "International and national transmission lines"
+              | "Transmission and distribution"
+              | "Scrap share as EAF input"
+              | "Scrap share as steel total input"
+            )
+        )[],
+      ];
       /**
-       * Dimensions the metric is broken down by, or null where it is reported as a single series. Values are technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies.
+       * Caveats on what the data does and does not cover, in prose: the boundaries of the sector model, what is in and out of scope, and for emissions metrics the emissions scope. `Unspecified` where the pathway does not say, `Not covered` where the sector-metric pair is not covered.
        */
-      granularity:
-        import("./common/technology.v1").TechnologyV1["displayName"][] | null;
-      /**
-       * Caveats on what the data does and does not cover, in prose. Null where there are none.
-       */
-      scopeLimitations: string | null;
+      scopeLimitations: string;
     }[];
   };
 }

@@ -81,6 +81,16 @@
             "items": {
               "$ref": "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName"
             }
+          },
+          "segments": {
+            "description": "Segments of this sector's value chain that the pathway covers -- it provides at least one relevant output metric for each. Members must be segments of this entry's `name`, enforced by scripts/schema-check-files.ts.",
+            "$comment": "The cookbook's metadata `Sector segments` variable, which it writes sector-keyed: 'Power: [Power generation; Energy storage; Transmission and distribution]'. Nesting it inside `sectors[]` alongside `technologies` IS that keying, so no second mechanism is needed. Optional rather than required, unlike `technologies`: only three of the fifteen sectors have segments defined, and an absent list means 'not recorded' where an empty one would claim the pathway covers none. Distinct from dataAvailability's `byMetric[].sectorSegment`, which is per metric and can therefore be narrower than this.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+              "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+            }
           }
         },
         "required": ["name", "technologies"],
@@ -102,7 +112,7 @@
       }
     },
     "keyFeatures": {
-      "description": "Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit \"No information\" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.",
+      "description": "Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'across sectors' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit \"No information\" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.",
       "type": "object",
       "properties": {
         "emissionsTrajectory": {
@@ -163,7 +173,8 @@
                   "Low or no change",
                   "Minor improvement",
                   "Moderate improvement",
-                  "Significant improvement"
+                  "Significant improvement",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -229,7 +240,9 @@
                   "Low or no change",
                   "Minor increase",
                   "Moderate increase",
-                  "Significant increase"
+                  "Significant increase",
+                  "Not Applicable",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -267,7 +280,8 @@
                     "Subsidies",
                     "Target technology shares",
                     "Other",
-                    "None"
+                    "None",
+                    "Not applicable at this scope level"
                   ]
                 }
               }
@@ -297,7 +311,8 @@
                   "No information",
                   "Increase",
                   "Low or no change",
-                  "Decrease"
+                  "Decrease",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -321,8 +336,17 @@
                 "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
               },
               "value": {
-                "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
-                "tsType": "import('./common/emissionsScope.v1').EmissionsScopeV1"
+                "$comment": "An anyOf rather than an appended enum member, unlike the other eight fields that take the scope sentinel. This field's vocabulary lives in emissionsScope.v1.json, which pathwayTimeseries.v1 and pathwayMetadata.v1 also $ref -- and 'Not applicable at this scope level' is a statement about a keyFeatures row's scope, meaningless on a timeseries. Composing here keeps the shared list the single source of the gas vocabulary while adding the sentinel only where it means something.",
+                "anyOf": [
+                  {
+                    "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
+                    "tsType": "import('./common/emissionsScope.v1').EmissionsScopeV1"
+                  },
+                  {
+                    "type": "string",
+                    "enum": ["Not applicable at this scope level"]
+                  }
+                ]
               }
             },
             "required": ["sector", "geography", "value"],
@@ -354,7 +378,8 @@
                   "NDCs, unconditional only",
                   "NDCs incl. conditional targets",
                   "High ambition policies",
-                  "Other policy ambition"
+                  "Other policy ambition",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -383,7 +408,8 @@
                   "No information",
                   "Total costs",
                   "Capital costs, O&M, etc.",
-                  "Other cost breakdown"
+                  "Other cost breakdown",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -421,7 +447,9 @@
                     "SAF",
                     "Battery storage",
                     "EGS/AGS",
-                    "Other new technologies"
+                    "SMR",
+                    "Other new technologies",
+                    "Not applicable at this scope level"
                   ]
                 }
               }
@@ -453,7 +481,8 @@
                   "By sector",
                   "By sector, part of value chain",
                   "By technology",
-                  "By tech, part of value chain"
+                  "By tech, part of value chain",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -584,7 +613,7 @@
       }
     },
     "dataAvailability": {
-      "description": "Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- `dataFormat` says unavailable.",
+      "description": "Where and how the data behind each metric can be obtained (#870). Optional: authoring is incremental, and a pathway with no entry yet is not an invalid pathway. Absent means unknown, NOT unavailable -- a row's `Not covered` values say unavailable.",
       "type": "object",
       "properties": {
         "overall": {
@@ -593,60 +622,75 @@
           "maxLength": 2500
         },
         "byMetric": {
-          "description": "One row per (metricName, sector, sectorSegment, geography). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else.",
+          "description": "One row per (metricName, sector, sectorSegment, geography set). Each combination may appear only once -- enforced by scripts/schema-check-files.ts, because uniqueItems compares whole entries and so permits two rows that agree on the scope and disagree on everything else. The cookbook expects a row for every allowable (sector, metric) pair in a covered sector, with an uncovered pair recorded as 'Not covered' rather than omitted.",
           "type": "array",
           "uniqueItems": true,
           "items": {
             "type": "object",
             "properties": {
               "metricName": {
-                "description": "Metric this row describes. Must be a metric the pathway itself reports (one of its own `metric` values) and a metric of its `sector` -- both enforced by scripts/schema-check-files.ts.",
-                "$ref": "http://pathways.rmi.org/schema/common/metric.v1.json#/$defs/displayName",
-                "tsType": "import('./common/metric.v1').MetricV1['displayName']"
+                "description": "Metric this row describes -- the cookbook's 'Metrics - Extended', which is a different vocabulary from the pathway-level `metric` field (register item D16). Must be a metric of this row's `sector`, enforced by scripts/schema-check-files.ts.",
+                "$ref": "http://pathways.rmi.org/schema/common/dataAvailabilityMetric.v1.json#/$defs/displayName",
+                "tsType": "import('./common/dataAvailabilityMetric.v1').DataAvailabilityMetricV1['displayName']"
               },
               "sector": {
-                "description": "Sector this row describes. Must be one of the pathway's own declared sectors. Note this is the plain sector enum, not scopeSector.v2: there is no `cross-sector` availability, because availability is a property of a concrete dataset.",
+                "description": "Sector this row describes. Must be one of the pathway's own declared sectors. Note this is the plain sector enum, not scopeSector.v2: there is no `across sectors` availability, because availability is a property of a concrete dataset.",
                 "$ref": "http://pathways.rmi.org/schema/common/sector.v1.json#/$defs/displayName",
                 "tsType": "import('./common/sector.v1').SectorV1['displayName']"
               },
               "sectorSegment": {
-                "description": "Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.",
-                "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
-                "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+                "description": "Segments of this row's sector that the metric covers. `Unspecified` where the pathway names none, `Not covered` where the sector-metric pair is not covered; either must then be the only member. Members must be segments of this row's `sector`, enforced by scripts/schema-check-files.ts.",
+                "$comment": "An array because the cookbook types `Sector segment - Extended` as Multiple, and real rows use it: the gold set has `Power generation; Energy storage` and `Steel: [Ironmaking, Steelmaking]` in single cells. Assignment is per sector AND metric, so coverage varies between metrics of the same sector.",
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+                  "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+                }
               },
               "geography": {
-                "description": "Geography this row applies to. Same scope token as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers.",
-                "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
-                "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
-              },
-              "geographyCoverage": {
-                "description": "How geographically granular the underlying data is. A coverage class, not a scope -- `geography` above carries the scope.",
-                "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/geographyCoverage"
+                "description": "Geographies this row covers, as the cookbook's `Geography coverage`: a subset of the pathway's own declared geography, enforced by scripts/schema-check-files.ts. Same scope tokens as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers. `Unspecified` where the pathway does not say which, `Not covered` where the sector-metric pair is not covered; either must then be the only member.",
+                "$comment": "An array because the cookbook types this variable as Multiple -- one metric may be projected for Global and for individual countries at once ('Global; Western Europe: [FR, ES, PT]; JP: [JP]'). It absorbed the former single-valued `geography` and the separate `geographyCoverage` class enum (Global/Regional/Country), which had no cookbook counterpart and duplicated, less precisely, what the token list already says.",
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+                  "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
+                }
               },
               "timeResolution": {
                 "description": "How finely the underlying data is resolved over time.",
                 "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/timeResolution"
               },
               "dataFormat": {
-                "description": "Where the data can be obtained, and in what form. `In tool` rows link to the timeseries download.",
+                "description": "In what form the source publication reports this metric's values.",
                 "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/dataFormat"
               },
-              "access": {
-                "description": "Whether reaching the data at the publisher costs money. Must be null exactly when `dataFormat` is `In tool` -- enforced by scripts/schema-check-files.ts.",
-                "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/access"
-              },
               "granularity": {
-                "description": "Dimensions the metric is broken down by, or null where it is reported as a single series. Values are technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies.",
-                "type": ["array", "null"],
+                "description": "Dimensions the metric is broken down by. Members are either technologies of this row's sector -- enforced by scripts/schema-check-files.ts, the same rule as sectors[].technologies -- or values from the granularityBreakdown vocabulary. `Unspecified` where the pathway does not clarify the breakdown, `Not covered` where the sector-metric pair is not covered; either must then be the only member.",
+                "$comment": "No longer nullable: the cookbook distinguishes 'the pathway does not say' (Unspecified) from 'this pair is not covered' (Not covered), a distinction a bare null cannot carry. Same authored-absence rule as keyFeatures' explicit 'No information'.",
+                "type": "array",
+                "minItems": 1,
                 "uniqueItems": true,
                 "items": {
-                  "$ref": "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName",
-                  "tsType": "import('./common/technology.v1').TechnologyV1['displayName']"
+                  "anyOf": [
+                    {
+                      "$ref": "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName",
+                      "tsType": "import('./common/technology.v1').TechnologyV1['displayName']"
+                    },
+                    {
+                      "$ref": "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/granularityBreakdown"
+                    }
+                  ]
                 }
               },
               "scopeLimitations": {
-                "description": "Caveats on what the data does and does not cover, in prose. Null where there are none.",
-                "type": ["string", "null"],
+                "description": "Caveats on what the data does and does not cover, in prose: the boundaries of the sector model, what is in and out of scope, and for emissions metrics the emissions scope. `Unspecified` where the pathway does not say, `Not covered` where the sector-metric pair is not covered.",
+                "$comment": "No longer nullable, for the same reason as granularity. Where the pathway reports storage, the cookbook requires this field to state which storage technologies the figure covers -- 'Energy storage' is a single value carrying no technology detail, so this note is the only place the breakdown survives.",
+                "type": "string",
+                "minLength": 1,
                 "maxLength": 500
               }
             },
@@ -655,10 +699,8 @@
               "sector",
               "sectorSegment",
               "geography",
-              "geographyCoverage",
               "timeResolution",
               "dataFormat",
-              "access",
               "granularity",
               "scopeLimitations"
             ],
