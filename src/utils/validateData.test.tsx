@@ -331,6 +331,31 @@ describe("v1 and v2 documents coexist (#858)", () => {
     expect(valid).toHaveLength(2);
   });
 
+  it("accepts a declared three-letter region label as a scope token", () => {
+    // The cookbook says to keep a multi-country region's label exactly as the
+    // publication writes it, and model regions are often three letters --
+    // REMIND's SSA, LAM, EUR. scopeGeography.v2 used to reject every
+    // three-letter token, so a pathway could declare `SSA` but never scope a
+    // value or an availability row to it.
+    const doc = structuredClone(v2Full) as typeof v2Full & {
+      geography: { regions: Record<string, string[]> };
+    };
+    doc.geography.regions.SSA = ["NG", "KE", "ZA"];
+    doc.keyFeatures.emissionsTrajectory.push({
+      sector: "Power",
+      geography: "SSA",
+      value: "Minor decrease",
+    });
+    doc.dataAvailability.byMetric[0].geography.push("SSA");
+    const { valid, invalid } = validateDataCollect(
+      [{ name: "ssa.json", data: doc }],
+      pathwayMetadataV2,
+      commonSchemas,
+    );
+    expect(invalid.flatMap((p) => p.errors)).toEqual([]);
+    expect(valid).toHaveLength(1);
+  });
+
   it("routes by the document's own $schema, so a mixed corpus splits cleanly", () => {
     const mixed = [v1Entry, v2Entry];
     expect(
