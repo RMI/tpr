@@ -210,9 +210,10 @@ describe("PathwayContextRibbon", () => {
     // Both axes always carry a value, so there is no "no selection" state to
     // toggle back to; re-clicking is a no-op rather than a clear.
     const onScopeChange = vi.fn();
-    renderRibbon({ sector: "Power", geography: null }, onScopeChange);
+    renderRibbon({ sector: "Power", geography: "Global" }, onScopeChange);
 
     await userEvent.click(screen.getByRole("button", { name: "Power" }));
+    await userEvent.click(screen.getByRole("button", { name: "Global" }));
 
     expect(onScopeChange).not.toHaveBeenCalled();
   });
