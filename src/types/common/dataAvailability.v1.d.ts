@@ -25,12 +25,28 @@ export type DataFormat = "Tabular" | "Text" | "Figure" | "Not covered";
  * Granularity values that are not technologies. A row's `granularity` is a flat array drawn from this vocabulary or from the sector's technologies, depending on the metric.
  */
 export type GranularityBreakdown =
+  | "No information"
+  | "Unspecified"
+  | "Not covered"
   | "Scope 1"
   | "Scope 1 & 2"
   | "Scope 1, 2 & 3"
   | "Scope 1 & 3"
-  | "Unspecified"
-  | "Not covered";
+  | "Total costs"
+  | "Capital costs, O&M, etc."
+  | "Other cost breakdown"
+  | "Total investment"
+  | "By sector"
+  | "By sector, part of value chain"
+  | "By technology"
+  | "By tech, part of value chain"
+  | "High-carbon assets lifetime assumed constant"
+  | "High-carbon assets lifetime face early retirement policy"
+  | "International connections only"
+  | "International and national transmission lines"
+  | "Transmission and distribution"
+  | "Scrap share as EAF input"
+  | "Scrap share as steel total input";
 
 /**
  * The closed vocabularies describing how a metric's underlying data can be obtained (#870). Values follow cookbook tpr_cookbook_20260924; see docs/cookbook/split/data_availability in RMI/tpr-tpc.

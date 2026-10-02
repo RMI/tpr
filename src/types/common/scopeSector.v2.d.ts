@@ -5,10 +5,10 @@
  */
 
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSectorV2 =
-  | "cross-sector"
+  | "across sectors"
   | "Land Use"
   | "Agriculture"
   | "Buildings"

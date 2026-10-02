@@ -167,7 +167,7 @@ describe("sector segment tooltips (from the timeseries taxonomy)", () => {
       "Storing electricity for later dispatch (batteries, pumped hydro).",
     );
     expect(
-      getSectorSegmentTooltip("Power", "Transmission & Distribution"),
+      getSectorSegmentTooltip("Power", "Transmission and distribution"),
     ).toBe(
       "Moving electricity from generators to consumers, including grid losses.",
     );

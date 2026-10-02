@@ -9,7 +9,7 @@ import type { PathwayMetadataType } from "../types";
  * so the rendering assertions below still describe v1's output.
  */
 const wide = <T,>(value: T) => [
-  { sector: "cross-sector", geography: "Global", value },
+  { sector: "across sectors", geography: "Global", value },
 ];
 
 const mockKeyFeatures: PathwayMetadataType["keyFeatures"] = {

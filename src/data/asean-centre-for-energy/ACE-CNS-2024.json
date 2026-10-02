@@ -84,35 +84,35 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Moderate decrease"
       }
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Minor increase"
       }
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Moderate increase"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": [
           "Phaseout dates",
@@ -125,42 +125,42 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Low or no change"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "CO2e (unspecified GHGs)"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "High ambition policies"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Capital costs, O&M, etc."
       }
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": ["Battery storage", "CCUS", "Green H2/ammonia", "SAF"]
       }
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "By sector"
       }

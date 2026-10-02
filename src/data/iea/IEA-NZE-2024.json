@@ -109,35 +109,35 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant decrease"
       }
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant decrease"
       }
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant increase"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "Carbon price",
@@ -151,42 +151,42 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "CO2"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "High ambition policies"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Capital costs, O&M, etc."
       }
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": ["CCUS", "DAC", "Green H2/ammonia", "SAF", "Battery storage"]
       }
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "By tech, part of value chain"
       }
