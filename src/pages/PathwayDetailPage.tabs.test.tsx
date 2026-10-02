@@ -72,7 +72,7 @@ const fixtures = [
         {
           metricName: "Capacity",
           sector: "Power",
-          sectorSegment: "Power generation",
+          sectorSegment: ["Power generation"],
           geography: ["Global"],
           timeResolution: "5-year steps",
           dataFormat: "Tabular",

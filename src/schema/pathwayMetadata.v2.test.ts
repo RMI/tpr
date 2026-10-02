@@ -96,6 +96,51 @@ const ARRAY_VALUED: ReadonlySet<string> = new Set([
 /** v1's only field whose enum lacked "No information" — it has "None" instead. */
 const GAINED_NO_INFORMATION = "policyTypes";
 
+/**
+ * The scope sentinel, and the fields that do *not* take it.
+ *
+ * The cookbook's rule (`key_features/00_key_features_notes.md`) is "every key
+ * feature that is `widest only` on either axis". Its cardinality table makes
+ * `emissionsTrajectory` and `energyDemand` the only two that are
+ * `widest + all in-scope` on both, so they are the only two without it — which
+ * is why this is written as the exception list rather than the nine.
+ */
+const SCOPE_SENTINEL = "Not applicable at this scope level";
+const WIDEST_ON_BOTH_AXES: ReadonlySet<string> = new Set([
+  "emissionsTrajectory",
+  "energyDemand",
+]);
+
+/**
+ * Values v2 adds to a field beyond the scope sentinel, with the cookbook's
+ * reason. Listed rather than tolerated, so an unplanned addition still fails.
+ */
+const DELIBERATE_ADDITIONS: Readonly<Record<string, readonly string[]>> = {
+  // A property of the sector (meaningless for Power), not of the row's scope,
+  // so it survives at every scope where the sentinel would not.
+  electrification: ["Not Applicable"],
+  // Cookbook decision 0020.
+  newTechnologiesIncluded: ["SMR"],
+};
+
+/** What v2's enum should hold, given v1's, for one field. */
+function expectedV2Members(
+  name: string,
+  v1Members: readonly string[],
+): string[] {
+  const members = [...v1Members];
+  if (name === GAINED_NO_INFORMATION) members.unshift("No information");
+  for (const added of DELIBERATE_ADDITIONS[name] ?? []) {
+    // SMR sits before "Other …", matching how every other enum keeps its
+    // catch-all last; the rest append.
+    const other = members.findIndex((m) => m.startsWith("Other "));
+    if (added === "SMR" && other !== -1) members.splice(other, 0, added);
+    else members.push(added);
+  }
+  if (!WIDEST_ON_BOTH_AXES.has(name)) members.push(SCOPE_SENTINEL);
+  return members;
+}
+
 const kf2 = prop(v2, "keyFeatures", "v2");
 const kf1 = prop(v1, "keyFeatures", "v1");
 
@@ -105,6 +150,36 @@ const entry = (name: string): JsonSchema =>
   items(field(name), `v2.keyFeatures.${name}`);
 const entryValue = (name: string): JsonSchema =>
   prop(entry(name), "value", `v2.keyFeatures.${name}.items`);
+
+describe("pathwayMetadata.v2 sectors[].segments (#858)", () => {
+  const sectorEntry = items(prop(v2, "sectors", "v2"), "v2.sectors");
+
+  it("nests segments inside sectors[] rather than keying them separately", () => {
+    // The cookbook writes this variable sector-keyed -- "Power: [Power
+    // generation; Energy storage]" -- and sitting inside sectors[] alongside
+    // technologies *is* that keying, so there is no second mechanism.
+    expect(Object.keys(props(sectorEntry, "v2.sectors.items")).sort()).toEqual([
+      "name",
+      "segments",
+      "technologies",
+    ]);
+    const segments = prop(sectorEntry, "segments", "v2.sectors.items");
+    expect(segments.type).toBe("array");
+    expect(segments.uniqueItems).toBe(true);
+    expect(items(segments, "segments").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+    );
+  });
+
+  it("leaves segments optional, unlike technologies", () => {
+    // Only three of fifteen sectors have segments defined, and an absent list
+    // means "not recorded" where [] would claim the pathway covers none.
+    expect([...(sectorEntry.required ?? [])].sort()).toEqual([
+      "name",
+      "technologies",
+    ]);
+  });
+});
 
 describe("pathwayMetadata.v2 keyFeatures — field set", () => {
   it("declares exactly the 11 fields, and the same ones as v1", () => {
@@ -192,8 +267,16 @@ describe("pathwayMetadata.v2 keyFeatures — values carry over from v1", () => {
     const v1Value = prop(kf1, name, "v1.keyFeatures");
 
     if (name === "emissionsScope") {
-      // A $ref in v1, so it stays a $ref — the enum lives in the common schema.
-      expect(v2Value.$ref).toBe(v1Value.$ref);
+      // v1 is a bare $ref to the shared gas vocabulary. v2 composes that same
+      // $ref with the scope sentinel, rather than appending a member to the
+      // common schema, which pathwayTimeseries.v1 also $refs — see the
+      // field's own $comment.
+      const branches = v2Value.anyOf ?? [];
+      expect(branches).toHaveLength(2);
+      expect(branches[0].$ref).toBe(v1Value.$ref);
+      expect(enumOf(branches[1], "emissionsScope sentinel")).toEqual([
+        SCOPE_SENTINEL,
+      ]);
       return;
     }
 
@@ -203,16 +286,33 @@ describe("pathwayMetadata.v2 keyFeatures — values carry over from v1", () => {
       expect(v2Value.uniqueItems).toBe(v1Value.uniqueItems);
       expect(v2Value.minItems).toBe(v1Value.minItems);
       const v1Members = enumOf(items(v1Value, name), name);
-      const expected =
-        name === GAINED_NO_INFORMATION
-          ? ["No information", ...v1Members]
-          : v1Members;
-      expect(enumOf(items(v2Value, name), name)).toEqual(expected);
+      expect(enumOf(items(v2Value, name), name)).toEqual(
+        expectedV2Members(name, v1Members),
+      );
       return;
     }
 
     expect(v2Value.type).toBe("string");
-    expect(enumOf(v2Value, name)).toEqual(enumOf(v1Value, name));
+    expect(enumOf(v2Value, name)).toEqual(
+      expectedV2Members(name, enumOf(v1Value, name)),
+    );
+  });
+
+  it("gives the scope sentinel to every field the cookbook says takes it", () => {
+    // The rule is "widest only on either axis", so the two fields that are
+    // widest + all in-scope on *both* axes are the only ones without it. Stated
+    // here as its own assertion because it is the whole point of decision 0023
+    // and a silent omission would just read as a missing enum member.
+    for (const name of KEY_FEATURE_FIELDS) {
+      const value = entryValue(name);
+      const members =
+        value.enum ??
+        value.items?.enum ??
+        value.anyOf?.flatMap((b) => b.enum ?? []) ??
+        [];
+      const takesIt = !WIDEST_ON_BOTH_AXES.has(name);
+      expect(members.includes(SCOPE_SENTINEL), `${name}`).toBe(takesIt);
+    }
   });
 
   it('every field offers an explicit "No information" value', () => {
@@ -229,8 +329,14 @@ describe("pathwayMetadata.v2 keyFeatures — values carry over from v1", () => {
         options = value.enum;
       } else if (value.items?.enum) {
         options = value.items.enum;
-      } else if (value.$ref === emissionsScope.$id) {
-        options = enumOf(emissionsScope, "emissionsScope.v1");
+      } else if (value.anyOf) {
+        // emissionsScope composes the shared gas vocabulary with the scope
+        // sentinel, so "No information" comes from the branch that $refs it.
+        options = value.anyOf.flatMap((branch) =>
+          branch.$ref === emissionsScope.$id
+            ? enumOf(emissionsScope, "emissionsScope.v1")
+            : (branch.enum ?? []),
+        );
       } else {
         throw new Error(`${name}: could not resolve a value enum`);
       }
@@ -242,15 +348,15 @@ describe("pathwayMetadata.v2 keyFeatures — values carry over from v1", () => {
 });
 
 describe("scopeSector.v2 tracks sector.v1", () => {
-  it("is sector.v1's display names plus the cross-sector sentinel", () => {
+  it("is sector.v1's display names plus the across sectors sentinel", () => {
     const defs = sector.$defs;
     if (!defs) throw new Error("sector.v1: expected $defs");
     const sectorNames = enumOf(defs.displayName, "sector.v1.displayName");
     const scopeNames = enumOf(scopeSector, "scopeSector.v2");
-    expect(scopeNames).toContain("cross-sector");
-    expect([...scopeNames].filter((n) => n !== "cross-sector").sort()).toEqual(
-      [...sectorNames].sort(),
-    );
+    expect(scopeNames).toContain("across sectors");
+    expect(
+      [...scopeNames].filter((n) => n !== "across sectors").sort(),
+    ).toEqual([...sectorNames].sort());
   });
 });
 
@@ -300,9 +406,13 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
 
   it("refs the shared vocabularies instead of restating them", () => {
     const refs: Record<string, string> = {
-      metricName: "common/metric.v1.json#/$defs/displayName",
+      // NOT metric.v1: the availability row key is its own cookbook variable,
+      // which register item D16 settles as legitimately different from the
+      // pathway-level `metric`. Pinned here because pointing this back at
+      // metric.v1 is the regression that would silently re-narrow it to five
+      // Power metrics.
+      metricName: "common/dataAvailabilityMetric.v1.json#/$defs/displayName",
       sector: "common/sector.v1.json#/$defs/displayName",
-      sectorSegment: "common/sectorSegment.v1.json#/$defs/displayName",
       timeResolution: "common/dataAvailability.v1.json#/$defs/timeResolution",
       dataFormat: "common/dataAvailability.v1.json#/$defs/dataFormat",
     };
@@ -311,7 +421,24 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
         `http://pathways.rmi.org/schema/${suffix}`,
       );
     }
+    // sectorSegment is a list, so the $ref is on its items.
+    expect(items(rowProp("sectorSegment"), "sectorSegment").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+    );
   });
+
+  it.each(["geography", "granularity", "sectorSegment"])(
+    "makes %s a non-empty list",
+    (name) => {
+      // All three are Multiple in the cookbook, and real rows use that: the
+      // gold set has `Power generation; Energy storage` in one cell and a
+      // sixteen-token geography coverage cell.
+      const field = rowProp(name);
+      expect(field.type).toBe("array");
+      expect(field.minItems).toBe(1);
+      expect(field.uniqueItems).toBe(true);
+    },
+  );
 
   it("scopes rows the same way keyFeatures does, so the same helpers apply", () => {
     // A list here, a single token there -- the cookbook types Geography
@@ -338,11 +465,11 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
     }
   });
 
-  it("uses the plain sector enum, not scopeSector — there is no cross-sector row", () => {
-    // Availability describes a concrete dataset, so the cross-sector sentinel
+  it("uses the plain sector enum, not scopeSector — there is no across sectors row", () => {
+    // Availability describes a concrete dataset, so the across sectors sentinel
     // would have nothing to resolve to.
     expect(rowProp("sector").$ref).not.toContain("scopeSector");
-    expect(enumOf(scopeSector, "scopeSector.v2")).toContain("cross-sector");
+    expect(enumOf(scopeSector, "scopeSector.v2")).toContain("across sectors");
   });
 
   it("draws granularity from technology.v1 and the breakdown vocabulary", () => {

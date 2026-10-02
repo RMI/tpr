@@ -83,77 +83,77 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Significant increase"
       }
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Minor improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Significant increase"
       }
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Low or no change"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": ["None"]
       }
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Low or no change"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "CO2e (unspecified GHGs)"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "No policies included"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "Capital costs, O&M, etc."
       }
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": ["No new technologies"]
       }
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "South East Asia",
         "value": "By sector"
       }
