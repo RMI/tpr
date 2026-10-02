@@ -4,6 +4,10 @@ import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { PathwayMetadataType } from "../types";
 import BadgeArray from "../components/BadgeArray";
+import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
+import DataAvailabilityTable from "../components/DataAvailabilityTable";
+import DependenciesTable from "../components/DependenciesTable";
+import PathwayContextRibbon from "../components/PathwayContextRibbon";
 import {
   flattenGeography,
   geographyKind,
@@ -27,7 +31,9 @@ import {
   summarizeSummary,
 } from "../utils/timeseriesIndex";
 import PublicationBlock from "../components/PublicationBlock";
-import { PlotSelector, TimeSeries } from "../components/PlotSelector";
+import type { TimeSeries } from "../components/PlotSelector";
+import PlotGrid from "../components/PlotGrid";
+import { PLOT_ORDER } from "../components/PlotPanel";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import TextWithTooltip from "../components/TextWithTooltip";
 import RegionMembersTooltip from "../components/RegionMembersTooltip";
@@ -39,11 +45,20 @@ import {
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
 
+// The four tabs from Jacob's wireframe. The first is the default (see useActiveTab).
+const DETAIL_TABS: TabDef[] = [
+  { id: "at-a-glance", label: "At a glance" },
+  { id: "overview", label: "Overview" },
+  { id: "timeseries", label: "Timeseries" },
+  { id: "scope", label: "Scope & Granularity" },
+];
+
 const PathwayDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [pathway, setPathway] = useState<PathwayMetadataType | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeseriesdata, setTimeseriesdata] = useState<TimeSeries | null>(null);
+  const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
 
   useEffect(() => {
     setLoading(true);
@@ -178,6 +193,218 @@ const PathwayDetailPage: React.FC = () => {
     );
   }
 
+  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels,
+  // shown on the Scope & Granularity tab beneath the Data Availability table.
+  // Each is a labelled landmark so tests (and screen-reader users) can address
+  // one panel rather than matching a geography label that also appears in the
+  // sticky context ribbon.
+  const coveragePanels = (
+    <>
+      <section
+        aria-label="Geographies"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Geographies
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={
+              <>
+                <span className="block">{GEOGRAPHY_AVAILABILITY_TOOLTIP}</span>
+                <span className="mt-2 block italic">
+                  {REGION_MAPPING_DISCLAIMER}
+                </span>
+              </>
+            }
+            ariaLabel="Geography availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedGeos.map((geo) => {
+            const base = geographyVariant(geographyKind(geo));
+            return availability.hasGeography(geo) ? base : `${base}-pub`;
+          })}
+          toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+          tooltipGetter={(geo) =>
+            geographyKind(geo) === "region" ? (
+              <RegionMembersTooltip
+                geography={pathway.geography}
+                label={geo}
+              />
+            ) : undefined
+          }
+          visibleCount={Infinity}
+        >
+          {sortedGeos}
+        </BadgeArray>
+      </section>
+
+      <section
+        aria-label="Sectors"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Sectors
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={SECTOR_AVAILABILITY_TOOLTIP}
+            ariaLabel="Sector availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedSectors.map((s) =>
+            availability.hasSector(s.name) ? "sector" : "sector-pub",
+          )}
+          tooltipGetter={getSectorTooltip}
+          visibleCount={Infinity}
+        >
+          {sortedSectors.map((s) => s.name)}
+        </BadgeArray>
+      </section>
+
+      <section
+        aria-label="Benchmark Metrics"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Benchmark Metrics
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={METRIC_AVAILABILITY_TOOLTIP}
+            ariaLabel="Benchmark metric availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedMetrics.map((m) =>
+            availability.hasMetric(m) ? "metric" : "metric-pub",
+          )}
+          tooltipGetter={getMetricTooltip}
+          visibleCount={Infinity}
+        >
+          {sortedMetrics}
+        </BadgeArray>
+      </section>
+    </>
+  );
+
+  /*
+    v2 replaced v1's single `expertOverview` blob with `pathwayDescription` (the
+    surviving prose; core drivers moved to the structured `coreDrivers` object),
+    and the heading now names the field it renders — settling the open question
+    #859 left about what to call it. null means no description is available.
+    Lives on At a glance only; the Overview tab leads with the drivers instead.
+  */
+  const pathwayDescription = (
+    <section>
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+        Pathway Description
+      </h2>
+      {/*
+        `max-w-none` overrides the 65ch line-length cap `prose` applies by
+        default, which otherwise left most of the tab width empty and pushed
+        the plots below the fold.
+      */}
+      <div className="prose max-w-none text-rmigray-700">
+        <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
+      </div>
+    </section>
+  );
+
+  /*
+    The same component and config render both the full driver/feature grid and
+    the At-a-glance subset, so the two cannot drift apart.
+  */
+  const assumptionsPanel = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      coreDrivers={pathway.coreDrivers}
+      title="Assumptions & Trends Overview"
+    />
+  );
+
+  const assumptionsSummary = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      coreDrivers={pathway.coreDrivers}
+      groups={["policies", "emissions", "technology"]}
+      title="Assumptions & Trends Overview"
+    />
+  );
+
+  /*
+    The benchmark plots as small multiples rather than one plot behind a
+    dropdown. `requestedGeography` is left at its default (null → the broadest
+    geography in the data) until the global header geography selector lands;
+    that selector is the only thing this prop is waiting for.
+  */
+  const plotsOverview = (
+    <PlotGrid
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      pathwayGeography={pathway.geography}
+      plotTypes={PLOT_ORDER.slice(0, 3)}
+      title="Plots Overview"
+    />
+  );
+
+  const benchmarkPlots = (
+    <PlotGrid
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      pathwayGeography={pathway.geography}
+      title="Benchmark Plots"
+    />
+  );
+
+  const supplementalInfo = (
+    <section>
+      {/*
+        An h2 outside the prose wrapper, matching the other tab section
+        headings. It was an unstyled h4 inside the prose, which skipped two
+        levels below the page's h1 and took its size from prose's defaults.
+      */}
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+        Supplemental Information
+      </h2>
+      <div className="prose text-rmigray-700">
+        <PublicationBlock publication={pathway.publication} />
+
+        {tsIndexLoaded && datasets.length > 0
+          ? datasets.map((d) => {
+              const label = d.label ?? d.datasetId;
+              const summary = summarizeSummary(d.summary);
+              return (
+                <DownloadDataset
+                  key={d.datasetId}
+                  label={label}
+                  href={d.path}
+                  summary={summary}
+                />
+              );
+            })
+          : null}
+      </div>
+    </section>
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Link
@@ -191,8 +418,8 @@ const PathwayDetailPage: React.FC = () => {
         Back to pathways
       </Link>
 
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="bg-bluespruce p-6 text-white">
+      <div className="bg-white rounded-lg shadow-md">
+        <div className="bg-bluespruce p-6 text-white rounded-t-lg">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">
             {pathway.name.full +
               (pathway.name.short ? ` (${pathway.name.short})` : "")}
@@ -254,158 +481,87 @@ const PathwayDetailPage: React.FC = () => {
           </div>
         </div>
 
+        {/*
+          The sector/geography context and the tab list stay in view as the page
+          scrolls, and the title header collapses into a slim bar behind them.
+          The card above deliberately has no `overflow-hidden`, which is what
+          lets this stick at all.
+        */}
+        <PathwayContextRibbon pathway={pathway}>
+          <Tabs
+            tabs={DETAIL_TABS}
+            activeId={activeTab}
+            onChange={setActiveTab}
+            label="Pathway detail sections"
+            idBase="pathway"
+            className="px-6 pt-2"
+          />
+        </PathwayContextRibbon>
+
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-7">
-              <section className="mb-8">
+          <TabPanel
+            id="at-a-glance"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-8">
+              {pathwayDescription}
+              {plotsOverview}
+              {assumptionsSummary}
+            </div>
+          </TabPanel>
+
+          <TabPanel
+            id="overview"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-6">
+              {assumptionsPanel}
+              <section>
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Expert Overview
+                  Dependencies
                 </h2>
-                {/*
-                  v1's single `expertOverview` blob held three sections. In v2
-                  only the description survives as prose: "Core Drivers" becomes
-                  the structured `coreDrivers` object, and "Application to
-                  Transition Assessment" is retired because the new UI does not
-                  display it (#898). So this renders one field, not a set of
-                  sub-headed blocks. #859 owns the real presentation, including
-                  whether this heading keeps its name.
-                */}
-                <div className="prose text-rmigray-700">
-                  <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
-                </div>
+                <DependenciesTable dependencies={pathway.dependencies} />
               </section>
+            </div>
+          </TabPanel>
 
-              <section className="mt-8">
-                <div className="prose text-rmigray-700">
-                  <h4>Supplemental Information</h4>
-                  <PublicationBlock publication={pathway.publication} />
+          <TabPanel
+            id="timeseries"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-8">
+              {benchmarkPlots}
+              {supplementalInfo}
+            </div>
+          </TabPanel>
 
-                  {tsIndexLoaded && datasets.length > 0
-                    ? datasets.map((d) => {
-                        const label = d.label ?? d.datasetId;
-                        const summary = summarizeSummary(d.summary);
-                        return (
-                          <DownloadDataset
-                            key={d.datasetId}
-                            label={label}
-                            href={d.path}
-                            summary={summary}
-                          />
-                        );
-                      })
-                    : null}
+          <TabPanel
+            id="scope"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-8">
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Data Availability
+                </h2>
+                <DataAvailabilityTable
+                  dataAvailability={pathway.dataAvailability}
+                />
+              </section>
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                  Coverage
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {coveragePanels}
                 </div>
               </section>
             </div>
-
-            <div className="md:col-span-5">
-              <PlotSelector
-                timeseriesdata={timeseriesdata}
-                datasetId={datasets[0]?.datasetId}
-                className="mb-6"
-              />
-
-              <KeyFeatures keyFeatures={pathway.keyFeatures} />
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Geographies
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={
-                      <>
-                        <span className="block">
-                          {GEOGRAPHY_AVAILABILITY_TOOLTIP}
-                        </span>
-                        <span className="mt-2 block italic">
-                          {REGION_MAPPING_DISCLAIMER}
-                        </span>
-                      </>
-                    }
-                    ariaLabel="Geography availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedGeos.map((geo) => {
-                    const base = geographyVariant(geographyKind(geo));
-                    return availability.hasGeography(geo)
-                      ? base
-                      : `${base}-pub`;
-                  })}
-                  toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
-                  tooltipGetter={(geo) =>
-                    geographyKind(geo) === "region" ? (
-                      <RegionMembersTooltip
-                        geography={pathway.geography}
-                        label={geo}
-                      />
-                    ) : undefined
-                  }
-                  visibleCount={Infinity}
-                >
-                  {sortedGeos}
-                </BadgeArray>
-              </div>
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Sectors
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={SECTOR_AVAILABILITY_TOOLTIP}
-                    ariaLabel="Sector availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedSectors.map((s) =>
-                    availability.hasSector(s.name) ? "sector" : "sector-pub",
-                  )}
-                  tooltipGetter={getSectorTooltip}
-                  visibleCount={Infinity}
-                >
-                  {sortedSectors.map((s) => s.name)}
-                </BadgeArray>
-              </div>
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Benchmark Metrics
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={METRIC_AVAILABILITY_TOOLTIP}
-                    ariaLabel="Benchmark metric availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedMetrics.map((m) =>
-                    availability.hasMetric(m) ? "metric" : "metric-pub",
-                  )}
-                  tooltipGetter={getMetricTooltip}
-                  visibleCount={Infinity}
-                >
-                  {sortedMetrics}
-                </BadgeArray>
-              </div>
-            </div>
-          </div>
+          </TabPanel>
         </div>
       </div>
     </div>

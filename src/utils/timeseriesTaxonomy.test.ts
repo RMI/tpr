@@ -244,7 +244,7 @@ describe("availabilityMetricsForSector / availabilityMetricBelongsToSector (#870
 });
 
 describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
-  it("resolves Power to its four segments", () => {
+  it("resolves Power to its four segments, in taxonomy order", () => {
     expect(segmentsForSector("Power")).toEqual([
       "Fuel extraction and processing",
       "Power generation",
