@@ -26,11 +26,21 @@ const AVAILABILITY_METRIC_NAMES: string[] =
   availabilityMetricSchema.$defs.displayName.enum;
 
 describe("technologiesForSector", () => {
-  it("resolves Power to its ten technologies", () => {
+  it("accepts the two technologies cookbook 0020 added to Power", () => {
+    // Both were added to technology.v1.json's enum by the #858 pass but not
+    // here, so AJV accepted them while technologyBelongsToSector said "no" --
+    // which silently dropped them from JETP-CIPP-2023 on import.
+    expect(technologyBelongsToSector("Geothermal", "Power")).toBe("yes");
+    expect(technologyBelongsToSector("Energy storage", "Power")).toBe("yes");
+  });
+
+  it("resolves Power to its twelve technologies", () => {
     expect(technologiesForSector("Power")).toEqual([
       "Biomass",
       "Coal",
+      "Energy storage",
       "Gas",
+      "Geothermal",
       "Hydro",
       "Nuclear",
       "Oil",
