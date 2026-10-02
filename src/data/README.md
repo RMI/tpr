@@ -62,6 +62,28 @@ If a feature does not vary, give it **one entry at the widest scope that applies
 
 An empty array means nothing is recorded at any scope. That is different from an entry whose `value` is `"No information"`, which is a deliberate statement that this scope has no data.
 
+### sectors carry their segments, and the scope sentinels changed spelling
+
+`sectors[]` entries gain an optional `segments` list alongside `technologies` — which
+parts of that sector's value chain the pathway covers:
+
+```json
+"sectors": [
+  {
+    "name": "Power",
+    "technologies": ["Solar", "Wind", "Coal"],
+    "segments": ["Power generation", "Energy storage"]
+  }
+]
+```
+
+Optional on purpose: only Power, Steel and Aviation have segments defined, and leaving
+it out means "not recorded" where `[]` would claim the pathway covers none of them.
+
+The two widest-scope sentinels are now spelled as the cookbook spells them:
+**`across sectors`** (was `cross-sector`) and **`across regions`** (was `cross-region`,
+a value the cookbook never defined).
+
 ### expertOverview is replaced by pathwayDescription
 
 v1's single `expertOverview` was one markdown document containing three sections. Only
@@ -119,7 +141,7 @@ The allowed values for `dependency_name` and `evidence_type` are listed in the s
     {
       "metricName": "Capacity",
       "sector": "Power",
-      "sectorSegment": "Power generation",
+      "sectorSegment": ["Fuel extraction and processing", "Power generation"],
       "geography": ["Global", "South East Asia", "SG"],
       "timeResolution": "1-year steps",
       "dataFormat": "Tabular",
@@ -136,11 +158,13 @@ Four things to know before authoring:
 
 **`Unspecified` and `Not covered` are different, and neither is `null`.** `Unspecified` means the pathway covers this pair but does not state the value. `Not covered` means it does not cover the pair at all — so it applies to the _whole row_, and `npm run schema:check` rejects a row that mixes it with authored values. This is the same distinction `keyFeatures` draws with its explicit `"No information"`.
 
-**`geography` is a list**, and every member must be a region label or country the pathway declares in its own `geography` (or one of the two sentinels, alone). One metric can be projected at several levels at once — global and per-country together.
+**`geography`, `sectorSegment` and `granularity` are all lists.** Every geography member must be a region label or country the pathway declares in its own `geography`, and every segment must be one of its sector's — or one of the two sentinels, which must then be the list's only member. One metric can be projected at several levels at once, and cover more than one segment.
 
 **`dataFormat` describes the source publication only** — `Tabular`, `Text`, `Figure` or `Not covered`. Whether this repo hosts a copy is not a judgement about the pathway; the app derives that from the timeseries index. Where values appear in more than one form, the most extractable wins: `Tabular` before `Text` before `Figure`.
 
-The allowed values for `timeResolution`, `dataFormat` and the non-technology `granularity` members are listed in `src/schema/common/dataAvailability.v1.json`, and follow cookbook `tpr_cookbook_20260924`.
+**`metricName` is a different list from the pathway's own `metric` field.** The pathway-level `metric` is the five Power metrics that drive the search filter; the availability row key adds the ones a pathway reports but the tool does not plot — transmission lines, technology cost, investment requirement, asset lifetime — plus Steel's and Aviation's own metrics. Two cookbook variables, deliberately different. So a row may name a metric that is not in the pathway's `metric` list, which is exactly how an uncovered pair gets its `Not covered` row.
+
+Allowed values live in `src/schema/common/dataAvailability.v1.json` (time resolution, data format, the non-technology granularity members), `dataAvailabilityMetric.v1.json` (the row key) and `sectorSegment.v1.json`, and follow cookbook `tpr_cookbook_20260929`.
 
 ## Migrating an existing v1 file
 
