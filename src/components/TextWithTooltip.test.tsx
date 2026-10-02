@@ -100,6 +100,27 @@ describe("TextWithTooltip as a button trigger", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
   });
 
+  it("runs a caller's onKeyDown without losing Escape-to-dismiss", async () => {
+    // The caller's handler used to replace the tooltip's own, because the
+    // props were spread after it.
+    const onKeyDown = vi.fn();
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Power"
+        tooltip="A sector"
+        buttonProps={{ onKeyDown }}
+      />,
+    );
+    const button = screen.getByRole("button");
+    button.focus();
+    expect(button).toHaveFocus();
+
+    await userEvent.keyboard("{Escape}");
+    expect(onKeyDown).toHaveBeenCalledTimes(1);
+    expect(button).not.toHaveFocus(); // the tooltip's handler blurred it
+  });
+
   it("keeps showing its tooltip on focus", async () => {
     render(
       <TextWithTooltip
