@@ -12,7 +12,7 @@ type ByMetricRow = DataAvailability["byMetric"][number];
 const capacityRow: ByMetricRow = {
   metricName: "Capacity",
   sector: "Power",
-  sectorSegment: "Power Generation",
+  sectorSegment: ["Fuel extraction and processing", "Power generation"],
   geography: ["Global"],
   timeResolution: "5-year steps",
   dataFormat: "Tabular",
@@ -23,7 +23,7 @@ const capacityRow: ByMetricRow = {
 const unspecifiedRow: ByMetricRow = {
   metricName: "Investment requirement",
   sector: "Power",
-  sectorSegment: "No information",
+  sectorSegment: ["No information"],
   geography: ["Global"],
   timeResolution: "Unspecified",
   dataFormat: "Figure",

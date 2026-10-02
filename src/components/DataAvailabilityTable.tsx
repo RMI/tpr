@@ -110,7 +110,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 // Rows have no natural id; the (metric, segment, geography) tuple
                 // is unique per pathway (enforced by schema-check-files.ts), so it
                 // makes a stable key.
-                key={`${row.metricName}|${row.sectorSegment}|${row.geography.join(",")}`}
+                key={`${row.metricName}|${row.sectorSegment.join(",")}|${row.geography.join(",")}`}
                 className={
                   i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
                 }
@@ -122,7 +122,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                   {row.metricName}
                 </th>
                 <td className="px-3 py-2 text-rmigray-700">
-                  {row.sectorSegment}
+                  {row.sectorSegment.join(", ")}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
                   {row.granularity.join(", ")}
