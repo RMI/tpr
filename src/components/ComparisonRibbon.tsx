@@ -2,7 +2,17 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { X, Plus, GitCompareArrows, Trash2 } from "lucide-react";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
+import { useFilters } from "../context/FilterContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import {
+  columnGeographyOptions,
+  defaultGeographyForColumn,
+  encodeColumnGeographies,
+  resolveSharedSector,
+} from "../utils/comparisonScope";
+import { index } from "../data/index.gen";
+import { pathwayToolAvailability } from "../utils/timeseriesAvailability";
+import type { PathwayMetadataType } from "../types";
 
 const SLOTS = [0, 1, 2] as const;
 
@@ -14,13 +24,64 @@ const ComparisonRibbon: React.FC = () => {
     ribbonExpanded: expanded,
     setRibbonExpanded: setExpanded,
   } = useComparison();
+  const { filters } = useFilters();
   const navigate = useNavigate();
 
-  const canCompare = comparedPathwayIds.length >= 2;
+  /*
+    The pathways the stored ids actually resolve to. An id restored from
+    sessionStorage can name a pathway that no longer exists; it renders as an
+    empty slot, so the count, the Compare button and the URL all follow this
+    list rather than the raw ids -- otherwise the ribbon could show one pathway,
+    say "2 selected", and send the reader to a comparison of one.
+  */
+  const pathways = React.useMemo(
+    () =>
+      comparedPathwayIds
+        .map((id) => pathwayMetadata.find((p) => p.id === id))
+        .filter((p): p is PathwayMetadataType => p !== undefined),
+    [comparedPathwayIds],
+  );
+  const canCompare = pathways.length >= 2;
 
+  /*
+    Carry the reader's search scope into the comparison URL.
+
+    Seeding here rather than on the comparison page keeps that page a pure
+    function of its URL, and makes a shared link reproduce what the sender
+    saw — a page seeding from `useFilters()` on mount would resolve an absent
+    param against the *recipient's* session filters instead.
+  */
   const handleCompare = () => {
     if (!canCompare) return;
-    void navigate(`/compare?ids=${comparedPathwayIds.join(",")}`);
+
+    const sector = resolveSharedSector(filters, pathways);
+
+    /*
+      Geography is one value per column, translated into each publication's own
+      vocabulary — the reader's "Southeast Asia" becomes ACE's "South East
+      Asia" and IEA's "Southeast Asia" independently, rather than one of them
+      winning and the other falling back.
+    */
+    const geographies: Record<string, string> = {};
+    for (const pathway of pathways) {
+      const options = columnGeographyOptions(
+        pathway,
+        pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
+      );
+      const token = defaultGeographyForColumn(filters, pathway, options);
+      if (token !== null) geographies[pathway.id] = token;
+    }
+
+    const params = [`ids=${pathways.map((p) => p.id).join(",")}`];
+    if (sector !== null) params.push(`sector=${encodeURIComponent(sector)}`);
+    const encoded = encodeColumnGeographies(geographies);
+    // Encoded again as a whole: the page reads it back through
+    // URLSearchParams.get(), which decodes one layer, so without this a comma
+    // or colon inside a token would come back as a delimiter. The page's own
+    // setter gets the same second layer from URLSearchParams.set().
+    if (encoded !== "") params.push(`geography=${encodeURIComponent(encoded)}`);
+
+    void navigate(`/compare?${params.join("&")}`);
   };
 
   if (!expanded) {
@@ -34,9 +95,9 @@ const ComparisonRibbon: React.FC = () => {
           Compare Pathways
           <Plus size={14} />
         </button>
-        {comparedPathwayIds.length > 0 && (
+        {pathways.length > 0 && (
           <span className="text-xs text-rmigray-500">
-            {comparedPathwayIds.length} selected
+            {pathways.length} selected
           </span>
         )}
       </div>

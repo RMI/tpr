@@ -107,6 +107,28 @@ describe("pathwayToolAvailability", () => {
       ]);
       expect(av.hasGeography("FR")).toBe(false);
     });
+
+    it("matches a region the publisher spells differently in its own data", () => {
+      // The live #945 case: IEA-APS declares "Southeast Asia" in metadata while
+      // its timeseries carries "South East Asia". resolveGeography plots it, so
+      // reporting it as absent from the tool would contradict the charts.
+      expect(av.hasGeography("Southeast Asia")).toBe(true);
+    });
+
+    it("folds case and punctuation, like resolveGeography", () => {
+      const av = pathwayToolAvailability([
+        {
+          summary: { sectors: [], geographies: ["Asia-Pacific"], metrics: [] },
+        },
+      ]);
+      expect(av.hasGeography("asia pacific")).toBe(true);
+    });
+
+    it("stays a spelling fold, not a synonym table", () => {
+      // Different words remain different: no similarity threshold is involved.
+      expect(av.hasGeography("ASEAN")).toBe(false);
+      expect(av.hasGeography("South Asia")).toBe(false);
+    });
   });
 
   describe("merging multiple datasets", () => {
@@ -157,6 +179,18 @@ describe("pathwayToolAvailability", () => {
       expect(av.hasSector("Power")).toBe(false);
       expect(av.hasMetric("Capacity")).toBe(false);
       expect(av.hasGeography("Global")).toBe(false);
+    });
+
+    it("tolerates a sector the taxonomy defines without a metrics axis", () => {
+      // Steel and Aviation are in SECTORS_BY_KEY for their data-availability
+      // vocabularies but define no timeseries `metrics`. Indexing that
+      // undefined axis used to throw, which would have broken the detail page
+      // the day a Steel series landed.
+      const av = pathwayToolAvailability([
+        { summary: { sectors: ["steel"], metrics: ["capacity"] } },
+      ]);
+      expect(av.hasSector("Steel")).toBe(true);
+      expect(av.hasMetric("Capacity")).toBe(false);
     });
   });
 });

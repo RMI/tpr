@@ -37,12 +37,28 @@ const fixtures = [
       title: { full: "Publication B", short: "PubTitleB" },
       year: 2023,
     },
-    sectors: [{ name: "Steel" }],
+    // Shares Power with pathway A: a comparison needs one sector in common,
+    // and these tests are about geography, not the sector restriction.
+    sectors: [{ name: "Steel" }, { name: "Power" }],
     metric: ["Generation"],
     geography: { country: ["DE"] },
     keyFeatures: { emissionsTrajectory: "bar" },
   },
 ] as const;
+
+/*
+  Mounting this page is slow and contention-sensitive: vi.resetModules() forces
+  a fresh dynamic import and a second async effect re-renders once the (stubbed)
+  timeseries index resolves. Under full-suite parallelism that can overrun RTL's
+  default 1000 ms budget, so every wait here carries a generous one.
+
+  The per-test timeout is raised file-wide because every test in this file
+  mounts the same way — a query budget at or above vitest's default 5 s
+  testTimeout would otherwise surface a real failure as an unhelpful "test timed
+  out" instead of the query's own error. Closes #896.
+*/
+const WAIT = { timeout: 10_000 };
+vi.setConfig({ testTimeout: 20_000 });
 
 async function mountWithFixtures(): Promise<void> {
   vi.resetModules();
@@ -78,7 +94,7 @@ const openTooltipFor = async (ariaLabel: string): Promise<HTMLElement> => {
   await waitFor(() => {
     fireEvent.focus(screen.getByLabelText(ariaLabel));
     tooltip = screen.getByRole("tooltip");
-  });
+  }, WAIT);
   return tooltip as unknown as HTMLElement;
 };
 
@@ -90,7 +106,11 @@ describe("ComparisonPage — geography disclaimer (#894)", () => {
 
   it("includes the region-mapping disclaimer in the Geographies tooltip", async () => {
     await mountWithFixtures();
-    await screen.findByLabelText("Geography availability information");
+    await screen.findByLabelText(
+      "Geography availability information",
+      undefined,
+      WAIT,
+    );
 
     const tooltip = await openTooltipFor("Geography availability information");
     expect(tooltip).toHaveTextContent(GEOGRAPHY_AVAILABILITY_TOOLTIP);
@@ -99,7 +119,11 @@ describe("ComparisonPage — geography disclaimer (#894)", () => {
 
   it("does not add the disclaimer to the sector or metric tooltips", async () => {
     await mountWithFixtures();
-    await screen.findByLabelText("Sector availability information");
+    await screen.findByLabelText(
+      "Sector availability information",
+      undefined,
+      WAIT,
+    );
 
     const sectorTooltip = await openTooltipFor(
       "Sector availability information",

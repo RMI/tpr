@@ -41,7 +41,7 @@ export interface PathwayMetadataV1 {
   description: string;
   publication: Publication;
   /**
-   * Type of the pathway pathway.
+   * Type of the pathway.
    */
   pathwayType: "Normative" | "Exploratory" | "Predictive";
   /**
@@ -118,6 +118,26 @@ export interface PathwayMetadataV1 {
       | "Active Mobility"
       | "Aviation Efficiency"
       | "Maritime Efficiency"
+      | "Geothermal"
+      | "Energy storage"
+      | "BOF"
+      | "BF-BOF"
+      | "BF-BOF+PCI"
+      | "BF-BOF+CCUS"
+      | "DRI-Melt-BOF"
+      | "EAF"
+      | "Scrap-EAF"
+      | "DRI-EAF"
+      | "DRI-EAF+H2"
+      | "DRI-EAF+CCS"
+      | "Electrolyser/Electrowinning"
+      | "Jet Fuel"
+      | "SAF"
+      | "Electricity"
+      | "Hydrogen"
+      | "HEFA"
+      | "PtL"
+      | "AtJ"
       | "Other"
     )[];
   }[];
