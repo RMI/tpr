@@ -17,6 +17,7 @@ import {
   parseGranularity,
   buildDataAvailability,
   descriptionFromV1,
+  keyFeaturesFromV1,
 } from "./import-pathway-data.ts";
 
 describe("publisherGroup", () => {
@@ -202,6 +203,43 @@ describe("descriptionFromV1", () => {
   });
 });
 
+describe("keyFeaturesFromV1", () => {
+  const v1 = {
+    $schema: "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+    sectors: [{ name: "Power" }],
+    geography: { country: ["PH"] },
+    keyFeatures: {
+      emissionsTrajectory: "Moderate increase",
+      policyTypes: ["Carbon price", "Subsidies"],
+    },
+  };
+  it("keeps a v1 file's authored values as widest-scope entries", () => {
+    const report = new Report();
+    const kf = keyFeaturesFromV1(v1, report, "T");
+    expect(kf?.emissionsTrajectory).toEqual([
+      { sector: "Power", geography: "PH", value: "Moderate increase" },
+    ]);
+    expect(kf?.policyTypes).toEqual([
+      {
+        sector: "Power",
+        geography: "PH",
+        value: ["Carbon price", "Subsidies"],
+      },
+    ]);
+    expect(report.lines.some((l) => l.includes("converted from v1"))).toBe(
+      true,
+    );
+  });
+  it("leaves a v2 file to the workbook", () => {
+    const v2 = {
+      ...v1,
+      $schema: "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+    };
+    expect(keyFeaturesFromV1(v2, new Report(), "T")).toBeNull();
+    expect(keyFeaturesFromV1(null, new Report(), "T")).toBeNull();
+  });
+});
+
 describe("data-availability cell parsing", () => {
   it("unwraps `Sector: [..]` and splits segments on ; or ,", () => {
     const bad = new Set<string>();
@@ -260,7 +298,11 @@ describe("buildDataAvailability", () => {
       report,
       "T",
     );
-    return { out, notes: report.lines.join("\n") };
+    return {
+      out,
+      notes: report.lines.join("\n"),
+      errors: report.errors.join("\n"),
+    };
   };
 
   it("emits a complete row with schema-cased values", () => {
@@ -294,22 +336,24 @@ describe("buildDataAvailability", () => {
     );
     expect(out?.byMetric[0].metricName).toBe("Absolute emissions");
   });
-  it("skips, and names, a row with no Data Format rather than inventing one", () => {
-    const { out, notes } = build([
+  it("reports a row with no Data Format as an error rather than inventing one", () => {
+    const { out, errors } = build([
       row(),
       row({ "Metric": "Generation", "Data Format": "" }),
     ]);
     expect(out?.byMetric.map((r) => r.metricName)).toEqual(["Capacity"]);
-    expect(notes).toContain("Generation: no data format");
+    expect(errors).toContain(
+      "T/dataAvailability Power Generation: blank or unrecognised data format",
+    );
   });
-  it("skips a row that is Not covered on some variables only", () => {
-    const { out, notes } = build([row({ "Data Format": "Not covered" })]);
+  it("reports a row that is Not covered on some variables only as an error", () => {
+    const { out, errors } = build([row({ "Data Format": "Not covered" })]);
     expect(out).toBeNull();
-    expect(notes).toContain('"Not covered" on data format only');
+    expect(errors).toContain('"Not covered" on data format only');
   });
   it("keeps a row that is Not covered on every variable", () => {
     const nc = "Not covered";
-    const { out } = build([
+    const { out, errors } = build([
       row({
         "Sector segment": nc,
         "Granularity": nc,
@@ -320,6 +364,7 @@ describe("buildDataAvailability", () => {
       }),
     ]);
     expect(out?.byMetric).toHaveLength(1);
+    expect(errors).toBe("");
   });
   it("returns null when the sheet has no rows for the pathway", () => {
     expect(build([]).out).toBeNull();

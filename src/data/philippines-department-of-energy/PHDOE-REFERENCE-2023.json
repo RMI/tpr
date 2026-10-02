@@ -50,17 +50,83 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": [],
-    "energyEfficiency": [],
-    "energyDemand": [],
-    "electrification": [],
-    "policyTypes": [],
-    "technologyCostTrend": [],
-    "emissionsScope": [],
-    "policyAmbition": [],
-    "technologyCostsDetail": [],
-    "newTechnologiesIncluded": [],
-    "investmentNeeds": []
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Significant increase"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Significant improvement"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Moderate increase"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Subsidies", "Target technology shares", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Decrease"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "By sector, part of value chain"
+      }
+    ]
   },
   "coreDrivers": {
     "policies": "Current plans/programs plus energy efficiency, renewable deployment, HELE, emerging technologies, EVs, natural gas and grid modernization.",
