@@ -27,7 +27,21 @@ const ComparisonRibbon: React.FC = () => {
   const { filters } = useFilters();
   const navigate = useNavigate();
 
-  const canCompare = comparedPathwayIds.length >= 2;
+  /*
+    The pathways the stored ids actually resolve to. An id restored from
+    sessionStorage can name a pathway that no longer exists; it renders as an
+    empty slot, so the count, the Compare button and the URL all follow this
+    list rather than the raw ids -- otherwise the ribbon could show one pathway,
+    say "2 selected", and send the reader to a comparison of one.
+  */
+  const pathways = React.useMemo(
+    () =>
+      comparedPathwayIds
+        .map((id) => pathwayMetadata.find((p) => p.id === id))
+        .filter((p): p is PathwayMetadataType => p !== undefined),
+    [comparedPathwayIds],
+  );
+  const canCompare = pathways.length >= 2;
 
   /*
     Carry the reader's search scope into the comparison URL.
@@ -39,10 +53,6 @@ const ComparisonRibbon: React.FC = () => {
   */
   const handleCompare = () => {
     if (!canCompare) return;
-
-    const pathways = comparedPathwayIds
-      .map((id) => pathwayMetadata.find((p) => p.id === id))
-      .filter((p): p is PathwayMetadataType => p !== undefined);
 
     const sector = resolveSharedSector(filters, pathways);
 
@@ -62,7 +72,7 @@ const ComparisonRibbon: React.FC = () => {
       if (token !== null) geographies[pathway.id] = token;
     }
 
-    const params = [`ids=${comparedPathwayIds.join(",")}`];
+    const params = [`ids=${pathways.map((p) => p.id).join(",")}`];
     if (sector !== null) params.push(`sector=${encodeURIComponent(sector)}`);
     const encoded = encodeColumnGeographies(geographies);
     if (encoded !== "") params.push(`geography=${encoded}`);
@@ -81,9 +91,9 @@ const ComparisonRibbon: React.FC = () => {
           Compare Pathways
           <Plus size={14} />
         </button>
-        {comparedPathwayIds.length > 0 && (
+        {pathways.length > 0 && (
           <span className="text-xs text-rmigray-500">
-            {comparedPathwayIds.length} selected
+            {pathways.length} selected
           </span>
         )}
       </div>

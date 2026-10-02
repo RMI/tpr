@@ -73,14 +73,16 @@ describe("sectorScopeContains", () => {
     expect(sectorScopeContains("Power", "Steel", declared)).toBe(false);
   });
 
-  it("cross-sector contains any sector the pathway declares", () => {
-    expect(sectorScopeContains("cross-sector", "Steel", declared)).toBe(true);
+  it("across sectors contains any sector the pathway declares", () => {
+    expect(sectorScopeContains("across sectors", "Steel", declared)).toBe(true);
   });
 
-  it("cross-sector is NOT a universal match", () => {
-    // Per Jacob on #869: cross-sector is the union of the pathway's own sectors,
+  it("across sectors is NOT a universal match", () => {
+    // Per Jacob on #869: across sectors is the union of the pathway's own sectors,
     // so a pathway covering only Power and Steel does not answer a Cement query.
-    expect(sectorScopeContains("cross-sector", "Cement", declared)).toBe(false);
+    expect(sectorScopeContains("across sectors", "Cement", declared)).toBe(
+      false,
+    );
   });
 });
 
@@ -105,8 +107,8 @@ describe("entryISOSet", () => {
     expect(entryISOSet("Unmapped Region", pathway())?.size).toBe(0);
   });
 
-  it("resolves cross-region to the pathway's whole ISO coverage", () => {
-    const set = entryISOSet("cross-region", pathway());
+  it("resolves across regions to the pathway's whole ISO coverage", () => {
+    const set = entryISOSet("across regions", pathway());
     expect([...(set ?? [])].sort()).toEqual(["ID", "TH", "US", "VN"]);
   });
 
@@ -160,6 +162,9 @@ describe("geographyScopeOverlaps", () => {
     // it resolves to an empty ISO set and must not vacuously match.
     expect(geographyScopeOverlaps("TH", "South East Asia", p)).toBe(false);
     expect(geographyScopeOverlaps("TH", "Souteast Asia", p)).toBe(false);
+    // Including for a Global entry, which answers any *real* selection. The
+    // Global shortcut used to run first and answered a stale token too.
+    expect(geographyScopeOverlaps("Global", "Souteast Asia", p)).toBe(false);
   });
 
   it("the absent bucket does not constrain which scope to read", () => {
@@ -175,7 +180,7 @@ describe("geographyScopeOverlaps", () => {
 
 describe("entriesInScope", () => {
   const entries = [
-    e("cross-sector", "Global", "wide"),
+    e("across sectors", "Global", "wide"),
     e("Power", "South East Asia", "power-sea"),
     e("Steel", "US", "steel-us"),
   ];
@@ -243,7 +248,7 @@ describe("entriesInScope — the ABSENT/None token", () => {
   // sector axis compared it as a sector name, so Sector=None plus a keyFeature
   // facet filtered out every entry and the pathway looked empty.
   const entries = [
-    e("cross-sector", "Global", "wide"),
+    e("across sectors", "Global", "wide"),
     e("Power", "South East Asia", "power-sea"),
   ];
   const p = pathway();
@@ -289,7 +294,7 @@ describe("entriesInScope — the ABSENT/None token", () => {
     const noSectors = pathway({ sectors: [] });
     expect(
       entriesInScope(
-        [e("cross-sector", "Global", "wide")],
+        [e("across sectors", "Global", "wide")],
         { sectors: [ABSENT_FILTER_TOKEN] },
         noSectors,
       ),
@@ -304,14 +309,14 @@ describe("widestValue", () => {
   });
 
   it("returns the only value when there is one entry", () => {
-    expect(widestValue([e("cross-sector", "Global", "only")])).toBe("only");
+    expect(widestValue([e("across sectors", "Global", "only")])).toBe("only");
   });
 
-  it("prefers cross-sector over a named sector", () => {
+  it("prefers across sectors over a named sector", () => {
     expect(
       widestValue([
         e("Power", "Global", "narrow"),
-        e("cross-sector", "Global", "wide"),
+        e("across sectors", "Global", "wide"),
       ]),
     ).toBe("wide");
   });
@@ -319,32 +324,32 @@ describe("widestValue", () => {
   it("prefers Global over a region, and a region over a country", () => {
     expect(
       widestValue([
-        e("cross-sector", "TH", "country"),
-        e("cross-sector", "South East Asia", "region"),
-        e("cross-sector", "Global", "global"),
+        e("across sectors", "TH", "country"),
+        e("across sectors", "South East Asia", "region"),
+        e("across sectors", "Global", "global"),
       ]),
     ).toBe("global");
     expect(
       widestValue([
-        e("cross-sector", "TH", "country"),
-        e("cross-sector", "South East Asia", "region"),
+        e("across sectors", "TH", "country"),
+        e("across sectors", "South East Asia", "region"),
       ]),
     ).toBe("region");
   });
 
   it("ranks sector ahead of geography", () => {
-    // A cross-sector entry wins even when its geography is narrower, matching the
+    // A across sectors entry wins even when its geography is narrower, matching the
     // "sector > geography" precedence #869 defines for its cost model.
     expect(
       widestValue([
         e("Power", "Global", "power-global"),
-        e("cross-sector", "TH", "cross-th"),
+        e("across sectors", "TH", "cross-th"),
       ]),
     ).toBe("cross-th");
   });
 
   it("preserves an array value intact", () => {
-    expect(widestValue([e("cross-sector", "Global", ["a", "b"])])).toEqual([
+    expect(widestValue([e("across sectors", "Global", ["a", "b"])])).toEqual([
       "a",
       "b",
     ]);
@@ -358,7 +363,7 @@ describe("widestValue", () => {
 describe("valuesInScope", () => {
   it("flattens the in-scope entries' values", () => {
     const entries = [
-      e("cross-sector", "Global", ["a", "b"]),
+      e("across sectors", "Global", ["a", "b"]),
       e("Steel", "US", "c"),
     ];
     expect(valuesInScope(entries, { sectors: ["Power"] }, pathway())).toEqual([
@@ -373,7 +378,7 @@ describe("scopeISOSet", () => {
     const p = pathway();
     for (const token of [
       "Global",
-      "cross-region",
+      "across regions",
       "South East Asia",
       "Unmapped Region",
       "US",
@@ -434,10 +439,10 @@ describe("pathwayScopeOverlaps", () => {
     expect(pathwayScopeOverlaps("Global", "Unmapped Region", geo)).toBe(true);
   });
 
-  it("overlaps a cross-region entry with any covered selection", () => {
-    // cross-region expands to the pathway's whole ISO coverage.
-    expect(pathwayScopeOverlaps("cross-region", "TH", geo)).toBe(true);
-    expect(pathwayScopeOverlaps("cross-region", "US", geo)).toBe(true);
+  it("overlaps an across-regions entry with any covered selection", () => {
+    // "across regions" expands to the pathway's whole ISO coverage.
+    expect(pathwayScopeOverlaps("across regions", "TH", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("across regions", "US", geo)).toBe(true);
   });
 
   it("degrades a stale or unrecognised selection to matching nothing", () => {

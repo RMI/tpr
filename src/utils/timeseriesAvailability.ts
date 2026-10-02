@@ -42,7 +42,9 @@ function metricDisplayNames(summary: unknown): Set<string> {
     const sectorDef = SECTORS_BY_KEY[sectorKey];
     if (!sectorDef) continue;
     for (const metricKey of s.metrics ?? []) {
-      const metricDef = sectorDef.metrics[metricKey];
+      // `metrics` is optional: Steel and Aviation are defined for their
+      // data-availability vocabularies but plot no timeseries yet.
+      const metricDef = sectorDef.metrics?.[metricKey];
       if (metricDef) names.add(metricDef.displayName);
     }
   }

@@ -120,14 +120,14 @@ describe("widestScope", () => {
     expect(widestScope(v1({})).sector).toBe("Power");
   });
 
-  it("uses cross-sector for a multi-sector pathway", () => {
+  it("uses across sectors for a multi-sector pathway", () => {
     const doc = v1({
       sectors: [
         { name: "Power", technologies: [] },
         { name: "Steel", technologies: [] },
       ],
     } as Partial<PathwayMetadataV1>);
-    expect(widestScope(doc).sector).toBe("cross-sector");
+    expect(widestScope(doc).sector).toBe("across sectors");
   });
 
   it("collapses a repeated sector name rather than calling it multi-sector", () => {

@@ -44,7 +44,7 @@ const V1_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v1.json";
 const V2_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
 
 /** Widest sentinels, mirroring src/utils/validateScopes.ts. */
-const CROSS_SECTOR = "cross-sector";
+const ACROSS_SECTORS = "across sectors";
 const GLOBAL_SCOPE = "Global";
 
 /**
@@ -109,13 +109,13 @@ export function splitExpertOverview(text: string): Map<string, string> {
 }
 
 /**
- * The widest scope an entry on this pathway can carry, per #858: `cross-sector`
+ * The widest scope an entry on this pathway can carry, per #858: `across sectors`
  * for a multi-sector pathway else its lone sector, and `Global` else the
  * pathway's single declared region or country.
  *
  * Throws rather than guessing when a pathway declares several regions or several
  * standalone countries without `global`, since which of them is "widest" is an
- * authoring decision (`cross-region` exists for that case). No file in the corpus
+ * authoring decision (`across regions` exists for that case). No file in the corpus
  * hits this today -- all 56 resolve.
  */
 export function widestScope(doc: PathwayMetadataV1): {
@@ -124,7 +124,7 @@ export function widestScope(doc: PathwayMetadataV1): {
 } {
   const names = [...new Set((doc.sectors ?? []).map((s) => s.name))];
   if (names.length === 0) throw new Error("pathway declares no sectors");
-  const sector = names.length > 1 ? CROSS_SECTOR : names[0];
+  const sector = names.length > 1 ? ACROSS_SECTORS : names[0];
 
   const geo = doc.geography ?? {};
   const regions = Object.keys(geo.regions ?? {});
@@ -138,7 +138,7 @@ export function widestScope(doc: PathwayMetadataV1): {
   } else if (regions.length > 1) {
     throw new Error(
       `${regions.length} regions and no "global" flag: widest geography is ambiguous ` +
-        `(consider "cross-region"): ${regions.join(", ")}`,
+        `(consider "across regions"): ${regions.join(", ")}`,
     );
   } else if (countries.length === 1) {
     geography = countries[0];
@@ -346,8 +346,8 @@ async function main() {
     }
 
     const orphaned: string[] = [];
-    if (result.coreDriversProse.length > 0) {
-      orphaned.push(`### ${CORE_DRIVERS}\n\n${result.coreDriversProse}`);
+    if (coreDriversProse.length > 0) {
+      orphaned.push(`### ${CORE_DRIVERS}\n\n${coreDriversProse}`);
     } else {
       console.info(`    note: no "${CORE_DRIVERS}" section found`);
     }

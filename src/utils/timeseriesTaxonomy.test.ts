@@ -1,5 +1,7 @@
 import { describe, it, expect } from "vitest";
 import {
+  availabilityMetricBelongsToSector,
+  availabilityMetricsForSector,
   metricBelongsToSector,
   metricsForSector,
   POWER_SECTOR_DEFINITION,
@@ -14,18 +16,31 @@ import sectorSchema from "../schema/common/sector.v1.json" with { type: "json" }
 import technologySchema from "../schema/common/technology.v1.json" with { type: "json" };
 import metricSchema from "../schema/common/metric.v1.json" with { type: "json" };
 import segmentSchema from "../schema/common/sectorSegment.v1.json" with { type: "json" };
+import availabilityMetricSchema from "../schema/common/dataAvailabilityMetric.v1.json" with { type: "json" };
 
 const SECTOR_NAMES: string[] = sectorSchema.$defs.displayName.enum;
 const TECHNOLOGY_NAMES: string[] = technologySchema.$defs.displayName.enum;
 const METRIC_NAMES: string[] = metricSchema.$defs.displayName.enum;
 const SEGMENT_NAMES: string[] = segmentSchema.$defs.displayName.enum;
+const AVAILABILITY_METRIC_NAMES: string[] =
+  availabilityMetricSchema.$defs.displayName.enum;
 
 describe("technologiesForSector", () => {
-  it("resolves Power to its ten technologies", () => {
+  it("accepts the two technologies cookbook 0020 added to Power", () => {
+    // Both were added to technology.v1.json's enum by the #858 pass but not
+    // here, so AJV accepted them while technologyBelongsToSector said "no" --
+    // which silently dropped them from JETP-CIPP-2023 on import.
+    expect(technologyBelongsToSector("Geothermal", "Power")).toBe("yes");
+    expect(technologyBelongsToSector("Energy storage", "Power")).toBe("yes");
+  });
+
+  it("resolves Power to its twelve technologies", () => {
     expect(technologiesForSector("Power")).toEqual([
       "Biomass",
       "Coal",
+      "Energy storage",
       "Gas",
+      "Geothermal",
       "Hydro",
       "Nuclear",
       "Oil",
@@ -42,7 +57,7 @@ describe("technologiesForSector", () => {
     // edit needed. Same intent as the wrapper-consistency tests in
     // pathwayMetadata.v2.test.ts.
     expect(technologiesForSector("Power")).toEqual(
-      Object.values(POWER_SECTOR_DEFINITION.technologies).map(
+      Object.values(POWER_SECTOR_DEFINITION.technologies ?? {}).map(
         (t) => t.displayName,
       ),
     );
@@ -75,7 +90,7 @@ describe("technologiesForSector", () => {
     // A displayName here that the enum lacks would be permanently unusable: AJV
     // would reject the data before this check ever saw it.
     for (const sector of Object.values(SECTORS_BY_KEY)) {
-      for (const tech of Object.values(sector.technologies)) {
+      for (const tech of Object.values(sector.technologies ?? {})) {
         expect(TECHNOLOGY_NAMES).toContain(tech.displayName);
       }
     }
@@ -127,7 +142,9 @@ describe("metricsForSector / metricBelongsToSector (#870)", () => {
 
   it("derives the list from POWER_SECTOR_DEFINITION rather than duplicating it", () => {
     expect(metricsForSector("Power")).toEqual(
-      Object.values(POWER_SECTOR_DEFINITION.metrics).map((m) => m.displayName),
+      Object.values(POWER_SECTOR_DEFINITION.metrics ?? {}).map(
+        (m) => m.displayName,
+      ),
     );
   });
 
@@ -160,8 +177,67 @@ describe("metricsForSector / metricBelongsToSector (#870)", () => {
 
   it("only names metrics the schema allows", () => {
     for (const sector of Object.values(SECTORS_BY_KEY)) {
-      for (const metric of Object.values(sector.metrics)) {
+      for (const metric of Object.values(sector.metrics ?? {})) {
         expect(METRIC_NAMES).toContain(metric.displayName);
+      }
+    }
+  });
+});
+
+describe("availabilityMetricsForSector / availabilityMetricBelongsToSector (#870)", () => {
+  it("is a superset of the metadata metric list for Power", () => {
+    // The whole point of the second axis (register item D16): the availability
+    // row key adds the four metrics a pathway reports but we do not plot.
+    const avail = availabilityMetricsForSector("Power") ?? [];
+    for (const extra of [
+      "Transmission lines",
+      "Technology cost",
+      "Investment requirement",
+      "Asset lifetime",
+    ]) {
+      expect(avail).toContain(extra);
+    }
+    expect(avail).toHaveLength(9);
+  });
+
+  it("does not carry Storage capacity, which D16 dropped", () => {
+    expect(availabilityMetricsForSector("Power")).not.toContain(
+      "Storage capacity",
+    );
+  });
+
+  it("answers for Steel and Aviation, which the metadata axis does not", () => {
+    expect(availabilityMetricsForSector("Steel")).toHaveLength(10);
+    expect(availabilityMetricsForSector("Aviation")).toHaveLength(13);
+    // The metadata axis is still Power-only, which is what keeps the search
+    // facet unchanged.
+    expect(metricsForSector("Steel")).toBeUndefined();
+    expect(metricsForSector("Aviation")).toBeUndefined();
+  });
+
+  it("scopes a metric to its own sector", () => {
+    expect(availabilityMetricBelongsToSector("Scrap share", "Steel")).toBe(
+      "yes",
+    );
+    expect(availabilityMetricBelongsToSector("Scrap share", "Power")).toBe(
+      "no",
+    );
+    expect(availabilityMetricBelongsToSector("Capacity", "Power")).toBe("yes");
+  });
+
+  it("says unknown for a sector the cookbook has not reached", () => {
+    // Keeps dataAvailability authorable for the other twelve sectors.
+    expect(availabilityMetricBelongsToSector("Capacity", "Cement")).toBe(
+      "unknown",
+    );
+  });
+
+  it("only names metrics the schema allows", () => {
+    // A displayName the enum lacks would be permanently unusable: AJV rejects
+    // the row before this check sees it.
+    for (const sector of Object.values(SECTORS_BY_KEY)) {
+      for (const metric of Object.values(sector.availabilityMetrics ?? {})) {
+        expect(AVAILABILITY_METRIC_NAMES).toContain(metric.displayName);
       }
     }
   });
@@ -173,12 +249,30 @@ describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
       "Fuel extraction and processing",
       "Power generation",
       "Energy storage",
-      "Transmission & Distribution",
+      "Transmission and distribution",
+    ]);
+  });
+
+  it("resolves Steel and Aviation too, not just Power", () => {
+    // All three sectors the cookbook defines segments for (#858).
+    expect(segmentsForSector("Steel")).toEqual([
+      "Downstream",
+      "Fuel extraction and processing",
+      "Ironmaking",
+      "Mining",
+      "Steelmaking",
+    ]);
+    expect(segmentsForSector("Aviation")).toEqual([
+      "Freight transport",
+      "Passenger transport",
+      "Upstream energy and fuels",
     ]);
   });
 
   it("returns undefined for a sector with no segments defined", () => {
-    expect(segmentsForSector("Steel")).toBeUndefined();
+    // Cement is one of the twelve the cookbook has not reached yet, and the
+    // undefined is load-bearing -- see vocabularyFor.
+    expect(segmentsForSector("Cement")).toBeUndefined();
   });
 
   it("excludes the universal sentinel from the defined list", () => {
@@ -196,7 +290,14 @@ describe("segmentsForSector / segmentBelongsToSector (#870)", () => {
   });
 
   it("says unknown for a named segment under an undefined sector", () => {
-    expect(segmentBelongsToSector("Energy storage", "Steel")).toBe("unknown");
+    expect(segmentBelongsToSector("Energy storage", "Cement")).toBe("unknown");
+  });
+
+  it("says no for a segment of the wrong defined sector", () => {
+    // Now that three sectors have segments, the lists can actually disagree:
+    // Ironmaking is Steel's, not Power's.
+    expect(segmentBelongsToSector("Ironmaking", "Power")).toBe("no");
+    expect(segmentBelongsToSector("Energy storage", "Steel")).toBe("no");
   });
 
   it("says yes to the sentinel under every sector, defined or not", () => {

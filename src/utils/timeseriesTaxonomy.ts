@@ -24,14 +24,33 @@ export interface SegmentDefinition {
 export interface SectorDefinition {
   key: string;
   displayName: string;
-  technologies: Record<string, TechnologyDefinition>;
-  metrics: Record<string, MetricDefinition>;
   /**
-   * Optional, unlike the two above: segments arrived with #870 and only Power
-   * has them. Absent means "nobody has written this sector's segments down",
-   * which the membership check below treats as closed rather than open.
+   * Every axis below `displayName` is optional, and absent is not the same as
+   * empty: `vocabularyFor` returns `undefined` for an axis a sector does not
+   * define, which is what separates "nobody has written this sector's values
+   * down" from "this sector has none". Supplying `{}` to satisfy a required
+   * field would silently close an undefined axis — see the comment on
+   * `vocabularyFor`.
+   *
+   * Steel and Aviation define metrics and segments but no technologies, which
+   * is why `technologies` became optional alongside `segments`.
    */
+  technologies?: Record<string, TechnologyDefinition>;
+  metrics?: Record<string, MetricDefinition>;
   segments?: Record<string, SegmentDefinition>;
+  /**
+   * The cookbook's "Metrics – Extended" — the row key of the Data Availability
+   * table, distinct from `metrics` above.
+   *
+   * Two separate axes because the cookbook carries two metric variables, which
+   * register item D16 records as legitimately different rather than in
+   * conflict. `metrics` is the pathway-level multi-select that also names the
+   * plotted timeseries; this adds the metrics a pathway reports but we do not
+   * plot (transmission lines, technology cost, investment requirement, asset
+   * lifetime). Folding them into `metrics` would make the timeseries taxonomy
+   * claim series it has no data for.
+   */
+  availabilityMetrics?: Record<string, MetricDefinition>;
 }
 
 export const POWER_SECTOR_DEFINITION: SectorDefinition = {
@@ -48,10 +67,20 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
       definition:
         "Electricity generation using coal combustion to produce steam that drives turbines for power.",
     },
+    energyStorage: {
+      displayName: "Energy storage",
+      definition:
+        "Storing electricity for later dispatch, however the pathway breaks it down -- batteries, pumped hydro or both. The cookbook removed the separate BESS and pumped-hydro technologies in decision 0020, so a Capacity row's scope limitations are the only place that detail survives.",
+    },
     gas: {
       displayName: "Gas",
       definition:
         "Electricity generation using natural gas combustion in turbines or combined-cycle plants.",
+    },
+    geothermal: {
+      displayName: "Geothermal",
+      definition:
+        "Electricity generation using heat drawn from the earth to raise steam.",
     },
     hydro: {
       displayName: "Hydro",
@@ -71,7 +100,7 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
     other: {
       displayName: "Other",
       definition:
-        "Electricity generation using alternative or emerging sources such as geothermal, tidal, or hydrogen.",
+        "Electricity generation using alternative or emerging sources such as tidal or hydrogen. Geothermal is no longer among them -- it is its own technology as of cookbook decision 0020.",
     },
     renewables: {
       displayName: "Renewables",
@@ -109,7 +138,7 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
         "Storing electricity for later dispatch (batteries, pumped hydro).",
     },
     transmissionAndDistribution: {
-      displayName: "Transmission & Distribution",
+      displayName: "Transmission and distribution",
       definition:
         "Moving electricity from generators to consumers, including grid losses.",
     },
@@ -146,11 +175,223 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
       sectorScope: "Power generation",
     },
   },
+  /*
+    Power's "Metrics – Extended" (cookbook data_availability/metrics_extended.md):
+    the five in `metrics` above plus the four a pathway reports but we do not
+    plot. Spellings are the cookbook's, which is why `Emissions intensity` here
+    differs in case from `Emissions Intensity` in `metrics` -- #858 accepts the
+    inconsistency for now.
+  */
+  availabilityMetrics: {
+    absoluteEmissions: {
+      displayName: "Absolute Emissions",
+      definition:
+        "Total greenhouse gas emissions produced, regardless of output.",
+    },
+    assetLifetime: {
+      displayName: "Asset lifetime",
+      definition:
+        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
+    },
+    capacity: {
+      displayName: "Capacity",
+      definition: "Maximum output under ideal conditions, measured in GW.",
+    },
+    emissionsIntensity: {
+      displayName: "Emissions intensity",
+      definition: "Greenhouse gases emitted per unit of physical output.",
+    },
+    generation: {
+      displayName: "Generation",
+      definition: "Electricity produced over a period, typically in TWh.",
+    },
+    investmentRequirement: {
+      displayName: "Investment requirement",
+      definition: "Capital the pathway implies, and how it is broken down.",
+    },
+    technologyCost: {
+      displayName: "Technology cost",
+      definition:
+        "Cost assumptions per technology, and how they are broken down.",
+    },
+    technologyMix: {
+      displayName: "Technology mix",
+      definition: "The breakdown of sources used for electricity generation.",
+    },
+    transmissionLines: {
+      displayName: "Transmission lines",
+      definition:
+        "Transmission and distribution infrastructure, and which connections are in scope.",
+    },
+  },
+};
+
+/*
+  Steel and Aviation, added for #870's data-availability rows (#858).
+
+  Neither defines `technologies` or `metrics`: the cookbook gives both sectors a
+  technology-coverage list and a metadata metric list, but nothing in this repo
+  plots their timeseries yet, and leaving those axes undefined is what keeps
+  `technologyBelongsToSector` answering "unknown" rather than "no" for them. Add
+  them when the data arrives, not before -- an empty object would close the axis.
+*/
+export const STEEL_SECTOR_DEFINITION: SectorDefinition = {
+  key: "steel",
+  displayName: "Steel",
+  segments: {
+    downstream: {
+      displayName: "Downstream",
+      definition: "Casting, rolling and finishing after steel is made.",
+    },
+    fuelExtractionAndProcessing: {
+      displayName: "Fuel extraction and processing",
+      definition: "Extraction and processing of fuels and reductants.",
+    },
+    ironmaking: {
+      displayName: "Ironmaking",
+      definition: "Reduction of iron ore to iron, before steelmaking.",
+    },
+    mining: {
+      displayName: "Mining",
+      definition: "Extraction of iron ore and other raw inputs.",
+    },
+    steelmaking: {
+      displayName: "Steelmaking",
+      definition: "Conversion of iron and scrap into crude steel.",
+    },
+  },
+  availabilityMetrics: {
+    absoluteEmissions: {
+      displayName: "Absolute emissions",
+      definition:
+        "Total greenhouse gas emissions produced, regardless of output.",
+    },
+    assetLifetime: {
+      displayName: "Asset lifetime",
+      definition:
+        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
+    },
+    emissionsIntensityPrimary: {
+      displayName: "Emissions intensity (primary)",
+      definition:
+        "Emissions per tonne of steel from the primary (ore-based) route.",
+    },
+    emissionsIntensitySecondary: {
+      displayName: "Emissions intensity (secondary)",
+      definition:
+        "Emissions per tonne of steel from the secondary (scrap-based) route.",
+    },
+    emissionsIntensityTotal: {
+      displayName: "Emissions intensity (total)",
+      definition: "Emissions per tonne of steel across both routes.",
+    },
+    investmentRequirement: {
+      displayName: "Investment requirement",
+      definition: "Capital the pathway implies, and how it is broken down.",
+    },
+    scrapShare: {
+      displayName: "Scrap share",
+      definition:
+        "Share of scrap in the input mix, however the pathway defines the base.",
+    },
+    steelProductionByTechnology: {
+      displayName: "Steel production by technology (production route)",
+      definition: "Absolute production split by production route.",
+    },
+    technologyCost: {
+      displayName: "Technology cost",
+      definition:
+        "Cost assumptions per technology, and how they are broken down.",
+    },
+    technologyMix: {
+      displayName: "Technology mix (production by route)",
+      definition: "Share of production by route.",
+    },
+  },
+};
+
+export const AVIATION_SECTOR_DEFINITION: SectorDefinition = {
+  key: "aviation",
+  displayName: "Aviation",
+  segments: {
+    freightTransport: {
+      displayName: "Freight transport",
+      definition:
+        "Movement of cargo, including belly freight where distinguished.",
+    },
+    passengerTransport: {
+      displayName: "Passenger transport",
+      definition: "Movement of passengers.",
+    },
+    upstreamEnergyAndFuels: {
+      displayName: "Upstream energy and fuels",
+      definition:
+        "Production and supply of aviation fuels and energy carriers.",
+    },
+  },
+  availabilityMetrics: {
+    absoluteEmissionsWtwFreight: {
+      displayName: "Absolute emissions Well-to-Wheel (freight)",
+      definition: "Well-to-wheel emissions attributed to freight.",
+    },
+    absoluteEmissionsWtwPassenger: {
+      displayName: "Absolute emissions Well-to-Wheel (passenger)",
+      definition: "Well-to-wheel emissions attributed to passengers.",
+    },
+    assetLifetime: {
+      displayName: "Asset lifetime",
+      definition:
+        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
+    },
+    demandByPropulsionFreight: {
+      displayName: "Demand by propulsion technology (freight)",
+      definition: "Absolute freight demand split by propulsion technology.",
+    },
+    demandByPropulsionPassenger: {
+      displayName: "Demand by propulsion technology (passenger)",
+      definition: "Absolute passenger demand split by propulsion technology.",
+    },
+    demandShareByPropulsionFreight: {
+      displayName: "Demand share by propulsion technology (freight)",
+      definition: "Share of freight demand by propulsion technology.",
+    },
+    demandShareByPropulsionPassenger: {
+      displayName: "Demand share by propulsion technology (passenger)",
+      definition: "Share of passenger demand by propulsion technology.",
+    },
+    emissionsIntensityFreight: {
+      displayName: "Emissions intensity (freight)",
+      definition: "Emissions per unit of freight activity.",
+    },
+    emissionsIntensityPassenger: {
+      displayName: "Emissions intensity (passenger)",
+      definition: "Emissions per unit of passenger activity.",
+    },
+    investmentRequirement: {
+      displayName: "Investment requirement",
+      definition: "Capital the pathway implies, and how it is broken down.",
+    },
+    technologyCost: {
+      displayName: "Technology cost",
+      definition:
+        "Cost assumptions per technology, and how they are broken down.",
+    },
+    totalDemandFreight: {
+      displayName: "Total demand (freight)",
+      definition: "Total freight activity.",
+    },
+    totalDemandPassenger: {
+      displayName: "Total demand (passenger)",
+      definition: "Total passenger activity.",
+    },
+  },
 };
 
 // Extend this as you add more sectors:
 export const SECTORS_BY_KEY: Record<string, SectorDefinition> = {
   power: POWER_SECTOR_DEFINITION,
+  steel: STEEL_SECTOR_DEFINITION,
+  aviation: AVIATION_SECTOR_DEFINITION,
 };
 
 export class UnknownTaxonomyError extends Error {
@@ -175,7 +416,7 @@ export function getMetricDefinition(
   metricKey: string,
 ): MetricDefinition {
   const sector = getSectorDefinition(sectorKey);
-  const metric = sector.metrics[metricKey];
+  const metric = sector.metrics?.[metricKey];
   if (!metric) {
     throw new UnknownTaxonomyError(
       `Unknown metric key "${metricKey}" for sector "${sectorKey}" in timeseries metadata definitions`,
@@ -189,7 +430,7 @@ export function getTechnologyDefinition(
   technologyKey: string,
 ): TechnologyDefinition {
   const sector = getSectorDefinition(sectorKey);
-  const tech = sector.technologies[technologyKey];
+  const tech = sector.technologies?.[technologyKey];
   if (!tech) {
     throw new UnknownTaxonomyError(
       `Unknown technology key "${technologyKey}" for sector "${sectorKey}" in timeseries metadata definitions`,
@@ -233,7 +474,8 @@ const SECTORS_BY_DISPLAY_NAME: ReadonlyMap<string, SectorDefinition> = new Map(
 );
 
 /** The `SectorDefinition` axes that carry a sector-conditional vocabulary. */
-type VocabularyAxis = "technologies" | "metrics" | "segments";
+type VocabularyAxis =
+  "technologies" | "metrics" | "segments" | "availabilityMetrics";
 
 /**
  * The display names a sector defines on one axis, or `undefined` when that
@@ -291,6 +533,32 @@ export function technologyBelongsToSector(
   sectorDisplayName: string,
 ): TaxonomyMembership {
   return membership(technologyDisplayName, sectorDisplayName, "technologies");
+}
+
+/**
+ * The metrics a sector's Data Availability rows may name (#870).
+ *
+ * Distinct from {@link metricsForSector}: that is the pathway-level `metric`
+ * vocabulary, this is the cookbook's "Metrics – Extended" row key. Register
+ * item D16 records the two as legitimately different lists rather than a
+ * conflict to reconcile.
+ */
+export function availabilityMetricsForSector(
+  sectorDisplayName: string,
+): readonly string[] | undefined {
+  return vocabularyFor(sectorDisplayName, "availabilityMetrics");
+}
+
+/** #870: a `dataAvailability` row may only name a metric of its own sector. */
+export function availabilityMetricBelongsToSector(
+  metricDisplayName: string,
+  sectorDisplayName: string,
+): TaxonomyMembership {
+  return membership(
+    metricDisplayName,
+    sectorDisplayName,
+    "availabilityMetrics",
+  );
 }
 
 /** The metrics defined for a sector (#870). */

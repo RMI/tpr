@@ -23,10 +23,10 @@ import { selectedGeographyToISO } from "./filterRegions";
 import { ABSENT_FILTER_TOKEN } from "./absent";
 
 /** Sector sentinel: the union of *this pathway's own* declared sectors. */
-export const CROSS_SECTOR = "cross-sector";
+export const ACROSS_SECTORS = "across sectors";
 /** Geography sentinels: everything, and a multi-region non-global aggregate. */
 export const GLOBAL_SCOPE = "Global";
-export const CROSS_REGION = "cross-region";
+export const ACROSS_REGIONS = "across regions";
 
 /** One scoped entry, structurally — the 11 fields differ only in `value`. */
 export interface ScopedEntry {
@@ -58,9 +58,9 @@ export function entryValues(entries: unknown): string[] {
 /**
  * Does an entry's sector scope contain a queried sector?
  *
- * `cross-sector` is **not** a universal match (per Jacob on #869): it means the
+ * `across sectors` is **not** a universal match (per Jacob on #869): it means the
  * union of the sectors this pathway declares, so a pathway covering only Y and Z
- * does not answer a query for sector X even though its `cross-sector` values are
+ * does not answer a query for sector X even though its `across sectors` values are
  * nominally broad enough.
  */
 export function sectorScopeContains(
@@ -69,7 +69,7 @@ export function sectorScopeContains(
   declaredSectors: readonly string[],
 ): boolean {
   if (entrySector === querySector) return true;
-  if (entrySector === CROSS_SECTOR)
+  if (entrySector === ACROSS_SECTORS)
     return declaredSectors.includes(querySector);
   return false;
 }
@@ -100,7 +100,7 @@ export function scopeISOSet(
 ): Set<GeographyCode> | null {
   if (token === GLOBAL_SCOPE) return null;
 
-  if (token === CROSS_REGION) return pathwayISOCoverage(geo);
+  if (token === ACROSS_REGIONS) return pathwayISOCoverage(geo);
 
   const members = geo?.regions?.[token];
   if (Array.isArray(members)) return new Set(members);
@@ -181,8 +181,13 @@ export function geographyScopeOverlaps(
   // strips it before calling this, so the guard is only for direct callers.
   if (query.kind === "absent") return true;
 
+  // An unrecognised token resolves to an empty ISO set. Checked before the
+  // Global shortcut below, which would otherwise answer it: a stale selection
+  // must match nothing, including a Global-scoped entry.
+  if (query.kind === "iso" && query.iso.size === 0) return false;
+
   const entrySet = entryISOSet(entryGeography, pathway);
-  if (entrySet === null) return true; // a Global entry answers anything
+  if (entrySet === null) return true; // a Global entry answers any real selection
 
   if (query.kind === "global") return false; // only a Global entry answers Global
   // An unrecognised token, or a region the publication never mapped, yields an
@@ -262,12 +267,12 @@ export function valuesInScope(
  * (the rendering components) have available.
  */
 function sectorBreadth(sector: string): number {
-  return sector === CROSS_SECTOR ? 0 : 1;
+  return sector === ACROSS_SECTORS ? 0 : 1;
 }
 
 function geographyBreadth(geography: string): number {
   if (geography === GLOBAL_SCOPE) return 0;
-  if (geography === CROSS_REGION) return 1;
+  if (geography === ACROSS_REGIONS) return 1;
   // A two-letter token is a country code; anything longer is a region label.
   return /^[A-Za-z]{2}$/.test(geography) ? 3 : 2;
 }

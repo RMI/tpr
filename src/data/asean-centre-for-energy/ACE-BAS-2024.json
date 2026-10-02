@@ -58,7 +58,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Significant increase"
       },
@@ -75,14 +75,24 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Significant improvement"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Significant increase"
       },
@@ -99,42 +109,67 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Low or no change"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": ["None"]
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Low or no change"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "CO2e (unspecified GHGs)"
+      },
+      {
+        "sector": "Buildings",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "No policies included"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "Capital costs, O&M, etc."
       },
@@ -151,7 +186,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": ["No new technologies"]
       },
@@ -163,7 +198,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ASEAN",
         "value": "No information"
       },
@@ -219,5 +254,130 @@
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ASEAN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived emissions intensity from power absolute emissions and elecricity generation"
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ASEAN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Directly reported electricity-generation GHG emissions in MtCO2-eq. \"Other Transformation\" is excluded."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ASEAN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables",
+          "Other"
+        ],
+        "scopeLimitations": "ASEAN aggregate power-system output. No separate captive or residential-rooftop time series."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ASEAN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables",
+          "Other"
+        ],
+        "scopeLimitations": "ASEAN aggregate power-system output. No separate captive or residential-rooftop time series."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ASEAN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables",
+          "Other"
+        ],
+        "scopeLimitations": "ASEAN aggregate power-system output. No separate captive or residential-rooftop time series."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["ASEAN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Shared model input across all pathways. No scenario-specific technology cost path."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ASEAN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Power capacity investment only. Maintenance and wider network investment boundaries are not fully described."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
 }
