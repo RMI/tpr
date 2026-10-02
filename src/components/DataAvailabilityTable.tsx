@@ -106,6 +106,9 @@ const SegmentCell: React.FC<{ row: ByMetricRow; plain: boolean }> = ({
   return (
     <BadgeArray<string>
       variant="sectorSegment"
+      // One line per badge: a pill wrapped onto two lines reads as a blob, and
+      // the column can afford the width of its longest segment.
+      className="whitespace-nowrap"
       maxRows={Infinity}
       tooltipGetter={(segment) => getSectorSegmentTooltip(row.sector, segment)}
     >
@@ -131,6 +134,8 @@ const GeographyCell: React.FC<{
   return (
     <BadgeArray<string>
       variant={geography.map((geo) => geographyVariant(geographyKind(geo)))}
+      className="whitespace-nowrap"
+
       // Country codes become country names, as on every geography badge.
       toLabel={(geo) => geographyLabel(geo ?? "")}
       tooltipGetter={(geo) =>
