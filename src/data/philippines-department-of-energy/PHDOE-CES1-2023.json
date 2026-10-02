@@ -41,7 +41,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The Clean Energy Scenario 1 (CES1) is an explorative power sector pathway for the Philippines developed by the Philippines Department of Energy (DoE) that builds on the assumptions of the Reference scenario. The Pathway includes the National Renewable Energy Program’s (NREP) power generation mix target of 50% renewable energy by 2040, and adds expanded build out of renewable energy capacity through 2050, including a major tranche of 19 GW of offshore wind capacity. Nuclear capacity is added to the grid and the lifetime of coal power plants is capped.\n\nThe CES 1 pathway makes strong socio-economic assumptions, with annual real GDP growth averaging well over 6% until 2050 driving significant increases in energy demand. As a result, emissions continue to grow, although at a significantly lower rate than in the DoE’s Reference scenario. Coal generation quickly plateaus, while natural gas and oil consumption continue to rise, driven by industry, transport, and other end-use sectors.",
   "metric": [
     "Emissions Intensity",
     "Capacity",

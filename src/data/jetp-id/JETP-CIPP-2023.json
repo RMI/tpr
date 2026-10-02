@@ -23,9 +23,7 @@
   },
   "description": "Power transition strategy driven by managed coal phasedown and renewables scale-up.",
   "geography": {
-    "regions": {
-      "ID": ["ID"]
-    }
+    "country": ["ID"]
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
@@ -42,7 +40,8 @@
         "Wind",
         "Solar",
         "Biomass",
-        "Renewables",
+        "Geothermal",
+        "Energy storage",
         "Other"
       ]
     }
@@ -77,7 +76,13 @@
         "value": "Significant increase"
       }
     ],
-    "electrification": [],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not Applicable"
+      }
+    ],
     "policyTypes": [
       {
         "sector": "Power",
@@ -140,8 +145,8 @@
   "coreDrivers": {
     "policies": "Policies are reformed to support renewables scaling and coal phased down. RE/VRE target shares and phaseout/early retirement targets are embedded. Market-policy drivers: LCR reform, bankable PPAs/procurement and removal of coal price distortions are policy enablers.",
     "emissionsTargets": "The pathway uses an on-grid CO2 emissions cap of 250 Mt in 2030, a reduction to 175 Mt by 2040, and near net-zero emissions by 2050. This is a central normative constraint.",
-    "technologyCosts": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive new generation options by 2030.",
-    "investmentChange": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive new generation options by 2030.",
+    "technologyCosts": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive options for power generation.",
+    "investmentChange": "Investment data are partial but substantial: Solar plus wind cumulative investment is nearly US$25B/yr by 2030 and almost US$80B/yr by 2040. Coal flexibility and repurposing can require up to US$10B and bioenergy/hydrogen repurposing represents an average of more than US$7B/yr in 2046-2050.",
     "macroeconomicDrivers": "Estimates from the Ministry of Energy and Mineral Resources point to 6% GDP growth p.a. until 2030, 7% p.a. from 2030 to 2040, and then a convergence to high income countries between 2040 and 2050, while the population is estimated to grow from 276 mio. in 2022 to 324 mio. in 2050. Electricity demand growth is an important inpu in the JETP, with an assumed 6.0% annual demand growth including captive connections.",
     "behavioralShifts": null,
     "otherDrivers": "Grid integration and system flexibility are major additional drivers: transmission follows RUPTL to 2030, large-island interconnection starts from 2029, coal flexible utilization is explicitly included, and storage grows to 38 GW by 2050. Captive load connections affect demand, while captive generation decarbonization is planned separately."
@@ -167,7 +172,7 @@
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "The pathway treats just transition and equitable risk/opportunity sharing as necessary for implementation, especially for communities and workers affected by coal phase-out and project deployment, but does not quantify the impacts in detail.",
+      "dependency_description": "The pathway treats just transition and equitable risk/opportunity sharing as necessary for implementation, especially for communities and workers affected by coal phase-out and project deployment, but does not quantify the impacts in detail. The pathway mentions some local opposition to the Batang Toru hydro project, resulting in delays.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -184,10 +189,151 @@
       "evidence_type": "Quantitative"
     },
     {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Resource and supply-chain availability are material for solar/wind, bioenergy feedstock, land availability and local manufacturing. Indonesia's renewable energy potential is very high. The uneven distribution of RE potential, land use needs and demand centers increases the requriement for transmission capacity though. LCR reform is needed to reduce barriers to scaling of RE projects while supporting a strengthening of the local solar manufacturing supply chain.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
       "dependency_name": "Labor availability",
       "dependency_description": "Labor/skills and job-transition needs are relevant because coal phase-down and renewable supply-chain development affect employment. Additional investment is projected to create over 400000 new jobs by 2030, but the CIPP acknowledges that phaseout of coal power will requrie re-skilling programs to cushion the impact of job losses in that area.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "On-grid power only. Excludes off-grid/captive power generation except selected captive demand connections. Uses the MEMR emissions-factor methodology."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "On-grid power only. Excludes off-grid/captive power generation except selected captive demand connections. Uses the MEMR emissions-factor methodology."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "Net on-grid power capacity in GW. Storage is aggregate and not split into BESS vs pumped hydro in the main capacity table."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "On-grid power generation in TWh. Excludes off-grid/captive generation except selected captive load connections affecting demand."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Derived metric. Formula: technology generation (TWh) / total generation (TWh). Boundary aligns with on-grid generation totals."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["Transmission and distribution"],
+        "scopeLimitations": "Transmission and grid deployment are in scope qualitatively/investment-focus terms, but no standardized quantitative time series is available in the extracted evidence. New connections are mostly covered in terms of kV."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "LCOE available for additional power generation. Solar PV and wind cost estimates exclude battery storage. Dispatchable renewable costs are site-specific."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Figure",
+        "granularity": ["By tech, part of value chain"],
+        "scopeLimitations": "Partial investment evidence only. Values include nearly US$25B solar/wind by 2030, almost US$80B by 2040. Coal flexibility up to US$10B, bioenergy/hydrogen repurposing >US$7B/yr in 2046-2050."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "No complete unit-level asset lifetime table was extracted. Partial list avilable in the annex. Classification based on scenario design and narrative."
+      }
+    ]
+  }
 }

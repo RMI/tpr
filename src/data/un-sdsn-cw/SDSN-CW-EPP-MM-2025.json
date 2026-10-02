@@ -30,9 +30,7 @@
   },
   "description": "Myanmar-specific pathway following current energy policies and NDCs.",
   "geography": {
-    "regions": {
-      "MM": ["MM"]
-    }
+    "country": ["MM"]
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2020,
@@ -43,7 +41,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Existing Policies Pathway (EPP) is a predictive power-sector scenario for Myanmar that models the evolution of the energy system under current policies and to meet Nationally Determined Contribution (NDC) targets. This scenario is complemented by the Optimized Existing Policy Pathway—a scenario with the same assumptions but constructed using a cost optimization module—and the Optimized More Ambitious Pathway—a scenario where Myanmar reaches Near-Zero emissions in the power sector by 2050—from the same developers.\n\nEPP projects electricity demand growth across all major sectors and reflects planned additions of gas, hydro, and solar capacity, alongside retirements of aging thermal assets. While the pathway includes moderate expansion of renewables, it does not assume major policy shifts or other large-scale low-carbon interventions. As a result, the system experiences increasing reliability challenges, with reserve margin tightening significantly over time due to growing demand and limited new firm-capacity additions. Electricity generation in Myanmar increases by 57% from 2020 to 2040, but then declines by 16% between 2040 and 2050, resulting in a domestic electricity supply shortfall. Direct emissions from the power sector in Myanmar decrease, as coal and gas capacity are phased out by 2050, but this may be compensated for by power imports which reach 14% of demand by 2050.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -59,7 +57,13 @@
         "value": "Significant decrease"
       }
     ],
-    "energyEfficiency": [],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "energyDemand": [
       {
         "sector": "Power",
@@ -67,7 +71,13 @@
         "value": "Significant increase"
       }
     ],
-    "electrification": [],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not Applicable"
+      }
+    ],
     "policyTypes": [
       {
         "sector": "Power",
@@ -127,7 +137,7 @@
     "emissionsTargets": null,
     "technologyCosts": null,
     "investmentChange": null,
-    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "macroeconomicDrivers": "Follows SSP2. GDP and medium population growth extracted from World Bank data, sectoral value-added trends are modeled based on historic World Bank data. These all drive electricity demand.",
     "behavioralShifts": null,
     "otherDrivers": "Aging-plant retirements and supply constraints are a dominant driver. It leads to a shrtage in supply in the power sector."
   },
@@ -174,5 +184,100 @@
       "sector": "Power",
       "evidence_type": "Anecdotal"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Emissions intensity can be derived from total generation and absolute emissions. Domestic electricity generation only: imported-electricity emissions are excluded and are important in EP scenario. The country phase out fossil fuel power but we have no information on other country fossil fuel polciies. That's why emissions intensity tends to 0 in this scenario."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Domestic electricity generation only: imported-electricity emissions are excluded and are important in EP scenario. The country phase out fossil fuel power but we have no information on other country fossil fuel polciies. That's why absolute emissions tends to 0 in 2050 in this scenario"
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Coal", "Gas", "Hydro", "Wind", "Solar", "Other"],
+        "scopeLimitations": "Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Coal", "Gas", "Hydro", "Wind", "Solar", "Other"],
+        "scopeLimitations": "Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Coal", "Gas", "Hydro", "Wind", "Solar", "Other"],
+        "scopeLimitations": "Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MM"],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Domestic electricity generation only: imported-electricity emissions are excluded. Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MM"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Domestic electricity generation only: imported-electricity emissions are excluded. Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
 }

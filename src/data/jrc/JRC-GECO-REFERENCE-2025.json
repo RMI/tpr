@@ -262,7 +262,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. Its Reference scenario reflects a continuation of currently legislated and implemented policies only, without incorporating aspirational pledges or long-term strategies. Under this scenario, global CO₂ emissions remain relatively flat in the medium term, with only limited reductions after peaking in the 2020s. The Reference pathway leads to a global temperature increase of approximately 2.6 °C by 2100, significantly above the Paris Agreement goals.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -273,177 +273,177 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Minor decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Algeria & Libya",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Morocco & Tunisia",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Central America",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Pacific",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South America",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South Asia",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South East Asia",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Sub-Saharan Africa",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AR",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AU",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "BR",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CA",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CL",
         "value": "Minor decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CN",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EG",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EU",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "GB",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ID",
         "value": "Minor decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IN",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IR",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "JP",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "KR",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MX",
         "value": "Minor decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MY",
         "value": "Low or no change"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "NZ",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "RU",
         "value": "Low or no change"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "SA",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TH",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TR",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "UA",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "US",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "VN",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ZA",
         "value": "Moderate decrease"
       },
@@ -2205,354 +2205,354 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Algeria & Libya",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Morocco & Tunisia",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Central America",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Pacific",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South America",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South Asia",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South East Asia",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Sub-Saharan Africa",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AR",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AU",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "BR",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CA",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CL",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CN",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EG",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EU",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "GB",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ID",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IN",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IR",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "JP",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "KR",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MX",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MY",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "NZ",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "RU",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "SA",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TH",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TR",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "UA",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "US",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "VN",
         "value": "Significant improvement"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ZA",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Algeria & Libya",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Morocco & Tunisia",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Central America",
         "value": "Low or no change"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Pacific",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South America",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South Asia",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South East Asia",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Sub-Saharan Africa",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AR",
         "value": "Low or no change"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AU",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "BR",
         "value": "Low or no change"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CA",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CL",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CN",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EG",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EU",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "GB",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ID",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IN",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IR",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "JP",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "KR",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MX",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MY",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "NZ",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "RU",
         "value": "Low or no change"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "SA",
         "value": "Minor decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TH",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TR",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "UA",
         "value": "Moderate decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "US",
         "value": "Significant decrease"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "VN",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ZA",
         "value": "Low or no change"
       },
@@ -4314,184 +4314,184 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Algeria & Libya",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Morocco & Tunisia",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Central America",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Pacific",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South America",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South Asia",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest South East Asia",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Rest Sub-Saharan Africa",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AR",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "AU",
         "value": "Minor increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "BR",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CA",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CL",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "CN",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EG",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "EU",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "GB",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ID",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IN",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "IR",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "JP",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "KR",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MX",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "MY",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "NZ",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "RU",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "SA",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TH",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "TR",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "UA",
         "value": "Significant increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "US",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "VN",
         "value": "Moderate increase"
       },
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "ZA",
         "value": "Moderate increase"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "Carbon price",
@@ -4505,28 +4505,28 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "CO2e (Kyoto)"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Current/legislated policies"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "No information"
       },
@@ -4588,7 +4588,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": ["CCUS", "DAC", "Green H2/ammonia", "SAF", "Battery storage"]
       },
@@ -4650,7 +4650,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "By technology"
       },

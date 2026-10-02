@@ -30,9 +30,7 @@
   },
   "description": "Cost-optimized pathway under current policies with coal and hydropower expansion.",
   "geography": {
-    "regions": {
-      "LA": ["LA"]
-    }
+    "country": ["LA"]
   },
   "pathwayType": "Normative",
   "modelYearStart": 2018,
@@ -43,7 +41,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The Optimized Existing Policy scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. The Optimized Existing Policy (OEP) scenario applies a market-optimal lens to the same policy context as the Existing Policy scenario, but it removes the policy-prescribed constraints on the power generation mix and optimizes for minimum system cost while still satisfying energy demand growth under existing policies. Under this scenario, the result is a more carbon-intensive but economically efficient variant of the Existing Policy pathway. \n\nNotably, total electricity generation in this scenario far exceeds that in the baseline, as the model maximizes Laos’s low-cost resources (especially hydropower) to produce as much power as needed at the lowest cost. By 2050, annual generation is 132.8 TWh in the OEP scenario, compared to only 57.3 TWh under the baseline, despite having the same installed capacity, indicating much higher utilization rates.",
   "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
   "keyFeatures": {
     "emissionsTrajectory": [
@@ -53,7 +51,13 @@
         "value": "Moderate increase"
       }
     ],
-    "energyEfficiency": [],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "energyDemand": [
       {
         "sector": "Power",
@@ -61,7 +65,13 @@
         "value": "No information"
       }
     ],
-    "electrification": [],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not Applicable"
+      }
+    ],
     "policyTypes": [
       {
         "sector": "Power",
@@ -129,12 +139,6 @@
       "evidence_type": "Quantitative"
     },
     {
-      "dependency_name": "Regulatory framework",
-      "dependency_description": "The regulatory framework is represented mainly through national plans and standards, not detailed market design or permitting.",
-      "sector": "Power",
-      "evidence_type": "No evidence"
-    },
-    {
       "dependency_name": "Market and economics",
       "dependency_description": "OEP deals with economics explicitly through least-cost optimization: with the same installed capacity as EP, generation shifts heavily toward hydropower and coal while wind, solar, and biomass generation fall to zero in 2050.",
       "sector": "Power",
@@ -170,5 +174,111 @@
       "sector": "Power",
       "evidence_type": "Anecdotal"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "National power generation; not disclosed directly and should be derived from absolute emissions and generation"
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "National power generation"
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables"
+        ],
+        "scopeLimitations": "No clear captive/rooftop split"
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables"
+        ],
+        "scopeLimitations": "No clear captive/rooftop split"
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables"
+        ],
+        "scopeLimitations": "No clear captive/rooftop split"
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Provide cumulative investment cost or cumulative discounted investment cost"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
 }

@@ -313,7 +313,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Low or no change"
       },
@@ -325,14 +325,14 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate increase"
       },
@@ -344,14 +344,14 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Minor increase"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "Carbon price",
@@ -366,28 +366,28 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
       }
     ],
     "emissionsScope": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "CO2"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Current/legislated policies"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "Capital costs, O&M, etc."
       },
@@ -399,7 +399,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": [
           "CCUS",
@@ -421,7 +421,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "Global",
         "value": "By tech, part of value chain"
       },
@@ -434,11 +434,11 @@
   },
   "coreDrivers": {
     "policies": "CPS is driven by a narrow reading of current, adopted policy instruments: existing carbon prices, standards, subsidies, technology targets, phaseout dates, tariffs/rate design and other regulation are applied only where legislated.",
-    "emissionsTargets": null,
+    "emissionsTargets": "not applicable.",
     "technologyCosts": "Technology costs affect deployment through the GEC modelling framework; clean technology learning occurs over time, but CPS has slower deployment and higher fossil fuel demand/resource-cost pressure than STEPS/NZE.",
     "investmentChange": "Average annual energy investment in 2025-2035 remains broadly similar to 2024 levels, with higher upstream oil and gas needs than STEPS because fossil fuel demand is stronger.",
     "macroeconomicDrivers": "GDP and population assumptions are common across scenarios and help drive rising energy-service demand; CPS shows higher final energy demand because efficiency and clean-technology uptake are more cautious.",
-    "behavioralShifts": null,
+    "behavioralShifts": "not applicable.",
     "otherDrivers": "Energy security, slower grid integration and technology supply-chain constraints are prominent drivers; the CPS assumes higher grid integration challenges and slower adoption of new technologies."
   },
   "dependencies": [
@@ -502,5 +502,212 @@
       "sector": "Power",
       "evidence_type": "Anecdotal"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "Africa",
+          "Asia Pacific",
+          "Atlantic Basin",
+          "Brazil",
+          "Central and South America",
+          "China",
+          "East of Suez",
+          "Eurasia",
+          "Europe",
+          "European Union",
+          "India",
+          "Japan",
+          "Japan and Korea",
+          "Middle East",
+          "Non-OPEC plus",
+          "North America",
+          "OPECplus",
+          "Russia",
+          "Southeast Asia",
+          "United States"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Power generation includes electricity-only and CHP before curtailment per WEO definition."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "Africa",
+          "Asia Pacific",
+          "Atlantic Basin",
+          "Brazil",
+          "Central and South America",
+          "China",
+          "East of Suez",
+          "Eurasia",
+          "Europe",
+          "European Union",
+          "India",
+          "Japan",
+          "Japan and Korea",
+          "Middle East",
+          "Non-OPEC plus",
+          "North America",
+          "OPECplus",
+          "Russia",
+          "Southeast Asia",
+          "United States"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "CO2 emissions from electricity and heat sectors; energy-related and industrial process CO2 definition applies."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "Africa",
+          "Asia Pacific",
+          "Atlantic Basin",
+          "Brazil",
+          "Central and South America",
+          "China",
+          "East of Suez",
+          "Eurasia",
+          "Europe",
+          "European Union",
+          "India",
+          "Japan",
+          "Japan and Korea",
+          "Middle East",
+          "Non-OPEC plus",
+          "North America",
+          "OPECplus",
+          "Russia",
+          "Southeast Asia",
+          "United States"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables",
+          "Other"
+        ],
+        "scopeLimitations": "Gross electricity generation before curtailment, including electricity-only and CHP."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "Africa",
+          "Asia Pacific",
+          "Atlantic Basin",
+          "Brazil",
+          "Central and South America",
+          "China",
+          "East of Suez",
+          "Eurasia",
+          "Europe",
+          "European Union",
+          "India",
+          "Japan",
+          "Japan and Korea",
+          "Middle East",
+          "Non-OPEC plus",
+          "North America",
+          "OPECplus",
+          "Russia",
+          "Southeast Asia",
+          "United States"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables",
+          "Other"
+        ],
+        "scopeLimitations": "Generation mix derived from gross electricity generation. Shares depend on reported technology rows."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "Africa",
+          "Asia Pacific",
+          "Atlantic Basin",
+          "Brazil",
+          "Central and South America",
+          "China",
+          "East of Suez",
+          "Eurasia",
+          "Europe",
+          "European Union",
+          "India",
+          "Japan",
+          "Japan and Korea",
+          "Middle East",
+          "Non-OPEC plus",
+          "North America",
+          "OPECplus",
+          "Russia",
+          "Southeast Asia",
+          "United States"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Selected regions/technologies in Annex B, not every WEO region; power generation technologies only."
+      }
+    ]
+  }
 }

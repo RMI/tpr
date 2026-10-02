@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-HA1O-SG-2024",
   "publication": {
     "title": {
@@ -33,25 +33,16 @@
     "country": ["SG"]
   },
   "pathwayType": "Normative",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nHighly Ambitious 1 Optimized (HA1O) is a least-cost capacity expansion and dispatch scenario for Singapore’s power system, developed using an optimization model linked to the Low Emissions Analysis Platform framework. The model determines the generation mix of technologies by minimizing system costs, subject to a set of technical and policy constraints.\n\nThe scenario incorporates explicit technical and policy rules, such as limits on unabated fossil fuel development and retirement of coal and oil-fired plants at end of life, that guide how the system transitions to near net zero by 2050. In this scenario waste-to-energy plants are required to keep operating at roughly the same utilization levels as today, rather than gradually reducing output over time. At the same time, the model sets generous limits on how much certain low-carbon technologies can be built. These rules give the system flexibility to rely on these technologies where they are cost-effective, while limiting the development of new unabated fossil-fuel generation. This leads to a significant but incomplete decarbonization of power. Power-sector emissions decrease substantially relative to today and to baseline scenarios, and the grid emissions factor falls sharply. \n\nThe resulting technology mix in 2050 for HA1O has nuclear becoming the dominant energy source (27% of supply), supported by hydrogen (22%), imported electricity (22%), and solar (11%), with geothermal, ammonia and biomass providing supplementary capacity. The HA1O power mix demonstrates that the optimizer favors a balanced portfolio anchored by firm, low-carbon baseload (nuclear) complemented by hydrogen, imports, and moderate domestic renewables, rather than an overwhelmingly renewable or hydrogen-led system.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nDriven by cost-minimizing capacity expansion within a high-ambition policy environment that prohibits new unabated fossil capacity but does not enforce a net-zero constraint. The system favors lower-cost combinations of clean and transitional technologies, resulting in significant but incomplete decarbonization.\n\n*Technology cost:* The pathway allocates capacity and dispatch to minimize system costs, given capital, operating and fuel cost trajectories and technical constraints. Capital and operating costs for generation, storage, and transmission technologies are primarily sourced from the National Renewable Energy Laboratories Annual Technology Baseline (2023) and complemented by fuel price assumptions from regional and international datasets. \n\n*Policies:* Assumes a policy framework that prevents new unabated fossil build-out and enables deployment of low-carbon technologies, but does not strictly enforce a power-sector net-zero requirement or a binding renewable share.\n\n#### Application to Transition Assessment\n\nHA1O is useful as a high ambition and cost efficient reference case for transition assessment. It illustrates how Singapore’s power system could evolve under a high level of policy ambition that rules out new unabated fossil capacity, while optimizing for the lowest cost low-carbon generation source to ensure demand is met. \n\nFor target setting and evaluating ambition, HA1O should not be treated as a net-zero-aligned benchmark, given the residual emissions in 2050. It can, however, provide a lower bound for power-sector decarbonization in a scenario where all new fossil investments cease, against which more ambitious corporate targets and projects can be compared. \n\nThe scenario offers granular outputs at five-year intervals, including capacity additions, technology-specific generation profiles, and emissions.",
+  "pathwayDescription": "Highly Ambitious 1 Optimized (HA1O) is a least-cost capacity expansion and dispatch scenario for Singapore’s power system, developed using an optimization model linked to the Low Emissions Analysis Platform framework. The model determines the generation mix of technologies by minimizing system costs, subject to a set of technical and policy constraints.\n\nThe scenario incorporates explicit technical and policy rules, such as limits on unabated fossil fuel development and retirement of coal and oil-fired plants at end of life, that guide how the system transitions to near net zero by 2050. In this scenario waste-to-energy plants are required to keep operating at roughly the same utilization levels as today, rather than gradually reducing output over time. At the same time, the model sets generous limits on how much certain low-carbon technologies can be built. These rules give the system flexibility to rely on these technologies where they are cost-effective, while limiting the development of new unabated fossil-fuel generation. This leads to a significant but incomplete decarbonization of power. Power-sector emissions decrease substantially relative to today and to baseline scenarios, and the grid emissions factor falls sharply.\n\nThe resulting technology mix in 2050 for HA1O has nuclear becoming the dominant energy source (27% of supply), supported by hydrogen (22%), imported electricity (22%), and solar (11%), with geothermal, ammonia and biomass providing supplementary capacity. The HA1O power mix demonstrates that the optimizer favors a balanced portfolio anchored by firm, low-carbon baseload (nuclear) complemented by hydrogen, imports, and moderate domestic renewables, rather than an overwhelmingly renewable or hydrogen-led system.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -60,27 +51,152 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
     "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Target technology shares",
-      "Performance standards"
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards",
+          "Carbon price",
+          "Other"
+        ]
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
     "newTechnologiesIncluded": [
-      "CCUS",
-      "Green H2/ammonia",
-      "Battery storage",
-      "EGS/AGS",
-      "Other new technologies"
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "EGS/AGS",
+          "Other new technologies"
+        ]
+      }
     ],
-    "investmentNeeds": "By technology"
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Fossil phase-outs and technology share constraints define the feasible capacity mix.",
+    "emissionsTargets": "There is no rigid emissions target, but the assumptions are designed to achieve near-zero emissions by 2050.",
+    "technologyCosts": "Technology-specific capital, O&M, and fuel costs determine least-cost expansion and dispatch.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Common Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and sector-growth assumptions expand demand and GDP.",
+    "behavioralShifts": "Smart-meter response and a modeled shift to fully electric road vehicles reduce end-use energy intensity.",
+    "otherDrivers": "not applicable."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "BESS is added at 7.5 MW a year from 2025 to 195 MW cumulative by 2050, modelled with 85% round-trip efficiency, and its dispatch is reported hour by hour: charging in the early morning and around midday when solar output exceeds demand, discharging into the morning and evening peaks, with movements of up to about 10.2 GWh in a single hour. Imports reach 21.8% of 2050 generation and will require the corresponding connection infrastructure.  No transmission or distribution network is modelled.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "HA1 (Optimised) draws heavily on imported biomass and treats Singapore's least understood domestic resource as unbounded. Biomass consumption rises from 1.9 PJ in 2024 to 48 PJ in 2050, a roughly twenty-five-fold increase at an average 13.4% a year, met from imported wood pellets. Geothermal likewise reaches 550 MW with no maximum-capacity constraint, although the report elsewhere assumes Singapore's 'presently unexplored geothermal potential continues to be low'.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
   }
 }

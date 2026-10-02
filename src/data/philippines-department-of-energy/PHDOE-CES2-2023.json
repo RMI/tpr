@@ -41,7 +41,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The Clean Energy Scenario 2 (CES2) is an explorative power sector pathway for the Philippines developed by the Philippines Department of Energy (DoE) that builds on the assumptions of the Reference scenario. The Pathway includes the National Renewable Energy Program’s (NREP) power generation mix target of 50% renewable energy by 2040, and adds expanded build out of renewable energy capacity through 2050, including a major tranche of 50 GW of offshore wind capacity. This offshore wind expansion differentiates CES2 from DoE’s CES1 scenario.\n \nThe CES2 pathway makes strong socio-economic assumptions, with annual real GDP growth averaging well over 6% until 2050 driving significant increases in energy demand. As a result, emissions continue to grow, although at a significantly lower rate than in the DoE’s Reference scenario and slightly lower than in CES1. Emissions from coal quickly plateau and then decrease slightly, while emissions from natural gas and oil consumption continue to rise, driven by industry, transport, and other end-use sectors.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -52,7 +52,7 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Significant increase"
       },
@@ -69,14 +69,14 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
       }
     ],
     "energyDemand": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
       },
@@ -93,14 +93,14 @@
     ],
     "electrification": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
       }
     ],
     "policyTypes": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": [
           "Subsidies",
@@ -113,7 +113,7 @@
     ],
     "technologyCostTrend": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
       }
@@ -121,7 +121,7 @@
     "emissionsScope": [],
     "policyAmbition": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Current/legislated policies"
       }
@@ -140,7 +140,7 @@
     ],
     "newTechnologiesIncluded": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": ["Other new technologies"]
       },
@@ -152,7 +152,7 @@
     ],
     "investmentNeeds": [
       {
-        "sector": "cross-sector",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
       },

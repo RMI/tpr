@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-BAS-SG-2024",
   "publication": {
     "title": {
@@ -33,24 +33,15 @@
     "country": ["SG"]
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Baseline (BAS) scenario models a continuation of historical energy and emissions trends for Singapore without the application of new or existing policy measures, except Minimum Energy Performance Standards in the residential sector, vehicle growth policy in the transport sector, and the Laos-Thailand-Malaysia-Singapore Power Integration Project. It represents the counterfactual case in which technological progress, policy ambition, and regional integration remain static. No new energy efficiency measures or renewable energy policies are incorporated, to reflect a scenario of inertia in energy transformation. \n\nUnder BAS, Singapore’s energy system evolves in a manner reflective of historical norms, with natural gas remaining the dominant energy source providing over 93% of generation. Waste-to-energy and coal maintain marginal shares of generation, while renewables and imports remain negligible. Installed capacity grows only marginally, and no new low-carbon technologies are introduced.\n\nThis scenario’s geographic scope is limited to Singapore, and it is not linked to a specific global temperature rise outcome. \n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nEconomic and population growth remain the dominant drivers of energy demand, with industrial expansion reinforcing dependence on natural gas generation. Fossil fuels continue to dominate the power mix and renewable technology remains minimal. Static technology performance and unchanged policy frameworks lead to sustained emissions growth through 2050.\n\n*Socio-economic trends:* Growing GDP and industrial output are the key determinants of energy consumption, with minimal shift toward low carbon fuels or more efficient technology. The current energy mix remains largely unchanged.\n\n#### Application to Transition Assessment\n\nThe BAS provides the most pessimistic outlook for the transition in Singapore by assuming that historic trends hold and there is no action taken to shift generation to low-carbon sources. In doing so, BAS does not account for any transition drivers such as policy or technology costs. It establishes a minimum ambition “status quo” emissions trajectory that highlights the scale of change needed to meet climate commitments, and the impact of those changes in other scenarios from the same pathway developers.",
+  "pathwayDescription": "The Baseline (BAS) scenario models a continuation of historical energy and emissions trends for Singapore without the application of new or existing policy measures, except Minimum Energy Performance Standards in the residential sector, vehicle growth policy in the transport sector, and the Laos-Thailand-Malaysia-Singapore Power Integration Project. It represents the counterfactual case in which technological progress, policy ambition, and regional integration remain static. No new energy efficiency measures or renewable energy policies are incorporated, to reflect a scenario of inertia in energy transformation.\n\nUnder BAS, Singapore’s energy system evolves in a manner reflective of historical norms, with natural gas remaining the dominant energy source providing over 93% of generation. Waste-to-energy and coal maintain marginal shares of generation, while renewables and imports remain negligible. Installed capacity grows only marginally, and no new low-carbon technologies are introduced.\n\nThis scenario’s geographic scope is limited to Singapore, and it is not linked to a specific global temperature rise outcome.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -59,16 +50,150 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Moderate increase",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": ["None"],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "No policies included",
-    "technologyCostsDetail": "No information",
-    "newTechnologiesIncluded": ["No new technologies"],
-    "investmentNeeds": "No information"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Significant increase"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": ["Performance standards", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": ["No new technologies"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Residential Minimum Energy Performance Standards (MEPS), vehicle population growth controls, and LTMS-PIP electricity imports are the limited policy drivers.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "not applicable.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Common Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and sector-growth assumptions expand demand and GDP.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "not applicable."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "BAS carries only three in-force measures - residential MEPS, the vehicle population growth caps and the 100 MW LTMS-PIP hydropower import - and none of them acts on a power-sector decarbonisation lever. No grid-decarbonisation target, hydrogen policy, biomass policy or CCUS policy is applied, so there is no policy mechanism by which the generation mix could shift.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Natural gas, which supplies 93.3% of 2050 generation, is piped from Malaysia and Indonesia and shipped as LNG from Australia, the United States, Qatar and Angola; 96% of coal comes from Indonesia; biomass is imported wood pellets. The one domestic resource is municipal solid waste feeding the WTE fleet. Import dependence is a continuation of the status quo rather than a new requirement the pathway creates.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
   }
 }

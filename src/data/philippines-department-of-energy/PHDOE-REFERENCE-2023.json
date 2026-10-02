@@ -41,7 +41,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The Reference scenario is a predictive power sector pathway for the Philippines based on present development trends. This policy pathway has strong data coverage on investment, job creation and energy supply and extrapolates the direction of the Philippines energy transition, aligning with the National Renewable Energy Program (NREP) power generation mix target by 2040 and following that target until 2050, which also includes capacity targets and grid capacity extensions based on the Competitive Renewable Energy Zone (CREZ). The Reference scenario also makes strong socio-economic assumptions, especially regarding an annual real GDP growth averaging more than 6% until 2050.\n\nEmissions grow substantially in the Reference pathway, due to consistently high GDP growth and increasing energy demand. Coal-fired power generation plateaus after 2028 but does not decrease significantly, while emissions from oil and gas consumption continue to increase.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -74,7 +74,7 @@
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The policy strategy for the pathway is shaped by RPS, FIT/GEAP, energy efficency, grid modernization and techology policy.",
+      "dependency_description": "The policy strategy for the pathway is shaped by RPS, FIT/GEAP, energy efficiency, grid modernization and technology policy.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     }
