@@ -42,6 +42,8 @@
         "Wind",
         "Solar",
         "Biomass",
+        "Geothermal",
+        "Energy storage",
         "Other"
       ]
     }
