@@ -84,6 +84,7 @@ type SchemaNode = {
   enum?: string[];
   type?: string;
   $ref?: string;
+  anyOf?: SchemaNode[];
   items?: SchemaNode;
   properties?: Record<string, SchemaNode>;
   $defs?: Record<string, SchemaNode>;
