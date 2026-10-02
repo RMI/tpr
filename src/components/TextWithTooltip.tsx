@@ -84,6 +84,8 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
     e.currentTarget.blur();
   };
 
+  const { onKeyDown: callerOnKeyDown, ...buttonPropsRest } = buttonProps ?? {};
+
   // Handle keydown to allow dismissing tooltip with Escape key
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Escape") {
@@ -235,9 +237,15 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
           aria-label={ariaLabel}
           // No blur-on-click here: the click is the control's actual action, and
           // blurring would also dismiss the tooltip the reader just opened.
-          onKeyDown={handleKeyDown}
           aria-describedby={isVisible ? tooltipId : undefined}
-          {...buttonProps}
+          {...buttonPropsRest}
+          // After the spread, and composed rather than replaced: a caller's own
+          // onKeyDown used to override this one and take Escape-to-dismiss with
+          // it.
+          onKeyDown={(e) => {
+            handleKeyDown(e);
+            callerOnKeyDown?.(e);
+          }}
         >
           {text}
         </button>
