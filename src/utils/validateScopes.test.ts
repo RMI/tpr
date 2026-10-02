@@ -160,6 +160,38 @@ describe("validateScopedEntries — geography axis", () => {
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain('"DE"');
   });
+
+  it("accepts a declared three-letter region label", () => {
+    // Model regions are often three letters (REMIND's SSA, LAM, EUR), and the
+    // cookbook keeps a publication's label as written.
+    const errors = validateScopedEntries(
+      pathway({
+        geography: {
+          regions: { SSA: ["NG", "KE", "ZA"] },
+        } as unknown as PathwayMetadataV2["geography"],
+        keyFeatures: {
+          emissionsTrajectory: [entry("Power", "SSA")],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+
+  it("still rejects an ISO alpha-3 code the pathway does not declare", () => {
+    // This check, not a schema-level ban on three-letter tokens, is what stops
+    // `THA` being written for `TH`: only declared labels, their alpha-2
+    // members, declared countries and the sentinels are allowed.
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [entry("Power", "THA")],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('"THA"');
+    expect(errors[0]).toContain("is not a geography this pathway declares");
+  });
 });
 
 describe("validateScopedEntries — reporting", () => {
