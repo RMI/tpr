@@ -1,13 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "react-router";
 import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
-import { PathwayMetadataType } from "../types";
-import BadgeArray from "../components/BadgeArray";
+import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
 import DataAvailabilityTable from "../components/DataAvailabilityTable";
 import DependenciesTable from "../components/DependenciesTable";
 import PathwayContextRibbon from "../components/PathwayContextRibbon";
+import { useFilters } from "../context/FilterContext";
+import { resolveInitialScope } from "../utils/scopeSeed";
 import {
   flattenGeography,
   geographyKind,
@@ -59,6 +61,30 @@ const PathwayDetailPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [timeseriesdata, setTimeseriesdata] = useState<TimeSeries | null>(null);
   const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
+
+  /*
+    The scope ribbon's selection (#872). Seeded per axis from the search filters
+    the reader arrived with, and from `defaultScopeFor` for whichever axis the
+    search left unset — so the page always opens on a definite scope rather than
+    on an unfiltered view the ribbon does not describe.
+
+    Held locally: browsing a pathway must never disturb the search they came
+    from, so this deliberately does not write back to the shared filter state.
+  */
+  const { filters } = useFilters();
+  const [scope, setScope] = useState<PathwayScopeSelection>({
+    sector: null,
+    geography: null,
+  });
+  const seededFor = useRef<string | null>(null);
+
+  useEffect(() => {
+    // The pathway arrives after a load delay, and the legal token set does not
+    // exist until it does — so seed on arrival, once per pathway.
+    if (!pathway || seededFor.current === pathway.id) return;
+    seededFor.current = pathway.id;
+    setScope(resolveInitialScope(filters, pathway));
+  }, [pathway, filters]);
 
   useEffect(() => {
     setLoading(true);
@@ -226,7 +252,7 @@ const PathwayDetailPage: React.FC = () => {
           />
         </h3>
         <BadgeArray
-          variant={sortedGeos.map((geo) => {
+          variant={sortedGeos.map((geo): BadgeVariant => {
             const base = geographyVariant(geographyKind(geo));
             return availability.hasGeography(geo) ? base : `${base}-pub`;
           })}
@@ -351,15 +377,16 @@ const PathwayDetailPage: React.FC = () => {
 
   /*
     The benchmark plots as small multiples rather than one plot behind a
-    dropdown. `requestedGeography` is left at its default (null → the broadest
-    geography in the data) until the global header geography selector lands;
-    that selector is the only thing this prop is waiting for.
+    dropdown, scoped by the ribbon's selection: a null axis means no preference,
+    which resolves geography to the broadest series available.
   */
   const plotsOverview = (
     <PlotGrid
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
       pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
       plotTypes={PLOT_ORDER.slice(0, 3)}
       title="Plots Overview"
     />
@@ -370,6 +397,8 @@ const PathwayDetailPage: React.FC = () => {
       timeseriesdata={timeseriesdata}
       datasetId={datasets[0]?.datasetId}
       pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
       title="Benchmark Plots"
     />
   );
@@ -487,7 +516,11 @@ const PathwayDetailPage: React.FC = () => {
           The card above deliberately has no `overflow-hidden`, which is what
           lets this stick at all.
         */}
-        <PathwayContextRibbon pathway={pathway}>
+        <PathwayContextRibbon
+          pathway={pathway}
+          scope={scope}
+          onScopeChange={setScope}
+        >
           <Tabs
             tabs={DETAIL_TABS}
             activeId={activeTab}
@@ -522,7 +555,10 @@ const PathwayDetailPage: React.FC = () => {
                 <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
                   Dependencies
                 </h2>
-                <DependenciesTable dependencies={pathway.dependencies} />
+                <DependenciesTable
+                  dependencies={pathway.dependencies}
+                  sector={scope.sector}
+                />
               </section>
             </div>
           </TabPanel>
@@ -550,6 +586,8 @@ const PathwayDetailPage: React.FC = () => {
                 </h2>
                 <DataAvailabilityTable
                   dataAvailability={pathway.dataAvailability}
+                  scope={scope}
+                  pathwayGeography={pathway.geography}
                 />
               </section>
               <section>

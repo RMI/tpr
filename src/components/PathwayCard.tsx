@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { Link } from "react-router";
-import BadgeArray from "./BadgeArray";
+import BadgeArray, { BadgeVariant } from "./BadgeArray";
 import {
   flattenGeography,
   geographyKind,
@@ -182,7 +182,7 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
           </p>
           <div className="flex flex-wrap">
             <BadgeArray
-              variant={sortedGeography.map((geo) => {
+              variant={sortedGeography.map((geo): BadgeVariant => {
                 const base = geographyVariant(geographyKind(geo));
                 return availability.hasGeography(geo) ? base : `${base}-pub`;
               })}
