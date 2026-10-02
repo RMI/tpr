@@ -11,6 +11,12 @@ import {
   isAbsent,
   resolveGeography,
   buildGeography,
+  TARGETS,
+  parseSegments,
+  parseCoverage,
+  parseGranularity,
+  buildDataAvailability,
+  descriptionFromV1,
 } from "./import-pathway-data.ts";
 
 describe("publisherGroup", () => {
@@ -141,5 +147,181 @@ describe("buildGeography", () => {
     );
     expect(resolveGeography("th", allowed)).toBe("TH");
     expect(resolveGeography("EFTA", allowed)).toBeNull();
+  });
+  it("reads `LA: [LA]` as the country it is, not a region named after it", () => {
+    // The cookbook's mandated notation for an individually projected country.
+    // Read as a region, every single-country pathway became a pseudo-region --
+    // except Thailand, whose cell is written bare.
+    const geo = buildGeography("LA: [LA]", new Report(), "TEST");
+    expect(geo?.country).toEqual(["LA"]);
+    expect(geo?.regions).toBeUndefined();
+    // A real region, and a region whose label is a code but has several
+    // members, stay regions.
+    const multi = buildGeography(
+      "ASEAN: [TH, VN]; EU: [FR, DE]",
+      new Report(),
+      "T",
+    );
+    expect(Object.keys(multi?.regions ?? {})).toEqual(["ASEAN", "EU"]);
+    expect(multi?.country).toBeUndefined();
+  });
+});
+
+describe("TARGETS", () => {
+  it("matches every row of the current workbook's renamed SDSN spellings", () => {
+    // The workbook now writes the Myanmar/Laos pathways as "UN SDSN, CW" with
+    // the country inside the code. Under the old "AGF:...:MM" keys all seven
+    // silently stopped matching, and the six Singapore files were never listed.
+    for (const name of [
+      "Existing Policies Pathway (EPP MM)",
+      "Optimised More Ambitious Pathway (OMAP MM)",
+      "Optimized More Ambitious Policy Scenario (OMAP LA)",
+      "Existing Policy Scenario (EP LA)",
+      "Baseline Scenario (BAS SG)",
+      "Highly Ambitious Scenario 2 Simulated (HA2S SG)",
+    ]) {
+      const key = canonicalKey("UN SDSN, CW", name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
+  });
+});
+
+describe("descriptionFromV1", () => {
+  const overview =
+    "#### Pathway Description\n\nA pathway about Laos\n\n#### Core Drivers\n\nPrices.";
+  it("takes the Pathway Description section of a v1 expertOverview", () => {
+    const report = new Report();
+    expect(descriptionFromV1({ expertOverview: overview }, report, "T")).toBe(
+      "A pathway about Laos.",
+    );
+    expect(report.lines.some((l) => l.includes("taken from v1"))).toBe(true);
+  });
+  it("returns null when there is no v1 text to fall back on", () => {
+    expect(descriptionFromV1({}, new Report(), "T")).toBeNull();
+    expect(descriptionFromV1(null, new Report(), "T")).toBeNull();
+  });
+});
+
+describe("data-availability cell parsing", () => {
+  it("unwraps `Sector: [..]` and splits segments on ; or ,", () => {
+    const bad = new Set<string>();
+    expect(
+      parseSegments("Power: [Power generation, Energy storage]", "Power", bad),
+    ).toEqual(["Power generation", "Energy storage"]);
+    expect(
+      parseSegments("power generation; Energy Storage", "Power", bad),
+    ).toEqual(["Power generation", "Energy storage"]);
+    expect(bad.size).toBe(0);
+  });
+  it("takes the label of `Label: [members]` coverage and normalises sentinel case", () => {
+    const allowed = new Set(["SG", "ASEAN"]);
+    const bad = new Set<string>();
+    expect(parseCoverage("SG: [SG]", allowed, bad)).toEqual(["SG"]);
+    expect(parseCoverage("Not Covered", allowed, bad)).toEqual(["Not covered"]);
+    expect(parseCoverage("ASEAN; Atlantis", allowed, bad)).toEqual(["ASEAN"]);
+    expect([...bad]).toEqual(['geography:"Atlantis"']);
+  });
+  it("does not split granularity values that contain commas", () => {
+    const bad = new Set<string>();
+    expect(parseGranularity("Capital costs, O&M, etc.", bad)).toEqual([
+      "Capital costs, O&M, etc.",
+    ]);
+    expect(parseGranularity("Coal / Oil / Gas", bad)).toEqual([
+      "Coal",
+      "Oil",
+      "Gas",
+    ]);
+    // A comma list is split only when every part is a known value.
+    expect(parseGranularity("Coal, Solar", bad)).toEqual(["Coal", "Solar"]);
+    expect(bad.size).toBe(0);
+    parseGranularity("Coal, Moonbeams", bad);
+    expect([...bad]).toEqual(['granularity:"Coal, Moonbeams"']);
+  });
+});
+
+describe("buildDataAvailability", () => {
+  const row = (over: Record<string, string> = {}) => ({
+    "Sector": "Power",
+    "Metric": "Capacity",
+    "Sector segment": "Power generation",
+    "Granularity": "Coal; Solar",
+    "Scope limitations": "Grid-connected only.",
+    "Geography coverage": "TH",
+    "Time resolution": "5-year steps",
+    "Data Format": "Tabular",
+    ...over,
+  });
+  const build = (rows: Record<string, string>[], sectors = ["Power"]) => {
+    const report = new Report();
+    const out = buildDataAvailability(
+      rows,
+      new Set(sectors),
+      new Set(["TH"]),
+      report,
+      "T",
+    );
+    return { out, notes: report.lines.join("\n") };
+  };
+
+  it("emits a complete row with schema-cased values", () => {
+    const { out } = build([row({ Metric: "absolute emissions" })]);
+    expect(out?.overall).toBeNull();
+    expect(out?.byMetric).toEqual([
+      {
+        metricName: "Absolute Emissions",
+        sector: "Power",
+        sectorSegment: ["Power generation"],
+        geography: ["TH"],
+        timeResolution: "5-year steps",
+        dataFormat: "Tabular",
+        granularity: ["Coal", "Solar"],
+        scopeLimitations: "Grid-connected only.",
+      },
+    ]);
+  });
+  it("matches the metric against the row's own sector first", () => {
+    // Power spells it "Absolute Emissions", Steel "Absolute emissions"; a flat
+    // case-insensitive match would hand Steel the Power spelling.
+    const { out } = build(
+      [
+        row({
+          Sector: "Steel",
+          Metric: "Absolute Emissions",
+          Granularity: "Scope 1",
+        }),
+      ],
+      ["Steel"],
+    );
+    expect(out?.byMetric[0].metricName).toBe("Absolute emissions");
+  });
+  it("skips, and names, a row with no Data Format rather than inventing one", () => {
+    const { out, notes } = build([
+      row(),
+      row({ "Metric": "Generation", "Data Format": "" }),
+    ]);
+    expect(out?.byMetric.map((r) => r.metricName)).toEqual(["Capacity"]);
+    expect(notes).toContain("Generation: no data format");
+  });
+  it("skips a row that is Not covered on some variables only", () => {
+    const { out, notes } = build([row({ "Data Format": "Not covered" })]);
+    expect(out).toBeNull();
+    expect(notes).toContain('"Not covered" on data format only');
+  });
+  it("keeps a row that is Not covered on every variable", () => {
+    const nc = "Not covered";
+    const { out } = build([
+      row({
+        "Sector segment": nc,
+        "Granularity": nc,
+        "Scope limitations": nc,
+        "Geography coverage": "Not Covered",
+        "Time resolution": nc,
+        "Data Format": nc,
+      }),
+    ]);
+    expect(out?.byMetric).toHaveLength(1);
+  });
+  it("returns null when the sheet has no rows for the pathway", () => {
+    expect(build([]).out).toBeNull();
   });
 });
