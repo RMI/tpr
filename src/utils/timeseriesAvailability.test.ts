@@ -158,5 +158,17 @@ describe("pathwayToolAvailability", () => {
       expect(av.hasMetric("Capacity")).toBe(false);
       expect(av.hasGeography("Global")).toBe(false);
     });
+
+    it("tolerates a sector the taxonomy defines without a metrics axis", () => {
+      // Steel and Aviation are in SECTORS_BY_KEY for their data-availability
+      // vocabularies but define no timeseries `metrics`. Indexing that
+      // undefined axis used to throw, which would have broken the detail page
+      // the day a Steel series landed.
+      const av = pathwayToolAvailability([
+        { summary: { sectors: ["steel"], metrics: ["capacity"] } },
+      ]);
+      expect(av.hasSector("Steel")).toBe(true);
+      expect(av.hasMetric("Capacity")).toBe(false);
+    });
   });
 });
