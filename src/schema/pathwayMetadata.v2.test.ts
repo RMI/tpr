@@ -151,6 +151,36 @@ const entry = (name: string): JsonSchema =>
 const entryValue = (name: string): JsonSchema =>
   prop(entry(name), "value", `v2.keyFeatures.${name}.items`);
 
+describe("pathwayMetadata.v2 sectors[].segments (#858)", () => {
+  const sectorEntry = items(prop(v2, "sectors", "v2"), "v2.sectors");
+
+  it("nests segments inside sectors[] rather than keying them separately", () => {
+    // The cookbook writes this variable sector-keyed -- "Power: [Power
+    // generation; Energy storage]" -- and sitting inside sectors[] alongside
+    // technologies *is* that keying, so there is no second mechanism.
+    expect(Object.keys(props(sectorEntry, "v2.sectors.items")).sort()).toEqual([
+      "name",
+      "segments",
+      "technologies",
+    ]);
+    const segments = prop(sectorEntry, "segments", "v2.sectors.items");
+    expect(segments.type).toBe("array");
+    expect(segments.uniqueItems).toBe(true);
+    expect(items(segments, "segments").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+    );
+  });
+
+  it("leaves segments optional, unlike technologies", () => {
+    // Only three of fifteen sectors have segments defined, and an absent list
+    // means "not recorded" where [] would claim the pathway covers none.
+    expect([...(sectorEntry.required ?? [])].sort()).toEqual([
+      "name",
+      "technologies",
+    ]);
+  });
+});
+
 describe("pathwayMetadata.v2 keyFeatures — field set", () => {
   it("declares exactly the 11 fields, and the same ones as v1", () => {
     expect(Object.keys(props(kf2, "v2.keyFeatures"))).toEqual([

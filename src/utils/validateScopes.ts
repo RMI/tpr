@@ -298,6 +298,30 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
         );
       }
     });
+
+    /*
+      The pathway-level `segments` list, same rule as `technologies` above and
+      for the same reason -- but without the undefined-sector rejection.
+
+      `technologies` rejects a non-empty list under a sector with no definition,
+      because the field is required and `[]` is the authored way to say "none".
+      `segments` is optional, so there is no `[]` to fall back to: rejecting
+      would make the field unusable for the twelve sectors whose segments the
+      cookbook has not written down, rather than catching a mistake. An
+      undefined sector therefore passes, as it does for a dataAvailability row.
+    */
+    const segmentsAllowed = segmentsForSector(sector.name);
+    if (segmentsAllowed) {
+      (sector.segments ?? []).forEach((segment, g) => {
+        if (segmentBelongsToSector(segment, sector.name) !== "yes") {
+          errors.push(
+            `/sectors/${i}/segments/${g} "${segment}" is not a segment of` +
+              ` sector "${sector.name}" ` +
+              allowedClause(segmentsAllowed, "segments"),
+          );
+        }
+      });
+    }
   });
 
   // #870: dataAvailability rows. Optional -- authoring is incremental, and a

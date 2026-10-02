@@ -44,11 +44,17 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Solar", "Wind", "Coal"]
+      "technologies": ["Solar", "Wind", "Coal"],
+      "segments": [
+        "Power generation",
+        "Energy storage",
+        "Transmission and distribution"
+      ]
     },
     {
       "name": "Steel",
-      "technologies": []
+      "technologies": [],
+      "segments": ["Ironmaking", "Steelmaking"]
     }
   ],
   "pathwayDescription": "A pathway whose key features vary by sector and geography, used to exercise the scoped-entry shape end to end.",

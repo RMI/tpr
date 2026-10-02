@@ -459,6 +459,43 @@ describe("validateScopedEntries — technologies belong to their sector (#461)",
     // AJV does not require `sectors`, so the check must not assume it is there.
     expect(withSectors(undefined)).toEqual([]);
   });
+
+  it("accepts pathway-level segments the sector lists", () => {
+    expect(
+      withSectors([
+        {
+          name: "Power",
+          technologies: [],
+          segments: ["Power generation", "Transmission and distribution"],
+        },
+      ]),
+    ).toEqual([]);
+  });
+
+  it("rejects a pathway-level segment belonging to another sector", () => {
+    const errors = withSectors([
+      { name: "Power", technologies: [], segments: ["Ironmaking"] },
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/sectors/0/segments/0");
+    expect(errors[0]).toContain('"Ironmaking"');
+    expect(errors[0]).toContain("is not a segment of sector");
+  });
+
+  it("accepts an absent segments list — the field is optional", () => {
+    expect(withSectors([{ name: "Power", technologies: [] }])).toEqual([]);
+  });
+
+  it("passes segments under a sector whose segments are undefined", () => {
+    // Unlike `technologies`, which rejects this: `segments` is optional, so
+    // there is no authored `[]` to fall back to, and rejecting would make the
+    // field unusable for the twelve sectors the cookbook has not reached.
+    expect(
+      withSectors([
+        { name: "Cement", technologies: [], segments: ["Power generation"] },
+      ]),
+    ).toEqual([]);
+  });
 });
 
 describe("validateScopedEntries — dataAvailability rows (#870)", () => {

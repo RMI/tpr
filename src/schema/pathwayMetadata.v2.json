@@ -81,6 +81,16 @@
             "items": {
               "$ref": "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName"
             }
+          },
+          "segments": {
+            "description": "Segments of this sector's value chain that the pathway covers -- it provides at least one relevant output metric for each. Members must be segments of this entry's `name`, enforced by scripts/schema-check-files.ts.",
+            "$comment": "The cookbook's metadata `Sector segments` variable, which it writes sector-keyed: 'Power: [Power generation; Energy storage; Transmission and distribution]'. Nesting it inside `sectors[]` alongside `technologies` IS that keying, so no second mechanism is needed. Optional rather than required, unlike `technologies`: only three of the fifteen sectors have segments defined, and an absent list means 'not recorded' where an empty one would claim the pathway covers none. Distinct from dataAvailability's `byMetric[].sectorSegment`, which is per metric and can therefore be narrower than this.",
+            "type": "array",
+            "uniqueItems": true,
+            "items": {
+              "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+              "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+            }
           }
         },
         "required": ["name", "technologies"],

@@ -244,6 +244,10 @@ export interface PathwayMetadataV2 {
       | "AtJ"
       | "Other"
     )[];
+    /**
+     * Segments of this sector's value chain that the pathway covers -- it provides at least one relevant output metric for each. Members must be segments of this entry's `name`, enforced by scripts/schema-check-files.ts.
+     */
+    segments?: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"][];
   }[];
   /**
    * Narrative description of the pathway. Replaces v1's expertOverview: in the v1 corpus this is the '#### Pathway Description' section of it. v1's separate pathwayOverview field is retired without replacement, not merged in here -- the two texts restate each other, so merging them read as immediate self-repetition. null means no description is available.
