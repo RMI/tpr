@@ -161,6 +161,80 @@
     "overall": null,
     "byMetric": [
       {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Direct, point-of-generation emissions in Singapore's modeled power supply; results use 100-year GWP. Imported electricity is counted as Singapore supply output, while source-country lifecycle emissions are not separately projected."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Direct, point-of-generation emissions in Singapore's modeled power supply; results use 100-year GWP. Imported electricity is counted as Singapore supply output, while source-country lifecycle emissions are not separately projected."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Installed/endogenous generation capacity by modeled technology."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Grid-connected electricity generation by technology/feedstock. Imported renewable electricity is represented as supply; captive industrial and residential rooftop generation are not separately reported."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Grid-connected electricity generation by technology/feedstock. Imported renewable electricity is represented as supply; captive industrial and residential rooftop generation are not separately reported."
+      },
+      {
         "metricName": "Transmission lines",
         "sector": "Power",
         "sectorSegment": ["Not covered"],
@@ -189,6 +263,16 @@
         "dataFormat": "Not covered",
         "granularity": ["Not covered"],
         "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Static technical lifetimes are specified for generation, the report does not model an explicit early-retirement policy for  high-carbon assets."
       }
     ]
   }

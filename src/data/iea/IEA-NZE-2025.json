@@ -376,6 +376,30 @@
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
         "scopeLimitations": "Selected regions/technologies in Annex B, not every WEO region; power generation technologies only."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": ["Global"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By tech, part of value chain"],
+        "scopeLimitations": "Aggregate investment categories; not always a full technology-by-region matrix in the free dataset."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["No information"],
+        "scopeLimitations": "Partial general lifetime assumptions only."
       }
     ]
   }

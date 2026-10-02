@@ -272,6 +272,16 @@
         "scopeLimitations": "Not covered"
       },
       {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
         "metricName": "Investment requirement",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
