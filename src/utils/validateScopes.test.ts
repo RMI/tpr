@@ -466,7 +466,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
   const ROW = {
     metricName: "Capacity",
     sector: "Power",
-    sectorSegment: "Power generation",
+    sectorSegment: ["Power generation"],
     geography: ["South East Asia"],
     timeResolution: "1-year steps",
     dataFormat: "Tabular",
@@ -539,14 +539,17 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     ).toEqual([]);
   });
 
-  it("rejects a metric the pathway does not report", () => {
-    // The likeliest typo of all: `metric` and `dataAvailability` are authored
-    // separately, so they drift.
-    const errors = withRows([row({ metricName: "Absolute Emissions" })]);
-    expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain("/metricName");
-    expect(errors[0]).toContain('"Absolute Emissions"');
-    expect(errors[0]).toContain("is not a metric this pathway reports");
+  it("accepts a metric the pathway's own `metric` list does not name", () => {
+    // Deliberate: `metric` and the availability row key are two different
+    // cookbook variables (register item D16), and a covered sector earns a row
+    // for every metric in the extended list -- the unreported ones marked
+    // `Not covered`. The old rule required the row's metric to appear in
+    // `metric`, which made exactly those rows unauthorable.
+    expect(
+      withRows([row({ metricName: "Transmission lines" })], {
+        metric: ["Capacity"],
+      }),
+    ).toEqual([]);
   });
 
   it("rejects a metric that is not the sector's, naming the value", () => {
@@ -562,28 +565,44 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
   });
 
   it("accepts a metric under a sector whose metrics are undefined", () => {
-    // Steel has no metric list. Rejecting here would make dataAvailability
-    // unauthorable for 14 of 15 sectors while adding no safety, since the
-    // metric is still checked against the pathway's own `metric` array.
+    // Cement has no availability-metric list. Rejecting here would make
+    // dataAvailability unauthorable for the twelve sectors the cookbook has not
+    // reached, which is the blockage `UNSEGMENTED` exists to avoid.
     expect(
-      withRows([
-        row({
-          sector: "Steel",
-          sectorSegment: "No information",
-          granularity: ["Unspecified"],
-        }),
-      ]),
+      withRows(
+        [
+          row({
+            sector: "Cement",
+            sectorSegment: ["No information"],
+            granularity: ["Unspecified"],
+          }),
+        ],
+        {
+          sectors: [
+            { name: "Power", technologies: [] },
+            { name: "Cement", technologies: [] },
+          ],
+        },
+      ),
     ).toEqual([]);
   });
 
   it("rejects a named segment under a sector with no segments defined", () => {
-    const errors = withRows([
-      row({
-        sector: "Steel",
-        sectorSegment: "Energy storage",
-        granularity: ["Unspecified"],
-      }),
-    ]);
+    const errors = withRows(
+      [
+        row({
+          sector: "Cement",
+          sectorSegment: ["Energy storage"],
+          granularity: ["Unspecified"],
+        }),
+      ],
+      {
+        sectors: [
+          { name: "Power", technologies: [] },
+          { name: "Cement", technologies: [] },
+        ],
+      },
+    );
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("/sectorSegment");
     expect(errors[0]).toContain('"Energy storage"');
@@ -593,7 +612,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
   });
 
   it("accepts the No information segment under any sector", () => {
-    expect(withRows([row({ sectorSegment: "No information" })])).toEqual([]);
+    expect(withRows([row({ sectorSegment: ["No information"] })])).toEqual([]);
   });
 
   it("rejects granularity that is not a technology of the sector", () => {
@@ -604,13 +623,21 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
   });
 
   it("rejects granularity on a sector with no technologies defined", () => {
-    const errors = withRows([
-      row({
-        sector: "Steel",
-        sectorSegment: "No information",
-        granularity: ["Solar"],
-      }),
-    ]);
+    const errors = withRows(
+      [
+        row({
+          sector: "Cement",
+          sectorSegment: ["No information"],
+          granularity: ["Solar"],
+        }),
+      ],
+      {
+        sectors: [
+          { name: "Power", technologies: [] },
+          { name: "Cement", technologies: [] },
+        ],
+      },
+    );
     expect(errors).toHaveLength(1);
     expect(errors[0]).toContain("no technologies are defined");
   });
@@ -647,6 +674,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     expect(
       withRows([
         row({
+          sectorSegment: ["Not covered"],
           geography: ["Not covered"],
           timeResolution: "Not covered",
           dataFormat: "Not covered",
@@ -707,13 +735,16 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
 
   it.each([
     ["metric", { metricName: "Generation" }],
-    ["segment", { sectorSegment: "Energy storage" }],
+    ["segment", { sectorSegment: ["Energy storage"] }],
     ["geography", { geography: ["SG"] }],
     [
       "sector",
       {
         sector: "Steel",
-        sectorSegment: "No information",
+        // Steel's own availability-metric list, not Power's -- the two sectors
+        // legitimately name different metrics.
+        metricName: "Scrap share",
+        sectorSegment: ["No information"],
         granularity: ["Unspecified"],
       },
     ],
@@ -725,8 +756,8 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
     // Guards the NUL-joined key the same way the keyFeatures test does.
     expect(
       withRows([
-        row({ sectorSegment: "Power generation", geography: ["SG"] }),
-        row({ sectorSegment: "No information", geography: ["SG"] }),
+        row({ sectorSegment: ["Power generation"], geography: ["SG"] }),
+        row({ sectorSegment: ["No information"], geography: ["SG"] }),
       ]),
     ).toEqual([]);
   });

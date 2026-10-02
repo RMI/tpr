@@ -376,9 +376,13 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
 
   it("refs the shared vocabularies instead of restating them", () => {
     const refs: Record<string, string> = {
-      metricName: "common/metric.v1.json#/$defs/displayName",
+      // NOT metric.v1: the availability row key is its own cookbook variable,
+      // which register item D16 settles as legitimately different from the
+      // pathway-level `metric`. Pinned here because pointing this back at
+      // metric.v1 is the regression that would silently re-narrow it to five
+      // Power metrics.
+      metricName: "common/dataAvailabilityMetric.v1.json#/$defs/displayName",
       sector: "common/sector.v1.json#/$defs/displayName",
-      sectorSegment: "common/sectorSegment.v1.json#/$defs/displayName",
       timeResolution: "common/dataAvailability.v1.json#/$defs/timeResolution",
       dataFormat: "common/dataAvailability.v1.json#/$defs/dataFormat",
     };
@@ -387,7 +391,24 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
         `http://pathways.rmi.org/schema/${suffix}`,
       );
     }
+    // sectorSegment is a list, so the $ref is on its items.
+    expect(items(rowProp("sectorSegment"), "sectorSegment").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+    );
   });
+
+  it.each(["geography", "granularity", "sectorSegment"])(
+    "makes %s a non-empty list",
+    (name) => {
+      // All three are Multiple in the cookbook, and real rows use that: the
+      // gold set has `Power generation; Energy storage` in one cell and a
+      // sixteen-token geography coverage cell.
+      const field = rowProp(name);
+      expect(field.type).toBe("array");
+      expect(field.minItems).toBe(1);
+      expect(field.uniqueItems).toBe(true);
+    },
+  );
 
   it("scopes rows the same way keyFeatures does, so the same helpers apply", () => {
     // A list here, a single token there -- the cookbook types Geography

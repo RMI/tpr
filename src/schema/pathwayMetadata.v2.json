@@ -619,9 +619,9 @@
             "type": "object",
             "properties": {
               "metricName": {
-                "description": "Metric this row describes. Must be a metric the pathway itself reports (one of its own `metric` values) and a metric of its `sector` -- both enforced by scripts/schema-check-files.ts.",
-                "$ref": "http://pathways.rmi.org/schema/common/metric.v1.json#/$defs/displayName",
-                "tsType": "import('./common/metric.v1').MetricV1['displayName']"
+                "description": "Metric this row describes -- the cookbook's 'Metrics - Extended', which is a different vocabulary from the pathway-level `metric` field (register item D16). Must be a metric of this row's `sector`, enforced by scripts/schema-check-files.ts.",
+                "$ref": "http://pathways.rmi.org/schema/common/dataAvailabilityMetric.v1.json#/$defs/displayName",
+                "tsType": "import('./common/dataAvailabilityMetric.v1').DataAvailabilityMetricV1['displayName']"
               },
               "sector": {
                 "description": "Sector this row describes. Must be one of the pathway's own declared sectors. Note this is the plain sector enum, not scopeSector.v2: there is no `across sectors` availability, because availability is a property of a concrete dataset.",
@@ -629,9 +629,15 @@
                 "tsType": "import('./common/sector.v1').SectorV1['displayName']"
               },
               "sectorSegment": {
-                "description": "Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.",
-                "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
-                "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+                "description": "Segments of this row's sector that the metric covers. `Unspecified` where the pathway names none, `Not covered` where the sector-metric pair is not covered; either must then be the only member. Members must be segments of this row's `sector`, enforced by scripts/schema-check-files.ts.",
+                "$comment": "An array because the cookbook types `Sector segment - Extended` as Multiple, and real rows use it: the gold set has `Power generation; Energy storage` and `Steel: [Ironmaking, Steelmaking]` in single cells. Assignment is per sector AND metric, so coverage varies between metrics of the same sector.",
+                "type": "array",
+                "minItems": 1,
+                "uniqueItems": true,
+                "items": {
+                  "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+                  "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+                }
               },
               "geography": {
                 "description": "Geographies this row covers, as the cookbook's `Geography coverage`: a subset of the pathway's own declared geography, enforced by scripts/schema-check-files.ts. Same scope tokens as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers. `Unspecified` where the pathway does not say which, `Not covered` where the sector-metric pair is not covered; either must then be the only member.",

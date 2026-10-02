@@ -42,8 +42,8 @@
 import type { PathwayMetadataV2 } from "../types/pathwayMetadata.v2";
 import { dataAvailabilitySchema } from "../schema/common/index.ts";
 import {
-  metricBelongsToSector,
-  metricsForSector,
+  availabilityMetricBelongsToSector,
+  availabilityMetricsForSector,
   segmentBelongsToSector,
   segmentsForSector,
   technologiesForSector,
@@ -101,7 +101,7 @@ function isBreakdownValue(value: string): boolean {
 }
 
 /**
- * Whether each of a dataAvailability row's five variables reads `Not covered`.
+ * Whether each of a dataAvailability row's six variables reads `Not covered`.
  *
  * One entry per variable rather than a flat list of values, because the rule it
  * feeds is about agreement *between* variables: either they all say the pair is
@@ -111,6 +111,7 @@ function isBreakdownValue(value: string): boolean {
 function notCoveredByVariable(row: {
   geography: readonly string[];
   granularity: readonly string[];
+  sectorSegment: readonly string[];
   timeResolution: string;
   dataFormat: string;
   scopeLimitations: string;
@@ -118,6 +119,7 @@ function notCoveredByVariable(row: {
   return [
     row.geography.includes(NOT_COVERED),
     row.granularity.includes(NOT_COVERED),
+    row.sectorSegment.includes(NOT_COVERED),
     row.timeResolution === NOT_COVERED,
     row.dataFormat === NOT_COVERED,
     row.scopeLimitations === NOT_COVERED,
@@ -302,10 +304,6 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
   // pathway without the field is not an invalid pathway.
   const availability = pathway.dataAvailability;
   if (availability && Array.isArray(availability.byMetric)) {
-    // Metrics the pathway itself claims to report. Availability for a metric it
-    // does not report is a typo, not data -- and the likeliest typo of all,
-    // since the two lists are authored separately.
-    const reported = new Set<string>(pathway.metric ?? []);
     // First index each (metricName, sector, sectorSegment, geography) was seen
     // at. NUL-joined so no combination of parts can collide with another; see
     // the keyFeatures duplicate check above for the same reasoning.
@@ -335,42 +333,57 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
         }
       });
 
-      if (!reported.has(row.metricName)) {
-        errors.push(
-          `${at}/metricName "${row.metricName}" is not a metric this pathway` +
-            ` reports (allowed: ${quote(reported)})`,
-        );
-      }
+      /*
+        Checked against the sector's *availability* metric vocabulary, not the
+        pathway's own `metric` array.
 
-      // Deliberately rejects only a definite "no", unlike the technology and
-      // segment checks: a sector whose metrics are undefined passes. Those two
-      // axes have no other constraint, so closing them by default is the only
-      // thing standing between a typo and production. `metricName` already has
-      // one -- it must appear in the pathway's own `metric` array, checked just
-      // above -- so closing this axis too would add no safety while making
-      // dataAvailability unauthorable for the fourteen sectors whose metrics
-      // nobody has defined, which is the blockage `UNSEGMENTED` exists to avoid.
-      if (metricBelongsToSector(row.metricName, row.sector) === "no") {
+        The pathway-level check this replaces required every row to name a
+        metric the pathway lists in `metric`. Under the cookbook that is wrong
+        twice over: the two metric variables are separate vocabularies (register
+        item D16), and a covered sector earns a row for *every* metric in the
+        extended list, with the ones it does not report marked `Not covered`. So
+        the old rule made the cookbook's completeness requirement unsatisfiable
+        -- a `Not covered` row was rejected precisely because it was not
+        reported.
+
+        This closes the axis by default, unlike the comment that used to sit
+        here: `availabilityMetricsForSector` is defined for all three sectors the
+        cookbook covers, and a sector with no definition still answers
+        "unknown" and passes.
+      */
+      if (
+        availabilityMetricBelongsToSector(row.metricName, row.sector) === "no"
+      ) {
         errors.push(
           `${at}/metricName "${row.metricName}" is not a metric of sector` +
             ` "${row.sector}" ` +
-            allowedClause(metricsForSector(row.sector), "metrics"),
+            allowedClause(availabilityMetricsForSector(row.sector), "metrics"),
         );
       }
 
-      if (segmentBelongsToSector(row.sectorSegment, row.sector) !== "yes") {
+      // Multi-valued since the cookbook types it Multiple, so each member is
+      // checked the way the single value used to be. The sentinels are legal
+      // under every sector, like UNSEGMENTED; that they must then be the list's
+      // only member is checked with the other sentinels below.
+      row.sectorSegment.forEach((segment, g) => {
+        if (isSentinel(segment)) return;
+        if (segmentBelongsToSector(segment, row.sector) === "yes") return;
         const defined = segmentsForSector(row.sector);
         errors.push(
-          `${at}/sectorSegment "${row.sectorSegment}" is not a segment of sector` +
+          `${at}/sectorSegment/${g} "${segment}" is not a segment of sector` +
             ` "${row.sector}" ` +
-            // UNSEGMENTED is always legal, so it belongs in every allowed list.
-            allowedClause([...(defined ?? []), UNSEGMENTED], "segments") +
+            // UNSEGMENTED and the two sentinels are always legal, so they
+            // belong in every allowed list.
+            allowedClause(
+              [...(defined ?? []), UNSEGMENTED, ...SENTINELS],
+              "segments",
+            ) +
             (defined
               ? ""
               : ` No segments are defined for that sector; add them to` +
                 ` SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts.`),
         );
-      }
+      });
 
       // Same rule as sectors[].technologies (#461): a breakdown dimension has to
       // be a technology the sector actually has. Members of the
@@ -393,6 +406,7 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       for (const [field, values] of [
         ["geography", row.geography],
         ["granularity", row.granularity],
+        ["sectorSegment", row.sectorSegment],
       ] as const) {
         const sentinel = values.findIndex(isSentinel);
         if (sentinel !== -1 && values.length > 1) {
@@ -421,10 +435,10 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       const scope = [
         row.metricName,
         row.sector,
-        row.sectorSegment,
-        // Order within the list is an authoring accident, not data, so the key
-        // is the set: two rows covering the same places collide however they
-        // happen to be written down.
+        // Order within either list is an authoring accident, not data, so the
+        // key is the set: two rows covering the same segments and places
+        // collide however they happen to be written down.
+        [...row.sectorSegment].sort().join(","),
         [...row.geography].sort().join(","),
       ].join("\u0000");
       const firstSeen = seenRows.get(scope);
@@ -433,8 +447,8 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       } else {
         errors.push(
           `${at} duplicates the scope of /dataAvailability/byMetric/${firstSeen}` +
-            ` (metric "${row.metricName}", sector "${row.sector}", segment` +
-            ` "${row.sectorSegment}", geography ${quote(row.geography)}).` +
+            ` (metric "${row.metricName}", sector "${row.sector}", segments` +
+            ` ${quote(row.sectorSegment)}, geography ${quote(row.geography)}).` +
             ` Each combination may describe only one row; the table has one cell` +
             ` per column to render it in.`,
         );

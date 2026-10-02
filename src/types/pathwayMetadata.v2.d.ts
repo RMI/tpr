@@ -222,6 +222,26 @@ export interface PathwayMetadataV2 {
       | "Active Mobility"
       | "Aviation Efficiency"
       | "Maritime Efficiency"
+      | "Geothermal"
+      | "Energy storage"
+      | "BOF"
+      | "BF-BOF"
+      | "BF-BOF+PCI"
+      | "BF-BOF+CCUS"
+      | "DRI-Melt-BOF"
+      | "EAF"
+      | "Scrap-EAF"
+      | "DRI-EAF"
+      | "DRI-EAF+H2"
+      | "DRI-EAF+CCS"
+      | "Electrolyser/Electrowinning"
+      | "Jet Fuel"
+      | "SAF"
+      | "Electricity"
+      | "Hydrogen"
+      | "HEFA"
+      | "PtL"
+      | "AtJ"
       | "Other"
     )[];
   }[];
@@ -534,17 +554,22 @@ export interface PathwayMetadataV2 {
      */
     byMetric: {
       /**
-       * Metric this row describes. Must be a metric the pathway itself reports (one of its own `metric` values) and a metric of its `sector` -- both enforced by scripts/schema-check-files.ts.
+       * Metric this row describes -- the cookbook's 'Metrics - Extended', which is a different vocabulary from the pathway-level `metric` field (register item D16). Must be a metric of this row's `sector`, enforced by scripts/schema-check-files.ts.
        */
-      metricName: import("./common/metric.v1").MetricV1["displayName"];
+      metricName: import("./common/dataAvailabilityMetric.v1").DataAvailabilityMetricV1["displayName"];
       /**
        * Display name of a sector.
        */
       sector: import("./common/sector.v1").SectorV1["displayName"];
       /**
-       * Segment within the sector. `No information` where the sector is not segmented, or where its segments are not yet defined.
+       * Segments of this row's sector that the metric covers. `Unspecified` where the pathway names none, `Not covered` where the sector-metric pair is not covered; either must then be the only member. Members must be segments of this row's `sector`, enforced by scripts/schema-check-files.ts.
+       *
+       * @minItems 1
        */
-      sectorSegment: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"];
+      sectorSegment: [
+        import("./common/sectorSegment.v1").SectorSegmentV1["displayName"],
+        ...import("./common/sectorSegment.v1").SectorSegmentV1["displayName"][],
+      ];
       /**
        * Geographies this row covers, as the cookbook's `Geography coverage`: a subset of the pathway's own declared geography, enforced by scripts/schema-check-files.ts. Same scope tokens as keyFeatures, so the table can be filtered by the detail page's geography selection (#872) using the existing scope helpers. `Unspecified` where the pathway does not say which, `Not covered` where the sector-metric pair is not covered; either must then be the only member.
        *
@@ -577,23 +602,55 @@ export interface PathwayMetadataV2 {
         (
           | import("./common/technology.v1").TechnologyV1["displayName"]
           | (
+              | "No information"
+              | "Unspecified"
+              | "Not covered"
               | "Scope 1"
               | "Scope 1 & 2"
               | "Scope 1, 2 & 3"
               | "Scope 1 & 3"
-              | "Unspecified"
-              | "Not covered"
+              | "Total costs"
+              | "Capital costs, O&M, etc."
+              | "Other cost breakdown"
+              | "Total investment"
+              | "By sector"
+              | "By sector, part of value chain"
+              | "By technology"
+              | "By tech, part of value chain"
+              | "High-carbon assets lifetime assumed constant"
+              | "High-carbon assets lifetime face early retirement policy"
+              | "International connections only"
+              | "International and national transmission lines"
+              | "Transmission and distribution"
+              | "Scrap share as EAF input"
+              | "Scrap share as steel total input"
             )
         ),
         ...(
           | import("./common/technology.v1").TechnologyV1["displayName"]
           | (
+              | "No information"
+              | "Unspecified"
+              | "Not covered"
               | "Scope 1"
               | "Scope 1 & 2"
               | "Scope 1, 2 & 3"
               | "Scope 1 & 3"
-              | "Unspecified"
-              | "Not covered"
+              | "Total costs"
+              | "Capital costs, O&M, etc."
+              | "Other cost breakdown"
+              | "Total investment"
+              | "By sector"
+              | "By sector, part of value chain"
+              | "By technology"
+              | "By tech, part of value chain"
+              | "High-carbon assets lifetime assumed constant"
+              | "High-carbon assets lifetime face early retirement policy"
+              | "International connections only"
+              | "International and national transmission lines"
+              | "Transmission and distribution"
+              | "Scrap share as EAF input"
+              | "Scrap share as steel total input"
             )
         )[],
       ];

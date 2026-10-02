@@ -196,7 +196,7 @@
       {
         "metricName": "Capacity",
         "sector": "Power",
-        "sectorSegment": "Power generation",
+        "sectorSegment": ["Fuel extraction and processing", "Power generation"],
         "geography": ["Global", "South East Asia", "SG"],
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
@@ -206,27 +206,27 @@
       {
         "metricName": "Generation",
         "sector": "Power",
-        "sectorSegment": "Energy storage",
+        "sectorSegment": ["Energy storage"],
         "geography": ["South East Asia"],
         "timeResolution": "5-year steps",
         "dataFormat": "Text",
         "granularity": ["Unspecified"],
-        "scopeLimitations": "Unspecified"
+        "scopeLimitations": "Battery storage only; pumped hydro is out of scope."
       },
       {
-        "metricName": "Technology Mix",
+        "metricName": "Transmission lines",
         "sector": "Power",
-        "sectorSegment": "Transmission & Distribution",
+        "sectorSegment": ["Transmission and distribution"],
         "geography": ["SG"],
         "timeResolution": "2050 data point",
         "dataFormat": "Figure",
-        "granularity": ["Unspecified"],
+        "granularity": ["International and national transmission lines"],
         "scopeLimitations": "Grid losses only."
       },
       {
-        "metricName": "Absolute Emissions",
+        "metricName": "Absolute emissions",
         "sector": "Steel",
-        "sectorSegment": "No information",
+        "sectorSegment": ["Ironmaking", "Steelmaking"],
         "geography": ["Global"],
         "timeResolution": "10-year steps",
         "dataFormat": "Text",
@@ -234,9 +234,9 @@
         "scopeLimitations": "Ironmaking and steelmaking are modelled together and cannot be separated."
       },
       {
-        "metricName": "Emissions Intensity",
+        "metricName": "Emissions intensity (total)",
         "sector": "Steel",
-        "sectorSegment": "No information",
+        "sectorSegment": ["Not covered"],
         "geography": ["Not covered"],
         "timeResolution": "Not covered",
         "dataFormat": "Not covered",
