@@ -162,6 +162,9 @@ describe("geographyScopeOverlaps", () => {
     // it resolves to an empty ISO set and must not vacuously match.
     expect(geographyScopeOverlaps("TH", "South East Asia", p)).toBe(false);
     expect(geographyScopeOverlaps("TH", "Souteast Asia", p)).toBe(false);
+    // Including for a Global entry, which answers any *real* selection. The
+    // Global shortcut used to run first and answered a stale token too.
+    expect(geographyScopeOverlaps("Global", "Souteast Asia", p)).toBe(false);
   });
 
   it("the absent bucket does not constrain which scope to read", () => {
