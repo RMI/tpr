@@ -277,6 +277,10 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
   // definition impossible to miss, and the message says exactly where to add it.
   (pathway.sectors ?? []).forEach((sector, i) => {
     if (!sector?.name) return;
+    // An if/else rather than an early return: the segments check below must run
+    // for every sector, and the sectors with no technology list -- Steel and
+    // Aviation -- are exactly the ones that do have segments. A `return` here
+    // once skipped them, so a Steel entry naming a Power segment validated.
     const allowed = technologiesForSector(sector.name);
     const technologies = sector.technologies ?? [];
     if (!allowed) {
@@ -287,17 +291,17 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
             ` SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts, or use [].`,
         );
       }
-      return;
+    } else {
+      technologies.forEach((technology, t) => {
+        if (technologyBelongsToSector(technology, sector.name) !== "yes") {
+          errors.push(
+            `/sectors/${i}/technologies/${t} "${technology}" is not a technology of` +
+              ` sector "${sector.name}" ` +
+              allowedClause(allowed, "technologies"),
+          );
+        }
+      });
     }
-    technologies.forEach((technology, t) => {
-      if (technologyBelongsToSector(technology, sector.name) !== "yes") {
-        errors.push(
-          `/sectors/${i}/technologies/${t} "${technology}" is not a technology of` +
-            ` sector "${sector.name}" ` +
-            allowedClause(allowed, "technologies"),
-        );
-      }
-    });
 
     /*
       The pathway-level `segments` list, same rule as `technologies` above and
@@ -427,12 +431,17 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
       // A sentinel replaces the list rather than joining it: "Not covered"
       // alongside a real breakdown would say both that the pair is uncovered and
       // how it is broken down.
-      for (const [field, values] of [
-        ["geography", row.geography],
-        ["granularity", row.granularity],
-        ["sectorSegment", row.sectorSegment],
+      //
+      // `No information` (UNSEGMENTED) is an absence too, and must also stand
+      // alone -- but only on the two fields where it is a legal member. It is
+      // deliberately not in SENTINELS: that list also exempts a token from the
+      // geography membership check, which would make it a legal geography.
+      for (const [field, values, absences] of [
+        ["geography", row.geography, SENTINELS],
+        ["granularity", row.granularity, [...SENTINELS, UNSEGMENTED]],
+        ["sectorSegment", row.sectorSegment, [...SENTINELS, UNSEGMENTED]],
       ] as const) {
-        const sentinel = values.findIndex(isSentinel);
+        const sentinel = values.findIndex((v) => absences.includes(v));
         if (sentinel !== -1 && values.length > 1) {
           errors.push(
             `${at}/${field} lists "${values[sentinel]}" alongside` +

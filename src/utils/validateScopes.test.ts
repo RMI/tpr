@@ -482,6 +482,21 @@ describe("validateScopedEntries — technologies belong to their sector (#461)",
     expect(errors[0]).toContain("is not a segment of sector");
   });
 
+  it.each(["Steel", "Aviation"])(
+    "checks segments under %s, which has segments but no technology list",
+    (name) => {
+      // The case the Power test above cannot reach: the technology check used
+      // to `return` for a sector without a technology vocabulary, and that
+      // skipped the segment check entirely -- for exactly these two sectors.
+      const errors = withSectors([
+        { name, technologies: [], segments: ["Power generation"] },
+      ]);
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain("/sectors/0/segments/0");
+      expect(errors[0]).toContain('"Power generation"');
+    },
+  );
+
   it("accepts an absent segments list — the field is optional", () => {
     expect(withSectors([{ name: "Power", technologies: [] }])).toEqual([]);
   });
@@ -704,6 +719,34 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
       expect(errors[0]).toContain("must be its only member");
     },
   );
+
+  it.each([
+    [
+      "sectorSegment",
+      { sectorSegment: ["No information", "Power generation"] },
+    ],
+    ["granularity", { granularity: ["No information", "Solar"] }],
+  ])(
+    'rejects "No information" sharing the %s list with a real value',
+    (field, over) => {
+      // The third absence value. It is legal on these two fields, so it was
+      // checked for membership -- but it is not in SENTINELS, so the
+      // must-stand-alone rule never saw it.
+      const errors = withRows([row(over)]);
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain(`/${field}`);
+      expect(errors[0]).toContain('"No information"');
+      expect(errors[0]).toContain("must be its only member");
+    },
+  );
+
+  it('still rejects "No information" as a geography token', () => {
+    // Why it is not simply added to SENTINELS: that list also exempts a token
+    // from the geography membership check.
+    const errors = withRows([row({ geography: ["No information"] })]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("is not a geography this pathway declares");
+  });
 
   it("accepts a row that is Not covered across every variable", () => {
     // The cookbook requires a row for each allowable (sector, metric) pair even
