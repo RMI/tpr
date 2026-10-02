@@ -71,7 +71,7 @@ const fixtures = [
         {
           metricName: "Capacity",
           sector: "Power",
-          sectorSegment: "Power generation",
+          sectorSegment: ["Power generation"],
           geography: ["Global"],
           timeResolution: "5-year steps",
           dataFormat: "Tabular",
@@ -81,7 +81,7 @@ const fixtures = [
         {
           metricName: "Generation",
           sector: "Power",
-          sectorSegment: "Power generation",
+          sectorSegment: ["Power generation"],
           geography: ["South East Asia"],
           timeResolution: "5-year steps",
           dataFormat: "Tabular",
@@ -91,7 +91,7 @@ const fixtures = [
         {
           metricName: "Absolute Emissions",
           sector: "Steel",
-          sectorSegment: "No information",
+          sectorSegment: ["No information"],
           geography: ["Global"],
           timeResolution: "5-year steps",
           dataFormat: "Tabular",

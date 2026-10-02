@@ -218,8 +218,10 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                 // Rows have no natural id. The uniqueness tuple the schema
                 // enforces is (metricName, sector, sectorSegment, geography) —
                 // sector was missing here, so a multi-sector pathway reporting
-                // the same metric in two sectors produced duplicate keys.
-                key={`${row.metricName}|${row.sector}|${row.sectorSegment}|${geographyKey(row)}`}
+                // the same metric in two sectors produced duplicate keys. Both
+                // list-valued parts are joined, for the same reason the
+                // duplicate check sorts them: the key is the set, not the order.
+                key={`${row.metricName}|${row.sector}|${row.sectorSegment.join(",")}|${geographyKey(row)}`}
                 className={
                   i % 2 === 0 ? "align-top bg-white" : "align-top bg-neutral-50"
                 }
@@ -234,7 +236,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
                   <td className="px-3 py-2 text-rmigray-700">{row.sector}</td>
                 ) : null}
                 <td className="px-3 py-2 text-rmigray-700">
-                  {row.sectorSegment}
+                  {row.sectorSegment.join(", ")}
                 </td>
                 <td className="px-3 py-2 text-rmigray-700">
                   {row.granularity.join(", ")}
