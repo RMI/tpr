@@ -42,11 +42,11 @@ describe("validateScopedEntries — sector axis", () => {
     expect(errors).toEqual([]);
   });
 
-  it("accepts the cross-sector sentinel", () => {
+  it("accepts the across sectors sentinel", () => {
     const errors = validateScopedEntries(
       pathway({
         keyFeatures: {
-          emissionsTrajectory: [entry("cross-sector", "South East Asia")],
+          emissionsTrajectory: [entry("across sectors", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
@@ -66,12 +66,12 @@ describe("validateScopedEntries — sector axis", () => {
     expect(errors[0]).toContain('"Cement"');
   });
 
-  it("accepts cross-sector on a single-sector pathway (documented non-check)", () => {
+  it("accepts across sectors on a single-sector pathway (documented non-check)", () => {
     const errors = validateScopedEntries(
       pathway({
         sectors: [{ name: "Power", technologies: [] }],
         keyFeatures: {
-          emissionsTrajectory: [entry("cross-sector", "South East Asia")],
+          emissionsTrajectory: [entry("across sectors", "South East Asia")],
         } as unknown as PathwayMetadataV2["keyFeatures"],
       }),
     );
@@ -80,7 +80,7 @@ describe("validateScopedEntries — sector axis", () => {
 });
 
 describe("validateScopedEntries — geography axis", () => {
-  it.each(["cross-region", "South East Asia", "SG", "TH"])(
+  it.each(["across regions", "South East Asia", "SG", "TH"])(
     "accepts %s",
     (geography) => {
       const errors = validateScopedEntries(
@@ -342,21 +342,21 @@ describe("validateScopedEntries — dependencies", () => {
     expect(errors[0]).toContain("/dependencies/0/sector");
   });
 
-  it("rejects the cross-sector sentinel, which is not legal here", () => {
+  it("rejects the across sectors sentinel, which is not legal here", () => {
     const errors = validateScopedEntries(
       pathway({
         dependencies: [
           {
             dependency_name: "Technology",
             dependency_description: "Needs grid upgrades.",
-            sector: "cross-sector",
+            sector: "across sectors",
             evidence_type: "Qualitative",
           },
         ] as unknown as PathwayMetadataV2["dependencies"],
       }),
     );
     expect(errors).toHaveLength(1);
-    expect(errors[0]).toContain('"cross-sector"');
+    expect(errors[0]).toContain('"across sectors"');
   });
 });
 

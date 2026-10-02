@@ -102,7 +102,7 @@
       }
     },
     "keyFeatures": {
-      "description": "Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit \"No information\" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.",
+      "description": "Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'across sectors' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit \"No information\" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.",
       "type": "object",
       "properties": {
         "emissionsTrajectory": {
@@ -605,7 +605,7 @@
                 "tsType": "import('./common/metric.v1').MetricV1['displayName']"
               },
               "sector": {
-                "description": "Sector this row describes. Must be one of the pathway's own declared sectors. Note this is the plain sector enum, not scopeSector.v2: there is no `cross-sector` availability, because availability is a property of a concrete dataset.",
+                "description": "Sector this row describes. Must be one of the pathway's own declared sectors. Note this is the plain sector enum, not scopeSector.v2: there is no `across sectors` availability, because availability is a property of a concrete dataset.",
                 "$ref": "http://pathways.rmi.org/schema/common/sector.v1.json#/$defs/displayName",
                 "tsType": "import('./common/sector.v1').SectorV1['displayName']"
               },

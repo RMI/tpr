@@ -17,65 +17,65 @@ export type Publication = import("./common/publication.v1").PublicationV1;
  */
 export type Geography = import("./common/geography.v1").GeographyV1;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector1 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography1 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector2 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography2 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector3 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography3 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector4 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography4 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector5 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography5 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector6 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography6 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -85,43 +85,43 @@ export type ScopeGeography6 =
 export type EmissionsScope =
   import("./common/emissionsScope.v1").EmissionsScopeV1;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector7 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography7 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector8 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography8 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector9 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography9 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'cross-sector'.
+ * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector10 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography10 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'cross-region', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
  */
 export type ScopeGeography11 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -231,7 +231,7 @@ export interface PathwayMetadataV2 {
   pathwayDescription: string | null;
   metric: import("./common/metric.v1").MetricV1["displayName"][];
   /**
-   * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'cross-sector' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
+   * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'across sectors' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
    */
   keyFeatures: {
     /**

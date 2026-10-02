@@ -67,7 +67,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: [],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "DE", value: "foo" },
+          { sector: "across sectors", geography: "DE", value: "foo" },
         ],
       },
     },
@@ -84,7 +84,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: ["Capacity"],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "DE", value: "foo" },
+          { sector: "across sectors", geography: "DE", value: "foo" },
         ],
       },
     },
@@ -112,7 +112,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: ["Capacity", "Generation"],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "JP", value: "bar" },
+          { sector: "across sectors", geography: "JP", value: "bar" },
         ],
       },
     },
@@ -127,7 +127,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       metric: ["Generation"],
       keyFeatures: {
         emissionsTrajectory: [
-          { sector: "cross-sector", geography: "DE", value: "bar" },
+          { sector: "across sectors", geography: "DE", value: "bar" },
         ],
       },
     },

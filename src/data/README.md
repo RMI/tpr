@@ -46,19 +46,19 @@ In v1 each of the 11 key features held a single value for the whole pathway. In 
 ```json
 "keyFeatures": {
   "emissionsTrajectory": [
-    { "sector": "cross-sector", "geography": "Global", "value": "Moderate decrease" },
+    { "sector": "across sectors", "geography": "Global", "value": "Moderate decrease" },
     { "sector": "Power", "geography": "South East Asia", "value": "Significant decrease" }
   ]
 }
 ```
 
-- `sector` is one of the sector names, or `"cross-sector"` meaning "all of the sectors this pathway covers".
+- `sector` is one of the sector names, or `"across sectors"` meaning "all of the sectors this pathway covers".
 - `geography` is `"Global"`, one of the region labels used in this pathway's own `geography.regions`, or one of its country codes.
 - `value` is exactly what v1 held for that field — the same allowed values. For the two fields that were arrays in v1 (`policyTypes`, `newTechnologiesIncluded`), `value` is still an array.
 
 Both `sector` and `geography` must be something the pathway actually declares, or one of the widest sentinels. A region label that does not appear in the pathway's own `geography.regions` is rejected, which is what catches a typo like `"Southeast Asia"` where the pathway says `"South East Asia"`.
 
-If a feature does not vary, give it **one entry at the widest scope that applies** — `cross-sector` for a multi-sector pathway (otherwise its only sector), and `Global` for a global pathway (otherwise its region or country).
+If a feature does not vary, give it **one entry at the widest scope that applies** — `across sectors` for a multi-sector pathway (otherwise its only sector), and `Global` for a global pathway (otherwise its region or country).
 
 An empty array means nothing is recorded at any scope. That is different from an entry whose `value` is `"No information"`, which is a deliberate statement that this scope has no data.
 

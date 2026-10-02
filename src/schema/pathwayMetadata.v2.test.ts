@@ -242,15 +242,15 @@ describe("pathwayMetadata.v2 keyFeatures — values carry over from v1", () => {
 });
 
 describe("scopeSector.v2 tracks sector.v1", () => {
-  it("is sector.v1's display names plus the cross-sector sentinel", () => {
+  it("is sector.v1's display names plus the across sectors sentinel", () => {
     const defs = sector.$defs;
     if (!defs) throw new Error("sector.v1: expected $defs");
     const sectorNames = enumOf(defs.displayName, "sector.v1.displayName");
     const scopeNames = enumOf(scopeSector, "scopeSector.v2");
-    expect(scopeNames).toContain("cross-sector");
-    expect([...scopeNames].filter((n) => n !== "cross-sector").sort()).toEqual(
-      [...sectorNames].sort(),
-    );
+    expect(scopeNames).toContain("across sectors");
+    expect(
+      [...scopeNames].filter((n) => n !== "across sectors").sort(),
+    ).toEqual([...sectorNames].sort());
   });
 });
 
@@ -338,11 +338,11 @@ describe("pathwayMetadata.v2 dataAvailability", () => {
     }
   });
 
-  it("uses the plain sector enum, not scopeSector — there is no cross-sector row", () => {
-    // Availability describes a concrete dataset, so the cross-sector sentinel
+  it("uses the plain sector enum, not scopeSector — there is no across sectors row", () => {
+    // Availability describes a concrete dataset, so the across sectors sentinel
     // would have nothing to resolve to.
     expect(rowProp("sector").$ref).not.toContain("scopeSector");
-    expect(enumOf(scopeSector, "scopeSector.v2")).toContain("cross-sector");
+    expect(enumOf(scopeSector, "scopeSector.v2")).toContain("across sectors");
   });
 
   it("draws granularity from technology.v1 and the breakdown vocabulary", () => {

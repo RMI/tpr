@@ -56,11 +56,11 @@ export const PATHWAY_METADATA_V2_ID =
   "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
 
 /** Sector sentinel meaning "the union of this pathway's own declared sectors". */
-export const CROSS_SECTOR = "cross-sector";
+export const ACROSS_SECTORS = "across sectors";
 
 /** Geography sentinels: widest possible, and a multi-region non-global aggregate. */
 export const GLOBAL_SCOPE = "Global";
-export const CROSS_REGION = "cross-region";
+export const ACROSS_REGIONS = "across regions";
 
 /**
  * The two authored-absence values every dataAvailability variable shares
@@ -137,12 +137,12 @@ type ScopedEntry = { sector: string; geography: string; value: unknown };
  * #858 phrases the rule as "declared by the pathway, or the widest sentinel",
  * which read literally would let a South-East-Asia-only pathway carry a
  * global-scoped value — describing coverage it never claims, and defeating the
- * point of the check. `cross-region` stays unconditional: #858 reserves it for a
+ * point of the check. `across regions` stays unconditional: #858 reserves it for a
  * multi-region non-global aggregate without saying when it applies, and no file
  * in the corpus uses it yet, so gating it would be inventing a rule.
  */
 function allowedGeographies(pathway: PathwayMetadataV2): Set<string> {
-  const allowed = new Set<string>([CROSS_REGION]);
+  const allowed = new Set<string>([ACROSS_REGIONS]);
   const geo = pathway.geography;
   if (!geo || typeof geo !== "object") return allowed;
   if (geo.global === true) allowed.add(GLOBAL_SCOPE);
@@ -157,10 +157,10 @@ function allowedGeographies(pathway: PathwayMetadataV2): Set<string> {
 }
 
 /**
- * Sectors an entry may name: the pathway's own, plus the `cross-sector`
+ * Sectors an entry may name: the pathway's own, plus the `across sectors`
  * sentinel.
  *
- * Note what is deliberately *not* checked: #858 remarks that `cross-sector` is
+ * Note what is deliberately *not* checked: #858 remarks that `across sectors` is
  * "only meaningful for multi-sector pathways", but a single-sector pathway using
  * it is harmless — it resolves to that one sector — so flagging it would be a
  * false positive on a legal document rather than a caught mistake.
@@ -213,7 +213,7 @@ function quote(values: Iterable<string>): string {
 export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
   const errors: string[] = [];
   const declared = declaredSectors(pathway);
-  const entrySectors = new Set<string>([CROSS_SECTOR, ...declared]);
+  const entrySectors = new Set<string>([ACROSS_SECTORS, ...declared]);
   const geographies = allowedGeographies(pathway);
 
   const keyFeatures = (pathway.keyFeatures ?? {}) as Record<
@@ -445,7 +445,7 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
   // dependencies are descriptive and not part of the inheritance chain, but
   // #858 still scopes each to a sector, and that sector must be a real one.
   // Note this uses `declared`, not `entrySectors`: the schema types this field as
-  // the plain sector enum, so `cross-sector` is not a legal value here.
+  // the plain sector enum, so `across sectors` is not a legal value here.
   (pathway.dependencies ?? []).forEach((dep, i) => {
     if (dep?.sector && !declared.has(dep.sector)) {
       errors.push(
