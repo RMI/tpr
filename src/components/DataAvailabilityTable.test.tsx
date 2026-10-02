@@ -246,6 +246,25 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
     ]);
   });
 
+  it("keeps Not covered rows whatever geography is selected", () => {
+    // "Not covered" is not a place, so a geography selection cannot exclude
+    // it. Filtered as a token it overlapped nothing, and every such row
+    // vanished in the detail page's default view, which always seeds a
+    // geography.
+    const notCovered: ByMetricRow = {
+      ...capacityRow,
+      metricName: "Transmission lines",
+      sectorSegment: ["Not covered"],
+      geography: ["Not covered"],
+      timeResolution: "Not covered",
+      dataFormat: "Not covered",
+      granularity: ["Not covered"],
+      scopeLimitations: "Not covered",
+    };
+    renderScoped({ sector: null, geography: "SG" }, [capacityRow, notCovered]);
+    expect(rowHeaders()).toContain("Transmission lines");
+  });
+
   it("keeps Global rows when a country is selected", () => {
     renderScoped({ sector: null, geography: "SG" });
     expect(rowHeaders()).toEqual([

@@ -110,6 +110,17 @@ const GeographyCell: React.FC<{ geography: ByMetricRow["geography"] }> = ({
  * describes the source publication only, and what this tool hosts is shown by
  * `DownloadDataset` further down the page.
  */
+/*
+  "Not covered" and "Unspecified" are not places, so a geography selection says
+  nothing about them. Filtered as tokens they overlapped nothing and vanished
+  whenever a geography was selected -- and the detail page always seeds one --
+  hiding exactly the rows the cookbook requires so a reader can see what a
+  pathway does not cover.
+*/
+const PLACELESS = new Set(["Not covered", "Unspecified"]);
+const isPlaceless = (tokens: readonly string[]): boolean =>
+  tokens.length > 0 && tokens.every((t) => PLACELESS.has(t));
+
 const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   dataAvailability,
   scope,
@@ -137,6 +148,7 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
       // overlaps the selection -- the row describes one dataset spanning the
       // whole list, so matching part of it matches the row.
       (geography === null ||
+        isPlaceless(row.geography) ||
         row.geography.some((token) =>
           pathwayScopeOverlaps(token, geography, pathwayGeography),
         )),
