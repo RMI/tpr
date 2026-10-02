@@ -67,10 +67,20 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
       definition:
         "Electricity generation using coal combustion to produce steam that drives turbines for power.",
     },
+    energyStorage: {
+      displayName: "Energy storage",
+      definition:
+        "Storing electricity for later dispatch, however the pathway breaks it down -- batteries, pumped hydro or both. The cookbook removed the separate BESS and pumped-hydro technologies in decision 0020, so a Capacity row's scope limitations are the only place that detail survives.",
+    },
     gas: {
       displayName: "Gas",
       definition:
         "Electricity generation using natural gas combustion in turbines or combined-cycle plants.",
+    },
+    geothermal: {
+      displayName: "Geothermal",
+      definition:
+        "Electricity generation using heat drawn from the earth to raise steam.",
     },
     hydro: {
       displayName: "Hydro",
@@ -90,7 +100,7 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
     other: {
       displayName: "Other",
       definition:
-        "Electricity generation using alternative or emerging sources such as geothermal, tidal, or hydrogen.",
+        "Electricity generation using alternative or emerging sources such as tidal or hydrogen. Geothermal is no longer among them -- it is its own technology as of cookbook decision 0020.",
     },
     renewables: {
       displayName: "Renewables",
