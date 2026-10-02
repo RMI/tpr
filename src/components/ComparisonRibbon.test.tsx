@@ -176,6 +176,33 @@ describe("ComparisonRibbon", () => {
         ).not.toBeDisabled();
       });
 
+      it("counts only ids that still resolve to a pathway", () => {
+        // A stored id for a pathway that no longer exists renders as an empty
+        // slot; it used to count towards the minimum of two all the same.
+        renderRibbon(["p1", "deleted"], true);
+        expect(
+          screen.getByRole("button", { name: "Compare (min. 2)" }),
+        ).toBeDisabled();
+      });
+
+      it("leaves a stale id out of the comparison link", async () => {
+        vi.mocked(useComparison).mockReturnValue({
+          ...defaultContext,
+          comparedPathwayIds: ["p1", "deleted", "p2"],
+          ribbonExpanded: true,
+        });
+        render(
+          <MemoryRouter>
+            <ComparisonRibbon />
+            <Probe />
+          </MemoryRouter>,
+        );
+        await userEvent
+          .setup()
+          .click(screen.getByRole("button", { name: "Compare" }));
+        expect(screen.getByTestId("search").textContent).toContain("ids=p1,p2");
+      });
+
       it("is enabled and labelled 'Compare' with 3 pathways selected", () => {
         renderRibbon(["p1", "p2", "p3"], true);
         expect(
