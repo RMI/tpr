@@ -6,6 +6,7 @@ import {
   useComparison,
   MAX_COMPARED,
 } from "./ComparisonContext";
+import { pathwayMetadata } from "../data/pathwayMetadata";
 
 const SESSION_KEY = "pathway-comparison";
 
@@ -90,9 +91,15 @@ describe("ComparisonContext", () => {
   });
 
   it("loads saved selections from sessionStorage on mount", () => {
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(["a", "b"]));
+    // Real ids: restoring drops ids that resolve to no pathway. Two Power
+    // pathways, so the restored pair is also comparable.
+    const ids = pathwayMetadata
+      .filter((p) => p.sectors.some((s) => s.name === "Power"))
+      .slice(0, 2)
+      .map((p) => p.id);
+    sessionStorage.setItem(SESSION_KEY, JSON.stringify(ids));
     renderConsumer();
-    expect(getIds()).toEqual(["a", "b"]);
+    expect(getIds()).toEqual(ids);
   });
 
   it("addToComparison persists the new id to sessionStorage", async () => {
@@ -104,8 +111,9 @@ describe("ComparisonContext", () => {
 
   it("removeFromComparison updates sessionStorage", async () => {
     const u = userEvent.setup();
-    sessionStorage.setItem(SESSION_KEY, JSON.stringify(["a", "b"]));
     renderConsumer();
+    await u.click(screen.getByTestId("add-a"));
+    await u.click(screen.getByTestId("add-b"));
     await u.click(screen.getByTestId("remove-a"));
     expect(JSON.parse(sessionStorage.getItem(SESSION_KEY)!)).toEqual(["b"]);
   });

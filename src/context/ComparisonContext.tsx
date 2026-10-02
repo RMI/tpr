@@ -16,10 +16,11 @@ export const MAX_COMPARED = 3;
  * Clearing the whole selection is the honest outcome: there is no way to tell
  * which of the stored pathways the reader would rather keep.
  *
- * Unknown ids are tolerated rather than dropped. They resolve to no pathway, so
- * they cannot prove an incompatibility, and both consumers already filter them
- * out on their own — `ComparisonPage` against the metadata and the ribbon when
- * it renders a slot.
+ * Unknown ids — a pathway since removed or renamed — are dropped on their own,
+ * keeping the rest. They cannot prove an incompatibility, so they never clear
+ * the selection; but left in, they would count towards the limit of
+ * `MAX_COMPARED` in `addToComparison` while every view showed fewer pathways,
+ * so "Add" would look available and do nothing.
  */
 function loadFromSession(): string[] {
   try {
@@ -27,15 +28,14 @@ function loadFromSession(): string[] {
     const parsed = raw ? (JSON.parse(raw) as unknown) : [];
     if (!Array.isArray(parsed)) return [];
 
-    const ids = (parsed as string[])
-      .filter((x) => typeof x === "string")
+    // Resolve before truncating, so a stale id cannot push a real one out.
+    const pathways = (parsed as unknown[])
+      .filter((x): x is string => typeof x === "string")
+      .map((id) => pathwayMetadata.find((p) => p.id === id))
+      .filter((p): p is PathwayMetadataType => p !== undefined)
       .slice(0, MAX_COMPARED);
 
-    const pathways = ids
-      .map((id) => pathwayMetadata.find((p) => p.id === id))
-      .filter((p): p is PathwayMetadataType => p !== undefined);
-
-    return comparisonBlock(pathways) === null ? ids : [];
+    return comparisonBlock(pathways) === null ? pathways.map((p) => p.id) : [];
   } catch {
     return [];
   }
