@@ -262,7 +262,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. Its Nationally Determined Contribution – Long Term Strategies (NDC-LTS) pathway provides a detailed exploratory scenario in which all countries fully implement their existing conditional and unconditional NDCs, as well as introducing additional policies necessary to achieve stated long-term carbon neutrality objectives. These policies reduce emissions significantly from GECO’s reference pathway, producing a projected temperature rise of 1.8°C by 2100.",
   "metric": [
     "Emissions Intensity",
     "Capacity",

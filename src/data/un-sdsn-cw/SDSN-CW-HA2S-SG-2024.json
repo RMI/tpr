@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-HA2S-SG-2024",
   "publication": {
     "title": {
@@ -33,25 +33,16 @@
     "country": ["SG"]
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Highly Ambitious 2 Simulated (HA2S) scenario explores a pathway in which Singapore adopts a diversified mix of low carbon energy sources to achieve near net-zero in the power sector by 2050. This pathway is not a least cost optimization, but is built as a rules-based simulation consistent with achieving deep decarbonization by 2050 with a diversified mix of low carbon generation. \n\nRather than relying on a single dominant fuel or technology (as is more the case in the complementary Highly Ambitious 1 Simulated scenario from the same developers), HA2S develops a balanced portfolio that integrates multiple low-carbon energy sources. This includes large-scale imports of renewable electricity, the introduction of nuclear power for firm baseload generation, the deployment of advanced geothermal systems, and the gradual scale-up of low-carbon hydrogen and ammonia for dispatchable capacity. This diversified approach reduces dependence on any single fuel and improves system resilience, while still achieving near-zero emissions in the power sector by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Policies:* HA2S incorporates national plans such as Singapore’s Green Plan 2030, the EMA Energy 2050 Committee Report, and government commitment to importing up to 4 GW of low carbon electricity by 2035. Existing plans establish the foundation for renewable integration, cross-border power trading, and hydrogen-ready infrastructure, which HA2S expands by introducing low-carbon technologies such as nuclear and geothermal, larger volumes of regional renewable imports, and scaling of hydrogen, ammonia, and domestic solar. These assumptions could be interpreted as prospective policy mandates but do not reflect current government plans.\n\n*Technology deployment:* As a simulated model, most of the technology shifts are defined as inputs to the model rather than outcomes based on policy or cost factors. These assumptions focus on growth of hydrogen power generation, the retirement of fossil generation, and the maximization of domestic solar capacity. However, HA2S has less aggressive assumptions on the growth of hydrogen generation than HA1S. By 2050, imported renewable electricity becomes the dominant energy source (~50% of supply), supported by hydrogen (26%), nuclear (14%), and solar (6%), with geothermal and biomass providing supplementary capacity. Nuclear and geothermal power enter from 2040 onward, enhancing baseload reliability.\n\n#### Application to Transition Assessment\n\nThe HA2S scenario illustrates a technology mix and policy environment required to fully decarbonize Singapore’s power sector by 2050. It provides a benchmark for high ambition decarbonization, as well as highlighting the infrastructure, and policy frameworks needed to integrate a broad mix of renewable imports, nuclear, geothermal, hydrogen, ammonia, and expanded solar. \n\nThe scenario’s national focus enables detailed power sector modelling, including technology-level granularity (renewable imports, nuclear, geothermal, hydrogen, ammonia, and solar). Benchmark data is available at five-year intervals through 2050.",
+  "pathwayDescription": "The Highly Ambitious 2 Simulated (HA2S) scenario explores a pathway in which Singapore adopts a diversified mix of low carbon energy sources to achieve near net-zero in the power sector by 2050. This pathway is not a least cost optimization, but is built as a rules-based simulation consistent with achieving deep decarbonization by 2050 with a diversified mix of low carbon generation.\n\nRather than relying on a single dominant fuel or technology (as is more the case in the complementary Highly Ambitious 1 Simulated scenario from the same developers), HA2S develops a balanced portfolio that integrates multiple low-carbon energy sources. This includes large-scale imports of renewable electricity, the introduction of nuclear power for firm baseload generation, the deployment of advanced geothermal systems, and the gradual scale-up of low-carbon hydrogen and ammonia for dispatchable capacity. This diversified approach reduces dependence on any single fuel and improves system resilience, while still achieving near-zero emissions in the power sector by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -60,26 +51,145 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
     "policyTypes": [
-      "Phaseout dates",
-      "Target technology shares",
-      "Performance standards"
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards",
+          "Carbon price",
+          "Other"
+        ]
+      }
     ],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
     "newTechnologiesIncluded": [
-      "CCUS",
-      "Green H2/ammonia",
-      "Battery storage",
-      "EGS/AGS",
-      "Other new technologies"
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "EGS/AGS",
+          "Other new technologies"
+        ]
+      }
     ],
-    "investmentNeeds": "No information"
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Fossil phase-out, high imports and solar deployment, nuclear and geothermal deployment, CCS, and road electrification drive HA2.",
+    "emissionsTargets": "There is no rigid emissions target, but the assumptions are designed to achieve near-zero emissions by 2050.",
+    "technologyCosts": "not applicable.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Common Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and sector-growth assumptions expand demand and GDP.",
+    "behavioralShifts": "Smart-meter response and a modeled shift to fully electric road vehicles reduce end-use energy intensity.",
+    "otherDrivers": "Compared to the complementary HA1 pathway, HA2 uses a diversified generation mix with nuclear, geothermal, solar, and a larger share of inputs to decarbonize."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Import capacity reaches 7.7 GW in 2050. The report is direct about the risk this carries: undersea cable engineering and high interconnection costs 'may be a setback, as seen in the failed Sun Cable project to import 1.75 GW from Australia'. No storage is modelled, which is notable because HA2 pairs a high import share with a mix whose domestic component is largely variable. The report performs no curtailment, flexibility or grid-integration analysis.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
   }
 }

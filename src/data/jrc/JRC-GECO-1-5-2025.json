@@ -275,7 +275,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. The 1.5°C scenario outlines a pathway to limit global temperature rise to 1.5°C by 2100, with a temporary overshoot to ~1.6 °C by mid-century. This is a significantly more ambitious outcome than the GECO Nationally Determined Contributions – Long Term Strategies (NDC-LTS) pathway, indicating that current national objectives fall significantly short of achieving this trajectory.\n\nThe 1.5°C pathway models a very rapid global transition, with accelerated decarbonization in electricity generation, strong electrification of end‐uses, efficiency improvements, decarbonization of hard-to-abate sectors (industry, long-haul transport, aviation etc.), and a scale up of negative emissions (land sink, carbon removal) to offset residual emissions. Emissions peak in the near term in this scenario, with sustained reductions reaching net-zero around 2060.",
   "metric": [
     "Emissions Intensity",
     "Capacity",

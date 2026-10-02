@@ -30,9 +30,7 @@
   },
   "description": "Myanmar-specific cost-optimized pathway following current energy policies and NDCs.",
   "geography": {
-    "regions": {
-      "MM": ["MM"]
-    }
+    "country": ["MM"]
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2020,
@@ -43,7 +41,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Optimized Existing Policy Pathway (OEPP) is a cost-optimized scenario that reflects Myanmar’s current and announced policies while allowing the model to select the least-cost technology mix required to meet rising electricity demand. This scenario is complemented by the Existing Policy Pathway (EPP)—a scenario which also reflects achieving current policy objectives in Myanmar, but without cost optimization—and the Optimized More Ambitious Pathway (OMAP)—a scenario where Myanmar reaches Near-Zero emissions in the power sector by 2050—from the same developers. \n\nThe OEPP follows the same power demand trajectory as the Existing Policies Pathway. The OEPP further uses the same socio-economic and policy foundations as EPP but integrates a system-level optimization module to determine the most economical combination of generation and storage assets. The scenario maintains Myanmar’s existing policy ambitions, including incremental renewable expansion and sectoral efficiency improvements, but does not impose any emissions constraint.\n\nElectricity demand continues to rise steadily due to economic growth, increasing electrification, and progress toward universal access. The optimization process accelerates renewable deployment compared with EPP where cost-effective, particularly in solar PV and small hydro facilities, while limiting uneconomic fossil-fuel expansion. However, the pathway still retains a material role for gas generation until the end of the model period. While coal is gradually phased out, gas capacity remains necessary to maintain system adequacy in the absence of stronger policy constraints. In this scenario, the continued role of gas-fired generation prevents a decline in electricity supply by 2050 (in contrast to EPP), enabling Myanmar to meet 100% of power demand domestically.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -59,7 +57,13 @@
         "value": "Significant increase"
       }
     ],
-    "energyEfficiency": [],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "energyDemand": [
       {
         "sector": "Power",
@@ -67,7 +71,13 @@
         "value": "Significant increase"
       }
     ],
-    "electrification": [],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not Applicable"
+      }
+    ],
     "policyTypes": [
       {
         "sector": "Power",
@@ -127,7 +137,7 @@
     "emissionsTargets": null,
     "technologyCosts": "Technology capital, O&M and fuel costs affect least-cost capacity choices; falling solar and battery costs support deployment.",
     "investmentChange": null,
-    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "macroeconomicDrivers": "Follows SSP2. GDP and medium population growth extracted from World Bank data, sectoral value-added trends are modeled based on historic World Bank data. These all drive electricity demand.",
     "behavioralShifts": null,
     "otherDrivers": "A >30% reserve-margin constraint is a key design driver."
   },
@@ -180,5 +190,107 @@
       "sector": "Power",
       "evidence_type": "Anecdotal"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Domestic electricity generation only: imported-electricity emissions are excluded but OEPP forces a safe level of 30% of reserve margin."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Domestic electricity generation only: imported-electricity emissions are excluded. Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Gas",
+          "Hydro",
+          "Solar",
+          "Wind",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Coal", "Gas", "Hydro", "Solar"],
+        "scopeLimitations": "Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MM"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Coal", "Gas", "Hydro", "Solar"],
+        "scopeLimitations": "Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MM"],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Domestic electricity generation; imported-electricity emissions are excluded. Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MM"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Domestic electricity generation; imported-electricity emissions are excluded. Captive and rooftop boundaries are unspecified."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
 }

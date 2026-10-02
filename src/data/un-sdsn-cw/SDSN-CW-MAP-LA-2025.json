@@ -30,9 +30,7 @@
   },
   "description": "Policy-supported coal phaseout and renewables deployment significantly reduce emissions by 2050.",
   "geography": {
-    "regions": {
-      "LA": ["LA"]
-    }
+    "country": ["LA"]
   },
   "pathwayType": "Normative",
   "modelYearStart": 2018,
@@ -44,7 +42,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The More Ambitious Policy (MAP) scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. MAP builds upon the Existing Policy scenario by introducing additional interventions to significantly reduce emissions by 2050. Coal-fired power plants are nearly phased out by 2040, and while hydropower build-out is similar to that under the Existing Policy scenario, solar power and wind energy are also built out to replace the retiring coal capacity. Solar capacity reaches 7,000 MW by 2050, versus just ~900 MW in the Existing Policy scenario, and wind grows to 3,000 MW by 2050, compared to 2,100 MW in the Existing Policy scenario. These investments lead to a dramatically cleaner generation mix. \n\nAdditionally, the More Ambitious Policy scenario addresses emissions reductions on the demand side, with greater adoption of electric vehicles, plus electrification of domestic and industrial processes. The More Ambitious Policy scenario assumes that the share of EVs in passenger transport reaches 100%, and that electrification of freight trucks reaches 90%. Notably, achieving this pathway requires significantly higher investment, with US$132.3 million needed for the MAP scenario, which is three times the investment needed under the Existing Policy scenario.",
   "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
   "keyFeatures": {
     "emissionsTrajectory": [
@@ -54,7 +52,13 @@
         "value": "Significant decrease"
       }
     ],
-    "energyEfficiency": [],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "energyDemand": [
       {
         "sector": "Power",
@@ -62,7 +66,13 @@
         "value": "No information"
       }
     ],
-    "electrification": [],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not Applicable"
+      }
+    ],
     "policyTypes": [
       {
         "sector": "Power",
@@ -136,7 +146,7 @@
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "The scenario provider suggests that the pathway would be more easily achievable with: supportive rules for clean-energy investment and regional trading cooperation.",
+      "dependency_description": "The pathway suggests impementing more supportive and clearer rules for clean-energy investment and regional energy trading would be conducive to achieving its modeled outcomes.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
@@ -176,5 +186,111 @@
       "sector": "Power",
       "evidence_type": "Anecdotal"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "National power generation; not disclosed directly and should be derived from absolute emissions and generation"
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "National power generation"
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables"
+        ],
+        "scopeLimitations": "No clear captive/rooftop split"
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables"
+        ],
+        "scopeLimitations": "No clear captive/rooftop split"
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Renewables"
+        ],
+        "scopeLimitations": "No clear captive/rooftop split"
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Provide cumulative investment cost or cumulative discounted investment cost"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
 }

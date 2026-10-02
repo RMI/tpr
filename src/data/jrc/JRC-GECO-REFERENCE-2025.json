@@ -262,7 +262,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": null,
+  "pathwayDescription": "The European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. Its Reference scenario reflects a continuation of currently legislated and implemented policies only, without incorporating aspirational pledges or long-term strategies. Under this scenario, global CO₂ emissions remain relatively flat in the medium term, with only limited reductions after peaking in the 2020s. The Reference pathway leads to a global temperature increase of approximately 2.6 °C by 2100, significantly above the Paris Agreement goals.",
   "metric": [
     "Emissions Intensity",
     "Capacity",

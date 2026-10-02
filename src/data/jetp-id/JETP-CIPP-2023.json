@@ -23,9 +23,7 @@
   },
   "description": "Power transition strategy driven by managed coal phasedown and renewables scale-up.",
   "geography": {
-    "regions": {
-      "ID": ["ID"]
-    }
+    "country": ["ID"]
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,
@@ -202,5 +200,140 @@
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "On-grid power only. Excludes off-grid/captive power generation except selected captive demand connections. Uses the MEMR emissions-factor methodology."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "On-grid power only. Excludes off-grid/captive power generation except selected captive demand connections. Uses the MEMR emissions-factor methodology."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "Net on-grid power capacity in GW. Storage is aggregate and not split into BESS vs pumped hydro in the main capacity table."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "On-grid power generation in TWh. Excludes off-grid/captive generation except selected captive load connections affecting demand."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Derived metric. Formula: technology generation (TWh) / total generation (TWh). Boundary aligns with on-grid generation totals."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["Transmission and distribution"],
+        "scopeLimitations": "Transmission and grid deployment are in scope qualitatively/investment-focus terms, but no standardized quantitative time series is available in the extracted evidence. New connections are mostly covered in terms of kV."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "LCOE available for additional power generation. Solar PV and wind cost estimates exclude battery storage. Dispatchable renewable costs are site-specific."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Figure",
+        "granularity": ["By tech, part of value chain"],
+        "scopeLimitations": "Partial investment evidence only. Values include nearly US$25B solar/wind by 2030, almost US$80B by 2040. Coal flexibility up to US$10B, bioenergy/hydrogen repurposing >US$7B/yr in 2046-2050."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "No complete unit-level asset lifetime table was extracted. Partial list avilable in the annex. Classification based on scenario design and narrative."
+      }
+    ]
+  }
 }
