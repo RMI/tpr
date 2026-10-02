@@ -60,6 +60,21 @@ describe("BadgeArray", () => {
     expect(screen.getByText("+3 more")).toBeInTheDocument();
   });
 
+  it("labels the hidden items behind '+N more' with toLabel too", async () => {
+    render(
+      <BadgeArray<string>
+        visibleCount={1}
+        toLabel={(v) => `Label ${v}`}
+      >
+        {["A", "B", "C"]}
+      </BadgeArray>,
+    );
+    fireEvent.focus(screen.getByText("+2 more").closest("[tabindex]")!);
+    expect(await screen.findByRole("tooltip")).toHaveTextContent(
+      "Label B, Label C",
+    );
+  });
+
   it("throws when variant array length does not match children length", () => {
     expect(() =>
       render(
