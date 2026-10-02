@@ -222,8 +222,11 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
                 tooltipGetter={tooltipForGeography}
                 maxRows={expanded.geography ? Infinity : 1}
                 selected={scope.geography}
+                // Ignored on null, as for sector above.
                 onSelect={(next) =>
-                  onScopeChange({ ...scope, geography: next })
+                  next === null
+                    ? undefined
+                    : onScopeChange({ ...scope, geography: next })
                 }
               >
                 {geographies}

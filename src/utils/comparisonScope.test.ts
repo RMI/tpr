@@ -256,6 +256,8 @@ describe("missing sector data is tolerated, not treated as a clash", () => {
   it("lets a sector-less pathway be added", () => {
     expect(sectorsCompatible([iea], sectorless)).toBe(true);
     expect(sectorsCompatible([sectorless], iea)).toBe(true);
+    // From an empty tray it is the only pathway, and still not a conflict.
+    expect(sectorsCompatible([], sectorless)).toBe(true);
   });
 
   it("never blocks a comparison on missing data alone", () => {

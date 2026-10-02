@@ -7,6 +7,7 @@ import { useComparison } from "../context/ComparisonContext";
 import { useFilters } from "../context/FilterContext";
 import { EMPTY_FILTERS } from "../context/FilterContext";
 import type { SearchFilters } from "../types";
+import { decodeColumnGeographies } from "../utils/comparisonScope";
 
 // ── Module mocks ────────────────────────────────────────────────────────────
 
@@ -35,6 +36,17 @@ vi.mock("../data/pathwayMetadata", () => ({
       publication: { publisher: { short: null, full: "Publisher Two" } },
       sectors: [{ name: "Steel" }, { name: "Power" }],
       geography: { regions: { "South East Asia": ["VN"] }, country: [] },
+    },
+    {
+      // A region label carrying both codec delimiters.
+      id: "p3",
+      name: { full: "Pathway Three" },
+      publication: { publisher: { short: "Pub3", full: "Publisher Three" } },
+      sectors: [{ name: "Power" }],
+      geography: {
+        regions: { "Latin America: Central, South": ["BR"] },
+        country: [],
+      },
     },
   ],
 }));
@@ -269,11 +281,14 @@ describe("ComparisonRibbon", () => {
     });
 
     describe("compare URL", () => {
-      const clickCompare = async (filters: Partial<SearchFilters> = {}) => {
+      const clickCompare = async (
+        filters: Partial<SearchFilters> = {},
+        ids = ["p1", "p2"],
+      ) => {
         setFilters(filters);
         vi.mocked(useComparison).mockReturnValue({
           ...defaultContext,
-          comparedPathwayIds: ["p1", "p2"],
+          comparedPathwayIds: ids,
           ribbonExpanded: true,
         });
         render(
@@ -286,7 +301,10 @@ describe("ComparisonRibbon", () => {
           .setup()
           .click(screen.getByRole("button", { name: "Compare" }));
         const search = screen.getByTestId("search").textContent ?? "";
-        return { search, params: new URLSearchParams(search) };
+        const params = new URLSearchParams(search);
+        // Read back exactly as ComparisonPage does.
+        const geographies = decodeColumnGeographies(params.get("geography"));
+        return { search, params, geographies };
       };
 
       it("carries the compared ids", async () => {
@@ -297,21 +315,25 @@ describe("ComparisonRibbon", () => {
       it("seeds the scope so a shared link reproduces what the sender saw", async () => {
         // Seeding at navigation time is what keeps the comparison page a pure
         // function of its URL.
-        const { params } = await clickCompare();
+        const { params, geographies } = await clickCompare();
         expect(params.get("sector")).toBe("Power");
         // Geography is per column, keyed by pathway id.
-        expect(params.get("geography")).toBe(
-          "p1:South East Asia,p2:South East Asia",
-        );
+        expect(geographies).toEqual({
+          p1: "South East Asia",
+          p2: "South East Asia",
+        });
       });
 
       it("seeds each column in its own publisher's spelling", async () => {
         // The whole reason geography is per column: one reader selection maps
         // onto a different token for each publication.
-        const { params } = await clickCompare({ geography: "Southeast Asia" });
-        expect(params.get("geography")).toBe(
-          "p1:South East Asia,p2:South East Asia",
-        );
+        const { geographies } = await clickCompare({
+          geography: "Southeast Asia",
+        });
+        expect(geographies).toEqual({
+          p1: "South East Asia",
+          p2: "South East Asia",
+        });
       });
 
       it("prefers a search sector the pathways share", async () => {
@@ -324,10 +346,14 @@ describe("ComparisonRibbon", () => {
         expect(params.get("sector")).toBe("Power");
       });
 
-      it("percent-encodes a token containing spaces", async () => {
-        // Geography tokens are publisher prose, not slugs.
-        const { search } = await clickCompare();
-        expect(search).toContain("p1:South%20East%20Asia");
+      it("round-trips a token containing the codec's delimiters", async () => {
+        // Geography tokens are publisher prose, not slugs: a comma or colon in
+        // one must not split it when the comparison page reads the link.
+        const { geographies } = await clickCompare({}, ["p1", "p3"]);
+        expect(geographies).toEqual({
+          p1: "South East Asia",
+          p3: "Latin America: Central, South",
+        });
       });
     });
   });
