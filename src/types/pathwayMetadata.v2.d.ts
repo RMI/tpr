@@ -264,7 +264,8 @@ export interface PathwayMetadataV2 {
         | "Low or no change"
         | "Minor improvement"
         | "Moderate improvement"
-        | "Significant improvement";
+        | "Significant improvement"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Captures the change in total energy consumption, driven by factors such as socio-economic development, technology shifts and consumer behavior. Scoped: see keyFeatures.
@@ -296,7 +297,9 @@ export interface PathwayMetadataV2 {
         | "Low or no change"
         | "Minor increase"
         | "Moderate increase"
-        | "Significant increase";
+        | "Significant increase"
+        | "Not Applicable"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Identifies the types of policies modeled as drivers of the pathway, such as carbon pricing, subsidies, or mandated phaseouts of specific technologies. Scoped: see keyFeatures.
@@ -318,6 +321,7 @@ export interface PathwayMetadataV2 {
           | "Target technology shares"
           | "Other"
           | "None"
+          | "Not applicable at this scope level"
         ),
         ...(
           | "No information"
@@ -329,6 +333,7 @@ export interface PathwayMetadataV2 {
           | "Target technology shares"
           | "Other"
           | "None"
+          | "Not applicable at this scope level"
         )[],
       ];
     }[];
@@ -338,7 +343,12 @@ export interface PathwayMetadataV2 {
     technologyCostTrend: {
       sector: ScopeSector5;
       geography: ScopeGeography5;
-      value: "No information" | "Increase" | "Low or no change" | "Decrease";
+      value:
+        | "No information"
+        | "Increase"
+        | "Low or no change"
+        | "Decrease"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Defines which greenhouse gases are covered in the pathway's modeled emissions. Scoped: see keyFeatures.
@@ -346,7 +356,7 @@ export interface PathwayMetadataV2 {
     emissionsScope: {
       sector: ScopeSector6;
       geography: ScopeGeography6;
-      value: EmissionsScope;
+      value: EmissionsScope | "Not applicable at this scope level";
     }[];
     /**
      * Represents the overall stringency and intent of modeled policies relative to climate targets, often reflecting if and how far the included policies go beyond currently legislated ones. Scoped: see keyFeatures.
@@ -362,7 +372,8 @@ export interface PathwayMetadataV2 {
         | "NDCs, unconditional only"
         | "NDCs incl. conditional targets"
         | "High ambition policies"
-        | "Other policy ambition";
+        | "Other policy ambition"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Specifies the level of granularity in cost data, such as total system costs or detailed CAPEX/OPEX breakdowns. Scoped: see keyFeatures.
@@ -374,7 +385,8 @@ export interface PathwayMetadataV2 {
         | "No information"
         | "Total costs"
         | "Capital costs, O&M, etc."
-        | "Other cost breakdown";
+        | "Other cost breakdown"
+        | "Not applicable at this scope level";
     }[];
     /**
      * Lists emerging or breakthrough technologies that are explicitly modeled within the pathway. These are considered in technology deployment too. Scoped: see keyFeatures.
@@ -395,7 +407,9 @@ export interface PathwayMetadataV2 {
           | "SAF"
           | "Battery storage"
           | "EGS/AGS"
+          | "SMR"
           | "Other new technologies"
+          | "Not applicable at this scope level"
         ),
         ...(
           | "No information"
@@ -406,7 +420,9 @@ export interface PathwayMetadataV2 {
           | "SAF"
           | "Battery storage"
           | "EGS/AGS"
+          | "SMR"
           | "Other new technologies"
+          | "Not applicable at this scope level"
         )[],
       ];
     }[];
@@ -422,7 +438,8 @@ export interface PathwayMetadataV2 {
         | "By sector"
         | "By sector, part of value chain"
         | "By technology"
-        | "By tech, part of value chain";
+        | "By tech, part of value chain"
+        | "Not applicable at this scope level";
     }[];
   };
   /**

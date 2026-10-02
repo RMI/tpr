@@ -163,7 +163,8 @@
                   "Low or no change",
                   "Minor improvement",
                   "Moderate improvement",
-                  "Significant improvement"
+                  "Significant improvement",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -229,7 +230,9 @@
                   "Low or no change",
                   "Minor increase",
                   "Moderate increase",
-                  "Significant increase"
+                  "Significant increase",
+                  "Not Applicable",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -267,7 +270,8 @@
                     "Subsidies",
                     "Target technology shares",
                     "Other",
-                    "None"
+                    "None",
+                    "Not applicable at this scope level"
                   ]
                 }
               }
@@ -297,7 +301,8 @@
                   "No information",
                   "Increase",
                   "Low or no change",
-                  "Decrease"
+                  "Decrease",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -321,8 +326,17 @@
                 "tsType": "import('./common/scopeGeography.v2').ScopeGeographyV2"
               },
               "value": {
-                "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
-                "tsType": "import('./common/emissionsScope.v1').EmissionsScopeV1"
+                "$comment": "An anyOf rather than an appended enum member, unlike the other eight fields that take the scope sentinel. This field's vocabulary lives in emissionsScope.v1.json, which pathwayTimeseries.v1 and pathwayMetadata.v1 also $ref -- and 'Not applicable at this scope level' is a statement about a keyFeatures row's scope, meaningless on a timeseries. Composing here keeps the shared list the single source of the gas vocabulary while adding the sentinel only where it means something.",
+                "anyOf": [
+                  {
+                    "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
+                    "tsType": "import('./common/emissionsScope.v1').EmissionsScopeV1"
+                  },
+                  {
+                    "type": "string",
+                    "enum": ["Not applicable at this scope level"]
+                  }
+                ]
               }
             },
             "required": ["sector", "geography", "value"],
@@ -354,7 +368,8 @@
                   "NDCs, unconditional only",
                   "NDCs incl. conditional targets",
                   "High ambition policies",
-                  "Other policy ambition"
+                  "Other policy ambition",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -383,7 +398,8 @@
                   "No information",
                   "Total costs",
                   "Capital costs, O&M, etc.",
-                  "Other cost breakdown"
+                  "Other cost breakdown",
+                  "Not applicable at this scope level"
                 ]
               }
             },
@@ -421,7 +437,9 @@
                     "SAF",
                     "Battery storage",
                     "EGS/AGS",
-                    "Other new technologies"
+                    "SMR",
+                    "Other new technologies",
+                    "Not applicable at this scope level"
                   ]
                 }
               }
@@ -453,7 +471,8 @@
                   "By sector",
                   "By sector, part of value chain",
                   "By technology",
-                  "By tech, part of value chain"
+                  "By tech, part of value chain",
+                  "Not applicable at this scope level"
                 ]
               }
             },
