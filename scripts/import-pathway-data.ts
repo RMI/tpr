@@ -32,7 +32,9 @@ import ExcelJS from "exceljs";
 import {
   PATHWAY_DESCRIPTION,
   splitExpertOverview,
+  upgradeV1ToV2,
 } from "./codemod-v1-to-v2.ts";
+import type { PathwayMetadataV1 } from "../src/types/pathwayMetadata.v1.d.ts";
 import {
   availabilityMetricsForSector,
   technologyBelongsToSector,
@@ -644,11 +646,19 @@ export function splitList(raw: string): string[] {
 
 export class Report {
   readonly lines: string[] = [];
+  /**
+   * Authoring mistakes the workbook has to fix. Unlike a note, any one of these
+   * stops the import: main() writes no files while the list is non-empty.
+   */
+  readonly errors: string[] = [];
   section(title: string) {
     this.lines.push(`\n## ${title}`);
   }
   note(text: string) {
     this.lines.push(`  - ${text}`);
+  }
+  error(text: string) {
+    this.errors.push(text);
   }
 }
 
@@ -1127,6 +1137,10 @@ export function buildDataAvailability(
     );
     const granularity = parseGranularity(row["Granularity"] ?? "", bad);
 
+    // Every column is required (a row for every allowable pair, per the
+    // cookbook), so a blank or unrecognised cell is an authoring error that
+    // blocks the import -- dropping the row would silently lose what the rest
+    // of it says.
     const missing = [
       !metricName && "metric",
       !timeResolution && "time resolution",
@@ -1138,15 +1152,18 @@ export function buildDataAvailability(
       granularity.length === 0 && "granularity",
     ].filter(Boolean);
     if (missing.length > 0 || !metricName || !timeResolution || !dataFormat) {
-      skipped.push(`${rawMetric || "(no metric)"}: no ${missing.join(", ")}`);
+      report.error(
+        `${id}/dataAvailability ${sector} ${rawMetric || "(no metric)"}: ` +
+          `blank or unrecognised ${missing.join(", ")}`,
+      );
       continue;
     }
 
     // "Not covered" describes the whole (sector, metric) pair, so a row either
     // carries it on every variable or on none -- the rule validateScopedEntries
     // enforces. A row authored as covered on some variables and "Not covered"
-    // on others contradicts itself; skip it and name it rather than emit a file
-    // that fails schema:check.
+    // on others contradicts itself, and only the author can say which half is
+    // right: report it as an error rather than guess.
     const notCovered = (v: string | string[]) =>
       Array.isArray(v) ? v.includes("Not covered") : v === "Not covered";
     const variables = {
@@ -1161,8 +1178,10 @@ export function buildDataAvailability(
       .filter(([, v]) => notCovered(v))
       .map(([k]) => k);
     if (uncovered.length > 0 && uncovered.length < 6) {
-      skipped.push(
-        `${metricName}: "Not covered" on ${uncovered.join(", ")} only`,
+      report.error(
+        `${id}/dataAvailability ${sector} ${metricName}: "Not covered" on ` +
+          `${uncovered.join(", ")} only -- either every column says ` +
+          `"Not covered" or none does`,
       );
       continue;
     }
@@ -1368,13 +1387,15 @@ function buildDoc(
       : ((existing?.metric as string[]) ?? []);
 
   const geoAllowed = allowedGeographies(geography ?? undefined);
-  const keyFeatures = buildKeyFeatures(
-    sub.keyFeatures,
-    declaredSectors,
-    geoAllowed,
-    report,
-    id,
-  );
+  const fromV1 =
+    sub.keyFeatures.length === 0
+      ? keyFeaturesFromV1(existing, report, id)
+      : null;
+  if (sub.keyFeatures.length === 0 && !fromV1)
+    report.note(`${id}: no key_features rows -- keyFeatures left empty`);
+  const keyFeatures =
+    fromV1 ??
+    buildKeyFeatures(sub.keyFeatures, declaredSectors, geoAllowed, report, id);
   const coreDrivers = buildCoreDrivers(sub.coreDrivers, report, id);
   const dependencies = buildDependencies(
     sub.dependencies,
@@ -1522,6 +1543,27 @@ export function descriptionFromV1(
   return text;
 }
 
+/**
+ * The v1 key features of an existing file, converted to v2 scoped entries.
+ *
+ * A pathway with no key_features rows used to get 11 empty arrays, which on a
+ * v1 file throws away every authored value -- how PHDOE-CES1 and
+ * PHDOE-REFERENCE came to show "No information" throughout. Converting with the
+ * codemod's own upgradeV1ToV2 keeps the two migrations from disagreeing about
+ * how a v1 value is scoped.
+ */
+export function keyFeaturesFromV1(
+  existing: Json | null,
+  report: Report,
+  id: string,
+): Record<string, ScopedEntry[]> | null {
+  if (!existing || existing.$schema === V2_ID || !existing.keyFeatures)
+    return null;
+  const { doc } = upgradeV1ToV2(existing as unknown as PathwayMetadataV1);
+  report.note(`${id}/keyFeatures: no key_features rows -- converted from v1`);
+  return doc.keyFeatures as unknown as Record<string, ScopedEntry[]>;
+}
+
 /** Publication block for a new file: template's publisher block + Excel title/year. */
 function buildPublicationForNew(
   template: Json | undefined,
@@ -1607,6 +1649,9 @@ async function main() {
   let created = 0;
   let migratedV1 = 0;
   const unmatched: string[] = [];
+  // Written only once every pathway has been built without an error, so a
+  // workbook with mistakes leaves src/data untouched rather than half-imported.
+  const pending: { file: string; doc: Json }[] = [];
 
   report.section("Per-pathway");
   for (const meta of sheets.metadata) {
@@ -1634,14 +1679,11 @@ async function main() {
       dependencies: depByKey.get(key) ?? [],
       dataAvailability: daByKey.get(key) ?? [],
     };
-    if (sub.keyFeatures.length === 0)
-      report.note(`${key}: no key_features rows -- keyFeatures left empty`);
 
     const doc = buildDoc(target, meta, sub, existing, template, report);
     const wasV1 = target.mode === "update" && existing?.$schema !== V2_ID;
 
-    if (!dryRun)
-      await fs.writeFile(target.file, `${JSON.stringify(doc, null, 2)}\n`);
+    pending.push({ file: target.file, doc });
     if (target.mode === "new") {
       created++;
       report.note(
@@ -1679,10 +1721,22 @@ async function main() {
   );
 
   console.info(report.lines.join("\n"));
-  if (!dryRun)
-    console.info(
-      '\nRun `npm run schema:check` and `npx prettier --write "src/data/**/*.json"` next.',
+
+  if (report.errors.length > 0) {
+    console.error(
+      `\n## ${report.errors.length} authoring error(s) -- nothing written\n` +
+        "Fix these in the workbook and re-run the import:\n" +
+        report.errors.map((e) => `  - ${e}`).join("\n"),
     );
+    process.exitCode = 1;
+    return;
+  }
+  if (dryRun) return;
+  for (const { file, doc } of pending)
+    await fs.writeFile(file, `${JSON.stringify(doc, null, 2)}\n`);
+  console.info(
+    '\nRun `npm run schema:check` and `npx prettier --write "src/data/**/*.json"` next.',
+  );
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
