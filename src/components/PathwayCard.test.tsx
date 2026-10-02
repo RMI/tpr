@@ -640,8 +640,16 @@ describe("PathwayCard comparison limit", () => {
       </MemoryRouter>,
     );
 
+    const add = await screen.findByRole("button", {
+      name: "Add to comparison",
+    });
+    expect(add).toBeEnabled();
+
+    // And the click must take: an enabled button that adds nothing is worse
+    // than a disabled one.
+    fireEvent.click(add);
     expect(
-      await screen.findByRole("button", { name: "Add to comparison" }),
-    ).toBeEnabled();
+      await screen.findByRole("button", { name: "Remove from comparison" }),
+    ).toBeInTheDocument();
   });
 });

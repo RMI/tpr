@@ -81,9 +81,13 @@ export function regionMemberCodes(
   if (!wanted) return [];
   // Match on the normalized form so the lookup accepts the same token
   // `flattenGeography` emitted, even if the raw key carries stray whitespace.
-  const key = Object.keys(geo.regions).find(
-    (k) => normalizeGeography(k) === wanted,
-  );
+  // Failing that, the same words spelled differently: a timeseries label such
+  // as IEA's "South East Asia" names the metadata's "Southeast Asia" (#945).
+  const keys = Object.keys(geo.regions);
+  const wantedKey = canonicalGeographyKey(wanted);
+  const key =
+    keys.find((k) => normalizeGeography(k) === wanted) ??
+    keys.find((k) => canonicalGeographyKey(k) === wantedKey);
   if (key === undefined) return [];
   const members = geo.regions[key];
   if (!Array.isArray(members)) return [];

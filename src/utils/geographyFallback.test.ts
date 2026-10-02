@@ -153,6 +153,24 @@ describe("resolveGeography — spelling variants", () => {
     });
   });
 
+  it("finds the containing region when metadata and data spell it differently", () => {
+    // The other half of #945: a country request. The data carries "South East
+    // Asia", the metadata declares its members under "Southeast Asia"; the
+    // member lookup has to fold the spelling too, or VN lands on Global.
+    const metadata: Geography = {
+      global: true,
+      regions: { "Southeast Asia": ["VN", "TH"] },
+      country: [],
+    };
+    expect(
+      resolveGeography(["Global", "South East Asia"], "VN", metadata),
+    ).toMatchObject({
+      used: "South East Asia",
+      fellBack: true,
+      reason: "containingRegion",
+    });
+  });
+
   it("folds case and punctuation too", () => {
     expect(resolveGeography(["Asia-Pacific"], "asia pacific", SEA).used).toBe(
       "Asia-Pacific",

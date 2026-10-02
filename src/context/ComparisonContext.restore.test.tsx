@@ -74,12 +74,15 @@ describe("ComparisonContext — restoring a stored selection", () => {
     ]);
   });
 
-  it("keeps ids that resolve to no pathway", () => {
-    // They cannot prove an incompatibility, and both consumers filter them out
-    // on their own.
-    expect(restore(["power-a", "does-not-exist"])).toEqual([
-      "power-a",
-      "does-not-exist",
-    ]);
+  it("drops ids that resolve to no pathway, keeping the rest", () => {
+    // They cannot prove an incompatibility, so they never clear the selection;
+    // but kept, they would fill a slot no view shows.
+    expect(restore(["power-a", "does-not-exist"])).toEqual(["power-a"]);
+  });
+
+  it("does not let a stale id push a real one past the limit", () => {
+    expect(
+      restore(["does-not-exist", "power-a", "power-b", "no-sectors"]),
+    ).toEqual(["power-a", "power-b", "no-sectors"]);
   });
 });
