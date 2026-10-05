@@ -86,6 +86,8 @@ export interface PathwayMetadataV1 {
       | "Other";
     /**
      * Technologies applicable to this sector.
+     *
+     * Items: Display name of the technology as presented in charts or tables.
      */
     technologies: (
       | "Precision Agriculture"
@@ -149,6 +151,9 @@ export interface PathwayMetadataV1 {
    * Expert recommendation for the pathway.
    */
   expertOverview: string;
+  /**
+   * Items: Display name of the metric
+   */
   metric: import("./common/metric.v1").MetricV1["displayName"][];
   /**
    * Key features of the pathway.

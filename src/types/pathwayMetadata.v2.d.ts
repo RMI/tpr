@@ -190,6 +190,8 @@ export interface PathwayMetadataV2 {
       | "Other";
     /**
      * Technologies applicable to this sector.
+     *
+     * Items: Display name of the technology as presented in charts or tables.
      */
     technologies: (
       | "Precision Agriculture"
@@ -246,6 +248,8 @@ export interface PathwayMetadataV2 {
     )[];
     /**
      * Segments of this sector's value chain that the pathway covers -- it provides at least one relevant output metric for each. Members must be segments of this entry's `name`, enforced by scripts/schema-check-files.ts.
+     *
+     * Items: Display name of the sector segment as presented in tables.
      */
     segments?: import("./common/sectorSegment.v1").SectorSegmentV1["displayName"][];
   }[];
@@ -253,6 +257,9 @@ export interface PathwayMetadataV2 {
    * Narrative description of the pathway. Replaces v1's expertOverview: in the v1 corpus this is the '#### Pathway Description' section of it. v1's separate pathwayOverview field is retired without replacement, not merged in here -- the two texts restate each other, so merging them read as immediate self-repetition. null means no description is available.
    */
   pathwayDescription: string | null;
+  /**
+   * Items: Display name of the metric
+   */
   metric: import("./common/metric.v1").MetricV1["displayName"][];
   /**
    * Key features of the pathway. Every field is an array of {sector, geography, value} entries (#858), so a pathway can hold different values for different parts of its coverage. A non-varying feature carries exactly one entry at the widest applicable scope: sector 'across sectors' for a multi-sector pathway else its lone sector, and geography 'Global' else the pathway's widest declared region or country. An entry that is absent at some scope means the resolver keeps broadening until it finds one; an explicit "No information" value is a real authored value that terminates that fallback chain and displays at its own scope. An empty array means nothing is authored at any scope.
@@ -569,6 +576,8 @@ export interface PathwayMetadataV2 {
        * Segments of this row's sector that the metric covers. `Unspecified` where the pathway names none, `Not covered` where the sector-metric pair is not covered; either must then be the only member. Members must be segments of this row's `sector`, enforced by scripts/schema-check-files.ts.
        *
        * @minItems 1
+       *
+       * Items: Display name of the sector segment as presented in tables.
        */
       sectorSegment: [
         import("./common/sectorSegment.v1").SectorSegmentV1["displayName"],
