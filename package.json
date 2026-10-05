@@ -35,7 +35,7 @@
     "clsx": "^2.1.1",
     "d3": "^7.9.0",
     "i18n-iso-countries": "^7.14.0",
-    "json-schema-to-typescript": "^15.0.4",
+    "json-schema-to-typescript": "^16.0.0",
     "lucide-react": "^1.48.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
@@ -86,7 +86,7 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.70.1",
     "vite": "^8.3.1",
-    "vitest": "^4.1.11"
+    "vitest": "^5.0.2"
   },
   "engines": {
     "node": ">=22.22.0"
