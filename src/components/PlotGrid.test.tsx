@@ -17,9 +17,14 @@ const SEA: Geography = {
 };
 
 /** Two years of one metric at one geography — the minimum that plots. */
-function rows(metric: string, geography: string) {
+function rows(
+  metric: string,
+  geography: string,
+  sectorSegment: string[] = ["Power generation"],
+) {
   return ["2020", "2030"].map((year, i) => ({
     sector: "power",
+    sectorSegment,
     metric,
     geography,
     year,
@@ -29,9 +34,11 @@ function rows(metric: string, geography: string) {
   }));
 }
 
-function timeseries(...groups: { metric: string; geography: string }[]) {
+function timeseries(
+  ...groups: { metric: string; geography: string; segments?: string[] }[]
+) {
   return {
-    data: groups.flatMap((g) => rows(g.metric, g.geography)),
+    data: groups.flatMap((g) => rows(g.metric, g.geography, g.segments)),
   };
 }
 
@@ -116,6 +123,44 @@ describe("PlotGrid", () => {
 
     expect(screen.getByText("South East Asia")).toBeInTheDocument();
     expect(screen.getByText("Power generation")).toBeInTheDocument();
+  });
+
+  it("shows every segment the panel's rows cover, in the sector's order", () => {
+    // Segments come from the data (#915), so one series can span several.
+    render(
+      <PlotGrid
+        timeseriesdata={timeseries({
+          metric: "capacity",
+          geography: "South East Asia",
+          segments: ["Energy storage", "Power generation"],
+        })}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    const segments = screen
+      .getAllByText(/^(Power generation|Energy storage)$/)
+      .map((el) => el.textContent);
+    // Power defines generation before storage, whatever order the row lists.
+    expect(segments).toEqual(["Power generation", "Energy storage"]);
+  });
+
+  it("omits the segment badge when the resolved series has one year", () => {
+    // The metric plots elsewhere (two years at Global), so its panel stays,
+    // but PlotPanel draws nothing for a single year at the requested region —
+    // and a segment badge under that empty state would describe nothing.
+    const data = timeseries({ metric: "capacity", geography: "Global" });
+    data.data.push({ ...rows("capacity", "South East Asia")[0] });
+    render(
+      <PlotGrid
+        timeseriesdata={data}
+        pathwayGeography={SEA}
+        requestedGeography="South East Asia"
+      />,
+    );
+
+    expect(screen.getByText("South East Asia")).toBeInTheDocument();
+    expect(screen.queryByText("Power generation")).not.toBeInTheDocument();
   });
 
   it("renders both indicators as badges, in distinct colours", () => {

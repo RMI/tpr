@@ -8,7 +8,6 @@ export interface TechnologyDefinition {
 export interface MetricDefinition {
   displayName: string;
   definition: string;
-  sectorScope?: string;
 }
 
 /**
@@ -148,31 +147,26 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
       displayName: "Absolute Emissions",
       definition:
         "Total greenhouse gas emissions produced, regardless of output. Measured in metric tons of CO2 equivalent",
-      sectorScope: "Power generation",
     },
     capacity: {
       displayName: "Capacity",
       definition:
         "The maximum output a power plant or energy source can produce under ideal conditions, measured in GW",
-      sectorScope: "Power generation",
     },
     emissionsIntensity: {
       displayName: "Emissions Intensity",
       definition:
         "Amount of greenhouse gases emitted per unit of physical output. Indicates how low-carbon the output production is",
-      sectorScope: "Power generation",
     },
     generation: {
       displayName: "Generation",
       definition:
         "The actual amount of electricity produced over a specific period, typically measured in TWh",
-      sectorScope: "Power generation",
     },
     technologyMix: {
       displayName: "Technology Mix",
       definition:
         "The breakdown of energy sources used for electricity generation (e.g., coal, solar, wind, nuclear). Reflects the diversity and sustainability of the energy portfolio",
-      sectorScope: "Power generation",
     },
   },
   /*

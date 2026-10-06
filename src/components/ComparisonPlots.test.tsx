@@ -19,6 +19,7 @@ function makeEntry(
   pathwayId: string,
   geos: string[],
   metrics: string[] = ["technologyMix"],
+  sectorSegment: string[] = ["Power generation"],
 ): ComparisonPlotsEntry {
   return {
     pathwayId,
@@ -27,6 +28,7 @@ function makeEntry(
         metrics.flatMap((metric) => [
           {
             sector: "power",
+            sectorSegment,
             metric,
             geography: geo,
             year: "2020",
@@ -36,6 +38,7 @@ function makeEntry(
           },
           {
             sector: "power",
+            sectorSegment,
             metric,
             geography: geo,
             year: "2030",
@@ -62,6 +65,7 @@ function makeMetricEntry(
     timeseriesdata: {
       data: values.map((value, i) => ({
         sector: "power",
+        sectorSegment: ["Power generation"],
         metric,
         geography,
         year: String(2020 + i * 10),
@@ -202,9 +206,31 @@ describe("ComparisonPlots", () => {
         />,
       );
 
-      // One per column: the segment follows the shared plot type, but it
-      // belongs in each column's caption next to that column's geography.
+      // One per column, next to that column's geography.
       expect(await screen.findAllByText("Power generation")).toHaveLength(2);
+    });
+
+    it("reads each column's segments from its own rows", async () => {
+      // Recorded per row (#915), so two pathways' series of the same metric
+      // can cover different parts of the sector.
+      const entries = [
+        makeEntry("p1", ["Global"]),
+        makeEntry(
+          "p2",
+          ["Global"],
+          ["technologyMix"],
+          ["Power generation", "Energy storage"],
+        ),
+      ];
+      render(
+        <ComparisonPlots
+          entries={entries}
+          requestedGeographies={{ p1: "Global", p2: "Global" }}
+        />,
+      );
+
+      expect(await screen.findAllByText("Power generation")).toHaveLength(2);
+      expect(screen.getAllByText("Energy storage")).toHaveLength(1);
     });
 
     it("carries the segment's definition as a tooltip", async () => {
@@ -245,6 +271,21 @@ describe("ComparisonPlots", () => {
 
       expect(screen.getAllByText("Power generation")).toHaveLength(1);
     });
+  });
+
+  it("omits the segment badge for a column whose series has one year", () => {
+    // PlotPanel draws nothing for a single year, so a badge would describe
+    // an empty chart.
+    const oneYear = makeEntry("p2", ["Global"]);
+    oneYear.timeseriesdata!.data = oneYear.timeseriesdata!.data.slice(0, 1);
+    render(
+      <ComparisonPlots
+        entries={[makeEntry("p1", ["Global"]), oneYear]}
+        requestedGeographies={{ p1: "Global", p2: "Global" }}
+      />,
+    );
+
+    expect(screen.getAllByText("Power generation")).toHaveLength(1);
   });
 
   it("explains itself rather than relabelling Power series for another sector", () => {
