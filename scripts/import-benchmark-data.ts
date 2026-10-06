@@ -62,6 +62,12 @@ export interface Corpus {
   metadataPathById: ReadonlyMap<string, string>;
   /** Existing timeseries files, by dataset `id`. */
   timeseriesById: ReadonlyMap<string, { path: string; doc: Json }>;
+  /**
+   * Every file path under src/data. A new file must not land on one: file
+   * names do not always follow ids (ACE's `ATS-2024_timeseries.json` holds
+   * `ACE-ATS-2024_timeseries`), so a free path cannot be inferred from ids.
+   */
+  occupiedPaths: ReadonlySet<string>;
 }
 
 export interface InputFile {
@@ -114,6 +120,7 @@ export function planImport(
     for (const e of problem.errors) report.error(`${problem.name}: ${e}`);
 
   const planned: PlannedWrite[] = [];
+  const plannedPaths = new Set<string>();
   const seenIds = new Map<string, string>();
   for (const record of valid) {
     if (record.schemaId !== PATHWAY_TIMESERIES_V2_ID) {
@@ -155,6 +162,14 @@ export function planImport(
         continue;
       }
       const path = join(dirname(metadataPath), `${doc.id}.json`);
+      if (corpus.occupiedPaths.has(path) || plannedPaths.has(path)) {
+        report.error(
+          `${record.name}: id "${doc.id}" is new, but ${path} already holds another file; ` +
+            "an update must use the existing file's id",
+        );
+        continue;
+      }
+      plannedPaths.add(path);
       planned.push({ path, doc, replaces: false });
       report.note(`NEW  ${path}: ${describe(doc)}`);
     }
@@ -169,6 +184,56 @@ export function planImport(
       `Not in this import, left as they are: ${untouched.sort().join(", ")}`,
     );
   return planned;
+}
+
+/** The file operations {@link commitWrites} needs; injectable for tests. */
+export interface WriteFs {
+  readFile(path: string): Promise<string | null>;
+  writeFile(path: string, text: string): Promise<void>;
+  removeFile(path: string): Promise<void>;
+}
+
+const nodeFs: WriteFs = {
+  readFile: async (path) => {
+    try {
+      return await fs.readFile(path, "utf8");
+    } catch {
+      return null; // a new file: nothing to restore but its absence
+    }
+  },
+  writeFile: (path, text) => fs.writeFile(path, text),
+  removeFile: (path) => fs.rm(path, { force: true }),
+};
+
+/**
+ * Write every staged file, or none: if any write fails, the files already
+ * written are restored to what they held before (or removed, if new) and the
+ * error is rethrown. This is what makes the import's all-or-nothing promise
+ * hold past validation, through to the disk.
+ */
+export async function commitWrites(
+  staged: readonly { path: string; text: string }[],
+  io: WriteFs = nodeFs,
+): Promise<void> {
+  const originals = await Promise.all(
+    staged.map(async ({ path }) => ({ path, text: await io.readFile(path) })),
+  );
+  const written: number[] = [];
+  try {
+    for (const [i, { path, text }] of staged.entries()) {
+      await io.writeFile(path, text);
+      written.push(i);
+    }
+  } catch (error) {
+    for (const i of written.reverse()) {
+      const { path, text } = originals[i];
+      if (text === null) await io.removeFile(path);
+      else await io.writeFile(path, text);
+    }
+    throw new Error(
+      `writing failed, so the ${written.length} file(s) already written were restored: ${String(error)}`,
+    );
+  }
 }
 
 async function jsonFilesUnder(dir: string): Promise<string[]> {
@@ -189,7 +254,9 @@ export async function readCorpus(dir = DATA_DIR): Promise<Corpus> {
   >();
   const metadataPathById = new Map<string, string>();
   const timeseriesById = new Map<string, { path: string; doc: Json }>();
+  const occupiedPaths = new Set<string>();
   for (const path of await jsonFilesUnder(dir)) {
+    occupiedPaths.add(path);
     let doc: Json;
     try {
       doc = JSON.parse(await fs.readFile(path, "utf8")) as Json;
@@ -207,7 +274,12 @@ export async function readCorpus(dir = DATA_DIR): Promise<Corpus> {
       timeseriesById.set(String(doc.id), { path, doc });
     }
   }
-  return { metadataGeographyById, metadataPathById, timeseriesById };
+  return {
+    metadataGeographyById,
+    metadataPathById,
+    timeseriesById,
+    occupiedPaths,
+  };
 }
 
 async function main() {
@@ -249,14 +321,19 @@ async function main() {
     console.info(`\nDry run: ${planned.length} file(s) would be written.`);
     return;
   }
-  for (const { path, doc } of planned) {
-    const options = (await prettier.resolveConfig(path)) ?? {};
-    const text = await prettier.format(JSON.stringify(doc, null, 2), {
-      ...options,
-      parser: "json",
-    });
-    await fs.writeFile(path, text);
-  }
+  // Format everything before touching any file, so a formatting failure
+  // cannot leave a half-written import behind.
+  const staged = await Promise.all(
+    planned.map(async ({ path, doc }) => {
+      const options = (await prettier.resolveConfig(path)) ?? {};
+      const text = await prettier.format(JSON.stringify(doc, null, 2), {
+        ...options,
+        parser: "json",
+      });
+      return { path, text };
+    }),
+  );
+  await commitWrites(staged);
   console.info(
     `\nWrote ${planned.length} file(s). Run \`npm run build:timeseries\` and \`npm run schema:check\` next.`,
   );

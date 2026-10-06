@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { planImport, type Corpus } from "./import-benchmark-data.ts";
+import {
+  commitWrites,
+  planImport,
+  type Corpus,
+  type WriteFs,
+} from "./import-benchmark-data.ts";
 import { Report } from "./import-pathway-data.ts";
 import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
 // A real publication block: publishers are a closed list in the schema.
@@ -37,6 +42,15 @@ const corpus = (existing = false): Corpus => ({
     ["IEA-X", { global: true, regions: { "Southeast Asia": ["TH", "VN"] } }],
   ]),
   metadataPathById: new Map([["IEA-X", "src/data/iea/IEA-X.json"]]),
+  occupiedPaths: new Set([
+    "src/data/iea/IEA-X.json",
+    ...(existing
+      ? [
+          "src/data/iea/X-legacy-name_timeseries.json",
+          "src/data/iea/OTHER.json",
+        ]
+      : []),
+  ]),
   timeseriesById: new Map(
     existing
       ? [
@@ -76,6 +90,19 @@ describe("planImport", () => {
     ]);
     // ...and says which existing files the import leaves alone.
     expect(report.lines.join("\n")).toContain("left as they are: OTHER.json");
+  });
+
+  it("never lets a new id land on an existing file with another id", () => {
+    // ACE's real shape: the file name drops the id's prefix, so an input whose
+    // id happens to equal that name is new by id but not by path.
+    const { writes, report } = plan(
+      [file({ id: "X-legacy-name_timeseries" })],
+      corpus(true),
+    );
+    expect(report.errors.join("\n")).toMatch(
+      /X-legacy-name_timeseries\.json already holds another file/,
+    );
+    expect(writes).toEqual([]);
   });
 
   it.each([
@@ -144,4 +171,48 @@ describe("planImport", () => {
       expect(writes).toEqual([]);
     },
   );
+});
+
+describe("commitWrites", () => {
+  /** An in-memory file system whose writes fail for chosen paths. */
+  const memoryFs = (files: Record<string, string>, failOn: string[] = []) => {
+    const io: WriteFs = {
+      readFile: async (path) => files[path] ?? null,
+      writeFile: async (path, text) => {
+        if (failOn.includes(path)) throw new Error(`disk full at ${path}`);
+        files[path] = text;
+      },
+      removeFile: async (path) => {
+        delete files[path];
+      },
+    };
+    return { files, io };
+  };
+
+  it("writes every staged file", async () => {
+    const { files, io } = memoryFs({ a: "old a" });
+    await commitWrites(
+      [
+        { path: "a", text: "new a" },
+        { path: "b", text: "new b" },
+      ],
+      io,
+    );
+    expect(files).toEqual({ a: "new a", b: "new b" });
+  });
+
+  it("restores earlier files and removes new ones when a later write fails", async () => {
+    const { files, io } = memoryFs({ a: "old a", c: "old c" }, ["c"]);
+    await expect(
+      commitWrites(
+        [
+          { path: "a", text: "new a" },
+          { path: "b", text: "new b" },
+          { path: "c", text: "new c" },
+        ],
+        io,
+      ),
+    ).rejects.toThrow(/2 file\(s\) already written were restored/);
+    expect(files).toEqual({ a: "old a", c: "old c" });
+  });
 });
