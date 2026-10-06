@@ -27,9 +27,11 @@ export interface PathwayTimeseriesV2 {
    */
   id: string;
   /**
-   * Identifiers of the associated pathways.
+   * Identifiers of the pathways this timeseries belongs to: at least one, each listed once, and each the `id` of a pathway metadata file (checked by scripts/schema-check-files.ts).
+   *
+   * @minItems 1
    */
-  pathwayId: string[];
+  pathwayId: [string, ...string[]];
   /**
    * Name of the timeseries.
    */
