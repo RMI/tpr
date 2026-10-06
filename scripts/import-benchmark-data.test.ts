@@ -103,9 +103,32 @@ describe("planImport", () => {
       corpus(true),
     );
     expect(report.errors.join("\n")).toMatch(
-      /X-legacy-name_timeseries\.json already holds another file/,
+      /X-legacy-name_timeseries\.json is already taken/,
     );
     expect(writes).toEqual([]);
+  });
+
+  it("treats a path differing only by case as taken", () => {
+    // On default macOS and Windows file systems these are one file.
+    const { writes, report } = plan([file({ id: "iea-x" })]);
+    expect(report.errors.join("\n")).toMatch(
+      /src\/data\/iea\/iea-x\.json is already taken/,
+    );
+    expect(writes).toEqual([]);
+  });
+
+  it("reports a taken destination in the same run as the file's other errors", () => {
+    const { report } = plan(
+      [
+        file({ id: "X-legacy-name_timeseries" }, [
+          row({ geography: "Atlantis" }),
+        ]),
+      ],
+      corpus(true),
+    );
+    const errors = report.errors.join("\n");
+    expect(errors).toMatch(/"Atlantis" is not a geography/);
+    expect(errors).toMatch(/is already taken/);
   });
 
   it.each([
