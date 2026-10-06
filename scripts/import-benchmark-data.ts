@@ -50,6 +50,7 @@ const METADATA_IDS = new Set([
   PATHWAY_METADATA_V2_ID,
 ]);
 const TIMESERIES_ID_PATTERN = /pathwayTimeseries\.v\d+\.json$/;
+const SAFE_FILE_ID = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
 type Json = Record<string, unknown>;
 
@@ -122,16 +123,20 @@ export function planImport(
       continue;
     }
     const doc = record.data as PathwayTimeseriesV2;
+    // Every check runs before the file is skipped, so one run lists every
+    // problem rather than the first one found.
+    const problems = validateTimeseries(doc, corpus.metadataGeographyById);
     const earlier = seenIds.get(doc.id);
-    if (earlier) {
-      report.error(`${record.name}: id "${doc.id}" is also used by ${earlier}`);
-      continue;
-    }
-    seenIds.set(doc.id, record.name);
-
-    const crossFile = validateTimeseries(doc, corpus.metadataGeographyById);
-    for (const e of crossFile) report.error(`${record.name}: ${e}`);
-    if (crossFile.length > 0) continue;
+    if (earlier) problems.push(`id "${doc.id}" is also used by ${earlier}`);
+    else seenIds.set(doc.id, record.name);
+    // A new file is named after its id, so the id must not be able to point
+    // anywhere else (no "/" or a leading ".").
+    if (!SAFE_FILE_ID.test(doc.id))
+      problems.push(
+        `id "${doc.id}" cannot be used as a file name: use letters, digits, ".", "_" and "-", starting with a letter or digit`,
+      );
+    for (const e of problems) report.error(`${record.name}: ${e}`);
+    if (problems.length > 0) continue;
 
     const existing = corpus.timeseriesById.get(doc.id);
     if (existing) {
@@ -141,8 +146,15 @@ export function planImport(
       );
     } else {
       const metadataPath = corpus.metadataPathById.get(doc.pathwayId[0]);
-      // validateTimeseries has already rejected unknown pathway ids.
-      const path = join(dirname(metadataPath ?? DATA_DIR), `${doc.id}.json`);
+      // Unreachable after validateTimeseries, which rejects unknown pathway
+      // ids; an error rather than a guessed location if that ever changes.
+      if (metadataPath === undefined) {
+        report.error(
+          `${record.name}: no metadata file for ${doc.pathwayId[0]}`,
+        );
+        continue;
+      }
+      const path = join(dirname(metadataPath), `${doc.id}.json`);
       planned.push({ path, doc, replaces: false });
       report.note(`NEW  ${path}: ${describe(doc)}`);
     }
