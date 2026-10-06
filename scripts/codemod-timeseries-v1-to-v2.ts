@@ -88,6 +88,11 @@ export function upgradeTimeseries(
 ): { doc: Json; renamed: Map<string, string> } {
   if (doc.$schema !== V1_ID) throw new Error(`not a v1 timeseries file`);
   const pathwayIds = doc.pathwayId as string[];
+  // v1 allowed both; v2 rejects them, and an empty list would make every
+  // geography look declared by "all" of no pathways.
+  if (pathwayIds.length === 0) throw new Error(`pathwayId is empty`);
+  if (new Set(pathwayIds).size !== pathwayIds.length)
+    throw new Error(`pathwayId lists an id twice: ${pathwayIds.join(", ")}`);
   const missing = pathwayIds.filter((id) => !geographyById.has(id));
   if (missing.length) throw new Error(`no metadata for ${missing.join(", ")}`);
 
