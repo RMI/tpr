@@ -257,6 +257,16 @@ describe("regionMemberCodes", () => {
     ).toEqual(["DE"]);
   });
 
+  it("matches the same region spelled differently (#945)", () => {
+    // A plot badge carries the timeseries spelling; the members live under the
+    // metadata's. Different words still do not match.
+    const geo = {
+      regions: { "Southeast Asia": ["VN"], "South Asia": ["IN"] },
+    } as Geography;
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["VN"]);
+    expect(regionMemberCodes(geo, "ASEAN")).toEqual([]);
+  });
+
   it("returns [] for a region the publication left unmapped", () => {
     // The NGFS shape: a declared region label with no member codes.
     expect(

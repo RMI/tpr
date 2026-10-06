@@ -28,12 +28,13 @@ type ViteEnv =
     }
   | undefined;
 
-// Decider reads both Vite and Node envs so it works in browser & Node contexts.
-export function decideIncludeInvalid(): boolean {
-  // Try to read a Vite-like env if present (works in browser/preview and in tests with a shim)
-  // Access to import.meta must not use `typeof import` (keyword) — esbuild will error.
+/**
+ * Read a Vite-like env if one is present — the browser/preview build, or a test
+ * shim. Access to import.meta must not use `typeof import` (keyword), which
+ * esbuild rejects, hence the try/catch.
+ */
+function readViteEnv(): ViteEnv {
   let viteEnv: ViteEnv = undefined;
-
   try {
     // @ts-expect-error: import.meta is not defined in Node tests
     viteEnv = import.meta?.env;
@@ -45,6 +46,29 @@ export function decideIncludeInvalid(): boolean {
     viteEnv = (globalThis as typeof globalThis & { import?: ImportMetaEnvShim })
       .import?.meta?.env;
   }
+  return viteEnv;
+}
+
+/**
+ * True only when we are confidently running the Vite dev server.
+ *
+ * Deliberately conservative: Vite replaces `import.meta.env.DEV` with `false` in
+ * production builds, and in Node/vitest there is no `import.meta.env` at all, so
+ * both of those read as "not dev". That is the behaviour wanted for gating
+ * developer-facing diagnostics — silent in production, and silent under test
+ * (where src/test/failOnReactWarnings.ts spies on console.warn).
+ *
+ * Note this cannot be derived from `decideIncludeInvalid()`: that answers a
+ * different question (whether to keep schema-invalid pathways) and returns false
+ * in dev unless VITE_INCLUDE_INVALID is set.
+ */
+export function isViteDev(): boolean {
+  return !!readViteEnv()?.DEV;
+}
+
+// Decider reads both Vite and Node envs so it works in browser & Node contexts.
+export function decideIncludeInvalid(): boolean {
+  const viteEnv = readViteEnv();
 
   const viteDev = !!viteEnv?.DEV;
   const viteFlag =

@@ -11,6 +11,8 @@ interface DataPoint {
   value: number;
   unit: string;
   geography: string;
+  /** Segments of the sector this value covers (pathwayTimeseries v2). */
+  sectorSegment: string[];
 }
 
 interface TimeSeries {

@@ -31,7 +31,8 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -53,7 +54,8 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -75,7 +77,8 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -97,7 +100,8 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -119,7 +123,8 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 2,
-          geographies: ["Global", "South East Asia"],
+          geographies: ["Global", "Southeast Asia"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -142,6 +147,7 @@ export const index: TimeseriesIndex = {
           sectors: ["power"],
           geographyCount: 1,
           geographies: ["Global"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -163,7 +169,8 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 2,
-          geographies: ["Global", "South East Asia"],
+          geographies: ["Global", "Southeast Asia"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -187,6 +194,7 @@ export const index: TimeseriesIndex = {
           sectors: ["power"],
           geographyCount: 1,
           geographies: ["ID"],
+          sectorSegments: ["Power generation"],
           metrics: ["capacity", "generation"],
         },
         path: "/data/jetp-id/JETP-CIPP-2023_timeseries.csv",
@@ -203,6 +211,7 @@ export const index: TimeseriesIndex = {
           sectors: ["power"],
           geographyCount: 6,
           geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -226,6 +235,7 @@ export const index: TimeseriesIndex = {
           sectors: ["power"],
           geographyCount: 6,
           geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -248,6 +258,7 @@ export const index: TimeseriesIndex = {
           sectors: ["power"],
           geographyCount: 6,
           geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -282,6 +293,7 @@ export const index: TimeseriesIndex = {
             "TH",
             "VN",
           ],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -316,6 +328,7 @@ export const index: TimeseriesIndex = {
             "TH",
             "VN",
           ],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -350,6 +363,7 @@ export const index: TimeseriesIndex = {
             "TH",
             "VN",
           ],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -384,6 +398,7 @@ export const index: TimeseriesIndex = {
             "TH",
             "VN",
           ],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -406,6 +421,7 @@ export const index: TimeseriesIndex = {
           sectors: ["power"],
           geographyCount: 2,
           geographies: ["Global", "ID"],
+          sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -429,7 +445,8 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -450,7 +467,8 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -471,7 +489,8 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -492,7 +511,8 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -513,7 +533,8 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 2,
-        geographies: ["Global", "South East Asia"],
+        geographies: ["Global", "Southeast Asia"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -535,6 +556,7 @@ export const index: TimeseriesIndex = {
         sectors: ["power"],
         geographyCount: 1,
         geographies: ["Global"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -555,7 +577,8 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 2,
-        geographies: ["Global", "South East Asia"],
+        geographies: ["Global", "Southeast Asia"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -577,6 +600,7 @@ export const index: TimeseriesIndex = {
         sectors: ["power"],
         geographyCount: 1,
         geographies: ["ID"],
+        sectorSegments: ["Power generation"],
         metrics: ["capacity", "generation"],
       },
       path: "/data/jetp-id/JETP-CIPP-2023_timeseries.csv",
@@ -592,6 +616,7 @@ export const index: TimeseriesIndex = {
         sectors: ["power"],
         geographyCount: 6,
         geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -614,6 +639,7 @@ export const index: TimeseriesIndex = {
         sectors: ["power"],
         geographyCount: 6,
         geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -635,6 +661,7 @@ export const index: TimeseriesIndex = {
         sectors: ["power"],
         geographyCount: 6,
         geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -668,6 +695,7 @@ export const index: TimeseriesIndex = {
           "TH",
           "VN",
         ],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -701,6 +729,7 @@ export const index: TimeseriesIndex = {
           "TH",
           "VN",
         ],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -734,6 +763,7 @@ export const index: TimeseriesIndex = {
           "TH",
           "VN",
         ],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -767,6 +797,7 @@ export const index: TimeseriesIndex = {
           "TH",
           "VN",
         ],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -788,6 +819,7 @@ export const index: TimeseriesIndex = {
         sectors: ["power"],
         geographyCount: 2,
         geographies: ["Global", "ID"],
+        sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
           "capacity",

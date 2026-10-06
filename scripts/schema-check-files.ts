@@ -5,8 +5,20 @@ import type { FileEntry } from "../src/utils/validateData.ts";
 import { validateFilesBySchema } from "../src/utils/validateData.ts";
 import { decideIncludeInvalid } from "../src/utils/loadData.ts";
 import pathwayMetadata from "../src/schema/pathwayMetadata.v1.json" with { type: "json" };
+import pathwayMetadataV2 from "../src/schema/pathwayMetadata.v2.json" with { type: "json" };
 import pathwayTimeseries from "../src/schema/pathwayTimeseries.v1.json" with { type: "json" };
+import pathwayTimeseriesV2 from "../src/schema/pathwayTimeseries.v2.json" with { type: "json" };
 import { commonSchemas } from "../src/schema/common/index.ts";
+import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
+import type { PathwayTimeseriesV2 } from "../src/types/pathwayTimeseries.v2.d.ts";
+import {
+  PATHWAY_METADATA_V2_ID,
+  validateScopedEntries,
+} from "../src/utils/validateScopes.ts";
+import {
+  PATHWAY_TIMESERIES_V2_ID,
+  validateTimeseries,
+} from "../src/utils/validateTimeseries.ts";
 
 async function run(dir: string) {
   async function getJsonFilesRecursive(base: string): Promise<string[]> {
@@ -34,10 +46,58 @@ async function run(dir: string) {
 
   const { valid, invalid } = validateFilesBySchema(entries, [
     pathwayMetadata,
+    pathwayMetadataV2,
     pathwayTimeseries,
+    pathwayTimeseriesV2,
     ...commonSchemas,
   ]);
-  return { dir, validCount: valid.length, invalid };
+
+  // Second pass over the AJV-valid v2 documents for the cross-field scope
+  // constraint draft-07 cannot express — see src/utils/validateScopes.ts. A
+  // document that fails here is reported exactly like a schema failure, so a
+  // mistyped region label breaks the build instead of silently matching nothing.
+  const scopeProblems = valid
+    .filter((r) => r.schemaId === PATHWAY_METADATA_V2_ID)
+    .map((r) => ({
+      name: r.name,
+      errors: validateScopedEntries(r.data as PathwayMetadataV2),
+    }))
+    .filter((p) => p.errors.length > 0);
+
+  // Timeseries rows name a geography and segments that must match the
+  // pathway's metadata, which lives in other files -- see
+  // src/utils/validateTimeseries.ts. Metadata of either version counts: the
+  // geography object has the same shape in both.
+  const METADATA_IDS = new Set<string>([
+    String(pathwayMetadata.$id),
+    PATHWAY_METADATA_V2_ID,
+  ]);
+  const metadataGeographyById = new Map(
+    valid
+      .filter((r) => METADATA_IDS.has(r.schemaId))
+      .map((r) => {
+        const doc = r.data as PathwayMetadataV2;
+        return [doc.id, doc.geography] as const;
+      }),
+  );
+  const timeseriesProblems = valid
+    .filter((r) => r.schemaId === PATHWAY_TIMESERIES_V2_ID)
+    .map((r) => ({
+      name: r.name,
+      errors: validateTimeseries(
+        r.data as PathwayTimeseriesV2,
+        metadataGeographyById,
+      ),
+    }))
+    .filter((p) => p.errors.length > 0);
+
+  const crossFileProblems = [...scopeProblems, ...timeseriesProblems];
+  const badNames = new Set(crossFileProblems.map((p) => p.name));
+  return {
+    dir,
+    validCount: valid.filter((r) => !badNames.has(r.name)).length,
+    invalid: [...invalid, ...crossFileProblems],
+  };
 }
 
 async function main() {
@@ -73,8 +133,12 @@ async function main() {
     filesWithIssues += r.invalid.length;
 
     for (const p of r.invalid) {
-      // Emit up to N errors per file as GH annotations
-      const file = join(r.dir, p.name);
+      // Emit up to N errors per file as GH annotations.
+      // `p.name` already carries the directory — getJsonFilesRecursive builds it
+      // with join(base, d.name) — so re-prepending r.dir produced paths like
+      // "src/data/src/data/foo.json" and the annotations pointed nowhere. Latent
+      // until now because it only shows when a file actually fails.
+      const file = p.name;
       const errs = p.errors.slice(0, 50);
       for (const e of errs) {
         console.log(`::${annotate} file=${file}::${e}`);

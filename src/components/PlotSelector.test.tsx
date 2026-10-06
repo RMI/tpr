@@ -22,6 +22,7 @@ function makeTimeseries(metric: string): TimeSeries {
     data: [
       {
         sector: "power",
+        sectorSegment: ["Power generation"],
         metric,
         geography: "Global",
         year: "2020",
@@ -31,6 +32,7 @@ function makeTimeseries(metric: string): TimeSeries {
       },
       {
         sector: "power",
+        sectorSegment: ["Power generation"],
         metric,
         geography: "Global",
         year: "2030",

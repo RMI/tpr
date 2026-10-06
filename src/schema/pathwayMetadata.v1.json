@@ -32,7 +32,7 @@
       "tsType": "import('./common/publication.v1').PublicationV1"
     },
     "pathwayType": {
-      "description": "Type of the pathway pathway.",
+      "description": "Type of the pathway.",
       "type": "string",
       "enum": ["Normative", "Exploratory", "Predictive"]
     },
