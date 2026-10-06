@@ -14,10 +14,8 @@ import {
   geographyFallbackNote,
   resolveGeography,
 } from "../utils/geographyFallback";
-import {
-  getMetricDefinition,
-  getSectorDefinition,
-} from "../utils/timeseriesTaxonomy";
+import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
+import { plottedSegments } from "../utils/timeseriesSegments";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 import { useElementWidth } from "../hooks/useElementWidth";
 
@@ -212,13 +210,6 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
 
   const hasAnyData = availablePlotOptions.length > 0;
 
-  // Which part of the sector the selected metric describes. One value for the
-  // whole grid, because it follows the shared plot type rather than the pathway.
-  const segment = getMetricDefinition(
-    PLOT_SECTOR.key,
-    selectedPlot,
-  ).sectorScope;
-
   const handlePlotChange = useCallback(
     (e: React.ChangeEvent<HTMLSelectElement>) => {
       setSelectedPlot(e.target.value as PlotType);
@@ -279,20 +270,23 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
       </div>
 
       {/*
-        Which part of the sector the selected metric describes. A property of
-        the metric, not of the pathway, so every column shows the same one —
-        but it belongs in each column's caption alongside the geography, the
-        way the detail page captions its small multiples.
-
-        `sectorScope` is optional on MetricDefinition, so a metric may declare
-        no segment; render the badge only when one exists rather than an empty
-        pill.
+        Which parts of the sector each column's series covers. Read from that
+        column's own rows (#915): segments are recorded per row, so two
+        pathways' series of the same metric can differ, and each column says
+        what it shows, the way the detail page captions its small multiples.
+        A column whose rows name no segment renders no segment badge.
       */}
       {entries.map((entry, idx) => {
         const resolution = resolutions[idx];
         const used = resolution?.used ?? "";
         const usedKind = geographyKind(used);
         const note = resolution ? geographyFallbackNote(resolution) : null;
+        const segments = plottedSegments(
+          entry.timeseriesdata?.data,
+          PLOT_SECTOR,
+          selectedPlot,
+          used,
+        );
 
         return (
           <div
@@ -333,8 +327,9 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
                 >
                   {geographyLabel(normalizeGeography(used))}
                 </Badge>
-                {segment ? (
+                {segments.map((segment) => (
                   <Badge
+                    key={segment}
                     variant="sectorSegment"
                     tooltip={getSectorSegmentTooltip(
                       PLOT_SECTOR.displayName,
@@ -343,7 +338,7 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
                   >
                     {segment}
                   </Badge>
-                ) : null}
+                ))}
               </div>
             ) : null}
             {note ? (

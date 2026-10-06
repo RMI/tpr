@@ -17,9 +17,14 @@ const SEA: Geography = {
 };
 
 /** Two years of one metric at one geography — the minimum that plots. */
-function rows(metric: string, geography: string) {
+function rows(
+  metric: string,
+  geography: string,
+  sectorSegment: string[] = ["Power generation"],
+) {
   return ["2020", "2030"].map((year, i) => ({
     sector: "power",
+    sectorSegment,
     metric,
     geography,
     year,
@@ -29,9 +34,11 @@ function rows(metric: string, geography: string) {
   }));
 }
 
-function timeseries(...groups: { metric: string; geography: string }[]) {
+function timeseries(
+  ...groups: { metric: string; geography: string; segments?: string[] }[]
+) {
   return {
-    data: groups.flatMap((g) => rows(g.metric, g.geography)),
+    data: groups.flatMap((g) => rows(g.metric, g.geography, g.segments)),
   };
 }
 
@@ -116,6 +123,26 @@ describe("PlotGrid", () => {
 
     expect(screen.getByText("South East Asia")).toBeInTheDocument();
     expect(screen.getByText("Power generation")).toBeInTheDocument();
+  });
+
+  it("shows every segment the panel's rows cover, in the sector's order", () => {
+    // Segments come from the data (#915), so one series can span several.
+    render(
+      <PlotGrid
+        timeseriesdata={timeseries({
+          metric: "capacity",
+          geography: "South East Asia",
+          segments: ["Energy storage", "Power generation"],
+        })}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    const segments = screen
+      .getAllByText(/^(Power generation|Energy storage)$/)
+      .map((el) => el.textContent);
+    // Power defines generation before storage, whatever order the row lists.
+    expect(segments).toEqual(["Power generation", "Energy storage"]);
   });
 
   it("renders both indicators as badges, in distinct colours", () => {

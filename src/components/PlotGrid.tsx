@@ -14,10 +14,8 @@ import {
   geographyFallbackNote,
   resolveGeography,
 } from "../utils/geographyFallback";
-import {
-  getMetricDefinition,
-  getSectorDefinition,
-} from "../utils/timeseriesTaxonomy";
+import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
+import { plottedSegments } from "../utils/timeseriesSegments";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 
 /** Panel size for the small multiples — two columns at desktop width. */
@@ -158,13 +156,14 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
       ) : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {panels.map((opt) => {
-          // `sectorScope` is optional on MetricDefinition, so a metric may simply
-          // not declare a segment — render the badge only when one exists rather
-          // than an empty pill.
-          const segment = getMetricDefinition(
-            PLOT_SECTOR.key,
+          // The segments this panel's rows cover, read from the data (#915).
+          // A series may span several; none renders no badge at all.
+          const segments = plottedSegments(
+            timeseriesdata?.data,
+            PLOT_SECTOR,
             opt.value,
-          ).sectorScope;
+            used,
+          );
 
           return (
             <figure
@@ -199,8 +198,9 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
                 >
                   {usedLabel}
                 </Badge>
-                {segment ? (
+                {segments.map((segment) => (
                   <Badge
+                    key={segment}
                     variant="sectorSegment"
                     tooltip={getSectorSegmentTooltip(
                       PLOT_SECTOR.displayName,
@@ -209,7 +209,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
                   >
                     {segment}
                   </Badge>
-                ) : null}
+                ))}
               </div>
             </figure>
           );
