@@ -26,7 +26,7 @@
  * way, which is how the prep repo can check its output against TPR's contract.
  */
 import { promises as fs } from "node:fs";
-import { basename, dirname, join } from "node:path";
+import { basename, dirname, join, normalize } from "node:path";
 import { fileURLToPath } from "node:url";
 import * as prettier from "prettier";
 import { Report } from "./import-pathway-data.ts";
@@ -83,6 +83,9 @@ export interface PlannedWrite {
 
 const distinct = (values: Iterable<string>) => [...new Set(values)].sort();
 
+/** A path as a case-insensitive file system sees it. */
+const pathKey = (path: string) => normalize(path).toLowerCase();
+
 function describe(doc: { data?: unknown }): string {
   const rows = Array.isArray(doc.data) ? (doc.data as Json[]) : [];
   const geographies = distinct(rows.map((r) => String(r.geography)));
@@ -120,7 +123,10 @@ export function planImport(
     for (const e of problem.errors) report.error(`${problem.name}: ${e}`);
 
   const planned: PlannedWrite[] = [];
-  const plannedPaths = new Set<string>();
+  // Paths compared ignoring case: on the default macOS and Windows file
+  // systems `iea-x.json` and `IEA-X.json` are one file.
+  const occupiedKeys = new Set([...corpus.occupiedPaths].map(pathKey));
+  const plannedKeys = new Set<string>();
   const seenIds = new Map<string, string>();
   for (const record of valid) {
     if (record.schemaId !== PATHWAY_TIMESERIES_V2_ID) {
@@ -142,37 +148,37 @@ export function planImport(
       problems.push(
         `id "${doc.id}" cannot be used as a file name: use letters, digits, ".", "_" and "-", starting with a letter or digit`,
       );
-    for (const e of problems) report.error(`${record.name}: ${e}`);
-    if (problems.length > 0) continue;
-
+    // Where the file would go, worked out even when the checks above failed,
+    // so a placement problem is reported in the same run rather than the next.
     const existing = corpus.timeseriesById.get(doc.id);
-    if (existing) {
-      planned.push({ path: existing.path, doc, replaces: true });
-      report.note(
-        `UPD  ${existing.path}: ${describe(existing.doc)} -> ${describe(doc)}`,
-      );
-    } else {
+    let path = existing?.path;
+    if (!existing) {
       const metadataPath = corpus.metadataPathById.get(doc.pathwayId[0]);
-      // Unreachable after validateTimeseries, which rejects unknown pathway
-      // ids; an error rather than a guessed location if that ever changes.
       if (metadataPath === undefined) {
-        report.error(
-          `${record.name}: no metadata file for ${doc.pathwayId[0]}`,
-        );
-        continue;
+        // validateTimeseries reports unknown pathway ids; this only guards
+        // against that ever changing.
+        if (problems.length === 0)
+          problems.push(`no metadata file for ${doc.pathwayId[0]}`);
+      } else if (SAFE_FILE_ID.test(doc.id)) {
+        path = join(dirname(metadataPath), `${doc.id}.json`);
+        const key = pathKey(path);
+        if (occupiedKeys.has(key) || plannedKeys.has(key))
+          problems.push(
+            `id "${doc.id}" is new, but ${path} is already taken by another file ` +
+              "(names compared ignoring case); an update must use the existing file's id",
+          );
+        plannedKeys.add(key);
       }
-      const path = join(dirname(metadataPath), `${doc.id}.json`);
-      if (corpus.occupiedPaths.has(path) || plannedPaths.has(path)) {
-        report.error(
-          `${record.name}: id "${doc.id}" is new, but ${path} already holds another file; ` +
-            "an update must use the existing file's id",
-        );
-        continue;
-      }
-      plannedPaths.add(path);
-      planned.push({ path, doc, replaces: false });
-      report.note(`NEW  ${path}: ${describe(doc)}`);
     }
+
+    for (const e of problems) report.error(`${record.name}: ${e}`);
+    if (problems.length > 0 || path === undefined) continue;
+    planned.push({ path, doc, replaces: existing !== undefined });
+    report.note(
+      existing
+        ? `UPD  ${path}: ${describe(existing.doc)} -> ${describe(doc)}`
+        : `NEW  ${path}: ${describe(doc)}`,
+    );
   }
 
   const imported = new Set(seenIds.keys());
