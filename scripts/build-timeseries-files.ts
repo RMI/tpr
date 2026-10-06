@@ -26,6 +26,7 @@ import {
   getTechnologyDefinition,
   UnknownTaxonomyError,
 } from "../src/utils/timeseriesTaxonomy.ts";
+import { jsonToCsv, sectorSegmentColumns } from "./timeseries-csv.ts";
 
 const STRICT = process.env.TS_INDEX_STRICT === "1";
 const DEBUG = process.env.TS_INDEX_DEBUG === "1";
@@ -211,6 +212,7 @@ async function main() {
       const sectors = new Set<string>();
       const geos = new Set<string>();
       const metrics = new Set<string>();
+      const segments = new Set<string>();
 
       for (const row of rawData as any[]) {
         rowCount++;
@@ -239,6 +241,10 @@ async function main() {
         // Unique metrics
         if (typeof row?.metric === "string" && row.metric)
           metrics.add(row.metric);
+        // Unique sector segments (v2 rows carry a list)
+        if (Array.isArray(row?.sectorSegment))
+          for (const seg of row.sectorSegment)
+            if (typeof seg === "string" && seg) segments.add(seg);
       }
 
       if (rowCount > 0) computed.rowCount = rowCount;
@@ -253,6 +259,7 @@ async function main() {
         computed.geographyCount = geos.size;
         computed.geographies = [...geos].sort();
       }
+      if (segments.size > 0) computed.sectorSegments = [...segments].sort();
       if (metrics.size > 0) computed.metrics = [...metrics].sort();
     }
 
@@ -309,21 +316,6 @@ async function main() {
 
   const PUBLIC_DATA_DIR = path.join(ROOT, "public", "data");
   await fs.mkdir(PUBLIC_DATA_DIR, { recursive: true });
-
-  function jsonToCsv(data: any[]): string {
-    if (!Array.isArray(data) || data.length === 0) return "";
-    // Merge metadata into each row
-    const keys = Array.from(new Set(data.flatMap((row) => Object.keys(row))));
-    const escape = (v: any) =>
-      typeof v === "string"
-        ? `"${v.replace(/"/g, '""')}"`
-        : v === null || v === undefined
-          ? ""
-          : String(v);
-    const header = keys.join(",");
-    const rows = data.map((row) => keys.map((k) => escape(row[k])).join(","));
-    return [header, ...rows].join("\n");
-  }
 
   for (const [dsId, ds] of Object.entries(out.byDataset)) {
     logDebug(`Processing datasetId: ${dsId}`);
@@ -393,7 +385,6 @@ async function main() {
           source,
           sector: sectorDef.displayName,
           emissionsScope: parsed.emissionsScope,
-          sectorScope: metricDef?.sectorScope ?? "",
           metric: metricDef?.displayName ?? "",
           definitionMetric: metricDef?.definition ?? "",
           technology: techDef?.displayName ?? "",
@@ -437,6 +428,12 @@ async function main() {
                   : String(row.technology);
 
               const rowMetadata = getRowMetadata(sector, metric, technology);
+              const segmentColumns = sectorSegmentColumns(
+                sector,
+                Array.isArray(row.sectorSegment)
+                  ? (row.sectorSegment as string[])
+                  : undefined,
+              );
 
               const out = {
                 publisher: rowMetadata.publisher,
@@ -452,9 +449,11 @@ async function main() {
                 unit: row.unit,
                 source: rowMetadata.source,
                 emissions_scope: rowMetadata.emissionsScope,
-                sector_scope: rowMetadata.sectorScope,
+                sector_segment: segmentColumns.sector_segment,
                 definition_technology: rowMetadata.definitionTechnology,
                 definition_metric: rowMetadata.definitionMetric,
+                definition_sector_segment:
+                  segmentColumns.definition_sector_segment,
               };
               logDebug(`    Export row: ${JSON.stringify(out)}`);
               return out;
