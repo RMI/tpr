@@ -31,7 +31,7 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -53,7 +53,7 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -75,7 +75,7 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -97,7 +97,7 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 1,
-          geographies: ["South East Asia"],
+          geographies: ["ASEAN"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -119,7 +119,7 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 2,
-          geographies: ["Global", "South East Asia"],
+          geographies: ["Global", "Southeast Asia"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -163,7 +163,7 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 2,
-          geographies: ["Global", "South East Asia"],
+          geographies: ["Global", "Southeast Asia"],
           metrics: [
             "absoluteEmissions",
             "capacity",
@@ -429,7 +429,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -450,7 +450,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -471,7 +471,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -492,7 +492,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 1,
-        geographies: ["South East Asia"],
+        geographies: ["ASEAN"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -513,7 +513,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 2,
-        geographies: ["Global", "South East Asia"],
+        geographies: ["Global", "Southeast Asia"],
         metrics: [
           "absoluteEmissions",
           "capacity",
@@ -555,7 +555,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 2,
-        geographies: ["Global", "South East Asia"],
+        geographies: ["Global", "Southeast Asia"],
         metrics: [
           "absoluteEmissions",
           "capacity",

@@ -160,6 +160,21 @@
         "ZM"
       ],
       "Rest South Asia": ["AF", "BD", "BT", "MV", "NP", "PK", "SC", "LK"],
+      "South East Asia": [
+        "ID",
+        "MY",
+        "TH",
+        "VN",
+        "BN",
+        "KH",
+        "LA",
+        "MN",
+        "MM",
+        "KP",
+        "PH",
+        "SG",
+        "TW"
+      ],
       "Rest South East Asia": [
         "BN",
         "KH",
