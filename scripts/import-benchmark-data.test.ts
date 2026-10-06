@@ -1,4 +1,7 @@
 import { describe, it, expect } from "vitest";
+import { chmod, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
   commitWrites,
   planImport,
@@ -176,10 +179,15 @@ describe("planImport", () => {
 describe("commitWrites", () => {
   /** An in-memory file system whose writes fail for chosen paths. */
   const memoryFs = (files: Record<string, string>, failOn: string[] = []) => {
+    const failing = new Set(failOn); // each fails once; the restore succeeds
     const io: WriteFs = {
       readFile: async (path) => files[path] ?? null,
       writeFile: async (path, text) => {
-        if (failOn.includes(path)) throw new Error(`disk full at ${path}`);
+        if (failing.delete(path)) {
+          // Like ENOSPC: the file is truncated before the write gives up.
+          files[path] = text.slice(0, 3);
+          throw new Error(`disk full at ${path}`);
+        }
         files[path] = text;
       },
       removeFile: async (path) => {
@@ -212,7 +220,56 @@ describe("commitWrites", () => {
         ],
         io,
       ),
-    ).rejects.toThrow(/2 file\(s\) already written were restored/);
+    ).rejects.toThrow(/the 3 file\(s\) touched were restored/);
+    // c included: its failed write had already truncated it.
     expect(files).toEqual({ a: "old a", c: "old c" });
+  });
+
+  it("restores the file whose own write failed, even when it is the first", async () => {
+    const { files, io } = memoryFs({ a: "old a" }, ["a"]);
+    await expect(
+      commitWrites([{ path: "a", text: "new a" }], io),
+    ).rejects.toThrow();
+    expect(files).toEqual({ a: "old a" });
+  });
+
+  it("writes nothing when an existing file cannot be backed up", async () => {
+    const { files, io } = memoryFs({ a: "old a" });
+    io.readFile = async (path) => {
+      if (path === "b") throw new Error("permission denied");
+      return files[path] ?? null;
+    };
+    await expect(
+      commitWrites(
+        [
+          { path: "a", text: "new a" },
+          { path: "b", text: "new b" },
+        ],
+        io,
+      ),
+    ).rejects.toThrow(/permission denied/);
+    expect(files).toEqual({ a: "old a" });
+  });
+
+  it("does not delete an existing file it could not back up", async () => {
+    // A write-only file exists but cannot be read (EACCES). Counting that as
+    // "new" would make a rollback delete it; it must abort before writing.
+    const dir = await mkdtemp(join(tmpdir(), "import-benchmark-"));
+    const locked = join(dir, "locked.json");
+    try {
+      await writeFile(locked, "old");
+      await chmod(locked, 0o222);
+      await expect(
+        commitWrites([
+          { path: locked, text: "new" },
+          // Missing on read (so "new"), and its write fails: no such folder.
+          { path: join(dir, "no-such-folder", "x.json"), text: "{}" },
+        ]),
+      ).rejects.toThrow(/EACCES/);
+      await chmod(locked, 0o644);
+      expect(await readFile(locked, "utf8")).toBe("old");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });

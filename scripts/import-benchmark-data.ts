@@ -197,8 +197,12 @@ const nodeFs: WriteFs = {
   readFile: async (path) => {
     try {
       return await fs.readFile(path, "utf8");
-    } catch {
-      return null; // a new file: nothing to restore but its absence
+    } catch (error) {
+      // Only a missing file is "new". Any other failure (an unreadable but
+      // writable file, say) must stop the import: without a backup, a
+      // rollback would delete the file instead of restoring it.
+      if ((error as NodeJS.ErrnoException).code === "ENOENT") return null;
+      throw error;
     }
   },
   writeFile: (path, text) => fs.writeFile(path, text),
@@ -206,33 +210,43 @@ const nodeFs: WriteFs = {
 };
 
 /**
- * Write every staged file, or none: if any write fails, the files already
- * written are restored to what they held before (or removed, if new) and the
- * error is rethrown. This is what makes the import's all-or-nothing promise
- * hold past validation, through to the disk.
+ * Write every staged file, or none: if any write fails, every file touched so
+ * far — including the one whose write failed, which may already be truncated
+ * — is restored to what it held before (or removed, if new), and the error is
+ * rethrown. This is what makes the import's all-or-nothing promise hold past
+ * validation, through to the disk. A restore that itself fails does not stop
+ * the others; the error names the files left as they are.
  */
 export async function commitWrites(
   staged: readonly { path: string; text: string }[],
   io: WriteFs = nodeFs,
 ): Promise<void> {
+  // Read every backup before writing anything; a read failure aborts here,
+  // with nothing touched yet.
   const originals = await Promise.all(
     staged.map(async ({ path }) => ({ path, text: await io.readFile(path) })),
   );
-  const written: number[] = [];
+  const touched: number[] = [];
   try {
     for (const [i, { path, text }] of staged.entries()) {
+      touched.push(i); // before the write: a failed write may still have changed the file
       await io.writeFile(path, text);
-      written.push(i);
     }
   } catch (error) {
-    for (const i of written.reverse()) {
+    const unrestored: string[] = [];
+    for (const i of touched.reverse()) {
       const { path, text } = originals[i];
-      if (text === null) await io.removeFile(path);
-      else await io.writeFile(path, text);
+      try {
+        if (text === null) await io.removeFile(path);
+        else await io.writeFile(path, text);
+      } catch {
+        unrestored.push(path);
+      }
     }
-    throw new Error(
-      `writing failed, so the ${written.length} file(s) already written were restored: ${String(error)}`,
-    );
+    const outcome = unrestored.length
+      ? `could NOT restore ${unrestored.join(", ")}; check them with git`
+      : `the ${touched.length} file(s) touched were restored`;
+    throw new Error(`writing failed, and ${outcome}: ${String(error)}`);
   }
 }
 
