@@ -129,6 +129,8 @@
               "nuclear",
               "biomass",
               "hydro",
+              "geothermal",
+              "energyStorage",
               "renewables",
               "electricVehicles",
               "hydrogenVehicles",
@@ -295,6 +297,7 @@
         "then": {
           "properties": {
             "technology": {
+              "$comment": "Exactly the Power technology keys of src/utils/timeseriesTaxonomy.ts, which the plots and the CSV download look every row up in; pathwayTimeseries.v2.test.ts checks the two agree. Every value must also be in the all-sector enum above, because both lists apply to a Power row: `geothermal`, `battery` and `hydrogen` used to be listed here only, so they could never validate (#977). Storage is `energyStorage` (cookbook decision 0020), matching the `Energy storage` segment.",
               "type": ["string", "null"],
               "enum": [
                 "coal",
@@ -306,9 +309,8 @@
                 "solar",
                 "biomass",
                 "geothermal",
-                "hydrogen",
+                "energyStorage",
                 "renewables",
-                "battery",
                 "other",
                 null
               ]
