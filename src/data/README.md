@@ -191,6 +191,14 @@ A `*_timeseries.json` file holds the benchmark data series for one or more pathw
 
 `npm run schema:check` enforces both rules against the metadata files, since JSON Schema alone cannot look into another file.
 
+**Timeseries files come from [RMI/tpr_benchmark_data_preparation](https://github.com/RMI/tpr_benchmark_data_preparation)**, which writes one v2 JSON file per dataset. Bring them in with:
+
+```bash
+npx ts-node --esm scripts/import-benchmark-data.ts --in <prep-repo-output-dir> --dry-run
+```
+
+Drop `--dry-run` to write. The importer converts nothing: every file must already pass the v2 schema and both rules above, and any error blocks the whole import, listing every problem. A file whose `id` matches an existing timeseries overwrites it in place; a new one is written next to its first pathway's metadata. Existing files missing from the input are reported and left alone. Then run `npm run build:timeseries` and `npm run schema:check`. The prep repo can run the same command with `--dry-run` to check its output against this repo before handing it over.
+
 Files still on `pathwayTimeseries.v1.json` can be moved with `scripts/codemod-timeseries-v1-to-v2.ts` (`--dry-run` first). Its `RENAMES` table lists, per pathway, which old label became which declared one; it stops on any label it cannot map rather than guess.
 
 ## Migrating an existing v1 file
