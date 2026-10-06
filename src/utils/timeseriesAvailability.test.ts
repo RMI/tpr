@@ -87,47 +87,19 @@ describe("pathwayToolAvailability", () => {
       expect(av.hasGeography("North America")).toBe(false);
     });
 
-    it("maps ISO2 country codes to display names", () => {
-      // "DE" maps to "Germany" via geographyLabel — confirmed by PathwayCard tests.
+    it("matches the metadata token exactly, so a different spelling is absent", () => {
+      // Timeseries carry the metadata's own labels (#945, enforced by
+      // validateTimeseries), so no spelling fold or name lookup is involved.
+      expect(av.hasGeography("Southeast Asia")).toBe(false);
+      expect(av.hasGeography("south east asia")).toBe(false);
+    });
+
+    it("matches an ISO2 country by its code, as summaries record it", () => {
       const av = pathwayToolAvailability([
-        {
-          summary: {
-            sectors: [],
-            geographies: ["Germany"],
-            metrics: [],
-          },
-        },
+        { summary: { sectors: [], geographies: ["DE"], metrics: [] } },
       ]);
       expect(av.hasGeography("DE")).toBe(true);
-    });
-
-    it("returns false for an ISO2 code whose display name is not present", () => {
-      const av = pathwayToolAvailability([
-        { summary: { sectors: [], geographies: ["Germany"], metrics: [] } },
-      ]);
       expect(av.hasGeography("FR")).toBe(false);
-    });
-
-    it("matches a region the publisher spells differently in its own data", () => {
-      // The live #945 case: IEA-APS declares "Southeast Asia" in metadata while
-      // its timeseries carries "South East Asia". resolveGeography plots it, so
-      // reporting it as absent from the tool would contradict the charts.
-      expect(av.hasGeography("Southeast Asia")).toBe(true);
-    });
-
-    it("folds case and punctuation, like resolveGeography", () => {
-      const av = pathwayToolAvailability([
-        {
-          summary: { sectors: [], geographies: ["Asia-Pacific"], metrics: [] },
-        },
-      ]);
-      expect(av.hasGeography("asia pacific")).toBe(true);
-    });
-
-    it("stays a spelling fold, not a synonym table", () => {
-      // Different words remain different: no similarity threshold is involved.
-      expect(av.hasGeography("ASEAN")).toBe(false);
-      expect(av.hasGeography("South Asia")).toBe(false);
     });
   });
 

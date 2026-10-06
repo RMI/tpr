@@ -257,14 +257,11 @@ describe("regionMemberCodes", () => {
     ).toEqual(["DE"]);
   });
 
-  it("matches the same region spelled differently (#945)", () => {
-    // A plot badge carries the timeseries spelling; the members live under the
-    // metadata's. Different words still do not match.
-    const geo = {
-      regions: { "Southeast Asia": ["VN"], "South Asia": ["IN"] },
-    } as Geography;
-    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["VN"]);
-    expect(regionMemberCodes(geo, "ASEAN")).toEqual([]);
+  it("matches the declared label only, not another spelling of it (#945)", () => {
+    // Timeseries now carry the metadata's own label, so no fold is needed.
+    const geo = { regions: { "Southeast Asia": ["VN"] } } as Geography;
+    expect(regionMemberCodes(geo, "Southeast Asia")).toEqual(["VN"]);
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual([]);
   });
 
   it("returns [] for a region the publication left unmapped", () => {

@@ -1,6 +1,5 @@
 import type { Geography } from "../types";
 import {
-  canonicalGeographyKey,
   geographyKind,
   geographyLabel,
   normalizeGeography,
@@ -26,13 +25,7 @@ export type GeographyResolution = {
   requested: string | null;
   /** True when `used` is broader than (or simply different from) `requested`. */
   fellBack: boolean;
-  reason:
-    | "exact"
-    | "labelVariant"
-    | "containingRegion"
-    | "global"
-    | "broadest"
-    | "none";
+  reason: "exact" | "containingRegion" | "global" | "broadest" | "none";
 };
 
 /**
@@ -83,27 +76,6 @@ export function resolveGeography(
   const exact = ranked.find((geo) => normalizeGeography(geo) === wanted);
   if (exact !== undefined) {
     return { used: exact, requested: wanted, fellBack: false, reason: "exact" };
-  }
-
-  /*
-    The same region spelled differently is still the same region, so this is a
-    match rather than a fallback. Without it, IEA-APS asking for its own
-    declared "Southeast Asia" misses its timeseries' "South East Asia", fails
-    the ISO step below (a region label is not an ISO code) and lands on Global —
-    reporting a fallback while the exact series sits in the file. See #945 for
-    the underlying data inconsistency, which this makes harmless.
-  */
-  const wantedKey = canonicalGeographyKey(wanted);
-  const variant = ranked.find(
-    (geo) => canonicalGeographyKey(geo) === wantedKey,
-  );
-  if (variant !== undefined) {
-    return {
-      used: variant,
-      requested: wanted,
-      fellBack: false,
-      reason: "labelVariant",
-    };
   }
 
   // A requested country may be covered by a region the data does carry.
