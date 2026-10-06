@@ -1,0 +1,383 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/pathwayTimeseries.v2.json",
+  "title": "Pathway Timeseries",
+  "description": "A schema for the pathway timeseries dataset in TPR, version 2: geography as the publication names it, and the sector segments each row covers.",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "description": "URI of the schema that validates this document (see https://json-schema.org/).",
+      "type": "string",
+      "maxLength": 1000
+    },
+    "id": {
+      "description": "The unique identifier for a pathway.",
+      "type": "string",
+      "maxLength": 100
+    },
+    "pathwayId": {
+      "description": "Identifiers of the associated pathways.",
+      "type": "array",
+      "items": {
+        "type": "string",
+        "maxLength": 100,
+        "minLength": 1
+      }
+    },
+    "name": {
+      "description": "Name of the timeseries.",
+      "type": "string",
+      "maxLength": 100
+    },
+    "description": {
+      "description": "Brief description of the timeseries.",
+      "type": "string",
+      "pattern": "\\.$",
+      "maxLength": 100
+    },
+    "publication": {
+      "description": "Bibliographic information about the report or dataset.",
+      "$ref": "http://pathways.rmi.org/schema/common/publication.v1.json",
+      "tsType": "import('./common/publication.v1').PublicationV1"
+    },
+    "pathwayName": {
+      "description": "Name of the associated pathway.",
+      "type": "string",
+      "maxLength": 100
+    },
+    "emissionsScope": {
+      "$ref": "http://pathways.rmi.org/schema/common/emissionsScope.v1.json",
+      "tsType": "import('./common/emissionsScope.v1').EmissionsScopeV1"
+    },
+    "data": {
+      "description": "Array of yearly data points for each sector, technology, and metric defined in this timeseries.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "year": {
+            "description": "Calendar year of the data point.",
+            "type": "integer",
+            "minimum": 1900,
+            "maximum": 2100
+          },
+          "geography": {
+            "description": "Geography this data point covers, written exactly as the pathway's metadata declares it: 'Global' (when the pathway is global), one of its region labels (a key of `geography.regions`, in the publication's own wording, e.g. 'ASEAN' or 'Southeast Asia'), or an ISO-3166-1 alpha-2 country code the pathway declares (a standalone country or a member of one of its regions). Every pathway in `pathwayId` must declare it; enforced by scripts/schema-check-files.ts.",
+            "$comment": "An open string, not geographyItem.v1's closed enum: region labels are the publication's own (decision for v2, #915), so no fixed list can hold them -- the v1 enum rejected 'ASEAN' and 'Southeast Asia', which is why files carried a label their metadata did not declare. Same shape as common/scopeGeography.v2.json but not a $ref to it, because 'across regions' is a keyFeatures scope sentinel and never a geography a data point is measured for. The real constraint lives in src/utils/validateTimeseries.ts.",
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(?!\\s*$).+"
+          },
+          "sector": {
+            "description": "Sector to which this data point belongs (must match one of the defined sectors).",
+            "type": "string",
+            "enum": [
+              "landUse",
+              "agriculture",
+              "buildings",
+              "industry",
+              "steel",
+              "cement",
+              "chemicals",
+              "coalMining",
+              "oilUpstream",
+              "gasUpstream",
+              "power",
+              "automotive",
+              "transport",
+              "roadtransport",
+              "aviation",
+              "rail",
+              "shipping",
+              "other"
+            ]
+          },
+          "sectorSegment": {
+            "description": "Segments of this row's sector that the data point covers, e.g. ['Power generation']. Same vocabulary as dataAvailability's sectorSegment. Members must be segments of this row's `sector`, and the sentinels (Unspecified, Not covered, No information) are not allowed: every row is actual data, so it covers a known part of the value chain. Enforced by scripts/schema-check-files.ts.",
+            "$comment": "Replaces the per-metric `sectorScope` string that the taxonomy attached to every row of a metric. An array because one series can span segments (e.g. capacity including Energy storage). Per row, not per metric, so two pathways' series of the same metric can differ.",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+              "$ref": "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+              "tsType": "import('./common/sectorSegment.v1').SectorSegmentV1['displayName']"
+            }
+          },
+          "technology": {
+            "description": "Technology represented in this record (e.g., Solar, Wind, or null if sector-level only).",
+            "type": ["string", "null"],
+            "enum": [
+              "precisionAgriculture",
+              "agroforestry",
+              "bioenergyCrops",
+              "energyEfficiency",
+              "smartGrids",
+              "renewableHeating",
+              "heatPumps",
+              "buildingAutomation",
+              "smartAppliances",
+              "insulation",
+              "carbonCaptureandStorage",
+              "electrification",
+              "processOptimization",
+              "hydrogenUse",
+              "coal",
+              "oil",
+              "gas",
+              "wind",
+              "solar",
+              "nuclear",
+              "biomass",
+              "hydro",
+              "renewables",
+              "electricVehicles",
+              "hydrogenVehicles",
+              "biofuels",
+              "publicTransport",
+              "activeMobility",
+              "aviationEfficiency",
+              "maritimeEfficiency",
+              "other",
+              null
+            ]
+          },
+          "metric": {
+            "description": "Metric reported for this record (e.g., Capacity, Generation, Emissions Intensity).",
+            "type": "string",
+            "enum": [
+              "emissionsIntensity",
+              "capacity",
+              "generation",
+              "technologyMix",
+              "absoluteEmissions"
+            ]
+          },
+          "value": {
+            "description": "Numeric value of the metric for the given year, sector, and technology.",
+            "type": "number"
+          },
+          "unit": {
+            "description": "Measurement unit associated with the metric value (e.g., GW, TWh, tCO2e).",
+            "type": "string",
+            "enum": ["tCO2e/MWh", "MtCO2e", "GW", "TWh", "%"]
+          }
+        },
+        "additionalProperties": false,
+        "required": [
+          "year",
+          "value",
+          "geography",
+          "sector",
+          "sectorSegment",
+          "technology",
+          "metric",
+          "unit"
+        ],
+        "allOf": [
+          {
+            "$comment": "Emissions intensity values should fall within a reasonable physical bound (−2 to 2 tCO2e/MWh). Ensures data sanity and prevents unit/scale mistakes.",
+            "if": {
+              "properties": {
+                "metric": { "const": "emissionsIntensity" }
+              },
+              "required": ["metric"]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": -2,
+                  "maximum": 2
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Capacity (GW) cannot be negative. Enforces basic physical constraint.",
+            "if": {
+              "properties": {
+                "metric": { "const": "capacity" }
+              },
+              "required": ["metric"]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Electricity generation (TWh) must be non-negative. Ensures no sign errors or inverted units.",
+            "if": {
+              "properties": {
+                "metric": { "const": "generation" }
+              },
+              "required": ["metric"]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Technology mix values represent percentages, so each row must lie between 0% and 100%.",
+            "if": {
+              "properties": {
+                "metric": { "const": "technologyMix" },
+                "unit": { "const": "%" }
+              },
+              "required": ["metric", "unit"]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 100
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Historical global power sector emissions (<= 2023) should not exceed ~20,000 MtCO2e. Caps unrealistic values and unit mistakes.",
+            "if": {
+              "properties": {
+                "metric": { "const": "absoluteEmissions" },
+                "unit": { "const": "MtCO2e" },
+                "geography": { "const": "Global" },
+                "sector": { "const": "power" },
+                "year": { "type": "integer", "maximum": 2023 }
+              },
+              "required": ["metric", "unit", "geography", "sector", "year"]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "maximum": 20000
+                }
+              }
+            }
+          },
+          {
+            "$comment": "Future global power sector emissions (>= 2024) should not exceed ~30,000 MtCO2e. Allows for scenario variability while trapping implausible values.",
+            "if": {
+              "properties": {
+                "metric": { "const": "absoluteEmissions" },
+                "unit": { "const": "MtCO2e" },
+                "geography": { "const": "Global" },
+                "sector": { "const": "power" },
+                "year": { "type": "integer", "minimum": 2024 }
+              },
+              "required": ["metric", "unit", "geography", "sector", "year"]
+            },
+            "then": {
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "maximum": 30000
+                }
+              }
+            }
+          }
+        ],
+        "if": {
+          "properties": { "sector": { "const": "power" } },
+          "required": ["sector"]
+        },
+        "then": {
+          "properties": {
+            "technology": {
+              "type": ["string", "null"],
+              "enum": [
+                "coal",
+                "oil",
+                "gas",
+                "nuclear",
+                "hydro",
+                "wind",
+                "solar",
+                "biomass",
+                "geothermal",
+                "hydrogen",
+                "renewables",
+                "battery",
+                "other",
+                null
+              ]
+            },
+            "metric": {
+              "type": "string",
+              "enum": [
+                "emissionsIntensity",
+                "absoluteEmissions",
+                "capacity",
+                "generation",
+                "technologyMix"
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {
+                  "metric": { "const": "emissionsIntensity" }
+                },
+                "required": ["metric"]
+              },
+              "then": { "properties": { "unit": { "const": "tCO2e/MWh" } } }
+            },
+            {
+              "if": {
+                "properties": {
+                  "metric": { "const": "absoluteEmissions" }
+                },
+                "required": ["metric"]
+              },
+              "then": { "properties": { "unit": { "const": "MtCO2e" } } }
+            },
+            {
+              "if": {
+                "properties": { "metric": { "const": "capacity" } },
+                "required": ["metric"]
+              },
+              "then": { "properties": { "unit": { "const": "GW" } } }
+            },
+            {
+              "if": {
+                "properties": { "metric": { "const": "generation" } },
+                "required": ["metric"]
+              },
+              "then": { "properties": { "unit": { "const": "TWh" } } }
+            },
+            {
+              "if": {
+                "properties": { "metric": { "const": "technologyMix" } },
+                "required": ["metric"]
+              },
+              "then": { "properties": { "unit": { "const": "%" } } }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "pathwayId",
+    "name",
+    "description",
+    "publication",
+    "pathwayName",
+    "emissionsScope",
+    "data"
+  ]
+}

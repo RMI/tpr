@@ -129,33 +129,46 @@ function notCoveredByVariable(row: {
 type ScopedEntry = { sector: string; geography: string; value: unknown };
 
 /**
- * Every geography token an entry on this pathway may legitimately name: each
- * declared region label, every country inside those regions, every standalone
- * country, and the sentinels where they apply. Region members count because a
- * pathway that covers "South East Asia" does cover Thailand — scoping an entry
- * to `TH` is more specific than the pathway's own declaration, not outside it.
+ * Every geography a pathway declares: each region label, every country inside
+ * those regions, every standalone country, and `Global` when the pathway sets
+ * `geography.global`. Region members count because a pathway that covers
+ * "South East Asia" does cover Thailand — naming `TH` is more specific than the
+ * pathway's own declaration, not outside it.
  *
  * `Global` is allowed only when the pathway actually sets `geography.global`.
  * #858 phrases the rule as "declared by the pathway, or the widest sentinel",
  * which read literally would let a South-East-Asia-only pathway carry a
  * global-scoped value — describing coverage it never claims, and defeating the
- * point of the check. `across regions` stays unconditional: #858 reserves it for a
- * multi-region non-global aggregate without saying when it applies, and no file
- * in the corpus uses it yet, so gating it would be inventing a rule.
+ * point of the check.
+ *
+ * Shared with `validateTimeseries`, so "declared" means the same thing for a
+ * keyFeatures scope and for the geography a timeseries row is measured for.
  */
-function allowedGeographies(pathway: PathwayMetadataV2): Set<string> {
-  const allowed = new Set<string>([ACROSS_REGIONS]);
-  const geo = pathway.geography;
-  if (!geo || typeof geo !== "object") return allowed;
-  if (geo.global === true) allowed.add(GLOBAL_SCOPE);
+export function declaredGeographies(
+  geo: PathwayMetadataV2["geography"] | null | undefined,
+): Set<string> {
+  const declared = new Set<string>();
+  if (!geo || typeof geo !== "object") return declared;
+  if (geo.global === true) declared.add(GLOBAL_SCOPE);
   if (geo.regions) {
     for (const [label, members] of Object.entries(geo.regions)) {
-      allowed.add(label);
-      if (Array.isArray(members)) members.forEach((m) => allowed.add(m));
+      declared.add(label);
+      if (Array.isArray(members)) members.forEach((m) => declared.add(m));
     }
   }
-  if (Array.isArray(geo.country)) geo.country.forEach((c) => allowed.add(c));
-  return allowed;
+  if (Array.isArray(geo.country)) geo.country.forEach((c) => declared.add(c));
+  return declared;
+}
+
+/**
+ * Every geography token a keyFeatures entry may name: what the pathway
+ * declares, plus `across regions`. That sentinel stays unconditional: #858
+ * reserves it for a multi-region non-global aggregate without saying when it
+ * applies, and no file in the corpus uses it yet, so gating it would be
+ * inventing a rule.
+ */
+function allowedGeographies(pathway: PathwayMetadataV2): Set<string> {
+  return new Set([ACROSS_REGIONS, ...declaredGeographies(pathway.geography)]);
 }
 
 /**
