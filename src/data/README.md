@@ -166,6 +166,33 @@ Four things to know before authoring:
 
 Allowed values live in `src/schema/common/dataAvailability.v1.json` (time resolution, data format, the non-technology granularity members), `dataAvailabilityMetric.v1.json` (the row key) and `sectorSegment.v1.json`, and follow cookbook `tpr_cookbook_20260929`.
 
+## Timeseries files
+
+A `*_timeseries.json` file holds the benchmark data series for one or more pathways (`pathwayId` is a list), validated by `src/schema/pathwayTimeseries.v2.json`. Each row in `data` is one value:
+
+```json
+{
+  "year": 2030,
+  "geography": "Southeast Asia",
+  "sector": "power",
+  "sectorSegment": ["Power generation"],
+  "technology": "solar",
+  "metric": "capacity",
+  "value": 42.1,
+  "unit": "GW"
+}
+```
+
+`sector`, `technology` and `metric` use the camelCase keys from `src/utils/timeseriesTaxonomy.ts`, not display names.
+
+**`geography` is the publication's own label, exactly as the pathway's metadata declares it** — `Global` (if the pathway sets `geography.global`), one of its `geography.regions` keys, or an ISO2 code it declares as a country or region member. So an IEA file says `Southeast Asia` and an ACE file `ASEAN`, even where both mean similar places. If the file serves several pathways, every one of them must declare the label.
+
+**`sectorSegment` lists the segments of the row's sector that the value covers**, from the same vocabulary as `dataAvailability` (`src/schema/common/sectorSegment.v1.json`). Unlike there, the sentinels (`Unspecified`, `Not covered`, `No information`) are not allowed: a timeseries row is actual data, so it always covers a known part of the value chain. It replaces v1's per-metric "sector scope", which the taxonomy attached to every row of a metric.
+
+`npm run schema:check` enforces both rules against the metadata files, since JSON Schema alone cannot look into another file.
+
+Files still on `pathwayTimeseries.v1.json` can be moved with `scripts/codemod-timeseries-v1-to-v2.ts` (`--dry-run` first). Its `RENAMES` table lists, per pathway, which old label became which declared one; it stops on any label it cannot map rather than guess.
+
 ## Migrating an existing v1 file
 
 There is a script for this — don't do it by hand:
