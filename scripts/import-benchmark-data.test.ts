@@ -121,8 +121,27 @@ describe("planImport", () => {
     expect(report.errors.length).toBeGreaterThan(0);
   });
 
-  it("blocks two input files with the same id", () => {
-    const { report } = plan([file(), file()]);
-    expect(report.errors.join("\n")).toMatch(/also used by in\/0\.json/);
+  it("blocks two input files with the same id, and still checks the second", () => {
+    // One run should list every problem, so the duplicate's own errors are
+    // reported alongside the duplicate id.
+    const { writes, report } = plan([
+      file(),
+      file({}, [row({ geography: "Atlantis" })]),
+    ]);
+    const errors = report.errors.join("\n");
+    expect(errors).toMatch(/also used by in\/0\.json/);
+    expect(errors).toMatch(/"Atlantis" is not a geography/);
+    expect(writes.map((w) => w.path)).toEqual([
+      "src/data/iea/IEA-X_timeseries.json",
+    ]);
   });
+
+  it.each(["../escape", "iea/nested", ".hidden"])(
+    "blocks an id that is not a safe file name: %s",
+    (id) => {
+      const { writes, report } = plan([file({ id })]);
+      expect(report.errors.join("\n")).toMatch(/cannot be used as a file name/);
+      expect(writes).toEqual([]);
+    },
+  );
 });
