@@ -102,6 +102,23 @@ describe("upgradeTimeseries + editText", () => {
     ).toThrow(/no segment known/);
   });
 
+  it.each([
+    [[], /pathwayId is empty/],
+    [["IEA-X", "IEA-X"], /lists an id twice/],
+  ])("refuses a pathwayId list v2 rejects: %j", (pathwayId, message) => {
+    const doc = {
+      ...(JSON.parse(v1Text) as Record<string, unknown>),
+      pathwayId,
+    };
+    expect(() =>
+      upgradeTimeseries(
+        doc,
+        new Map([["IEA-X", geographyById.get("IEA-X")]]),
+        renames,
+      ),
+    ).toThrow(message);
+  });
+
   it("refuses a file whose pathway has no metadata", () => {
     expect(() =>
       upgradeTimeseries(
