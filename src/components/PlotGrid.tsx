@@ -1,6 +1,11 @@
 import React, { useMemo } from "react";
 import type { PlotType, TimeSeries } from "./PlotSelector";
-import { PlotPanel, PLOT_OPTIONS, hasDataForMetric } from "./PlotPanel";
+import {
+  PlotPanel,
+  PLOT_OPTIONS,
+  hasDataForMetric,
+  hasDataForMetricAndGeo,
+} from "./PlotPanel";
 import Badge from "./Badge";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import type { Geography } from "../types";
@@ -157,13 +162,21 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {panels.map((opt) => {
           // The segments this panel's rows cover, read from the data (#915).
-          // A series may span several; none renders no badge at all.
-          const segments = plottedSegments(
-            timeseriesdata?.data,
-            PLOT_SECTOR,
+          // A series may span several; none renders no badge at all. Only for
+          // a series PlotPanel actually draws: one with a single year shows
+          // its empty state, and a badge under that would describe nothing.
+          const segments = hasDataForMetricAndGeo(
+            timeseriesdata,
             opt.value,
             used,
-          );
+          )
+            ? plottedSegments(
+                timeseriesdata?.data,
+                PLOT_SECTOR,
+                opt.value,
+                used,
+              )
+            : [];
 
           return (
             <figure

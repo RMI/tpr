@@ -145,6 +145,24 @@ describe("PlotGrid", () => {
     expect(segments).toEqual(["Power generation", "Energy storage"]);
   });
 
+  it("omits the segment badge when the resolved series has one year", () => {
+    // The metric plots elsewhere (two years at Global), so its panel stays,
+    // but PlotPanel draws nothing for a single year at the requested region —
+    // and a segment badge under that empty state would describe nothing.
+    const data = timeseries({ metric: "capacity", geography: "Global" });
+    data.data.push({ ...rows("capacity", "South East Asia")[0] });
+    render(
+      <PlotGrid
+        timeseriesdata={data}
+        pathwayGeography={SEA}
+        requestedGeography="South East Asia"
+      />,
+    );
+
+    expect(screen.getByText("South East Asia")).toBeInTheDocument();
+    expect(screen.queryByText("Power generation")).not.toBeInTheDocument();
+  });
+
   it("renders both indicators as badges, in distinct colours", () => {
     render(
       <PlotGrid

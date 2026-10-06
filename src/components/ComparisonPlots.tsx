@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import type { PlotType, TimeSeries, HoveredPoint } from "./PlotSelector";
-import { PlotPanel, PLOT_OPTIONS, hasDataForMetric } from "./PlotPanel";
+import {
+  PlotPanel,
+  PLOT_OPTIONS,
+  hasDataForMetric,
+  hasDataForMetricAndGeo,
+} from "./PlotPanel";
 import Badge from "./Badge";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import type { Geography } from "../types";
@@ -281,12 +286,19 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
         const used = resolution?.used ?? "";
         const usedKind = geographyKind(used);
         const note = resolution ? geographyFallbackNote(resolution) : null;
-        const segments = plottedSegments(
-          entry.timeseriesdata?.data,
-          PLOT_SECTOR,
+        // Only for a series PlotPanel draws; see PlotGrid.
+        const segments = hasDataForMetricAndGeo(
+          entry.timeseriesdata,
           selectedPlot,
           used,
-        );
+        )
+          ? plottedSegments(
+              entry.timeseriesdata?.data,
+              PLOT_SECTOR,
+              selectedPlot,
+              used,
+            )
+          : [];
 
         return (
           <div

@@ -273,6 +273,21 @@ describe("ComparisonPlots", () => {
     });
   });
 
+  it("omits the segment badge for a column whose series has one year", () => {
+    // PlotPanel draws nothing for a single year, so a badge would describe
+    // an empty chart.
+    const oneYear = makeEntry("p2", ["Global"]);
+    oneYear.timeseriesdata!.data = oneYear.timeseriesdata!.data.slice(0, 1);
+    render(
+      <ComparisonPlots
+        entries={[makeEntry("p1", ["Global"]), oneYear]}
+        requestedGeographies={{ p1: "Global", p2: "Global" }}
+      />,
+    );
+
+    expect(screen.getAllByText("Power generation")).toHaveLength(1);
+  });
+
   it("explains itself rather than relabelling Power series for another sector", () => {
     const entries = [makeEntry("p1", ["Global"]), makeEntry("p2", ["Global"])];
     render(
