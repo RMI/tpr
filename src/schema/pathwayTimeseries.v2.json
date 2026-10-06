@@ -16,8 +16,11 @@
       "maxLength": 100
     },
     "pathwayId": {
-      "description": "Identifiers of the associated pathways.",
+      "description": "Identifiers of the pathways this timeseries belongs to: at least one, each listed once, and each the `id` of a pathway metadata file (checked by scripts/schema-check-files.ts).",
+      "$comment": "minItems because an empty list would make the cross-file geography check vacuously pass and leave the importer no pathway to place the file next to; uniqueItems because a repeated id produces a duplicate entry in the generated timeseries index.",
       "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
       "items": {
         "type": "string",
         "maxLength": 100,
