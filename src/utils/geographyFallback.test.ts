@@ -134,72 +134,26 @@ describe("resolveGeography", () => {
   });
 });
 
-describe("resolveGeography — spelling variants", () => {
-  it("matches a region spelled differently, and calls it a match not a fallback", () => {
-    // The live #945 case: IEA-APS declares "Southeast Asia" in its metadata
-    // while its own timeseries carries "South East Asia". Before this arm the
-    // request fell through to Global while the exact series sat in the file.
-    const result = resolveGeography(
-      ["Global", "South East Asia"],
-      "Southeast Asia",
-      SEA,
-    );
+describe("resolveGeography — labels match exactly", () => {
+  it("does not fold spellings: timeseries carry the metadata's own label", () => {
+    // #945 used to need a spelling fold here, because IEA's timeseries said
+    // "South East Asia" where its metadata said "Southeast Asia". The labels
+    // now agree (validateTimeseries enforces it), so a different spelling is a
+    // different geography and an honest, reported fallback.
+    expect(
+      resolveGeography(["Global", "South East Asia"], "Southeast Asia", SEA),
+    ).toMatchObject({ used: "Global", fellBack: true, reason: "global" });
+  });
 
-    expect(result).toEqual({
-      used: "South East Asia",
+  it("matches the declared label exactly", () => {
+    expect(
+      resolveGeography(["Global", "Southeast Asia"], "Southeast Asia", SEA),
+    ).toEqual({
+      used: "Southeast Asia",
       requested: "Southeast Asia",
       fellBack: false,
-      reason: "labelVariant",
+      reason: "exact",
     });
-  });
-
-  it("finds the containing region when metadata and data spell it differently", () => {
-    // The other half of #945: a country request. The data carries "South East
-    // Asia", the metadata declares its members under "Southeast Asia"; the
-    // member lookup has to fold the spelling too, or VN lands on Global.
-    const metadata: Geography = {
-      global: true,
-      regions: { "Southeast Asia": ["VN", "TH"] },
-      country: [],
-    };
-    expect(
-      resolveGeography(["Global", "South East Asia"], "VN", metadata),
-    ).toMatchObject({
-      used: "South East Asia",
-      fellBack: true,
-      reason: "containingRegion",
-    });
-  });
-
-  it("folds case and punctuation too", () => {
-    expect(resolveGeography(["Asia-Pacific"], "asia pacific", SEA).used).toBe(
-      "Asia-Pacific",
-    );
-  });
-
-  it("prefers an exact match over a variant", () => {
-    const result = resolveGeography(
-      ["South East Asia", "Southeast Asia"],
-      "Southeast Asia",
-      SEA,
-    );
-    expect(result.used).toBe("Southeast Asia");
-    expect(result.reason).toBe("exact");
-  });
-
-  it("is a spelling fold, not a synonym table", () => {
-    // Different words stay different: no ISO-similarity threshold is involved.
-    // "ASEAN" still reaches the only option available, but as a reported
-    // fallback rather than a match — which is the distinction that matters.
-    expect(resolveGeography(["South East Asia"], "ASEAN", SEA)).toMatchObject({
-      used: "South East Asia",
-      fellBack: true,
-      reason: "broadest",
-    });
-
-    expect(
-      resolveGeography(["South Asia", "Global"], "South East Asia", SEA),
-    ).toMatchObject({ used: "Global", fellBack: true, reason: "global" });
   });
 });
 
@@ -217,16 +171,14 @@ describe("geographyFallbackNote", () => {
   });
 
   it("says nothing when the request resolved", () => {
-    for (const reason of ["exact", "labelVariant"] as const) {
-      expect(
-        geographyFallbackNote({
-          used: "South East Asia",
-          requested: "Southeast Asia",
-          fellBack: false,
-          reason,
-        }),
-      ).toBeNull();
-    }
+    expect(
+      geographyFallbackNote({
+        used: "South East Asia",
+        requested: "South East Asia",
+        fellBack: false,
+        reason: "exact",
+      }),
+    ).toBeNull();
   });
 
   it("says nothing when nothing was requested or nothing resolved", () => {
