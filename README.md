@@ -38,6 +38,70 @@ The application is deployed using Azure Static Web Apps:
 
 Pull requests automatically deploy to preview environments with URLs provided in the PR comments.
 
+## Adding or updating pathways
+
+Each pathway on the site has two parts:
+
+1. **A description** (the "metadata"): who published it, which sectors and regions it covers, its key features, drivers, dependencies and what data it offers. Every pathway needs one.
+2. **Benchmark data** (the "timeseries"): the numbers behind the charts and the download, for example installed solar capacity in Southeast Asia, year by year. This part is optional.
+
+**The description always comes first.** Benchmark data may only use the region names its pathway's description lists, so a new pathway, or a new region, has to be in the description before its data can be added.
+
+Neither part is edited by hand. Data people fill in a shared workbook or run a preparation script, and a developer brings the result into this repository with an import script that checks the data and prints a report of every problem it finds. Every change then goes through a pull request, which builds a preview of the site (the link appears in the pull request) so the new pathway can be checked before it goes live.
+
+### Adding or updating a pathway description
+
+**Who:** someone who knows the publication fills in the workbook; a developer does the import.
+
+1. **Fill in the workbook.** Descriptions are written in the shared workbook `pathway_data_prepared.xlsx` (on RMI's SharePoint; ask the TPR data team for access). Each pathway gets a row in the metadata sheet and rows in the sheets for key features, core drivers, dependencies and data availability. The classification cookbook says which values are allowed and how to choose them.
+2. **Tell the developer what's new.** Updating a pathway that is already on the site needs nothing extra. A **new** pathway needs one line in the importer's list of pathways (`TARGETS` in `scripts/import-pathway-data.ts`). A **new publisher** also has to be added to the list of allowed publishers (`src/schema/common/publication.v1.json`), and the importer has to learn to recognise its name (`publisherGroup` in the same script).
+3. **Import (developer).** Run a dry run first. It writes nothing and prints a report of everything it could not take over cleanly, such as a value that isn't allowed or a missing field. Some problems stop the import (for example a data-availability row that is only partly "Not covered"); others are skipped and listed in the report, so read it all:
+
+   ```bash
+   npx ts-node --esm scripts/import-pathway-data.ts --xlsx <path/to/pathway_data_prepared.xlsx> --dry-run
+   ```
+
+   Fix problems in the workbook (not in the files here) and repeat until the report shows nothing you want to fix. Then run the same command without `--dry-run`, followed by:
+
+   ```bash
+   npx prettier --write "src/data/**/*.json"
+   npm run schema:check
+   ```
+
+4. **Review and publish.** Open a pull request. Check the pathway on the preview site, then merge.
+
+### Adding or updating benchmark data
+
+**Who:** the benchmark data is prepared in a separate repository, [RMI/tpr_benchmark_data_preparation](https://github.com/RMI/tpr_benchmark_data_preparation) (RMI internal), by someone with access to the raw publication files; a developer does the import.
+
+1. **Prepare the data.** Run the preparation pipeline as its README describes. It produces two things:
+   - `benchmark_data_prepared.xlsx`, a workbook for checking the numbers by eye. Review it before going on.
+   - a `tpr_timeseries` folder with one file per pathway, ready to import.
+2. **Import (developer).** Again, a dry run first. This import is stricter: if anything is wrong it writes nothing at all, and it lists every problem in one go:
+
+   ```bash
+   npx ts-node --esm scripts/import-benchmark-data.ts --in <path/to/tpr_timeseries> --dry-run
+   ```
+
+   The most common problems, and where to fix them:
+
+   | The import says                           | What it means                                                       | Fix it in                                                           |
+   | ----------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+   | "… is not a geography pathway … declares" | The data uses a region the pathway's description doesn't list       | The pathway description (see above): add the region, then re-import |
+   | "… is not the id of any pathway"          | The pathway has no description yet                                  | Add the description first                                           |
+   | "… is not a segment of …"                 | A row names a part of the sector that doesn't belong to that sector | The preparation repository                                          |
+
+   Once the dry run is clean, run it again without `--dry-run`. It updates existing files and adds new ones next to their pathway's description; it never deletes anything. Then:
+
+   ```bash
+   npm run build:timeseries
+   npm run schema:check
+   ```
+
+3. **Review and publish.** Open a pull request, check the charts and the data download on the preview site, then merge.
+
+The file formats and every validation rule are described in [`src/data/README.md`](src/data/README.md).
+
 ## Development
 
 ### Set-Up
