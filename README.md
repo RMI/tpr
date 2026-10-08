@@ -54,7 +54,10 @@ Neither part is edited by hand. Data people fill in a shared workbook or run a p
 **Who:** someone who knows the publication fills in the workbook; a developer does the import.
 
 1. **Fill in the workbook.** Descriptions are written in the shared workbook `pathway_data_prepared.xlsx` (on RMI's SharePoint; ask the TPR data team for access). Each pathway gets a row in the metadata sheet and rows in the sheets for key features, core drivers, dependencies and data availability. The classification cookbook says which values are allowed and how to choose them.
-2. **Tell the developer what's new.** Updating a pathway that is already on the site needs nothing extra. A **new** pathway needs one line in the importer's list of pathways (`TARGETS` in `scripts/import-pathway-data.ts`). A **new publisher** also has to be added to the list of allowed publishers (`src/schema/common/publication.v1.json`), and the importer has to learn to recognise its name (`publisherGroup` in the same script).
+2. **Tell the developer what's new.** The importer only handles pathways on its own list (`TARGETS` in `scripts/import-pathway-data.ts`); a workbook row it doesn't know is reported as "unmatched" and skipped.
+   - **Updating a pathway on that list** needs nothing extra. Some older pathways on the site are not on it yet.
+   - **A new pathway** needs a line on the list, naming the file to create and an existing pathway file to use as a template. The importer takes the publication's title and year from the workbook but copies the rest of the publication details (publisher, licence, links) from the template, so pick one from the same publisher and check those details afterwards.
+   - **A new publisher** has no such template. The developer adds it to the allowed publishers (`src/schema/common/publication.v1.json`), teaches the importer to recognise its name (`publisherGroup` in the same script), and writes the new file's publication details by hand after the import.
 3. **Import (developer).** Run a dry run first. It writes nothing and prints a report of everything it could not take over cleanly, such as a value that isn't allowed or a missing field. Some problems stop the import (for example a data-availability row that is only partly "Not covered"); others are skipped and listed in the report, so read it all:
 
    ```bash
@@ -76,20 +79,20 @@ Neither part is edited by hand. Data people fill in a shared workbook or run a p
 
 1. **Prepare the data.** Run the preparation pipeline as its README describes. It produces two things:
    - `benchmark_data_prepared.xlsx`, a workbook for checking the numbers by eye. Review it before going on.
-   - a `tpr_timeseries` folder with one file per pathway, ready to import.
+   - a `tpr_timeseries` folder with one file per dataset, ready to import. A dataset usually belongs to one pathway but can be shared by several.
 2. **Import (developer).** Again, a dry run first. This import is stricter: if anything is wrong it writes nothing at all, and it lists every problem in one go:
 
    ```bash
    npx ts-node --esm scripts/import-benchmark-data.ts --in <path/to/tpr_timeseries> --dry-run
    ```
 
-   The most common problems, and where to fix them:
+   The most common problems, and what to do about them:
 
-   | The import says                           | What it means                                                       | Fix it in                                                           |
-   | ----------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-   | "… is not a geography pathway … declares" | The data uses a region the pathway's description doesn't list       | The pathway description (see above): add the region, then re-import |
-   | "… is not the id of any pathway"          | The pathway has no description yet                                  | Add the description first                                           |
-   | "… is not a segment of …"                 | A row names a part of the sector that doesn't belong to that sector | The preparation repository                                          |
+   | The import says                           | What it means                                                                                    | What to do                                                                                                                                                                                                                                                                           |
+   | ----------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+   | "… is not a geography pathway … declares" | The data names a region that is not written exactly like any region in the pathway's description | Check the publication. If the data's name is a typo or differs from the publication's wording, fix it in the preparation repository. If the publication really covers that region and the description leaves it out, add it to the description (see above) and re-import that first. |
+   | "… is not the id of any pathway"          | The data points to a pathway id that has no description                                          | If the id is mistyped, fix it in the preparation repository. If the pathway is new, add its description first.                                                                                                                                                                       |
+   | "… is not a segment of …"                 | A row names a part of the sector that doesn't belong to that sector                              | Fix it in the preparation repository.                                                                                                                                                                                                                                                |
 
    Once the dry run is clean, run it again without `--dry-run`. It updates existing files and adds new ones next to their pathway's description; it never deletes anything. Then:
 
