@@ -739,14 +739,18 @@
         justify-content: space-between;
       }
 
-      /* pathway card */
+      /* pathway card — each value mirrors a class in src/components/PathwayCard.tsx */
       .p-card {
-        width: 300px;
+        width: 380px; /* fluid in the app: one cell of the results grid */
         background: #fff;
         border-radius: 8px;
         border: 1px solid var(--color-neutral-200);
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
       }
       .p-card .strip {
         display: flex;
@@ -754,100 +758,165 @@
       }
       .p-card .strip .name {
         flex: 1;
+        min-width: 0;
         background: var(--color-neutral-100);
-        padding: 10px 16px;
-        font-size: 12.5px;
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+      }
+      .p-card .strip .name span {
+        font-size: 14px;
+        line-height: 20px;
         font-weight: 500;
         color: var(--color-rmigray-700);
         text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .p-card .strip .cells {
+        display: flex;
+        align-items: stretch;
+        height: 44px;
       }
       .p-card .strip .temp {
-        background: #eec7b7;
-        padding: 10px 14px;
-        font-size: 13px;
-        font-weight: 500;
-        color: var(--color-rmigray-700);
+        padding: 12px 20px;
         display: flex;
         align-items: center;
-      }
-      .p-card .strip .nz {
-        background: var(--color-rmiblue-100);
-        padding: 6px 14px;
-        font-size: 13px;
+        justify-content: center;
+        font-size: 14px;
+        line-height: 20px;
         font-weight: 500;
         color: var(--color-rmigray-700);
+      }
+      .p-card .strip .nz {
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        background: var(--color-rmiblue-100);
+        min-width: 80px;
+      }
+      .p-card .strip .nz .stack {
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
       }
       .p-card .strip .nz small {
-        font-size: 9.5px;
+        font-size: 10px;
+        line-height: 1.25;
+        height: 14px;
+        white-space: nowrap;
         color: var(--color-rmigray-600);
       }
+      .p-card .strip .nz .yr {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: var(--color-rmigray-700);
+      }
       .p-card .body {
-        padding: 18px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .p-card .head {
+        margin-bottom: 16px;
       }
       .p-card h5 {
-        margin: 0 0 6px;
-        font-size: 17px;
+        margin: 0 0 8px;
+        font-size: 20px;
+        line-height: 28px;
         font-weight: 600;
         color: var(--color-bluespruce);
       }
       .p-card p.desc {
-        font-size: 12.5px;
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
         color: var(--color-rmigray-600);
-        margin: 0 0 12px;
-        line-height: 1.45;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
       .p-card .field {
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
       .p-card .field .lab {
-        font-size: 10.5px;
-        font-weight: 600;
+        margin: 0 0 4px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 500;
         color: var(--color-rmigray-500);
-        margin-bottom: 4px;
-        text-transform: uppercase;
-        letter-spacing: 0.02em;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .p-card .field .lab svg {
+        color: var(--color-rmigray-400);
       }
       .p-card .badges {
         display: flex;
         flex-wrap: wrap;
-        gap: 5px;
+      }
+      .p-card .badges .badge {
+        margin: 0 8px 4px 0; /* Badge.tsx spaces badges with mr-2 mb-1 */
+      }
+      .p-card .badges .more {
+        font-size: 12px;
+        color: var(--color-rmigray-500);
+        align-self: center;
+        white-space: nowrap;
       }
       .p-card .foot {
-        border-top: 1px solid #f1f1f1;
-        padding-top: 10px;
-        margin-top: 12px;
+        margin-top: auto;
+        padding-top: 12px;
+        border-top: 1px solid oklch(96.7% 0.003 264.542); /* Tailwind gray-100 */
+      }
+      .p-card .foot .row {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
       }
       .p-card .foot .lab2 {
-        font-size: 10.5px;
+        margin: 0;
+        font-size: 12px;
+        line-height: 16px;
         color: var(--color-rmigray-500);
       }
       .p-card .foot .val {
-        font-size: 12.5px;
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
         font-weight: 500;
         color: var(--color-rmigray-800);
       }
       .p-card .cta {
         display: flex;
+        gap: 8px;
       }
       .p-card .cta .view {
         flex: 1;
+        height: 48px;
         background: var(--color-rmiblue-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: var(--color-bluespruce);
-        text-align: center;
-        padding: 12px;
-        font-size: 13px;
+        font-size: 16px;
         font-weight: 500;
       }
+      .p-card .cta .view svg {
+        margin-left: 8px;
+      }
       .p-card .cta .add {
+        height: 48px;
         width: 48px;
+        flex: none;
         background: #fff;
-        border-left: 1px solid var(--color-neutral-200);
+        border: 1px solid var(--color-neutral-200);
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1388,11 +1457,13 @@
           <h1>Pathways UI Kit</h1>
           <p>
             Every color, type size, and reusable interface component currently
-            shipping in the TPR front end, pulled directly from
-            <code>src/index.css</code> and <code>src/components/</code> — not
-            redrawn from memory. Each entry carries the real Tailwind class
-            names and CSS custom properties, so a Figma file built from this
-            stays traceable back to the code that renders it.
+            shipping in the TPR front end, taken from
+            <code>src/index.css</code> and <code>src/components/</code>. Each
+            entry carries the real Tailwind class names and CSS custom
+            properties, so a Figma file built from this stays traceable back to
+            the code that renders it. Colors and class tags are exact; the
+            previews are hand-built and can drift from the code in small ways.
+            Where a preview and its tags disagree, the tags win.
           </p>
           <p>
             Component previews sit on a fixed light stage regardless of the
@@ -2668,7 +2739,7 @@
                 style="
                   --b: var(--color-rmigray-100);
                   --t: var(--color-rmigray-800);
-                  --bd: var(--color-rmigray-100);
+                  --bd: var(--color-rmigray-200);
                 "
                 >Default</span
               >
@@ -3413,18 +3484,50 @@
             <div class="stage tight align-start">
               <div class="p-card">
                 <div class="strip">
-                  <div class="name">Normative Pathway</div>
-                  <div class="temp">1.5°C</div>
-                  <div class="nz"><small>Net Zero By</small>2050</div>
+                  <div class="name"><span>Normative Pathway</span></div>
+                  <div class="cells">
+                    <div
+                      class="temp"
+                      style="background: var(--color-pinishgreen-100)"
+                    >
+                      1.5°C
+                    </div>
+                    <div class="nz">
+                      <div class="stack">
+                        <small>Net Zero By</small><span class="yr">2050</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="body">
-                  <h5>IEA: Net Zero Emissions Scenario</h5>
-                  <p class="desc">
-                    A normative IEA scenario mapping a technically feasible path
-                    to net-zero CO₂ emissions from the energy sector by 2050.
-                  </p>
+                  <div class="head">
+                    <h5>IEA: Net Zero Emissions Scenario</h5>
+                    <p class="desc">
+                      A normative IEA scenario mapping a technically feasible
+                      path to net-zero CO₂ emissions from the energy sector by
+                      2050.
+                    </p>
+                  </div>
                   <div class="field">
-                    <div class="lab">Geographies</div>
+                    <p class="lab">
+                      Geographies:
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path d="M12 16v-4M12 8h.01" />
+                      </svg>
+                    </p>
                     <div class="badges">
                       <span
                         class="badge"
@@ -3438,7 +3541,25 @@
                     </div>
                   </div>
                   <div class="field">
-                    <div class="lab">Sectors</div>
+                    <p class="lab">
+                      Sectors:
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path d="M12 16v-4M12 8h.01" />
+                      </svg>
+                    </p>
                     <div class="badges">
                       <span
                         class="badge"
@@ -3448,8 +3569,7 @@
                           --bd: var(--color-solar-200);
                         "
                         >Power</span
-                      >
-                      <span
+                      ><span
                         class="badge"
                         style="
                           --b: var(--color-solar-100);
@@ -3457,19 +3577,37 @@
                           --bd: var(--color-solar-200);
                         "
                         >Transport</span
-                      >
-                      <span
+                      ><span
+                        class="badge"
                         style="
-                          font-size: 11px;
-                          color: var(--color-rmigray-500);
-                          align-self: center;
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
                         "
-                        >+3 more</span
-                      >
+                        >Industry</span
+                      ><span class="more">+2 more</span>
                     </div>
                   </div>
                   <div class="field">
-                    <div class="lab">Benchmark metrics</div>
+                    <p class="lab">
+                      Benchmark Metrics:
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path d="M12 16v-4M12 8h.01" />
+                      </svg>
+                    </p>
                     <div class="badges">
                       <span
                         class="badge"
@@ -3483,19 +3621,45 @@
                     </div>
                   </div>
                   <div class="foot">
-                    <div>
-                      <div class="lab2">Publication</div>
-                      <div class="val">World Energy Outlook 2024</div>
+                    <div class="row">
+                      <div>
+                        <p class="lab2">Publication:</p>
+                        <p class="val">World Energy Outlook 2024</p>
+                      </div>
+                      <div style="text-align: right">
+                        <p class="lab2">Published:</p>
+                        <p class="val">2024</p>
+                      </div>
                     </div>
-                    <div style="text-align: right">
-                      <div class="lab2">Published</div>
-                      <div class="val">2024</div>
+                    <div class="cta">
+                      <div class="view">
+                        View Details<svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </div>
+                      <div class="add">
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 12h14M12 5v14" />
+                        </svg>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="cta">
-                  <div class="view">View Details →</div>
-                  <div class="add">+</div>
                 </div>
               </div>
             </div>
@@ -3503,10 +3667,22 @@
               <h4>Pathway card</h4>
               <p class="src">PathwayCard.tsx</p>
               <div class="tags">
-                <span class="tag">shadow-md → hover:shadow-lg</span
-                ><span class="tag">border-neutral-200</span
-                ><span class="tag">rounded-lg</span>
+                <span class="tag">rounded-lg border-neutral-200</span
+                ><span class="tag">shadow-md → hover:shadow-lg</span
+                ><span class="tag">strip: px-5 py-3 text-sm uppercase</span
+                ><span class="tag">body: p-5</span
+                ><span class="tag">title: text-xl font-semibold</span
+                ><span class="tag">labels: text-xs font-medium</span
+                ><span class="tag">buttons: h-12 gap-2</span>
               </div>
+              <p class="note">
+                The temperature cell's color comes from
+                <code>getTemperatureColor</code>: ≤1.5°C pinishgreen-100, ≤2.0
+                solar-100, ≤2.5 solar-200, ≤3.0 rmired-100, ≤3.5 rmired-200,
+                hotter rmired-400. The add-to-comparison button only appears
+                while the comparison tray is open. In the app the card's width
+                is set by the results grid (three columns on wide screens).
+              </p>
             </div>
           </div>
         </section>
@@ -3656,7 +3832,7 @@
                       ><span>Normative</span
                       ><span style="background: var(--color-rmiblue-100)"
                         >2050</span
-                      ><span style="background: var(--color-rmired-100)"
+                      ><span style="background: var(--color-pinishgreen-100)"
                         >1.5°C</span
                       ></span
                     >
@@ -4545,8 +4721,9 @@
               Install the <strong>Tokens Studio</strong> plugin (free) in Figma.
             </li>
             <li>
-              Copy the JSON block below into a new token set, or import it as a
-              file.
+              Import <code>tpr-design-tokens.json</code> (in the same folder as
+              this page) as a token set. The block below is a short, valid
+              excerpt showing the format.
             </li>
             <li>
               Use Tokens Studio's "Create Styles/Variables" action to turn every
@@ -4563,11 +4740,15 @@
     "energy": { "value": "#45cfcc", "type": "color" },
     "energy-700": { "value": "#2ab5b2", "type": "color" },
     "rmigray-800": { "value": "#231f20", "type": "color" }
-    /* … full token set: see the accompanying tpr-design-tokens.json */
   },
-  "fontSize": { "sm": { "value": "14px" }, "base": { "value": "16px" } },
-  "fontWeight": { "medium": { "value": "500" }, "semibold": { "value": "600" } },
-  "borderRadius": { "md": { "value": "6px" }, "full": { "value": "9999px" } }
+  "fontSize": {
+    "sm": { "value": "14px", "type": "fontSizes" },
+    "base": { "value": "16px", "type": "fontSizes" }
+  },
+  "borderRadius": {
+    "md": { "value": "6px", "type": "borderRadius" },
+    "full": { "value": "9999px", "type": "borderRadius" }
+  }
 }</code></pre>
           <p
             style="
