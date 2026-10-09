@@ -41,6 +41,20 @@ export function sectorSegmentColumns(
 }
 
 /**
+ * The publisher as the download names it: the short name, or the full name
+ * where the publication has none. Some publishers carry only a full name
+ * (TransitionZero), and reading `short` alone wrote an empty `publisher` and a
+ * `source` starting with "undefined". The prep repo's review workbook uses
+ * the same rule, so the two match.
+ */
+export function publisherLabel(publisher: {
+  short?: string | null;
+  full: string;
+}): string {
+  return publisher.short?.trim() || publisher.full;
+}
+
+/**
  * One CSV cell. Strings are always quoted; a list is joined first, so it can
  * never spill its commas into the next columns.
  */
