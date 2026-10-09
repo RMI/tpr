@@ -428,24 +428,27 @@
         font-style: italic;
       }
 
-      /* ---------- rendered component styles (mirrors real Tailwind classes 1:1) ---------- */
+      /* ---------- rendered component styles: each value mirrors a class in the named source file ---------- */
+      /* DownloadDataset.tsx, PublicationBlock.tsx, PathwaySearch.tsx */
       .btn-primary {
         display: inline-flex;
         align-items: center;
-        gap: 8px;
         background: var(--color-energy);
         color: #fff;
         border-radius: 6px;
         padding: 8px 16px;
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 16px; /* no text-* class: inherits the 16px base */
+        line-height: 24px;
+        font-weight: 400;
         border: none;
         cursor: pointer;
+        font-family: inherit;
       }
       .btn-primary:hover {
         background: var(--color-energy-700);
       }
 
+      /* PathwayCard.tsx comparison button */
       .btn-icon {
         height: 48px;
         width: 48px;
@@ -470,26 +473,31 @@
         cursor: not-allowed;
       }
 
+      /* MultiSelectDropdown.tsx: sits in the panel's text-xs header row, no colour of its own */
       .btn-text {
         background: none;
         border: none;
         text-decoration: underline;
-        font-size: 14px;
-        color: var(--color-rmigray-700);
+        font-size: 12px;
+        line-height: 16px;
+        color: #000;
         cursor: pointer;
         padding: 0;
+        font-family: inherit;
       }
       .btn-text[disabled] {
         opacity: 0.5;
         cursor: not-allowed;
       }
 
+      /* Badge.tsx */
       .badge {
         display: inline-flex;
         align-items: center;
         padding: 2px 10px;
         border-radius: 9999px;
         font-size: 12px;
+        line-height: 16px;
         font-weight: 500;
         border: 1px solid transparent;
         background: var(--b);
@@ -497,91 +505,63 @@
         border-color: var(--bd);
       }
 
-      .accordion-item {
-        width: 100%;
-        max-width: 420px;
-        border: 1px solid var(--color-neutral-200);
-        border-radius: 8px;
-        background: #fff;
-      }
-      .accordion-item .head {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 20px 24px;
-        cursor: pointer;
-      }
-      .accordion-item .head h5 {
-        margin: 0;
-        font-size: 15px;
-        font-weight: 600;
-        color: var(--color-rmigray-800);
-      }
-      .accordion-item .caret {
-        color: var(--color-rmigray-400);
-        transition: transform 0.2s;
-      }
-      .accordion-item.open .caret {
-        transform: rotate(180deg);
-      }
-      .accordion-item .panel {
-        padding: 0 24px 20px;
-        font-size: 13.5px;
-        color: var(--color-rmigray-600);
-      }
-      .accordion-item:not(.open) .panel {
-        display: none;
-      }
-
+      /* SearchBox.tsx */
       .search-box {
         display: flex;
         align-items: center;
         width: 100%;
-        max-width: 340px;
+        max-width: 420px;
         border-radius: 6px;
         border: 1px solid var(--color-neutral-300);
         background: #fff;
       }
       .search-box.focused {
         border-color: var(--color-energy-400);
-        box-shadow: 0 0 0 4px var(--color-energy-100);
+        box-shadow: 0 0 0 2px var(--color-energy-100);
       }
-      .search-box svg.lead {
-        margin-left: 12px;
-        color: #9aa2ab;
+      .search-box .lead {
+        padding-left: 12px;
+        color: oklch(70.7% 0.022 261.325); /* Tailwind gray-400 */
+        display: flex;
         flex: none;
       }
       .search-box input {
         border: none;
         outline: none;
         padding: 12px;
-        font-size: 14px;
+        font-size: 16px; /* text-sm below the md breakpoint */
+        line-height: 24px;
         width: 100%;
         color: var(--color-rmigray-700);
         background: transparent;
+        font-family: inherit;
       }
       .search-box .clear {
         background: none;
         border: none;
-        margin-right: 10px;
+        padding: 0 12px 0 0;
+        display: flex;
         color: var(--color-rmigray-400);
         cursor: pointer;
       }
 
+      /* DropdownFacetShell.tsx */
       .facet-pill {
         display: inline-flex;
         align-items: center;
         justify-content: space-between;
-        gap: 10px;
         border-radius: 6px;
         padding: 8px 12px;
-        font-size: 13.5px;
-        box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-        border: 1px solid var(--color-neutral-300);
+        font-size: 14px;
+        line-height: 20px;
+        box-shadow:
+          0 1px 3px 0 rgb(0 0 0 / 0.1),
+          0 1px 2px -1px rgb(0 0 0 / 0.1);
+        border: 1px solid oklch(87.2% 0.01 258.338); /* Tailwind gray-300 */
         background: #fff;
         color: var(--color-rmigray-800);
         min-width: 128px;
+        text-align: left;
         cursor: default;
       }
       .facet-pill.active {
@@ -592,39 +572,60 @@
       .facet-pill strong {
         font-weight: 700;
       }
+      .facet-pill .icon {
+        margin-left: 8px;
+        height: 20px;
+        width: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
 
+      /* DropdownFacetShell.tsx panel + MultiSelectDropdown.tsx list */
       .facet-panel {
-        border: 1px solid var(--color-neutral-200);
+        border: 1px solid oklch(92.8% 0.006 264.531); /* Tailwind gray-200 */
         border-radius: 6px;
         background: #fff;
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-        width: 220px;
-        overflow: hidden;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        min-width: 160px;
+        margin-top: 8px;
       }
       .facet-panel .fp-head {
         display: flex;
+        align-items: flex-start;
         justify-content: space-between;
-        padding: 10px 12px 8px;
+        gap: 12px;
+        padding: 0 8px 8px;
         font-size: 12px;
-      }
-      .facet-panel .fp-head a {
-        color: var(--color-rmigray-800);
-        text-decoration: underline;
+        line-height: 16px;
       }
       .facet-panel ul {
         list-style: none;
         margin: 0;
-        padding: 4px 8px 10px;
+        padding: 8px;
       }
       .facet-panel li {
         display: flex;
         align-items: center;
         gap: 8px;
-        padding: 5px 4px;
-        font-size: 13.5px;
-        color: var(--color-rmigray-800);
+        padding: 4px 8px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #000;
+      }
+      .facet-panel .fp-foot {
+        border-top: 1px solid oklch(92.8% 0.006 264.531);
+        padding: 8px;
+        font-size: 12px;
+        line-height: 16px;
+        font-style: italic;
+        color: var(--color-rmigray-500);
       }
 
+      /* SentimentScale.tsx, NeutralScale.tsx */
       .scale-row {
         display: flex;
         gap: 2px;
@@ -634,27 +635,38 @@
       .scale-row .bar {
         flex: 1;
         height: 6px;
-        border-radius: 2px;
+        border-radius: 4px;
       }
       .scale-row .bar.sel {
         height: 12px;
       }
+      .scale-label {
+        margin-top: 6px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 600;
+      }
 
+      /* NumericRangeSlider.tsx */
       .num-slider {
-        width: 300px;
+        width: 320px;
+        padding-bottom: 20px;
       }
       .num-track {
         position: relative;
         height: 8px;
         border-radius: 4px;
-        background: linear-gradient(
-          to right,
-          #2888c9 0%,
-          #77b8e4 20%,
-          #91cbf2 33%,
-          #df4e39 55%,
-          #ab3c2c 100%
-        );
+      }
+      .num-track .fill {
+        position: absolute;
+        inset: 0;
+        border-radius: 4px;
+      }
+      .num-track .cover {
+        position: absolute;
+        top: 0;
+        height: 8px;
+        background: rgb(230 236 239); /* hard-coded in the component */
       }
       .num-track .handle {
         position: absolute;
@@ -663,50 +675,83 @@
         width: 16px;
         border-radius: 9999px;
         background: #fff;
-        border: 2px solid var(--color-rmiblue-800);
-        box-shadow: 0 0 0 3px var(--color-rmiblue-100);
+        border: 1px solid var(--color-rmiblue-800);
+        box-shadow:
+          0 0 0 2px var(--color-rmiblue-100),
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
       }
-      .num-ticks {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 10px;
-        font-size: 10px;
+      .num-track .tick {
+        position: absolute;
+        bottom: -20px;
+        transform: translateX(-50%);
+        font-size: 12px;
+        line-height: 16px;
         color: var(--color-rmigray-500);
-        font-family: var(--font-mono);
+        white-space: nowrap;
       }
 
+      /* TextWithTooltip.tsx */
       .tooltip-demo {
         position: relative;
         display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-rmigray-500);
+      }
+      .tooltip-demo .trigger {
+        display: inline-flex;
+        color: var(--color-rmigray-400);
+        cursor: help;
       }
       .tooltip-demo .bubble {
         position: absolute;
-        left: calc(100% + 10px);
+        left: calc(100% + 8px);
         top: 50%;
         transform: translateY(-50%);
         background: #fff;
         border: 1px solid var(--color-rmigray-100);
         color: var(--color-rmigray-500);
         font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
         padding: 8px 12px;
-        border-radius: 6px;
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-        width: 180px;
+        border-radius: 4px;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        width: 260px; /* max-w-xs (320px) in the app */
+        opacity: 0.95;
+      }
+      .tooltip-demo .bubble::before {
+        content: "";
+        position: absolute;
+        left: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 4px solid transparent;
+        border-right-color: var(--color-rmigray-100);
       }
 
+      /* HighlightedText.tsx */
       .mark-demo mark {
         background: var(--color-energy-100);
         color: var(--color-energy-800);
         padding: 0 2px;
-        border-radius: 2px;
+        border-radius: 4px;
         font-weight: 500;
       }
 
+      /* Header.tsx, HeaderNav.tsx, ResourcesDropdown.tsx */
       .chrome-bar {
         background: var(--color-bluespruce);
         color: #fff;
-        border-radius: 8px;
-        padding: 14px 20px;
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        padding: 16px;
         width: 100%;
         display: flex;
         align-items: center;
@@ -714,29 +759,92 @@
       }
       .chrome-bar .brand {
         font-weight: 700;
-        font-size: 15px;
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -0.025em;
       }
       .chrome-bar .sub {
-        font-size: 10.5px;
-        color: rgba(255, 255, 255, 0.75);
-        margin-top: 2px;
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgb(255 255 255 / 0.8);
+      }
+      .chrome-bar .logo {
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.04em;
+        color: #fff;
+        border: 1px dashed rgb(255 255 255 / 0.5);
+        padding: 0 4px;
+        line-height: 18px;
       }
       .chrome-bar nav {
         display: flex;
-        gap: 16px;
-        font-size: 12.5px;
+        gap: 8px;
+      }
+      .chrome-bar nav span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: rgb(255 255 255 / 0.9);
       }
 
+      /* Footer.tsx */
       .foot-chrome {
         background: var(--color-bluespruce);
         border-top: 1px solid var(--color-basalt);
-        border-radius: 8px;
-        padding: 16px 20px;
+        padding: 32px 16px;
         width: 100%;
         color: #fff;
-        font-size: 12px;
+      }
+      .foot-chrome .row {
         display: flex;
         justify-content: space-between;
+        align-items: center;
+      }
+      .foot-chrome .left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+      }
+      .foot-chrome .links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .foot-chrome .links span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .foot-chrome .copy {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-basalt);
+        text-align: center;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .foot-chrome .logo {
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.04em;
+        border: 1px dashed rgb(255 255 255 / 0.5);
+        padding: 0 4px;
+        line-height: 22px;
       }
 
       /* pathway card — each value mirrors a class in src/components/PathwayCard.tsx */
@@ -1084,9 +1192,15 @@
       .ribbon .axes .vals {
         display: flex;
         flex-wrap: wrap;
-        gap: 6px;
+        gap: 0;
         padding: 2px 0;
         align-items: center;
+      }
+      .ribbon .axes .vals .badge,
+      .plot-fig .under .badge,
+      .geo-list .opt .badge,
+      table.data-table .badges .badge {
+        margin: 0 8px 4px 0; /* Badge.tsx: mr-2 mb-1 */
       }
       .ribbon .geo-row {
         padding: 8px 24px 12px;
@@ -1101,23 +1215,25 @@
         border-radius: 0;
         padding: 8px 24px 0;
         border-bottom: none;
-        border-top: 1px solid var(--color-neutral-200);
-        margin-top: 8px;
+        background: transparent;
       }
 
       .geo-select {
+        /* ColumnGeographySelect.tsx */
         display: flex;
         width: 100%;
         align-items: center;
         justify-content: space-between;
         gap: 8px;
         border-radius: 6px;
-        border: 1px solid var(--color-neutral-300);
+        border: 1px solid oklch(87.2% 0.01 258.338);
         background: #fff;
         padding: 4px 8px;
         font-size: 12px;
         color: var(--color-rmigray-800);
-        box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+        box-shadow:
+          0 1px 3px 0 rgb(0 0 0 / 0.1),
+          0 1px 2px -1px rgb(0 0 0 / 0.1);
         font-family: inherit;
         text-align: left;
       }
@@ -1133,10 +1249,12 @@
       }
       .geo-list {
         width: 240px;
-        border: 1px solid var(--color-neutral-200);
+        border: 1px solid oklch(92.8% 0.006 264.531);
         border-radius: 6px;
         background: #fff;
-        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
         margin-top: 4px;
       }
       .geo-list .opts {
@@ -1151,7 +1269,7 @@
         background: var(--color-neutral-100);
       }
       .geo-list .foot {
-        border-top: 1px solid var(--color-neutral-200);
+        border-top: 1px solid oklch(92.8% 0.006 264.531);
         padding: 8px;
         font-size: 12px;
         font-style: italic;
@@ -1187,11 +1305,13 @@
       table.data-table tbody tr:nth-child(even) {
         background: var(--color-neutral-50);
       }
+      table.data-table.deps tbody th {
+        white-space: nowrap;
+      }
       table.data-table tbody th {
         text-align: left;
         font-weight: 500;
         color: var(--color-rmigray-800);
-        white-space: nowrap;
       }
       table.data-table tbody td {
         color: var(--color-rmigray-700);
@@ -1199,7 +1319,7 @@
       table.data-table .badges {
         display: flex;
         flex-wrap: wrap;
-        gap: 4px;
+        gap: 0;
       }
 
       .empty-state {
@@ -1314,7 +1434,7 @@
         font-family: var(--font-mono);
       }
       .plot-fig .chart-empty {
-        height: 110px;
+        height: 128px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -1328,7 +1448,7 @@
         margin-top: 4px;
         display: flex;
         flex-wrap: wrap;
-        gap: 4px;
+        gap: 0;
       }
 
       @media (max-width: 1000px) {
@@ -1423,7 +1543,6 @@
           <h6>Components</h6>
           <a href="#buttons">Buttons</a>
           <a href="#badges">Badges</a>
-          <a href="#accordion">Accordion</a>
           <a href="#search">Search box</a>
           <a href="#dropdown">Filter dropdown</a>
           <a href="#slider">Range slider</a>
@@ -2600,7 +2719,7 @@
           <div class="comp-grid">
             <div class="comp-card">
               <div class="stage">
-                <button class="btn-primary">Download Dataset</button>
+                <button class="btn-primary">Download</button>
               </div>
               <div class="info">
                 <h4>Primary button</h4>
@@ -2612,7 +2731,8 @@
                   ><span class="tag">hover:bg-energy-700</span
                   ><span class="tag">text-white</span
                   ><span class="tag">rounded-md</span
-                  ><span class="tag">px-4 py-2</span>
+                  ><span class="tag">px-4 py-2</span
+                  ><span class="tag">no text size: 16px base</span>
                 </div>
               </div>
             </div>
@@ -3035,61 +3155,6 @@
 
         <section
           class="block"
-          id="accordion"
-        >
-          <h2>Accordion item</h2>
-          <p class="lede">
-            Shared primitive behind the FAQ, five-step guide, and step-by-step
-            pages — a caret rotates and the panel toggles via the
-            <code>hidden</code> attribute rather than unmounting, so screen
-            readers keep a stable reference.
-          </p>
-          <div class="comp-grid">
-            <div class="comp-card">
-              <div
-                class="stage tight align-start"
-                style="width: 100%"
-              >
-                <div class="accordion-item">
-                  <div class="head">
-                    <h5>What geographies are covered?</h5>
-                    <span class="caret">▾</span>
-                  </div>
-                </div>
-              </div>
-              <div class="info"><h4>Collapsed</h4></div>
-            </div>
-            <div class="comp-card">
-              <div
-                class="stage tight align-start"
-                style="width: 100%"
-              >
-                <div class="accordion-item open">
-                  <div class="head">
-                    <h5>What geographies are covered?</h5>
-                    <span class="caret">▾</span>
-                  </div>
-                  <div class="panel">
-                    Global, regional, and 40+ country-level pathways across
-                    national plans, IEA scenarios, and NGFS models.
-                  </div>
-                </div>
-              </div>
-              <div class="info">
-                <h4>Expanded</h4>
-                <p class="src">AccordionItem.tsx</p>
-                <div class="tags">
-                  <span class="tag">aria-expanded</span
-                  ><span class="tag">aria-controls</span
-                  ><span class="tag">rounded-full caret rotate-180</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section
-          class="block"
           id="search"
         >
           <h2>Search box</h2>
@@ -3100,21 +3165,22 @@
                 style="width: 100%"
               >
                 <div class="search-box">
-                  <svg
-                    class="lead"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <path d="m21 21-4.3-4.3" /></svg
+                  <span class="lead"
+                    ><svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <path d="m21 21-4.3-4.3" /></svg></span
                   ><input
                     placeholder="Search pathways..."
                     readonly
@@ -3129,33 +3195,51 @@
                 style="width: 100%"
               >
                 <div class="search-box focused">
-                  <svg
-                    class="lead"
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <circle
-                      cx="11"
-                      cy="11"
-                      r="8"
-                    />
-                    <path d="m21 21-4.3-4.3" /></svg
+                  <span class="lead"
+                    ><svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <path d="m21 21-4.3-4.3" /></svg></span
                   ><input
                     value="IEA net zero"
                     readonly
-                  /><button class="clear">✕</button>
+                  /><button
+                    class="clear"
+                    aria-label="Clear"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
               </div>
               <div class="info">
                 <h4>Focused, with value</h4>
                 <p class="src">SearchBox.tsx</p>
                 <div class="tags">
-                  <span class="tag">border-energy-400</span
-                  ><span class="tag">ring-2 ring-energy-100</span>
+                  <span class="tag">border-neutral-300 → border-energy-400</span
+                  ><span class="tag">ring-2 ring-energy-100</span
+                  ><span class="tag">py-3 px-3 text-sm md:text-base</span
+                  ><span class="tag">icons 20px, text-gray-400</span>
                 </div>
               </div>
             </div>
@@ -3168,9 +3252,9 @@
         >
           <h2>Filter dropdown</h2>
           <p class="lede">
-            Every search facet (geography, sector, metric, temperature) shares
-            one shell: a pill trigger that reserves space for its widest
-            possible label, and a floating panel for the options.
+            Every search facet (sector, geography, metric, pathway type,
+            temperature) shares one shell: a pill trigger that reserves space
+            for its widest possible label, and a floating panel for the options.
           </p>
           <div class="comp-grid">
             <div class="comp-card">
@@ -3179,32 +3263,34 @@
                 style="gap: 12px; flex-wrap: wrap"
               >
                 <div class="facet-pill">
-                  Sector
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    style="margin-left: auto"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
+                  <span>Sector...</span
+                  ><span class="icon"
+                    ><svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="m6 9 6 6 6-6" /></svg
+                  ></span>
                 </div>
                 <div class="facet-pill active">
-                  Sector: <strong>3</strong>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    style="margin-left: auto"
-                  >
-                    <path d="M18 6 6 18M6 6l12 12" />
-                  </svg>
+                  <span>Sector<strong>: 3</strong></span
+                  ><span class="icon"
+                    ><svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12" /></svg
+                  ></span>
                 </div>
               </div>
               <div class="info">
@@ -3214,15 +3300,33 @@
                   useDropdown; clicking the trigger now toggles
                 </p>
                 <div class="tags">
-                  <span class="tag">bg-energy-100</span
-                  ><span class="tag">text-energy-800</span>
+                  <span class="tag">px-3 py-2 text-sm rounded-md shadow-sm</span
+                  ><span class="tag">min-w-32</span
+                  ><span class="tag"
+                    >inactive: bg-white border-gray-300 text-rmigray-800</span
+                  ><span class="tag"
+                    >active: bg-energy-100 text-energy-800</span
+                  >
                 </div>
+                <p class="note">
+                  An inactive facet reads "Sector..."; an active one shows its
+                  count in bold. Icons are 16px.
+                </p>
               </div>
             </div>
             <div class="comp-card">
               <div class="stage tight align-start">
                 <div class="facet-panel">
-                  <div class="fp-head"><a>Select all</a><a>Clear</a></div>
+                  <div class="fp-head">
+                    <span style="display: flex; gap: 12px"
+                      ><button
+                        class="btn-text"
+                        disabled
+                      >
+                        Select all</button
+                      ><button class="btn-text">Clear</button></span
+                    >
+                  </div>
                   <ul>
                     <li>
                       <input
@@ -3235,6 +3339,7 @@
                     <li>
                       <input
                         type="checkbox"
+                        checked
                         readonly
                       />
                       Transport
@@ -3242,6 +3347,7 @@
                     <li>
                       <input
                         type="checkbox"
+                        checked
                         readonly
                       />
                       Industry
@@ -3258,7 +3364,19 @@
               </div>
               <div class="info">
                 <h4>Open panel</h4>
-                <p class="src">MultiSelectDropdown.tsx</p>
+                <p class="src">
+                  DropdownFacetShell.tsx · MultiSelectDropdown.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag">rounded-md border-gray-200 shadow-lg</span
+                  ><span class="tag">header: px-2 pb-2 text-xs</span
+                  ><span class="tag">rows: px-2 py-1 text-sm</span>
+                </div>
+                <p class="note">
+                  The panel is at least as wide as its trigger. Some facets add
+                  a "Show pathways matching Any / All selected" toggle at the
+                  top right, or an italic footnote under the list.
+                </p>
               </div>
             </div>
           </div>
@@ -3270,39 +3388,97 @@
         >
           <h2>Numeric range slider</h2>
           <p class="lede">
-            Used for the temperature filter — the track itself is a live
-            gradient across the warming bands, not a flat fill.
+            Used on the step-by-step guide pages to pick a temperature range.
+            The track is a gradient across the warming bands, and the parts
+            outside the selected range are covered in gray. (The search page's
+            temperature filter uses two number fields instead.)
           </p>
           <div class="comp-card">
             <div
               class="stage"
-              style="flex-direction: column; align-items: flex-start; gap: 10px"
+              style="flex-direction: column; align-items: flex-start"
             >
               <div class="num-slider">
                 <div class="num-track">
                   <div
-                    class="handle"
-                    style="left: 14%"
+                    class="fill"
+                    style="
+                      background: linear-gradient(
+                        to right,
+                        #2888c9 0%,
+                        #2888c9 20%,
+                        #91cbf2 40%,
+                        #df4e39 60%,
+                        #df4e39 80%,
+                        #df4e39 100%
+                      );
+                    "
+                  ></div>
+                  <div
+                    class="cover"
+                    style="left: 0; width: 14%; border-radius: 4px 0 0 4px"
+                  ></div>
+                  <div
+                    class="cover"
+                    style="left: 62%; width: 38%; border-radius: 0 4px 4px 0"
                   ></div>
                   <div
                     class="handle"
-                    style="left: 62%"
+                    style="left: calc(14% - 8px)"
                   ></div>
-                </div>
-                <div class="num-ticks">
-                  <span>1.0°C</span><span>1.5°C</span><span>2.0°C</span
-                  ><span>2.5°C</span><span>3.0°C</span><span>3.5°C</span>
+                  <div
+                    class="handle"
+                    style="left: calc(62% - 8px)"
+                  ></div>
+                  <span
+                    class="tick"
+                    style="left: 0%"
+                    >1.0°C</span
+                  ><span
+                    class="tick"
+                    style="left: 20%"
+                    >1.5°C</span
+                  ><span
+                    class="tick"
+                    style="left: 40%"
+                    >2.0°C</span
+                  ><span
+                    class="tick"
+                    style="left: 60%"
+                    >2.5°C</span
+                  ><span
+                    class="tick"
+                    style="left: 80%"
+                    >3.0°C</span
+                  ><span
+                    class="tick"
+                    style="left: 100%"
+                    >3.5°C</span
+                  >
                 </div>
               </div>
             </div>
             <div class="info">
-              <h4>Temperature filter</h4>
-              <p class="src">NumericRangeSlider.tsx</p>
+              <h4>Temperature range — active</h4>
+              <p class="src">
+                NumericRangeSlider.tsx (via StepPageNumericRange.tsx)
+              </p>
               <div class="tags">
-                <span class="tag">bg-rmigray-200</span
-                ><span class="tag">border-rmiblue-800</span
-                ><span class="tag">ring-rmiblue-100</span>
+                <span class="tag">track: h-2 rounded</span
+                ><span class="tag">handles: h-4 w-4 border bg-white</span
+                ><span class="tag"
+                  >active: border-rmiblue-800 ring-2 ring-rmiblue-100
+                  shadow-md</span
+                ><span class="tag">resting: border-rmigray-400 shadow-sm</span
+                ><span class="tag">ticks: text-[12px] text-rmigray-500</span>
               </div>
+              <p class="note">
+                Gradient colors come from the component: up to 1.5°C #2888C9, up
+                to 2.0°C #91CBF2, above that #DF4E39 (#AB3C2C beyond 3.5°C),
+                with color stops at each half degree. The covers are a
+                hard-coded rgb(230 236 239), not a theme color. Shown with
+                bounds of 1.0–3.5°C.
+              </p>
             </div>
           </div>
         </section>
@@ -3315,22 +3491,19 @@
           <p class="lede">
             Ordinal-value bar charts used on pathway detail pages — bars run
             unfavorable → favorable (sentiment) or are order-only with no
-            judgment implied (neutral).
+            judgment implied (neutral). The selected bar is taller; the label
+            below names it.
           </p>
           <div class="comp-grid">
             <div class="comp-card">
               <div
                 class="stage"
-                style="
-                  flex-direction: column;
-                  align-items: flex-start;
-                  gap: 8px;
-                "
+                style="flex-direction: column; align-items: flex-start"
               >
                 <div class="scale-row">
                   <div
                     class="bar"
-                    style="background: var(--color-rmired-400)"
+                    style="background: var(--color-rmired-400); opacity: 0.2"
                   ></div>
                   <div
                     class="bar"
@@ -3341,16 +3514,16 @@
                     style="background: var(--color-rmired-100); opacity: 0.2"
                   ></div>
                   <div
-                    class="bar sel"
-                    style="background: var(--color-neutral-500)"
+                    class="bar"
+                    style="background: var(--color-neutral-500); opacity: 0.2"
                   ></div>
                   <div
                     class="bar"
                     style="background: var(--color-success-400); opacity: 0.2"
                   ></div>
                   <div
-                    class="bar"
-                    style="background: var(--color-success-600); opacity: 0.2"
+                    class="bar sel"
+                    style="background: var(--color-success-600)"
                   ></div>
                   <div
                     class="bar"
@@ -3358,33 +3531,37 @@
                   ></div>
                 </div>
                 <span
-                  style="
-                    font-size: 12px;
-                    font-weight: 600;
-                    color: var(--color-rmigray-500);
-                  "
-                  >Moderate</span
+                  class="scale-label"
+                  style="color: var(--color-success-600)"
+                  >Moderate improvement</span
                 >
               </div>
               <div class="info">
                 <h4>Sentiment scale (7-step)</h4>
                 <p class="src">SentimentScale.tsx</p>
+                <div class="tags">
+                  <span class="tag">bars: h-1.5 rounded-sm gap-0.5</span
+                  ><span class="tag">selected: h-3</span
+                  ><span class="tag">others: opacity-20</span
+                  ><span class="tag"
+                    >label: text-xs font-semibold, bar's color</span
+                  >
+                </div>
+                <p class="note">
+                  Palette runs rmired-400 → rmired-200 → rmired-100 →
+                  neutral-500 → success-400 → success-600 → success-800,
+                  reversed when the first value is the good one. Three-step
+                  scales use rmired-400, neutral-500, success-600. "No
+                  information" shows the default badge instead of a label.
+                </p>
               </div>
             </div>
             <div class="comp-card">
               <div
                 class="stage"
-                style="
-                  flex-direction: column;
-                  align-items: flex-start;
-                  gap: 8px;
-                "
+                style="flex-direction: column; align-items: flex-start"
               >
                 <div class="scale-row">
-                  <div
-                    class="bar"
-                    style="background: var(--color-neutral-200)"
-                  ></div>
                   <div
                     class="bar"
                     style="background: var(--color-neutral-200)"
@@ -3397,19 +3574,39 @@
                     class="bar"
                     style="background: var(--color-neutral-200)"
                   ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
                 </div>
                 <span
-                  style="
-                    font-size: 12px;
-                    font-weight: 600;
-                    color: var(--color-rmiblue-400);
-                  "
-                  >Sector coverage</span
+                  class="scale-label"
+                  style="color: var(--color-rmiblue-400)"
+                  >Current/legislated policies</span
                 >
               </div>
               <div class="info">
                 <h4>Neutral scale</h4>
                 <p class="src">NeutralScale.tsx</p>
+                <div class="tags">
+                  <span class="tag">bars: bg-neutral-200</span
+                  ><span class="tag">selected: h-3 bg-rmiblue-400</span
+                  ><span class="tag"
+                    >label: text-xs font-semibold text-rmiblue-400</span
+                  >
+                </div>
               </div>
             </div>
           </div>
@@ -3422,18 +3619,33 @@
           <h2>Tooltip &amp; search highlight</h2>
           <div class="comp-grid">
             <div class="comp-card">
-              <div class="stage">
+              <div
+                class="stage align-start"
+                style="padding-right: 300px; min-height: 150px"
+              >
                 <span class="tooltip-demo"
-                  ><span
-                    style="
-                      border-bottom: 1px dotted var(--color-rmigray-400);
-                      cursor: help;
-                      font-size: 14px;
-                    "
-                    >Net Zero by 2050</span
+                  >Geographies:
+                  <span class="trigger"
+                    ><svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                      />
+                      <path d="M12 16v-4M12 8h.01" /></svg></span
                   ><span class="bubble"
-                    >Model reaches net-zero CO₂ emissions across covered sectors
-                    by this year.</span
+                    >Filled badges indicate that data is available for
+                    visualization and download in this tool. Outlined badges
+                    indicate the data for this geography is available in the
+                    source publication, but not currently in this tool.</span
                   ></span
                 >
               </div>
@@ -3443,6 +3655,12 @@
                   TextWithTooltip.tsx — portal-rendered to &lt;body&gt;,
                   positioned on hover/focus
                 </p>
+                <div class="tags">
+                  <span class="tag">bg-white border-rmigray-100 rounded</span
+                  ><span class="tag">text-xs text-rmigray-500 px-3 py-2</span
+                  ><span class="tag">shadow-lg max-w-xs opacity-95</span
+                  ><span class="tag">arrow: border-4</span>
+                </div>
                 <p class="note">
                   v2: the trigger can be a button (<code>as="button"</code>,
                   <code>cursor-pointer</code>) when the tooltipped item is also
@@ -3462,7 +3680,8 @@
                 <p class="src">HighlightedText.tsx</p>
                 <div class="tags">
                   <span class="tag">bg-energy-100</span
-                  ><span class="tag">text-energy-800</span>
+                  ><span class="tag">text-energy-800</span
+                  ><span class="tag">px-0.5 rounded-sm font-medium</span>
                 </div>
               </div>
             </div>
@@ -3692,8 +3911,12 @@
           id="chrome"
         >
           <h2>Header &amp; footer</h2>
+          <p class="lede">
+            Both use the RMI logo image (<code>/RMILogo-white.svg</code>); the
+            dashed "RMI" boxes below stand in for it.
+          </p>
           <div class="comp-grid">
-            <div class="comp-card">
+            <div class="comp-card span2">
               <div
                 class="stage tight align-start"
                 style="width: 100%"
@@ -3701,47 +3924,95 @@
                 <div class="chrome-bar">
                   <div>
                     <div class="brand">Transition Pathways Repository</div>
-                    <div class="sub">Created by RMI</div>
+                    <div class="sub">
+                      Created by <span class="logo">RMI</span>
+                    </div>
                   </div>
                   <nav>
-                    <span>Explore</span><span>Compare</span
-                    ><span>Resources</span>
+                    <span>Contact Us</span
+                    ><span
+                      >Resources
+                      <span style="color: rgb(255 255 255 / 0.7)">▾</span></span
+                    >
                   </nav>
                 </div>
               </div>
               <div class="info">
                 <h4>Header</h4>
-                <p class="src">Header.tsx</p>
+                <p class="src">
+                  Header.tsx · HeaderNav.tsx · ResourcesDropdown.tsx
+                </p>
                 <div class="tags">
-                  <span class="tag">bg-bluespruce</span
-                  ><span class="tag">text-white</span
-                  ><span class="tag">shadow-md</span>
+                  <span class="tag">bg-bluespruce text-white shadow-md</span
+                  ><span class="tag">px-4 py-4</span
+                  ><span class="tag"
+                    >title: text-xl md:text-2xl font-bold tracking-tight</span
+                  ><span class="tag"
+                    >"Created by": text-xs md:text-sm text-white/80</span
+                  ><span class="tag"
+                    >nav: px-3 py-2 text-sm font-semibold text-white/90</span
+                  >
                 </div>
+                <p class="note">
+                  Shown at desktop size. On narrow screens the nav stacks under
+                  the title.
+                </p>
               </div>
             </div>
-            <div class="comp-card">
+            <div class="comp-card span2">
               <div
                 class="stage tight align-start"
                 style="width: 100%"
               >
                 <div class="foot-chrome">
-                  <span>© 2026 RMI. All rights reserved.</span
-                  ><span>Legal · Give Feedback</span>
+                  <div class="row">
+                    <div class="left">
+                      <span class="logo">RMI</span>Transition Pathways
+                      Repository
+                    </div>
+                    <div class="links">
+                      <span>Legal</span
+                      ><span
+                        ><svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <rect
+                            x="2"
+                            y="4"
+                            width="20"
+                            height="16"
+                            rx="2"
+                          />
+                          <path d="m22 7-10 6L2 7" /></svg
+                        >Give Feedback</span
+                      >
+                    </div>
+                  </div>
+                  <div class="copy">© 2026 RMI. All rights reserved.</div>
                 </div>
               </div>
               <div class="info">
                 <h4>Footer</h4>
                 <p class="src">Footer.tsx</p>
                 <div class="tags">
-                  <span class="tag">bg-bluespruce</span
-                  ><span class="tag">border-basalt</span>
+                  <span class="tag">bg-bluespruce border-t border-basalt</span
+                  ><span class="tag">px-4 py-8</span
+                  ><span class="tag">text-sm text-white hover:text-energy</span
+                  ><span class="tag"
+                    >copyright: text-xs, border-t border-basalt mt-4 pt-4</span
+                  >
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- ============ V2: TABS ============ -->
         <section
           class="block"
           id="tabs"
@@ -4137,8 +4408,10 @@
                     </div>
                   </div>
                   <div class="foot">
-                    Outlined geographies are listed in the publication but have
-                    no chart data in this tool.
+                    Filled badges indicate that data is available for
+                    visualization and download in this tool. Outlined badges
+                    indicate the data for this geography is available in the
+                    source publication, but not currently in this tool.
                   </div>
                 </div>
               </div>
@@ -4153,9 +4426,9 @@
                 </div>
                 <p class="note">
                   Options reuse the geography badges; outlined ("-pub") ones
-                  have no chart data. The footnote wording here is illustrative
-                  — the real text comes from
-                  <code>GEOGRAPHY_AVAILABILITY_TOOLTIP</code>.
+                  have no chart data. The footnote is
+                  <code>GEOGRAPHY_AVAILABILITY_TOOLTIP</code>, the same text as
+                  the Geographies tooltip on the pathway card.
                 </p>
               </div>
             </div>
@@ -4307,7 +4580,7 @@
                 style="width: 100%"
               >
                 <div class="data-table-wrap">
-                  <table class="data-table">
+                  <table class="data-table deps">
                     <thead>
                       <tr>
                         <th>Dependency</th>
@@ -4443,23 +4716,79 @@
                       </div>
                       <div class="item">
                         <p class="item-lab">Policy types</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 4px">
+                        <div style="display: flex; flex-wrap: wrap">
                           <span
                             class="badge"
                             style="
                               --b: var(--color-rmiblue-100);
                               --t: var(--color-rmiblue-800);
                               --bd: var(--color-rmiblue-200);
+                              margin: 0 8px 4px 0;
                             "
                             >Carbon price</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Feed-in tariffs</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Performance standards</span
                           ><span
                             class="badge"
                             style="
                               --b: var(--color-rmiblue-100);
                               --t: var(--color-rmiblue-800);
                               --bd: var(--color-rmiblue-200);
+                              margin: 0 8px 4px 0;
                             "
                             >Phaseout dates</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Subsidies</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Target technology shares</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Other</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >None</span
                           >
                         </div>
                       </div>
@@ -4474,15 +4803,61 @@
                       </div>
                       <div class="item">
                         <p class="item-lab">Emissions scope</p>
-                        <div style="display: flex; flex-wrap: wrap; gap: 4px">
+                        <div style="display: flex; flex-wrap: wrap">
                           <span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >No information</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2</span
+                          ><span
                             class="badge"
                             style="
                               --b: var(--color-rmiblue-100);
                               --t: var(--color-rmiblue-800);
                               --bd: var(--color-rmiblue-200);
+                              margin: 0 8px 4px 0;
                             "
                             >CO2e (Kyoto)</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2e (CO2, Methane)</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2e (unspecified GHGs)</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Other emissions scope</span
                           >
                         </div>
                       </div>
@@ -4517,6 +4892,12 @@
                     text-rmigray-500</span
                   ><span class="tag"
                     >grid gap-4 md:grid-cols-2 lg:grid-cols-3</span
+                  ><span class="tag"
+                    >chosen value: bg-rmiblue-100 text-rmiblue-800
+                    border-rmiblue-200</span
+                  ><span class="tag"
+                    >other options: bg-neutral-50 text-neutral-400
+                    border-neutral-200</span
                   >
                 </div>
                 <p class="note">
@@ -4525,7 +4906,8 @@
                   driver first, then its feature values. A driver marked not
                   applicable shows "Not a core driver for this pathway." in
                   <code>italic text-rmigray-400</code>. The At a glance tab
-                  shows only the first three groups.
+                  shows only the first three groups. Pick-list features show
+                  every option, with the chosen ones in blue and the rest faded.
                 </p>
               </div>
             </div>
@@ -4570,7 +4952,9 @@
                     <figure class="plot-fig">
                       <figcaption>Emissions intensity</figcaption>
                       <div class="chart-empty">
-                        No data for this metric at Global.
+                        For this pathway, there is currently no data available
+                        for the selected combination of sector, region, and
+                        metric.
                       </div>
                       <div class="under">
                         <span
@@ -4605,7 +4989,7 @@
                   dropdown. Badges under each chart say which geography and
                   sector segment it shows. Metrics with no data anywhere are
                   left out; metrics missing only at this geography keep their
-                  panel with an empty message (wording here is illustrative).
+                  panel with an empty message.
                 </p>
               </div>
             </div>
