@@ -25,7 +25,8 @@
     "schema:generate": "npm run schema:generate:types",
     "schema:generate:types": "npx ts-node --esm scripts/generate-types.ts && prettier --write \"src/types/**/*.d.ts\"",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "tokens:build": "npx ts-node --esm scripts/build-design-tokens.ts && prettier --write \"docs/design/tpr-design-tokens.json\""
   },
   "author": "RMI",
   "license": "MIT",

@@ -1,0 +1,417 @@
+{
+  "color": {
+    "bluespruce": {
+      "value": "#003b63",
+      "type": "color",
+      "description": "Primary brand color. Header, footer, primary headings, card CTA text."
+    },
+    "energy": {
+      "value": "#45cfcc",
+      "type": "color",
+      "description": "Primary accent. Primary buttons, active states, links on hover."
+    },
+    "basalt": {
+      "value": "#58595b",
+      "type": "color",
+      "description": "Primary neutral, used for borders on dark surfaces (e.g. footer border)."
+    },
+    "energy-100": {
+      "value": "#b6f2f1",
+      "type": "color"
+    },
+    "energy-400": {
+      "value": "#7be8e6",
+      "type": "color"
+    },
+    "energy-700": {
+      "value": "#2ab5b2",
+      "type": "color"
+    },
+    "energy-800": {
+      "value": "#118280",
+      "type": "color"
+    },
+    "success-400": {
+      "value": "#5ce5a1",
+      "type": "color"
+    },
+    "success-600": {
+      "value": "#00cc66",
+      "type": "color"
+    },
+    "success-800": {
+      "value": "#00994d",
+      "type": "color"
+    },
+    "error-400": {
+      "value": "#f7988b",
+      "type": "color"
+    },
+    "error-600": {
+      "value": "#df4e39",
+      "type": "color"
+    },
+    "error-800": {
+      "value": "#ab3c2c",
+      "type": "color"
+    },
+    "neutral-50": {
+      "value": "#f4f7f9",
+      "type": "color"
+    },
+    "neutral-100": {
+      "value": "#ecf1f4",
+      "type": "color"
+    },
+    "neutral-200": {
+      "value": "#e4e9ee",
+      "type": "color"
+    },
+    "neutral-300": {
+      "value": "#d6dde2",
+      "type": "color"
+    },
+    "neutral-400": {
+      "value": "#bdc9d3",
+      "type": "color"
+    },
+    "neutral-500": {
+      "value": "#b3bcc5",
+      "type": "color"
+    },
+    "neutral-600": {
+      "value": "#86929d",
+      "type": "color"
+    },
+    "neutral-700": {
+      "value": "#646e77",
+      "type": "color"
+    },
+    "neutral-800": {
+      "value": "#3b444d",
+      "type": "color"
+    },
+    "neutral-900": {
+      "value": "#1d2328",
+      "type": "color"
+    },
+    "slate": {
+      "value": "#92aec5",
+      "type": "color"
+    },
+    "pine": {
+      "value": "#135908",
+      "type": "color"
+    },
+    "donate": {
+      "value": "#00cc66",
+      "type": "color"
+    },
+    "solar": {
+      "value": "#ffcb00",
+      "type": "color"
+    },
+    "deficient": {
+      "value": "#e04d39",
+      "type": "color"
+    },
+    "coal": {
+      "value": "#323232",
+      "type": "color"
+    },
+    "calm": {
+      "value": "#e1e6f0",
+      "type": "color"
+    },
+    "solar-100": {
+      "value": "#ffeda9",
+      "type": "color"
+    },
+    "solar-200": {
+      "value": "#ffe480",
+      "type": "color"
+    },
+    "solar-400": {
+      "value": "#ffdd00",
+      "type": "color"
+    },
+    "solar-800": {
+      "value": "#c85c19",
+      "type": "color"
+    },
+    "pinishgreen-100": {
+      "value": "#b2e6b2",
+      "type": "color"
+    },
+    "pinishgreen-200": {
+      "value": "#99d699",
+      "type": "color"
+    },
+    "pinishgreen-400": {
+      "value": "#408026",
+      "type": "color"
+    },
+    "pinishgreen-800": {
+      "value": "#11431b",
+      "type": "color"
+    },
+    "rmipurple-100": {
+      "value": "#c7c4e2",
+      "type": "color"
+    },
+    "rmipurple-200": {
+      "value": "#a59fce",
+      "type": "color"
+    },
+    "rmipurple-400": {
+      "value": "#7b76ad",
+      "type": "color"
+    },
+    "rmipurple-800": {
+      "value": "#3e3969",
+      "type": "color"
+    },
+    "rmiblue-100": {
+      "value": "#c9e3f0",
+      "type": "color"
+    },
+    "rmiblue-200": {
+      "value": "#9bcce3",
+      "type": "color"
+    },
+    "rmiblue-400": {
+      "value": "#529cba",
+      "type": "color"
+    },
+    "rmiblue-800": {
+      "value": "#005d7f",
+      "type": "color"
+    },
+    "rmired-100": {
+      "value": "#eec7b7",
+      "type": "color"
+    },
+    "rmired-200": {
+      "value": "#df897b",
+      "type": "color"
+    },
+    "rmired-400": {
+      "value": "#c4151c",
+      "type": "color"
+    },
+    "rmired-800": {
+      "value": "#790000",
+      "type": "color"
+    },
+    "rmipink-100": {
+      "value": "#f0c9de",
+      "type": "color",
+      "description": "Rose family, added in v2 (RMI/tpr#937) for sector-segment badges. Badge fill."
+    },
+    "rmipink-200": {
+      "value": "#e39bc4",
+      "type": "color",
+      "description": "Sector-segment badge border."
+    },
+    "rmipink-400": {
+      "value": "#ba5292",
+      "type": "color"
+    },
+    "rmipink-800": {
+      "value": "#7f0053",
+      "type": "color",
+      "description": "Sector-segment badge text."
+    },
+    "rmigray-100": {
+      "value": "#e6e7e8",
+      "type": "color"
+    },
+    "rmigray-200": {
+      "value": "#a7a9ac",
+      "type": "color"
+    },
+    "rmigray-300": {
+      "value": "#808284",
+      "type": "color"
+    },
+    "rmigray-400": {
+      "value": "#58585b",
+      "type": "color"
+    },
+    "rmigray-500": {
+      "value": "#414142",
+      "type": "color"
+    },
+    "rmigray-600": {
+      "value": "#333333",
+      "type": "color"
+    },
+    "rmigray-700": {
+      "value": "#2a2a2b",
+      "type": "color"
+    },
+    "rmigray-800": {
+      "value": "#231f20",
+      "type": "color"
+    }
+  },
+  "fontFamilies": {
+    "sans": {
+      "value": "ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
+      "type": "fontFamilies",
+      "description": "No brand typeface is defined in the codebase yet — this is Tailwind's default system-font stack, inherited as-is."
+    },
+    "mono": {
+      "value": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
+      "type": "fontFamilies"
+    }
+  },
+  "fontSize": {
+    "2xs": {
+      "value": "10px",
+      "type": "fontSizes",
+      "description": "Not a theme token: written as the arbitrary value text-[10px] in code. Used for scope-axis labels and their Show all / Show fewer control (v2)."
+    },
+    "xs": {
+      "value": "12px",
+      "type": "fontSizes"
+    },
+    "sm": {
+      "value": "14px",
+      "type": "fontSizes"
+    },
+    "base": {
+      "value": "16px",
+      "type": "fontSizes"
+    },
+    "lg": {
+      "value": "18px",
+      "type": "fontSizes"
+    },
+    "xl": {
+      "value": "20px",
+      "type": "fontSizes"
+    },
+    "2xl": {
+      "value": "24px",
+      "type": "fontSizes"
+    },
+    "3xl": {
+      "value": "30px",
+      "type": "fontSizes"
+    },
+    "4xl": {
+      "value": "36px",
+      "type": "fontSizes"
+    },
+    "5xl": {
+      "value": "48px",
+      "type": "fontSizes"
+    }
+  },
+  "lineHeight": {
+    "xs": {
+      "value": "16px",
+      "type": "lineHeights"
+    },
+    "sm": {
+      "value": "20px",
+      "type": "lineHeights"
+    },
+    "base": {
+      "value": "24px",
+      "type": "lineHeights"
+    },
+    "lg": {
+      "value": "28px",
+      "type": "lineHeights"
+    },
+    "xl": {
+      "value": "28px",
+      "type": "lineHeights"
+    },
+    "2xl": {
+      "value": "32px",
+      "type": "lineHeights"
+    },
+    "3xl": {
+      "value": "36px",
+      "type": "lineHeights"
+    },
+    "4xl": {
+      "value": "40px",
+      "type": "lineHeights"
+    }
+  },
+  "fontWeight": {
+    "normal": {
+      "value": "400",
+      "type": "fontWeights"
+    },
+    "medium": {
+      "value": "500",
+      "type": "fontWeights"
+    },
+    "semibold": {
+      "value": "600",
+      "type": "fontWeights"
+    },
+    "bold": {
+      "value": "700",
+      "type": "fontWeights"
+    }
+  },
+  "borderRadius": {
+    "sm": {
+      "value": "4px",
+      "type": "borderRadius"
+    },
+    "md": {
+      "value": "6px",
+      "type": "borderRadius"
+    },
+    "lg": {
+      "value": "8px",
+      "type": "borderRadius"
+    },
+    "full": {
+      "value": "9999px",
+      "type": "borderRadius"
+    }
+  },
+  "boxShadow": {
+    "sm": {
+      "value": {
+        "x": "0",
+        "y": "1",
+        "blur": "3",
+        "spread": "0",
+        "color": "rgba(0,0,0,0.1)",
+        "type": "dropShadow"
+      },
+      "type": "boxShadow"
+    },
+    "md": {
+      "value": {
+        "x": "0",
+        "y": "4",
+        "blur": "6",
+        "spread": "-1",
+        "color": "rgba(0,0,0,0.1)",
+        "type": "dropShadow"
+      },
+      "type": "boxShadow"
+    },
+    "lg": {
+      "value": {
+        "x": "0",
+        "y": "10",
+        "blur": "15",
+        "spread": "-3",
+        "color": "rgba(0,0,0,0.1)",
+        "type": "dropShadow"
+      },
+      "type": "boxShadow"
+    }
+  }
+}
