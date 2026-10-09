@@ -37,3 +37,34 @@ jobs:
             echo "No changes found after generating."
             exit 0
           fi
+
+  design-tokens:
+    name: "Check design tokens match src/index.css"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: "npm"
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Regenerate design tokens
+        run: npm run tokens:build
+
+      - name: Compare Results
+        run: |
+          if git diff --quiet HEAD -- docs/design/tpr-design-tokens.json; then
+            echo "Design tokens match src/index.css."
+          else
+            echo "::error::docs/design/tpr-design-tokens.json is out of date with src/index.css. Run 'npm run tokens:build' and commit the result."
+            git --no-pager diff HEAD -- docs/design/tpr-design-tokens.json
+            exit 1
+          fi
