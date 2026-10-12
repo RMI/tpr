@@ -101,11 +101,6 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
       definition:
         "Electricity generation using alternative or emerging sources such as tidal or hydrogen. Geothermal is no longer among them -- it is its own technology as of cookbook decision 0020.",
     },
-    renewables: {
-      displayName: "Renewables",
-      definition:
-        "Total electricity generation from renewable, low- or zero-emission sources (solar, wind, hydro, nuclear, other renewables).",
-    },
     solar: {
       displayName: "Solar",
       definition:

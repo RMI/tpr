@@ -119,7 +119,6 @@ export interface PathwayTimeseriesV2 {
       | "hydro"
       | "geothermal"
       | "energyStorage"
-      | "renewables"
       | "electricVehicles"
       | "hydrogenVehicles"
       | "biofuels"

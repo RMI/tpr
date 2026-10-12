@@ -34,7 +34,7 @@ describe("technologiesForSector", () => {
     expect(technologyBelongsToSector("Energy storage", "Power")).toBe("yes");
   });
 
-  it("resolves Power to its twelve technologies", () => {
+  it("resolves Power to its eleven technologies", () => {
     expect(technologiesForSector("Power")).toEqual([
       "Biomass",
       "Coal",
@@ -45,7 +45,6 @@ describe("technologiesForSector", () => {
       "Nuclear",
       "Oil",
       "Other",
-      "Renewables",
       "Solar",
       "Wind",
     ]);

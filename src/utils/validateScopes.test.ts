@@ -412,18 +412,27 @@ describe("validateScopedEntries — technologies belong to their sector (#461)",
           technologies: [
             "Biomass",
             "Coal",
+            "Energy storage",
             "Gas",
+            "Geothermal",
             "Hydro",
             "Nuclear",
             "Oil",
             "Other",
-            "Renewables",
             "Solar",
             "Wind",
           ],
         },
       ]),
     ).toEqual([]);
+  });
+
+  it("rejects Renewables for Power, an aggregate the cookbook removed", () => {
+    const errors = withSectors([
+      { name: "Power", technologies: ["Solar", "Renewables"] },
+    ]);
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain('"Renewables"');
   });
 
   it("rejects a technology outside its sector's list, naming the value", () => {

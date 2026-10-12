@@ -293,7 +293,6 @@
           "Wind",
           "Solar",
           "Biomass",
-          "Renewables",
           "Other"
         ],
         "scopeLimitations": "ASEAN aggregate power-system output. No separate captive or residential-rooftop time series."
@@ -313,7 +312,6 @@
           "Wind",
           "Solar",
           "Biomass",
-          "Renewables",
           "Other"
         ],
         "scopeLimitations": "ASEAN aggregate power-system output. No separate captive or residential-rooftop time series."
@@ -333,7 +331,6 @@
           "Wind",
           "Solar",
           "Biomass",
-          "Renewables",
           "Other"
         ],
         "scopeLimitations": "ASEAN aggregate power-system output. No separate captive or residential-rooftop time series."

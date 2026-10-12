@@ -205,14 +205,7 @@
         "geography": ["LA"],
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
-        "granularity": [
-          "Coal",
-          "Hydro",
-          "Wind",
-          "Solar",
-          "Biomass",
-          "Renewables"
-        ],
+        "granularity": ["Coal", "Hydro", "Wind", "Solar", "Biomass"],
         "scopeLimitations": "No clear captive/rooftop split"
       },
       {
@@ -222,14 +215,7 @@
         "geography": ["LA"],
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
-        "granularity": [
-          "Coal",
-          "Hydro",
-          "Wind",
-          "Solar",
-          "Biomass",
-          "Renewables"
-        ],
+        "granularity": ["Coal", "Hydro", "Wind", "Solar", "Biomass"],
         "scopeLimitations": "No clear captive/rooftop split"
       },
       {
@@ -239,14 +225,7 @@
         "geography": ["LA"],
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
-        "granularity": [
-          "Coal",
-          "Hydro",
-          "Wind",
-          "Solar",
-          "Biomass",
-          "Renewables"
-        ],
+        "granularity": ["Coal", "Hydro", "Wind", "Solar", "Biomass"],
         "scopeLimitations": "No clear captive/rooftop split"
       },
       {

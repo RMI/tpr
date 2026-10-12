@@ -53,7 +53,6 @@ export const technologyColors = {
   nuclear: "#2274AA", // ucla blue
   wind: "#005A96", // dark blue
   solar: "#003B63", // navy blue
-  renewables: "#003152", // prussian blue
 } as const;
 
 export default function NormalizedStackedAreaChart({
