@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { csvCell, jsonToCsv, sectorSegmentColumns } from "./timeseries-csv.ts";
+import {
+  csvCell,
+  jsonToCsv,
+  publisherLabel,
+  sectorSegmentColumns,
+} from "./timeseries-csv.ts";
 
 describe("sectorSegmentColumns", () => {
   it("lists the row's segments and their definitions in the same order", () => {
@@ -45,5 +50,21 @@ describe("CSV writing", () => {
     const [header, row] = csv.split("\n");
     expect(header).toBe("geography,sector_segment,value");
     expect(row).toBe('"Southeast Asia","A; B",1');
+  });
+});
+
+describe("publisherLabel", () => {
+  it("uses the short name when there is one", () => {
+    expect(
+      publisherLabel({ short: "IEA", full: "International Energy Agency" }),
+    ).toBe("IEA");
+  });
+
+  it("falls back to the full name when there is no short one", () => {
+    // TransitionZero's files carry a full name only.
+    expect(publisherLabel({ full: "TransitionZero" })).toBe("TransitionZero");
+    expect(publisherLabel({ short: " ", full: "TransitionZero" })).toBe(
+      "TransitionZero",
+    );
   });
 });

@@ -26,7 +26,11 @@ import {
   getTechnologyDefinition,
   UnknownTaxonomyError,
 } from "../src/utils/timeseriesTaxonomy.ts";
-import { jsonToCsv, sectorSegmentColumns } from "./timeseries-csv.ts";
+import {
+  jsonToCsv,
+  publisherLabel,
+  sectorSegmentColumns,
+} from "./timeseries-csv.ts";
 
 const STRICT = process.env.TS_INDEX_STRICT === "1";
 const DEBUG = process.env.TS_INDEX_DEBUG === "1";
@@ -363,7 +367,7 @@ async function main() {
           .join(", ");
         const optionalBlock = optionalParts ? ` (${optionalParts})` : "";
         // Final string
-        const source = `${pub.publisher.short}, ${pub.year}, ${pub.title.full}${optionalBlock}`;
+        const source = `${publisherLabel(pub.publisher)}, ${pub.year}, ${pub.title.full}${optionalBlock}`;
 
         // Look up definitions from centralized taxonomy.
         // These WILL throw if unknown, which is what we want in strict mode.
@@ -378,7 +382,7 @@ async function main() {
           : undefined;
 
         const outRaw = {
-          publisher: parsed.publication.publisher.short,
+          publisher: publisherLabel(pub.publisher),
           publicationName: parsed.publication.title.full,
           publicationYear: parsed.publication.year,
           pathwayName: parsed.pathwayName,
