@@ -38,13 +38,17 @@ interface NormalizedStackedAreaChartProps {
   onHoverPoint?: (point: HoveredPoint | null) => void;
 }
 
-const technologyColors = {
+// Stacking and legend order follow key order: high-carbon reds first, then
+// "other", then low-carbon blues. A technology missing here renders black at
+// the bottom of the stack, which is why the test checks coverage.
+export const technologyColors = {
   coal: "#AB3C2C", // red-brown
   oil: "#DF4E39", // deep red (hot)
   gas: "#F7988B", // orange-pink
   other: "#B3BCC5", // gray
   biomass: "#91CBF2", // light blue
   biofuels: "#77B8E4", // argentinian blue
+  geothermal: "#529CBA", // rmiblue-400
   hydro: "#2888C9", // blue
   nuclear: "#2274AA", // ucla blue
   wind: "#005A96", // dark blue
