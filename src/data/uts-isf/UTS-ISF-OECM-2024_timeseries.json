@@ -1,10 +1,9 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayTimeseries.v2.json",
-  "pathwayId": ["UTS-ISF-OECM-2024"],
   "id": "UTS-ISF-OECM-2024_timeseries",
+  "pathwayId": ["UTS-ISF-OECM-2024"],
   "name": "1.5°C Pathway Timeseries Data",
   "description": "Global 1.5°C pathway driven by massive rapid deployment of existing low-carbon technology.",
-  "pathwayName": "1.5C Pathway (1.5C)",
   "publication": {
     "title": {
       "full": "One Earth Climate Model 2024",
@@ -31,6 +30,7 @@
       }
     ]
   },
+  "pathwayName": "1.5C Pathway (1.5C)",
   "emissionsScope": "CO2e (CO2, Methane)",
   "data": [
     {
@@ -40,7 +40,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 11423,
+      "value": 11423.2,
       "unit": "MtCO2e"
     },
     {
@@ -50,7 +50,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 9036,
+      "value": 9036.2,
       "unit": "MtCO2e"
     },
     {
@@ -60,7 +60,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 5669,
+      "value": 5668.8,
       "unit": "MtCO2e"
     },
     {
@@ -70,7 +70,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 3042,
+      "value": 3042.2,
       "unit": "MtCO2e"
     },
     {
@@ -80,7 +80,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 1597,
+      "value": 1597.1,
       "unit": "MtCO2e"
     },
     {
@@ -90,7 +90,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 591,
+      "value": 590.9,
       "unit": "MtCO2e"
     },
     {
@@ -318,6 +318,76 @@
       "geography": "Global",
       "sector": "power",
       "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 73.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 38.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 105.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 172.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 283,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 363.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 507.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2020,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
       "technology": "hydro",
       "metric": "capacity",
       "value": 1246.6,
@@ -530,7 +600,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 89,
+      "value": 15.1,
       "unit": "GW"
     },
     {
@@ -540,7 +610,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 93.4,
+      "value": 54.7,
       "unit": "GW"
     },
     {
@@ -550,7 +620,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 267.1,
+      "value": 161.9,
       "unit": "GW"
     },
     {
@@ -560,7 +630,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 727.2,
+      "value": 554.8,
       "unit": "GW"
     },
     {
@@ -570,7 +640,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 1140.3,
+      "value": 857.3,
       "unit": "GW"
     },
     {
@@ -580,7 +650,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 1606.3,
+      "value": 1242.7,
       "unit": "GW"
     },
     {
@@ -590,7 +660,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 2209.6,
+      "value": 1702.5,
       "unit": "GW"
     },
     {
@@ -1018,6 +1088,76 @@
       "geography": "Global",
       "sector": "power",
       "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 111.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 278.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 740.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 1233.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 2046.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 2640.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 3693.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2020,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
       "technology": "hydro",
       "metric": "generation",
       "value": 4232.3,
@@ -1230,7 +1370,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 139.1,
+      "value": 27.7,
       "unit": "TWh"
     },
     {
@@ -1240,7 +1380,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 390.8,
+      "value": 112.1,
       "unit": "TWh"
     },
     {
@@ -1250,7 +1390,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 1110.6,
+      "value": 370.5,
       "unit": "TWh"
     },
     {
@@ -1260,7 +1400,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 2618.7,
+      "value": 1385.1,
       "unit": "TWh"
     },
     {
@@ -1270,7 +1410,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 4212.9,
+      "value": 2166,
       "unit": "TWh"
     },
     {
@@ -1280,7 +1420,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 5860.9,
+      "value": 3220.2,
       "unit": "TWh"
     },
     {
@@ -1290,7 +1430,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 7995,
+      "value": 4301.7,
       "unit": "TWh"
     },
     {
@@ -1648,6 +1788,76 @@
       "geography": "Global",
       "sector": "power",
       "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 0.42,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 0.84,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 1.73,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 2.14,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 2.91,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 3.21,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 3.91,
+      "unit": "%"
+    },
+    {
+      "year": 2020,
+      "geography": "Global",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
       "technology": "hydro",
       "metric": "technologyMix",
       "value": 16.07,
@@ -1860,7 +2070,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 0.53,
+      "value": 0.11,
       "unit": "%"
     },
     {
@@ -1870,7 +2080,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 1.18,
+      "value": 0.34,
       "unit": "%"
     },
     {
@@ -1880,7 +2090,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 2.59,
+      "value": 0.86,
       "unit": "%"
     },
     {
@@ -1890,7 +2100,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 4.55,
+      "value": 2.41,
       "unit": "%"
     },
     {
@@ -1900,7 +2110,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 5.99,
+      "value": 3.08,
       "unit": "%"
     },
     {
@@ -1910,7 +2120,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 7.12,
+      "value": 3.91,
       "unit": "%"
     },
     {
@@ -1920,7 +2130,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 8.46,
+      "value": 4.55,
       "unit": "%"
     },
     {
@@ -2070,7 +2280,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 275,
+      "value": 275.2,
       "unit": "MtCO2e"
     },
     {
@@ -2080,7 +2290,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 257,
+      "value": 257.3,
       "unit": "MtCO2e"
     },
     {
@@ -2100,7 +2310,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 179,
+      "value": 178.6,
       "unit": "MtCO2e"
     },
     {
@@ -2110,7 +2320,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 106,
+      "value": 105.7,
       "unit": "MtCO2e"
     },
     {
@@ -2120,7 +2330,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "absoluteEmissions",
-      "value": 78,
+      "value": 78.3,
       "unit": "MtCO2e"
     },
     {
@@ -2348,6 +2558,76 @@
       "geography": "ID",
       "sector": "power",
       "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 2.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 7.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 12.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 17.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 24.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "capacity",
+      "value": 25.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2020,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
       "technology": "hydro",
       "metric": "capacity",
       "value": 5.8,
@@ -2560,7 +2840,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 2.3,
+      "value": 0,
       "unit": "GW"
     },
     {
@@ -2570,7 +2850,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 5.2,
+      "value": 0.1,
       "unit": "GW"
     },
     {
@@ -2580,7 +2860,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 9.8,
+      "value": 1.9,
       "unit": "GW"
     },
     {
@@ -2590,7 +2870,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 17.2,
+      "value": 5.1,
       "unit": "GW"
     },
     {
@@ -2600,7 +2880,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 27.2,
+      "value": 9.8,
       "unit": "GW"
     },
     {
@@ -2610,7 +2890,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 40.4,
+      "value": 16.3,
       "unit": "GW"
     },
     {
@@ -2620,7 +2900,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 50,
+      "value": 24.2,
       "unit": "GW"
     },
     {
@@ -2780,7 +3060,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "emissionsIntensity",
-      "value": 0.583,
+      "value": 0.584,
       "unit": "tCO2e/MWh"
     },
     {
@@ -2800,7 +3080,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "emissionsIntensity",
-      "value": 0.204,
+      "value": 0.203,
       "unit": "tCO2e/MWh"
     },
     {
@@ -2810,7 +3090,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "emissionsIntensity",
-      "value": 0.09,
+      "value": 0.089,
       "unit": "tCO2e/MWh"
     },
     {
@@ -2820,7 +3100,7 @@
       "sectorSegment": ["Power generation"],
       "technology": null,
       "metric": "emissionsIntensity",
-      "value": 0.051,
+      "value": 0.052,
       "unit": "tCO2e/MWh"
     },
     {
@@ -3048,6 +3328,76 @@
       "geography": "ID",
       "sector": "power",
       "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 16.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 37.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 58.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 89.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 128.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 177.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "generation",
+      "value": 189.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2020,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
       "technology": "hydro",
       "metric": "generation",
       "value": 26.3,
@@ -3260,7 +3610,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 16.9,
+      "value": 0.1,
       "unit": "TWh"
     },
     {
@@ -3270,7 +3620,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 38.1,
+      "value": 0.3,
       "unit": "TWh"
     },
     {
@@ -3280,7 +3630,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 62.7,
+      "value": 4.5,
       "unit": "TWh"
     },
     {
@@ -3290,7 +3640,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 101.6,
+      "value": 12.4,
       "unit": "TWh"
     },
     {
@@ -3300,7 +3650,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 152.6,
+      "value": 24.3,
       "unit": "TWh"
     },
     {
@@ -3310,7 +3660,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 217.8,
+      "value": 40.3,
       "unit": "TWh"
     },
     {
@@ -3320,7 +3670,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 249.9,
+      "value": 60,
       "unit": "TWh"
     },
     {
@@ -3678,6 +4028,76 @@
       "geography": "ID",
       "sector": "power",
       "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 5.16,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 8.58,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 9.38,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 10.14,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 10.84,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 11.69,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "geothermal",
+      "metric": "technologyMix",
+      "value": 10.43,
+      "unit": "%"
+    },
+    {
+      "year": 2020,
+      "geography": "ID",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
       "technology": "hydro",
       "metric": "technologyMix",
       "value": 8.08,
@@ -3890,7 +4310,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 5.19,
+      "value": 0.03,
       "unit": "%"
     },
     {
@@ -3900,7 +4320,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 8.64,
+      "value": 0.07,
       "unit": "%"
     },
     {
@@ -3910,7 +4330,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 10.1,
+      "value": 0.73,
       "unit": "%"
     },
     {
@@ -3920,7 +4340,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 11.55,
+      "value": 1.41,
       "unit": "%"
     },
     {
@@ -3930,7 +4350,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 12.89,
+      "value": 2.05,
       "unit": "%"
     },
     {
@@ -3940,7 +4360,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 14.34,
+      "value": 2.65,
       "unit": "%"
     },
     {
@@ -3950,7 +4370,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "technologyMix",
-      "value": 13.73,
+      "value": 3.3,
       "unit": "%"
     },
     {
