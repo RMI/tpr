@@ -2847,7 +2847,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 8.881784197e-16,
+      "value": 0,
       "unit": "GW"
     },
     {
@@ -2857,7 +2857,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 8.881784197e-16,
+      "value": 0,
       "unit": "GW"
     },
     {
@@ -6477,7 +6477,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 1.42108547152e-14,
+      "value": 0,
       "unit": "TWh"
     },
     {

@@ -1423,7 +1423,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 0.0999999999999,
+      "value": 0.1,
       "unit": "TWh"
     },
     {

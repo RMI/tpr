@@ -600,7 +600,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 1.42108547152e-14,
+      "value": 0,
       "unit": "GW"
     },
     {
@@ -620,7 +620,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "capacity",
-      "value": 2.84217094304e-14,
+      "value": 0,
       "unit": "GW"
     },
     {
@@ -1300,7 +1300,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 1.13686837722e-13,
+      "value": 0,
       "unit": "TWh"
     },
     {
@@ -1320,7 +1320,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 0.0999999999999,
+      "value": 0.1,
       "unit": "TWh"
     },
     {
@@ -1330,7 +1330,7 @@
       "sectorSegment": ["Power generation"],
       "technology": "other",
       "metric": "generation",
-      "value": 0.0999999999999,
+      "value": 0.1,
       "unit": "TWh"
     },
     {
