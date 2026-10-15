@@ -18,6 +18,11 @@ import {
   buildDataAvailability,
   descriptionFromV1,
   keyFeaturesFromV1,
+  charCount,
+  withinLimit,
+  buildCoreDrivers,
+  buildDependencies,
+  buildDoc,
 } from "./import-pathway-data.ts";
 
 describe("publisherGroup", () => {
@@ -368,5 +373,163 @@ describe("buildDataAvailability", () => {
   });
   it("returns null when the sheet has no rows for the pathway", () => {
     expect(build([]).out).toBeNull();
+  });
+});
+
+describe("character limits (tpr-tpc decision 0028)", () => {
+  /** A string of exactly `n` characters, ending in a period. */
+  const text = (n: number) => `${"a".repeat(n - 1)}.`;
+  const errorsOf = (fn: (report: Report) => unknown) => {
+    const report = new Report();
+    fn(report);
+    return report.errors.join("\n");
+  };
+
+  it("counts code points, as the cookbook and JSON-schema maxLength do", () => {
+    expect(charCount("CO₂")).toBe(3);
+    expect(charCount("🌍")).toBe(1);
+  });
+
+  it("reports text over the limit as an error, and none at the limit", () => {
+    expect(errorsOf((r) => withinLimit(text(500), 500, "T/x", r))).toBe("");
+    expect(errorsOf((r) => withinLimit(text(501), 500, "T/x", r))).toBe(
+      "T/x: 501 chars > 500 -- shorten it in the workbook",
+    );
+  });
+
+  it("errors on a core driver over 500, rather than leaving it null", () => {
+    expect(
+      errorsOf((r) => buildCoreDrivers({ Policy: text(500) }, r, "T")),
+    ).toBe("");
+    expect(
+      errorsOf((r) => buildCoreDrivers({ Policy: text(501) }, r, "T")),
+    ).toContain("T/coreDrivers.policies: 501 chars > 500");
+  });
+
+  it("counts the period the importer adds", () => {
+    expect(
+      errorsOf((r) => buildCoreDrivers({ Policy: "a".repeat(500) }, r, "T")),
+    ).toContain("T/coreDrivers.policies: 501 chars > 500");
+  });
+
+  it("errors on a dependency over 500, rather than skipping it", () => {
+    const deps = (prose: string) =>
+      errorsOf((r) =>
+        buildDependencies(
+          [{ Sector: "Power", Technology: prose }],
+          new Set(["Power"]),
+          r,
+          "T",
+        ),
+      );
+    expect(deps(text(500))).toBe("");
+    expect(deps(text(501))).toContain(
+      'T/dependencies "Technology" (Power): 501 chars > 500',
+    );
+  });
+
+  it("errors on scope limitations over 500", () => {
+    const da = (scope: string) =>
+      errorsOf((r) =>
+        buildDataAvailability(
+          [
+            {
+              "Sector": "Power",
+              "Metric": "Capacity",
+              "Sector segment": "Power generation",
+              "Granularity": "Coal",
+              "Scope limitations": scope,
+              "Geography coverage": "TH",
+              "Time resolution": "5-year steps",
+              "Data Format": "Tabular",
+            },
+          ],
+          new Set(["Power"]),
+          new Set(["TH"]),
+          r,
+          "T",
+        ),
+      );
+    expect(da(text(500))).toBe("");
+    expect(da(text(501))).toContain(
+      "T/dataAvailability Power Capacity: scope limitations: 501 chars > 500",
+    );
+  });
+
+  describe("buildDoc", () => {
+    const sub = {
+      keyFeatures: [],
+      coreDrivers: undefined,
+      dependencies: [],
+      dataAvailability: [],
+    };
+    const meta = (over: Record<string, string> = {}) => ({
+      "Name of Pathway": "Current Policies Scenario (CPS)",
+      "Name of publication": "World Energy Outlook 2025",
+      "Description": "A short description.",
+      "Pathway Overview": "An overview.",
+      ...over,
+    });
+    const newDoc = (over: Record<string, string> = {}) =>
+      errorsOf((r) =>
+        buildDoc(
+          { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+          meta(over),
+          sub,
+          null,
+          null,
+          r,
+        ),
+      );
+
+    it("accepts every field at its limit", () => {
+      expect(
+        newDoc({
+          // Cookbook format: geography suffix inside the brackets, counted in the 20.
+          "Name of Pathway": `${"a".repeat(177)} (${"B".repeat(17)} ID)`,
+          "Name of publication": "p".repeat(200),
+          "Description": text(100),
+          "Pathway Overview": text(2500),
+        }),
+      ).toBe("");
+    });
+
+    it("errors on each field one over its limit", () => {
+      expect(newDoc({ "Name of Pathway": `${"a".repeat(194)} (CODE)` })).toBe(
+        "T/name: 201 chars > 200 -- shorten it in the workbook",
+      );
+      expect(
+        newDoc({ "Name of Pathway": "Plan (Indonesia on-grid power)" }),
+      ).toContain(
+        'T/name: short name "(Indonesia on-grid power)": 23 chars > 20',
+      );
+      expect(newDoc({ "Name of publication": "p".repeat(201) })).toContain(
+        "T/publication.title: 201 chars > 200",
+      );
+      expect(newDoc({ Description: text(101) })).toContain(
+        "T/description: 101 chars > 100",
+      );
+      expect(newDoc({ "Pathway Overview": text(2501) })).toContain(
+        "T/pathwayDescription: 2501 chars > 2500",
+      );
+    });
+
+    it("does not check the name, description or publication of an update, which keeps its own", () => {
+      const errors = errorsOf((r) =>
+        buildDoc(
+          { mode: "update", file: "T.json" },
+          meta({
+            "Name of Pathway": `${"a".repeat(300)} (${"B".repeat(30)})`,
+            "Name of publication": "p".repeat(300),
+            "Description": text(150),
+          }),
+          sub,
+          { id: "T", name: { full: "Kept" }, description: "Kept." },
+          null,
+          r,
+        ),
+      );
+      expect(errors).toBe("");
+    });
   });
 });
