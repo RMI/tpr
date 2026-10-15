@@ -134,7 +134,6 @@
               "hydro",
               "geothermal",
               "energyStorage",
-              "renewables",
               "electricVehicles",
               "hydrogenVehicles",
               "biofuels",
@@ -313,7 +312,6 @@
                 "biomass",
                 "geothermal",
                 "energyStorage",
-                "renewables",
                 "other",
                 null
               ]

@@ -484,7 +484,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                       <ul>
                         <li>
                           Power: Coal, oil, gas, nuclear, hydro, wind, solar,
-                          biomass, renewables, other
+                          biomass, geothermal, energy storage, other
                         </li>
                         {/* <li>
                         Steel: BOF, DRI-BOF, BF-BOF, EAF, DRI-EAF, scrap-EAF,

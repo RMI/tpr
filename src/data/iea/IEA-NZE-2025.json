@@ -65,7 +65,6 @@
         "Wind",
         "Solar",
         "Biomass",
-        "Renewables",
         "Other"
       ]
     },
@@ -321,7 +320,6 @@
           "Wind",
           "Solar",
           "Biomass",
-          "Renewables",
           "Other"
         ],
         "scopeLimitations": "Gross electricity generation before curtailment, including electricity-only and CHP."
@@ -342,7 +340,6 @@
           "Wind",
           "Solar",
           "Biomass",
-          "Renewables",
           "Other"
         ],
         "scopeLimitations": "Generation mix derived from gross electricity generation. Shares depend on reported technology rows."
