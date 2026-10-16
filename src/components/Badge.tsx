@@ -16,6 +16,7 @@ interface BadgeProps {
     | "geographyRegion"
     | "geographyCountry"
     | "sector"
+    | "sectorSegment"
     | "metric"
     | "keyFeature"
     | "geographyGlobal-pub"
@@ -24,6 +25,14 @@ interface BadgeProps {
     | "sector-pub"
     | "metric-pub";
   className?: string;
+  /**
+   * When set, the badge renders as a `<button>` carrying these attributes
+   * instead of a static span — for badges that are also controls, such as the
+   * detail page's scope ribbon (#872). A tooltipped badge routes this through
+   * TextWithTooltip's `as="button"`, because nesting a button around its
+   * `tabindex` trigger would be invalid markup.
+   */
+  buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
 }
 
 const Badge: React.FC<BadgeProps> = ({
@@ -31,6 +40,7 @@ const Badge: React.FC<BadgeProps> = ({
   tooltip,
   variant = "default",
   className,
+  buttonProps,
 }) => {
   const getVariantStyles = () => {
     switch (variant) {
@@ -48,16 +58,24 @@ const Badge: React.FC<BadgeProps> = ({
         return "bg-pinishgreen-100 text-pinishgreen-800 border-pinishgreen-200";
       case "sector":
         return "bg-solar-100 text-solar-800 border-solar-200";
+      // A segment is a subdivision of a sector, so it gets its own family
+      // rather than a shade of the sector amber — the two appear side by side
+      // under every plot and need to be told apart at a glance.
+      case "sectorSegment":
+        return "bg-rmipink-100 text-rmipink-800 border-rmipink-200";
       case "metric":
         return "bg-rmipurple-100 text-rmipurple-800 border-rmipurple-200";
       case "keyFeature":
         return "bg-rmiblue-100 text-rmiblue-800 border-rmiblue-200";
       case "geographyGlobal-pub":
         return "bg-transparent text-pinishgreen-800 border-pinishgreen-800";
+      // `pinishgreen` defines only 100/200/400/800 in `@theme`, so the 500/600/700
+      // these two used to reference produced no colour at all — an outlined badge
+      // with no text and no border. They follow `sector-pub` and `metric-pub`
+      // instead: the family's 800 for text, its 400 for the outline.
       case "geographyRegion-pub":
-        return "bg-transparent text-pinishgreen-700 border-pinishgreen-500";
       case "geographyCountry-pub":
-        return "bg-transparent text-pinishgreen-600 border-pinishgreen-400";
+        return "bg-transparent text-pinishgreen-800 border-pinishgreen-400";
       case "sector-pub":
         return "bg-transparent text-solar-800 border-solar-400";
       case "metric-pub":
@@ -73,9 +91,18 @@ const Badge: React.FC<BadgeProps> = ({
     : badgeStylesBase;
 
   // If no tooltip, just return the basic badge
-  // If no tooltip, just return the basic badge
   if (!tooltip) {
-    return <span className={badgeStyles}>{children}</span>;
+    return buttonProps ? (
+      <button
+        type="button"
+        className={badgeStyles}
+        {...buttonProps}
+      >
+        {children}
+      </button>
+    ) : (
+      <span className={badgeStyles}>{children}</span>
+    );
   }
 
   // With tooltip, use the TextWithTooltip component
@@ -84,6 +111,8 @@ const Badge: React.FC<BadgeProps> = ({
       text={<span className={badgeStyles}>{children}</span>}
       tooltip={tooltip}
       position="right"
+      as={buttonProps ? "button" : "span"}
+      buttonProps={buttonProps}
     />
   );
 };

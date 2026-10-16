@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "SDSN-CW-BAU-SG-2024",
   "publication": {
     "title": {
@@ -33,24 +33,15 @@
     "country": ["SG"]
   },
   "pathwayType": "Predictive",
-  "modelYearStart": 2023,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Business-As-Usual (BAU) scenario represents Singapore’s energy and emissions trajectory under the full implementation of selected currently legislated policies and national targets. It integrates the Energy Market Authority’s (EMA) emission standards, the Green Plan 2030, and sectoral electrification strategies across power, transport, and residential sectors. The BAU scenario assumes Singapore continues to adopt low carbon technologies gradually, driven only by existing government policies and current levels of investment, without any major acceleration or new initiatives. \n\nThe power mix diversifies modestly; natural gas falls to 65% of generation by 2050; imported renewables reach 25%; and hydrogen, coal, solar, and waste collectively supply the remaining 10%. Solar deployment expands fivefold to 2 GW by 2030 and continues gradual growth thereafter. The hydrogen-ready Keppel Sakra natural gas cogeneration plant contributes up to 600 MW by 2026, blending 30% hydrogen initially and 50% by 2035.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\n*Policies:* The BAU scenario incorporates national plans such as the Green Plan 2030, National Environment Agency Minimum Energy Performance Standards, carbon tax, Singapore’s carbon pricing trajectory, and emissions standards for power units. Policy-induced innovation reduces emissions intensity to meet Singapore’s initial 2030 intensity target from their first NDC in 2015 and maintain this intensity through 2050.\n\n#### Application to Transition Assessment\n\nThe BAU scenario is a national policy-aligned scenario that represents a predictive view of Singapore’s decarbonization pathway under current legislative and regulatory commitments. This makes it well-suited for policy alignment analysis. It reflects incremental change, enabling Singapore to reach its NDC target of capping emissions at 65 MtCO₂e by 2030 which was the country’s commitment prior to the 2022 NDC update. However, since this scenario does not introduce new mitigation measures beyond existing commitments, it does not achieve Singapore’s updated net zero commitment nor the 2022 NDC target of reducing emissions to 60 MtCO2e by 2030.\n\nThe BAU scenario also underscores the potential role of hydrogen production and regional power trade to achieve emissions reductions. However, BAU assumes static policy ambition and may understate long-term market disruptions as a result. \n\nThe BAU scenario provides granular data across the Singapore power system at five year intervals, including detailed electricity generation technology mixes and sectoral emissions intensities.",
+  "pathwayDescription": "The Business-As-Usual (BAU) scenario represents Singapore’s energy and emissions trajectory under the full implementation of selected currently legislated policies and national targets. It integrates the Energy Market Authority’s (EMA) emission standards, the Green Plan 2030, and sectoral electrification strategies across power, transport, and residential sectors. The BAU scenario assumes Singapore continues to adopt low carbon technologies gradually, driven only by existing government policies and current levels of investment, without any major acceleration or new initiatives.\n\nThe power mix diversifies modestly; natural gas falls to 65% of generation by 2050; imported renewables reach 25%; and hydrogen, coal, solar, and waste collectively supply the remaining 10%. Solar deployment expands fivefold to 2 GW by 2030 and continues gradual growth thereafter. The hydrogen-ready Keppel Sakra natural gas cogeneration plant contributes up to 600 MW by 2026, blending 30% hydrogen initially and 50% by 2035.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -59,20 +50,206 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Low or no change",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Carbon price",
-      "Target technology shares",
-      "Performance standards"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Low or no change"
+      }
     ],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "No information",
-    "newTechnologiesIncluded": ["CCUS", "Green H2/ammonia", "Battery storage"],
-    "investmentNeeds": "No information"
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards",
+          "Carbon price",
+          "Other"
+        ]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "CO2e (unspecified GHGs)"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Current and drafted policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": ["CCUS", "Green H2/ammonia"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Existing and announced efficiency, vehicle population growth, CCS, power import, and generation-share policies alter sector demand and supply.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "not applicable.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Common Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and sector-growth assumptions expand demand and GDP.",
+    "behavioralShifts": "Smart-meter demand response and modeled uptake of cleaner road vehicles reduce household and transport energy use.",
+    "otherDrivers": "not applicable."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Announced Singapore policy is the whole mechanism of BAU - the pathway contains no cost optimisation and no emissions constraint, so every deviation from the corresponding baseline scenario (BAS) is a policy assumption entered as exogenous capacity or as a fixed feedstock share.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "BAU's build-out is exogenous, so prices do not determine what is built - but the pathway's premise is that a series of commercial arrangements land on schedule, and the report's own evidence is that they can fail. It cites the Sun Cable project, conceptualised in 2022 to bring 1.75 GW from Australia over a 4,200 km cable and 'no longer deemed to be commercially viable at the time of writing', as the counter-example to the import programme BAU assumes.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Direct, point-of-generation emissions in Singapore's modeled power supply; results use 100-year GWP. Imported electricity is counted as Singapore supply output, while source-country lifecycle emissions are not separately projected."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Direct, point-of-generation emissions in Singapore's modeled power supply; results use 100-year GWP. Imported electricity is counted as Singapore supply output, while source-country lifecycle emissions are not separately projected."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"],
+        "scopeLimitations": "Installed/endogenous generation capacity by modeled technology."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"],
+        "scopeLimitations": "Grid-connected electricity generation by technology/feedstock. Imported renewable electricity is represented as supply; captive industrial and residential rooftop generation are not separately reported."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"],
+        "scopeLimitations": "Grid-connected electricity generation by technology/feedstock. Imported renewable electricity is represented as supply; captive industrial and residential rooftop generation are not separately reported."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["SG"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Static technical lifetimes are specified for generation, the report does not model an explicit early-retirement policy for  high-carbon assets."
+      }
+    ]
   }
 }

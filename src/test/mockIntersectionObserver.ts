@@ -41,10 +41,26 @@ export class MockIntersectionObserver implements IntersectionObserver {
     return [];
   }
 
-  /** Test helper: simulate `target` crossing the observer's trigger line. */
-  trigger(target: Element, isIntersecting: boolean) {
+  /**
+   * Test helper: simulate `target` crossing the observer's trigger line.
+   *
+   * `boundingClientRect` is optional because most callers only care about the
+   * boolean. Observers that distinguish leaving via the top from leaving via
+   * the bottom read `.top`, so those tests pass it explicitly.
+   */
+  trigger(
+    target: Element,
+    isIntersecting: boolean,
+    boundingClientRect?: Partial<DOMRectReadOnly>,
+  ) {
     this.callback(
-      [{ target, isIntersecting } as IntersectionObserverEntry],
+      [
+        {
+          target,
+          isIntersecting,
+          ...(boundingClientRect ? { boundingClientRect } : {}),
+        } as IntersectionObserverEntry,
+      ],
       this,
     );
   }

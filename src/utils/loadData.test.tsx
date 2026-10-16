@@ -36,6 +36,35 @@ afterEach(() => {
 /* ----------------------------
  * decideIncludeInvalid unit tests
  * ---------------------------- */
+describe("isViteDev", () => {
+  // This gates developer-facing logging, so the case that matters is the one
+  // where it must stay quiet: a production build. Vite statically replaces
+  // `import.meta.env.DEV` with false there, which vi.stubEnv can simulate —
+  // note the globalThis shim used below for decideIncludeInvalid cannot, because
+  // vitest supplies a real import.meta.env and readViteEnv prefers it.
+  it("is true when import.meta.env.DEV is set, as on the dev server", async () => {
+    vi.stubEnv("DEV", true);
+    const { isViteDev } = await importModule();
+    expect(isViteDev()).toBe(true);
+  });
+
+  it("is false in a production build", async () => {
+    vi.stubEnv("DEV", false);
+    const { isViteDev } = await importModule();
+    expect(isViteDev()).toBe(false);
+  });
+
+  it("ignores the flags decideIncludeInvalid reads", async () => {
+    // The two answer different questions; VITE_INCLUDE_INVALID must not make
+    // a production build report itself as dev.
+    vi.stubEnv("DEV", false);
+    vi.stubEnv("VITE_INCLUDE_INVALID", "true");
+    vi.stubEnv("NODE_ENV", "development");
+    const { isViteDev } = await importModule();
+    expect(isViteDev()).toBe(false);
+  });
+});
+
 describe("decideIncludeInvalid", () => {
   it("returns false in production regardless of env flags", async () => {
     vi.stubEnv("NODE_ENV", "production");

@@ -66,6 +66,15 @@
   --color-rmired-200: #df897b;
   --color-rmired-400: #c4151c;
   --color-rmired-800: #790000;
+  /* Rose: sits between rmired and rmipurple in hue, so it reads as distinct
+     from both while keeping the palette's saturation. Added for the sector
+     segment badges, which needed a family none of the existing ones was free
+     to supply. Same four-step structure as the families above: 100 tint,
+     200 border, 400 mid, 800 text. */
+  --color-rmipink-100: #f0c9de;
+  --color-rmipink-200: #e39bc4;
+  --color-rmipink-400: #ba5292;
+  --color-rmipink-800: #7f0053;
   --color-rmigray-100: #e6e7e8;
   --color-rmigray-200: #a7a9ac;
   --color-rmigray-300: #808284;

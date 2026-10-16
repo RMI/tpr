@@ -257,6 +257,13 @@ describe("regionMemberCodes", () => {
     ).toEqual(["DE"]);
   });
 
+  it("matches the declared label only, not another spelling of it (#945)", () => {
+    // Timeseries now carry the metadata's own label, so no fold is needed.
+    const geo = { regions: { "Southeast Asia": ["VN"] } } as Geography;
+    expect(regionMemberCodes(geo, "Southeast Asia")).toEqual(["VN"]);
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual([]);
+  });
+
   it("returns [] for a region the publication left unmapped", () => {
     // The NGFS shape: a declared region label with no member codes.
     expect(
