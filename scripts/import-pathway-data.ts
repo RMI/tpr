@@ -14,8 +14,10 @@
  *
  * This is a development tool, not a runtime path. It writes files in place and
  * prints a report of everything it could not map cleanly (unresolved scopes,
- * enum/vocabulary mismatches, over-length prose) rather than emitting anything
- * that would fail `npm run schema:check`.
+ * enum/vocabulary mismatches) rather than emitting anything that would fail
+ * `npm run schema:check`. Over-length prose is an authoring error that blocks
+ * the import: the limits are the cookbook's (tpr-tpc decision 0028), and text
+ * over one would otherwise be lost.
  *
  * Sheet names are parameterized (`--sheet-prefix`, default `draft_`) because the
  * final `pathway_*` sheets are not populated yet; switch the prefix once they are.
@@ -662,6 +664,31 @@ export class Report {
   }
 }
 
+/**
+ * Length in code points -- what the cookbook and JSON-schema `maxLength` count.
+ * `.length` counts UTF-16 units, which disagrees for e.g. emoji.
+ */
+export function charCount(text: string): number {
+  return [...text].length;
+}
+
+/**
+ * Whether `text` fits in `max` characters; reports it as an authoring error
+ * when it does not. Over-length text is never truncated or dropped, since that
+ * would lose content nobody chose to lose.
+ */
+export function withinLimit(
+  text: string,
+  max: number,
+  where: string,
+  report: Report,
+): boolean {
+  const n = charCount(text);
+  if (n <= max) return true;
+  report.error(`${where}: ${n} chars > ${max} -- shorten it in the workbook`);
+  return false;
+}
+
 // --------------------------------------------------------------------------
 // Field builders.
 // --------------------------------------------------------------------------
@@ -908,7 +935,7 @@ function buildKeyFeatures(
   return fields;
 }
 
-function buildCoreDrivers(
+export function buildCoreDrivers(
   row: Row | undefined,
   report: Report,
   id: string,
@@ -921,19 +948,13 @@ function buildCoreDrivers(
       continue;
     }
     const text = ensurePeriod(raw);
-    if (text.length > 500) {
-      report.note(
-        `${id}/coreDrivers.${field}: ${text.length} chars > 500 -- left null, needs trimming`,
-      );
-      out[field] = null;
-    } else {
-      out[field] = text;
-    }
+    withinLimit(text, 500, `${id}/coreDrivers.${field}`, report);
+    out[field] = text;
   }
   return out;
 }
 
-function buildDependencies(
+export function buildDependencies(
   rows: Row[],
   declaredSectors: Set<string>,
   report: Report,
@@ -959,12 +980,12 @@ function buildDependencies(
       const prose = row[column] ?? "";
       if (isAbsent(prose)) continue;
       const description = ensurePeriod(prose);
-      if (description.length > 500) {
-        report.note(
-          `${id}/dependencies "${name}" (${sector}): ${description.length} chars > 500 -- skipped`,
-        );
-        continue;
-      }
+      withinLimit(
+        description,
+        500,
+        `${id}/dependencies "${name}" (${sector})`,
+        report,
+      );
       const evidence =
         matchEnum(row[`${column}_Evidence type`] ?? "", EVIDENCE_TYPES) ??
         "No evidence";
@@ -1136,6 +1157,12 @@ export function buildDataAvailability(
       bad,
     );
     const granularity = parseGranularity(row["Granularity"] ?? "", bad);
+    withinLimit(
+      scopeLimitations,
+      500,
+      `${id}/dataAvailability ${sector} ${rawMetric || "(no metric)"}: scope limitations`,
+      report,
+    );
 
     // Every column is required (a row for every allowable pair, per the
     // cookbook), so a blank or unrecognised cell is an authoring error that
@@ -1146,7 +1173,6 @@ export function buildDataAvailability(
       !timeResolution && "time resolution",
       !dataFormat && "data format",
       !scopeLimitations && "scope limitations",
-      scopeLimitations.length > 500 && "scope limitations > 500 chars",
       sectorSegment.length === 0 && "sector segment",
       geography.length === 0 && "geography",
       granularity.length === 0 && "granularity",
@@ -1317,7 +1343,7 @@ function parseTemp(raw: string): number | undefined {
 type Json = Record<string, unknown>;
 
 /** Assemble the full v2 document for one pathway. */
-function buildDoc(
+export function buildDoc(
   target: Target,
   meta: Row,
   sub: {
@@ -1418,14 +1444,8 @@ function buildDoc(
   let pathwayDescription: string | null;
   const overview = (meta["Pathway Overview"] ?? "").trim();
   if (overview && !isAbsent(overview)) {
-    const text = ensurePeriod(overview);
-    if (text.length <= 2500) pathwayDescription = text;
-    else {
-      report.note(
-        `${id}/pathwayDescription: ${text.length} chars > 2500 -- kept existing`,
-      );
-      pathwayDescription = (existing?.pathwayDescription as string) ?? null;
-    }
+    pathwayDescription = ensurePeriod(overview);
+    withinLimit(pathwayDescription, 2500, `${id}/pathwayDescription`, report);
   } else {
     pathwayDescription =
       (existing?.pathwayDescription as string | null) ??
@@ -1460,21 +1480,20 @@ function buildDoc(
   let name: unknown;
   let description: unknown;
   if (target.mode === "new") {
-    const { code } = scenarioParts(meta["Name of Pathway"] ?? "");
-    const full = (meta["Name of Pathway"] ?? "")
+    // Checked only here: an update keeps its existing name, description and
+    // publication, so those cells are not imported for it.
+    const pathwayName = (meta["Name of Pathway"] ?? "").trim();
+    withinLimit(pathwayName, 200, `${id}/name`, report);
+    const { code } = scenarioParts(pathwayName);
+    withinLimit(code, 20, `${id}/name: short name "(${code})"`, report);
+    const full = pathwayName
       .replace(/\s*\([^)]*\)/g, "")
       .replace(/\s*\[[A-Z]{2}\]/g, "")
       .trim();
     name = { full, short: code };
     const desc = ensurePeriod(meta["Description"] ?? "");
-    description =
-      desc.length <= 100
-        ? desc
-        : (template?.description ?? desc.slice(0, 99) + ".");
-    if (desc.length > 100)
-      report.note(
-        `${id}/description: ${desc.length} chars > 100 -- used template description`,
-      );
+    withinLimit(desc, 100, `${id}/description`, report);
+    description = desc;
     publication = buildPublicationForNew(
       template?.publication as Json,
       meta,
@@ -1573,6 +1592,7 @@ function buildPublicationForNew(
 ): Json {
   const pub: Json = template ? JSON.parse(JSON.stringify(template)) : {};
   const title = (meta["Name of publication"] ?? "").trim();
+  withinLimit(title, 200, `${id}/publication.title`, report);
   const year = parseYear(meta["Year of Publication"] ?? "");
   const oldYear = pub.year as number | undefined;
   if (title) pub.title = { ...(pub.title as Json), full: title };
