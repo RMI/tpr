@@ -1,9 +1,5 @@
-import type {
-  Metric,
-  PathwayMetadataType,
-  PathwayType,
-  Sector,
-} from "../types";
+import type { Metric, PathwayType, Sector } from "../types";
+import type { KeyFeatureKey } from "./keyFeatureRules";
 import { segmentDefinitionFor } from "./timeseriesTaxonomy";
 
 export const unknownTooltip = "No tooltip available.";
@@ -86,19 +82,17 @@ export const getSectorSegmentTooltip = (
   );
 };
 
-export type KeyFeatureSection = keyof PathwayMetadataType["keyFeatures"];
-
 /**
  * Subsection-aware tooltip resolver for Key Features.
  * Collisions are resolved by looking up [sectionKey][value].
  */
 export function getKeyFeatureTooltip(
-  sectionKey: KeyFeatureSection,
+  sectionKey: KeyFeatureKey,
   value: string,
 ): string {
   // NOTE: Fill in real copy later — these are just placeholders.
   // Use the exact enum strings from your schema/data as the nested keys.
-  const MAP: Partial<Record<KeyFeatureSection, Record<string, string>>> = {
+  const MAP: Partial<Record<KeyFeatureKey, Record<string, string>>> = {
     emissionsTrajectory: {
       "No information":
         "There is no quantitative information available on the trend of emissions.",

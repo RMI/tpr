@@ -3,6 +3,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import KeyFeatures, { FeatureItem, GROUPS } from "./KeyFeatures";
 import { resolveKeyFeature } from "../utils/keyFeatureResolution";
 import type { ResolvedKeyFeature } from "../utils/keyFeatureResolution";
+import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
 
 /**
@@ -333,7 +334,7 @@ const configFor = (key: string) =>
 
 /** Render one feature, resolved for `scope` against a pathway holding `entries`. */
 function renderResolved(
-  key: keyof PathwayMetadataType["keyFeatures"],
+  key: KeyFeatureKey,
   entries: ReturnType<typeof e>[],
   scope: PathwayScopeSelection = POWER_TH,
   props: { selectedOnly?: boolean; showLabel?: boolean } = {},

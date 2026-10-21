@@ -11,6 +11,7 @@ import {
   type Scope,
 } from "../utils/keyFeatureResolution";
 import { scopeSelectionLabel } from "../utils/scopeLabel";
+import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import TextWithTooltip from "./TextWithTooltip";
 import Badge from "./Badge";
 import SentimentScale, { getSentimentPalette } from "./SentimentScale";
@@ -23,24 +24,22 @@ const PILL_SELECTED =
 const PILL_UNSELECTED =
   "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-neutral-50 text-neutral-400 border-neutral-200 mr-2 mb-1";
 
-type FeatureKey = keyof PathwayMetadataType["keyFeatures"];
-
 interface SingleSelectFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "single-select";
   options: string[];
 }
 
 interface MultiSelectFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "multi-select";
   options: string[];
 }
 
 interface SentimentFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "sentiment";
   scaleValues: string[];
@@ -48,7 +47,7 @@ interface SentimentFeatureConfig {
 }
 
 interface NeutralFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "neutral";
   scaleValues: string[];

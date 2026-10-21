@@ -17,7 +17,11 @@ import type { PathwayMetadataV2 } from "../types/pathwayMetadata.v2";
 type Geography = PathwayMetadataV2["geography"];
 type CountryCode = NonNullable<Geography["country"]>[number];
 
-/** The eleven scoped fields of `keyFeatures`. */
+/**
+ * The eleven scoped fields of `keyFeatures`. The one name for them: the feature
+ * config, the tooltips and the resolver all use it, and it lives here so the
+ * validator can too.
+ */
 export type KeyFeatureKey = keyof PathwayMetadataV2["keyFeatures"];
 
 /** Sector sentinel: the union of *this pathway's own* declared sectors. */
