@@ -42,18 +42,7 @@
   "description": "ASEAN power model with significant new regional transmission infrastructure.",
   "geography": {
     "regions": {
-      "South East Asia": [
-        "BN",
-        "KH",
-        "ID",
-        "LA",
-        "MY",
-        "MM",
-        "PH",
-        "SG",
-        "TH",
-        "VN"
-      ]
+      "ASEAN": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
     },
     "country": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
   },

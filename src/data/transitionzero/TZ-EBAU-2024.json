@@ -42,18 +42,7 @@
   "description": "ASEAN power model where existing transmission assets expand without altering network configuration.",
   "geography": {
     "regions": {
-      "South East Asia": [
-        "BN",
-        "KH",
-        "ID",
-        "LA",
-        "MY",
-        "MM",
-        "PH",
-        "SG",
-        "TH",
-        "VN"
-      ]
+      "ASEAN": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
     },
     "country": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
   },
