@@ -244,6 +244,8 @@ export function getKeyFeatureTooltip(
         "This pathway assumes deployment of grid-scale battery electricity storage.",
       "EGS/AGS":
         "This pathway assumes deployment of Enhanced and/or Advanced Geothermal Systems.",
+      "SMR":
+        "This pathway assumes deployment of small modular nuclear reactors (SMR).",
       "Other new technologies":
         "This pathway assumes deployment of other new technologies.",
     },

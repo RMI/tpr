@@ -5,6 +5,8 @@ import { resolveKeyFeature } from "../utils/keyFeatureResolution";
 import type { ResolvedKeyFeature } from "../utils/keyFeatureResolution";
 import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import metadataSchema from "../schema/pathwayMetadata.v2.json" with { type: "json" };
+import emissionsScopeSchema from "../schema/common/emissionsScope.v1.json" with { type: "json" };
 
 /**
  * v2 scopes every keyFeature as {sector, geography, value} entries (#858). These
@@ -634,4 +636,68 @@ describe("KeyFeatures with a pathway", () => {
       expect(badge.closest("[tabindex]")).toBeNull();
     }
   });
+});
+
+describe("feature config against the schema", () => {
+  /*
+    Values the schema allows that are deliberately not an option or a scale
+    step, because the item renders them some other way. Anything else missing
+    from the config would show as "No information", or as nothing selected, for
+    a value the pathway really reports — which is how SMR went unshown.
+  */
+  const RENDERED_OTHERWISE = new Set([
+    // A badge, or the field's own "No information" pill where it has one.
+    "No information",
+    // Skipped by the resolver, never rendered.
+    "Not applicable at this scope level",
+    // Only legal at Electrification × Power, which renders as forbidden.
+    "Not Applicable",
+  ]);
+
+  type ValueSchema = {
+    enum?: string[];
+    items?: { enum?: string[] };
+    anyOf?: { enum?: string[]; $ref?: string }[];
+  };
+  const fields = (
+    metadataSchema as unknown as {
+      properties: {
+        keyFeatures: {
+          properties: Record<
+            string,
+            { items: { properties: { value: ValueSchema } } }
+          >;
+        };
+      };
+    }
+  ).properties.keyFeatures.properties;
+
+  /** Every value the v2 schema allows for one field, following its one $ref. */
+  function schemaValues(key: KeyFeatureKey): string[] {
+    const value = fields[key].items.properties.value;
+    return (
+      value.enum ??
+      value.items?.enum ??
+      (value.anyOf ?? []).flatMap((option) =>
+        option.$ref ? emissionsScopeSchema.enum : (option.enum ?? []),
+      )
+    );
+  }
+
+  it.each(GROUPS.flatMap((g) => g.features).map((f) => [f.key, f] as const))(
+    "%s offers every value the schema allows",
+    (key, feature) => {
+      const allowed = schemaValues(key);
+      // Guards the lookup above: an empty list would make this pass vacuously.
+      expect(allowed.length).toBeGreaterThan(1);
+
+      const offered =
+        "options" in feature ? feature.options : feature.scaleValues;
+      expect(
+        allowed.filter(
+          (v) => !RENDERED_OTHERWISE.has(v) && !offered.includes(v),
+        ),
+      ).toEqual([]);
+    },
+  );
 });

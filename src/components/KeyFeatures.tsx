@@ -196,6 +196,7 @@ export const GROUPS: GroupConfig[] = [
           "SAF",
           "Battery storage",
           "EGS/AGS",
+          "SMR",
           "Other new technologies",
         ],
       },
