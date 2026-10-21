@@ -326,10 +326,15 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     TEST_TIMEOUT,
   );
 
-  it(
-    "resolves key features for the ribbon's scope, badging inherited values",
-    async () => {
-      await mountDetailPage("/pathway/detail-scope?tab=overview");
+  // Both tabs render their own KeyFeatures panel, each wired separately, so
+  // each is checked: At a glance is the default tab, opened without `?tab`.
+  it.each([
+    ["At a glance", "/pathway/detail-scope"],
+    ["Overview", "/pathway/detail-scope?tab=overview"],
+  ])(
+    "resolves key features for the ribbon's scope on %s, badging inherited values",
+    async (_tab, path) => {
+      await mountDetailPage(path);
       await screen.findByRole(
         "heading",
         { name: "Assumptions & Trends Overview" },
