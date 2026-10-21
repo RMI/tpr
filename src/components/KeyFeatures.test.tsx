@@ -531,6 +531,42 @@ describe("FeatureItem with a resolution (#869)", () => {
     expect(screen.getByText("Across sectors · Global")).toBeInTheDocument();
     expect(screen.queryByText("Emissions trajectory")).not.toBeInTheDocument();
   });
+
+  it("words the request in prose when empty axes were filled with sentinels", async () => {
+    // No token contains the rest, so the widest geography is `across regions`;
+    // the across sectors row makes `across sectors` the widest sector.
+    const pathway = {
+      sectors: [
+        { name: "Power", technologies: [] },
+        { name: "Buildings", technologies: [] },
+      ],
+      geography: {
+        global: false,
+        regions: { Europe: ["DE"] },
+        country: ["US"],
+      },
+      keyFeatures: {
+        emissionsTrajectory: [
+          e("across sectors", "Global", "Moderate decrease"),
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+    render(
+      <FeatureItem
+        feature={configFor("emissionsTrajectory")}
+        keyFeatures={pathway.keyFeatures}
+        resolution={resolveKeyFeature(pathway, "emissionsTrajectory", {
+          sector: null,
+          geography: null,
+        })}
+      />,
+    );
+
+    expect(await tooltipOf("Across sectors · Global")).toBe(
+      "No value for all sectors in all regions; showing the closest broader" +
+        " scope this pathway reports.",
+    );
+  });
 });
 
 describe("KeyFeatures with a pathway", () => {

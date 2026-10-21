@@ -244,6 +244,15 @@ swapping the axis priority is swapping the loop nesting in `resolveKeyFeature`.
   - forbidden behaves as on the detail page.
 - Then delete `widestValue`, `sectorBreadth` and `geographyBreadth` (which also removes the
   two-letter-regex bug that ranks JRC's `"EU"` as a country).
+- From the PR 1 review:
+  - **Drop `KeyFeatures`' `keyFeatures` prop.** It only feeds the widest-value path; once every
+    caller passes `pathway`, it duplicates `pathway.keyFeatures` and the two can disagree.
+    `FeatureItem`'s `keyFeatures` goes the same way once `resolution` is required.
+  - **Electrification × Power with an empty sector.** On a Power-only pathway that has an
+    `across sectors` row, a `null` sector resolves to `across sectors`, so the forbidden check
+    misses and Electrification inherits that row's value. The detail page never leaves the
+    sector empty; if the comparison page can, treat `across sectors` on a pathway whose only
+    declared sector is forbidden as that sector (e.g. in `isForbiddenKeyFeatureSector`'s caller).
 
 ### PR 2. Key-feature value validation (red CI accepted)
 
