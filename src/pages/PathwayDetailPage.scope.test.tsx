@@ -33,12 +33,20 @@ const fixtures = [
       regions: { "South East Asia": ["ID", "TH", "VN"] },
       country: ["SG"],
     },
+    // `across sectors`, not the retired `cross-sector`: the resolver looks
+    // scopes up exactly, so the old spelling would match nothing. The Steel row
+    // gives the ribbon a value to move to on each axis.
     keyFeatures: {
       emissionsTrajectory: [
         {
-          sector: "cross-sector",
+          sector: "across sectors",
           geography: "Global",
           value: "Significant decrease",
+        },
+        {
+          sector: "Steel",
+          geography: "Global",
+          value: "Moderate decrease",
         },
       ],
     },
@@ -319,7 +327,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   );
 
   it(
-    "does not re-scope key features, which await the #869 resolver",
+    "resolves key features for the ribbon's scope, badging inherited values",
     async () => {
       await mountDetailPage("/pathway/detail-scope?tab=overview");
       await screen.findByRole(
@@ -327,18 +335,24 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
         { name: "Assumptions & Trends Overview" },
         WAIT,
       );
+      const emissions = (): HTMLElement =>
+        screen.getByRole("heading", { level: 4, name: "Emissions" })
+          .parentElement as HTMLElement;
 
-      const before = screen
-        .getAllByRole("heading", { level: 4 })
-        .map((h) => h.parentElement?.textContent);
+      // Power · Global has no row of its own: inherited from across sectors.
+      expect(emissions()).toHaveTextContent("Significant decrease");
+      expect(emissions()).toHaveTextContent("Across sectors · Global");
 
+      // Steel · Global is recorded exactly, so nothing is inherited.
       await selectScope("Steel");
+      expect(emissions()).toHaveTextContent("Moderate decrease");
+      expect(emissions()).not.toHaveTextContent(" · ");
 
-      expect(
-        screen
-          .getAllByRole("heading", { level: 4 })
-          .map((h) => h.parentElement?.textContent),
-      ).toEqual(before);
+      // Steel · South East Asia falls back up the geography chain, and stays
+      // in Steel rather than taking the across sectors value.
+      await selectScope("South East Asia");
+      expect(emissions()).toHaveTextContent("Moderate decrease");
+      expect(emissions()).toHaveTextContent("Steel · Global");
     },
     TEST_TIMEOUT,
   );

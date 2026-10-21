@@ -14,8 +14,8 @@
  * query on both axes — sector by containment, geography by non-empty ISO
  * intersection (see geographyScopeOverlaps for why the two axes differ). There is
  * no cost model, no ranking, and no notion of how far the query had to broaden —
- * that is #869's resolver, which is where strict containment belongs, as the basis
- * for ranking rather than as a hard filter.
+ * that is #869's resolver in keyFeatureResolution, which is where strict
+ * containment belongs, as the basis for ranking rather than as a hard filter.
  */
 import type { Geography, GeographyCode, PathwayMetadataType } from "../types";
 import { pathwayISOCoverage, toISO2 } from "./geographyUtils";
@@ -136,7 +136,8 @@ export function scopeISOSet(
  * answers anything, but selecting Global is answered only by a Global entry, so
  * it narrows rather than quietly matching everything.
  *
- * #869's resolver will need this same own-vocabulary comparison.
+ * The resolver (keyFeatureResolution) compares in the same own vocabulary, but
+ * by containment through `declaredTokenCodes` rather than by overlap.
  */
 export function pathwayScopeOverlaps(
   entryGeography: string,
@@ -283,11 +284,11 @@ function geographyBreadth(geography: string): number {
 /**
  * The value at the broadest scope a field declares.
  *
- * **Provisional.** This is a placeholder for #869's resolver, which will pick the
- * value for the scope the *user* is looking at and report how far it had to
- * broaden so #859 can badge it. Until then the components show the widest value,
- * which is what v1 effectively showed — every codemod-migrated pathway has exactly
- * one entry, at its widest scope — so rendering is unchanged for current data.
+ * **Comparison page only, until 1b.** The detail page resolves each feature for
+ * the reader's scope with `resolveKeyFeature` (#869); the comparison grid still
+ * shows the widest value, which is what v1 effectively showed — every
+ * codemod-migrated pathway has exactly one entry, at its widest scope. Once the
+ * grid resolves per column, this and the breadth helpers above can go.
  *
  * Returns `undefined` when nothing is authored at any scope, which the callers
  * already render as "No information".
