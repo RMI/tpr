@@ -46,7 +46,7 @@ export interface ScopedEntry {
  * "no entries" is better than throwing. `Array.isArray` narrows a typed
  * `readonly T[]` union to `any[]`, so the cast is what keeps this type-safe.
  */
-function asEntries(value: unknown): readonly ScopedEntry[] {
+export function asEntries(value: unknown): readonly ScopedEntry[] {
   return Array.isArray(value) ? (value as readonly ScopedEntry[]) : [];
 }
 
