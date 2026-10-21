@@ -21,12 +21,15 @@ import type { Geography, GeographyCode, PathwayMetadataType } from "../types";
 import { pathwayISOCoverage, toISO2 } from "./geographyUtils";
 import { selectedGeographyToISO } from "./filterRegions";
 import { ABSENT_FILTER_TOKEN } from "./absent";
+import {
+  ACROSS_REGIONS,
+  ACROSS_SECTORS,
+  GLOBAL_SCOPE,
+} from "./keyFeatureRules";
 
-/** Sector sentinel: the union of *this pathway's own* declared sectors. */
-export const ACROSS_SECTORS = "across sectors";
-/** Geography sentinels: everything, and a multi-region non-global aggregate. */
-export const GLOBAL_SCOPE = "Global";
-export const ACROSS_REGIONS = "across regions";
+// Defined in keyFeatureRules, which the validator can share; re-exported so the
+// existing importers of this module keep working.
+export { ACROSS_REGIONS, ACROSS_SECTORS, GLOBAL_SCOPE };
 
 /** One scoped entry, structurally — the 11 fields differ only in `value`. */
 export interface ScopedEntry {
