@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import {
+  createKeyFeatureResolver,
   effectiveScope,
   geographyChain,
   resolveKeyFeature,
@@ -445,6 +446,43 @@ describe("resolveKeyFeature — edge cases", () => {
     expect(
       resolveKeyFeature(pathway(), "emissionsTrajectory", at("Power", "TH")),
     ).toMatchObject({ status: "unavailable" });
+  });
+});
+
+describe("createKeyFeatureResolver", () => {
+  it("answers each field exactly as resolveKeyFeature does", () => {
+    // One fixture exercising every outcome, so sharing the chains across
+    // fields cannot leak one field's state into another's.
+    const p = pathway({
+      keyFeatures: {
+        emissionsTrajectory: [e("Power", "TH", "Minor decrease")],
+        energyDemand: [
+          e("across sectors", "South East Asia", "No information"),
+        ],
+        electrification: [e("across sectors", "Global", "Moderate increase")],
+        policyTypes: [e("Power", "TH", [SENTINEL])],
+      },
+    });
+    const selection = at("Power", "TH");
+    const resolve = createKeyFeatureResolver(p, selection);
+    const fields = [
+      "emissionsTrajectory",
+      "energyDemand",
+      "electrification",
+      "policyTypes",
+      "investmentNeeds",
+    ] as const;
+
+    for (const field of fields) {
+      expect(resolve(field)).toEqual(resolveKeyFeature(p, field, selection));
+    }
+    expect(fields.map((field) => resolve(field).status)).toEqual([
+      "resolved",
+      "resolved",
+      "forbidden",
+      "unavailable",
+      "unavailable",
+    ]);
   });
 });
 

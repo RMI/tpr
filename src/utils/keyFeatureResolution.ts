@@ -11,7 +11,7 @@
  * The order is sector-preserving. The selected sector walks the whole geography
  * chain before `across sectors` is consulted, so `Power · Global` beats
  * `across sectors · TH`. There is no cost model to tune: swapping the axis
- * priority is swapping the two loops in {@link resolveKeyFeature}.
+ * priority is swapping the two loops in {@link createKeyFeatureResolver}.
  */
 import type {
   Geography,
@@ -127,56 +127,75 @@ export function geographyChain(
 }
 
 /**
- * Resolve one keyFeature for the selected scope.
+ * A resolver for every keyFeature of one pathway at one selected scope.
  *
- * Walks the sector chain (outer) × the geography chain (inner), looking for an
- * entry at exactly that `(sector, geography)` pair — `validateScopedEntries`
- * already guarantees that entry tokens are declared and that each scope has one
- * value. A missing entry, or a `Not applicable at this scope level` cell, means
- * "not recorded here" and the walk continues. Anything else ends it, including
- * an authored `No information`, `None` or `No new technologies`: those are the
- * pathway's answer, not an absence of one.
+ * The effective scope and both chains depend only on the pathway and the
+ * selection, so they are built once here and shared by each field it is asked
+ * for — a panel resolves eleven fields per render, and the geography chain is
+ * the costly part (a set per declared token, then a sort).
+ *
+ * Each field walks the sector chain (outer) × the geography chain (inner),
+ * looking for an entry at exactly that `(sector, geography)` pair —
+ * `validateScopedEntries` already guarantees that entry tokens are declared and
+ * that each scope has one value. A missing entry, or a `Not applicable at this
+ * scope level` cell, means "not recorded here" and the walk continues. Anything
+ * else ends it, including an authored `No information`, `None` or `No new
+ * technologies`: those are the pathway's answer, not an absence of one.
  *
  * A forbidden combination short-circuits before the walk, so it never inherits
  * an `across sectors` value. Malformed or non-array input degrades to "no
  * entries", and so to `unavailable`.
+ */
+export function createKeyFeatureResolver(
+  pathway: ResolvablePathway,
+  selection: PathwayScopeSelection,
+): (field: KeyFeatureKey) => ResolvedKeyFeature {
+  const requestedScope = effectiveScope(pathway, selection);
+  const sectors = sectorChain(requestedScope.sector, pathway);
+  const geographies = geographyChain(
+    requestedScope.geography,
+    pathway.geography,
+  );
+
+  return (field) => {
+    if (isForbiddenKeyFeatureSector(field, requestedScope.sector)) {
+      return { status: "forbidden", requestedScope };
+    }
+
+    const entries = asEntries(pathway.keyFeatures?.[field]);
+    for (const sector of sectors) {
+      for (const geography of geographies) {
+        const entry = entries.find(
+          (e) => e.sector === sector && e.geography === geography,
+        );
+        if (!entry || entry.value == null) continue;
+        if (isScopeLevelNotApplicable(entry.value)) continue;
+        return {
+          status: "resolved",
+          value: entry.value,
+          sourceScope: { sector, geography },
+          requestedScope,
+          isFallback:
+            sector !== requestedScope.sector ||
+            geography !== requestedScope.geography,
+        };
+      }
+    }
+
+    return { status: "unavailable", requestedScope };
+  };
+}
+
+/**
+ * Resolve one keyFeature for the selected scope — {@link createKeyFeatureResolver}
+ * for a single field. Prefer the resolver when resolving several fields at once.
  */
 export function resolveKeyFeature(
   pathway: ResolvablePathway,
   field: KeyFeatureKey,
   selection: PathwayScopeSelection,
 ): ResolvedKeyFeature {
-  const requestedScope = effectiveScope(pathway, selection);
-  if (isForbiddenKeyFeatureSector(field, requestedScope.sector)) {
-    return { status: "forbidden", requestedScope };
-  }
-
-  const entries = asEntries(pathway.keyFeatures?.[field]);
-  const geographies = geographyChain(
-    requestedScope.geography,
-    pathway.geography,
-  );
-
-  for (const sector of sectorChain(requestedScope.sector, pathway)) {
-    for (const geography of geographies) {
-      const entry = entries.find(
-        (e) => e.sector === sector && e.geography === geography,
-      );
-      if (!entry || entry.value == null) continue;
-      if (isScopeLevelNotApplicable(entry.value)) continue;
-      return {
-        status: "resolved",
-        value: entry.value,
-        sourceScope: { sector, geography },
-        requestedScope,
-        isFallback:
-          sector !== requestedScope.sector ||
-          geography !== requestedScope.geography,
-      };
-    }
-  }
-
-  return { status: "unavailable", requestedScope };
+  return createKeyFeatureResolver(pathway, selection)(field);
 }
 
 /**

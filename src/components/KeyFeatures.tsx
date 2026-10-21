@@ -5,7 +5,7 @@ import type { PathwayScopeSelection } from "../types";
 import { getKeyFeatureTooltip } from "../utils/tooltipUtils";
 import { widestValue } from "../utils/keyFeatureScope";
 import {
-  resolveKeyFeature,
+  createKeyFeatureResolver,
   sourceScopeLabel,
   type ResolvedKeyFeature,
   type Scope,
@@ -615,6 +615,12 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
 
   if (visible.length === 0) return null;
 
+  // One resolver per render, shared by every feature: the effective scope and
+  // its fallback chains are the same for all of them.
+  const resolve = pathway
+    ? createKeyFeatureResolver(pathway, scope)
+    : undefined;
+
   return (
     <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
       {title ? (
@@ -653,11 +659,7 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
                   key={feature.key}
                   feature={feature}
                   keyFeatures={keyFeatures}
-                  resolution={
-                    pathway
-                      ? resolveKeyFeature(pathway, feature.key, scope)
-                      : undefined
-                  }
+                  resolution={resolve?.(feature.key)}
                 />
               ))}
             </div>
