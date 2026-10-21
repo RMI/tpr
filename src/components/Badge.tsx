@@ -23,7 +23,8 @@ interface BadgeProps {
     | "geographyRegion-pub"
     | "geographyCountry-pub"
     | "sector-pub"
-    | "metric-pub";
+    | "metric-pub"
+    | "scope";
   className?: string;
   /**
    * When set, the badge renders as a `<button>` carrying these attributes
@@ -80,6 +81,11 @@ const Badge: React.FC<BadgeProps> = ({
         return "bg-transparent text-solar-800 border-solar-400";
       case "metric-pub":
         return "bg-transparent text-rmipurple-800 border-rmipurple-400";
+      // The scope a key feature's value was inherited from (#859). Outlined like
+      // the -pub variants, but neutral: it qualifies a value rather than naming
+      // a facet, so it should not compete with the coloured badges around it.
+      case "scope":
+        return "bg-transparent text-rmigray-500 border-rmigray-200";
       default:
         return "bg-rmigray-100 text-rmigray-800 border-rmigray-200";
     }
