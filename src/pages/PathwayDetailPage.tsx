@@ -356,11 +356,15 @@ const PathwayDetailPage: React.FC = () => {
 
   /*
     The same component and config render both the full driver/feature grid and
-    the At-a-glance subset, so the two cannot drift apart.
+    the At-a-glance subset, so the two cannot drift apart. Both resolve each key
+    feature for the ribbon's scope (#869), like the plots and tables below; an
+    empty axis needs no guard, because the resolver reads it as the widest.
   */
   const assumptionsPanel = (
     <KeyFeatures
       keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
       coreDrivers={pathway.coreDrivers}
       title="Assumptions & Trends Overview"
     />
@@ -369,6 +373,8 @@ const PathwayDetailPage: React.FC = () => {
   const assumptionsSummary = (
     <KeyFeatures
       keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
       coreDrivers={pathway.coreDrivers}
       groups={["policies", "emissions", "technology"]}
       title="Assumptions & Trends Overview"

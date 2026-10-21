@@ -1,7 +1,12 @@
 import { describe, it, expect } from "vitest";
-import { render, screen } from "@testing-library/react";
-import KeyFeatures from "./KeyFeatures";
-import type { PathwayMetadataType } from "../types";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import KeyFeatures, { FeatureItem, GROUPS } from "./KeyFeatures";
+import { resolveKeyFeature } from "../utils/keyFeatureResolution";
+import type { ResolvedKeyFeature } from "../utils/keyFeatureResolution";
+import type { KeyFeatureKey } from "../utils/keyFeatureRules";
+import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import metadataSchema from "../schema/pathwayMetadata.v2.json" with { type: "json" };
+import emissionsScopeSchema from "../schema/common/emissionsScope.v1.json" with { type: "json" };
 
 /**
  * v2 scopes every keyFeature as {sector, geography, value} entries (#858). These
@@ -293,4 +298,406 @@ describe("KeyFeatures", () => {
     } as unknown as PathwayMetadataType["keyFeatures"];
     expect(() => render(<KeyFeatures keyFeatures={sparse} />)).not.toThrow();
   });
+});
+
+/*
+  The resolver path (#869). Fixtures are resolved with the real resolver rather
+  than hand-built resolutions, so these also pin how the two fit together.
+*/
+const SENTINEL = "Not applicable at this scope level";
+
+const e = (sector: string, geography: string, value: string | string[]) => ({
+  sector,
+  geography,
+  value,
+});
+
+/** Two sectors in one mapped region, with Thailand also declared on its own. */
+function scopedPathway(
+  keyFeatures: Record<string, unknown>,
+): PathwayMetadataType {
+  return {
+    sectors: [
+      { name: "Power", technologies: [] },
+      { name: "Buildings", technologies: [] },
+    ],
+    geography: {
+      regions: { "South East Asia": ["ID", "TH", "VN"] },
+      country: ["TH"],
+    },
+    keyFeatures,
+  } as unknown as PathwayMetadataType;
+}
+
+const POWER_TH: PathwayScopeSelection = { sector: "Power", geography: "TH" };
+
+const configFor = (key: string) =>
+  GROUPS.flatMap((g) => g.features).find((f) => f.key === key)!;
+
+/** Render one feature, resolved for `scope` against a pathway holding `entries`. */
+function renderResolved(
+  key: KeyFeatureKey,
+  entries: ReturnType<typeof e>[],
+  scope: PathwayScopeSelection = POWER_TH,
+  props: { selectedOnly?: boolean; showLabel?: boolean } = {},
+) {
+  const pathway = scopedPathway({ [key]: entries });
+  return render(
+    <FeatureItem
+      feature={configFor(key)}
+      keyFeatures={pathway.keyFeatures}
+      resolution={resolveKeyFeature(pathway, key, scope)}
+      {...props}
+    />,
+  );
+}
+
+/** Open the tooltip on the element showing `text`, and read it. */
+async function tooltipOf(text: string): Promise<string | null> {
+  const trigger = screen.getByText(text).closest("[tabindex]") as HTMLElement;
+  // Re-fired inside waitFor: TextWithTooltip attaches its listeners in an
+  // effect, and a focus that lands before them is dropped without a trace.
+  await waitFor(() => {
+    fireEvent.focus(trigger);
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+  });
+  const content = screen.getByRole("tooltip").textContent;
+  fireEvent.blur(trigger);
+  return content;
+}
+
+/** Any scope badge, whatever it names: they all read "<sector> · <geography>". */
+const queryScopeBadge = () => screen.queryByText(/ · /);
+
+describe("FeatureItem with a resolution (#869)", () => {
+  it("renders an exact match as it always has, with no scope badge", () => {
+    renderResolved("emissionsTrajectory", [
+      e("Power", "TH", "Moderate decrease"),
+      e("across sectors", "Global", "Significant decrease"),
+    ]);
+
+    expect(screen.getByText("Moderate decrease")).toHaveClass(
+      "font-semibold",
+      "text-success-600",
+    );
+    expect(queryScopeBadge()).not.toBeInTheDocument();
+  });
+
+  it("badges an inherited value with its source scope, beside the label", async () => {
+    renderResolved("emissionsTrajectory", [
+      e("across sectors", "South East Asia", "Moderate decrease"),
+    ]);
+
+    const badge = screen.getByText("Across sectors · South East Asia");
+    expect(badge).toHaveClass("bg-transparent", "text-rmigray-500");
+    // Same row as the label, not down with the value.
+    expect(badge.closest("div")).toContainElement(
+      screen.getByText("Emissions trajectory"),
+    );
+    expect(screen.getByText("Moderate decrease")).toBeInTheDocument();
+    expect(await tooltipOf("Across sectors · South East Asia")).toBe(
+      "No value for Power in Thailand; showing the closest broader scope" +
+        " this pathway reports.",
+    );
+  });
+
+  it("badges an inherited value on pill features too", () => {
+    renderResolved("policyTypes", [
+      e("Power", "South East Asia", ["Carbon price"]),
+    ]);
+
+    const badge = screen.getByText("Power · South East Asia");
+    expect(badge.closest("div")).toContainElement(
+      screen.getByText("Policy types"),
+    );
+    expect(screen.getByText("Carbon price").closest("span")).toHaveClass(
+      "bg-rmiblue-100",
+    );
+  });
+
+  it("keeps the badge on an inherited No information", async () => {
+    renderResolved("energyDemand", [
+      e("across sectors", "South East Asia", "No information"),
+      e("across sectors", "Global", "Minor increase"),
+    ]);
+
+    expect(
+      screen.getByText("Across sectors · South East Asia"),
+    ).toBeInTheDocument();
+    expect(await tooltipOf("No information")).toBe(
+      "The pathway does not report this.",
+    );
+  });
+
+  it("tells an authored No information from an exhausted chain", async () => {
+    const { unmount } = renderResolved("energyDemand", [
+      e("Power", "TH", "No information"),
+    ]);
+    const authored = await tooltipOf("No information");
+    unmount();
+
+    renderResolved("energyDemand", []);
+    const exhausted = await tooltipOf("No information");
+
+    expect(authored).toBe("The pathway does not report this.");
+    expect(exhausted).toBe(
+      "Nothing is recorded for this pathway at any scope.",
+    );
+    // Neither is inherited, so neither is badged.
+    expect(queryScopeBadge()).not.toBeInTheDocument();
+  });
+
+  it("renders Electrification of Power as Not applicable, selecting nothing", async () => {
+    const { container } = renderResolved("electrification", [
+      e("across sectors", "South East Asia", "Moderate increase"),
+    ]);
+
+    expect(screen.getByText("Not applicable")).toBeInTheDocument();
+    // Not the "No information" the scales fall back to for an unknown value,
+    // and not the across sectors value a fallback would have found.
+    expect(screen.queryByText("No information")).not.toBeInTheDocument();
+    expect(screen.queryByText("Moderate increase")).not.toBeInTheDocument();
+    expect(queryScopeBadge()).not.toBeInTheDocument();
+    // A selected scale bar is the tall one.
+    expect(container.querySelector(".h-3")).toBeNull();
+    expect(await tooltipOf("Not applicable")).toBe(
+      "Electrification does not apply to the Power sector.",
+    );
+  });
+
+  it("renders a forbidden pill feature with no pill selected, in both modes", () => {
+    // No pill feature is forbidden today; this keeps the rendering ready for
+    // one rather than letting it fall into a selected "No information" pill.
+    const forbidden: ResolvedKeyFeature = {
+      status: "forbidden",
+      requestedScope: { sector: "Power", geography: "TH" },
+    };
+    const props = {
+      feature: configFor("emissionsScope"),
+      keyFeatures: mockKeyFeatures,
+      resolution: forbidden,
+    };
+
+    const { container, unmount } = render(<FeatureItem {...props} />);
+    expect(screen.getByText("Not applicable")).toBeInTheDocument();
+    expect(container.querySelector(".bg-rmiblue-100")).toBeNull();
+    unmount();
+
+    render(
+      <FeatureItem
+        {...props}
+        selectedOnly
+      />,
+    );
+    expect(screen.getByText("Not applicable")).toBeInTheDocument();
+    expect(screen.queryByText("No information")).not.toBeInTheDocument();
+  });
+
+  it("never renders the scope-level sentinel", () => {
+    const { unmount } = renderResolved("energyEfficiency", [
+      e("Power", "TH", SENTINEL),
+      e("across sectors", "TH", "Minor improvement"),
+    ]);
+    expect(screen.getByText("Minor improvement")).toBeInTheDocument();
+    expect(screen.getByText("Across sectors · Thailand")).toBeInTheDocument();
+    expect(screen.queryByText(SENTINEL)).not.toBeInTheDocument();
+    unmount();
+
+    // The array shape, with nothing to fall back to.
+    renderResolved("policyTypes", [e("Power", "TH", [SENTINEL])], POWER_TH, {
+      selectedOnly: true,
+    });
+    expect(screen.getByText("No information")).toBeInTheDocument();
+    expect(screen.queryByText(SENTINEL)).not.toBeInTheDocument();
+  });
+
+  it("explains a selected No information pill like the badge", async () => {
+    // emissionsScope lists "No information" among its pills.
+    renderResolved("emissionsScope", []);
+
+    expect(screen.getByText("No information").closest("span")).toHaveClass(
+      "bg-rmiblue-100",
+    );
+    expect(await tooltipOf("No information")).toBe(
+      "Nothing is recorded for this pathway at any scope.",
+    );
+  });
+
+  it("still names the source scope when there is no label to sit beside", () => {
+    renderResolved(
+      "emissionsTrajectory",
+      [e("across sectors", "Global", "Moderate decrease")],
+      POWER_TH,
+      { showLabel: false },
+    );
+
+    expect(screen.getByText("Across sectors · Global")).toBeInTheDocument();
+    expect(screen.queryByText("Emissions trajectory")).not.toBeInTheDocument();
+  });
+
+  it("words the request in prose when empty axes were filled with sentinels", async () => {
+    // No token contains the rest, so the widest geography is `across regions`;
+    // the across sectors row makes `across sectors` the widest sector.
+    const pathway = {
+      sectors: [
+        { name: "Power", technologies: [] },
+        { name: "Buildings", technologies: [] },
+      ],
+      geography: {
+        global: false,
+        regions: { Europe: ["DE"] },
+        country: ["US"],
+      },
+      keyFeatures: {
+        emissionsTrajectory: [
+          e("across sectors", "Global", "Moderate decrease"),
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+    render(
+      <FeatureItem
+        feature={configFor("emissionsTrajectory")}
+        keyFeatures={pathway.keyFeatures}
+        resolution={resolveKeyFeature(pathway, "emissionsTrajectory", {
+          sector: null,
+          geography: null,
+        })}
+      />,
+    );
+
+    expect(await tooltipOf("Across sectors · Global")).toBe(
+      "No value for all sectors in all regions; showing the closest broader" +
+        " scope this pathway reports.",
+    );
+  });
+});
+
+describe("KeyFeatures with a pathway", () => {
+  // The ACE Buildings shape: electrification recorded only across sectors,
+  // with the sentinel on the Buildings row.
+  const ace = scopedPathway({
+    electrification: [
+      e("across sectors", "South East Asia", "Low or no change"),
+      e("Buildings", "South East Asia", SENTINEL),
+    ],
+    emissionsTrajectory: [
+      e("across sectors", "South East Asia", "Moderate increase"),
+    ],
+  });
+
+  it("resolves each feature for the scope it is given", () => {
+    const { rerender } = render(
+      <KeyFeatures
+        keyFeatures={ace.keyFeatures}
+        pathway={ace}
+        scope={{ sector: "Buildings", geography: "South East Asia" }}
+      />,
+    );
+    expect(screen.getByText("Low or no change")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Across sectors · South East Asia"),
+    ).toHaveLength(2);
+
+    rerender(
+      <KeyFeatures
+        keyFeatures={ace.keyFeatures}
+        pathway={ace}
+        scope={{ sector: "Power", geography: "South East Asia" }}
+      />,
+    );
+    expect(screen.getByText("Not applicable")).toBeInTheDocument();
+    expect(screen.queryByText("Low or no change")).not.toBeInTheDocument();
+  });
+
+  it("resolves at the widest scope when given no scope", () => {
+    render(
+      <KeyFeatures
+        keyFeatures={ace.keyFeatures}
+        pathway={ace}
+      />,
+    );
+    // across sectors · South East Asia is the widest, so nothing is inherited.
+    expect(screen.getByText("Moderate increase")).toBeInTheDocument();
+    expect(queryScopeBadge()).not.toBeInTheDocument();
+  });
+
+  it("renders the widest values, unbadged, without a pathway", () => {
+    render(<KeyFeatures keyFeatures={ace.keyFeatures} />);
+
+    expect(screen.getByText("Low or no change")).toBeInTheDocument();
+    expect(queryScopeBadge()).not.toBeInTheDocument();
+    // And its "No information" badges stay untooltipped, as before the
+    // resolver. (The pills of that name always carried a tooltip.)
+    const badges = screen
+      .getAllByText("No information")
+      .filter((el) => el.classList.contains("bg-rmigray-100"));
+    expect(badges.length).toBeGreaterThan(0);
+    for (const badge of badges) {
+      expect(badge.closest("[tabindex]")).toBeNull();
+    }
+  });
+});
+
+describe("feature config against the schema", () => {
+  /*
+    Values the schema allows that are deliberately not an option or a scale
+    step, because the item renders them some other way. Anything else missing
+    from the config would show as "No information", or as nothing selected, for
+    a value the pathway really reports — which is how SMR went unshown.
+  */
+  const RENDERED_OTHERWISE = new Set([
+    // A badge, or the field's own "No information" pill where it has one.
+    "No information",
+    // Skipped by the resolver, never rendered.
+    "Not applicable at this scope level",
+    // Only legal at Electrification × Power, which renders as forbidden.
+    "Not Applicable",
+  ]);
+
+  type ValueSchema = {
+    enum?: string[];
+    items?: { enum?: string[] };
+    anyOf?: { enum?: string[]; $ref?: string }[];
+  };
+  const fields = (
+    metadataSchema as unknown as {
+      properties: {
+        keyFeatures: {
+          properties: Record<
+            string,
+            { items: { properties: { value: ValueSchema } } }
+          >;
+        };
+      };
+    }
+  ).properties.keyFeatures.properties;
+
+  /** Every value the v2 schema allows for one field, following its one $ref. */
+  function schemaValues(key: KeyFeatureKey): string[] {
+    const value = fields[key].items.properties.value;
+    return (
+      value.enum ??
+      value.items?.enum ??
+      (value.anyOf ?? []).flatMap((option) =>
+        option.$ref ? emissionsScopeSchema.enum : (option.enum ?? []),
+      )
+    );
+  }
+
+  it.each(GROUPS.flatMap((g) => g.features).map((f) => [f.key, f] as const))(
+    "%s offers every value the schema allows",
+    (key, feature) => {
+      const allowed = schemaValues(key);
+      // Guards the lookup above: an empty list would make this pass vacuously.
+      expect(allowed.length).toBeGreaterThan(1);
+
+      const offered =
+        "options" in feature ? feature.options : feature.scaleValues;
+      expect(
+        allowed.filter(
+          (v) => !RENDERED_OTHERWISE.has(v) && !offered.includes(v),
+        ),
+      ).toEqual([]);
+    },
+  );
 });

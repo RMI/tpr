@@ -658,6 +658,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                           <li>SAF</li>
                           <li>Battery storage</li>
                           <li>EGS/AGS</li>
+                          <li>SMR</li>
                           <li>Other new technologies</li>
                           <li>No information</li>
                         </ul>

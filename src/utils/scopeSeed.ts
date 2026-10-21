@@ -44,9 +44,9 @@ export function collapseSelection(
  * from these very display names — so this is exact equality. A sector the
  * pathway does not declare yields null; never guess a sibling sector.
  *
- * `cross-sector` is deliberately not a candidate: it is a keyFeature scope
+ * `across sectors` is deliberately not a candidate: it is a keyFeature scope
  * token, not a declared sector, and `sector === null` already occupies the
- * cross-sector position.
+ * across-sectors position.
  */
 export function seedSectorFromFilters(
   value: string | string[] | null | undefined,
