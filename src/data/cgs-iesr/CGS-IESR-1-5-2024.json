@@ -69,6 +69,7 @@
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
+    "Capacity",
     "Generation",
     "Technology Mix"
   ],

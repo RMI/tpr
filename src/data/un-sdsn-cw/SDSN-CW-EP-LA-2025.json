@@ -42,7 +42,13 @@
     }
   ],
   "pathwayDescription": "The Existing Policy pathway models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. The Existing Policy scenario reflects Laos’s current energy policy trajectory, which in practice translates to a significant build-out of hydropower, contributing to over 80% of generation by 2050. The pathway projects moderate growth from other sources, primarily coal-fired plants, with a small amount of wind and biomass capacity. This build-out of hydropower does gradually reduce the role of coal-burning plants over time, slightly reducing emissions, but the Existing Policy scenario falls short of a net-zero ambition.\n\nIn addition to coal remaining in the generation mix, end-use demand sectors remain generally unchanged in their emissions, with emissions increasing between 2020 and 2050. The Existing Policy scenario depicts a status quo, or business-as-usual, energy future for Laos, characterized by significant hydropower growth but an extremely limited emissions decline.",
-  "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
   "keyFeatures": {
     "emissionsTrajectory": [
       {
