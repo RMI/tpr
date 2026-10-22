@@ -60,6 +60,7 @@
         "ES",
         "SE"
       ],
+      "EFTA": ["IS", "LI", "NO", "CH"],
       "Rest Central America": [
         "BS",
         "BB",
@@ -160,21 +161,6 @@
         "ZM"
       ],
       "Rest South Asia": ["AF", "BD", "BT", "MV", "NP", "PK", "SC", "LK"],
-      "South East Asia": [
-        "ID",
-        "MY",
-        "TH",
-        "VN",
-        "BN",
-        "KH",
-        "LA",
-        "MN",
-        "MM",
-        "KP",
-        "PH",
-        "SG",
-        "TW"
-      ],
       "Rest South East Asia": [
         "BN",
         "KH",
@@ -186,35 +172,37 @@
         "SG",
         "TW"
       ],
-      "Rest Pacific": ["FJ", "KI", "PG", "WS", "SB", "TO", "VU"],
-      "AR": ["AR"],
-      "AU": ["AU"],
-      "BR": ["BR"],
-      "CA": ["CA"],
-      "CH": ["CH"],
-      "CL": ["CL"],
-      "CN": ["CN"],
-      "EG": ["EG"],
-      "GB": ["GB"],
-      "ID": ["ID"],
-      "IN": ["IN"],
-      "IR": ["IR"],
-      "IS": ["IS"],
-      "JP": ["JP"],
-      "KR": ["KR"],
-      "MX": ["MX"],
-      "MY": ["MY"],
-      "NO": ["NO"],
-      "NZ": ["NZ"],
-      "RU": ["RU"],
-      "SA": ["SA"],
-      "TH": ["TH"],
-      "TR": ["TR"],
-      "UA": ["UA"],
-      "US": ["US"],
-      "VN": ["VN"],
-      "ZA": ["ZA"]
-    }
+      "Rest Pacific": ["FJ", "KI", "PG", "WS", "SB", "TO", "VU"]
+    },
+    "country": [
+      "AR",
+      "AU",
+      "BR",
+      "CA",
+      "CH",
+      "CL",
+      "CN",
+      "EG",
+      "GB",
+      "ID",
+      "IN",
+      "IR",
+      "IS",
+      "JP",
+      "KR",
+      "MX",
+      "MY",
+      "NO",
+      "NZ",
+      "RU",
+      "SA",
+      "TH",
+      "TR",
+      "UA",
+      "US",
+      "VN",
+      "ZA"
+    ]
   },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.5,
@@ -311,6 +299,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant decrease"
       },
@@ -321,7 +314,22 @@
       },
       {
         "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Rest Central America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
         "value": "Significant decrease"
       },
       {
@@ -475,434 +483,9 @@
         "value": "Significant decrease"
       },
       {
-        "sector": "Agriculture",
-        "geography": "Global",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Global",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Cement",
-        "geography": "Global",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Chemicals",
-        "geography": "Global",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Global",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
         "sector": "Power",
         "geography": "Global",
         "value": "Significant decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Shipping",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Global",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Algeria & Libya",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Mediterranean Middle East",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Morocco & Tunisia",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest Central America",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest Pacific",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest South America",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest South Asia",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest South East Asia",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Algeria & Libya",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Mediterranean Middle East",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Morocco & Tunisia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest Central America",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest Pacific",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest South America",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest South Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest South East Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Algeria & Libya",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Mediterranean Middle East",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Morocco & Tunisia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest Central America",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest Pacific",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest South America",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest South Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest South East Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
       },
       {
         "sector": "Power",
@@ -911,6 +494,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EFTA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "No information"
       },
@@ -921,8 +509,23 @@
       },
       {
         "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
         "geography": "Rest Central America",
         "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Significant decrease"
       },
       {
         "sector": "Power",
@@ -950,1051 +553,6 @@
         "value": "Significant decrease"
       },
       {
-        "sector": "Rail",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "AR",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "AU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "BR",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "CA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "CL",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "EG",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "EU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "GB",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "ID",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "IN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "IR",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "JP",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "KR",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "MX",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "MY",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "NZ",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "RU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "SA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "TH",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "TR",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "UA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "US",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "VN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "ZA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "AR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "AU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "BR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "CA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "CL",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "EG",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "EU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "GB",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "ID",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "IN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "IR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "KR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "MX",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "MY",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "NZ",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "RU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "SA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "TH",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "TR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "UA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "VN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "ZA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "AR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "AU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "BR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "CL",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "EG",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "EU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "GB",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "ID",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "IN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "IR",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "KR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "MX",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "MY",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "NZ",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "RU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "SA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "TH",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "TR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "UA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "VN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "ZA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
         "sector": "Power",
         "geography": "AR",
         "value": "Significant decrease"
@@ -2118,131 +676,6 @@
         "sector": "Power",
         "geography": "ZA",
         "value": "Significant decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Rail",
-        "geography": "ZA",
-        "value": "No information"
       }
     ],
     "energyEfficiency": [
@@ -2258,6 +691,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant improvement"
       },
@@ -2268,7 +706,22 @@
       },
       {
         "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Rest Central America",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
         "value": "Significant improvement"
       },
       {
@@ -2420,6 +873,201 @@
         "sector": "across sectors",
         "geography": "ZA",
         "value": "Significant improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
@@ -2435,6 +1083,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant increase"
       },
@@ -2445,7 +1098,22 @@
       },
       {
         "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Rest Central America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
         "value": "Moderate decrease"
       },
       {
@@ -2599,439 +1267,19 @@
         "value": "Significant decrease"
       },
       {
-        "sector": "Agriculture",
-        "geography": "Global",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Global",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Global",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Global",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Cement",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Chemicals",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
         "sector": "Power",
         "geography": "Global",
         "value": "Significant increase"
       },
       {
-        "sector": "Rail",
-        "geography": "Global",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Shipping",
-        "geography": "Global",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Global",
-        "value": "No information"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Algeria & Libya",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Mediterranean Middle East",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Morocco & Tunisia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest Central America",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest Pacific",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest South America",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest South Asia",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest South East Asia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Algeria & Libya",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Mediterranean Middle East",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Morocco & Tunisia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest Central America",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest Pacific",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest South America",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest South Asia",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest South East Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Algeria & Libya",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Mediterranean Middle East",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Morocco & Tunisia",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest Central America",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest Pacific",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest South America",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest South Asia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest South East Asia",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Algeria & Libya",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Mediterranean Middle East",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Morocco & Tunisia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest Central America",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest Pacific",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest South America",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest South Asia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest South East Asia",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Algeria & Libya",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Mediterranean Middle East",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Morocco & Tunisia",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest Central America",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest Pacific",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest South America",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest South Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest South East Asia",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "No information"
-      },
-      {
         "sector": "Power",
         "geography": "Algeria & Libya",
         "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Minor increase"
       },
       {
         "sector": "Power",
@@ -3045,1078 +1293,48 @@
       },
       {
         "sector": "Power",
-        "geography": "Rest Central America",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "Rest Pacific",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "Rest South America",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "Rest South Asia",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "Rest South East Asia",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Algeria & Libya",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Mediterranean Middle East",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Morocco & Tunisia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest Central America",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest Pacific",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest South America",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest South Asia",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest South East Asia",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "Rest Sub-Saharan Africa",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "AR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "AU",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "BR",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "CA",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "CL",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "CN",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "EG",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "EU",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "GB",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "ID",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "IN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "IR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "JP",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "KR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "MX",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "MY",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "NZ",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "RU",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "SA",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "TH",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "TR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "UA",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "US",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "VN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Agriculture",
-        "geography": "ZA",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "AR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "AU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "BR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "CA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "CL",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "EG",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "EU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "GB",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "ID",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "IN",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "IR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "KR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "MX",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "MY",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "NZ",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "RU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "SA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "TH",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "TR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "UA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "VN",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Automotive",
-        "geography": "ZA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "AR",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "AU",
+        "geography": "Rest Balkans",
         "value": "Minor decrease"
       },
       {
-        "sector": "Aviation",
-        "geography": "BR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "CA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "CL",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "CN",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "EG",
+        "sector": "Power",
+        "geography": "Rest Central America",
         "value": "Significant increase"
       },
       {
-        "sector": "Aviation",
-        "geography": "EU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "GB",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "ID",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IR",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "KR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "MX",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "MY",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "NZ",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "RU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "SA",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "TH",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "TR",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "UA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "VN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "ZA",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "AR",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "AU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "BR",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "CA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "CL",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "CN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "EG",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "EU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "GB",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "ID",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "IR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "KR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "MX",
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
         "value": "Moderate increase"
       },
       {
-        "sector": "Buildings",
-        "geography": "MY",
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
         "value": "Significant increase"
       },
       {
-        "sector": "Buildings",
-        "geography": "NZ",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "RU",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "SA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "TH",
+        "sector": "Power",
+        "geography": "Rest Pacific",
         "value": "Significant increase"
       },
       {
-        "sector": "Buildings",
-        "geography": "TR",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "UA",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Buildings",
-        "geography": "VN",
+        "sector": "Power",
+        "geography": "Rest South America",
         "value": "Significant increase"
       },
       {
-        "sector": "Buildings",
-        "geography": "ZA",
-        "value": "Minor decrease"
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Significant increase"
       },
       {
-        "sector": "Coal Mining",
-        "geography": "AR",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Significant increase"
       },
       {
-        "sector": "Coal Mining",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Coal Mining",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Gas (Upstream)",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Land Use",
-        "geography": "ZA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "AR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "AU",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "CA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "CL",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "EG",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "EU",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "GB",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "ID",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "IR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "KR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "MX",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "MY",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "NZ",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "RU",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "SA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "TH",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "TR",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "UA",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "VN",
-        "value": "No information"
-      },
-      {
-        "sector": "Oil (Upstream)",
-        "geography": "ZA",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Significant increase"
       },
       {
         "sector": "Power",
@@ -4242,131 +1460,6 @@
         "sector": "Power",
         "geography": "ZA",
         "value": "Significant decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "AR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "AU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "BR",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "CA",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "CL",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Rail",
-        "geography": "CN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "EG",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "EU",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "GB",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "ID",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "IR",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "JP",
-        "value": "Low or no change"
-      },
-      {
-        "sector": "Rail",
-        "geography": "KR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "MX",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "MY",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "NZ",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "RU",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "SA",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "TH",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "TR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "UA",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "US",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Rail",
-        "geography": "VN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Rail",
-        "geography": "ZA",
-        "value": "Minor increase"
       }
     ],
     "electrification": [
@@ -4382,6 +1475,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Moderate increase"
       },
@@ -4392,7 +1490,22 @@
       },
       {
         "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Rest Central America",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
         "value": "Significant increase"
       },
       {
@@ -4544,6 +1657,201 @@
         "sector": "across sectors",
         "geography": "ZA",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not Applicable"
       }
     ],
     "policyTypes": [
@@ -4558,6 +1866,391 @@
           "Subsidies",
           "Other"
         ]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
@@ -4565,6 +2258,391 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       }
     ],
     "emissionsScope": [
@@ -4572,6 +2650,391 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyAmbition": [
@@ -4579,6 +3042,391 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "High ambition policies"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       }
     ],
     "technologyCostsDetail": [
@@ -4588,54 +3436,194 @@
         "value": "No information"
       },
       {
-        "sector": "Agriculture",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Automotive",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Aviation",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Buildings",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Cement",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Chemicals",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Coal Mining",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Gas (Upstream)",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Land Use",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Oil (Upstream)",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
@@ -4643,19 +3631,194 @@
         "value": "No information"
       },
       {
-        "sector": "Rail",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Shipping",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Steel",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       }
     ],
     "newTechnologiesIncluded": [
@@ -4672,54 +3835,194 @@
         ]
       },
       {
-        "sector": "Agriculture",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Automotive",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Aviation",
-        "geography": "Global",
-        "value": ["SAF", "Green H2/ammonia"]
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Buildings",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Cement",
-        "geography": "Global",
-        "value": ["CCUS", "Other new technologies"]
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Chemicals",
-        "geography": "Global",
-        "value": ["CCUS", "Other new technologies"]
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Coal Mining",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Gas (Upstream)",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Land Use",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Oil (Upstream)",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
@@ -4727,19 +4030,194 @@
         "value": ["CCUS", "Green H2/ammonia", "Battery storage"]
       },
       {
-        "sector": "Rail",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Shipping",
-        "geography": "Global",
-        "value": ["No information"]
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": ["Not applicable at this scope level"]
       },
       {
-        "sector": "Steel",
-        "geography": "Global",
-        "value": ["CCUS", "Green H2/ammonia", "Other new technologies"]
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "investmentNeeds": [
@@ -4749,54 +4227,194 @@
         "value": "By technology"
       },
       {
-        "sector": "Agriculture",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Automotive",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Aviation",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Buildings",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Cement",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Chemicals",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Coal Mining",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Gas (Upstream)",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Land Use",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Oil (Upstream)",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "across sectors",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
@@ -4804,133 +4422,576 @@
         "value": "By technology"
       },
       {
-        "sector": "Rail",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "Algeria & Libya",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Shipping",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "EFTA",
+        "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Steel",
-        "geography": "Global",
-        "value": "No information"
+        "sector": "Power",
+        "geography": "Mediterranean Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Morocco & Tunisia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Balkans",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Central America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Commonwealth of Independent States",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest of Persian Gulf",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest South East Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Sub-Saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CL",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "NZ",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "UA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
       }
     ]
   },
   "coreDrivers": {
-    "policies": "The scenario implements current and legislated policies as of July 2024, as in Reference scenario. An additional high-ambition global uniform carbon price starts in 2025 and rises over time.",
-    "emissionsTargets": "Global pathway is constrained to limit warming to 1.5°C by 2100 with net zero around 2060 and negative emissions later.",
-    "technologyCosts": "Technology learning are endogenously developed in POLES-JRC; cost trend decreases as much as the technology is being adopted.",
+    "policies": "The scenario implements current and legislated policies as of July 2024, as in the accompanying Reference scenario. An additional high-ambition global uniform carbon price starts in 2025 and rises over time.",
+    "emissionsTargets": "Global pathway is constrained to limit warming to 1.5°C by 2100 with net zero around 2060 and negative emissions after that.",
+    "technologyCosts": "Technology learning rates are endogenously developed in the model, based on learning curve literature. The overall technology cost trend decreases based on the adoption of individual technologies and their unit costs.",
     "investmentChange": "Annual power-sector investment doubles between 2020 and 2050, peaking in 2040. Solar and wind continue to dominate the technology mix, while storage becomes material from 2035 onward. Unabated fossil-fuel investment is no longer material by 2040, whereas CCS investment peaks in 2030 and remains material through 2050. Those investments increase GCP by 0.1% compared to reference scenario. As GDP also doubles over the same period, power-sector investment remains broadly constant as a share of GDP.",
-    "macroeconomicDrivers": "Population and GDP assumptions are shared across the GECO scenarios and set the activity baseline. Inputs combine World Bank, IMF, OECD/SSP2, EU Ageing Report and JRC-IIASA sources.",
-    "behavioralShifts": "The models assumed limited explicit behavioural-change modelling compared to Reference scenario. Household, transport and housing expenditure shifts are reported as macro effects.",
+    "macroeconomicDrivers": "Population and GDP assumptions are shared across the GECO scenarios and set the activity baseline. Inputs combine World Bank, IMF, OECD/SSP2, EU Ageing Report, and JRC-IIASA sources.",
+    "behavioralShifts": "The models assumed limited explicit behavioural-change modelling compared to Reference scenario. However, there is a general shift toward increased spending on low carbon heating and cooking appliances, as well as public transit.",
     "otherDrivers": null
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The pathway adds an uniform global carbon price to the July 2024 legislated policy setup.",
+      "dependency_description": "Building on existing legislated policies, this pathway adds a uniform global carbon price starting in 2025 to drive an 'economically efficient' reduction in emissions limiting warming to 1.5°C.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Quantitative fuel-price, investment and constraint emissions budget show that least-cost competition and technology costs strongly shape the power transition. However, the carbon-price values are not published.",
-      "sector": "Power",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Consumer and client behavior",
-      "dependency_description": "The models assumed limited explicit behavioural-change modelling compared to Reference scenario. Household, transport and housing expenditure shifts are reported as macro effects.",
+      "dependency_description": "Least-cost optimization strongly shapes the power transition, with the global carbon price as a key driver influencing technology economics. However, the carbon price values are not published.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Very high wind and solar deployment and storage investment indicate grid and flexibility requirements, but indicators availability on transmission and distribution remains low.",
+      "dependency_description": "Significant renewable technology deployment implies additional grid flexibility and transmission infrastructure, but this is not quantified in the scenario.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Power-sector delivery depends on storage becoming cheaper and scaling sufficiently, and on CCS being deployable for residual fossil and biomass generation. Those two conditions are bidning constraints to respect 1.5°C carbon budget.",
-      "sector": "Power",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Resource availability",
-      "dependency_description": "Wind, solar and other renewables are associated with potentials and supply curves per country. This scenario is the most ambitous using POLES-JRC and this is where renewables availability will be the main constraint.",
+      "dependency_description": "Power-sector delivery depends on storage becoming cheaper and scaling sufficiently, and on CCS being deployable for residual fossil and biomass generation.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "Moderate: renewable-power employment rises from 1.9 million jobs in 2020 to 11.9 million in 2035 and 17.2 million in 2050, implying substantial workforce scaling and reallocation; GECO does not identify specific shortages.",
+      "dependency_description": "Renewable-power employment rises from 1.9 million jobs in 2020 to 11.9 million in 2035 and 17.2 million in 2050, implying substantial workforce scaling and reallocation. GECO does not identify specific shortages.",
       "sector": "Power",
       "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Policy strategy",
-      "dependency_description": "The pathway adds an uniform global carbon price to the July 2024 legislated policy setup.",
-      "sector": "Aviation",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Market and economics",
-      "dependency_description": "\"Moderate: inferred from carbon-price design and fuel switching; Higher fuel costs/carbon prices likely affect aviation demand/fuel choice, but no passenger/freight economics are provided.\".",
-      "sector": "Aviation",
-      "evidence_type": "Anecdotal"
-    },
-    {
-      "dependency_name": "Consumer and client behavior",
-      "dependency_description": "The pathway models an increase in public transportation (including air travel) until 2040 compared to Reference scenario, then a decrease in mobility in 2050.",
-      "sector": "Aviation",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "The scenario requires some large sustainable aviation fuel and e-fuel capacity construction. This relies on some infracture needs. Production and distribution infrastructure are not tabulated by airport/route.",
-      "sector": "Aviation",
-      "evidence_type": "Anecdotal"
-    },
-    {
-      "dependency_name": "Technology",
-      "dependency_description": "To limit emissions in the aviation sector, 1.5°C scenario is reliant on sustauniable aviation fuel expansion. Hydrogen and electricity aircraft are also deployed in the scenario by 2035. H2 and e-fuels represents 42% in sectoral energy demand.",
-      "sector": "Aviation",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Policy strategy",
-      "dependency_description": "The pathway adds an uniform global carbon price to the July 2024 legislated policy setup.",
-      "sector": "Steel",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Market and economics",
-      "dependency_description": "GECO states that green-hydrogen costs remain high and provides quantitative steel emissions, CCS and biomass shares showing the resulting preference for other abatement routes.",
-      "sector": "Steel",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Carbon Capture and Storage is a new technology which 1.5°C is reliant to decarbonize steel sector. This requires some infrastructure, but those are not detailed in the pathway.",
-      "sector": "Steel",
-      "evidence_type": "Qualitative"
-    },
-    {
-      "dependency_name": "Technology",
-      "dependency_description": "To respect 1.5°C carbon budget, steel decarbonisation depends materially on industrial CCS becoming deployable at scale, while hydrogen-based primary steel remains an emerging option. 37% of Steel emissions are captured with CCS in 2050/.",
-      "sector": "Steel",
-      "evidence_type": "Quantitative"
-    },
-    {
-      "dependency_name": "Resource availability",
-      "dependency_description": "Moderate: scrap availability and quality requirements constrain EAF recycling.",
-      "sector": "Steel",
-      "evidence_type": "Qualitative"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "EU",
+          "EFTA",
+          "Rest Central America",
+          "Rest South America",
+          "Rest Balkans",
+          "Rest of Commonwealth of Independent States",
+          "Mediterranean Middle East",
+          "Rest of Persian Gulf",
+          "Morocco & Tunisia",
+          "Algeria & Libya",
+          "Rest Sub-Saharan Africa",
+          "Rest South Asia",
+          "Rest South East Asia",
+          "Rest Pacific",
+          "AR",
+          "AU",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CN",
+          "EG",
+          "GB",
+          "ID",
+          "IN",
+          "IR",
+          "IS",
+          "JP",
+          "KR",
+          "MX",
+          "MY",
+          "NO",
+          "NZ",
+          "RU",
+          "SA",
+          "TH",
+          "TR",
+          "UA",
+          "US",
+          "VN",
+          "ZA"
+        ],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "CO2 from fuel combustion in power generation and district heating are combined, the heat share is not separable. Non-CO2 gases are not included. There is no on-grid/captive/rooftop split stated."
+      },
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "EU",
+          "EFTA",
+          "Rest Central America",
+          "Rest South America",
+          "Rest Balkans",
+          "Rest of Commonwealth of Independent States",
+          "Mediterranean Middle East",
+          "Rest of Persian Gulf",
+          "Morocco & Tunisia",
+          "Algeria & Libya",
+          "Rest Sub-Saharan Africa",
+          "Rest South Asia",
+          "Rest South East Asia",
+          "Rest Pacific",
+          "AR",
+          "AU",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CN",
+          "EG",
+          "GB",
+          "ID",
+          "IN",
+          "IR",
+          "IS",
+          "JP",
+          "KR",
+          "MX",
+          "MY",
+          "NO",
+          "NZ",
+          "RU",
+          "SA",
+          "TH",
+          "TR",
+          "UA",
+          "US",
+          "VN",
+          "ZA"
+        ],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "CO2 from fuel combustion in power generation and district heating are combined, the heat share is not separable. Non-CO2 gases are not included. There is no on-grid/captive/rooftop split stated."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "EU",
+          "EFTA",
+          "Rest Central America",
+          "Rest South America",
+          "Rest Balkans",
+          "Rest of Commonwealth of Independent States",
+          "Mediterranean Middle East",
+          "Rest of Persian Gulf",
+          "Morocco & Tunisia",
+          "Algeria & Libya",
+          "Rest Sub-Saharan Africa",
+          "Rest South Asia",
+          "Rest South East Asia",
+          "Rest Pacific",
+          "AR",
+          "AU",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CN",
+          "EG",
+          "GB",
+          "ID",
+          "IN",
+          "IR",
+          "IS",
+          "JP",
+          "KR",
+          "MX",
+          "MY",
+          "NO",
+          "NZ",
+          "RU",
+          "SA",
+          "TH",
+          "TR",
+          "UA",
+          "US",
+          "VN",
+          "ZA"
+        ],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Installed generation capacity (GW) by technology, fossil generation is split into unabated and with-CCUS. Storage is modelled but reported only as share of electricity delivered from storage. Dedicated renewables for hydrogen and DAC are reported separately and excluded from the total."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "EU",
+          "EFTA",
+          "Rest Central America",
+          "Rest South America",
+          "Rest Balkans",
+          "Rest of Commonwealth of Independent States",
+          "Mediterranean Middle East",
+          "Rest of Persian Gulf",
+          "Morocco & Tunisia",
+          "Algeria & Libya",
+          "Rest Sub-Saharan Africa",
+          "Rest South Asia",
+          "Rest South East Asia",
+          "Rest Pacific",
+          "AR",
+          "AU",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CN",
+          "EG",
+          "GB",
+          "ID",
+          "IN",
+          "IR",
+          "IS",
+          "JP",
+          "KR",
+          "MX",
+          "MY",
+          "NO",
+          "NZ",
+          "RU",
+          "SA",
+          "TH",
+          "TR",
+          "UA",
+          "US",
+          "VN",
+          "ZA"
+        ],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Installed generation capacity (GW) by technology, fossil generation is split into unabated and with-CCUS. Inclusion of captive and rooftop generation is not stated."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "EU",
+          "EFTA",
+          "Rest Central America",
+          "Rest South America",
+          "Rest Balkans",
+          "Rest of Commonwealth of Independent States",
+          "Mediterranean Middle East",
+          "Rest of Persian Gulf",
+          "Morocco & Tunisia",
+          "Algeria & Libya",
+          "Rest Sub-Saharan Africa",
+          "Rest South Asia",
+          "Rest South East Asia",
+          "Rest Pacific",
+          "AR",
+          "AU",
+          "BR",
+          "CA",
+          "CH",
+          "CL",
+          "CN",
+          "EG",
+          "GB",
+          "ID",
+          "IN",
+          "IR",
+          "IS",
+          "JP",
+          "KR",
+          "MX",
+          "MY",
+          "NO",
+          "NZ",
+          "RU",
+          "SA",
+          "TH",
+          "TR",
+          "UA",
+          "US",
+          "VN",
+          "ZA"
+        ],
+        "timeResolution": "5/10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Installed generation capacity (GW) by technology, fossil generation is split into unabated and with-CCUS. Inclusion of captive and rooftop generation is not stated."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Global annual power-sector investment (trillion USD 2022) by technology, read off Figure 25 in the report. Storage is one aggregate bar, not split by technology though the text cites batteries. Grid/T&D investment is not shown."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
 }

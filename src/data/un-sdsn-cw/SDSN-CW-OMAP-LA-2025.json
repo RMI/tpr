@@ -42,7 +42,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Optimized More Ambitious Policy (OMAP) scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. It builds on the More Ambitious Policy (MAP) scenario by applying a least-cost optimization approach, seeking the lowest-cost pathway to reach near-zero emissions in Laos’s power sector and economy-wide. The resulting trajectory differs from MAP in several ways. Unlike in MAP, the power sector does not reach true-zero emissions in OMAP, with residual emissions from biomass totaling 22,960 metric tons, less than 1% of 2020 levels. \n\nAdditionally, this pathway meets demand with less total capacity (25.6 GW in 2050, versus 40.9 GW in the More Ambitious Policy scenario), and it does so using renewables, which are cheaper than hydro (hydropower peaks at 10 GW in 2050, compared to 26 GW in the More Ambitious Policy scenario). As a result, the total power system costs in OMAP are lower than in both the MAP pathway and the Existing Policy pathway, indicating that the large-scale investments in the OMAP pathway significantly improve future cost-competitiveness.",
+  "pathwayDescription": "The Optimized More Ambitious Policy (OMAP) scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. It builds on the More Ambitious Policy (MAP) scenario by applying a least-cost optimization approach, seeking the lowest-cost pathway to reach near-zero emissions in Laos’s power sector and economy-wide. The resulting trajectory differs from MAP in several ways. Unlike in MAP, the power sector does not reach true-zero emissions in OMAP, with residual emissions from biomass totaling 22,960 metric tons, less than 1% of 2020 levels.\n\nAdditionally, this pathway meets demand with less total capacity (25.6 GW in 2050, versus 40.9 GW in the More Ambitious Policy scenario), and it does so using renewables, which are cheaper than hydro (hydropower peaks at 10 GW in 2050, compared to 26 GW in the More Ambitious Policy scenario). As a result, the total power system costs in OMAP are lower than in both the MAP pathway and the Existing Policy pathway, indicating that the large-scale investments in the OMAP pathway significantly improve future cost-competitiveness.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -259,12 +259,12 @@
       {
         "metricName": "Technology cost",
         "sector": "Power",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Provide total production costs and total discounted production costs"
       },
       {
         "metricName": "Investment requirement",

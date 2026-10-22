@@ -61,7 +61,7 @@
       {
         "sector": "Power",
         "geography": "TH",
-        "value": "Low or no change"
+        "value": "Minor increase"
       }
     ],
     "energyEfficiency": [
@@ -103,7 +103,7 @@
       {
         "sector": "Power",
         "geography": "TH",
-        "value": "CO2e (unspecified GHGs)"
+        "value": "CO2e (Kyoto)"
       }
     ],
     "policyAmbition": [

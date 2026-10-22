@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "CGS-IESR-1-5-2024",
   "publication": {
     "title": {
@@ -46,7 +46,8 @@
     "country": ["ID"]
   },
   "pathwayType": "Normative",
-  "modelYearStart": 2020,
+  "modelTempIncrease": 1.5,
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
@@ -60,11 +61,11 @@
         "Wind",
         "Solar",
         "Biomass",
-        "Other"
+        "Geothermal"
       ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe 1.5°C-Aligned (1.5°C) scenario from the Institute for Essential Services Reform (IESR) and the Center for Global Sustainability (CGS) represents an ambitious trajectory for Indonesia’s power sector, in line with global 1.5°C ambitions. The scenario comes from a report published by IESR and CGS, “1.5°C-Aligned Coal Power Transition Pathways in Indonesia.” The report contrasts a low-ambition, business-as-usual (BAU) pathway based on the Comprehensive Investment and Policy Plan (CIPP) of the Just Energy Transition Partnership Indonesia (JETP ID) with a significantly expanded and more ambitious version that builds on the JETP CIPP but aims for 1.5°C alignment. \n\nSpecifically, the 1.5°C pathway expands on policies laid out in the CIPP and highlights additional decarbonization levers for the Indonesian power sector, including on-grid and captive power plants. The trajectory highlighted by this pathway leads to net-zero emissions from the entire Indonesian power sector by 2050.\nThe 1.5°C pathway uses the least-cost optimization approach of the PLEXOS modeling framework. The main decarbonization levers include early retirement of coal power plants, cancellations of preconstruction projects, biomass co-firing, renewable substitution, grid connection of captive plants, and deployment of carbon capture and storage (CCS), especially via bioenergy with carbon capture and storage (BECCS). \n\n#### Core Drivers\n\nThe 1.5°C pathway is primarily driven by normative policy levers, expanded renewables deployment, and new technology deployment.\n\n*Policy:* The 1.5°C pathway builds on the policy measures contained within the CIPP, including policy-supported retirement of on-grid coal-powered generation, caps on power sector emissions, and targets for on-grid renewables deployment. It extends these policies by introducing an explicit net-zero-by-2050 constraint, introducing cancellation of preconstruction coal plants, and extending coal generation interventions to include captive power plants.\n\n*Technology deployment:* The 1.5°C pathway includes significant deployment of renewable generation, replacing the majority of current coal capacity. Renewable generation is supplemented with fuel substitution to incorporate biomass in existing fossil fuel infrastructure. Residual emissions are mitigated through the deployment of CCS and BECCS technology.  \n\n#### Application to Transition Assessment\n\nThe 1.5°C-aligned scenario provides an ambitious transition pathway based on a normative, plant-level, least-cost optimization that aims to reduce power sector emissions to net zero in 2050. It deploys a set of measures to reduce emissions from both on-grid and captive power plants, including early retirement of coal power plants, cancellations of preconstruction projects, biomass-co-firing, renewable substitution, grid connection of captive plants, and deployment of CCS. As a country-level pathway, the 1.5°C pathway does not model a global temperature rise and should not be used to directly set or measure temperature alignment targets. However, as a detailed projection of aspirational power sector targets, it may be a relevant benchmark for the ambition of company goals and investment plans.\n\nAs a normative, country-level pathway, the 1.5°C pathway provides valuable information for comparing companies to Indonesia-specific trajectories. Misalignment to the 1.5°C pathway may be a useful indicator of potential future risks such as noncompliance with evolving energy policies or reduced competitiveness where low-carbon technologies are prioritized. Because the 1.5°C pathway will require the implementation of additional policies and targets, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness. \n\nAs compared with alignment to a BAU pathway, alignment to the 1.5°C pathway gives a stronger indication that a company is positioning itself for potential policy and market shifts. However, it can also indicate some level of risk, should such changes not materialize along the timeline anticipated by a company. Due to its limited detail on technology costs, technology deployment projections, and upstream fuel prices, the 1.5°C-aligned scenario has clear limitations for assessing the commercial and technical feasibility of transition strategies.\n\nThe 1.5°C pathway includes 5- to 10-year interval projections for generation and emissions using a moderately detailed breakdown by energy sources such as coal, gas, wind, solar, bioenergy, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. It is one of the few pathways that analyzes both on-grid and captive power plants, which provides an additional level of local context. Due to its country-specific nature, the 1.5°C pathway has limited applicability for companies with diversified operations across multiple geographies, but it offers valuable specificity for companies in Indonesia.",
+  "pathwayDescription": "The 1.5°C-Aligned (1.5°C) scenario from the Institute for Essential Services Reform (IESR) and the Center for Global Sustainability (CGS) represents an ambitious trajectory for Indonesia’s power sector, in line with global 1.5°C ambitions. The scenario comes from a report published by IESR and CGS, “1.5°C-Aligned Coal Power Transition Pathways in Indonesia.” The report contrasts a low-ambition, business-as-usual (BAU) pathway based on the Comprehensive Investment and Policy Plan (CIPP) of the Just Energy Transition Partnership Indonesia (JETP ID) with a significantly expanded and more ambitious version that builds on the JETP CIPP but aims for 1.5°C alignment.\n\nSpecifically, the 1.5°C pathway expands on policies laid out in the CIPP and highlights additional decarbonization levers for the Indonesian power sector, including on-grid and captive power plants. The trajectory highlighted by this pathway leads to net-zero emissions from the entire Indonesian power sector by 2050. The 1.5°C pathway uses the least-cost optimization approach of the PLEXOS modeling framework. The main decarbonization levers include early retirement of coal power plants, cancellations of preconstruction projects, biomass co-firing, renewable substitution, grid connection of captive plants, and deployment of carbon capture and storage (CCS), especially via bioenergy with carbon capture and storage (BECCS).",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -72,16 +73,262 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": ["Phaseout dates", "Target technology shares"],
-    "technologyCostTrend": "Low or no change",
-    "emissionsScope": "CO2",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage", "CCUS"],
-    "investmentNeeds": "No information"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not Applicable"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Phaseout dates", "Target technology shares", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Low or no change"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "CO2"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "High ambition policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["CCUS", "Battery storage", "Other new technologies"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Dated early retirement is the largest instrument: low-hanging-fruit units go first, then staged tranches end on-grid coal by 2050. Biomass co-firing is a mandated share, rising steeply by 2030 at selected on-grid and captive units, and stoker plants fully convert by 2035. Utilisation limits are an operating standard, capping flexible units’ capacity factors. The moratorium extends to the pipeline, cancelling pre-construction captive projects, and Sulawesi captive capacity is grid-connected.",
+    "emissionsTargets": "The pathway is built around binding caps rather than around a policy package: power emissions peak at 382 MtCO2 in 2025, the on-grid segment is capped at 230 MtCO2 and the captive segment at 100 MtCO2 in 2030, and emissions decline linearly from 2030 to a 2050 endpoint of zero on-grid and 76% below peak for captive. PLEXOS emissions were constrained to follow the UMD 1.5°C-aligned trajectory, making the target an input to the optimisation rather than an output of it.",
+    "technologyCosts": "Costs determine which plants retire, which are retrofitted and what replaces them. Under static MEMR catalogue costs, PLEXOS least-cost optimisation finds solar PV the cheapest build, making utility-scale solar dominant by 2050. Early retirement is priced in: owner compensation, the present value of unpaid depreciation, enters system cost and is traded against operating savings. Cost limits CCS to large units, while regulated coal and gas prices keep fossil operating costs artificially low.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Electricity demand growth from the draft MEMR National Electricity Planning (RUKN) is applied identically in both scenarios and sets the scale of the system the pathway has to decarbonise. Unlike in BAU, it is not the dominant driver here, the emissions caps and the strategy set are, but it is what makes the transition hard: generation has to roughly quintuple by 2050 while emissions fall to near zero. This is why the pathway leans  heavily on utility-scale solar rather than on demand restraint.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Two structural assumptions shape the pathway. First, flexibility and grid integration: coal shifts to dispatch service, islands interconnect from 2030 and storage absorbs renewables, yet low dry-season hydro raises Sulawesi coal and gas use. Second, captive plants are young, exempt from the coal ban and tied to industrial users, so on-grid levers cannot reach them; pending Sulawesi grid connection, on-grid plants must deliver most cuts. Neither is a policy, target, unit cost or macro forecast."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The pathway outcome hinges mainly on adequate policies. Every lever is policy-driven: early retirement, mandated co-firing, utilisation limits, cancelled captive projects and grid connection of Sulawesi captive capacity. The report deems the framework insufficient, urging a finalised PR 112/2022 roadmap, a national task force, industrial coal-to-renewable tax incentives, renegotiated PLN-IPP contracts and a flexibility-services mechanism.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Market rules, not targets, determine whether the levers can be executed at the modelled pace. Early retirement needs legal clarity on owner compensation, priced as unpaid depreciation, which only works if PLN-IPP contracts are renegotiated. Take-or-pay PPAs make lower utilisation costly, so a contract-based flexibility mechanism is sought. Coal-to-renewable substitution needs PLN procurement and tariff reform. PMK 103/2023 offers blended finance, but the PR 112/2022 roadmap is under review.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The CIPP requires USD 97 billion while the JETP has committed USD 20 billion, leaving an 80% financing gap. Early retirement of coal plants not free (compensation enters total system cost and is optimised against operating savings) is the main decarbonization lever, but financing unclear. The Cirebon-1 example costs USD 250-300 million for a seven-year acceleration. Reform of fossil fuel price caps needed, e.g. the Coal to Clean Credit Initiative and the Energy Transition Accelerator.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Two captive strategies depend on industrial offtakers acceptance. Onsite solar substitution for clients that have signaled interest in building renewable plants (even at its most ambitious this reaches only 22% of the coal capacity in those parks, as the rest of the industrial load cannot tolerate the profile). Grid connection asks 34 units of Sulawesi nickel and mining capacity to give up self-supply for grid transmission service by 2045. Both are imposed where client willingness is evidenced.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The 1.5C aligned pathway's captive strategy of emissions reduction depend on roughly 2,040 km of planned Sulawesi transmission lines. The connected plants are chosen by distance to planned infrastructure. On-grid integration of renewables needs more grid infrastructure, storage and large-island interconnection to hold the system stable as coal moves from baseload to dispatch. Logistics bind a second lever too: target co-firing ratios need more investment and planning for biomass supply chains.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "CCS captures 90% of CO2 at four South Sumatra units totalling 1.8 GW from 2045, and BECCS at the 1.1 GW Adaro Phase I unit delivers 1.2 MtCO2 of negative emissions. Only a few sites clear the 600 MW size threshold and the proximity-to-storage requirement. High-ratio biomass co-firing is considered technically achievable but highly ambitious and not yet used at the required scale. Grid-scale storage is needed to keep the system stable as variable renewables displace coal.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Biomass feedstock is the binding physical input, as the report states. Co-firing needs high biomass ratios, yet feedstock is limited to waste residues from processing, agriculture and forestry, not energy plantations, to avoid deforestation, sharply capping supply; timely procurement at scale may be difficult. Geology constrains CCS: storage basins are scarce and far from Central Sulawesi and North Maluku, one with limited capacity. Land limits onsite solar to what industrial parks can host.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Two physical effects shape the pathway without being decisive. In dry seasons, higher cooling demand and lower hydro output raise Sulawesi coal and gas use, increasing cost and emissions when they should be lowest. This matters more than in BAU, given hydro’s larger 1.5 Aligned share, notably in Kalimantan. Biomass poses a land-use risk, treated as a design constraint: sourcing is limited to residues and degraded land to avoid shifting emissions. Climate effects on hydrology are not modelled.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The pathway creates and flags a workforce effect but offers nothing to size it. Early coal retirement, concentrated in Banten, Central and East Java and South Sumatra, plus captive closures at Sulawesi and North Maluku nickel and mining sites, implies job losses and new skill needs in renewables, storage and co-firing. The report urges coherence with just transition and welfare goals and early owner engagement, but omits jobs, retraining and labour-market data, so bindingness cannot be judged.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived, not reported. Numerator: on-grid CO2 from report Table 2 (p.16). Denominator: on-grid generation from report Figure 8 (p.21). Scope 1 combustion CO2 only. The boundary holds only for the on-grid segment - captive generation is nowhere reported, so no captive or whole-sector intensity can be formed, and the combined emissions series in Figure 5 must not be divided by Figure 8's generation because it includes captive coal. Emissions intensity is not published in any form."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Scope 1 combustion CO2 only (Global Energy Monitor method, sub-bituminous factors, subcritical heat rates). Covers on-grid coal, captive coal and on-grid gas; excludes oil, upstream methane and non-CO2 gases. On-grid and captive are reported separately and combined, with reductions attributed by strategy. CCS and BECCS capture is netted at 90%. Rooftop not covered. The 2050 figure retains roughly 25 MtCO2 of captive coal."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Coal", "Gas"],
+        "scopeLimitations": "Coal is the only fully resolved series, by unit, year and strategy. Gas appears as 2023 stocks and a 2050 residual; no total capacity numbers for solar. Hydro, wind, geothermal and biomass capacity are unpublished though generation is, so there is no system-wide capacity series by technology. Storage capacity is not reported at all - storage appears only as dispatch in GW in the 2030 Sulawesi simulation, undivided between batteries, pumped hydro or any other form."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal"
+        ],
+        "scopeLimitations": "On-grid generation only, from the PLEXOS on-grid model. Captive generation is nowhere reported, so this series is not comparable with the combined emissions series, which includes captive coal. Oil is labelled 'Other Fossil' nationally and 'Petroleum' regionally. Values must be read off stacked area charts; no generation table is published. Sub-national projections cover seven regions. Storage dispatch is shown for Sulawesi 2030 only."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal"
+        ],
+        "scopeLimitations": "Derived as shares of the on-grid generation series; not reported directly. Inherits that series' limitations: on-grid only, captive excluded, and chart-read. Shares are therefore shares of on-grid generation, not of total Indonesian electricity supply. Storage is excluded because it shifts rather than generates electricity. Narrative anchors are available to sanity-check the derivation: renewables reach two-thirds of generation by 2030 and fossil fuels a few percent by 2050."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Transmission enters as an assumption, not as a modelled output: roughly 2,040 km of planned Sulawesi lines and large-island interconnection from 2030, both taken from the CIPP and PLN's RUPTL. The pathway reports the consequence - 4.8 GW across 34 captive units connected to the grid by 2045 - rather than line length by year, voltage, route or interconnection capacity. The system is represented as a seven-region node topology with no present inter-island links. Distribution is not covered."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Static technology-catalogue inputs, not a projection: one build cost, one fixed O&M and one variable O&M figure per technology, with no time series and no learning rate. Covers CFPP, OCGT, CCGT, biogas, biomass, waste, hydro, micro-hydro, geothermal, wind turbine and solar PV. No storage cost, no CCS cost and no co-firing retrofit cost. Fuel prices are regulated caps rather than forecasts. The same catalogue is applied to both scenarios."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Early retirement is central: roughly 23.2 GW of on-grid coal retires before 30 years, on top of the CIPP's 1.7 GW. Average retirement age across all coal units is 28.9 years; about 50% retire at 30 years and 3% before 20. Captive units average 23.8 years. Retirement cost is modelled as the present value of unpaid depreciation and enters total system cost. Gas retires at 30 years. Vintages from GCPT 2023/2024."
+      }
+    ]
   }
 }

@@ -1,0 +1,3065 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "NGFS-LD-MESSAGE-2024",
+  "publication": {
+    "title": {
+      "full": "NGFS Climate Scenarios for central banks and supervisors - Phase V"
+    },
+    "author": [
+      "Richters, Oliver",
+      "Kriegler, Elmar",
+      "Bertram, Christoph",
+      "Cui, Ryna",
+      "Edmonds, Jae",
+      "Fawcett, Allen",
+      "Fuhrman, Jay",
+      "George, Mel",
+      "Hackstock, Philip",
+      "Hurst, Ian",
+      "Ju, Yiyi",
+      "Kotz, Maximilian",
+      "Liadze, Iana",
+      "Min, Jihoon",
+      "Piontek, Franziska",
+      "Sanchez Juanino, Patricia",
+      "Sferra, Fabio",
+      "Stevanovic, Miodrag",
+      "van Ruijven, Bas",
+      "Weigmann, Pascal",
+      "Wenz, Leonie",
+      "Westphal, Michael Ian",
+      "Zwerling, Matthew",
+      "Abrahão, Gabriel",
+      "Baumstark, Lavinia",
+      "Bresch, David N.",
+      "Chen, David Meng-Chuen",
+      "Dietrich, Jan Philipp",
+      "Durga, Siddarth",
+      "Fricko, Oliver",
+      "Hasse, Robin",
+      "Hoppe, Johanna",
+      "Humpenöder, Florian",
+      "Iyer, Gokul",
+      "Javaid, Aneeque",
+      "Joshi, Siddharth",
+      "Kikstra, Jarmo",
+      "Kishimoto, Paul",
+      "Klein, David",
+      "Koch, Johannes",
+      "Krey, Volker",
+      "Kropf, Chahan M.",
+      "Lewis, Jared",
+      "Lochner, Ellie",
+      "Luderer, Gunnar",
+      "Maczek, Florian",
+      "Mandaroux, Rahel",
+      "Mastrucci, Alessio",
+      "Meinshausen, Malte",
+      "Meng, Measenray",
+      "Merfort, Anne",
+      "Nicholls, Zebedee",
+      "Patel, Pralit",
+      "Pehl, Michaja",
+      "Pelz, Setu",
+      "Popp, Alexander",
+      "Rüter, Tonn",
+      "Sauer, Inga",
+      "Schreyer, Felix",
+      "Ünlü, Gamze",
+      "von Jeetze, Patrick",
+      "Zhao, Alicia",
+      "Zhao, Xin"
+    ],
+    "publisher": {
+      "full": "Network of Central Banks and Supervisors for Greening the Financial System",
+      "short": "NGFS"
+    },
+    "year": 2024,
+    "month": 11,
+    "day": 5,
+    "doi": "10.5281/zenodo.13989530",
+    "license": "CC BY-NC-SA 4.0 with adaptations listed here: https://data.ene.iiasa.ac.at/ngfs/#/license",
+    "links": [
+      {
+        "url": "https://www.ngfs.net/en/publications-and-statistics/publications/ngfs-climate-scenarios-central-banks-and-supervisors-phase-v",
+        "description": "Report"
+      },
+      {
+        "url": "https://data.ece.iiasa.ac.at/ngfs/#/downloads",
+        "description": "Dataset"
+      }
+    ]
+  },
+  "name": {
+    "full": "Low Demand, MESSAGEix-GLOBIOM 2.0-M-R12-NGFS",
+    "short": "LD MESSAGE"
+  },
+  "description": "Normative global 1.5°C pathway led by behaviour-driven low energy demand; MESSAGEix-GLOBIOM 2.0.",
+  "geography": {
+    "global": true,
+    "regions": {
+      "China": ["CN", "HK"],
+      "Eastern Europe": [
+        "AL",
+        "BA",
+        "BG",
+        "CZ",
+        "EE",
+        "HR",
+        "HU",
+        "LT",
+        "LV",
+        "ME",
+        "MK",
+        "PL",
+        "RO",
+        "RS",
+        "SI",
+        "SK"
+      ],
+      "Former Soviet Union": [
+        "AM",
+        "AZ",
+        "BY",
+        "GE",
+        "KG",
+        "KZ",
+        "MD",
+        "RU",
+        "TJ",
+        "TM",
+        "UA",
+        "UZ"
+      ],
+      "Latin America and the Caribbean": [
+        "AG",
+        "AI",
+        "AR",
+        "AW",
+        "BB",
+        "BM",
+        "BO",
+        "BR",
+        "BS",
+        "BZ",
+        "CL",
+        "CO",
+        "CR",
+        "CU",
+        "DM",
+        "DO",
+        "EC",
+        "FK",
+        "GD",
+        "GF",
+        "GP",
+        "GT",
+        "GY",
+        "HN",
+        "HT",
+        "JM",
+        "KN",
+        "KY",
+        "LC",
+        "MQ",
+        "MS",
+        "MX",
+        "NI",
+        "PA",
+        "PE",
+        "PY",
+        "SR",
+        "SV",
+        "TC",
+        "TT",
+        "UY",
+        "VC",
+        "VE"
+      ],
+      "Middle East and North Africa": [
+        "AE",
+        "BH",
+        "DZ",
+        "EG",
+        "IL",
+        "IQ",
+        "IR",
+        "JO",
+        "KW",
+        "LB",
+        "LY",
+        "MA",
+        "OM",
+        "PS",
+        "QA",
+        "SA",
+        "SD",
+        "SS",
+        "SY",
+        "TN",
+        "YE"
+      ],
+      "North America": ["CA", "GU", "PR", "UM", "US", "VI"],
+      "Other Pacific Asia": [
+        "AS",
+        "BN",
+        "CC",
+        "CK",
+        "FJ",
+        "FM",
+        "ID",
+        "KI",
+        "KR",
+        "MH",
+        "MM",
+        "MP",
+        "MY",
+        "NC",
+        "NR",
+        "NU",
+        "PF",
+        "PG",
+        "PH",
+        "PW",
+        "SB",
+        "SG",
+        "TH",
+        "TL",
+        "TO",
+        "TV",
+        "TW",
+        "VU",
+        "WS"
+      ],
+      "Pacific OECD": ["AU", "CX", "HM", "JP", "NZ", "TK"],
+      "Rest Centrally Planned Asia": ["KH", "KP", "LA", "MN", "MO", "VN"],
+      "South Asia": ["AF", "BD", "BT", "IN", "LK", "MV", "NP", "PK"],
+      "Sub-saharan Africa": [
+        "AO",
+        "BF",
+        "BI",
+        "BJ",
+        "BW",
+        "CD",
+        "CF",
+        "CG",
+        "CI",
+        "CM",
+        "CV",
+        "DJ",
+        "EH",
+        "ER",
+        "ET",
+        "GA",
+        "GH",
+        "GM",
+        "GN",
+        "GQ",
+        "GW",
+        "KE",
+        "KM",
+        "LR",
+        "LS",
+        "MG",
+        "ML",
+        "MR",
+        "MU",
+        "MW",
+        "MZ",
+        "NA",
+        "NE",
+        "NG",
+        "RW",
+        "SC",
+        "SL",
+        "SN",
+        "SO",
+        "ST",
+        "SZ",
+        "TD",
+        "TG",
+        "TZ",
+        "UG",
+        "ZA",
+        "ZM",
+        "ZW"
+      ],
+      "Western Europe": [
+        "AD",
+        "AT",
+        "AX",
+        "BE",
+        "BL",
+        "CH",
+        "CY",
+        "DE",
+        "DK",
+        "ES",
+        "FI",
+        "FO",
+        "FR",
+        "GB",
+        "GG",
+        "GI",
+        "GL",
+        "GR",
+        "GS",
+        "IE",
+        "IM",
+        "IO",
+        "IS",
+        "IT",
+        "JE",
+        "LI",
+        "LU",
+        "MC",
+        "MF",
+        "MT",
+        "NF",
+        "NL",
+        "NO",
+        "PM",
+        "PN",
+        "PT",
+        "RE",
+        "SE",
+        "SH",
+        "SJ",
+        "SM",
+        "TR",
+        "VA",
+        "VG",
+        "WF",
+        "YT"
+      ]
+    }
+  },
+  "pathwayType": "Normative",
+  "modelTempIncrease": 1.5,
+  "modelYearStart": 2020,
+  "modelYearEnd": 2100,
+  "modelYearNetzero": 2060,
+  "sectors": [
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Geothermal",
+        "Energy storage"
+      ]
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "The Network for Greening the Financial System (NGFS) develops reference climate scenarios to help central banks, regulators, and financial institutions assess transition and physical risks associated with climate change. The Low Demand, MESSAGEix-GLOBIOM 2.0-M-R12 (LD MESSAGE) scenario describes a world in which strong climate policies are combined with major shifts in behavior, energy efficiency, and consumption patterns, resulting in significantly lower energy demand and greenhouse gas emissions. This scenario assumes widespread adoption of sustainable lifestyles, efficiency gains across all sectors, and rapid deployment of mature low-carbon technologies. As a result, global energy demand peaks early and declines steadily through the century.\n\nThe LD MESSAGE pathway achieves a 1.5°C temperature outcome by 2100, more ambitious than the Net Zero 2050 scenario, and with less reliance on carbon dioxide removal and negative-emission technologies. The scenario emphasizes demand-side mitigation, reflecting both behavioral change and systemic efficiency improvements rather than purely supply-side transformation. It is the most ambitious of the pathways published by NGFS.\n\nThis scenario is one of seven scenarios published by NGFS. Note that all NGFS scenarios are produced using three different Integrated Assessment Models (IAMs): REMIND-MAgPIE, MESSAGEix-GLOBIOM, and GCAM. These IAMs share the common assumptions that define each scenario, but may offer different projections based on underlying model structure. Technical users may wish to consult NGFS documentation to determine if a specific IAM best fits their applications.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Moderate decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": ["Carbon price"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Other cost breakdown"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Other cost breakdown"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": ["CCUS", "Green H2/ammonia", "Battery storage"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["CCUS", "Battery storage"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["No information"]
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "By tech, part of value chain"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eastern Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Former Soviet Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East and North Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Pacific Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Pacific OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Rest Centrally Planned Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "South Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Carbon price: the shadow carbon price reaches 98 US$2010/tCO2 in 2030 and 243 in 2050, the main lever moving investment and dispatch away from fossil fuels.",
+    "emissionsTargets": "Same 1.5°C / net-zero-CO2-around-2050 constraint as Net Zero 2050 with national net-zero targets met; lower demand reduces the carbon price needed. MESSAGE applies net-zero GHG constraints by its 12 regions and approximates CO2-only targets with a 10-year-lagged GHG target.",
+    "technologyCosts": "MESSAGE minimises total system cost from investment, O&M and fuel costs. Exogenous declines (North America solar PV 853 to 374 US$2010/kW, 2020-2050) favour renewables, while cheap CCS keeps gas in the mix: wind and solar reach 75% of 2050 generation (Current Policies 31%). With carbon at 243 US$2010/tCO2 in 2050, the cost ranking tilts further to low-carbon options.",
+    "investmentChange": "Low-carbon power investment moves from 1.11% of GDP (MER) in 2020 to 0.34% in 2050, a decrease of 69%. MESSAGE's GDP grows faster than its power investment, so the share falls even where low-carbon investment rises in absolute terms.",
+    "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.59 billion people in 2050 and GDP (MER) growing 3.87%/yr over 2020-2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (+0.03% in 2050).",
+    "behavioralShifts": "Behavioural change lowers energy demand: 2050 final energy is 287 EJ vs 394 EJ in Net Zero 2050 (-27%), cutting the 2050 carbon price to 243 from 461 US$2010/tCO2.",
+    "otherDrivers": "Limited carbon dioxide removal: MESSAGE constrains BECCS availability by 2050, forcing deeper gross cuts and higher carbon prices (243 US$2010/tCO2 in 2050; total CCS 4312 Mt CO2/yr). It is a technology-availability limit, not a cost, policy or target, so no other driver fits."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Grid decarbonisation in Low Demand (MESSAGE) rests on the carbon price (98 US$2010/tCO2 in 2030, 243 in 2050). It lifts wind and solar from 9% of generation in 2020 to 75% in 2050 and cuts coal capacity to 25% of its 2020 level by 2040.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Power investment averages 884 bn US$2010/yr over 2025-2050 (1.13x Current Policies), including 361 bn/yr for grids, and must be financed. A 2050 carbon price of 243 US$2010/tCO2 erodes unabated fossil plant profitability.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Low Demand (MESSAGE) assumes behavioural cuts in energy demand, so 2050 generation is 141 EJ vs 233 EJ in Net Zero 2050 (-39%). Lower demand eases the renewable build-out; the shift is an imposed scenario assumption, not a modelled consumer response.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "With wind and solar at 75% of 2050 generation, grids, storage and flexibility must absorb variable output. MESSAGE uses reliability coefficients and reaches 3576 GW of storage by 2050. Grid investment averages 361 bn US$2010/yr (2025-2050). No hourly dispatch is reported, so curtailment cannot be checked.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Power CCS captures 265 Mt CO2/yr in 2050 (10 Mt from bioenergy), so the pathway needs CCS at commercial scale; CCS cost differences between models drive large gaps in fossil generation. Storage of 3576 GW in 2050 relies on continued storage cost declines.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "MESSAGE uses regional renewable potentials by quality and GLOBIOM biomass limited by food land. Power BECCS reaches 10 Mt CO2/yr and primary biomass 52 EJ in 2050, so land limits the negative-emission part of the power transition. Wind and solar at 75% of 141 EJ draw on the regional potentials.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Steel decarbonisation in Low Demand (MESSAGE) is steered only through economy-wide carbon pricing (243 US$2010/tCO2 in 2050) and emissions constraints; no steel-specific industrial policy is described. Steel emissions change by -43% over 2020-2050.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "At 243 US$2010/tCO2 in 2050, fossil ironmaking costs more, favouring electricity (0.0 EJ) and hydrogen (0.0 EJ) in steel in 2050. No steel investment or unit-cost data are reported, so financing needs cannot be quantified.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Behavioural and material-efficiency assumptions in Low Demand (MESSAGE) cut 2050 crude steel to 851 Mt vs 2219 Mt in Net Zero 2050 (-62%), shrinking the output that must be decarbonised. The cut is an imposed demand assumption.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "MESSAGEix-Materials tracks recyclable steel scrap endogenously, so scrap availability limits secondary steelmaking in Low Demand (MESSAGE); scrap volumes are not reported.",
+      "sector": "Steel",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Derived Mt CO2 per EJ generated (1 EJ = 277.8 TWh). Scope 1 CO2 only; denominator is gross generation incl. CCS and bioenergy plants."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. CO2 only, Scope 1 (power-plant combustion, net of CCS); may include the electricity share of CHP."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Storage: one aggregate figure (Capacity|Electricity|Storage, GW) covering all storage; the source does not split it into battery, pumped hydro or hydrogen. Solar = PV + CSP; wind = onshore + offshore; CCS and non-CCS variants reported separately."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal"
+        ],
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Gross secondary electricity (EJ/yr) by technology incl. CHP electricity; CCS and non-CCS variants reported. MESSAGE also reports transmission losses."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal"
+        ],
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Derived generation shares; storage excluded (not a generating technology)."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Other cost breakdown"],
+        "scopeLimitations": "Overnight capital cost per kW by technology (geothermal, hydro, nuclear, solar PV, wind only; World aggregate 0, regional values only). No O&M, fuel or LCOE values."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["By tech, part of value chain"],
+        "scopeLimitations": "Annual investment, billion US$2010/yr. Post-processed variants may contain multi-model-average infill (NGFS Climate Scenarios Technical Documentation V5.0 (Nov 2024), p.82); native series used."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Unspecified"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "No lifetime values published; lifetimes fixed by technology, retirement endogenous. Inference relies on the coal capacity trajectory."
+      },
+      {
+        "metricName": "Emissions intensity (total)",
+        "sector": "Steel",
+        "sectorSegment": ["Ironmaking", "Steelmaking"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived t CO2(e) per t crude steel (sector emissions / Production|Steel, Mt/yr); primary and secondary routes combined; Scope 1 only."
+      },
+      {
+        "metricName": "Emissions intensity (primary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (secondary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute emissions",
+        "sector": "Steel",
+        "sectorSegment": ["Ironmaking", "Steelmaking"],
+        "geography": [
+          "Global",
+          "China",
+          "Eastern Europe",
+          "Former Soviet Union",
+          "Latin America and the Caribbean",
+          "Middle East and North Africa",
+          "North America",
+          "Other Pacific Asia",
+          "Pacific OECD",
+          "Rest Centrally Planned Asia",
+          "South Asia",
+          "Sub-saharan Africa",
+          "Western Europe"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Iron and steel modelled as one sector; ironmaking and steelmaking not separable. Energy-related CO2 only; Scope 1, excludes purchased electricity. Process-emission treatment not stated."
+      },
+      {
+        "metricName": "Technology mix (production by route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Steel production by technology (production route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Scrap share",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
+}

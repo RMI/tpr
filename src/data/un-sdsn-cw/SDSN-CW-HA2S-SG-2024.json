@@ -151,8 +151,44 @@
   },
   "dependencies": [
     {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Fossil fuels are phased-out by 2050. The retiring gas fleet is replaced by renewable capacity with policy-set start dates: 200 MW hydrogen and 60 MW ammonia from 2027, 330 MW solar from 2031, 338 MW imports from 2032, 300 MW SMR nuclear and 50 MW geothermal from 2040. The binding policy constraint is whether the enabling framework for imports, nuclear and geothermal exists by those dates.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "HA2S’ economic exposure lies in the price and commercial durability of imported electricity. Imports supply around half of 2050 generation at purchase prices that, per the report’s own table, vary threefold across Malaysia, Cambodia, Laos, Vietnam and Indonesia. The report states that cross-border renewable trade, while attractive, carries risks from undersea cable engineering and high interconnection costs, citing the failed Sun Cable project as the worked example.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "HA2S depends on scale up of SMR nuclear plants  and deep geothermal. SMRs and floating nuclear plants remain 'politically challenging to deploy in and around Singapore'. A 2012 pre-feasibility study states nuclear was not sufficiently risk-proof for a state of Singapore's size and density, and that deep geothermal requires invasive drilling. However, a mid-2021 survey reports about 60% of young Singaporeans support nuclear. Regional nuclear ambitions (ID, PH, VN) may normalise the technology.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Cars and taxis reach 50% hybrid and 50% fully electric by 2040 and then 100% fully electric by 2050; buses and freight trucks go from 70% electric in 2040 to 100% by 2050; LPG cookers and natural-gas water heaters are phased out after 2030 so that all cooking and water heating is electric by 2050, displacing the 62% of households assumed to use town gas; and domestic shipping ends at 25% each of fully electric, biodiesel, methanol and low-carbon ammonia.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
       "dependency_name": "Infrastructure and logistics",
       "dependency_description": "Import capacity reaches 7.7 GW in 2050. The report is direct about the risk this carries: undersea cable engineering and high interconnection costs 'may be a setback, as seen in the failed Sun Cable project to import 1.75 GW from Australia'. No storage is modelled, which is notable because HA2 pairs a high import share with a mix whose domestic component is largely variable. The report performs no curtailment, flexibility or grid-integration analysis.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "HA2S depends on technology readiness levels improving for hydrogen/ammonia supply, SMRs, EGS/AGS, and CCUS, all of which were either not commercially viable when the report was released, or technological and safety concerns were raised.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "HA2S leans heavily on energy imports (49.9% of 2050 electricity), with resulting import capacity needs of 7.7 GW. EMA conditional approvals cover only 4.2 GW. 3.5 GW of the requirement currently unaccounted for. Biomass consumption (using imported wood pellets) rises more than threefold. Nuclear fuel is an import dependency and classifed as non-renewable. Domestic solar remains below maximum technical potential, domestic geothermal additions planned, but potential is unexplored.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "CGS-IESR-BAU-2024",
   "publication": {
     "title": {
@@ -45,37 +45,236 @@
   "geography": {
     "country": ["ID"]
   },
-  "pathwayType": "Predictive",
-  "modelYearStart": 2020,
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
-      "technologies": [
-        "Coal",
-        "Oil",
-        "Gas",
-        "Hydro",
-        "Wind",
-        "Solar",
-        "Biomass",
-        "Other"
-      ]
+      "technologies": ["Coal", "Gas"]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Business as Usual (BAU) scenario from the Institute for Essential Services Reform (IESR) and the Center for Global Sustainability (CGS) represents a baseline trajectory of Indonesia’s power sector development. The scenario comes from a report published by IESR and CGS, “1.5°C-Aligned Coal Power Transition Pathways in Indonesia.” The report contrasts a low-ambition, business as usual pathway based on the Comprehensive Investment and Policy Plan (CIPP) of the Just Energy Transition Partnership Indonesia (JETP ID) with a significantly expanded and more ambitious version that builds on the JETP CIPP but aims for 1.5°C alignment. \nSpecifically, the BAU scenario follows the policies on renewable energy expansion and the targets on high-emitting technologies (such as coal power) laid out in the CIPP. Given that the CIPP does not address captive power generation, the BAU assumes an expansion of high-carbon captive assets. The BAU thus highlights some of the limitations of the CIPP and demonstrates that it will be hard for Indonesia to reach net zero if emissions from captive plants are not addressed.\n\nThe BAU covers on-grid and captive power plants. The pathway uses plant-level data from the Global Coal Plant Tracker database to predict future captive coal power plant use. Coal capacity and emissions align with the CIPP report until 2030, and the scenario assumes a 30-year lifetime for any new plants expected after 2030, except in cases of co-firing with biomass.\n\nThe BAU pathway builds on the policy-driven JETP Indonesia CIPP pathway. It reduces on-grid coal power emissions significantly by 2050 from the peak in 2025, but it does less to tackle captive emissions and overall falls short of providing a net-zero or 1.5°C-aligned pathway for Indonesia’s power sector.\n\n#### Core Drivers\n\nThe BAU pathway is primarily driven by new policy measures detailed in the CIPP and continued deployment of renewable generation sources. \n\n*Policy:* The BAU pathway contains policy measures described in the CIPP. These include policy-supported early retirement of on-grid coal power generation via JETP Indonesia, caps for on-grid power sector emissions, and targets for expanding on-grid renewable power generation resources, as well as supporting retrofits for introducing ammonia and biomass as alternate fuels for existing fossil fuel infrastructure. \n\n*Technology deployment:* The BAU pathway projects significant shifts from coal power generation to renewable generation and non-fossil alternate feedstocks. However, captive coal generation remains significant under the BAU pathway, as it is not directly affected by the policy measures in the CIPP. \n\n#### Application to Transition Assessment\n\nThe Business as Usual scenario provides a baseline reference based on Indonesian policies and the CIPP. It anticipates capacity and emissions changes in line with targets that are legislated or clearly articulated in the CIPP, but it includes no further actions beyond that scope. As a country-level pathway, the BAU does not model a global temperature rise and should not be used to directly set or measure temperature alignment targets.\n\nDue to its focus on modeling existing policy and market trends, the BAU pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against government policies and the related power capacity forecasts. Misalignment to the BAU pathway indicates that a company or plan may already be falling behind forecast rates of change. Given the target to phase down coal by 2050, this could signal an exposure to regulatory risks or declining market share as other segments of the power sector are encouraged to grow, especially around renewable power generation. \n\nThe BAU pathway does not include aspirational targets or potential future policies, which means that it can be viewed as a relatively conservative projection of potential market dynamics contingent on implementation of the CIPP. By extension, company plans that exceed the rate of transition that is forecast in the BAU may still be exposed to future risks if new policies are implemented or technology shifts occur. The BAU provides limited detail on technology costs, technology deployment projections, and upstream fuel prices, which means that it has clear limitations in assessing the commercial and technical feasibility of transition strategies.\n\nThe BAU pathway includes 5- to 10-year interval projections for emissions. It is one of the few pathways that analyzes both on-grid and captive power plants, which provides an additional level of local context. Due to its country-specific nature, the BAU pathway has limited applicability to companies with diversified operations across multiple geographies, but it provides valuable specificity for companies in Indonesia.",
+  "pathwayDescription": "The Business as Usual (BAU) scenario from the Institute for Essential Services Reform (IESR) and the Center for Global Sustainability (CGS) represents a baseline trajectory of Indonesia’s power sector development. The scenario comes from a report published by IESR and CGS, “1.5°C-Aligned Coal Power Transition Pathways in Indonesia.” The report contrasts a low-ambition, business as usual pathway based on the Comprehensive Investment and Policy Plan (CIPP) of the Just Energy Transition Partnership Indonesia (JETP ID) with a significantly expanded and more ambitious version that builds on the JETP CIPP but aims for 1.5°C alignment. Specifically, the BAU scenario follows the policies on renewable energy expansion and the targets on high-emitting technologies (such as coal power) laid out in the CIPP. Given that the CIPP does not address captive power generation, the BAU assumes an expansion of high-carbon captive assets. The BAU thus highlights some of the limitations of the CIPP and demonstrates that it will be hard for Indonesia to reach net zero if emissions from captive plants are not addressed.\n\nThe BAU covers on-grid and captive power plants. The pathway uses plant-level data from the Global Coal Plant Tracker database to predict future captive coal power plant use. Coal capacity and emissions align with the CIPP report until 2030, and the scenario assumes a 30-year lifetime for any new plants expected after 2030, except in cases of co-firing with biomass.\n\nThe BAU pathway builds on the policy-driven JETP Indonesia CIPP pathway. It reduces on-grid coal power emissions significantly by 2050 from the peak in 2025, but it does less to tackle captive emissions and overall falls short of providing a net-zero or 1.5°C-aligned pathway for Indonesia’s power sector.",
   "metric": ["Absolute Emissions"],
   "keyFeatures": {
-    "emissionsTrajectory": "Minor decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": ["Phaseout dates", "Target technology shares"],
-    "technologyCostTrend": "Low or no change",
-    "emissionsScope": "CO2",
-    "policyAmbition": "Current and drafted policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "Total investment"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Minor decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not Applicable"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Phaseout dates", "Other"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Low or no change"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "CO2"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["No new technologies"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "BAU models one policy effect: the ban on new coal-fired capacity. Coal additions are limited to projects committed in PLN’s RUPTL, which is how Presidential Regulation 112/2022 enters the model, while captive plants, exempt from it, keep coming online from the construction pipeline, sharply raising their emissions. No phase-out date, co-firing mandate, utilisation limit, carbon price or subsidy applies, so the fleet runs to its technical life and vintage, not policy, sets the trajectory.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Unit costs drive the BAU capacity expansion, as the same PLEXOS least-cost optimisation runs for both scenarios. Build and O&M costs from the MEMR technology catalogue determine which plants are built after 2030, while regulated fuel prices, including the HBA coal price cap, keep existing coal and gas at the bottom of the merit order. The report states that the scenarios assume prevailing regulation favouring low-cost fossil fuel, so cost assumptions work against low-carbon deployment in BAU.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Electricity demand growth is the dominant driver of BAU, and in the absence of any policy or emissions constraint it is what sets the scale of the fleet. The demand projection follows the draft MEMR National Electricity Planning (RUKN) and is applied identically in both scenarios, against a backdrop of 60% demand growth over the previous decade. In BAU that growth is met by the committed coal and captive pipeline, so the macro assumption translates almost directly into emissions.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Three fleet assumptions, not market or policy response, shape the BAU curve: every coal unit runs at a constant capacity factor, units retire after a fixed operating life (co-firing units may run beyond 2040), and gas emissions stay frozen at their 2022 Ember value. As nothing else varies, the 2025 peak and subsequent decline stem entirely from the vintage profile of the existing and under-construction fleet. This is an input-assumption driver, not a policy, target, cost or macroeconomic one."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "BAU models no policy support for any decarbonization lever. Electrification of end use, hydrogen, biomass and CCUS are all absent from the scenario - biomass co-firing and flexible operation are switched off and retirement is natural - so there is no policy for a lever to depend on. The one policy present, the new-coal moratorium, constrains additions rather than enabling a transition, and captive plants are exempt from it.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Domestic coal is capped at USD 70/tonne under the Harga Batubara Acuan and plant-gate gas at 6 USD/MMBTU, with prevailing regulation favouring low-cost fuel to fossil plants. That cap keeps coal at the bottom of the merit order and suppresses the operating-cost signal that would otherwise push the least efficient units down the dispatch order. Captive plants add a second condition: they exist because onsite coal is cheaper and more reliable than waiting for grid supply.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Industrial clients' continued choice of self-supply is main driver of emissions. Captive plants sit inside industrial clusters and provide reliable service matched to industrial operating needs. That client requirement, not a power-sector decision, is what adds 6 GW of under-construction captive coal, more than doubling captive emissions between 2020 and 2025. Nothing in BAU offers an alternative, so the behaviour is self-reinforcing rather than a constraint the pathway must overcome.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The BAU attributes industrial self-supply to Indonesia's geography, continuous demand growth and historical underinvestment in generation and transmission infrastructure. Industrial clusters, particularly nickel operations in Sulawesi and North Maluku, remain outside the reach of adequate grid supply. BAU carries the RUPTL transmission plan to 2030 and island interconnection from 2030 as assumptions, but insufficient transmission and storage buildout keep the infrastructure gap unresolved.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Resource supply does not constrain BAU. Indonesia is a leading coal producer and domestic sales are governed by a price cap rather than scarcity, so fuel for the existing and committed fleet is effectively unconstrained. Land competition and biomass feedstock, which bind the ambitious pathway, do not arise, as no substitution or co-firing lever is deployed. The report’s only resource-side caution, lost coal export revenue over time, affects public finances, not pathway feasibility.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Seasonal climate variability is described as a system characteristic not as a constraint on BAU. Dry-season demand is higher because of cooling load while hydropower output falls, which raises thermal dispatch in that season - but BAU is coal-dominated and carries little hydro exposure, so the effect does not bind its trajectory. No physical climate risk to plant siting, cooling water or fuel logistics is assessed, and no adaptation or resilience measure is proposed for the baseline fleet.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Scope 1 combustion CO2 only, computed with the Global Energy Monitor method using sub-bituminous emission factors and subcritical heat rates. Covers on-grid coal, captive coal and on-grid gas; oil is excluded, as are upstream methane and all non-CO2 gases. On-grid and captive are reported as separate series as well as combined; residential rooftop is not covered. Gas is held flat at its 2022 Ember value to 2050 rather than modelled."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Figure",
+        "granularity": ["Coal", "Gas"],
+        "scopeLimitations": "Coal capacity is split by on-grid and captive fleet, not by combustion technology; gas appears only as 2023 stocks (4.3 GW under construction, 12.35 GW operating) and a 2050 residual. No renewable capacity is published for BAU even though the model expands renewables from 2031, and there is no storage capacity figure, so storage is absent from this row entirely. Annual detail runs only to 2030; beyond that only the reproduced CIPP on-grid coal series is available. Rooftop is not covered."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Static technology-catalogue inputs, not a projection: one build cost, one fixed O&M and one variable O&M figure per technology, with no time series and no learning rate. Covers CFPP, OCGT, CCGT, biogas, biomass, waste, hydro, micro-hydro, geothermal, wind turbine and solar PV. No storage cost, no CCS cost and no co-firing retrofit cost. Fuel prices are regulated caps rather than forecasts. The same catalogue is applied to both scenarios."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["ID"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Lifetime is a rule applied to unit vintages, not a published schedule: coal and gas retire after 30 years, with biomass co-firing units allowed past 2040. Vintages come from the Global Coal Plant Tracker (Jan 2023 on-grid, Jan 2024 captive) plus PLN data. Only operating and under-construction units are included. No retirement year, cost or unit list is tabulated for BAU."
+      }
+    ]
   }
 }

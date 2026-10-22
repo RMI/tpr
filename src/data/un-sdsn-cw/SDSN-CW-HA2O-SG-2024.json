@@ -153,7 +153,25 @@
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "HA2 (Optimised) includes 2050 gas and oil phase-out, WTE retirement, coal out of the cogeneration feedstock, 100% green hydrogen feedstock, 50% WTE capture and full demand-side electrification - it also applies a renewable portfolio standard requiring a minimum 30% of electricity from renewable sources in 2030 rising to a minimum 99.3% by 2050. It also caps geothermal at 250 MW and coal and biomass cogeneration at 400.5 MW.",
+      "dependency_description": "HA2O includes 2050 gas and oil phase-out, WTE retirement, coal out of the cogeneration feedstock, 100% green hydrogen feedstock, 50% WTE capture and full demand-side electrification - it also applies a renewable portfolio standard requiring a minimum 30% of electricity from renewable sources in 2030 rising to a minimum 99.3% by 2050. It also caps geothermal at 250 MW and coal and biomass cogeneration at 400.5 MW.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Prices still select within the space the rules leave, but no longer decide the largest questions. Fuel costs drive deployment across green hydrogen versus the hydrogen blend, low-carbon ammonia, imported electricity varying by supplier, and interconnection capital and variable costs. Yet the renewable-qualification rules override cost for nuclear entirely and penalise ammonia, which counts only partly as renewable.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "HA2O largely avoids the acceptance problem. No nuclear is built at all because uranium is treated as non-renewable under the portfolio standard. What remains is deep geothermal at 250 MW and 2.3% of 2050 generation, capped at that level on resource grounds, which carries the report's concern about invasive borehole drilling by fracking or closed-loop methods but at a small scale.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Cars and taxis reach 50% hybrid and 50% fully electric by 2040 and then 100% fully electric by 2050; buses and freight trucks go from 70% electric in 2040 to 100% by 2050; LPG cookers and natural-gas water heaters are phased out after 2030 so that all cooking and water heating is electric by 2050, displacing the 62% of households assumed to use town gas; and domestic shipping ends at 25% each of fully electric, biodiesel, methanol and low-carbon ammonia.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -165,7 +183,13 @@
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "HA2 (Optimised) concentrates its readiness risk on hydrogen rather than spreading it across technologies. Hydrogen and ammonia supply 40.4% of 2050 generation, with hydrogen consumption reaching 198 PJ. EGS/AGS geothermal is deployed to its 250 MW ceiling at 2.3% of generation, against a report describing EMA's advanced-geothermal feasibility study as still under way. Grid storage at 120 MW is the third emerging technology, and CCUS at 50% WTE capture the fourth.",
+      "dependency_description": "HA2 (Optimised) concentrates its readiness risk on hydrogen (40.4% of 2050 generation) rather than spreading it across technologies, although some technology risk still comes from EGS/AGS geothermal (2.3% of generation in 2050). Grid-scale energy storage and CCUS play minor roles but are also still not at the required technological level.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Geothermal is capped at 250 MW 'assuming that Singapore's presently unexplored geothermal potential continues to be low', and coal and biomass cogeneration at 400.5 MW. Solar reaches 6.4 GW, still under the 8.6 GWp land-limited potential. The resulting displacement falls on imports, at 42.2% of 2050 electricity and 3.2 GW of additional capacity, which depends on neighbouring countries' renewable resources being developed for export beyond the 4.2 GW EMA had conditionally approved.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }

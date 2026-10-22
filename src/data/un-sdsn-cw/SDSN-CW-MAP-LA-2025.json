@@ -42,7 +42,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The More Ambitious Policy (MAP) scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. MAP builds upon the Existing Policy scenario by introducing additional interventions to significantly reduce emissions by 2050. Coal-fired power plants are nearly phased out by 2040, and while hydropower build-out is similar to that under the Existing Policy scenario, solar power and wind energy are also built out to replace the retiring coal capacity. Solar capacity reaches 7,000 MW by 2050, versus just ~900 MW in the Existing Policy scenario, and wind grows to 3,000 MW by 2050, compared to 2,100 MW in the Existing Policy scenario. These investments lead to a dramatically cleaner generation mix. \n\nAdditionally, the More Ambitious Policy scenario addresses emissions reductions on the demand side, with greater adoption of electric vehicles, plus electrification of domestic and industrial processes. The More Ambitious Policy scenario assumes that the share of EVs in passenger transport reaches 100%, and that electrification of freight trucks reaches 90%. Notably, achieving this pathway requires significantly higher investment, with US$132.3 million needed for the MAP scenario, which is three times the investment needed under the Existing Policy scenario.",
+  "pathwayDescription": "Electricity demand continues to rise steadily due to economic growth, increasing electrification, and progress toward universal access. The optimization process accelerates renewable deployment compared with EPP where cost-effective, particularly in solar PV and small hydro facilities, while limiting uneconomic fossil-fuel expansion. However, the pathway still retains a material role for gas generation until the end of the model period. While coal is gradually phased out, gas capacity remains necessary to maintain system adequacy in the absence of stronger policy constraints. In this scenario, the continued role of gas-fired generation prevents a decline in electricity supply by 2050 (in contrast to EPP), enabling Myanmar to meet 100% of power demand domestically.",
   "metric": ["Absolute Emissions", "Capacity", "Generation", "Technology Mix"],
   "keyFeatures": {
     "emissionsTrajectory": [
@@ -253,12 +253,12 @@
       {
         "metricName": "Technology cost",
         "sector": "Power",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
+        "sectorSegment": ["Power generation"],
+        "geography": ["LA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Provide total production costs and total discounted production costs"
       },
       {
         "metricName": "Investment requirement",

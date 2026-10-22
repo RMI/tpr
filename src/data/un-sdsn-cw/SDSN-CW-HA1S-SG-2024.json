@@ -151,8 +151,44 @@
   },
   "dependencies": [
     {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "HA1's outcome is not reachable without policy that goes well beyond anything Singapore has announced. Natural gas and oil are phased out as generation fuels by 2050; the assumed hydrogen-ready capacity growth absorbs the retiring OCGT and CCGT fleet, with all such units retrofitted to 100% hydrogen-compatibility by 2050, which will need corresponding policy mandates.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "HA1S relies on hydrogen and ammonia for two thirds of its 2050 electricity, making their delivered cost the pathway’s largest unresolved economic question. The report shows green hydrogen costing several times the hydrogen blend HA1S phases out, and prices low-carbon ammonia from indicative blue offers from the Middle East or United States and green offers from India and Australia. It concludes Singapore must explore cost-competitive low-carbon hydrogen imports, as it does with natural gas.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "HA1 makes 300 MW of SMR nuclear and 50 MW of deep geothermal available as endogenous options from 2040, but neither is built. The report notes that nuclear SMRs and floating plants 'remain politically challenging to deploy in and around Singapore', citing concerns from a 2012 pre-feasibility study, while deep geothermal requires fracking or closed-loop methods. But HA1 also cites support among young Singaporeans surveyed in mid-2021 for considering nuclear power.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Cars and taxis reach 50% hybrid and 50% fully electric by 2040 and then 100% fully electric by 2050; buses and freight trucks go from 70% electric in 2040 to 100% by 2050; electric cooking  and heating devices roll out fast after 2030  so that all cooking and water heating is electric by 2050; and domestic shipping ends at 25% each of fully electric, biodiesel, methanol and low-carbon ammonia with diesel, VLSFO, CNG, blended biofuel and hybrid propulsion all phased out.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
       "dependency_name": "Infrastructure and logistics",
       "dependency_description": "HA1 requires a hydrogen supply chain capable of delivering 326.7 PJ of hydrogen in 2050, up from 1.4 PJ in 2027, growing at an average 29.8% a year; the report points to the City Energy-Gentari feasibility study for a Malaysia-to-Singapore hydrogen pipeline targeted at 2027 as the enabling asset, and notes the supply chain must be monitored to ensure green rather than blue hydrogen is prioritised.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "HA1 places 66.4% of its 2050 electricity on hydrogen and low-carbon ammonia combustion, neither of which is in commercial power-sector service. The assumed combustion efficiencies are themselves a readiness assumption - 65% for hydrogen against 40% for low-carbon ammonia, the latter low enough that ammonia stays marginal at 2.7 PJ in 2050. CCUS must reach 50% capture at WTE plants, which by 2050 are the only significant emitter left and account for 0.96 of the remaining 0.98 MtCO2e.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Solar is taken to 8.6 GWp, which the report gives as Singapore's entire technical potential, already challenged by limited land availability. It is met only through rooftop and floating deployment. Everything else is large-scale imports: 326.7 PJ of hydrogen in 2050 without any domestic production, 6.5 PJ of biomass as wood pellets, up from 2.4 PJ in 2024, and 24.1% of electricity from neighbouring countries. The one domestic resource, municipal solid waste, is being deliberately reduced.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }

@@ -37,11 +37,23 @@
   "modelYearEnd": 2050,
   "sectors": [
     {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
       "name": "Power",
+      "technologies": []
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Other",
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Optimized More Ambitious Pathway (OMAP) is a normative, least-cost decarbonization scenario for Myanmar that seeks to achieve near-zero power-sector emissions by 2050. This scenario is complemented by the Existing Policy Pathway (EPP)—a scenario which reflects achieving current policy objectives in Myanmar—and the Optimized Existing Policy Pathway (OEPP)—a scenario with the same assumptions as the Existing Policy Pathway, but constructed using a cost optimization module.\n\nOMAP builds on the same socio-economic foundation as the EPP and OEPP scenario, but applies stringent emissions constraints, accelerated electrification, and enhanced efficiency measures. On the supply side, OMAP shifts decisively away from fossil fuels, restricting additions of new thermal capacity and limiting expansion of large hydropower, due to existing challenges with hydropower in the region. The pathway instead prioritizes major growth in solar, biomass, geothermal, and energy-storage technologies, with capacity expansion optimized using a Next Energy Modeling Optimization (NEMO) module to meet demand reliably at the lowest system cost under the high-ambition constraint. NEMO is an open-source energy system optimization tool developed by the Stockholm Environment Institute. \n\nElectricity demand rises substantially as economic activity grows and electrification expands across households, transport, and industrial sectors. Urbanization increases energy service needs while efficiency gains moderate demand growth relative to economic activity. Full access to electricity is reached early in the modeling period, supporting broader social and economic development.",
+  "pathwayDescription": "The Optimized More Ambitious Pathway (OMAP) is a normative, least-cost decarbonization scenario for Myanmar targeting near-zero power-sector emissions by 2050. It complements the Existing Policy Pathway (EPP), which reflects current policy objectives, and the Optimized Existing Policy Pathway (OEPP), which applies cost optimization to EPP assumptions. OMAP shares their socio-economic foundation but adds stringent emissions constraints, faster electrification, and stronger efficiency measures. It shifts away from fossil fuels, restricting new thermal capacity and limiting large hydropower given regional challenges, and prioritizes solar, biomass, geothermal, and storage. Capacity is optimized with NEMO, the Stockholm Environment Institute's open-source tool, to meet demand reliably at least cost. Demand rises substantially with economic growth and electrification of households, transport, and industry, while efficiency gains moderate growth. Full electricity access is reached early.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
