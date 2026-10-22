@@ -42,7 +42,14 @@
     },
     {
       "name": "Power",
-      "technologies": []
+      "technologies": [
+        "Coal",
+        "Gas",
+        "Hydro",
+        "Solar",
+        "Other",
+        "Energy storage"
+      ]
     },
     {
       "name": "Automotive",

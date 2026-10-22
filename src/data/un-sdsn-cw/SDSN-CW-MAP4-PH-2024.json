@@ -40,11 +40,26 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal"]
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage"
+      ]
     }
   ],
   "pathwayDescription": "Normative all-renewable pathway for the Philippine power sector aiming at near-zero emissions by 2060, mirroring MAP2 (no nuclear, accelerated fossil retirement, no new coal or gas, 50 GW offshore wind) but optimised without GHG externality costs. More coal is used in the interim than in MAP2, though power emissions still fall from 50.9 (2020) to about 5 MtCO2e by 2050. Investment is similar to MAP2 at about USD 1,033bn.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
-  "metric": ["Absolute Emissions"],
+  "metric": [
+    "Absolute Emissions",
+    "Emissions Intensity",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
   "keyFeatures": {
     "emissionsTrajectory": [
       {
@@ -290,7 +305,6 @@
           "Coal",
           "Oil",
           "Gas",
-          "Nuclear",
           "Hydro",
           "Wind",
           "Solar",
@@ -310,7 +324,6 @@
           "Coal",
           "Oil",
           "Gas",
-          "Nuclear",
           "Hydro",
           "Wind",
           "Solar",
@@ -329,7 +342,6 @@
           "Coal",
           "Oil",
           "Gas",
-          "Nuclear",
           "Hydro",
           "Wind",
           "Solar",

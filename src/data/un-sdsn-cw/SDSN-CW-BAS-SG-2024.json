@@ -38,7 +38,7 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"]
     }
   ],
   "pathwayDescription": "The Baseline (BAS) scenario models a continuation of historical energy and emissions trends for Singapore without the application of new or existing policy measures, except Minimum Energy Performance Standards in the residential sector, vehicle growth policy in the transport sector, and the Laos-Thailand-Malaysia-Singapore Power Integration Project. It represents the counterfactual case in which technological progress, policy ambition, and regional integration remain static. No new energy efficiency measures or renewable energy policies are incorporated, to reflect a scenario of inertia in energy transformation.\n\nUnder BAS, Singapore’s energy system evolves in a manner reflective of historical norms, with natural gas remaining the dominant energy source providing over 93% of generation. Waste-to-energy and coal maintain marginal shares of generation, while renewables and imports remain negligible. Installed capacity grows only marginally, and no new low-carbon technologies are introduced.\n\nThis scenario’s geographic scope is limited to Singapore, and it is not linked to a specific global temperature rise outcome.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",

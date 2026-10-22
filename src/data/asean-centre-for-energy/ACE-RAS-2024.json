@@ -40,7 +40,17 @@
     },
     {
       "name": "Power",
-      "technologies": ["Coal"]
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
     },
     {
       "name": "Other",

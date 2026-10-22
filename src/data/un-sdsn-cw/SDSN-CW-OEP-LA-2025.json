@@ -38,7 +38,7 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": ["Coal", "Hydro", "Wind", "Solar", "Biomass"]
     }
   ],
   "pathwayDescription": "The Optimized Existing Policy scenario models Laos’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. The Optimized Existing Policy (OEP) scenario applies a market-optimal lens to the same policy context as the Existing Policy scenario, but it removes the policy-prescribed constraints on the power generation mix and optimizes for minimum system cost while still satisfying energy demand growth under existing policies. Under this scenario, the result is a more carbon-intensive but economically efficient variant of the Existing Policy pathway.\n\nNotably, total electricity generation in this scenario far exceeds that in the baseline, as the model maximizes Laos’s low-cost resources (especially hydropower) to produce as much power as needed at the lowest cost. By 2050, annual generation is 132.8 TWh in the OEP scenario, compared to only 57.3 TWh under the baseline, despite having the same installed capacity, indicating much higher utilization rates.",

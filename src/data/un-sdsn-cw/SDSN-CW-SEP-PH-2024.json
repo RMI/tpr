@@ -40,7 +40,17 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal"]
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage"
+      ]
     }
   ],
   "pathwayDescription": "The SEP PH models the Philippine power system under the continuation of current policies and investment trajectories as outlined in the Philippine Energy Plan 2023–2050. It models the energy transition assuming full implementation of the moratorium on new coal-fired plants, as well as existing renewable energy policies, but just misses renewable energy share targets as natural gas also takes an increasing role in the generation mix. Using the Low Emissions Analysis Platform (LEAP) model, SEP uses a predefined set of capacity additions that follow policy targets and expected investment behavior, instead of allowing the model to pick the lowest cost mix.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",

@@ -38,7 +38,7 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"]
     }
   ],
   "pathwayDescription": "The Business-As-Usual (BAU) scenario represents Singapore’s energy and emissions trajectory under the full implementation of selected currently legislated policies and national targets. It integrates the Energy Market Authority’s (EMA) emission standards, the Green Plan 2030, and sectoral electrification strategies across power, transport, and residential sectors. The BAU scenario assumes Singapore continues to adopt low carbon technologies gradually, driven only by existing government policies and current levels of investment, without any major acceleration or new initiatives.\n\nThe power mix diversifies modestly; natural gas falls to 65% of generation by 2050; imported renewables reach 25%; and hydrogen, coal, solar, and waste collectively supply the remaining 10%. Solar deployment expands fivefold to 2 GW by 2030 and continues gradual growth thereafter. The hydrogen-ready Keppel Sakra natural gas cogeneration plant contributes up to 600 MW by 2026, blending 30% hydrogen initially and 50% by 2035.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",

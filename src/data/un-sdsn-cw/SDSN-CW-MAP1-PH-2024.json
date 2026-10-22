@@ -41,7 +41,17 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal"]
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage"
+      ]
     }
   ],
   "pathwayDescription": "Normative RE-nuclear pathway for the Philippine power sector aiming at near-zero emissions by 2060. Ambitious policy accelerates fossil retirement, bans new coal and gas beyond committed projects, targets 50 GW offshore wind by 2050 and adds nuclear. Social costs of CO2, CH4 and N2O are priced into the least-cost objective, cutting power emissions from 30.2 to 3.2 MtCO2e (2025–2050) with about USD 434bn cumulative investment by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",

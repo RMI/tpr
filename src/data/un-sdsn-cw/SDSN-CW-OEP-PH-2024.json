@@ -40,7 +40,17 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": ["Coal"]
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage"
+      ]
     }
   ],
   "pathwayDescription": "Least-cost Philippine power pathway (2022–2060) built in LEAP under the same existing-policy constraints as SEP: coal moratorium, 40-year coal retirement, planned offshore wind and nuclear. Treating RE-share goals as binding, it meets the 35%/50%/55% targets for 2030/2040/2050 exactly. Falling solar and wind costs shape the mix, and power emissions dip slightly from 71.1 to 67.2 MtCO2e (2025–2050) despite strong demand growth.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",

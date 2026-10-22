@@ -39,7 +39,15 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Solar",
+        "Biomass",
+        "Other"
+      ]
     }
   ],
   "pathwayDescription": "The Highly Ambitious 2 Simulated (HA2S) scenario explores a pathway in which Singapore adopts a diversified mix of low carbon energy sources to achieve near net-zero in the power sector by 2050. This pathway is not a least cost optimization, but is built as a rules-based simulation consistent with achieving deep decarbonization by 2050 with a diversified mix of low carbon generation.\n\nRather than relying on a single dominant fuel or technology (as is more the case in the complementary Highly Ambitious 1 Simulated scenario from the same developers), HA2S develops a balanced portfolio that integrates multiple low-carbon energy sources. This includes large-scale imports of renewable electricity, the introduction of nuclear power for firm baseload generation, the deployment of advanced geothermal systems, and the gradual scale-up of low-carbon hydrogen and ammonia for dispatchable capacity. This diversified approach reduces dependence on any single fuel and improves system resilience, while still achieving near-zero emissions in the power sector by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",

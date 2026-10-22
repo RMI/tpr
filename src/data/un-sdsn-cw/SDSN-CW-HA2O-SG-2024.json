@@ -39,7 +39,15 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Solar",
+        "Biomass",
+        "Energy storage",
+        "Other"
+      ]
     }
   ],
   "pathwayDescription": "Highly Ambitious 2 Optimized (HA2O) uses a least-cost optimization framework for capacity expansion and dispatch and adds explicit constraints to ensure the power sector achieves near-zero emissions by 2050. In contrast to HA1 Optimized (from the same developers), which allows greater flexibility and results in some residual fossil generation, HA2 Optimized imposes stricter renewable and emissions limits to show what a cost-optimal, near-zero power sector could look like.\n\nThis scenario assumes a broad technology set (imports of low-carbon electricity, solar PV, hydrogen- and ammonia-fueled plants, nuclear, geothermal, and Waste to Energy with carbon capture) alongside three key constraints:\n\nCapacity constraints limiting over-reliance on individual technologies and driving diversification of the low carbon portfolio.\nA renewable portfolio standard (RPS) is imposed, requiring a minimum share of generation from renewable and low-carbon sources\nThe minimum utilization of WTE plants is reduced by 2050, allowing for reduced operation of the remaining high-emitting assets and enabling the system to converge towards near-zero emissions.\nUnder these constraints, the model selects a configuration with very low power-sector emissions in 2050 (around 0.8–0.9 MtCO₂e) and a grid emissions factor falling to roughly 9.4 kgCO₂e/MWh. The generation mix in 2050 has hydrogen and imported electricity as the dominant energy sources (each supply ~40% of demand), supported by solar (12%), with geothermal, ammonia, biomass, and waste-to-energy providing supplementary capacity.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
