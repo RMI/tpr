@@ -23,6 +23,7 @@ import {
   buildCoreDrivers,
   buildDependencies,
   buildDoc,
+  parseSectorGroups,
 } from "./import-pathway-data.ts";
 
 describe("publisherGroup", () => {
@@ -682,5 +683,99 @@ describe("character limits (tpr-tpc decision 0028)", () => {
       );
       expect(errors).toBe("");
     });
+  });
+});
+
+describe("per-sector list cells (Technology coverage, Metric)", () => {
+  it("keeps every item, however the cell is spelled", () => {
+    const all = { Power: ["Coal", "Oil", "Gas"] };
+    expect(parseSectorGroups("Power: [Coal, Oil, Gas]")).toEqual(all);
+    expect(parseSectorGroups("Power: [Coal; Oil; Gas]")).toEqual(all);
+    expect(parseSectorGroups("Power: Coal; Oil; Gas")).toEqual(all);
+    expect(parseSectorGroups("Coal; Oil; Gas")).toEqual({
+      "": ["Coal", "Oil", "Gas"],
+    });
+    expect(
+      parseSectorGroups("Power: [Coal; Gas]; Steel: [EAF, Other]"),
+    ).toEqual({ Power: ["Coal", "Gas"], Steel: ["EAF", "Other"] });
+    expect(parseSectorGroups("")).toEqual({});
+  });
+
+  it("builds a pathway's technologies and metrics from each spelling", () => {
+    const sub = {
+      keyFeatures: [],
+      coreDrivers: undefined,
+      dependencies: [],
+      dataAvailability: [],
+    };
+    const build = (tech: string, metric: string) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+        {
+          "Name of Pathway": "Scenario (S)",
+          "Description": "A short description.",
+          "Sectors": "Power",
+          "Technology coverage": tech,
+          "Metric": metric,
+        },
+        sub,
+        null,
+        null,
+        report,
+      );
+      return {
+        technologies: (doc.sectors as { technologies: string[] }[])[0]
+          .technologies,
+        metric: doc.metric,
+        notes: report.lines.join("\n"),
+      };
+    };
+    const want = ["Coal", "Gas", "Solar"];
+    const metrics = ["Absolute Emissions", "Capacity", "Generation"];
+    for (const [tech, metric] of [
+      [
+        "Power: [Coal; Gas; Solar]",
+        "Power: [Absolute emissions; Capacity; Generation]",
+      ],
+      [
+        "Power: Coal; Gas; Solar",
+        "Power: Absolute emissions; Capacity; Generation",
+      ],
+      ["Coal; Gas; Solar", "Absolute emissions; Capacity; Generation"],
+    ]) {
+      const got = build(tech, metric);
+      expect(got.technologies, tech).toEqual(want);
+      expect(got.metric, metric).toEqual(metrics);
+    }
+  });
+
+  it("reports a cell from which no technologies could be read", () => {
+    const report = new Report();
+    buildDoc(
+      { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+      {
+        "Name of Pathway": "Scenario (S)",
+        "Description": "A short description.",
+        "Sectors": "Power; Steel",
+        "Technology coverage": "Coal; Gas",
+      },
+      {
+        keyFeatures: [],
+        coreDrivers: undefined,
+        dependencies: [],
+        dataAvailability: [],
+      },
+      null,
+      null,
+      report,
+    );
+    const notes = report.lines.join("\n");
+    expect(notes).toContain(
+      "Technology coverage names no sector but the pathway has 2",
+    );
+    expect(notes).toContain(
+      "T/sectors: no technologies could be read from Technology coverage",
+    );
   });
 });

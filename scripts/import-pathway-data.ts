@@ -1426,20 +1426,43 @@ export function buildDataAvailability(
   return byMetric.length > 0 ? { overall: null, byMetric } : null;
 }
 
-/** Parse `Sector: [t, t]; Sector2: [..]` into a sector -> raw-tech-tokens map. */
-function parseSectorGroups(cell: string): Record<string, string[]> {
+/**
+ * Parse a per-sector list cell into a sector -> raw-tokens map. The workbook
+ * spells these four ways, and all must keep every item:
+ *
+ *   `Power: [a, b]; Steel: [c]`   bracketed groups, comma-separated
+ *   `Power: [a; b]`               bracketed, semicolon-separated
+ *   `Power: a; b`                 a named sector followed by bare items
+ *   `a; b`                        no sector named, keyed ""
+ *
+ * `;` separates groups only outside brackets, and an item without a label
+ * belongs to the last sector named. Splitting on every `;` first used to keep
+ * only the first item of the last three spellings, or none at all.
+ */
+export function parseSectorGroups(cell: string): Record<string, string[]> {
   const out: Record<string, string[]> = {};
-  if (!cell) return out;
-  for (const part of cell
-    .split(";")
-    .map((s) => s.trim())
-    .filter(Boolean)) {
-    const m = /^(.+?):\s*\[?([^\]]*)\]?$/.exec(part);
-    if (!m) continue;
-    out[m[1].trim()] = m[2]
-      .split(",")
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < cell.length; i++) {
+    if (cell[i] === "[") depth++;
+    else if (cell[i] === "]") depth = Math.max(0, depth - 1);
+    else if (cell[i] === ";" && depth === 0) {
+      parts.push(cell.slice(start, i));
+      start = i + 1;
+    }
+  }
+  parts.push(cell.slice(start));
+  let sector = "";
+  for (const part of parts) {
+    const labelled = /^\s*([^:[\]]+):\s*(.*)$/s.exec(part);
+    if (labelled) sector = labelled[1].trim();
+    const items = (labelled ? labelled[2] : part)
+      .replace(/[[\]]/g, "")
+      .split(/[;,]/)
       .map((s) => s.trim())
       .filter(Boolean);
+    if (items.length > 0) (out[sector] ??= []).push(...items);
   }
   return out;
 }
@@ -1458,6 +1481,20 @@ function buildSectors(
     const s = normalizeSector(k);
     if (s) techBySector[s] = v;
   }
+  const declared = [
+    ...new Set(
+      splitList(sectorsCell)
+        .map(normalizeSector)
+        .filter((s): s is string => s !== null),
+    ),
+  ];
+  // A list that names no sector can only belong to a single-sector pathway.
+  const unlabelled = techGroups[""] ?? [];
+  if (unlabelled.length > 0 && declared.length > 1)
+    report.note(
+      `${id}/sectors: Technology coverage names no sector but the pathway has ${declared.length} -- ` +
+        `write it as "Sector: [a, b]"; those technologies were dropped`,
+    );
   const out: Array<{ name: string; technologies: string[] }> = [];
   const seen = new Set<string>();
   for (const rawName of splitList(sectorsCell)) {
@@ -1469,7 +1506,9 @@ function buildSectors(
     if (seen.has(name)) continue;
     seen.add(name);
     const technologies: string[] = [];
-    for (const rawTech of techBySector[name] ?? []) {
+    const rawTechs =
+      techBySector[name] ?? (declared.length === 1 ? unlabelled : []);
+    for (const rawTech of rawTechs) {
       const tech = normalizeTechnology(rawTech);
       if (tech && technologyBelongsToSector(tech, name) === "yes") {
         if (!technologies.includes(tech)) technologies.push(tech);
@@ -1481,6 +1520,17 @@ function buildSectors(
     }
     out.push({ name, technologies });
   }
+  // Other sectors legitimately list none; a cell that yields none at all
+  // means its spelling went unread.
+  if (
+    techCell.trim() &&
+    !isAbsent(techCell) &&
+    out.length > 0 &&
+    out.every((s) => s.technologies.length === 0)
+  )
+    report.note(
+      `${id}/sectors: no technologies could be read from Technology coverage "${techCell}"`,
+    );
   return out;
 }
 
