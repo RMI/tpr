@@ -33,6 +33,27 @@ describe("publisherGroup", () => {
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
+    expect(
+      publisherGroup(
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+      ),
+    ).toBe("CGS");
+    expect(publisherGroup("CGS, IESR")).toBe("CGS");
+    expect(publisherGroup("CGS-IESR")).toBe("CGS");
+    expect(
+      publisherGroup("Network for Greening the Financial System (NGFS)"),
+    ).toBe("NGFS");
+    expect(
+      publisherGroup(
+        "University of Technology Sydney – Institute for Sustainable Futures (UTS ISF)",
+      ),
+    ).toBe("UTS");
+    expect(publisherGroup("TransitionZero (TZ)")).toBe("TZ");
+    expect(
+      publisherGroup(
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+      ),
+    ).toBe("EREA");
     expect(publisherGroup("Some Unknown Org")).toBeNull();
   });
 });
@@ -79,6 +100,26 @@ describe("canonicalKey", () => {
         "Optimized More Ambitious Policy (OMAP)",
       ),
     ).toBe("AGF:OMAP:");
+  });
+
+  it("keeps the WEO editions apart by the publication year", () => {
+    const iea = "International Energy Agency (IEA)";
+    const steps = "Stated Policies Scenario (STEPS)";
+    expect(canonicalKey(iea, steps, "World Energy Outlook 2024")).toBe(
+      "IEA:STEPS 2024:",
+    );
+    // Sub-sheets spell the same publication differently.
+    expect(
+      canonicalKey(iea, steps, "World Energy Outlook 2025 (WEO-2025)"),
+    ).toBe("IEA:STEPS 2025:");
+    // No year: matches no IEA target, so it is reported as unmatched.
+    const noYear = canonicalKey(iea, steps, "World Energy Outlook");
+    expect(noYear).toBe("IEA:STEPS:");
+    expect(TARGETS[noYear!]).toBeUndefined();
+    // Other publishers ignore the publication.
+    expect(
+      canonicalKey("UN SDSN, CW", "Existing Policy (EP MY)", "Report 2024"),
+    ).toBe("SDSN:EP MY:");
   });
 });
 
@@ -189,6 +230,116 @@ describe("TARGETS", () => {
       const key = canonicalKey("UN SDSN, CW", name);
       expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
     }
+  });
+
+  it("matches the Malaysia, Philippines and CGS/IESR rows", () => {
+    const rows: [string, string][] = [
+      ["UN SDSN, CW", "Existing Policy (EP MY)"],
+      ["UN SDSN, CW", "Optimised More Ambitious Policy (OMAP MY)"],
+      ["UN SDSN, CW", "Simulated Existing Policy Pathway (SEP PH)"],
+      ["UN SDSN, CW", "Most Ambitious Policy Scenario 4 (MAP4 PH)"],
+      [
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+        "Business as Usual Scenario (BaU)",
+      ],
+      [
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+        "1.5°C-Aligned Scenario (1.5°C)",
+      ],
+    ];
+    for (const [publisher, name] of rows) {
+      const key = canonicalKey(publisher, name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
+  });
+
+  it("matches the WEO 2024, JRC, UTS-ISF, TransitionZero and Viet Nam rows", () => {
+    const rows: [string, string, string, string][] = [
+      [
+        "International Energy Agency (IEA)",
+        "Announced Pledges Scenario (APS)",
+        "World Energy Outlook 2024",
+        "src/data/iea/IEA-APS-2024.json",
+      ],
+      [
+        "International Energy Agency (IEA)",
+        "Stated Policies Scenario (STEPS)",
+        "World Energy Outlook 2025",
+        "src/data/iea/IEA-STEPS-2025.json",
+      ],
+      [
+        "JRC",
+        "Reference Scenario (Reference)",
+        "",
+        "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
+      ],
+      [
+        "JRC",
+        "1.5°C Scenario (1.5°C)",
+        "",
+        "src/data/jrc/JRC-GECO-1-5-2025.json",
+      ],
+      [
+        "University of Technology Sydney – Institute for Sustainable Futures (UTS ISF)",
+        "One Earth Climate Model (OECM) 1.5 °C pathway",
+        "",
+        "src/data/uts-isf/UTS-ISF-OECM-2024.json",
+      ],
+      [
+        "TransitionZero (TZ)",
+        "Indonesia Supergrid (ISG)",
+        "",
+        "src/data/transitionzero/TZ-ISG-2024.json",
+      ],
+      [
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+        "Baseline scenario (BSL)",
+        "",
+        "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
+      ],
+      [
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+        "Net-Zero+ variation (NZ+)",
+        "",
+        "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
+      ],
+    ];
+    for (const [publisher, name, publication, file] of rows) {
+      const key = canonicalKey(publisher, name, publication);
+      expect(key && TARGETS[key]?.file, `${name} -> ${key}`).toBe(file);
+    }
+  });
+
+  it("gives each NGFS scenario and model its own pathway", () => {
+    const ngfs = "Network for Greening the Financial System (NGFS)";
+    const ids = new Set<string>();
+    for (const name of [
+      "Below 2°C, GCAM 6.0 NGFS (B2C GCAM)",
+      "Below 2°C, MESSAGEix-GLOBIOM 2.0-M-R12-NGFS (B2C MESSAGE)",
+      "Net Zero 2050, REMIND-MAgPIE 3.3-4.8 (NZ2050 REMIND)",
+    ]) {
+      const key = canonicalKey(ngfs, name);
+      const target = key ? TARGETS[key] : undefined;
+      expect(target?.mode, `${name} -> ${key}`).toBe("new");
+      if (target?.mode === "new") ids.add(target.id);
+    }
+    expect(ids).toEqual(
+      new Set([
+        "NGFS-B2C-GCAM-2024",
+        "NGFS-B2C-MESSAGE-2024",
+        "NGFS-NZ2050-REMIND-2024",
+      ]),
+    );
+    expect(
+      Object.keys(TARGETS).filter((k) => k.startsWith("NGFS:")),
+    ).toHaveLength(21);
+  });
+
+  it("rebuilds every new pathway from a template that exists", async () => {
+    const { access } = await import("node:fs/promises");
+    for (const t of Object.values(TARGETS))
+      if (t.mode === "new")
+        await expect(access(t.templateFile)).resolves.toBeUndefined();
   });
 });
 

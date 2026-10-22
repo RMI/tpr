@@ -22,11 +22,12 @@
  * Sheet names are parameterized (`--sheet-prefix`, default `draft_`) because the
  * final `pathway_*` sheets are not populated yet; switch the prefix once they are.
  *
- * Scope of the current workbook: 24 pathways -- IEA (WEO 2025), ACE, UN SDSN/CW
- * (Thailand, Myanmar, Laos, Singapore) and JETP-ID. Earlier versions also
- * carried Philippines DOE and JRC; their TARGETS entries stay, and the report
- * lists them as having no matching row. It carries NO NGFS data, so issue #801
- * (NGFS region memberships) is NOT addressed here -- the report says so.
+ * Scope of the current workbook: 75 pathways -- IEA (WEO 2025 and 2024), ACE,
+ * UN SDSN/CW (Thailand, Myanmar, Laos, Singapore, Malaysia, Philippines),
+ * Philippines DOE, CGS/IESR, JETP-ID, JRC, UTS-ISF, TransitionZero, EREA/DEA
+ * and NGFS (21, one per scenario and model). Rows without a TARGETS entry are
+ * listed in the report as unmatched and not imported. Region memberships come
+ * from each pathway's Regions cell.
  */
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -263,10 +264,11 @@ const GEO_ALIASES: Record<string, string> = {
 // Row -> target file mapping, keyed as canonicalKey() builds it: the only
 // stable join key across sheets is (publisher group, scenario code,
 // country), since pathway-name strings and publisher labels vary between
-// sheets (e.g. "State" vs "States" in ATS). IEA is a new WEO edition (2025 vs
-// the repo's 2024, and CPS is a brand-new scenario) so its rows create new
-// files and leave the 2024 files untouched, per the "keep both" decision.
-// Everyone else maps 1:1 onto an existing file and is updated in place.
+// sheets (e.g. "State" vs "States" in ATS). IEA keys also carry the WEO
+// edition year, because the workbook holds both WEO 2024 and WEO 2025 under
+// the same scenario codes. The 2025 rows create new files and the 2024 rows
+// update the existing ones, per the "keep both" decision. Everyone else maps
+// 1:1 onto an existing file and is updated in place.
 // --------------------------------------------------------------------------
 
 type Target =
@@ -281,27 +283,34 @@ type Target =
 
 export const TARGETS: Record<string, Target> = {
   // IEA World Energy Outlook 2025 -- new edition, new files.
-  "IEA:CPS:": {
+  "IEA:CPS 2025:": {
     mode: "new",
     file: "src/data/iea/IEA-CPS-2025.json",
     id: "IEA-CPS-2025",
     templateFile: "src/data/iea/IEA-STEPS-2024.json",
     note: "new WEO-2025 scenario (no 2024 equivalent)",
   },
-  "IEA:STEPS:": {
+  "IEA:STEPS 2025:": {
     mode: "new",
     file: "src/data/iea/IEA-STEPS-2025.json",
     id: "IEA-STEPS-2025",
     templateFile: "src/data/iea/IEA-STEPS-2024.json",
     note: "WEO-2025 edition; IEA-STEPS-2024 kept",
   },
-  "IEA:NZE:": {
+  "IEA:NZE 2025:": {
     mode: "new",
     file: "src/data/iea/IEA-NZE-2025.json",
     id: "IEA-NZE-2025",
     templateFile: "src/data/iea/IEA-NZE-2024.json",
     note: "WEO-2025 edition; IEA-NZE-2024 kept",
   },
+  // IEA World Energy Outlook 2024 -- already v2, refreshed.
+  "IEA:STEPS 2024:": {
+    mode: "update",
+    file: "src/data/iea/IEA-STEPS-2024.json",
+  },
+  "IEA:APS 2024:": { mode: "update", file: "src/data/iea/IEA-APS-2024.json" },
+  "IEA:NZE 2024:": { mode: "update", file: "src/data/iea/IEA-NZE-2024.json" },
   // ACE 8th ASEAN Energy Outlook -- already v2, refreshed.
   "ACE:BAS:": {
     mode: "update",
@@ -425,8 +434,83 @@ export const TARGETS: Record<string, Target> = {
     file: "src/data/un-sdsn-cw/SDSN-CW-HA2O-SG-2024.json",
     wasV1: true,
   },
+  // UN SDSN / ClimateWorks -- Malaysia. The workbook carries the Phase 2.2
+  // report, which replaces Phase 2.1. EP MY keeps its id and file but is
+  // rebuilt as "new" so its name, description and publication come from the
+  // workbook rather than the 2.1 file. All three take the publisher block from
+  // EP MY, whose links point at the 2.2 report. MAP MY and MAP1 MY are 2.1
+  // pathways and are removed separately.
+  "SDSN:EP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    id: "UNSDSN-CW-EP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "Phase 2.2 replaces Phase 2.1",
+  },
+  "SDSN:OEP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-MY-2024.json",
+    id: "UNSDSN-CW-OEP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "new Phase 2.2 pathway",
+  },
+  "SDSN:OMAP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-MY-2024.json",
+    id: "UNSDSN-CW-OMAP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "new Phase 2.2 pathway",
+  },
+  // UN SDSN / ClimateWorks -- Philippines. MAP3 and MAP4 are new pathways
+  // from the same report and take its publisher block from SEP PH.
+  "SDSN:SEP PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:OEP PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP1 PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP1-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP2 PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP2-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP3 PH:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP3-PH-2024.json",
+    id: "UNSDSN-CW-MAP3-PH-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    note: "new pathway",
+  },
+  "SDSN:MAP4 PH:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP4-PH-2024.json",
+    id: "UNSDSN-CW-MAP4-PH-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    note: "new pathway",
+  },
+  // CGS / IESR Indonesia. Existing v1 files, migrated in place.
+  "CGS:BaU:": {
+    mode: "update",
+    file: "src/data/cgs-iesr/CGS-IESR-BAU-2024.json",
+    wasV1: true,
+  },
+  "CGS:1.5°C:": {
+    mode: "update",
+    file: "src/data/cgs-iesr/CGS-IESR-1-5-2024.json",
+    wasV1: true,
+  },
   // JRC GECO -- repo files already year 2025, same edition; update in place.
-  "JRC:REFERENCE:": {
+  // The workbook now writes the codes "(Reference)" and "(1.5°C)".
+  "JRC:Reference:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
     wasV1: true,
@@ -436,9 +520,62 @@ export const TARGETS: Record<string, Target> = {
     file: "src/data/jrc/JRC-GECO-NDC-LTS-2025.json",
     wasV1: true,
   },
-  "JRC:1.5C:": {
+  "JRC:1.5°C:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-1-5-2025.json",
+    wasV1: true,
+  },
+  // UTS-ISF, TransitionZero and Viet Nam EREA/DEA -- existing v1 files,
+  // migrated in place. Viet Nam's baseline is "(BSL)" in the workbook and
+  // keeps its existing short name, "Baseline".
+  "UTS:OECM:": {
+    mode: "update",
+    file: "src/data/uts-isf/UTS-ISF-OECM-2024.json",
+    wasV1: true,
+  },
+  "TZ:BAU:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-BAU-2024.json",
+    wasV1: true,
+  },
+  "TZ:EBAU:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-EBAU-2024.json",
+    wasV1: true,
+  },
+  "TZ:REGI:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-REGI-2024.json",
+    wasV1: true,
+  },
+  "TZ:ISG:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-ISG-2024.json",
+    wasV1: true,
+  },
+  "EREA:BSL:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
+    wasV1: true,
+  },
+  "EREA:NZ:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-NZ-2024.json",
+    wasV1: true,
+  },
+  "EREA:NZ+:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
+    wasV1: true,
+  },
+  "EREA:GG:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-GG-2024.json",
+    wasV1: true,
+  },
+  "EREA:GT:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-GT-2024.json",
     wasV1: true,
   },
   // JETP Indonesia.
@@ -447,7 +584,36 @@ export const TARGETS: Record<string, Target> = {
     file: "src/data/jetp-id/JETP-CIPP-2023.json",
     wasV1: true,
   },
+  ...ngfsTargets(),
 };
+
+/**
+ * NGFS Phase V: one pathway per scenario and model, replacing the seven
+ * per-scenario files. The workbook carries every per-model value, so the
+ * template supplies only the publication block, which all 21 share. It is one
+ * of the 21 themselves: the old files it was first copied from are gone.
+ */
+function ngfsTargets(): Record<string, Target> {
+  const scenarios = ["LD", "NZ2050", "B2C", "DT", "NDC", "CP", "FW"];
+  const models = ["GCAM", "MESSAGE", "REMIND"];
+  return Object.fromEntries(
+    scenarios.flatMap((scenario) =>
+      models.map((model): [string, Target] => {
+        const id = `NGFS-${scenario}-${model}-2024`;
+        return [
+          `NGFS:${scenario} ${model}:`,
+          {
+            mode: "new",
+            file: `src/data/ngfs/${id}.json`,
+            id,
+            templateFile: "src/data/ngfs/NGFS-NZ2050-GCAM-2024.json",
+            note: "NGFS Phase V, per model",
+          },
+        ];
+      }),
+    ),
+  );
+}
 
 /** Publisher label (any sheet's spelling) -> canonical group used in the key. */
 export function publisherGroup(label: string): string | null {
@@ -460,6 +626,12 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";
   if (l.includes("jetp")) return "JETP";
   if (l.includes("sdsn") || l.includes("climateworks")) return "SDSN";
+  if (l.includes("global sustainability") || l.includes("iesr")) return "CGS";
+  if (l.includes("greening the financial") || l.includes("ngfs")) return "NGFS";
+  if (l.includes("technology sydney") || /\buts[- ]isf\b/.test(l)) return "UTS";
+  if (l.includes("transitionzero")) return "TZ";
+  if (l.includes("renewable energy authority") || /\berea\b/.test(l))
+    return "EREA";
   return null;
 }
 
@@ -481,11 +653,21 @@ export function scenarioParts(name: string): { code: string; country: string } {
 export function canonicalKey(
   publisher: string,
   pathwayName: string,
+  publication = "",
 ): string | null {
   const group = publisherGroup(publisher);
   if (!group) return null;
   const { code, country } = scenarioParts(pathwayName);
   if (!code) return null;
+  // WEO editions share scenario codes, so the edition year is part of the
+  // key. A row whose publication names no year matches no IEA target and is
+  // reported as unmatched.
+  if (group === "IEA") {
+    const year = /\b(20\d\d)\b/.exec(publication)?.[1];
+    return year
+      ? `${group}:${code} ${year}:${country}`
+      : `${group}:${code}:${country}`;
+  }
   return `${group}:${code}:${country}`;
 }
 
@@ -1632,6 +1814,7 @@ function groupByKey(rows: Row[]): Map<string, Row[]> {
     const key = canonicalKey(
       row["Name of Publisher"] ?? "",
       row["Name of Pathway"] ?? "",
+      row["Name of publication"] ?? "",
     );
     if (!key) continue;
     (map.get(key) ?? map.set(key, []).get(key)!).push(row);
@@ -1677,7 +1860,11 @@ async function main() {
   for (const meta of sheets.metadata) {
     const publisher = meta["Name of Publisher"] ?? "";
     const pathway = meta["Name of Pathway"] ?? "";
-    const key = canonicalKey(publisher, pathway);
+    const key = canonicalKey(
+      publisher,
+      pathway,
+      meta["Name of publication"] ?? "",
+    );
     if (!key || !TARGETS[key]) {
       unmatched.push(`${publisher} | ${pathway} (key=${key ?? "?"})`);
       continue;
@@ -1734,12 +1921,6 @@ async function main() {
       `Unmatched Excel rows (${unmatched.length}): ${unmatched.join(" ;; ")}`,
     );
   }
-  report.note(
-    "#801 NOT addressed: the workbook carries no NGFS data, so the 7 NGFS files' " +
-      "empty region memberships are untouched. Region memberships ARE populated for " +
-      "the covered pathways from their Regions cell.",
-  );
-
   console.info(report.lines.join("\n"));
 
   if (report.errors.length > 0) {
