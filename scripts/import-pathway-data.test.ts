@@ -779,3 +779,64 @@ describe("per-sector list cells (Technology coverage, Metric)", () => {
     );
   });
 });
+
+describe("metric list", () => {
+  const sub = {
+    keyFeatures: [],
+    coreDrivers: undefined,
+    dependencies: [],
+    dataAvailability: [],
+  };
+  const update = (metricCell: string, existing: Record<string, unknown>) => {
+    const report = new Report();
+    const doc = buildDoc(
+      { mode: "update", file: "T.json" },
+      { Sectors: "Power", Metric: metricCell },
+      sub,
+      { id: "T", ...existing },
+      null,
+      report,
+    );
+    return { metric: doc.metric, notes: report.lines.join("\n") };
+  };
+
+  it("takes an update's metrics from the workbook, not the old file", () => {
+    expect(
+      update("Power: [Absolute emissions, Capacity]", {
+        metric: ["Absolute Emissions"],
+      }).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+
+  it("keeps an update's own order when the workbook lists the same metrics", () => {
+    expect(
+      update("Power: [Capacity, Absolute emissions]", {
+        metric: ["Absolute Emissions", "Capacity"],
+      }).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+
+  it("keeps an update's own metrics when the workbook cell is empty", () => {
+    expect(update("", { metric: ["Capacity"] }).metric).toEqual(["Capacity"]);
+  });
+
+  it("notes a metric data availability covers but the Metric column omits", () => {
+    const { notes } = update("Power: [Absolute emissions]", {
+      dataAvailability: {
+        overall: null,
+        byMetric: [
+          { metricName: "Absolute Emissions", dataFormat: "Tabular" },
+          { metricName: "Emissions intensity", dataFormat: "Tabular" },
+          { metricName: "Capacity", dataFormat: "Not covered" },
+          { metricName: "Technology cost", dataFormat: "Tabular" },
+        ],
+      },
+    });
+    expect(notes).toContain(
+      'T/metric: data availability covers "Emissions Intensity" but the Metric column doesn\'t list it',
+    );
+    // Not covered, and availability-only metrics, are not search metrics.
+    expect(notes).not.toContain('"Capacity"');
+    expect(notes).not.toContain("Technology cost");
+  });
+});

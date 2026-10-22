@@ -1534,7 +1534,34 @@ function buildSectors(
   return out;
 }
 
-/** Build the flat `metric` array for a new file from the Excel Metric cell. */
+/**
+ * Note each metric that data availability marks as covered but `metric`
+ * leaves out: the site's metric search reads only `metric`, so the pathway
+ * would not show up for it. Availability-only metrics (technology cost,
+ * investment requirement, ...) are not search metrics and are skipped.
+ */
+function reportUnlistedMetrics(
+  metric: string[],
+  dataAvailability: Json | undefined,
+  report: Report,
+  id: string,
+): void {
+  const rows =
+    (dataAvailability?.byMetric as
+      { metricName: string; dataFormat: string }[] | undefined) ?? [];
+  const unlisted = new Set<string>();
+  for (const row of rows) {
+    if (row.dataFormat === "Not covered") continue;
+    const m = normalizeMetric(row.metricName);
+    if (m && !metric.includes(m)) unlisted.add(m);
+  }
+  for (const m of unlisted)
+    report.note(
+      `${id}/metric: data availability covers "${m}" but the Metric column doesn't list it`,
+    );
+}
+
+/** Build the flat `metric` array from the Excel Metric cell. */
 function buildMetrics(
   metricCell: string,
   report: Report,
@@ -1637,12 +1664,20 @@ export function buildDoc(
       : ((existing?.sectors as typeof sectors) ?? []);
   const declaredSectors = new Set<string>(effectiveSectors.map((s) => s.name));
 
-  // Metric: rebuilt from Excel for new files; preserved for updates (existing
-  // values are already valid and tie to the hosted timeseries).
+  // Metric: the workbook's Metric cell, for updates as for new files. It drives
+  // the site's metric search, so a stale list hides a pathway from searches
+  // for metrics it covers. An update whose cell yields nothing keeps its own.
+  // The same metrics in a different order keep the file's order, so a re-import
+  // only touches files whose metrics actually changed.
+  const fromWorkbook = buildMetrics(meta["Metric"] ?? "", report, id);
+  const existingMetric = (existing?.metric as string[] | undefined) ?? [];
+  const sameSet =
+    fromWorkbook.length === existingMetric.length &&
+    fromWorkbook.every((m) => existingMetric.includes(m));
   const metric =
-    target.mode === "new"
-      ? buildMetrics(meta["Metric"] ?? "", report, id)
-      : ((existing?.metric as string[]) ?? []);
+    target.mode === "update" && (fromWorkbook.length === 0 || sameSet)
+      ? existingMetric
+      : fromWorkbook;
 
   const geoAllowed = allowedGeographies(geography ?? undefined);
   const fromV1 =
@@ -1671,6 +1706,7 @@ export function buildDoc(
       report,
       id,
     ) ?? (existing?.dataAvailability as Json | undefined);
+  reportUnlistedMetrics(metric, dataAvailability, report, id);
 
   // pathwayDescription from the Excel "Pathway Overview"; keep existing otherwise.
   let pathwayDescription: string | null;
