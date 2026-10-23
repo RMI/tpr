@@ -641,11 +641,12 @@ export function scenarioParts(name: string): { code: string; country: string } {
   const parens = [...name.matchAll(/\(([^)]+)\)/g)].map((m) => m[1]);
   let code = parens.length > 0 ? parens[parens.length - 1] : "";
   if (!code) {
-    // JRC pathways have no parenthetical code.
+    // A JRC name written without its code in brackets: the same codes the
+    // workbook uses, so the row still reaches its TARGETS entry.
     const l = name.toLowerCase();
-    if (l.startsWith("reference")) code = "REFERENCE";
+    if (l.startsWith("reference")) code = "Reference";
     else if (l.includes("ndc-lts")) code = "NDC-LTS";
-    else if (l.includes("1.5")) code = "1.5C";
+    else if (l.includes("1.5")) code = "1.5°C";
   }
   return { code, country };
 }
@@ -660,10 +661,13 @@ export function canonicalKey(
   const { code, country } = scenarioParts(pathwayName);
   if (!code) return null;
   // WEO editions share scenario codes, so the edition year is part of the
-  // key. A row whose publication names no year matches no IEA target and is
+  // key: the year after "Outlook" or "WEO", else the first year in the title.
+  // A row whose publication names no year matches no IEA target and is
   // reported as unmatched.
   if (group === "IEA") {
-    const year = /\b(20\d\d)\b/.exec(publication)?.[1];
+    const year =
+      /(?:Outlook|WEO)[^0-9]{0,3}(20\d\d)/i.exec(publication)?.[1] ??
+      /\b(20\d\d)\b/.exec(publication)?.[1];
     return year
       ? `${group}:${code} ${year}:${country}`
       : `${group}:${code}:${country}`;
@@ -1566,22 +1570,24 @@ function buildMetrics(
   metricCell: string,
   report: Report,
   id: string,
-): string[] {
+): { metrics: string[]; unknown: string[] } {
   const groups = parseSectorGroups(metricCell);
   const metrics: string[] = [];
+  const unknown: string[] = [];
   for (const tokens of Object.values(groups)) {
     for (const raw of tokens) {
       const m = normalizeMetric(raw);
       if (m) {
         if (!metrics.includes(m)) metrics.push(m);
       } else if (raw) {
+        unknown.push(raw);
         report.note(
           `${id}/metric: "${raw}" not in metric vocabulary -- dropped`,
         );
       }
     }
   }
-  return metrics;
+  return { metrics, unknown };
 }
 
 function parseYear(raw: string): number | undefined {
@@ -1669,15 +1675,36 @@ export function buildDoc(
   // for metrics it covers. An update whose cell yields nothing keeps its own.
   // The same metrics in a different order keep the file's order, so a re-import
   // only touches files whose metrics actually changed.
-  const fromWorkbook = buildMetrics(meta["Metric"] ?? "", report, id);
+  // A cell with an item outside the vocabulary is only partly read, and a
+  // partial list could drop metrics the file rightly has: such a cell may add
+  // metrics to an update but not remove any.
+  const { metrics: fromWorkbook, unknown } = buildMetrics(
+    meta["Metric"] ?? "",
+    report,
+    id,
+  );
   const existingMetric = (existing?.metric as string[] | undefined) ?? [];
   const sameSet =
     fromWorkbook.length === existingMetric.length &&
     fromWorkbook.every((m) => existingMetric.includes(m));
+  const partial =
+    target.mode === "update" && unknown.length > 0 && existingMetric.length > 0;
+  const kept = partial
+    ? existingMetric.filter((m) => !fromWorkbook.includes(m))
+    : [];
+  if (kept.length > 0)
+    report.note(
+      `${id}/metric: kept ${kept.map((m) => `"${m}"`).join(", ")} although the Metric column omits it, because the column has item(s) outside the vocabulary`,
+    );
   const metric =
     target.mode === "update" && (fromWorkbook.length === 0 || sameSet)
       ? existingMetric
-      : fromWorkbook;
+      : partial
+        ? [
+            ...existingMetric,
+            ...fromWorkbook.filter((m) => !existingMetric.includes(m)),
+          ]
+        : fromWorkbook;
 
   const geoAllowed = allowedGeographies(geography ?? undefined);
   const fromV1 =
@@ -1893,19 +1920,79 @@ async function readJson(file: string): Promise<Json | null> {
   }
 }
 
+/**
+ * The file an update rewrites, or the template a new file copies its
+ * publication block from; null when the pathway cannot be built. A missing
+ * template is an authoring error, so the import stops instead of writing a
+ * file without a publication block.
+ */
+export async function loadTargetFiles(
+  key: string,
+  target: Target,
+  report: Report,
+): Promise<{ existing: Json | null; template: Json | null } | null> {
+  if (target.mode === "new") {
+    const template = await readJson(target.templateFile);
+    if (!template) {
+      report.error(
+        `template ${target.templateFile} for ${key} not found or unreadable -- fix TARGETS or restore the file`,
+      );
+      return null;
+    }
+    return { existing: null, template };
+  }
+  const existing = await readJson(target.file);
+  if (!existing) {
+    report.note(`${key}: target file ${target.file} not found -- skipped`);
+    return null;
+  }
+  return { existing, template: null };
+}
+
 /** Group sub-sheet rows by canonical key. */
 function groupByKey(rows: Row[]): Map<string, Row[]> {
   const map = new Map<string, Row[]>();
   for (const row of rows) {
-    const key = canonicalKey(
-      row["Name of Publisher"] ?? "",
-      row["Name of Pathway"] ?? "",
-      row["Name of publication"] ?? "",
-    );
+    const key = rowKey(row);
     if (!key) continue;
     (map.get(key) ?? map.set(key, []).get(key)!).push(row);
   }
   return map;
+}
+
+function rowKey(row: Row): string | null {
+  return canonicalKey(
+    row["Name of Publisher"] ?? "",
+    row["Name of Pathway"] ?? "",
+    row["Name of publication"] ?? "",
+  );
+}
+
+/**
+ * Sub-sheet rows that belong to no metadata row, one line per pathway and
+ * sheet. Such rows are never imported, so a spelling that differs from the
+ * metadata sheet (a year-less WEO title, a changed code) would otherwise lose
+ * a pathway's key features or drivers without a word.
+ */
+export function orphanSubRows(
+  metadata: Row[],
+  subSheets: Record<string, Row[]>,
+): string[] {
+  const metaKeys = new Set(metadata.map(rowKey).filter((k) => k !== null));
+  const out: string[] = [];
+  for (const [sheet, rows] of Object.entries(subSheets)) {
+    const seen = new Set<string>();
+    for (const row of rows) {
+      const key = rowKey(row);
+      if (key !== null && metaKeys.has(key)) continue;
+      const label = `${sheet}: ${row["Name of Publisher"] ?? ""} | ${row["Name of Pathway"] ?? ""} (key=${key ?? "?"})`;
+      if (!seen.has(label)) {
+        seen.add(label);
+        out.push(label);
+      }
+    }
+  }
+  return out;
 }
 
 async function main() {
@@ -1957,14 +2044,9 @@ async function main() {
     }
     seenKeys.add(key);
     const target = TARGETS[key];
-    const existing =
-      target.mode === "update" ? await readJson(target.file) : null;
-    const template =
-      target.mode === "new" ? await readJson(target.templateFile) : null;
-    if (target.mode === "update" && !existing) {
-      report.note(`${key}: target file ${target.file} not found -- skipped`);
-      continue;
-    }
+    const files = await loadTargetFiles(key, target, report);
+    if (!files) continue;
+    const { existing, template } = files;
 
     const sub = {
       keyFeatures: kfByKey.get(key) ?? [],
@@ -2005,6 +2087,17 @@ async function main() {
   if (unmatched.length > 0) {
     report.note(
       `Unmatched Excel rows (${unmatched.length}): ${unmatched.join(" ;; ")}`,
+    );
+  }
+  const orphans = orphanSubRows(sheets.metadata, {
+    key_features: sheets.keyFeatures,
+    core_drivers: sheets.coreDrivers,
+    dependencies: sheets.dependencies,
+    data_availability: sheets.dataAvailability,
+  });
+  if (orphans.length > 0) {
+    report.note(
+      `Sub-sheet rows with no matching metadata row, not imported (${orphans.length}): ${orphans.join(" ;; ")}`,
     );
   }
   console.info(report.lines.join("\n"));

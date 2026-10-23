@@ -24,7 +24,17 @@ import {
   buildDependencies,
   buildDoc,
   parseSectorGroups,
+  orphanSubRows,
+  loadTargetFiles,
 } from "./import-pathway-data.ts";
+
+/** A pathway with no sub-sheet rows. */
+const EMPTY_SUB = {
+  keyFeatures: [],
+  coreDrivers: undefined,
+  dependencies: [],
+  dataAvailability: [],
+};
 
 describe("publisherGroup", () => {
   it("maps each sheet's spelling to one group", () => {
@@ -70,9 +80,18 @@ describe("scenarioParts", () => {
     ).toEqual({ code: "OMAP", country: "MM" });
   });
   it("derives JRC codes from names with no parenthetical", () => {
-    expect(scenarioParts("Reference scenario").code).toBe("REFERENCE");
+    expect(scenarioParts("Reference scenario").code).toBe("Reference");
     expect(scenarioParts("NDC-LTS scenario").code).toBe("NDC-LTS");
-    expect(scenarioParts("1.5°C scenario").code).toBe("1.5C");
+    expect(scenarioParts("1.5°C scenario").code).toBe("1.5°C");
+    // ...which are the TARGETS keys, so such a row still finds its pathway.
+    for (const name of [
+      "Reference scenario",
+      "NDC-LTS scenario",
+      "1.5°C scenario",
+    ]) {
+      const key = canonicalKey("JRC", name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
   });
 });
 
@@ -113,6 +132,10 @@ describe("canonicalKey", () => {
     expect(
       canonicalKey(iea, steps, "World Energy Outlook 2025 (WEO-2025)"),
     ).toBe("IEA:STEPS 2025:");
+    // The edition year, not another year the title mentions first.
+    expect(
+      canonicalKey(iea, steps, "2025 update: World Energy Outlook 2024"),
+    ).toBe("IEA:STEPS 2024:");
     // No year: matches no IEA target, so it is reported as unmatched.
     const noYear = canonicalKey(iea, steps, "World Energy Outlook");
     expect(noYear).toBe("IEA:STEPS:");
@@ -609,12 +632,7 @@ describe("character limits (tpr-tpc decision 0028)", () => {
   });
 
   describe("buildDoc", () => {
-    const sub = {
-      keyFeatures: [],
-      coreDrivers: undefined,
-      dependencies: [],
-      dataAvailability: [],
-    };
+    const sub = EMPTY_SUB;
     const meta = (over: Record<string, string> = {}) => ({
       "Name of Pathway": "Current Policies Scenario (CPS)",
       "Name of publication": "World Energy Outlook 2025",
@@ -702,12 +720,7 @@ describe("per-sector list cells (Technology coverage, Metric)", () => {
   });
 
   it("builds a pathway's technologies and metrics from each spelling", () => {
-    const sub = {
-      keyFeatures: [],
-      coreDrivers: undefined,
-      dependencies: [],
-      dataAvailability: [],
-    };
+    const sub = EMPTY_SUB;
     const build = (tech: string, metric: string) => {
       const report = new Report();
       const doc = buildDoc(
@@ -760,12 +773,7 @@ describe("per-sector list cells (Technology coverage, Metric)", () => {
         "Sectors": "Power; Steel",
         "Technology coverage": "Coal; Gas",
       },
-      {
-        keyFeatures: [],
-        coreDrivers: undefined,
-        dependencies: [],
-        dataAvailability: [],
-      },
+      EMPTY_SUB,
       null,
       null,
       report,
@@ -781,12 +789,7 @@ describe("per-sector list cells (Technology coverage, Metric)", () => {
 });
 
 describe("metric list", () => {
-  const sub = {
-    keyFeatures: [],
-    coreDrivers: undefined,
-    dependencies: [],
-    dataAvailability: [],
-  };
+  const sub = EMPTY_SUB;
   const update = (metricCell: string, existing: Record<string, unknown>) => {
     const report = new Report();
     const doc = buildDoc(
@@ -838,5 +841,77 @@ describe("metric list", () => {
     // Not covered, and availability-only metrics, are not search metrics.
     expect(notes).not.toContain('"Capacity"');
     expect(notes).not.toContain("Technology cost");
+  });
+});
+
+describe("rows the import would otherwise lose without a word", () => {
+  const row = (pathway: string, publication = "World Energy Outlook 2025") => ({
+    "Name of Publisher": "International Energy Agency (IEA)",
+    "Name of publication": publication,
+    "Name of Pathway": pathway,
+  });
+
+  it("reports sub-sheet rows that belong to no metadata row", () => {
+    const orphans = orphanSubRows([row("Stated Policies Scenario (STEPS)")], {
+      key_features: [
+        row("Stated Policies Scenario (STEPS)"),
+        // Year-less title: keys to "IEA:STEPS:", which no metadata row has.
+        row("Stated Policies Scenario (STEPS)", "World Energy Outlook"),
+        row("Stated Policies Scenario (STEPS)", "World Energy Outlook"),
+      ],
+      core_drivers: [row("Stated Policies Scenario (STEPS)")],
+    });
+    expect(orphans).toEqual([
+      "key_features: International Energy Agency (IEA) | Stated Policies Scenario (STEPS) (key=IEA:STEPS:)",
+    ]);
+  });
+
+  it("stops on a new pathway whose template is missing", async () => {
+    const report = new Report();
+    const files = await loadTargetFiles(
+      "T:NEW:",
+      {
+        mode: "new",
+        file: "T.json",
+        id: "T",
+        templateFile: "does/not/exist.json",
+      },
+      report,
+    );
+    expect(files).toBeNull();
+    expect(report.errors.join("\n")).toContain(
+      "template does/not/exist.json for T:NEW: not found or unreadable",
+    );
+  });
+
+  it("never lets a partly unreadable Metric cell remove an update's metrics", () => {
+    const update = (cell: string, metric: string[]) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "update", file: "T.json" },
+        { Sectors: "Power", Metric: cell },
+        EMPTY_SUB,
+        { id: "T", metric },
+        null,
+        report,
+      );
+      return { metric: doc.metric, notes: report.lines.join("\n") };
+    };
+    // Unknown item: Emissions Intensity stays although the cell omits it.
+    const removed = update(
+      "Power: [Absolute emissions, Emissions intensity (total)]",
+      ["Absolute Emissions", "Emissions Intensity"],
+    );
+    expect(removed.metric).toEqual([
+      "Absolute Emissions",
+      "Emissions Intensity",
+    ]);
+    expect(removed.notes).toContain('T/metric: kept "Emissions Intensity"');
+    // ...but the recognised items can still add a metric.
+    expect(
+      update("Power: [Absolute emissions, Capacity, Storage capacity]", [
+        "Absolute Emissions",
+      ]).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
   });
 });
