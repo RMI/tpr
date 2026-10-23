@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "EREA-DEA-NZPLUS-2024",
   "publication": {
     "title": {
@@ -28,7 +28,7 @@
   "pathwayType": "Normative",
   "modelYearStart": 2022,
   "modelYearEnd": 2050,
-  "modelYearNetzero": 2045,
+  "modelYearNetzero": 2050,
   "sectors": [
     {
       "name": "Agriculture",
@@ -51,28 +51,17 @@
       "technologies": []
     },
     {
-      "name": "Coal Mining",
-      "technologies": []
-    },
-    {
-      "name": "Oil (Upstream)",
-      "technologies": []
-    },
-    {
-      "name": "Gas (Upstream)",
-      "technologies": []
-    },
-    {
       "name": "Power",
       "technologies": [
         "Coal",
         "Oil",
         "Gas",
+        "Nuclear",
         "Hydro",
-        "Solar",
         "Wind",
+        "Solar",
         "Biomass",
-        "Nuclear"
+        "Energy storage"
       ]
     },
     {
@@ -96,7 +85,7 @@
       "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Net Zero+ scenario is a more ambitious extension of the Net Zero pathway, tightening the carbon limit to achieve 0 Mt of energy sector emissions by 2050. It tests how far Vietnam can push tech deployment and system transformation, and it investigates which technology areas applied to which sectors would be most cost-efficient to further reduce emissions.\n\nCompared to the Net Zero pathway, Net Zero+ adds faster and greater renewable build-out, as well as carbon capture and direct air capture, with 10 Mt being captured in 2050. Additionally, Net Zero+ introduces nuclear power build-out starting in 2040 that reaches 28 GW by 2050, as well as greater amounts of hydrogen produced for the decarbonization of industry and transport (573 PJ produced compared to 334 PJ in the Net Zero scenario). Fuel cost savings as compared to Baseline are greater in the Net Zero+ scenario than in the Net Zero pathway. Net Zero+ has the highest capital expenditure requirements of any of the EREA pathways. This scenario offers the greatest reduction in air pollution costs (i.e., the costs associated with the impact of air pollution on human health): 34% less than Baseline.\n\n#### Core Drivers\n\n*Policy and emissions constraints:* Net Zero+ is driven by stricter carbon restraint, targeting 0 Mt of energy sector emissions by 2050, and pushes all feasible technological levers to their limits. The pathway pushes beyond the National Climate Change Strategy baseline by eliminating all energy-related emissions. Net Zero+ reflects a complete phaseout of unabated fossil fuels, and it requires high ambition and systemic transformation across all sectors, including power, industry, transport, and buildings. The pathway includes near total phaseout of unabated coal and natural gas by 2050.\n\n*Technology costs and deployment:* The Net Zero+ pathway projects very high renewable energy build-out, supported by declining technology costs, with 35 GW of new capacity added per year between 2040 and 2050. This significantly exceeds the projected build-out rate of 27 GW per year in the Net Zero pathway. The Net Zero+ pathway includes significant deployment of new technology, including nuclear power via small modular reactors. Nuclear power contributes up to 28 GW by 2050. Carbon capture, including direct air capture, plays a significant role in reducing emissions.\n\n#### Application to Transition Assessment\n\nNet Zero+ represents the most ambitious pathway from EREA and offers a stringent benchmark for alignment with absolute zero emissions. For corporate transition assessment, Net Zero+ functions as a stretch pathway to evaluate whether business models and investment pipelines are compatible with an absolute net-zero future. Alignment with this pathway implies readiness for technologies such as nuclear, direct air capture, and large hydrogen production, in addition to large-scale renewable build-out. As a single-country pathway, Net Zero+ does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nAs a highly ambitious normative pathway, Net Zero+ includes significant interventions that exceed existing goals. As a result, (mis)alignment to Net Zero+ is less directly connected to regulatory risk or potential shifts in market share, but the pathway provides the most robust signal of alignment to possible future ambition. Because Net Zero+ also explores the near total phaseout of unabated coal and gas by 2050, it enables a forward-looking assessment of which generation assets would be most exposed to transition risk and potential stranding under a fully decarbonized energy system.\n\nThe inclusion of detailed technology costs and deployment projections in a cost-optimized model makes the Net Zero+ pathway useful for contextualizing the commercial and technical feasibility of transition strategies under a high-ambition scenario. Given the strength of the pathway's assumptions, users interested in assessing the feasibility of corporate transition strategies should supplement Net Zero+ with additional pathways providing a range of input assumptions.\n\nThe Net Zero+ pathway includes 10-year resolution projections for generation and capacity using a moderately detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Net Zero+ pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
+  "pathwayDescription": "The Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Net Zero+ scenario is a more ambitious extension of the Net Zero pathway, tightening the carbon limit to achieve 0 Mt of energy sector emissions by 2050. It tests how far Vietnam can push tech deployment and system transformation, and it investigates which technology areas applied to which sectors would be most cost-efficient to further reduce emissions. Compared to the Net Zero pathway, Net Zero+ adds faster and greater renewable build-out, as well as carbon capture and direct air capture, with 10 Mt being captured in 2050. Additionally, Net Zero+ introduces nuclear power build-out starting in 2040 that reaches 28 GW by 2050, as well as greater amounts of hydrogen produced for the decarbonization of industry and transport (573 PJ produced compared to 334 PJ in the Net Zero scenario). Fuel cost savings as compared to Baseline are greater in the Net Zero+ scenario than in the Net Zero pathway. Net Zero+ has the highest capital expenditure requirements of any of the EREA pathways. This scenario offers the greatest reduction in air pollution costs (i.e., the costs associated with the impact of air pollution on human health): 34% less than Baseline.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -105,16 +94,744 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "Significant increase",
-    "electrification": "Significant increase",
-    "policyTypes": ["Target technology shares", "Performance standards"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (unspecified GHGs)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage", "Green H2/ammonia", "CCUS"],
-    "investmentNeeds": "By technology"
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Moderate decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": ["Target technology shares", "Other"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "CO2e (unspecified GHGs)"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": [
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": ["Green H2/ammonia"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["CCUS", "Battery storage", "SMR"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": ["Green H2/ammonia"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Total investment"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "By technology"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The scenario doesn't follow policies: PDP8 plans only 2.8 of 11 GW of LNG additions. Rail electrification and exogenous modal shift follows local policy. Power operating rules are relaxed: early coal decommissioning and flexible operation from 2030.",
+    "emissionsTargets": "Emissions target of 0 Mt for the energy sector in 2050, tighter than the National Climate Change Strategy 101 Mt; only industrial process emissions (~20 Mt) remain.",
+    "technologyCosts": "The zero cap forces costlier options: 28 GW SMR (3.5% of capacity but 10% of investment), 135 GW rooftop solar, DAC (10 Mt) and green ammonia; annual system cost in 2050 is the highest of all pathways.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "GDP growth of 7%/yr (2021-30) and 6.5%/yr (2030-50). Electricity demand rises further to ~1,500 TWh because of deeper electrification, not different macro assumptions.",
+    "behavioralShifts": "Inherits NZ modal shift and demand flexibility, which offsets much of the extra technology cost so NPV stays close to BSL.",
+    "otherDrivers": "Renewable potential: 272 GW land solar plus rooftop potential become binding (73% of RE potential used); nuclear is added where solar and onshore wind are exhausted."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "NZ+ requires raising ambition beyond the National Climate Change Strategy (energy sector 0 Mt in 2050) and a policy decision on nuclear: 28 GW of SMR from 2040, which the report says needs further investigation before any commitment.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "As NZ, with offshore wind entering in 2035 and rooftop solar reaching 135 GW, which needs grid-connection standards for rooftop PV; SMR introduction would need a nuclear regulatory regime the report does not detail.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "NZ+ needs the largest capital outlay - nuclear alone is 10% of 2025-2050 power investment - and has the highest annual system cost in 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "NZ+ needs 154 GW/1,372 GWh storage, a 22 GW SC-SE link and the largest hydrogen network (55 GW electrolysers); SMRs are sited in North/South East to avoid extra transmission.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "NZ+ depends on 28 GW of SMR, an emerging technology with high cost and timeline uncertainty in a country with no nuclear today, plus 128 GW batteries.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "NZ+ depends on doubling land for utility PV to 272 GW (~3,000 km2, 0.9% of Viet Nam land). NZ+ uses 73% of RE potential incl. rooftop, and adds nuclear where solar and onshore wind are exhausted, creating reliance on imported nuclear fuel.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Planning reserves account for climate-related lower hydro and RE output and higher temperature-driven demand; this was modelled only in the NZ-Reserve sensitivity, adding 42 GW hydrogen-fired reserve plants. Low reservoir levels are cited as a stress case for flexibility.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "NZ+ adds 28 GW of SMR, a 'highly specialized technology' with no domestic know-how, on top of a larger RE fleet, in need of a skilled workforce.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Steel emissions must halve to 9.3 Mt; NZ+ fully decarbonises 7 of 14 subsectors and needs the green-steel and coal phase-out policies the report recommends.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "As NZ, with deeper cuts needing the carbon market to bind.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Deeper steel cuts rely on costlier H2 and electrification; same CBAM and carbon-market exposure.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Largest hydrogen system (573 PJ, 55 GW electrolysers) and grid to electrify 73% of industrial FEC.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Halving steel emissions needs H2 routes at scale after 2040.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "NZ+ uses the most biomass in transport, leaving industry more reliant on electricity and H2.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Report recommends education programmes targeting the highest-emitting industries.",
+      "sector": "Steel",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "With energy emissions at zero, aviation fuels must be decarbonised; additional policy targets for e-fuels are needed.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "All jet fuel is imported in 2050, exposing aviation to international fuel markets.",
+      "sector": "Aviation",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Modal shift moves some passenger and freight demand from aviation to rail, which needs incentives differentiated for passenger and freight; the shift is an exogenous assumption, not a modelled behavioural response.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Adds hydrogen supply chains for non-road transport on top of the rail roadmap.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Deeper aviation decarbonisation depends on H2 and e-fuel routes maturing.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Transport takes half or more of bioenergy in NZ+, and imported jet fuel is needed.",
+      "sector": "Aviation",
+      "evidence_type": "Quantitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived: Fig 3.2 power emissions / Fig 4.7 generation; 2022 430 g/kWh. CO2e, gases unspecified. Includes rooftop solar in generation; no captive plants."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "CO2e, gases unspecified; excludes LULUCF/agriculture/waste; national."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Storage = pumped hydro and batteries, reported separately in GW plus total GWh (Fig 5.9); flywheels allowed but not built (p.52). Solar split land/float/rooftop; regional split for BSL/NZ/NZ+ 2050 (Fig 4.8)."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "Generation by technology plus RE share; on-grid incl. rooftop; no captive."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "Derived shares from generation by technology; RE share plotted directly."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["International and national transmission lines"],
+        "scopeLimitations": "Inter-regional capacity between 7 regions, HVAC/HVDC split (Fig 5.6). Distribution grid not modelled as capacity."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "External catalogue values, USD2019, Viet Nam-adjusted; land cost excluded (catalogue p.14)."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["VN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "NPV-discounted (10%) share of investment 2025-2050; excludes transmission (p.43 fn 12)."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Applies to coal and gas plants; 40-year coal lifetime (p.40)."
+      },
+      {
+        "metricName": "Emissions intensity (total)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (primary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (secondary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute emissions",
+        "sector": "Steel",
+        "sectorSegment": ["Ironmaking", "Steelmaking"],
+        "geography": ["VN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Includes energy + process emissions; excludes electricity-related (power) emissions; CO2e gases unspecified."
+      },
+      {
+        "metricName": "Technology mix (production by route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Steel production by technology (production route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Scrap share",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Steel",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["VN"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Figure",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Excludes fuel and air-pollution costs (p.80); absolute, not per tonne."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Steel",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["VN"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Industry-wide statement, not steel-specific."
+      },
+      {
+        "metricName": "Emissions intensity (passenger)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (freight)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute emissions Well-to-Wheel (passenger)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute emissions Well-to-Wheel (freight)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Total demand (passenger)",
+        "sector": "Aviation",
+        "sectorSegment": ["Passenger transport"],
+        "geography": ["VN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Figure",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Domestic aviation only; international aviation excluded from the model (p.19). One series shared by NZ/NZ+/GT/GG."
+      },
+      {
+        "metricName": "Total demand (freight)",
+        "sector": "Aviation",
+        "sectorSegment": ["Freight transport"],
+        "geography": ["VN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Domestic aviation only; international aviation excluded from the model (p.19). Aviation freight is a very small band in the chart."
+      },
+      {
+        "metricName": "Demand by propulsion technology (passenger)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Demand by propulsion technology (freight)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Demand share by propulsion technology (passenger)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Demand share by propulsion technology (freight)",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Aviation",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
   }
 }

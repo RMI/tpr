@@ -1,0 +1,406 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "UNSDSN-CW-OMAP-MY-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.2 Report, Optimising Malaysia's Electrifying Future"
+    },
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "month": 12,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/AGF%20-%20Malaysia%202.2%20Report%20-%20FINAL.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Optimised More Ambitious Policy",
+    "short": "OMAP MY"
+  },
+  "description": "Normative MY least-cost power pathway to 100% renewables by 2050 with full fossil phase-out.",
+  "geography": {
+    "country": ["MY"]
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "Normative Malaysian pathway reaching a 100% renewable power system by 2050: no new fossil capacity after 2030, coal phased out early and gas and diesel by 2050, plus stronger efficiency standards. Least-cost optimisation picks 81 GW solar, 24 GW biomass, hydro, batteries and pumped hydro. Power emissions fall from 87 to 2 MtCO2e, but investment rises to USD 393bn (1.8x OEP) and the biomass build far exceeds assessed resource potential.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "metric": [
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix",
+    "Emissions Intensity"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not Applicable"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": ["Battery storage", "Other new technologies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "By sector"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Phase-out: no new fossil capacity after 2030; coal out by 2030 (Table 2; §3.3.2 says 2040), gas and diesel by 2050. Target share: 100% renewable power, with LEAP adding renewables, batteries and pumped hydro as needed. Efficiency: commercial energy-intensity gain doubled to 46%; industry 23% plus 4% circular-economy steel demand cut, with electricity’s fuel share raised to 46%; efficient household appliances at 100% by 2060. Transport keeps Existing Policy targets.",
+    "emissionsTargets": "The pathway is constrained to a near-zero-emissions, 100% renewable power sector by 2050, implemented through fuel phase-out and no-new-fossil constraints rather than an explicit emissions cap. Power emissions fall to 2 MtCO2e in 2050; no economy-wide emissions target is applied.",
+    "technologyCosts": "OMAP uses the same NEMO least-cost optimisation and NREL/ACE cost tables as OEP, but within a fossil-free 2050 constraint, so costs pick the renewables and storage. The optimiser selects 23.9 GW biomass (125 TWh), 13.6 GW large and 4.2 GW small hydro, 81 GW solar, 5.3 GW wind, 4.5 GW batteries and 8.0 GW pumped hydro. Storage costs may limit more solar; cheaper batteries could favour it. 2050 production cost rises to 10.6 US cents/kWh (vs 8.8 in EP) and real investment to USD 393bn.",
+    "investmentChange": "This scenario requires USD 393 bn investment in power generation capacity, 1.8 times more than OEP. No technology-level figures are available.",
+    "macroeconomicDrivers": "OMAP uses the same GDP, population, urbanisation and sectoral value-added assumptions as EP and OEP; its 2050 electricity demand of 369 TWh (+137% vs 2019) is about 6% below EP because of efficiency measures, not different macro assumptions. Sources as in EP (government projections, UN World Urbanization Prospects, World Bank, LEAP defaults).",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Biomass resource left unconstrained: Table 2 sets no maximum annual addition for biomass (unlike biogas and MSW, which are fuel-limited), and the optimiser expands it to 23.9 GW generating 125 TWh, 30% of 2050 generation and far above SEDA's 2.3 GW potential. The report says this result must be triangulated with a land-use study. This is a resource-assumption driver, distinct from cost (it is an absent limit) and from policy."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "111111`111111`.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "OMAP needs rules that let storage and interconnection scale: the report recommends remuneration for flexibility services, technology-neutral storage evaluation, streamlined pumped-hydro permitting with long-term revenue visibility, and harmonised grid codes and standards for regional power trade. With 8.0 GW of pumped hydro and 4.5 GW of batteries, these rules bind more than in EP or OEP (evidence-based inference from storage capacity).",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "OMAP needs 1.8x OEP's investment (USD 393bn real) and raises 2050 production cost to 10.6 US cents/kWh, against current tariffs of 4.2–12.0 US cents/kWh. Its economic case depends on carbon pricing: from USD 185/t it has the lowest social cost (Table 7), and Malaysia's carbon tax on iron/steel and energy from 2026 is noted. The report also calls for grants, tax breaks and green finance for pumped hydro and biomass plantations.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "OMAP raises large hydro to 13.6 GW, small hydro to 4.2 GW and biomass to 23.9 GW. The report warns that hydropower can displace indigenous communities and that biomass expansion must respect land rights and sustainability to win social and political acceptance; large-hydro growth warrants environmental impact assessment.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "On top of EP's transport assumptions, OMAP requires 100% efficient lighting, refrigeration and air conditioning by 2060 and a 46% commercial efficiency gain, cutting 2050 demand 6% versus EP (369 vs 393 TWh) and residential demand 11%. Commercial uptake is the weak link, since the EECA covers only 21% of commercial consumption; these are imposed adoption assumptions rather than modelled behaviour.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "A 100% renewable system needs 4.5 GW of batteries (less than 1GW in OEP or EP) and 8.0 GW of pumped hydro (1.96 GWh per million people), 2.8 GW of offshore wind, and transmission from renewable zones to load centres; the cheapest decarbonisation route needs a coordinated regional approach and proposes a UHV DC backbone. Storage and transmission are preconditions for OMAP. Only annual capacity results are reported, with no hourly dispatch, which limits curtailment assessment.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "OMAP relies on 4.5 GW of batteries alongside pumped hydro. This is only 0.76 GW in OEP scenario. The report states storage costs may hold back further solar within the least-cost framework and that future battery cost declines could favour more solar, and cites studies requiring at least eight hours of storage at high renewable shares. So battery cost and duration improvements are a key enabling factor.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "OMAP removes gas imports but shifts the binding resource to land and feedstock: 23.9 GW of biomass generating 125 TWh far exceeds SEDA's 2.3 GW biomass potential, and large hydro reaches SEDA's 13.6 GW large-hydro potential. The report calls for a land-use study, dedicated tree plantations and sustainable supply chains, noting biomass crops can need 29–154 times more land than solar per unit of electricity.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "About 38% of OMAP's 2050 generation is hydro and 30% biomass, both flagged as more vulnerable to climate impacts such as drought; solar and hydro availability across the two monsoon seasons was not tested. Large hydro needs environmental impact assessment and biomass must account for biodiversity, soil health and water; pumped hydro needs about 3 litres of water per person per day.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The report notes that Malaysian tree planters struggle with labour and profitability, which matters for the plantation-based biomass supply OMAP's 23.9 GW would need; it does not quantify power-sector workforce needs.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived, not reported: power-generation GHG / total generation, 2050 = 2 / 416.14 TWh = 0.0048 tCO2e/MWh. National grid only; no captive or rooftop split. CO2e basket not listed (Kyoto inferred from LEAP)."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Power-generation GHG, MtCO2e; 2050 = 2 Mt (Table 5). Annual series only as line charts (Figs 22, 27). No upstream fuel-supply or T&D-loss emissions; no captive or rooftop split. Gases not listed (Kyoto inferred, LEAP)."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Installed GW by technology, Malaysia national grid; no captive or rooftop split. Storage: batteries 4.50 GW and pumped hydro 8.01 GW, reported separately. Biomass includes biogas; diesel shown as Oil; geothermal not broken out."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Annual TWh by technology, national grid; no captive or rooftop split. Biomass includes biogas; Other includes MSW and 'All others'."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Generation shares by technology, national grid; derived from TWh by technology where not charted."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Table 9 capex (USD/kW), fixed O&M (USD/kW-yr), variable (USD/MWh) by technology from NREL ATB 2023 (US-based, not localised); fuel costs Table 10 (ACE 2022). Same table in all pathways. Drives OMAP's least-cost optimisation within the fossil phase-out constraint."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": ["By sector"],
+        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), USD. Excludes transmission and distribution; storage not shown separately in the investment figures."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Retirement treatment of coal, gas and diesel plants as stated in the scenario assumptions; no plant-level lifetimes or retirement schedule published."
+      }
+    ]
+  }
+}

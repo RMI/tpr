@@ -1,0 +1,514 @@
+import { describe, it, expect } from "vitest";
+import v1Json from "./pathwayMetadata.v1.json" with { type: "json" };
+import v2Json from "./pathwayMetadata.v2.json" with { type: "json" };
+import scopeSectorJson from "./common/scopeSector.v2.json" with { type: "json" };
+import sectorJson from "./common/sector.v1.json" with { type: "json" };
+import emissionsScopeJson from "./common/emissionsScope.v1.json" with { type: "json" };
+import dataAvailabilityJson from "./common/dataAvailability.v1.json" with { type: "json" };
+
+/**
+ * Guards v2's keyFeatures against silent self-drift.
+ *
+ * v2 spells the scoped-entry wrapper out once per field rather than sharing a
+ * `$defs` entry via `allOf`. That was measured, not assumed: the `allOf` version
+ * validates identically and generates nicer types, but AJV's `strict: true`
+ * (`strictRequired`, then `strictTypes`) forces the boilerplate back in for a net
+ * saving of 18 lines, it cannot use `additionalProperties: false` — that keyword
+ * only sees its own branch's `properties`, so it would reject `value` — and the
+ * `propertyNames` substitute degrades the commonest authoring error from
+ * "must NOT have additional properties" to "property name must be valid" with the
+ * offending key unnamed, because `fmt()` in validateData.ts drops AJV's `params`.
+ *
+ * The cost of that choice is 11 copies of one shape, so these tests enforce what
+ * the `$ref` would have: that the copies stay identical, and that each field's
+ * `value` still matches v1's enum verbatim, which is #858's actual requirement.
+ */
+
+/** The slice of JSON Schema draft-07 these assertions actually read. */
+interface JsonSchema {
+  $id?: string;
+  $ref?: string;
+  $defs?: Record<string, JsonSchema>;
+  type?: string | string[];
+  enum?: string[];
+  items?: JsonSchema;
+  anyOf?: JsonSchema[];
+  properties?: Record<string, JsonSchema>;
+  required?: string[];
+  additionalProperties?: boolean;
+  uniqueItems?: boolean;
+  minItems?: number;
+  minLength?: number;
+  maxLength?: number;
+  description?: string;
+  tsType?: string;
+}
+
+const v1 = v1Json as unknown as JsonSchema;
+const v2 = v2Json as unknown as JsonSchema;
+const scopeSector = scopeSectorJson as unknown as JsonSchema;
+const sector = sectorJson as unknown as JsonSchema;
+const emissionsScope = emissionsScopeJson as unknown as JsonSchema;
+const dataAvailability = dataAvailabilityJson as unknown as JsonSchema;
+
+/** Throwing accessors keep every read type-safe without non-null assertions. */
+function props(schema: JsonSchema, where: string): Record<string, JsonSchema> {
+  if (!schema.properties) throw new Error(`${where}: expected properties`);
+  return schema.properties;
+}
+
+function prop(schema: JsonSchema, name: string, where: string): JsonSchema {
+  const found = props(schema, where)[name];
+  if (!found) throw new Error(`${where}: expected property ${name}`);
+  return found;
+}
+
+function items(schema: JsonSchema, where: string): JsonSchema {
+  if (!schema.items) throw new Error(`${where}: expected items`);
+  return schema.items;
+}
+
+function enumOf(schema: JsonSchema, where: string): string[] {
+  if (!schema.enum) throw new Error(`${where}: expected enum`);
+  return schema.enum;
+}
+
+const KEY_FEATURE_FIELDS = [
+  "emissionsTrajectory",
+  "energyEfficiency",
+  "energyDemand",
+  "electrification",
+  "policyTypes",
+  "technologyCostTrend",
+  "emissionsScope",
+  "policyAmbition",
+  "technologyCostsDetail",
+  "newTechnologiesIncluded",
+  "investmentNeeds",
+] as const;
+
+/** v1 stores these as arrays, so in v2 the whole array is one entry's `value`. */
+const ARRAY_VALUED: ReadonlySet<string> = new Set([
+  "policyTypes",
+  "newTechnologiesIncluded",
+]);
+
+/** v1's only field whose enum lacked "No information" — it has "None" instead. */
+const GAINED_NO_INFORMATION = "policyTypes";
+
+/**
+ * The scope sentinel, and the fields that do *not* take it.
+ *
+ * The cookbook's rule (`key_features/00_key_features_notes.md`) is "every key
+ * feature that is `widest only` on either axis". Its cardinality table makes
+ * `emissionsTrajectory` and `energyDemand` the only two that are
+ * `widest + all in-scope` on both, so they are the only two without it — which
+ * is why this is written as the exception list rather than the nine.
+ */
+const SCOPE_SENTINEL = "Not applicable at this scope level";
+const WIDEST_ON_BOTH_AXES: ReadonlySet<string> = new Set([
+  "emissionsTrajectory",
+  "energyDemand",
+]);
+
+/**
+ * Values v2 adds to a field beyond the scope sentinel, with the cookbook's
+ * reason. Listed rather than tolerated, so an unplanned addition still fails.
+ */
+const DELIBERATE_ADDITIONS: Readonly<Record<string, readonly string[]>> = {
+  // A property of the sector (meaningless for Power), not of the row's scope,
+  // so it survives at every scope where the sentinel would not.
+  electrification: ["Not Applicable"],
+  // Cookbook decision 0020.
+  newTechnologiesIncluded: ["SMR"],
+};
+
+/** What v2's enum should hold, given v1's, for one field. */
+function expectedV2Members(
+  name: string,
+  v1Members: readonly string[],
+): string[] {
+  const members = [...v1Members];
+  if (name === GAINED_NO_INFORMATION) members.unshift("No information");
+  for (const added of DELIBERATE_ADDITIONS[name] ?? []) {
+    // SMR sits before "Other …", matching how every other enum keeps its
+    // catch-all last; the rest append.
+    const other = members.findIndex((m) => m.startsWith("Other "));
+    if (added === "SMR" && other !== -1) members.splice(other, 0, added);
+    else members.push(added);
+  }
+  if (!WIDEST_ON_BOTH_AXES.has(name)) members.push(SCOPE_SENTINEL);
+  return members;
+}
+
+const kf2 = prop(v2, "keyFeatures", "v2");
+const kf1 = prop(v1, "keyFeatures", "v1");
+
+/** The v2 field schema (the array), and the scoped entry inside it. */
+const field = (name: string): JsonSchema => prop(kf2, name, "v2.keyFeatures");
+const entry = (name: string): JsonSchema =>
+  items(field(name), `v2.keyFeatures.${name}`);
+const entryValue = (name: string): JsonSchema =>
+  prop(entry(name), "value", `v2.keyFeatures.${name}.items`);
+
+describe("pathwayMetadata.v2 sectors[].segments (#858)", () => {
+  const sectorEntry = items(prop(v2, "sectors", "v2"), "v2.sectors");
+
+  it("nests segments inside sectors[] rather than keying them separately", () => {
+    // The cookbook writes this variable sector-keyed -- "Power: [Power
+    // generation; Energy storage]" -- and sitting inside sectors[] alongside
+    // technologies *is* that keying, so there is no second mechanism.
+    expect(Object.keys(props(sectorEntry, "v2.sectors.items")).sort()).toEqual([
+      "name",
+      "segments",
+      "technologies",
+    ]);
+    const segments = prop(sectorEntry, "segments", "v2.sectors.items");
+    expect(segments.type).toBe("array");
+    expect(segments.uniqueItems).toBe(true);
+    expect(items(segments, "segments").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+    );
+  });
+
+  it("leaves segments optional, unlike technologies", () => {
+    // Only three of fifteen sectors have segments defined, and an absent list
+    // means "not recorded" where [] would claim the pathway covers none.
+    expect([...(sectorEntry.required ?? [])].sort()).toEqual([
+      "name",
+      "technologies",
+    ]);
+  });
+});
+
+describe("pathwayMetadata.v2 keyFeatures — field set", () => {
+  it("declares exactly the 11 fields, and the same ones as v1", () => {
+    expect(Object.keys(props(kf2, "v2.keyFeatures"))).toEqual([
+      ...KEY_FEATURE_FIELDS,
+    ]);
+    expect(Object.keys(props(kf2, "v2.keyFeatures"))).toEqual(
+      Object.keys(props(kf1, "v1.keyFeatures")),
+    );
+  });
+
+  it("requires all 11 and forbids extras", () => {
+    expect([...(kf2.required ?? [])].sort()).toEqual(
+      [...KEY_FEATURE_FIELDS].sort(),
+    );
+    expect(kf2.additionalProperties).toBe(false);
+  });
+});
+
+describe("pathwayMetadata.v2 keyFeatures — the wrapper is identical everywhere", () => {
+  it.each(KEY_FEATURE_FIELDS)(
+    "%s is a uniqueItems array with a description",
+    (name) => {
+      const f = field(name);
+      expect(f.type).toBe("array");
+      expect(f.uniqueItems).toBe(true);
+      // No minItems: an empty array is the legal "absent at every scope" state.
+      expect(f.minItems).toBeUndefined();
+      expect(typeof f.description).toBe("string");
+      expect(f.description?.endsWith(".")).toBe(true);
+    },
+  );
+
+  it.each(KEY_FEATURE_FIELDS)(
+    "%s entries are closed {sector, geography, value}",
+    (name) => {
+      const e = entry(name);
+      expect(e.type).toBe("object");
+      expect(Object.keys(props(e, name)).sort()).toEqual([
+        "geography",
+        "sector",
+        "value",
+      ]);
+      expect([...(e.required ?? [])].sort()).toEqual([
+        "geography",
+        "sector",
+        "value",
+      ]);
+      expect(e.additionalProperties).toBe(false);
+    },
+  );
+
+  it("every field's sector and geography subschemas are byte-identical", () => {
+    // The whole point of the guard: one field drifting is the failure mode a
+    // shared $ref would have made impossible.
+    const scopes = KEY_FEATURE_FIELDS.map((name) =>
+      JSON.stringify({
+        sector: prop(entry(name), "sector", name),
+        geography: prop(entry(name), "geography", name),
+      }),
+    );
+    expect(new Set(scopes).size).toBe(1);
+  });
+
+  it("points sector and geography at the v2 scope subschemas", () => {
+    const e = entry("emissionsTrajectory");
+    expect(prop(e, "sector", "sector").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/scopeSector.v2.json",
+    );
+    expect(prop(e, "geography", "geography").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/scopeGeography.v2.json",
+    );
+    // Without the tsType hints the generator inlines the unions per field
+    // instead of importing the named types.
+    expect(prop(e, "sector", "sector").tsType).toContain("ScopeSectorV2");
+    expect(prop(e, "geography", "geography").tsType).toContain(
+      "ScopeGeographyV2",
+    );
+  });
+});
+
+describe("pathwayMetadata.v2 keyFeatures — values carry over from v1", () => {
+  it.each(KEY_FEATURE_FIELDS)("%s value enum matches v1", (name) => {
+    const v2Value = entryValue(name);
+    const v1Value = prop(kf1, name, "v1.keyFeatures");
+
+    if (name === "emissionsScope") {
+      // v1 is a bare $ref to the shared gas vocabulary. v2 composes that same
+      // $ref with the scope sentinel, rather than appending a member to the
+      // common schema, which pathwayTimeseries.v1 also $refs — see the
+      // field's own $comment.
+      const branches = v2Value.anyOf ?? [];
+      expect(branches).toHaveLength(2);
+      expect(branches[0].$ref).toBe(v1Value.$ref);
+      expect(enumOf(branches[1], "emissionsScope sentinel")).toEqual([
+        SCOPE_SENTINEL,
+      ]);
+      return;
+    }
+
+    if (ARRAY_VALUED.has(name)) {
+      // The v1 array becomes one entry's value, not one entry per member.
+      expect(v2Value.type).toBe("array");
+      expect(v2Value.uniqueItems).toBe(v1Value.uniqueItems);
+      expect(v2Value.minItems).toBe(v1Value.minItems);
+      const v1Members = enumOf(items(v1Value, name), name);
+      expect(enumOf(items(v2Value, name), name)).toEqual(
+        expectedV2Members(name, v1Members),
+      );
+      return;
+    }
+
+    expect(v2Value.type).toBe("string");
+    expect(enumOf(v2Value, name)).toEqual(
+      expectedV2Members(name, enumOf(v1Value, name)),
+    );
+  });
+
+  it("gives the scope sentinel to every field the cookbook says takes it", () => {
+    // The rule is "widest only on either axis", so the two fields that are
+    // widest + all in-scope on *both* axes are the only ones without it. Stated
+    // here as its own assertion because it is the whole point of decision 0023
+    // and a silent omission would just read as a missing enum member.
+    for (const name of KEY_FEATURE_FIELDS) {
+      const value = entryValue(name);
+      const members =
+        value.enum ??
+        value.items?.enum ??
+        value.anyOf?.flatMap((b) => b.enum ?? []) ??
+        [];
+      const takesIt = !WIDEST_ON_BOTH_AXES.has(name);
+      expect(members.includes(SCOPE_SENTINEL), `${name}`).toBe(takesIt);
+    }
+  });
+
+  it('every field offers an explicit "No information" value', () => {
+    // #858: an explicit "No information" terminates the resolver's fallback
+    // chain, as distinct from an absent entry. It only works if every field can
+    // express it — policyTypes is the one v1 field that could not.
+    for (const name of KEY_FEATURE_FIELDS) {
+      const value = entryValue(name);
+      // emissionsScope holds its enum in the common subschema it $refs, so follow
+      // the reference rather than skipping the field — skipping would let this
+      // test pass while the one $ref'd field quietly lost the value.
+      let options: string[];
+      if (value.enum) {
+        options = value.enum;
+      } else if (value.items?.enum) {
+        options = value.items.enum;
+      } else if (value.anyOf) {
+        // emissionsScope composes the shared gas vocabulary with the scope
+        // sentinel, so "No information" comes from the branch that $refs it.
+        options = value.anyOf.flatMap((branch) =>
+          branch.$ref === emissionsScope.$id
+            ? enumOf(emissionsScope, "emissionsScope.v1")
+            : (branch.enum ?? []),
+        );
+      } else {
+        throw new Error(`${name}: could not resolve a value enum`);
+      }
+      expect(options, `${name} is missing "No information"`).toContain(
+        "No information",
+      );
+    }
+  });
+});
+
+describe("scopeSector.v2 tracks sector.v1", () => {
+  it("is sector.v1's display names plus the across sectors sentinel", () => {
+    const defs = sector.$defs;
+    if (!defs) throw new Error("sector.v1: expected $defs");
+    const sectorNames = enumOf(defs.displayName, "sector.v1.displayName");
+    const scopeNames = enumOf(scopeSector, "scopeSector.v2");
+    expect(scopeNames).toContain("across sectors");
+    expect(
+      [...scopeNames].filter((n) => n !== "across sectors").sort(),
+    ).toEqual([...sectorNames].sort());
+  });
+});
+
+/**
+ * #870's dataAvailability. The interesting properties are structural: that it is
+ * optional (authoring is incremental), that the row shape is closed, and that its
+ * vocabularies are `$ref`s rather than copies — the drift this file exists to
+ * catch is a vocabulary spelled out twice.
+ */
+describe("pathwayMetadata.v2 dataAvailability", () => {
+  const da = prop(v2, "dataAvailability", "v2");
+  const byMetric = prop(da, "byMetric", "v2.dataAvailability");
+  const row = items(byMetric, "v2.dataAvailability.byMetric");
+  const rowProp = (name: string) =>
+    prop(row, name, "v2.dataAvailability.byMetric.items");
+
+  it("is optional — a pathway without it is still valid", () => {
+    expect(v2.required ?? []).not.toContain("dataAvailability");
+  });
+
+  it("requires both halves once present, and admits nothing else", () => {
+    expect([...(da.required ?? [])].sort()).toEqual(["byMetric", "overall"]);
+    expect(da.additionalProperties).toBe(false);
+  });
+
+  it("declares every row field as required, and admits nothing else", () => {
+    const expected = [
+      "dataFormat",
+      "geography",
+      "granularity",
+      "metricName",
+      "scopeLimitations",
+      "sector",
+      "sectorSegment",
+      "timeResolution",
+    ];
+    expect([...Object.keys(props(row, "row"))].sort()).toEqual(expected);
+    expect([...(row.required ?? [])].sort()).toEqual(expected);
+    expect(row.additionalProperties).toBe(false);
+  });
+
+  it("dedupes rows structurally as far as the schema can", () => {
+    // uniqueItems only catches wholly identical rows; two rows sharing a scope
+    // and differing elsewhere are caught by validateScopedEntries instead.
+    expect(byMetric.uniqueItems).toBe(true);
+  });
+
+  it("refs the shared vocabularies instead of restating them", () => {
+    const refs: Record<string, string> = {
+      // NOT metric.v1: the availability row key is its own cookbook variable,
+      // which register item D16 settles as legitimately different from the
+      // pathway-level `metric`. Pinned here because pointing this back at
+      // metric.v1 is the regression that would silently re-narrow it to five
+      // Power metrics.
+      metricName: "common/dataAvailabilityMetric.v1.json#/$defs/displayName",
+      sector: "common/sector.v1.json#/$defs/displayName",
+      timeResolution: "common/dataAvailability.v1.json#/$defs/timeResolution",
+      dataFormat: "common/dataAvailability.v1.json#/$defs/dataFormat",
+    };
+    for (const [name, suffix] of Object.entries(refs)) {
+      expect(rowProp(name).$ref).toBe(
+        `http://pathways.rmi.org/schema/${suffix}`,
+      );
+    }
+    // sectorSegment is a list, so the $ref is on its items.
+    expect(items(rowProp("sectorSegment"), "sectorSegment").$ref).toBe(
+      "http://pathways.rmi.org/schema/common/sectorSegment.v1.json#/$defs/displayName",
+    );
+  });
+
+  it.each(["geography", "granularity", "sectorSegment"])(
+    "makes %s a non-empty list",
+    (name) => {
+      // All three are Multiple in the cookbook, and real rows use that: the
+      // gold set has `Power generation; Energy storage` in one cell and a
+      // sixteen-token geography coverage cell.
+      const field = rowProp(name);
+      expect(field.type).toBe("array");
+      expect(field.minItems).toBe(1);
+      expect(field.uniqueItems).toBe(true);
+    },
+  );
+
+  it("scopes rows the same way keyFeatures does, so the same helpers apply", () => {
+    // A list here, a single token there -- the cookbook types Geography
+    // coverage as Multiple -- but drawn from the same vocabulary, which is what
+    // lets pathwayScopeOverlaps filter both.
+    expect(items(rowProp("geography"), "geography").$ref).toBe(
+      prop(entry("emissionsTrajectory"), "geography", "kf entry").$ref,
+    );
+  });
+
+  it("retires the vocabularies decision 0021 dropped", () => {
+    // `geographyCoverage`'s Global/Regional/Country class restated, less
+    // precisely, what the geography token list already says. `access` went with
+    // `In tool`: dataFormat describes the source publication only, so there is
+    // no hosted-vs-publisher axis left for a paywall flag to qualify.
+    const defs = dataAvailability.$defs ?? {};
+    expect(Object.keys(defs).sort()).toEqual([
+      "dataFormat",
+      "granularityBreakdown",
+      "timeResolution",
+    ]);
+    for (const retired of ["geographyCoverage", "access"]) {
+      expect(Object.keys(props(row, "row"))).not.toContain(retired);
+    }
+  });
+
+  it("uses the plain sector enum, not scopeSector — there is no across sectors row", () => {
+    // Availability describes a concrete dataset, so the across sectors sentinel
+    // would have nothing to resolve to.
+    expect(rowProp("sector").$ref).not.toContain("scopeSector");
+    expect(enumOf(scopeSector, "scopeSector.v2")).toContain("across sectors");
+  });
+
+  it("draws granularity from technology.v1 and the breakdown vocabulary", () => {
+    // Two sources because the cookbook's granularity is conditional on
+    // (sector, metric): breakdown metrics list technologies, emissions metrics
+    // list a scope. Which applies to which is validateScopedEntries' job.
+    const granularity = rowProp("granularity");
+    expect(granularity.uniqueItems).toBe(true);
+    const branches = items(granularity, "granularity").anyOf ?? [];
+    expect(branches.map((b) => b.$ref)).toEqual([
+      "http://pathways.rmi.org/schema/common/technology.v1.json#/$defs/displayName",
+      "http://pathways.rmi.org/schema/common/dataAvailability.v1.json#/$defs/granularityBreakdown",
+    ]);
+  });
+
+  it.each(["geography", "granularity"])(
+    "makes %s a non-empty list rather than nullable",
+    (name) => {
+      // The cookbook replaces null with two distinct sentinels -- Unspecified
+      // (the pathway does not say) and Not covered (the pair is not covered) --
+      // which a bare null cannot tell apart.
+      const field = rowProp(name);
+      expect(field.type).toBe("array");
+      expect(field.minItems).toBe(1);
+    },
+  );
+
+  it("caps the free-text fields", () => {
+    const limitations = rowProp("scopeLimitations");
+    // Not nullable, for the same reason: "Unspecified" and "Not covered" are
+    // authored strings here.
+    expect(limitations.type).toBe("string");
+    expect(limitations.minLength).toBe(1);
+    expect(limitations.maxLength).toBe(500);
+    // `overall` stays nullable: it summarises the pathway, not a metric, so it
+    // has no (sector, metric) pair to be uncovered for.
+    expect(prop(da, "overall", "v2.dataAvailability").type).toEqual([
+      "string",
+      "null",
+    ]);
+  });
+});

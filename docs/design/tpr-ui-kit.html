@@ -1,0 +1,5186 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <title>Pathways UI Kit</title>
+    <style>
+      /* ============ TOKENS ============ */
+      :root {
+        --bg: #f4f7f9;
+        --surface: #ffffff;
+        --surface-2: #ecf1f4;
+        --border: #e4e9ee;
+        --border-strong: #d6dde2;
+        --text: #1d2328;
+        --text-muted: #646e77;
+        --text-faint: #86929d;
+        --accent: #45cfcc;
+        --accent-ink: #003b63;
+        --accent-deep: #118280;
+        --code-bg: #ecf1f4;
+        --code-text: #003b63;
+        --stage-bg: #eef2f5; /* fixed neutral stage so product colors always read true */
+        --shadow-card:
+          0 1px 3px 0 rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+
+        /* product tokens, copied verbatim from src/index.css */
+        --color-bluespruce: #003b63;
+        --color-energy: #45cfcc;
+        --color-basalt: #58595b;
+        --color-energy-100: #b6f2f1;
+        --color-energy-400: #7be8e6;
+        --color-energy-700: #2ab5b2;
+        --color-energy-800: #118280;
+        --color-success-400: #5ce5a1;
+        --color-success-600: #00cc66;
+        --color-success-800: #00994d;
+        --color-error-400: #f7988b;
+        --color-error-600: #df4e39;
+        --color-error-800: #ab3c2c;
+        --color-neutral-50: #f4f7f9;
+        --color-neutral-100: #ecf1f4;
+        --color-neutral-200: #e4e9ee;
+        --color-neutral-300: #d6dde2;
+        --color-neutral-400: #bdc9d3;
+        --color-neutral-500: #b3bcc5;
+        --color-neutral-600: #86929d;
+        --color-neutral-700: #646e77;
+        --color-neutral-800: #3b444d;
+        --color-neutral-900: #1d2328;
+        --color-slate: #92aec5;
+        --color-pine: #135908;
+        --color-donate: #00cc66;
+        --color-solar: #ffcb00;
+        --color-deficient: #e04d39;
+        --color-coal: #323232;
+        --color-calm: #e1e6f0;
+        --color-solar-100: #ffeda9;
+        --color-solar-200: #ffe480;
+        --color-solar-400: #ffdd00;
+        --color-solar-800: #c85c19;
+        --color-pinishgreen-100: #b2e6b2;
+        --color-pinishgreen-200: #99d699;
+        --color-pinishgreen-400: #408026;
+        --color-pinishgreen-800: #11431b;
+        --color-rmipurple-100: #c7c4e2;
+        --color-rmipurple-200: #a59fce;
+        --color-rmipurple-400: #7b76ad;
+        --color-rmipurple-800: #3e3969;
+        --color-rmiblue-100: #c9e3f0;
+        --color-rmiblue-200: #9bcce3;
+        --color-rmiblue-400: #529cba;
+        --color-rmiblue-800: #005d7f;
+        --color-rmired-100: #eec7b7;
+        --color-rmired-200: #df897b;
+        --color-rmired-400: #c4151c;
+        --color-rmired-800: #790000;
+        --color-rmipink-100: #f0c9de;
+        --color-rmipink-200: #e39bc4;
+        --color-rmipink-400: #ba5292;
+        --color-rmipink-800: #7f0053;
+        --color-rmigray-100: #e6e7e8;
+        --color-rmigray-200: #a7a9ac;
+        --color-rmigray-300: #808284;
+        --color-rmigray-400: #58585b;
+        --color-rmigray-500: #414142;
+        --color-rmigray-600: #333333;
+        --color-rmigray-700: #2a2a2b;
+        --color-rmigray-800: #231f20;
+
+        --font-sans:
+          ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        --font-mono:
+          ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+      }
+
+      :root:not([data-theme="light"]) {
+        @media (prefers-color-scheme: dark) {
+          --bg: #1d2328;
+          --surface: #262d33;
+          --surface-2: #2c343b;
+          --border: #3b444d;
+          --border-strong: #4a545c;
+          --text: #f4f7f9;
+          --text-muted: #bdc9d3;
+          --text-faint: #86929d;
+          --accent: #45cfcc;
+          --accent-ink: #7be8e6;
+          --accent-deep: #7be8e6;
+          --code-bg: #2c343b;
+          --code-text: #7be8e6;
+          --stage-bg: #f4f7f9; /* stage stays light even in dark mode: colors must read as they do in the real product */
+          --shadow-card:
+            0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #1d2328;
+        --surface: #262d33;
+        --surface-2: #2c343b;
+        --border: #3b444d;
+        --border-strong: #4a545c;
+        --text: #f4f7f9;
+        --text-muted: #bdc9d3;
+        --text-faint: #86929d;
+        --accent: #45cfcc;
+        --accent-ink: #7be8e6;
+        --accent-deep: #7be8e6;
+        --code-bg: #2c343b;
+        --code-text: #7be8e6;
+        --stage-bg: #f4f7f9;
+        --shadow-card:
+          0 1px 3px 0 rgb(0 0 0 / 0.4), 0 1px 2px -1px rgb(0 0 0 / 0.4);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: var(--font-sans);
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      code,
+      .tag {
+        font-family: var(--font-mono);
+      }
+
+      .tag {
+        display: inline-block;
+        background: var(--code-bg);
+        color: var(--code-text);
+        border-radius: 4px;
+        padding: 2px 7px;
+        font-size: 11.5px;
+        line-height: 1.6;
+        white-space: nowrap;
+      }
+
+      .layout {
+        display: flex;
+        align-items: flex-start;
+        max-width: 1240px;
+        margin: 0 auto;
+      }
+
+      /* ---------- sidebar ---------- */
+      nav.toc {
+        position: sticky;
+        top: 0;
+        align-self: flex-start;
+        width: 232px;
+        flex: none;
+        height: 100vh;
+        overflow-y: auto;
+        padding: 28px 16px 28px 24px;
+        border-right: 1px solid var(--border);
+      }
+      .toc-brand {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        margin-bottom: 22px;
+      }
+      .toc-brand .dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 3px;
+        background: var(--color-energy);
+        box-shadow: 3px 3px 0 var(--color-bluespruce);
+        flex: none;
+      }
+      .toc-brand span {
+        font-weight: 700;
+        font-size: 14.5px;
+        letter-spacing: -0.01em;
+      }
+      .toc-group {
+        margin-bottom: 18px;
+      }
+      .toc-group h6 {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--text-faint);
+        margin: 0 0 6px;
+        font-weight: 700;
+      }
+      .toc-group a {
+        display: block;
+        text-decoration: none;
+        color: var(--text-muted);
+        font-size: 13.5px;
+        padding: 4px 8px;
+        border-radius: 6px;
+        margin: 1px 0;
+      }
+      .toc-group a:hover {
+        background: var(--surface-2);
+        color: var(--text);
+      }
+
+      main {
+        flex: 1;
+        min-width: 0;
+        padding: 40px 48px 120px;
+      }
+
+      .intro {
+        max-width: 720px;
+        margin-bottom: 48px;
+      }
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--accent-deep);
+        margin: 0 0 10px;
+      }
+      .intro h1 {
+        font-size: 34px;
+        letter-spacing: -0.015em;
+        margin: 0 0 14px;
+        text-wrap: balance;
+      }
+      .intro p {
+        color: var(--text-muted);
+        font-size: 15.5px;
+        max-width: 62ch;
+        margin: 0 0 10px;
+      }
+      .intro .meta-row {
+        display: flex;
+        gap: 22px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+        font-size: 13px;
+        color: var(--text-faint);
+      }
+      .intro .meta-row strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+
+      section.block {
+        margin-bottom: 64px;
+        scroll-margin-top: 24px;
+      }
+      section.block > h2 {
+        font-size: 22px;
+        letter-spacing: -0.01em;
+        margin: 0 0 6px;
+      }
+      section.block > .lede {
+        color: var(--text-muted);
+        font-size: 14.5px;
+        max-width: 68ch;
+        margin: 0 0 26px;
+      }
+
+      h3.sub {
+        font-size: 12.5px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--text-faint);
+        margin: 30px 0 12px;
+      }
+      h3.sub:first-of-type {
+        margin-top: 0;
+      }
+
+      /* ---------- swatches ---------- */
+      .swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(168px, 1fr));
+        gap: 12px;
+      }
+      .swatch {
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--surface);
+      }
+      .swatch .chip {
+        height: 62px;
+      }
+      .swatch .meta {
+        padding: 9px 10px 11px;
+      }
+      .swatch .name {
+        font-size: 13px;
+        font-weight: 600;
+        margin: 0 0 2px;
+      }
+      .swatch .hex {
+        font-family: var(--font-mono);
+        font-size: 11px;
+        color: var(--text-faint);
+        margin: 0 0 6px;
+      }
+
+      .ramp {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+      }
+      .ramp > div {
+        height: 58px;
+        position: relative;
+      }
+      .ramp > div span {
+        position: absolute;
+        bottom: 5px;
+        left: 6px;
+        font-family: var(--font-mono);
+        font-size: 10px;
+      }
+      .ramp-caption {
+        display: grid;
+        grid-template-columns: repeat(10, 1fr);
+        margin-top: 6px;
+      }
+      .ramp-caption span {
+        font-size: 10.5px;
+        color: var(--text-faint);
+        text-align: center;
+        font-family: var(--font-mono);
+      }
+
+      /* ---------- component spec cards ---------- */
+      .comp-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 18px;
+      }
+      .comp-card {
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--surface);
+        overflow: hidden;
+        box-shadow: var(--shadow-card);
+      }
+      .comp-card.span2 {
+        grid-column: span 2;
+      }
+      .comp-card .stage {
+        background: var(--stage-bg);
+        padding: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 90px;
+      }
+      .comp-card .stage.align-start {
+        justify-content: flex-start;
+      }
+      .comp-card .stage.tight {
+        padding: 16px 18px;
+      }
+      .comp-card .info {
+        padding: 12px 16px 15px;
+        border-top: 1px solid var(--border);
+      }
+      .comp-card .info h4 {
+        margin: 0 0 3px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .comp-card .info .src {
+        font-size: 11.5px;
+        color: var(--text-faint);
+        margin: 0 0 9px;
+        font-family: var(--font-mono);
+      }
+      .comp-card .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .comp-card .note {
+        margin: 9px 0 0;
+        font-size: 12px;
+        color: var(--text-muted);
+        font-style: italic;
+      }
+
+      /* ---------- rendered component styles: each value mirrors a class in the named source file ---------- */
+      /* DownloadDataset.tsx, PublicationBlock.tsx, PathwaySearch.tsx */
+      .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        background: var(--color-energy);
+        color: #fff;
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-size: 16px; /* no text-* class: inherits the 16px base */
+        line-height: 24px;
+        font-weight: 400;
+        border: none;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .btn-primary:hover {
+        background: var(--color-energy-700);
+      }
+
+      /* PathwayCard.tsx comparison button */
+      .btn-icon {
+        height: 48px;
+        width: 48px;
+        flex: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid var(--color-neutral-200);
+        background: #fff;
+        color: var(--color-rmigray-500);
+        cursor: pointer;
+      }
+      .btn-icon.active {
+        background: var(--color-bluespruce);
+        border-color: var(--color-bluespruce);
+        color: #fff;
+      }
+      .btn-icon.disabled {
+        background: var(--color-neutral-100);
+        border-color: var(--color-neutral-200);
+        color: var(--color-neutral-300);
+        cursor: not-allowed;
+      }
+
+      /* MultiSelectDropdown.tsx: sits in the panel's text-xs header row, no colour of its own */
+      .btn-text {
+        background: none;
+        border: none;
+        text-decoration: underline;
+        font-size: 12px;
+        line-height: 16px;
+        color: #000;
+        cursor: pointer;
+        padding: 0;
+        font-family: inherit;
+      }
+      .btn-text[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      /* Badge.tsx */
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 2px 10px;
+        border-radius: 9999px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 500;
+        border: 1px solid transparent;
+        background: var(--b);
+        color: var(--t);
+        border-color: var(--bd);
+      }
+
+      /* SearchBox.tsx */
+      .search-box {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        max-width: 420px;
+        border-radius: 6px;
+        border: 1px solid var(--color-neutral-300);
+        background: #fff;
+      }
+      .search-box.focused {
+        border-color: var(--color-energy-400);
+        box-shadow: 0 0 0 2px var(--color-energy-100);
+      }
+      .search-box .lead {
+        padding-left: 12px;
+        color: oklch(70.7% 0.022 261.325); /* Tailwind gray-400 */
+        display: flex;
+        flex: none;
+      }
+      .search-box input {
+        border: none;
+        outline: none;
+        padding: 12px;
+        font-size: 16px; /* text-sm below the md breakpoint */
+        line-height: 24px;
+        width: 100%;
+        color: var(--color-rmigray-700);
+        background: transparent;
+        font-family: inherit;
+      }
+      .search-box .clear {
+        background: none;
+        border: none;
+        padding: 0 12px 0 0;
+        display: flex;
+        color: var(--color-rmigray-400);
+        cursor: pointer;
+      }
+
+      /* DropdownFacetShell.tsx */
+      .facet-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 20px;
+        box-shadow:
+          0 1px 3px 0 rgb(0 0 0 / 0.1),
+          0 1px 2px -1px rgb(0 0 0 / 0.1);
+        border: 1px solid oklch(87.2% 0.01 258.338); /* Tailwind gray-300 */
+        background: #fff;
+        color: var(--color-rmigray-800);
+        min-width: 128px;
+        text-align: left;
+        cursor: default;
+      }
+      .facet-pill.active {
+        background: var(--color-energy-100);
+        border-color: var(--color-energy-100);
+        color: var(--color-energy-800);
+      }
+      .facet-pill strong {
+        font-weight: 700;
+      }
+      .facet-pill .icon {
+        margin-left: 8px;
+        height: 20px;
+        width: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+
+      /* DropdownFacetShell.tsx panel + MultiSelectDropdown.tsx list */
+      .facet-panel {
+        border: 1px solid oklch(92.8% 0.006 264.531); /* Tailwind gray-200 */
+        border-radius: 6px;
+        background: #fff;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        min-width: 160px;
+        margin-top: 8px;
+      }
+      .facet-panel .fp-head {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 0 8px 8px;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .facet-panel ul {
+        list-style: none;
+        margin: 0;
+        padding: 8px;
+      }
+      .facet-panel li {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 8px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #000;
+      }
+      .facet-panel .fp-foot {
+        border-top: 1px solid oklch(92.8% 0.006 264.531);
+        padding: 8px;
+        font-size: 12px;
+        line-height: 16px;
+        font-style: italic;
+        color: var(--color-rmigray-500);
+      }
+
+      /* SentimentScale.tsx, NeutralScale.tsx */
+      .scale-row {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        width: 260px;
+      }
+      .scale-row .bar {
+        flex: 1;
+        height: 6px;
+        border-radius: 4px;
+      }
+      .scale-row .bar.sel {
+        height: 12px;
+      }
+      .scale-label {
+        margin-top: 6px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 600;
+      }
+
+      /* NumericRangeSlider.tsx */
+      .num-slider {
+        width: 320px;
+        padding-bottom: 20px;
+      }
+      .num-track {
+        position: relative;
+        height: 8px;
+        border-radius: 4px;
+      }
+      .num-track .fill {
+        position: absolute;
+        inset: 0;
+        border-radius: 4px;
+      }
+      .num-track .cover {
+        position: absolute;
+        top: 0;
+        height: 8px;
+        background: rgb(230 236 239); /* hard-coded in the component */
+      }
+      .num-track .handle {
+        position: absolute;
+        top: -4px;
+        height: 16px;
+        width: 16px;
+        border-radius: 9999px;
+        background: #fff;
+        border: 1px solid var(--color-rmiblue-800);
+        box-shadow:
+          0 0 0 2px var(--color-rmiblue-100),
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+      }
+      .num-track .tick {
+        position: absolute;
+        bottom: -20px;
+        transform: translateX(-50%);
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--color-rmigray-500);
+        white-space: nowrap;
+      }
+
+      /* TextWithTooltip.tsx */
+      .tooltip-demo {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-rmigray-500);
+      }
+      .tooltip-demo .trigger {
+        display: inline-flex;
+        color: var(--color-rmigray-400);
+        cursor: help;
+      }
+      .tooltip-demo .bubble {
+        position: absolute;
+        left: calc(100% + 8px);
+        top: 50%;
+        transform: translateY(-50%);
+        background: #fff;
+        border: 1px solid var(--color-rmigray-100);
+        color: var(--color-rmigray-500);
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 400;
+        padding: 8px 12px;
+        border-radius: 4px;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        width: 260px; /* max-w-xs (320px) in the app */
+        opacity: 0.95;
+      }
+      .tooltip-demo .bubble::before {
+        content: "";
+        position: absolute;
+        left: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 4px solid transparent;
+        border-right-color: var(--color-rmigray-100);
+      }
+
+      /* HighlightedText.tsx */
+      .mark-demo mark {
+        background: var(--color-energy-100);
+        color: var(--color-energy-800);
+        padding: 0 2px;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      /* Header.tsx, HeaderNav.tsx, ResourcesDropdown.tsx */
+      .chrome-bar {
+        background: var(--color-bluespruce);
+        color: #fff;
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        padding: 16px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .chrome-bar .brand {
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 32px;
+        letter-spacing: -0.025em;
+      }
+      .chrome-bar .sub {
+        margin-top: 4px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 20px;
+        color: rgb(255 255 255 / 0.8);
+      }
+      .chrome-bar .logo {
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.04em;
+        color: #fff;
+        border: 1px dashed rgb(255 255 255 / 0.5);
+        padding: 0 4px;
+        line-height: 18px;
+      }
+      .chrome-bar nav {
+        display: flex;
+        gap: 8px;
+      }
+      .chrome-bar nav span {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border-radius: 6px;
+        padding: 8px 12px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        color: rgb(255 255 255 / 0.9);
+      }
+
+      /* Footer.tsx */
+      .foot-chrome {
+        background: var(--color-bluespruce);
+        border-top: 1px solid var(--color-basalt);
+        padding: 32px 16px;
+        width: 100%;
+        color: #fff;
+      }
+      .foot-chrome .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .foot-chrome .left {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+      }
+      .foot-chrome .links {
+        display: flex;
+        align-items: center;
+        gap: 24px;
+        font-size: 14px;
+        line-height: 20px;
+      }
+      .foot-chrome .links span {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .foot-chrome .copy {
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid var(--color-basalt);
+        text-align: center;
+        font-size: 12px;
+        line-height: 16px;
+      }
+      .foot-chrome .logo {
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: 0.04em;
+        border: 1px dashed rgb(255 255 255 / 0.5);
+        padding: 0 4px;
+        line-height: 22px;
+      }
+
+      /* pathway card — each value mirrors a class in src/components/PathwayCard.tsx */
+      .p-card {
+        width: 380px; /* fluid in the app: one cell of the results grid */
+        background: #fff;
+        border-radius: 8px;
+        border: 1px solid var(--color-neutral-200);
+        box-shadow:
+          0 4px 6px -1px rgb(0 0 0 / 0.1),
+          0 2px 4px -2px rgb(0 0 0 / 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .p-card .strip {
+        display: flex;
+        align-items: stretch;
+      }
+      .p-card .strip .name {
+        flex: 1;
+        min-width: 0;
+        background: var(--color-neutral-100);
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+      }
+      .p-card .strip .name span {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: var(--color-rmigray-700);
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .p-card .strip .cells {
+        display: flex;
+        align-items: stretch;
+        height: 44px;
+      }
+      .p-card .strip .temp {
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: var(--color-rmigray-700);
+      }
+      .p-card .strip .nz {
+        padding: 12px 20px;
+        display: flex;
+        align-items: center;
+        background: var(--color-rmiblue-100);
+        min-width: 80px;
+      }
+      .p-card .strip .nz .stack {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .p-card .strip .nz small {
+        font-size: 10px;
+        line-height: 1.25;
+        height: 14px;
+        white-space: nowrap;
+        color: var(--color-rmigray-600);
+      }
+      .p-card .strip .nz .yr {
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: var(--color-rmigray-700);
+      }
+      .p-card .body {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+      }
+      .p-card .head {
+        margin-bottom: 16px;
+      }
+      .p-card h5 {
+        margin: 0 0 8px;
+        font-size: 20px;
+        line-height: 28px;
+        font-weight: 600;
+        color: var(--color-bluespruce);
+      }
+      .p-card p.desc {
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+        color: var(--color-rmigray-600);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .p-card .field {
+        margin-bottom: 12px;
+      }
+      .p-card .field .lab {
+        margin: 0 0 4px;
+        font-size: 12px;
+        line-height: 16px;
+        font-weight: 500;
+        color: var(--color-rmigray-500);
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .p-card .field .lab svg {
+        color: var(--color-rmigray-400);
+      }
+      .p-card .badges {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .p-card .badges .badge {
+        margin: 0 8px 4px 0; /* Badge.tsx spaces badges with mr-2 mb-1 */
+      }
+      .p-card .badges .more {
+        font-size: 12px;
+        color: var(--color-rmigray-500);
+        align-self: center;
+        white-space: nowrap;
+      }
+      .p-card .foot {
+        margin-top: auto;
+        padding-top: 12px;
+        border-top: 1px solid oklch(96.7% 0.003 264.542); /* Tailwind gray-100 */
+      }
+      .p-card .foot .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .p-card .foot .lab2 {
+        margin: 0;
+        font-size: 12px;
+        line-height: 16px;
+        color: var(--color-rmigray-500);
+      }
+      .p-card .foot .val {
+        margin: 0;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 500;
+        color: var(--color-rmigray-800);
+      }
+      .p-card .cta {
+        display: flex;
+        gap: 8px;
+      }
+      .p-card .cta .view {
+        flex: 1;
+        height: 48px;
+        background: var(--color-rmiblue-100);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-bluespruce);
+        font-size: 16px;
+        font-weight: 500;
+      }
+      .p-card .cta .view svg {
+        margin-left: 8px;
+      }
+      .p-card .cta .add {
+        height: 48px;
+        width: 48px;
+        flex: none;
+        background: #fff;
+        border: 1px solid var(--color-neutral-200);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-rmigray-500);
+      }
+
+      /* ---------- v2 additions (RMI/tpr#937) ---------- */
+      .new-pill {
+        display: inline-block;
+        vertical-align: middle;
+        margin-left: 8px;
+        padding: 1px 7px;
+        border-radius: 9999px;
+        font-size: 10.5px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        background: var(--color-rmipink-100);
+        color: var(--color-rmipink-800);
+      }
+      .toc-group a .new-dot {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 9999px;
+        background: var(--color-rmipink-400);
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+
+      .badge.selected {
+        box-shadow:
+          0 0 0 1px #fff,
+          0 0 0 3px var(--color-bluespruce);
+        font-weight: 600;
+      }
+      button.badge {
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      .tablist {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 4px;
+        border-bottom: 1px solid var(--color-neutral-200);
+        width: 100%;
+        background: #fff;
+        padding: 8px 16px 0;
+        border-radius: 8px 8px 0 0;
+      }
+      .tablist button {
+        background: none;
+        border: none;
+        border-bottom: 2px solid transparent;
+        margin-bottom: -1px;
+        padding: 10px 16px;
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-rmigray-600);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .tablist button:hover {
+        color: var(--color-bluespruce);
+        border-bottom-color: var(--color-neutral-300);
+      }
+      .tablist button[aria-selected="true"] {
+        color: var(--color-bluespruce);
+        border-bottom-color: var(--color-bluespruce);
+      }
+      .tablist button.focus-demo {
+        box-shadow:
+          0 0 0 1px #fff,
+          0 0 0 3px var(--color-energy);
+        border-radius: 2px;
+      }
+
+      .axis-label {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: var(--color-rmigray-500);
+      }
+      .axis-toggle {
+        font-size: 10px;
+        text-decoration: underline;
+        color: var(--color-rmigray-500);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .axis-toggle:hover {
+        color: var(--color-bluespruce);
+      }
+
+      .ribbon {
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid var(--color-neutral-200);
+        background: #fff;
+      }
+      .ribbon .condensed {
+        height: 40px;
+        background: var(--color-bluespruce);
+        color: #fff;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+      .ribbon .condensed .t {
+        font-size: 14px;
+        font-weight: 600;
+        flex: 1;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .ribbon .condensed .pills {
+        display: flex;
+        flex: none;
+        overflow: hidden;
+        border-radius: 9999px;
+        background: rgb(236 241 244 / 0.9);
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-rmigray-800);
+        box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
+      }
+      .ribbon .condensed .pills span {
+        padding: 2px 10px;
+        white-space: nowrap;
+      }
+      .ribbon .condensed .pills span + span {
+        border-left: 1px solid rgb(255 255 255 / 0.6);
+      }
+      .ribbon .condensed.cols {
+        height: 32px;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0 24px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .ribbon .axes {
+        background: rgb(255 255 255 / 0.95);
+        padding: 12px 24px 4px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 4px 12px;
+        align-items: start;
+      }
+      .ribbon .axes .lab-cell {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 4px;
+      }
+      .ribbon .axes .vals {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+        padding: 2px 0;
+        align-items: center;
+      }
+      .ribbon .axes .vals .badge,
+      .plot-fig .under .badge,
+      .geo-list .opt .badge,
+      table.data-table .badges .badge {
+        margin: 0 8px 4px 0; /* Badge.tsx: mr-2 mb-1 */
+      }
+      .ribbon .geo-row {
+        padding: 8px 24px 12px;
+      }
+      .ribbon .geo-row .cols {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0 24px;
+        margin-top: 4px;
+      }
+      .ribbon .tablist {
+        border-radius: 0;
+        padding: 8px 24px 0;
+        border-bottom: none;
+        background: transparent;
+      }
+
+      .geo-select {
+        /* ColumnGeographySelect.tsx */
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        border-radius: 6px;
+        border: 1px solid oklch(87.2% 0.01 258.338);
+        background: #fff;
+        padding: 4px 8px;
+        font-size: 12px;
+        color: var(--color-rmigray-800);
+        box-shadow:
+          0 1px 3px 0 rgb(0 0 0 / 0.1),
+          0 1px 2px -1px rgb(0 0 0 / 0.1);
+        font-family: inherit;
+        text-align: left;
+      }
+      .geo-select span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .geo-select[disabled] {
+        background: var(--color-neutral-50);
+        color: var(--color-rmigray-400);
+        cursor: not-allowed;
+      }
+      .geo-list {
+        width: 240px;
+        border: 1px solid oklch(92.8% 0.006 264.531);
+        border-radius: 6px;
+        background: #fff;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        margin-top: 4px;
+      }
+      .geo-list .opts {
+        padding: 4px;
+      }
+      .geo-list .opt {
+        display: flex;
+        padding: 2px 4px;
+        border-radius: 4px;
+      }
+      .geo-list .opt.sel {
+        background: var(--color-neutral-100);
+      }
+      .geo-list .foot {
+        border-top: 1px solid oklch(92.8% 0.006 264.531);
+        padding: 8px;
+        font-size: 12px;
+        font-style: italic;
+        color: var(--color-rmigray-500);
+      }
+
+      .data-table-wrap {
+        width: 100%;
+        overflow-x: auto;
+        border: 1px solid var(--color-neutral-200);
+        border-radius: 8px;
+        background: #fff;
+      }
+      table.data-table {
+        min-width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      table.data-table thead tr {
+        background: var(--color-bluespruce);
+        color: #fff;
+        text-align: left;
+      }
+      table.data-table th,
+      table.data-table td {
+        padding: 8px 12px;
+        vertical-align: top;
+      }
+      table.data-table thead th {
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      table.data-table tbody tr:nth-child(even) {
+        background: var(--color-neutral-50);
+      }
+      table.data-table.deps tbody th {
+        white-space: nowrap;
+      }
+      table.data-table tbody th {
+        text-align: left;
+        font-weight: 500;
+        color: var(--color-rmigray-800);
+      }
+      table.data-table tbody td {
+        color: var(--color-rmigray-700);
+      }
+      table.data-table .badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      .empty-state {
+        width: 100%;
+        border: 1px solid var(--color-neutral-200);
+        border-radius: 8px;
+        background: var(--color-neutral-50);
+        padding: 24px;
+        color: var(--color-rmigray-600);
+        font-size: 14px;
+      }
+      .empty-state p {
+        margin: 0;
+      }
+      .empty-state p + p {
+        margin-top: 8px;
+      }
+      .notice-sm {
+        font-size: 14px;
+        color: var(--color-rmigray-700);
+        margin: 0;
+      }
+      .notice-xs {
+        font-size: 12px;
+        color: var(--color-rmigray-700);
+        margin: 0;
+      }
+
+      .section-panel {
+        width: 100%;
+        background: var(--color-neutral-50);
+        border: 1px solid var(--color-neutral-200);
+        border-radius: 8px;
+        padding: 16px;
+      }
+      .section-panel > h3 {
+        margin: 0 0 12px;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--color-rmigray-800);
+      }
+      .group-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+      .group-card {
+        border: 1px solid var(--color-neutral-200);
+        border-radius: 8px;
+        background: #fff;
+        padding: 16px;
+        min-width: 0;
+      }
+      .group-card h4 {
+        margin: 0 0 12px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        color: var(--color-rmigray-500);
+      }
+      .group-card .item + .item {
+        margin-top: 16px;
+      }
+      .group-card .item-lab {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-rmigray-500);
+        margin: 0 0 6px;
+      }
+      .group-card .item-body {
+        font-size: 14px;
+        color: var(--color-rmigray-700);
+        margin: 0;
+      }
+      .group-card .item-body.absent {
+        font-style: italic;
+        color: var(--color-rmigray-400);
+      }
+
+      .plot-fig {
+        margin: 0;
+        border: 1px solid var(--color-neutral-200);
+        border-radius: 8px;
+        background: #fff;
+        padding: 16px;
+        min-width: 0;
+      }
+      .plot-fig figcaption {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        color: var(--color-rmigray-500);
+        margin-bottom: 12px;
+      }
+      .plot-fig .chart-ph {
+        height: 110px;
+        border-radius: 4px;
+        background: repeating-linear-gradient(
+          135deg,
+          var(--color-neutral-50),
+          var(--color-neutral-50) 8px,
+          var(--color-neutral-100) 8px,
+          var(--color-neutral-100) 16px
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 11px;
+        color: var(--color-rmigray-400);
+        font-family: var(--font-mono);
+      }
+      .plot-fig .chart-empty {
+        height: 128px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-style: italic;
+        color: var(--color-rmigray-400);
+        text-align: center;
+        padding: 0 16px;
+      }
+      .plot-fig .under {
+        margin-top: 4px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0;
+      }
+
+      @media (max-width: 1000px) {
+        .group-grid {
+          grid-template-columns: 1fr;
+        }
+        .comp-card.span2 {
+          grid-column: auto;
+        }
+      }
+
+      pre.code-block {
+        background: var(--code-bg);
+        color: var(--code-text);
+        border-radius: 10px;
+        padding: 18px 20px;
+        overflow-x: auto;
+        font-size: 12.5px;
+        line-height: 1.6;
+        max-height: 340px;
+      }
+
+      .callout {
+        border: 1px solid var(--border);
+        border-left: 3px solid var(--accent);
+        background: var(--surface);
+        border-radius: 0 10px 10px 0;
+        padding: 14px 18px;
+        font-size: 13.5px;
+        color: var(--text-muted);
+      }
+      .callout strong {
+        color: var(--text);
+      }
+
+      .steps {
+        counter-reset: step;
+        display: grid;
+        gap: 12px;
+        margin-top: 14px;
+      }
+      .steps li {
+        list-style: none;
+        display: flex;
+        gap: 12px;
+        font-size: 13.5px;
+        color: var(--text-muted);
+      }
+      .steps li::before {
+        counter-increment: step;
+        content: counter(step);
+        flex: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 9999px;
+        background: var(--surface-2);
+        color: var(--text);
+        font-size: 11.5px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .steps li strong {
+        color: var(--text);
+      }
+
+      @media (max-width: 860px) {
+        nav.toc {
+          display: none;
+        }
+        main {
+          padding: 28px 20px 100px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <nav class="toc">
+        <div class="toc-brand">
+          <span class="dot"></span><span>Pathways UI Kit</span>
+        </div>
+        <div class="toc-group">
+          <h6>Reference</h6>
+          <a href="#overview">Overview</a>
+          <a href="#colors">Color tokens</a>
+          <a href="#typography">Typography</a>
+          <a href="#spacing">Spacing &amp; elevation</a>
+        </div>
+        <div class="toc-group">
+          <h6>Components</h6>
+          <a href="#buttons">Buttons</a>
+          <a href="#badges">Badges</a>
+          <a href="#search">Search box</a>
+          <a href="#dropdown">Filter dropdown</a>
+          <a href="#slider">Range slider</a>
+          <a href="#scales">Sentiment scales</a>
+          <a href="#tooltip">Tooltip &amp; highlight</a>
+          <a href="#card">Pathway card</a>
+          <a href="#chrome">Header &amp; footer</a>
+        </div>
+        <div class="toc-group">
+          <h6>New in v2</h6>
+          <a href="#tabs">Tabs<span class="new-dot"></span></a>
+          <a href="#ribbon">Scope ribbon<span class="new-dot"></span></a>
+          <a href="#tables">Data tables<span class="new-dot"></span></a>
+          <a href="#panels">Section panels<span class="new-dot"></span></a>
+          <a href="#notices"
+            >Notices &amp; empty states<span class="new-dot"></span
+          ></a>
+        </div>
+        <div class="toc-group">
+          <h6>Handoff</h6>
+          <a href="#figma">Using this in Figma</a>
+        </div>
+      </nav>
+
+      <main>
+        <div
+          class="intro"
+          id="overview"
+        >
+          <p class="eyebrow">Transition Pathways Repository · UI reference</p>
+          <h1>Pathways UI Kit</h1>
+          <p>
+            Every color, type size, and reusable interface component currently
+            shipping in the TPR front end, taken from
+            <code>src/index.css</code> and <code>src/components/</code>. Each
+            entry carries the real Tailwind class names and CSS custom
+            properties, so a Figma file built from this stays traceable back to
+            the code that renders it. Colors and class tags are exact; the
+            previews are hand-built and can drift from the code in small ways.
+            Where a preview and its tags disagree, the tags win.
+          </p>
+          <p>
+            Component previews sit on a fixed light stage regardless of the
+            reading theme below, so colors always read exactly as they do in the
+            shipped app.
+          </p>
+          <div
+            class="callout"
+            style="margin-top: 18px"
+          >
+            <strong>Updated for v2.</strong> This edition includes the redesign
+            in
+            <a href="https://github.com/RMI/tpr/pull/937">RMI/tpr#937</a>
+            (<code>epic/v2</code>): a new rose color family, a sector-segment
+            badge, selectable badges, tabbed detail pages, scope ribbons, data
+            tables, and grouped panels. Entries marked
+            <span
+              class="new-pill"
+              style="margin-left: 0"
+              >v2</span
+            >
+            come from that pull request, which was
+            <strong>still open (not merged)</strong> at the time of this
+            snapshot — treat them as the target design, not yet live.
+          </div>
+          <div class="meta-row">
+            <span
+              ><strong>Source</strong> src/index.css, src/components/*.tsx</span
+            >
+            <span><strong>Framework</strong> Tailwind CSS v4</span>
+            <span
+              ><strong>Scope</strong> UI atoms &amp; molecules (charts
+              excluded)</span
+            >
+            <span
+              ><strong>Snapshot</strong> Oct 2026, incl. RMI/tpr#937 — not
+              auto-synced</span
+            >
+          </div>
+        </div>
+
+        <!-- ============ COLORS ============ -->
+        <section
+          class="block"
+          id="colors"
+        >
+          <h2>Color tokens</h2>
+          <p class="lede">
+            Defined once as CSS custom properties in a Tailwind
+            <code>@theme</code> block, then consumed everywhere as utility
+            classes (<span class="tag">bg-energy</span>,
+            <span class="tag">text-rmigray-800</span>, …). Import the hex values
+            below as Figma variables and the two systems stay in lockstep.
+          </p>
+
+          <h3 class="sub">Primary</h3>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-bluespruce)"
+              ></div>
+              <div class="meta">
+                <p class="name">Bluespruce</p>
+                <p class="hex">#003B63</p>
+                <span class="tag">--color-bluespruce</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-energy)"
+              ></div>
+              <div class="meta">
+                <p class="name">Energy</p>
+                <p class="hex">#45CFCC</p>
+                <span class="tag">--color-energy</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-basalt)"
+              ></div>
+              <div class="meta">
+                <p class="name">Basalt</p>
+                <p class="hex">#58595B</p>
+                <span class="tag">--color-basalt</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub">Accent (energy scale)</h3>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-energy-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">energy-100</p>
+                <p class="hex">#B6F2F1</p>
+                <span class="tag">bg-energy-100</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-energy-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">energy-400</p>
+                <p class="hex">#7BE8E6</p>
+                <span class="tag">bg-energy-400</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-energy-700)"
+              ></div>
+              <div class="meta">
+                <p class="name">energy-700</p>
+                <p class="hex">#2AB5B2</p>
+                <span class="tag">bg-energy-700</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-energy-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">energy-800</p>
+                <p class="hex">#118280</p>
+                <span class="tag">bg-energy-800</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub">Semantic — success / error</h3>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-success-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">success-400</p>
+                <p class="hex">#5CE5A1</p>
+                <span class="tag">bg-success-400</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-success-600)"
+              ></div>
+              <div class="meta">
+                <p class="name">success-600</p>
+                <p class="hex">#00CC66</p>
+                <span class="tag">bg-success-600</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-success-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">success-800</p>
+                <p class="hex">#00994D</p>
+                <span class="tag">bg-success-800</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-error-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">error-400</p>
+                <p class="hex">#F7988B</p>
+                <span class="tag">bg-error-400</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-error-600)"
+              ></div>
+              <div class="meta">
+                <p class="name">error-600</p>
+                <p class="hex">#DF4E39</p>
+                <span class="tag">bg-error-600</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-error-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">error-800</p>
+                <p class="hex">#AB3C2C</p>
+                <span class="tag">bg-error-800</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub">
+            Neutral ramp — page backgrounds, borders, disabled states
+          </h3>
+          <div class="ramp">
+            <div style="background: var(--color-neutral-50)">
+              <span style="color: #1d2328">50</span>
+            </div>
+            <div style="background: var(--color-neutral-100)">
+              <span style="color: #1d2328">100</span>
+            </div>
+            <div style="background: var(--color-neutral-200)">
+              <span style="color: #1d2328">200</span>
+            </div>
+            <div style="background: var(--color-neutral-300)">
+              <span style="color: #1d2328">300</span>
+            </div>
+            <div style="background: var(--color-neutral-400)">
+              <span style="color: #1d2328">400</span>
+            </div>
+            <div style="background: var(--color-neutral-500)">
+              <span style="color: #1d2328">500</span>
+            </div>
+            <div style="background: var(--color-neutral-600)">
+              <span style="color: #fff">600</span>
+            </div>
+            <div style="background: var(--color-neutral-700)">
+              <span style="color: #fff">700</span>
+            </div>
+            <div style="background: var(--color-neutral-800)">
+              <span style="color: #fff">800</span>
+            </div>
+            <div style="background: var(--color-neutral-900)">
+              <span style="color: #fff">900</span>
+            </div>
+          </div>
+          <div class="ramp-caption">
+            <span>#F4F7F9</span><span>#ECF1F4</span><span>#E4E9EE</span
+            ><span>#D6DDE2</span><span>#BDC9D3</span><span>#B3BCC5</span
+            ><span>#86929D</span><span>#646E77</span><span>#3B444D</span
+            ><span>#1D2328</span>
+          </div>
+
+          <h3 class="sub">Body text ramp — rmigray</h3>
+          <div
+            class="ramp"
+            style="grid-template-columns: repeat(8, 1fr)"
+          >
+            <div style="background: var(--color-rmigray-100)">
+              <span style="color: #1d2328">100</span>
+            </div>
+            <div style="background: var(--color-rmigray-200)">
+              <span style="color: #1d2328">200</span>
+            </div>
+            <div style="background: var(--color-rmigray-300)">
+              <span style="color: #fff">300</span>
+            </div>
+            <div style="background: var(--color-rmigray-400)">
+              <span style="color: #fff">400</span>
+            </div>
+            <div style="background: var(--color-rmigray-500)">
+              <span style="color: #fff">500</span>
+            </div>
+            <div style="background: var(--color-rmigray-600)">
+              <span style="color: #fff">600</span>
+            </div>
+            <div style="background: var(--color-rmigray-700)">
+              <span style="color: #fff">700</span>
+            </div>
+            <div style="background: var(--color-rmigray-800)">
+              <span style="color: #fff">800</span>
+            </div>
+          </div>
+          <div
+            class="ramp-caption"
+            style="grid-template-columns: repeat(8, 1fr)"
+          >
+            <span>#E6E7E8</span><span>#A7A9AC</span><span>#808284</span
+            ><span>#58585B</span><span>#414142</span><span>#333333</span
+            ><span>#2A2A2B</span><span>#231F20</span>
+          </div>
+
+          <h3 class="sub">Secondary brand set</h3>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-slate)"
+              ></div>
+              <div class="meta">
+                <p class="name">Slate</p>
+                <p class="hex">#92AEC5</p>
+                <span class="tag">bg-slate</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-pine)"
+              ></div>
+              <div class="meta">
+                <p class="name">Pine</p>
+                <p class="hex">#135908</p>
+                <span class="tag">bg-pine</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-donate)"
+              ></div>
+              <div class="meta">
+                <p class="name">Donate</p>
+                <p class="hex">#00CC66</p>
+                <span class="tag">bg-donate</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-solar)"
+              ></div>
+              <div class="meta">
+                <p class="name">Solar</p>
+                <p class="hex">#FFCB00</p>
+                <span class="tag">bg-solar</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-deficient)"
+              ></div>
+              <div class="meta">
+                <p class="name">Deficient</p>
+                <p class="hex">#E04D39</p>
+                <span class="tag">bg-deficient</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-coal)"
+              ></div>
+              <div class="meta">
+                <p class="name">Coal</p>
+                <p class="hex">#323232</p>
+                <span class="tag">bg-coal</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-calm)"
+              ></div>
+              <div class="meta">
+                <p class="name">Calm</p>
+                <p class="hex">#E1E6F0</p>
+                <span class="tag">bg-calm</span>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub">
+            Badge / plotting families — each ships 100 · 200 · 400 · 800 shades
+          </h3>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-solar-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">solar-100</p>
+                <p class="hex">#FFEDA9</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-solar-200)"
+              ></div>
+              <div class="meta">
+                <p class="name">solar-200</p>
+                <p class="hex">#FFE480</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-solar-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">solar-400</p>
+                <p class="hex">#FFDD00</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-solar-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">solar-800</p>
+                <p class="hex">#C85C19</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-pinishgreen-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">pinishgreen-100</p>
+                <p class="hex">#B2E6B2</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-pinishgreen-200)"
+              ></div>
+              <div class="meta">
+                <p class="name">pinishgreen-200</p>
+                <p class="hex">#99D699</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-pinishgreen-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">pinishgreen-400</p>
+                <p class="hex">#408026</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-pinishgreen-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">pinishgreen-800</p>
+                <p class="hex">#11431B</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipurple-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipurple-100</p>
+                <p class="hex">#C7C4E2</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipurple-200)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipurple-200</p>
+                <p class="hex">#A59FCE</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipurple-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipurple-400</p>
+                <p class="hex">#7B76AD</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipurple-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipurple-800</p>
+                <p class="hex">#3E3969</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmiblue-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmiblue-100</p>
+                <p class="hex">#C9E3F0</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmiblue-200)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmiblue-200</p>
+                <p class="hex">#9BCCE3</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmiblue-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmiblue-400</p>
+                <p class="hex">#529CBA</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmiblue-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmiblue-800</p>
+                <p class="hex">#005D7F</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmired-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmired-100</p>
+                <p class="hex">#EEC7B7</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmired-200)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmired-200</p>
+                <p class="hex">#DF897B</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmired-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmired-400</p>
+                <p class="hex">#C4151C</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmired-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmired-800</p>
+                <p class="hex">#790000</p>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub">
+            Rose family — rmipink <span class="new-pill">v2</span>
+          </h3>
+          <p
+            style="
+              font-size: 13px;
+              color: var(--text-muted);
+              max-width: 68ch;
+              margin: -4px 0 12px;
+            "
+          >
+            Added for sector-segment badges, which needed a family no existing
+            one was free to supply. Sits between rmired and rmipurple in hue so
+            it reads as distinct from both. Same four-step structure: 100 fill,
+            200 border, 400 mid, 800 text.
+          </p>
+          <div class="swatch-grid">
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipink-100)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipink-100</p>
+                <p class="hex">#F0C9DE</p>
+                <span class="tag">bg-rmipink-100</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipink-200)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipink-200</p>
+                <p class="hex">#E39BC4</p>
+                <span class="tag">border-rmipink-200</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipink-400)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipink-400</p>
+                <p class="hex">#BA5292</p>
+                <span class="tag">--color-rmipink-400</span>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="background: var(--color-rmipink-800)"
+              ></div>
+              <div class="meta">
+                <p class="name">rmipink-800</p>
+                <p class="hex">#7F0053</p>
+                <span class="tag">text-rmipink-800</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ TYPOGRAPHY ============ -->
+        <section
+          class="block"
+          id="typography"
+        >
+          <h2>Typography</h2>
+          <p class="lede">
+            No brand typeface is defined anywhere in the codebase — no
+            <code>@font-face</code>, no webfont link. Every screen renders on
+            the browser's own system font. That's a real gap, not a hidden
+            setting: worth a deliberate decision, not an assumption.
+          </p>
+
+          <div
+            class="callout"
+            style="margin-bottom: 24px"
+          >
+            <strong>Current stack (unset by design intent):</strong>
+            <code
+              >ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe
+              UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"</code
+            >
+            — Tailwind's default, inherited automatically because
+            <code>tailwind.config.ts</code> never overrides
+            <code>fontFamily</code>.
+          </div>
+
+          <h3 class="sub">Type scale in use</h3>
+          <div
+            class="comp-card"
+            style="margin-bottom: 28px"
+          >
+            <div style="padding: 22px 24px">
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-5xl</span
+                ><span style="font-size: 48px; line-height: 1; font-weight: 700"
+                  >Pathways</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >48 / 48</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-4xl</span
+                ><span style="font-size: 36px; font-weight: 700">Pathways</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >36 / 40</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-3xl</span
+                ><span style="font-size: 30px; font-weight: 700">Pathways</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >30 / 36</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-2xl</span
+                ><span style="font-size: 24px; font-weight: 600">Pathways</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >24 / 32</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-xl</span
+                ><span style="font-size: 20px; font-weight: 600">Pathways</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >20 / 28</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-lg</span
+                ><span style="font-size: 18px; font-weight: 500">Pathways</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >18 / 28</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-base</span
+                ><span style="font-size: 16px">Pathways Repository</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >16 / 24</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-sm</span
+                ><span style="font-size: 14px">Pathways Repository</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >14 / 20</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                  border-bottom: 1px solid var(--border);
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-xs</span
+                ><span style="font-size: 12px">Pathways Repository</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >12 / 16</span
+                >
+              </div>
+              <div
+                style="
+                  display: flex;
+                  align-items: baseline;
+                  gap: 16px;
+                  padding: 9px 0;
+                "
+              >
+                <span
+                  class="tag"
+                  style="width: 78px; flex: none"
+                  >text-[10px]</span
+                ><span
+                  style="
+                    font-size: 10px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                  "
+                  >Sector · Geography</span
+                ><span class="new-pill">v2</span
+                ><span
+                  style="
+                    margin-left: auto;
+                    color: var(--text-faint);
+                    font-size: 12px;
+                  "
+                  >10 / —</span
+                >
+              </div>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-faint);
+                  margin: 6px 0 0;
+                "
+              >
+                The 10px size is an arbitrary Tailwind value, not a theme token.
+                It is used only for scope-axis labels (with
+                <code>uppercase tracking-wider font-semibold</code>) and their
+                "Show all" control. Exported as <code>fontSize.2xs</code> in the
+                token file.
+              </p>
+            </div>
+          </div>
+
+          <h3 class="sub">Weights in use</h3>
+          <div style="display: flex; gap: 28px; flex-wrap: wrap">
+            <div>
+              <span style="font-size: 20px; font-weight: 400">Aa</span>
+              <div
+                class="tag"
+                style="margin-top: 6px"
+              >
+                font-normal · 400
+              </div>
+            </div>
+            <div>
+              <span style="font-size: 20px; font-weight: 500">Aa</span>
+              <div
+                class="tag"
+                style="margin-top: 6px"
+              >
+                font-medium · 500
+              </div>
+            </div>
+            <div>
+              <span style="font-size: 20px; font-weight: 600">Aa</span>
+              <div
+                class="tag"
+                style="margin-top: 6px"
+              >
+                font-semibold · 600
+              </div>
+            </div>
+            <div>
+              <span style="font-size: 20px; font-weight: 700">Aa</span>
+              <div
+                class="tag"
+                style="margin-top: 6px"
+              >
+                font-bold · 700
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SPACING & ELEVATION ============ -->
+        <section
+          class="block"
+          id="spacing"
+        >
+          <h2>Spacing &amp; elevation</h2>
+          <p class="lede">
+            Also Tailwind defaults (a 4px base unit) — flagged here because
+            components lean on a small, consistent subset of the radius and
+            shadow scale.
+          </p>
+
+          <h3 class="sub">Corner radius</h3>
+          <div style="display: flex; gap: 18px; flex-wrap: wrap">
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  background: var(--color-energy-100);
+                  border-radius: 4px;
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                rounded-sm · 4px
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  background: var(--color-energy-100);
+                  border-radius: 6px;
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                rounded-md · 6px
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  background: var(--color-energy-100);
+                  border-radius: 8px;
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                rounded-lg · 8px
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 72px;
+                  height: 72px;
+                  background: var(--color-energy-100);
+                  border-radius: 9999px;
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                rounded-full
+              </div>
+            </div>
+          </div>
+
+          <h3 class="sub">Elevation</h3>
+          <div
+            style="
+              display: flex;
+              gap: 24px;
+              flex-wrap: wrap;
+              background: var(--stage-bg);
+              padding: 28px;
+              border-radius: 12px;
+            "
+          >
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 96px;
+                  height: 64px;
+                  background: #fff;
+                  border-radius: 8px;
+                  box-shadow:
+                    0 1px 3px 0 rgb(0 0 0/0.1),
+                    0 1px 2px -1px rgb(0 0 0/0.1);
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                shadow-sm
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 96px;
+                  height: 64px;
+                  background: #fff;
+                  border-radius: 8px;
+                  box-shadow:
+                    0 4px 6px -1px rgb(0 0 0/0.1),
+                    0 2px 4px -2px rgb(0 0 0/0.1);
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                shadow-md
+              </div>
+            </div>
+            <div style="text-align: center">
+              <div
+                style="
+                  width: 96px;
+                  height: 64px;
+                  background: #fff;
+                  border-radius: 8px;
+                  box-shadow:
+                    0 10px 15px -3px rgb(0 0 0/0.1),
+                    0 4px 6px -4px rgb(0 0 0/0.1);
+                "
+              ></div>
+              <div
+                class="tag"
+                style="margin-top: 8px"
+              >
+                shadow-lg
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ COMPONENTS ============ -->
+
+        <section
+          class="block"
+          id="buttons"
+        >
+          <h2>Buttons &amp; actions</h2>
+          <p class="lede">
+            Three action patterns cover the whole app: a filled primary button,
+            a bordered icon toggle (comparison tray), and an underlined text
+            action (dropdown menus and scope axes).
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="stage">
+                <button class="btn-primary">Download</button>
+              </div>
+              <div class="info">
+                <h4>Primary button</h4>
+                <p class="src">
+                  DownloadDataset.tsx · PublicationBlock.tsx · PathwaySearch.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag">bg-energy</span
+                  ><span class="tag">hover:bg-energy-700</span
+                  ><span class="tag">text-white</span
+                  ><span class="tag">rounded-md</span
+                  ><span class="tag">px-4 py-2</span
+                  ><span class="tag">no text size: 16px base</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage"
+                style="gap: 14px"
+              >
+                <button class="btn-icon">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5v14" />
+                  </svg></button
+                ><button class="btn-icon active">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg></button
+                ><button class="btn-icon disabled">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path d="M5 12h14M12 5v14" />
+                  </svg>
+                </button>
+              </div>
+              <div class="info">
+                <h4>Icon toggle — default / added / blocked</h4>
+                <p class="src">PathwayCard.tsx (comparison tray)</p>
+                <div class="tags">
+                  <span class="tag">bg-bluespruce</span
+                  ><span class="tag">border-neutral-200</span
+                  ><span class="tag">h-12 w-12</span>
+                </div>
+                <p class="note">
+                  v2: the disabled look now covers two reasons, each with its
+                  own label and tooltip — "Comparison full (max 3)" or "Cannot
+                  add: no sector in common with your selection". A comparison
+                  needs at least one shared sector.
+                </p>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage"
+                style="gap: 18px"
+              >
+                <button class="btn-text">Select all</button
+                ><button
+                  class="btn-text"
+                  disabled
+                >
+                  Clear
+                </button>
+              </div>
+              <div class="info">
+                <h4>Text action</h4>
+                <p class="src">MultiSelectDropdown.tsx</p>
+                <div class="tags">
+                  <span class="tag">underline</span
+                  ><span class="tag">disabled:opacity-50</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage"
+                style="gap: 18px"
+              >
+                <button class="axis-toggle">Show all</button
+                ><button class="axis-toggle">Show fewer</button>
+              </div>
+              <div class="info">
+                <h4>Compact text action <span class="new-pill">v2</span></h4>
+                <p class="src">ScopeAxisRow.tsx</p>
+                <div class="tags">
+                  <span class="tag">text-[10px] underline</span
+                  ><span class="tag">text-rmigray-500</span
+                  ><span class="tag">hover:text-bluespruce</span
+                  ><span class="tag">focus-visible:ring-bluespruce</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="badges"
+        >
+          <h2>Badges</h2>
+          <p class="lede">
+            One component, sixteen semantic variants keyed to a
+            <code>variant</code> prop — plus a transparent "-pub" style used
+            when a value exists in a publication but has no interactive chart
+            data behind it. In v2 a badge can also be a control: pass
+            <code>buttonProps</code> and it renders as a
+            <code>&lt;button&gt;</code>.
+          </p>
+          <div class="comp-card span2">
+            <div
+              class="stage tight align-start"
+              style="flex-wrap: wrap; gap: 8px"
+            >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmigray-100);
+                  --t: var(--color-rmigray-800);
+                  --bd: var(--color-rmigray-200);
+                "
+                >Default</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmipurple-100);
+                  --t: var(--color-rmipurple-800);
+                  --bd: var(--color-rmipurple-200);
+                "
+                >Normative</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmired-100);
+                  --t: var(--color-rmired-800);
+                  --bd: var(--color-rmired-200);
+                "
+                >1.5°C</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmiblue-100);
+                  --t: var(--color-rmiblue-800);
+                  --bd: var(--color-rmiblue-200);
+                "
+                >2024</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-pinishgreen-800);
+                  --t: var(--color-pinishgreen-100);
+                  --bd: var(--color-pinishgreen-100);
+                "
+                >Global</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-pinishgreen-200);
+                  --t: var(--color-pinishgreen-800);
+                  --bd: var(--color-pinishgreen-800);
+                "
+                >ASEAN</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-pinishgreen-100);
+                  --t: var(--color-pinishgreen-800);
+                  --bd: var(--color-pinishgreen-200);
+                "
+                >Vietnam</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-solar-100);
+                  --t: var(--color-solar-800);
+                  --bd: var(--color-solar-200);
+                "
+                >Power</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmipink-100);
+                  --t: var(--color-rmipink-800);
+                  --bd: var(--color-rmipink-200);
+                "
+                >Power generation</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmipurple-100);
+                  --t: var(--color-rmipurple-800);
+                  --bd: var(--color-rmipurple-200);
+                "
+                >Emissions Intensity</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: var(--color-rmiblue-100);
+                  --t: var(--color-rmiblue-800);
+                  --bd: var(--color-rmiblue-200);
+                "
+                >Key Feature</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: transparent;
+                  --t: var(--color-pinishgreen-800);
+                  --bd: var(--color-pinishgreen-800);
+                "
+                >Global · pub only</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: transparent;
+                  --t: var(--color-pinishgreen-800);
+                  --bd: var(--color-pinishgreen-400);
+                "
+                >ASEAN · pub only</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: transparent;
+                  --t: var(--color-pinishgreen-800);
+                  --bd: var(--color-pinishgreen-400);
+                "
+                >Vietnam · pub only</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: transparent;
+                  --t: var(--color-solar-800);
+                  --bd: var(--color-solar-400);
+                "
+                >Power · pub only</span
+              >
+              <span
+                class="badge"
+                style="
+                  --b: transparent;
+                  --t: var(--color-rmipurple-800);
+                  --bd: var(--color-rmipurple-400);
+                "
+                >Metric · pub only</span
+              >
+            </div>
+            <div class="info">
+              <h4>Badge variants</h4>
+              <p class="src">
+                Badge.tsx — variant prop: default · pathwayType · temperature ·
+                year · geographyGlobal/Region/Country(-pub) · sector(-pub) ·
+                sectorSegment · metric(-pub) · keyFeature
+              </p>
+              <div class="tags">
+                <span class="tag">rounded-full</span
+                ><span class="tag">px-2.5 py-0.5</span
+                ><span class="tag">text-xs font-medium</span
+                ><span class="tag">border</span>
+              </div>
+              <p class="note">
+                v2: <strong>sectorSegment</strong> is new (<code
+                  >bg-rmipink-100 text-rmipink-800 border-rmipink-200</code
+                >) — a subdivision of a sector such as "Power generation" or
+                "Energy storage", shown beside sector badges so it needs its own
+                color. The region and country "-pub" variants were fixed: they
+                referenced pinishgreen 500/600/700, which don't exist, and
+                rendered blank. Both now use
+                <code>text-pinishgreen-800 border-pinishgreen-400</code>.
+              </p>
+            </div>
+          </div>
+          <div
+            class="comp-card"
+            style="margin-top: 14px; max-width: 520px"
+          >
+            <div class="stage tight align-start">
+              <div
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 6px;
+                  align-items: center;
+                "
+              >
+                <button
+                  class="badge selected"
+                  aria-pressed="true"
+                  style="
+                    --b: var(--color-solar-100);
+                    --t: var(--color-solar-800);
+                    --bd: var(--color-solar-200);
+                  "
+                >
+                  Power
+                </button>
+                <button
+                  class="badge"
+                  aria-pressed="false"
+                  style="
+                    --b: var(--color-solar-100);
+                    --t: var(--color-solar-800);
+                    --bd: var(--color-solar-200);
+                  "
+                >
+                  Transport
+                </button>
+                <button
+                  class="badge"
+                  aria-pressed="false"
+                  style="
+                    --b: var(--color-solar-100);
+                    --t: var(--color-solar-800);
+                    --bd: var(--color-solar-200);
+                  "
+                >
+                  Industry
+                </button>
+              </div>
+            </div>
+            <div class="info">
+              <h4>
+                Selectable badge (toggle) <span class="new-pill">v2</span>
+              </h4>
+              <p class="src">
+                BadgeArray.tsx — <code>selected</code> +
+                <code>onSelect</code> props
+              </p>
+              <div class="tags">
+                <span class="tag">ring-2 ring-bluespruce</span
+                ><span class="tag">ring-offset-1 ring-offset-white</span
+                ><span class="tag">font-semibold</span
+                ><span class="tag">aria-pressed</span>
+              </div>
+              <p class="note">
+                Selection is shown with a ring and bolder text, never a color
+                change — color already says what kind of value the badge is. The
+                selected badge is moved to the front so it can't hide behind "+N
+                more".
+              </p>
+            </div>
+          </div>
+          <div
+            class="comp-card"
+            style="margin-top: 14px; max-width: 420px"
+          >
+            <div class="stage tight align-start">
+              <div
+                style="
+                  display: flex;
+                  flex-wrap: wrap;
+                  gap: 6px;
+                  align-items: center;
+                "
+              >
+                <span
+                  class="badge"
+                  style="
+                    --b: var(--color-pinishgreen-100);
+                    --t: var(--color-pinishgreen-800);
+                    --bd: var(--color-pinishgreen-200);
+                  "
+                  >Vietnam</span
+                >
+                <span
+                  class="badge"
+                  style="
+                    --b: var(--color-pinishgreen-100);
+                    --t: var(--color-pinishgreen-800);
+                    --bd: var(--color-pinishgreen-200);
+                  "
+                  >Thailand</span
+                >
+                <span
+                  class="badge"
+                  style="
+                    --b: var(--color-pinishgreen-100);
+                    --t: var(--color-pinishgreen-800);
+                    --bd: var(--color-pinishgreen-200);
+                  "
+                  >Malaysia</span
+                >
+                <span style="font-size: 12px; color: var(--color-rmigray-500)"
+                  >+4 more</span
+                >
+              </div>
+            </div>
+            <div class="info">
+              <h4>Badge array — overflow</h4>
+              <p class="src">
+                BadgeArray.tsx — measures container width, collapses to "+N
+                more" beyond <code>maxRows</code>
+              </p>
+              <p class="note">
+                v2: the "+N more" tooltip now uses the same display labels as
+                the visible badges (country names, not codes).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="search"
+        >
+          <h2>Search box</h2>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="search-box">
+                  <span class="lead"
+                    ><svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <path d="m21 21-4.3-4.3" /></svg></span
+                  ><input
+                    placeholder="Search pathways..."
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="info"><h4>Resting</h4></div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="search-box focused">
+                  <span class="lead"
+                    ><svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="11"
+                        cy="11"
+                        r="8"
+                      />
+                      <path d="m21 21-4.3-4.3" /></svg></span
+                  ><input
+                    value="IEA net zero"
+                    readonly
+                  /><button
+                    class="clear"
+                    aria-label="Clear"
+                  >
+                    <svg
+                      width="20"
+                      height="20"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Focused, with value</h4>
+                <p class="src">SearchBox.tsx</p>
+                <div class="tags">
+                  <span class="tag">border-neutral-300 → border-energy-400</span
+                  ><span class="tag">ring-2 ring-energy-100</span
+                  ><span class="tag">py-3 px-3 text-sm md:text-base</span
+                  ><span class="tag">icons 20px, text-gray-400</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="dropdown"
+        >
+          <h2>Filter dropdown</h2>
+          <p class="lede">
+            Every search facet (sector, geography, metric, pathway type,
+            temperature) shares one shell: a pill trigger that reserves space
+            for its widest possible label, and a floating panel for the options.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div
+                class="stage"
+                style="gap: 12px; flex-wrap: wrap"
+              >
+                <div class="facet-pill">
+                  <span>Sector...</span
+                  ><span class="icon"
+                    ><svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="m6 9 6 6 6-6" /></svg
+                  ></span>
+                </div>
+                <div class="facet-pill active">
+                  <span>Sector<strong>: 3</strong></span
+                  ><span class="icon"
+                    ><svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <path d="M18 6 6 18M6 6l12 12" /></svg
+                  ></span>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Trigger — inactive / active</h4>
+                <p class="src">
+                  DropdownFacetShell.tsx · v2: open/close shared via
+                  useDropdown; clicking the trigger now toggles
+                </p>
+                <div class="tags">
+                  <span class="tag">px-3 py-2 text-sm rounded-md shadow-sm</span
+                  ><span class="tag">min-w-32</span
+                  ><span class="tag"
+                    >inactive: bg-white border-gray-300 text-rmigray-800</span
+                  ><span class="tag"
+                    >active: bg-energy-100 text-energy-800</span
+                  >
+                </div>
+                <p class="note">
+                  An inactive facet reads "Sector..."; an active one shows its
+                  count in bold. Icons are 16px.
+                </p>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage tight align-start">
+                <div class="facet-panel">
+                  <div class="fp-head">
+                    <span style="display: flex; gap: 12px"
+                      ><button
+                        class="btn-text"
+                        disabled
+                      >
+                        Select all</button
+                      ><button class="btn-text">Clear</button></span
+                    >
+                  </div>
+                  <ul>
+                    <li>
+                      <input
+                        type="checkbox"
+                        checked
+                        readonly
+                      />
+                      Power
+                    </li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        checked
+                        readonly
+                      />
+                      Transport
+                    </li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        checked
+                        readonly
+                      />
+                      Industry
+                    </li>
+                    <li>
+                      <input
+                        type="checkbox"
+                        readonly
+                      />
+                      Buildings
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Open panel</h4>
+                <p class="src">
+                  DropdownFacetShell.tsx · MultiSelectDropdown.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag">rounded-md border-gray-200 shadow-lg</span
+                  ><span class="tag">header: px-2 pb-2 text-xs</span
+                  ><span class="tag">rows: px-2 py-1 text-sm</span>
+                </div>
+                <p class="note">
+                  The panel is at least as wide as its trigger. Some facets add
+                  a "Show pathways matching Any / All selected" toggle at the
+                  top right, or an italic footnote under the list.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="slider"
+        >
+          <h2>Numeric range slider</h2>
+          <p class="lede">
+            Used on the step-by-step guide pages to pick a temperature range.
+            The track is a gradient across the warming bands, and the parts
+            outside the selected range are covered in gray. (The search page's
+            temperature filter uses two number fields instead.)
+          </p>
+          <div class="comp-card">
+            <div
+              class="stage"
+              style="flex-direction: column; align-items: flex-start"
+            >
+              <div class="num-slider">
+                <div class="num-track">
+                  <div
+                    class="fill"
+                    style="
+                      background: linear-gradient(
+                        to right,
+                        #2888c9 0%,
+                        #2888c9 20%,
+                        #91cbf2 40%,
+                        #df4e39 60%,
+                        #df4e39 80%,
+                        #df4e39 100%
+                      );
+                    "
+                  ></div>
+                  <div
+                    class="cover"
+                    style="left: 0; width: 14%; border-radius: 4px 0 0 4px"
+                  ></div>
+                  <div
+                    class="cover"
+                    style="left: 62%; width: 38%; border-radius: 0 4px 4px 0"
+                  ></div>
+                  <div
+                    class="handle"
+                    style="left: calc(14% - 8px)"
+                  ></div>
+                  <div
+                    class="handle"
+                    style="left: calc(62% - 8px)"
+                  ></div>
+                  <span
+                    class="tick"
+                    style="left: 0%"
+                    >1.0°C</span
+                  ><span
+                    class="tick"
+                    style="left: 20%"
+                    >1.5°C</span
+                  ><span
+                    class="tick"
+                    style="left: 40%"
+                    >2.0°C</span
+                  ><span
+                    class="tick"
+                    style="left: 60%"
+                    >2.5°C</span
+                  ><span
+                    class="tick"
+                    style="left: 80%"
+                    >3.0°C</span
+                  ><span
+                    class="tick"
+                    style="left: 100%"
+                    >3.5°C</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <h4>Temperature range — active</h4>
+              <p class="src">
+                NumericRangeSlider.tsx (via StepPageNumericRange.tsx)
+              </p>
+              <div class="tags">
+                <span class="tag">track: h-2 rounded</span
+                ><span class="tag">handles: h-4 w-4 border bg-white</span
+                ><span class="tag"
+                  >active: border-rmiblue-800 ring-2 ring-rmiblue-100
+                  shadow-md</span
+                ><span class="tag">resting: border-rmigray-400 shadow-sm</span
+                ><span class="tag">ticks: text-[12px] text-rmigray-500</span>
+              </div>
+              <p class="note">
+                Gradient colors come from the component: up to 1.5°C #2888C9, up
+                to 2.0°C #91CBF2, above that #DF4E39 (#AB3C2C beyond 3.5°C),
+                with color stops at each half degree. The covers are a
+                hard-coded rgb(230 236 239), not a theme color. Shown with
+                bounds of 1.0–3.5°C.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="scales"
+        >
+          <h2>Sentiment &amp; neutral scales</h2>
+          <p class="lede">
+            Ordinal-value bar charts used on pathway detail pages — bars run
+            unfavorable → favorable (sentiment) or are order-only with no
+            judgment implied (neutral). The selected bar is taller; the label
+            below names it.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div
+                class="stage"
+                style="flex-direction: column; align-items: flex-start"
+              >
+                <div class="scale-row">
+                  <div
+                    class="bar"
+                    style="background: var(--color-rmired-400); opacity: 0.2"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-rmired-200); opacity: 0.2"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-rmired-100); opacity: 0.2"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-500); opacity: 0.2"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-success-400); opacity: 0.2"
+                  ></div>
+                  <div
+                    class="bar sel"
+                    style="background: var(--color-success-600)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-success-800); opacity: 0.2"
+                  ></div>
+                </div>
+                <span
+                  class="scale-label"
+                  style="color: var(--color-success-600)"
+                  >Moderate improvement</span
+                >
+              </div>
+              <div class="info">
+                <h4>Sentiment scale (7-step)</h4>
+                <p class="src">SentimentScale.tsx</p>
+                <div class="tags">
+                  <span class="tag">bars: h-1.5 rounded-sm gap-0.5</span
+                  ><span class="tag">selected: h-3</span
+                  ><span class="tag">others: opacity-20</span
+                  ><span class="tag"
+                    >label: text-xs font-semibold, bar's color</span
+                  >
+                </div>
+                <p class="note">
+                  Palette runs rmired-400 → rmired-200 → rmired-100 →
+                  neutral-500 → success-400 → success-600 → success-800,
+                  reversed when the first value is the good one. Three-step
+                  scales use rmired-400, neutral-500, success-600. "No
+                  information" shows the default badge instead of a label.
+                </p>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage"
+                style="flex-direction: column; align-items: flex-start"
+              >
+                <div class="scale-row">
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar sel"
+                    style="background: var(--color-rmiblue-400)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                  <div
+                    class="bar"
+                    style="background: var(--color-neutral-200)"
+                  ></div>
+                </div>
+                <span
+                  class="scale-label"
+                  style="color: var(--color-rmiblue-400)"
+                  >Current/legislated policies</span
+                >
+              </div>
+              <div class="info">
+                <h4>Neutral scale</h4>
+                <p class="src">NeutralScale.tsx</p>
+                <div class="tags">
+                  <span class="tag">bars: bg-neutral-200</span
+                  ><span class="tag">selected: h-3 bg-rmiblue-400</span
+                  ><span class="tag"
+                    >label: text-xs font-semibold text-rmiblue-400</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="tooltip"
+        >
+          <h2>Tooltip &amp; search highlight</h2>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div
+                class="stage align-start"
+                style="padding-right: 300px; min-height: 150px"
+              >
+                <span class="tooltip-demo"
+                  >Geographies:
+                  <span class="trigger"
+                    ><svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      aria-hidden="true"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                      />
+                      <path d="M12 16v-4M12 8h.01" /></svg></span
+                  ><span class="bubble"
+                    >Filled badges indicate that data is available for
+                    visualization and download in this tool. Outlined badges
+                    indicate the data for this geography is available in the
+                    source publication, but not currently in this tool.</span
+                  ></span
+                >
+              </div>
+              <div class="info">
+                <h4>Tooltip</h4>
+                <p class="src">
+                  TextWithTooltip.tsx — portal-rendered to &lt;body&gt;,
+                  positioned on hover/focus
+                </p>
+                <div class="tags">
+                  <span class="tag">bg-white border-rmigray-100 rounded</span
+                  ><span class="tag">text-xs text-rmigray-500 px-3 py-2</span
+                  ><span class="tag">shadow-lg max-w-xs opacity-95</span
+                  ><span class="tag">arrow: border-4</span>
+                </div>
+                <p class="note">
+                  v2: the trigger can be a button (<code>as="button"</code>,
+                  <code>cursor-pointer</code>) when the tooltipped item is also
+                  a control, such as a selectable badge. The default remains a
+                  focusable span with <code>cursor-help</code>.
+                </p>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage mark-demo">
+                <span style="font-size: 14px"
+                  >IEA <mark>Net Zero</mark> Emissions Scenario</span
+                >
+              </div>
+              <div class="info">
+                <h4>Search match highlight</h4>
+                <p class="src">HighlightedText.tsx</p>
+                <div class="tags">
+                  <span class="tag">bg-energy-100</span
+                  ><span class="tag">text-energy-800</span
+                  ><span class="tag">px-0.5 rounded-sm font-medium</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="card"
+        >
+          <h2>Pathway card</h2>
+          <p class="lede">
+            The flagship composite — every token and component above assembles
+            here. This is the single highest-value component for a designer to
+            have pixel-accurate in Figma, since it repeats on every search
+            result.
+          </p>
+          <div class="comp-card span2">
+            <div class="stage tight align-start">
+              <div class="p-card">
+                <div class="strip">
+                  <div class="name"><span>Normative Pathway</span></div>
+                  <div class="cells">
+                    <div
+                      class="temp"
+                      style="background: var(--color-pinishgreen-100)"
+                    >
+                      1.5°C
+                    </div>
+                    <div class="nz">
+                      <div class="stack">
+                        <small>Net Zero By</small><span class="yr">2050</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="body">
+                  <div class="head">
+                    <h5>IEA: Net Zero Emissions Scenario</h5>
+                    <p class="desc">
+                      A normative IEA scenario mapping a technically feasible
+                      path to net-zero CO₂ emissions from the energy sector by
+                      2050.
+                    </p>
+                  </div>
+                  <div class="field">
+                    <p class="lab">
+                      Geographies:
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path d="M12 16v-4M12 8h.01" />
+                      </svg>
+                    </p>
+                    <div class="badges">
+                      <span
+                        class="badge"
+                        style="
+                          --b: var(--color-pinishgreen-800);
+                          --t: var(--color-pinishgreen-100);
+                          --bd: var(--color-pinishgreen-100);
+                        "
+                        >Global</span
+                      >
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="lab">
+                      Sectors:
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path d="M12 16v-4M12 8h.01" />
+                      </svg>
+                    </p>
+                    <div class="badges">
+                      <span
+                        class="badge"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                        >Power</span
+                      ><span
+                        class="badge"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                        >Transport</span
+                      ><span
+                        class="badge"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                        >Industry</span
+                      ><span class="more">+2 more</span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <p class="lab">
+                      Benchmark Metrics:
+                      <svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path d="M12 16v-4M12 8h.01" />
+                      </svg>
+                    </p>
+                    <div class="badges">
+                      <span
+                        class="badge"
+                        style="
+                          --b: var(--color-rmipurple-100);
+                          --t: var(--color-rmipurple-800);
+                          --bd: var(--color-rmipurple-200);
+                        "
+                        >Emissions Intensity</span
+                      >
+                    </div>
+                  </div>
+                  <div class="foot">
+                    <div class="row">
+                      <div>
+                        <p class="lab2">Publication:</p>
+                        <p class="val">World Energy Outlook 2024</p>
+                      </div>
+                      <div style="text-align: right">
+                        <p class="lab2">Published:</p>
+                        <p class="val">2024</p>
+                      </div>
+                    </div>
+                    <div class="cta">
+                      <div class="view">
+                        View Details<svg
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path d="m9 18 6-6-6-6" />
+                        </svg>
+                      </div>
+                      <div class="add">
+                        <svg
+                          width="18"
+                          height="18"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <path d="M5 12h14M12 5v14" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <h4>Pathway card</h4>
+              <p class="src">PathwayCard.tsx</p>
+              <div class="tags">
+                <span class="tag">rounded-lg border-neutral-200</span
+                ><span class="tag">shadow-md → hover:shadow-lg</span
+                ><span class="tag">strip: px-5 py-3 text-sm uppercase</span
+                ><span class="tag">body: p-5</span
+                ><span class="tag">title: text-xl font-semibold</span
+                ><span class="tag">labels: text-xs font-medium</span
+                ><span class="tag">buttons: h-12 gap-2</span>
+              </div>
+              <p class="note">
+                The temperature cell's color comes from
+                <code>getTemperatureColor</code>: ≤1.5°C pinishgreen-100, ≤2.0
+                solar-100, ≤2.5 solar-200, ≤3.0 rmired-100, ≤3.5 rmired-200,
+                hotter rmired-400. The add-to-comparison button only appears
+                while the comparison tray is open. In the app the card's width
+                is set by the results grid (three columns on wide screens).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="chrome"
+        >
+          <h2>Header &amp; footer</h2>
+          <p class="lede">
+            Both use the RMI logo image (<code>/RMILogo-white.svg</code>); the
+            dashed "RMI" boxes below stand in for it.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="chrome-bar">
+                  <div>
+                    <div class="brand">Transition Pathways Repository</div>
+                    <div class="sub">
+                      Created by <span class="logo">RMI</span>
+                    </div>
+                  </div>
+                  <nav>
+                    <span>Contact Us</span
+                    ><span
+                      >Resources
+                      <span style="color: rgb(255 255 255 / 0.7)">▾</span></span
+                    >
+                  </nav>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Header</h4>
+                <p class="src">
+                  Header.tsx · HeaderNav.tsx · ResourcesDropdown.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag">bg-bluespruce text-white shadow-md</span
+                  ><span class="tag">px-4 py-4</span
+                  ><span class="tag"
+                    >title: text-xl md:text-2xl font-bold tracking-tight</span
+                  ><span class="tag"
+                    >"Created by": text-xs md:text-sm text-white/80</span
+                  ><span class="tag"
+                    >nav: px-3 py-2 text-sm font-semibold text-white/90</span
+                  >
+                </div>
+                <p class="note">
+                  Shown at desktop size. On narrow screens the nav stacks under
+                  the title.
+                </p>
+              </div>
+            </div>
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="foot-chrome">
+                  <div class="row">
+                    <div class="left">
+                      <span class="logo">RMI</span>Transition Pathways
+                      Repository
+                    </div>
+                    <div class="links">
+                      <span>Legal</span
+                      ><span
+                        ><svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          aria-hidden="true"
+                        >
+                          <rect
+                            x="2"
+                            y="4"
+                            width="20"
+                            height="16"
+                            rx="2"
+                          />
+                          <path d="m22 7-10 6L2 7" /></svg
+                        >Give Feedback</span
+                      >
+                    </div>
+                  </div>
+                  <div class="copy">© 2026 RMI. All rights reserved.</div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Footer</h4>
+                <p class="src">Footer.tsx</p>
+                <div class="tags">
+                  <span class="tag">bg-bluespruce border-t border-basalt</span
+                  ><span class="tag">px-4 py-8</span
+                  ><span class="tag">text-sm text-white hover:text-energy</span
+                  ><span class="tag"
+                    >copyright: text-xs, border-t border-basalt mt-4 pt-4</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="tabs"
+        >
+          <h2>Tabs <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            The pathway detail page is now split into four tabs: At a glance,
+            Overview, Timeseries, and Scope &amp; Granularity. The active tab is
+            saved in the URL (<code>?tab=</code>), so a link opens the same tab.
+            Arrow keys, Home, and End move between tabs.
+          </p>
+          <div class="comp-card span2">
+            <div
+              class="stage tight align-start"
+              style="width: 100%"
+            >
+              <div
+                class="tablist"
+                role="tablist"
+                aria-label="Pathway sections"
+              >
+                <button
+                  role="tab"
+                  aria-selected="true"
+                >
+                  At a glance
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                >
+                  Overview
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                >
+                  Timeseries
+                </button>
+                <button
+                  role="tab"
+                  aria-selected="false"
+                  class="focus-demo"
+                >
+                  Scope &amp; Granularity
+                </button>
+              </div>
+            </div>
+            <div class="info">
+              <h4>Tab list — selected / resting / keyboard focus</h4>
+              <p class="src">Tabs.tsx — Tabs + TabPanel + useActiveTab</p>
+              <div class="tags">
+                <span class="tag">px-4 py-2.5 text-sm font-medium</span
+                ><span class="tag">border-b-2</span
+                ><span class="tag"
+                  >selected: border-bluespruce text-bluespruce</span
+                ><span class="tag">resting: text-rmigray-600</span
+                ><span class="tag"
+                  >hover:text-bluespruce hover:border-neutral-300</span
+                ><span class="tag">focus-visible:ring-energy</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ V2: SCOPE RIBBON ============ -->
+        <section
+          class="block"
+          id="ribbon"
+        >
+          <h2>Scope ribbon <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            A sticky bar under the page title that lets readers narrow the page
+            to one sector and one geography. It holds a row of selectable badges
+            per axis and, on the detail page, the tab list. Once the title
+            scrolls away, a slim Bluespruce bar slides in to restate it.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="ribbon">
+                  <div class="condensed">
+                    <span class="t">IEA: Net Zero Emissions Scenario</span>
+                    <span class="pills"
+                      ><span>Normative</span
+                      ><span style="background: var(--color-rmiblue-100)"
+                        >2050</span
+                      ><span style="background: var(--color-pinishgreen-100)"
+                        >1.5°C</span
+                      ></span
+                    >
+                  </div>
+                  <div class="axes">
+                    <div class="lab-cell">
+                      <span class="axis-label">Sector</span
+                      ><button class="axis-toggle">Show all</button>
+                    </div>
+                    <div class="vals">
+                      <button
+                        class="badge selected"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                      >
+                        Power
+                      </button>
+                      <button
+                        class="badge"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                      >
+                        Transport
+                      </button>
+                      <button
+                        class="badge"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                      >
+                        Industry
+                      </button>
+                      <span
+                        style="font-size: 12px; color: var(--color-rmigray-500)"
+                        >+2 more</span
+                      >
+                    </div>
+                    <div class="lab-cell">
+                      <span class="axis-label">Geography</span
+                      ><button class="axis-toggle">Show all</button>
+                    </div>
+                    <div class="vals">
+                      <button
+                        class="badge selected"
+                        style="
+                          --b: var(--color-pinishgreen-800);
+                          --t: var(--color-pinishgreen-100);
+                          --bd: var(--color-pinishgreen-100);
+                        "
+                      >
+                        Global
+                      </button>
+                      <button
+                        class="badge"
+                        style="
+                          --b: var(--color-pinishgreen-200);
+                          --t: var(--color-pinishgreen-800);
+                          --bd: var(--color-pinishgreen-800);
+                        "
+                      >
+                        Southeast Asia
+                      </button>
+                      <button
+                        class="badge"
+                        style="
+                          --b: var(--color-pinishgreen-100);
+                          --t: var(--color-pinishgreen-800);
+                          --bd: var(--color-pinishgreen-200);
+                        "
+                      >
+                        Indonesia
+                      </button>
+                      <span
+                        style="font-size: 12px; color: var(--color-rmigray-500)"
+                        >+12 more</span
+                      >
+                    </div>
+                  </div>
+                  <div class="tablist">
+                    <button aria-selected="true">At a glance</button
+                    ><button aria-selected="false">Overview</button
+                    ><button aria-selected="false">Timeseries</button
+                    ><button aria-selected="false">
+                      Scope &amp; Granularity
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Detail page ribbon — scrolled state</h4>
+                <p class="src">PathwayContextRibbon.tsx · ScopeAxisRow.tsx</p>
+                <div class="tags">
+                  <span class="tag">sticky top-0 z-20</span
+                  ><span class="tag">bg-white/95 backdrop-blur</span
+                  ><span class="tag">border-b border-neutral-200</span
+                  ><span class="tag">condensed: h-10 bg-bluespruce</span
+                  ><span class="tag">grid-cols-[auto_1fr]</span>
+                </div>
+                <p class="note">
+                  Labels use
+                  <code
+                    >text-[10px] font-semibold uppercase tracking-wider
+                    text-rmigray-500</code
+                  >. Each axis always has a value — there's no "clear" state.
+                  The condensed bar's height animates in (200ms) and is skipped
+                  for reduced motion.
+                </p>
+              </div>
+            </div>
+
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="ribbon">
+                  <div class="condensed cols">
+                    <span>IEA NZE</span><span>ACE ATS</span
+                    ><span>NGFS Net Zero</span>
+                  </div>
+                  <div
+                    class="axes"
+                    style="padding-bottom: 0"
+                  >
+                    <div class="lab-cell">
+                      <span class="axis-label">Sector</span>
+                    </div>
+                    <div class="vals">
+                      <button
+                        class="badge selected"
+                        style="
+                          --b: var(--color-solar-100);
+                          --t: var(--color-solar-800);
+                          --bd: var(--color-solar-200);
+                        "
+                      >
+                        Power
+                      </button>
+                    </div>
+                  </div>
+                  <div class="geo-row">
+                    <span
+                      class="axis-label"
+                      style="display: block"
+                      >Geography</span
+                    >
+                    <div class="cols">
+                      <button class="geo-select">
+                        <span>Southeast Asia</span
+                        ><svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          style="flex: none"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </button>
+                      <button class="geo-select">
+                        <span>South East Asia</span
+                        ><svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          style="flex: none"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </button>
+                      <button
+                        class="geo-select"
+                        disabled
+                      >
+                        <span>No geography</span
+                        ><svg
+                          width="14"
+                          height="14"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          style="flex: none"
+                        >
+                          <path d="m6 9 6 6 6-6" />
+                        </svg>
+                      </button>
+                    </div>
+                    <p
+                      class="notice-xs"
+                      style="margin-top: 8px"
+                    >
+                      Publishers do not agree on what Southeast Asia covers:
+                      only IEA NZE includes Timor-Leste. Figures below are not
+                      exactly like-for-like.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Comparison scope header</h4>
+                <p class="src">
+                  ComparisonScopeHeader.tsx · GeographyDivergenceNotice.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag"
+                    >condensed: h-8 bg-bluespruce text-xs font-semibold</span
+                  ><span class="tag">grid-template-columns: repeat(n, 1fr)</span
+                  ><span class="tag">gap-x-6</span>
+                </div>
+                <p class="note">
+                  One shared sector row for all columns. Geography gets one
+                  dropdown per pathway, lined up under its column, because each
+                  publisher names places differently.
+                </p>
+              </div>
+            </div>
+
+            <div class="comp-card">
+              <div
+                class="stage tight align-start"
+                style="flex-direction: column; align-items: flex-start"
+              >
+                <button
+                  class="geo-select"
+                  style="width: 240px"
+                >
+                  <span>Southeast Asia</span
+                  ><svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    style="flex: none"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </button>
+                <div
+                  class="geo-list"
+                  role="listbox"
+                >
+                  <div class="opts">
+                    <div class="opt">
+                      <span
+                        class="badge"
+                        style="
+                          --b: var(--color-pinishgreen-800);
+                          --t: var(--color-pinishgreen-100);
+                          --bd: var(--color-pinishgreen-100);
+                        "
+                        >Global</span
+                      >
+                    </div>
+                    <div class="opt sel">
+                      <span
+                        class="badge"
+                        style="
+                          --b: var(--color-pinishgreen-200);
+                          --t: var(--color-pinishgreen-800);
+                          --bd: var(--color-pinishgreen-800);
+                        "
+                        >Southeast Asia</span
+                      >
+                    </div>
+                    <div class="opt">
+                      <span
+                        class="badge"
+                        style="
+                          --b: transparent;
+                          --t: var(--color-pinishgreen-800);
+                          --bd: var(--color-pinishgreen-400);
+                        "
+                        >Africa</span
+                      >
+                    </div>
+                    <div class="opt">
+                      <span
+                        class="badge"
+                        style="
+                          --b: transparent;
+                          --t: var(--color-pinishgreen-800);
+                          --bd: var(--color-pinishgreen-400);
+                        "
+                        >India</span
+                      >
+                    </div>
+                  </div>
+                  <div class="foot">
+                    Filled badges indicate that data is available for
+                    visualization and download in this tool. Outlined badges
+                    indicate the data for this geography is available in the
+                    source publication, but not currently in this tool.
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Column geography select — open</h4>
+                <p class="src">ColumnGeographySelect.tsx</p>
+                <div class="tags">
+                  <span class="tag">text-xs rounded-md border-gray-300</span
+                  ><span class="tag">selected: bg-neutral-100</span
+                  ><span class="tag">max-h-64 overflow-auto</span
+                  ><span class="tag">shadow-lg</span>
+                </div>
+                <p class="note">
+                  Options reuse the geography badges; outlined ("-pub") ones
+                  have no chart data. The footnote is
+                  <code>GEOGRAPHY_AVAILABILITY_TOOLTIP</code>, the same text as
+                  the Geographies tooltip on the pathway card.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ V2: DATA TABLES ============ -->
+        <section
+          class="block"
+          id="tables"
+        >
+          <h2>Data tables <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            Two new tables share one style: a Bluespruce header row,
+            zebra-striped body, and the first cell styled as a row heading.
+            Columns that would repeat the same value on every row (such as
+            Sector, once a sector is selected) are hidden automatically.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="data-table-wrap">
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Metric</th>
+                        <th>Sector segment</th>
+                        <th>Granularity</th>
+                        <th>Scope limitations</th>
+                        <th>Geography coverage</th>
+                        <th>Time resolution</th>
+                        <th>Data format</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Capacity</th>
+                        <td>
+                          <div class="badges">
+                            <span
+                              class="badge"
+                              style="
+                                --b: var(--color-rmipink-100);
+                                --t: var(--color-rmipink-800);
+                                --bd: var(--color-rmipink-200);
+                                white-space: nowrap;
+                              "
+                              >Power generation</span
+                            >
+                          </div>
+                        </td>
+                        <td>By technology</td>
+                        <td>Utility-scale only</td>
+                        <td>
+                          <div class="badges">
+                            <span
+                              class="badge"
+                              style="
+                                --b: var(--color-pinishgreen-800);
+                                --t: var(--color-pinishgreen-100);
+                                --bd: var(--color-pinishgreen-100);
+                              "
+                              >Global</span
+                            ><span
+                              class="badge"
+                              style="
+                                --b: var(--color-pinishgreen-200);
+                                --t: var(--color-pinishgreen-800);
+                                --bd: var(--color-pinishgreen-800);
+                              "
+                              >Southeast Asia</span
+                            ><span
+                              class="badge"
+                              style="
+                                --b: var(--color-pinishgreen-200);
+                                --t: var(--color-pinishgreen-800);
+                                --bd: var(--color-pinishgreen-800);
+                              "
+                              >Africa</span
+                            ><span
+                              style="
+                                font-size: 12px;
+                                color: var(--color-rmigray-500);
+                                align-self: center;
+                              "
+                              >+18 more</span
+                            >
+                          </div>
+                        </td>
+                        <td>5-year</td>
+                        <td>Excel annex</td>
+                      </tr>
+                      <tr>
+                        <th>Storage</th>
+                        <td>
+                          <div class="badges">
+                            <span
+                              class="badge"
+                              style="
+                                --b: var(--color-rmipink-100);
+                                --t: var(--color-rmipink-800);
+                                --bd: var(--color-rmipink-200);
+                                white-space: nowrap;
+                              "
+                              >Energy storage</span
+                            >
+                          </div>
+                        </td>
+                        <td>Unspecified</td>
+                        <td>Unspecified</td>
+                        <td>Unspecified</td>
+                        <td>Annual</td>
+                        <td>Unspecified</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Data availability table</h4>
+                <p class="src">
+                  DataAvailabilityTable.tsx (Scope &amp; Granularity tab)
+                </p>
+                <div class="tags">
+                  <span class="tag"
+                    >thead: bg-bluespruce text-white font-semibold</span
+                  ><span class="tag">px-3 py-2 text-sm</span
+                  ><span class="tag">even rows: bg-neutral-50</span
+                  ><span class="tag"
+                    >row header: font-medium text-rmigray-800</span
+                  ><span class="tag">cells: text-rmigray-700</span
+                  ><span class="tag">rounded-lg border-neutral-200</span>
+                </div>
+                <p class="note">
+                  Segment and geography cells render as badges (geography shows
+                  3, then "+N more"). Placeholder values — "Not covered",
+                  "Unspecified", "No information" — stay as plain text, and a
+                  "Not covered" row is plain text throughout.
+                </p>
+              </div>
+            </div>
+
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="data-table-wrap">
+                  <table class="data-table deps">
+                    <thead>
+                      <tr>
+                        <th>Dependency</th>
+                        <th>Evidence type</th>
+                        <th>Constraint</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th>Grid expansion</th>
+                        <td>
+                          <span
+                            class="badge"
+                            style="
+                              --b: var(--color-pinishgreen-200);
+                              --t: var(--color-pinishgreen-800);
+                              --bd: var(--color-pinishgreen-800);
+                              white-space: nowrap;
+                            "
+                            >Quantitative</span
+                          >
+                        </td>
+                        <td>Transmission build-out must triple by 2035.</td>
+                      </tr>
+                      <tr>
+                        <th>Critical minerals</th>
+                        <td>
+                          <span
+                            class="badge"
+                            style="
+                              --b: var(--color-rmiblue-100);
+                              --t: var(--color-rmiblue-800);
+                              --bd: var(--color-rmiblue-200);
+                              white-space: nowrap;
+                            "
+                            >Qualitative</span
+                          >
+                        </td>
+                        <td>
+                          Assumes supply chains scale without price shocks.
+                        </td>
+                      </tr>
+                      <tr>
+                        <th>Public acceptance</th>
+                        <td>
+                          <span
+                            class="badge"
+                            style="
+                              --b: var(--color-solar-100);
+                              --t: var(--color-solar-800);
+                              --bd: var(--color-solar-200);
+                              white-space: nowrap;
+                            "
+                            >Anecdotal</span
+                          >
+                        </td>
+                        <td>Siting of new capacity proceeds on schedule.</td>
+                      </tr>
+                      <tr>
+                        <th>CCS availability</th>
+                        <td>
+                          <span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-100);
+                              --t: var(--color-rmigray-600);
+                              --bd: var(--color-neutral-300);
+                              white-space: nowrap;
+                            "
+                            >No evidence</span
+                          >
+                        </td>
+                        <td>Commercial-scale capture available from 2030.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Dependencies table + evidence pills</h4>
+                <p class="src">
+                  DependenciesTable.tsx (Overview tab) — EvidenceBadge,
+                  strongest → weakest
+                </p>
+                <div class="tags">
+                  <span class="tag"
+                    >Quantitative: pinishgreen-200 / 800 / 800</span
+                  ><span class="tag">Qualitative: rmiblue-100 / 800 / 200</span
+                  ><span class="tag">Anecdotal: solar-100 / 800 / 200</span
+                  ><span class="tag"
+                    >No evidence: neutral-100 / rmigray-600 / neutral-300</span
+                  >
+                </div>
+                <p class="note">
+                  Pill colors listed as fill / text / border. The pill shape
+                  matches Badge exactly but is its own component. Row content
+                  above is sample text.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ V2: SECTION PANELS ============ -->
+        <section
+          class="block"
+          id="panels"
+        >
+          <h2>Section panels <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            The page's main content blocks now use one pattern: a light gray
+            panel with a title, holding white cards in a grid. Key features,
+            core drivers, coverage, and plots all follow it, so a tab reads as
+            one system.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="section-panel">
+                  <h3>Assumptions &amp; Trends Overview</h3>
+                  <div class="group-grid">
+                    <div class="group-card">
+                      <h4>Policies</h4>
+                      <div class="item">
+                        <p class="item-lab">Policy drivers</p>
+                        <p class="item-body">
+                          Carbon pricing rises steadily across advanced
+                          economies, with phase-out dates for unabated coal.
+                        </p>
+                      </div>
+                      <div class="item">
+                        <p class="item-lab">Policy types</p>
+                        <div style="display: flex; flex-wrap: wrap">
+                          <span
+                            class="badge"
+                            style="
+                              --b: var(--color-rmiblue-100);
+                              --t: var(--color-rmiblue-800);
+                              --bd: var(--color-rmiblue-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Carbon price</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Feed-in tariffs</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Performance standards</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-rmiblue-100);
+                              --t: var(--color-rmiblue-800);
+                              --bd: var(--color-rmiblue-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Phaseout dates</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Subsidies</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Target technology shares</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Other</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >None</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="group-card">
+                      <h4>Emissions</h4>
+                      <div class="item">
+                        <p class="item-lab">Emissions target (driver)</p>
+                        <p class="item-body absent">
+                          Not a core driver for this pathway.
+                        </p>
+                      </div>
+                      <div class="item">
+                        <p class="item-lab">Emissions scope</p>
+                        <div style="display: flex; flex-wrap: wrap">
+                          <span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >No information</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-rmiblue-100);
+                              --t: var(--color-rmiblue-800);
+                              --bd: var(--color-rmiblue-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2e (Kyoto)</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2e (CO2, Methane)</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >CO2e (unspecified GHGs)</span
+                          ><span
+                            class="badge"
+                            style="
+                              --b: var(--color-neutral-50);
+                              --t: var(--color-neutral-400);
+                              --bd: var(--color-neutral-200);
+                              margin: 0 8px 4px 0;
+                            "
+                            >Other emissions scope</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="group-card">
+                      <h4>Technology</h4>
+                      <div class="item">
+                        <p class="item-lab">Technology cost drivers</p>
+                        <p class="item-body">
+                          Learning rates for solar, wind, and batteries follow
+                          historical trends.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Panel with group cards — Key Features / core drivers</h4>
+                <p class="src">
+                  KeyFeatures.tsx · CoreDrivers.tsx · ComparisonKeyFeatures.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag"
+                    >panel: bg-neutral-50 border-neutral-200 rounded-lg
+                    p-4</span
+                  ><span class="tag"
+                    >title: text-lg font-medium text-rmigray-800</span
+                  ><span class="tag">card: bg-white border rounded-lg p-4</span
+                  ><span class="tag"
+                    >card title: text-xs font-semibold uppercase tracking-wide
+                    text-rmigray-500</span
+                  ><span class="tag"
+                    >grid gap-4 md:grid-cols-2 lg:grid-cols-3</span
+                  ><span class="tag"
+                    >chosen value: bg-rmiblue-100 text-rmiblue-800
+                    border-rmiblue-200</span
+                  ><span class="tag"
+                    >other options: bg-neutral-50 text-neutral-400
+                    border-neutral-200</span
+                  >
+                </div>
+                <p class="note">
+                  Six groups in order: Policies, Emissions, Technology,
+                  Investment, Energy System, Other. Each group shows its written
+                  driver first, then its feature values. A driver marked not
+                  applicable shows "Not a core driver for this pathway." in
+                  <code>italic text-rmigray-400</code>. The At a glance tab
+                  shows only the first three groups. Pick-list features show
+                  every option, with the chosen ones in blue and the rest faded.
+                </p>
+              </div>
+            </div>
+
+            <div class="comp-card span2">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="section-panel">
+                  <h3>Benchmark Plots</h3>
+                  <div
+                    style="
+                      display: grid;
+                      grid-template-columns: repeat(2, minmax(0, 1fr));
+                      gap: 16px;
+                    "
+                  >
+                    <figure class="plot-fig">
+                      <figcaption>Capacity</figcaption>
+                      <div class="chart-ph">chart</div>
+                      <div class="under">
+                        <span
+                          class="badge"
+                          style="
+                            --b: var(--color-pinishgreen-800);
+                            --t: var(--color-pinishgreen-100);
+                            --bd: var(--color-pinishgreen-100);
+                          "
+                          >Global</span
+                        ><span
+                          class="badge"
+                          style="
+                            --b: var(--color-rmipink-100);
+                            --t: var(--color-rmipink-800);
+                            --bd: var(--color-rmipink-200);
+                          "
+                          >Power generation</span
+                        >
+                      </div>
+                    </figure>
+                    <figure class="plot-fig">
+                      <figcaption>Emissions intensity</figcaption>
+                      <div class="chart-empty">
+                        For this pathway, there is currently no data available
+                        for the selected combination of sector, region, and
+                        metric.
+                      </div>
+                      <div class="under">
+                        <span
+                          class="badge"
+                          style="
+                            --b: var(--color-pinishgreen-800);
+                            --t: var(--color-pinishgreen-100);
+                            --bd: var(--color-pinishgreen-100);
+                          "
+                          >Global</span
+                        >
+                      </div>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Plot small multiples</h4>
+                <p class="src">PlotGrid.tsx · PlotPanel.tsx</p>
+                <div class="tags">
+                  <span class="tag">figure: bg-white border rounded-lg p-4</span
+                  ><span class="tag"
+                    >figcaption: text-xs font-semibold uppercase
+                    tracking-wide</span
+                  ><span class="tag">grid-cols-1 lg:grid-cols-2 gap-4</span
+                  ><span class="tag"
+                    >empty: h-32 text-xs italic text-rmigray-400</span
+                  >
+                </div>
+                <p class="note">
+                  One panel per plot type instead of one chart behind a
+                  dropdown. Badges under each chart say which geography and
+                  sector segment it shows. Metrics with no data anywhere are
+                  left out; metrics missing only at this geography keep their
+                  panel with an empty message.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ V2: NOTICES & EMPTY STATES ============ -->
+        <section
+          class="block"
+          id="notices"
+        >
+          <h2>Notices &amp; empty states <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            Plain-text messages that explain what a scope selection is hiding,
+            or why a section is empty. They appear only when something is
+            actually hidden or missing. Clearing a selection is always done in
+            the ribbon, never from these messages.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="stage tight align-start">
+                <p class="notice-sm">
+                  Showing 3 of 8 rows for Power in Southeast Asia.
+                </p>
+              </div>
+              <div class="info">
+                <h4>Scope filter notice</h4>
+                <p class="src">ScopeFilterNotice.tsx</p>
+                <div class="tags">
+                  <span class="tag">mb-4 text-sm text-rmigray-700</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage tight align-start">
+                <p class="notice-xs">
+                  These columns are not showing the same geography: IEA NZE
+                  shows Global and ACE ATS shows South East Asia. Figures below
+                  are not like-for-like.
+                </p>
+              </div>
+              <div class="info">
+                <h4>Geography divergence notice</h4>
+                <p class="src">
+                  GeographyDivergenceNotice.tsx (comparison page)
+                </p>
+                <div class="tags">
+                  <span class="tag">mt-2 text-xs text-rmigray-700</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="empty-state">
+                  <p>
+                    No dependencies have been recorded for this pathway yet.
+                  </p>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Empty state — nothing recorded</h4>
+                <p class="src">
+                  DependenciesTable.tsx · DataAvailabilityTable.tsx
+                </p>
+                <div class="tags">
+                  <span class="tag"
+                    >rounded-lg border-neutral-200 bg-neutral-50</span
+                  ><span class="tag">p-6 text-sm text-rmigray-600</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div
+                class="stage tight align-start"
+                style="width: 100%"
+              >
+                <div class="empty-state">
+                  <p>No dependencies are recorded for Transport.</p>
+                  <p>
+                    This pathway records 4 dependencies in other sectors — clear
+                    the sector selection above to see them.
+                  </p>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Empty state — filtered out</h4>
+                <p class="src">
+                  Same shell, second line explains where the rows went
+                </p>
+                <p class="note">
+                  Kept distinct from "nothing recorded" so the page never says a
+                  pathway has no data when it's only hidden by a selection.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ FIGMA HANDOFF ============ -->
+        <section
+          class="block"
+          id="figma"
+        >
+          <h2>Using this in Figma</h2>
+          <p class="lede">Two ways in, pick based on what you need first.</p>
+
+          <h3 class="sub">Option A — colors &amp; type as Figma variables</h3>
+          <ol class="steps">
+            <li>
+              Install the <strong>Tokens Studio</strong> plugin (free) in Figma.
+            </li>
+            <li>
+              Import <code>tpr-design-tokens.json</code> (in the same folder as
+              this page) as a token set. The block below is a short, valid
+              excerpt showing the format.
+            </li>
+            <li>
+              Use Tokens Studio's "Create Styles/Variables" action to turn every
+              entry into a real Figma color variable and text style, named
+              identically to the CSS tags above.
+            </li>
+          </ol>
+          <pre
+            class="code-block"
+            id="token-json"
+          ><code>{
+  "color": {
+    "bluespruce": { "value": "#003b63", "type": "color" },
+    "energy": { "value": "#45cfcc", "type": "color" },
+    "energy-700": { "value": "#2ab5b2", "type": "color" },
+    "rmigray-800": { "value": "#231f20", "type": "color" }
+  },
+  "fontSize": {
+    "sm": { "value": "14px", "type": "fontSizes" },
+    "base": { "value": "16px", "type": "fontSizes" }
+  },
+  "borderRadius": {
+    "md": { "value": "6px", "type": "borderRadius" },
+    "full": { "value": "9999px", "type": "borderRadius" }
+  }
+}</code></pre>
+          <p
+            style="
+              font-size: 12.5px;
+              color: var(--text-faint);
+              margin-top: -6px;
+            "
+          >
+            The complete file — all 60+ colors, the type scale, weights, radius,
+            and shadow tokens — is <code>tpr-design-tokens.json</code>, in the
+            same folder as this page. Its colors are generated from
+            <code>src/index.css</code> automatically, so they always match the
+            app.
+          </p>
+
+          <h3 class="sub">
+            Option B — component shapes as editable Figma layers
+          </h3>
+          <ol class="steps">
+            <li>
+              Install the <strong>html.to.design</strong> plugin in Figma.
+            </li>
+            <li>
+              Download this file (<code>tpr-ui-kit.html</code>) from the
+              repository, then drop it into the plugin's
+              <strong>File</strong> tab.
+            </li>
+            <li>
+              It converts the rendered badges, cards, buttons, and dropdowns
+              straight into native Figma frames, text, and fills — a real
+              starting point to refine rather than a picture to trace.
+            </li>
+          </ol>
+
+          <div
+            class="callout"
+            style="margin-top: 22px"
+          >
+            <strong>Keeping this from going stale:</strong> the colors in the
+            token file update automatically, but this page is maintained by
+            hand. When a component changes, update this page in the same pull
+            request, then refresh the Figma copy from it rather than editing
+            Figma directly — otherwise the two will quietly drift apart. See
+            <code>docs/design/README.md</code> for what is automatic and what is
+            manual.
+          </div>
+        </section>
+      </main>
+    </div>
+  </body>
+</html>

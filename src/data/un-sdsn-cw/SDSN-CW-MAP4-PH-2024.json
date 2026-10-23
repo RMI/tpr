@@ -1,0 +1,396 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "UNSDSN-CW-MAP4-PH-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.1 & 2.2 Report, Decarbonizing the Philippine Power Sector"
+    },
+    "author": [
+      "Ma. Joy Abrenica",
+      "Justin Chan",
+      "Laarni Escresa",
+      "Kenmore Espinoza",
+      "Karl Jandoc",
+      "Michael Pedrasa",
+      "Penny Laine Sokoken"
+    ],
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/AGF%20-%20Philippines%202.2%20Report%20-%20release.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Most Ambitious Policy Scenario 4",
+    "short": "MAP4 PH"
+  },
+  "description": "Normative PH all-RE pathway minimizing cost excl. externalities; near-zero power by 2060.",
+  "geography": {
+    "country": ["PH"]
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2022,
+  "modelYearEnd": 2060,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage"
+      ]
+    }
+  ],
+  "pathwayDescription": "Normative all-renewable pathway for the Philippine power sector aiming at near-zero emissions by 2060, mirroring MAP2 (no nuclear, accelerated fossil retirement, no new coal or gas, 50 GW offshore wind) but optimised without GHG externality costs. More coal is used in the interim than in MAP2, though power emissions still fall from 50.9 (2020) to about 5 MtCO2e by 2050. Investment is similar to MAP2 at about USD 1,033bn.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "metric": [
+    "Absolute Emissions",
+    "Emissions Intensity",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not Applicable"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": [
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Performance standards",
+          "Other"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": ["Battery storage"]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "By sector"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "MAP imposes accelerated fossil retirement, no new coal/gas beyond committed projects, higher offshore-wind deployment and RE-share targets and the pathway prohibits nuclear and targets an all-RE end state.",
+    "emissionsTargets": "Normative pathway designed for near-zero power-sector emissions by 2060, with no explicit annual cap. The all-RE system reaches it without GHG social costs in the objective, so interim emissions are higher than MAP2's.",
+    "technologyCosts": "Least-cost optimization makes technology capital/O&M/fuel costs a core driver. MAP4 excludes monetized GHG externalities from the objective, allowing more coal use and higher interim emissions than its paired externality case.",
+    "investmentChange": "Total cumulative investment in the power sector reaches USD 1033bn by 2050, but no low carbon breakdown is provided. The amount is similar to MAP2.",
+    "macroeconomicDrivers": "Electricity demand is driven by common macro assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Excluding environmental externalities from the objective is a distinctive scenario-design driver; the resulting system uses more coal and produces higher interim emissions than the paired externality-inclusive pathway."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Critical (Explicit): The ambitious-policy package is a necessary design condition for the all-RE outcome which includes accelerated fossil retirement, no new coal/gas beyond commitments, RE-share floors and 50 GW offshore wind by 2050, with nuclear excluded.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "High (Explicit): The all-RE pathway still requires accelerated retirement of privately owned coal/gas plants and large new RE/storage projects within a market where government cannot directly command investment.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Critical (Quantitative proxy): MAP4 retains the all-RE capital burden, about US$2.193tn cumulative investment and 52.22 US¢/kWh generation cost in 2060, even without externalities in the objective.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Critical (Quantitative proxy): Excluding externalities does not solve the all-RE affordability problem in MAP4: 2050 generation cost is still 35.70 US¢/kWh and rises to 52.22 by 2060.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Critical (Quantitative proxy): MAP4 postpones some all-RE capacity through 2040 but reaches 328.7 GW by 2050 and 518.1 GW by 2060, so large grid/storage system must ultimately be delivered.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "High (Scenario-design inference): MAP4 avoids the externality-driven early build but converges to roughly 519 GW all-RE capacity by 2060, so very large storage/hydro/renewables scaling remains a high technology-execution dependency.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "High (Quantitative proxy): MAP4 builds on-shore wind capacity at a slight lower pace but reaches same level as MAP2 in 2060, close to the reported national wind potential, making resource ceilings a major constraint.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "The scenario provide social costs of environmental damage caused by GHG emissions but did not include it in its optimization model to diminish system costs.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived from reported power-generation GHG / electricity generation; direct plant boundary. Gas basket is not exhaustively specified. No T&D or demand-side emissions."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Power-generation GHG only; excludes demand-side sector emissions. Reported in MtCO2e; exact exhaustive gas basket is not stated."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage"
+        ],
+        "scopeLimitations": "National modeled generation/storage capacity. Report does not separately identify on-grid vs captive industrial vs residential-rooftop power; T&D capacity is outside these tables."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "National electricity generation. On-grid/captive/rooftop generation is not separately identified; surplus generation is reported for some optimized pathways."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "Generation-mix share for the national power system; storage technologies are not generation-share categories. On-grid/captive/rooftop not separated."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Model input costs for generation/storage technologies; does not include all grid investment, stranded/salvage costs or auxiliary fuels."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["By sector"],
+        "scopeLimitations": "Generation/storage investment only; excludes quantified transmission/distribution modernization and some omitted cost items. Monetary values are real 2019 US$."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Covers modeled retirement rules for high-carbon generation; does not provide a complete lifetime table for every technology/asset."
+      }
+    ]
+  }
+}

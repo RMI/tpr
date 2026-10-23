@@ -81,6 +81,8 @@ export function regionMemberCodes(
   if (!wanted) return [];
   // Match on the normalized form so the lookup accepts the same token
   // `flattenGeography` emitted, even if the raw key carries stray whitespace.
+  // Exact otherwise: timeseries labels are the metadata's own (#945, enforced
+  // by validateTimeseries), so no spelling fold is needed.
   const key = Object.keys(geo.regions).find(
     (k) => normalizeGeography(k) === wanted,
   );
@@ -152,6 +154,25 @@ export function geographyKind(raw: string): GeographyKind {
   if (/^global$/i.test(s)) return "global"; // match literal "global"
   if (toISO2(raw) && countryNameFromISO2(raw)) return "country";
   return "region";
+}
+
+/**
+ * A publication-independent identity for a geography token, folding away
+ * spelling differences only: case, spacing and punctuation.
+ *
+ * Different publishers spell the same region differently — IEA writes
+ * "Southeast Asia", JRC "South East Asia" — which matters when one page sets
+ * pathways side by side (comparisonScope). Within one pathway no fold is
+ * needed: its timeseries use its metadata's own labels (#945). This
+ * is deliberately a spelling fold and NOT a synonym table: "ASEAN" does not
+ * merge with "South East Asia", and no ISO-similarity threshold is involved,
+ * because a fuzzy match is unreviewable. Two tokens share a key only when they
+ * are the same words written differently.
+ */
+export function canonicalGeographyKey(raw: string): string {
+  return normalizeGeography(raw)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
 }
 
 // geographyLabel does not support mapping for ISO-3 country codes, region
