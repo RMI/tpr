@@ -28,7 +28,7 @@
     "full": "Net Zero Emissions by 2050 Scenario",
     "short": "NZE"
   },
-  "description": "1.5°C-aligned global net-zero energy pathway to 2050.",
+  "description": "Normative global pathway to net-zero CO2 by 2050 consistent with 1.5°C after mid-century overshoot.",
   "geography": {
     "global": true
   },
@@ -40,6 +40,18 @@
   "sectors": [
     {
       "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
       "technologies": []
     },
     {
@@ -65,6 +77,8 @@
         "Wind",
         "Solar",
         "Biomass",
+        "Geothermal",
+        "Energy storage",
         "Other"
       ]
     },
@@ -73,14 +87,23 @@
       "technologies": []
     },
     {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
       "name": "Other",
       "technologies": []
     }
   ],
-  "pathwayDescription": "The IEA Net Zero Emissions by 2050 (NZE) Scenario is a normative 1.5 aligned pathway, outlining how the global energy sector can reach net zero CO2 emissions by 2050. It assumes that advanced economies achieve net zero earlier (by mid 2040s), with emerging markets following by 2050. As a normative scenario, the NZE provides a detailed description of one pathway to reach a targeted future state, but it does not attempt to predict which policies or outcomes are most probable. The NZE pathway corresponds to a 50% probability of 1.5°C of warming by 2100. This is a more ambitious outcome than the IEA’s Announced Pledges Scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), indicating a significant gap remains between announced governmental pledges and the trajectory described by the NZE pathway.",
+  "pathwayDescription": "The Net Zero Emissions by 2050 Scenario (NZE) is a normative pathway that sets out how the global energy sector could reach net zero CO2 emissions by 2050, recognising that each country will follow its own route. It is consistent with limiting the long-term temperature rise to 1.5°C (50% probability). The 2025 NZE is no longer a limited-overshoot pathway: warming peaks at around 1.65°C around 2050 and stays above 1.5°C for several decades before falling back below 1.5°C by 2100. Getting there requires very rapid deployment of renewables, grids, storage, electrification and efficiency, alongside widespread use of CO2 removal technologies that are not yet proven at large scale. For comparison, the IEA’s Current Policies Scenario (CPS) and Stated Policies Scenario (STEPS) correspond to 2.9°C and 2.5°C of warming by 2100 (50% probability).",
   "metric": [
-    "Emissions Intensity",
     "Absolute Emissions",
+    "Emissions Intensity",
+    "Capacity",
     "Generation",
     "Technology Mix"
   ],
@@ -102,6 +125,11 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
@@ -113,7 +141,7 @@
       {
         "sector": "Power",
         "geography": "Global",
-        "value": "Significant increase"
+        "value": "No information"
       }
     ],
     "electrification": [
@@ -121,6 +149,11 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not Applicable"
       }
     ],
     "policyTypes": [
@@ -132,10 +165,15 @@
           "Phaseout dates",
           "Subsidies",
           "Target technology shares",
-          "Feed-in tariffs",
           "Performance standards",
+          "Feed-in tariffs",
           "Other"
         ]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
@@ -143,6 +181,11 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
       }
     ],
     "emissionsScope": [
@@ -150,6 +193,11 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "CO2"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyAmbition": [
@@ -157,6 +205,11 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "High ambition policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
       }
     ],
     "technologyCostsDetail": [
@@ -179,8 +232,9 @@
           "CCUS",
           "DAC",
           "Green H2/ammonia",
-          "SAF",
           "Battery storage",
+          "EGS/AGS",
+          "SMR",
           "Other new technologies"
         ]
       },
@@ -189,10 +243,10 @@
         "geography": "Global",
         "value": [
           "CCUS",
-          "DAC",
           "Green H2/ammonia",
-          "SAF",
           "Battery storage",
+          "EGS/AGS",
+          "SMR",
           "Other new technologies"
         ]
       }
@@ -201,115 +255,137 @@
       {
         "sector": "across sectors",
         "geography": "Global",
-        "value": "By tech, part of value chain"
+        "value": "No information"
       },
       {
         "sector": "Power",
         "geography": "Global",
-        "value": "By tech, part of value chain"
+        "value": "By technology"
       }
     ]
   },
   "coreDrivers": {
-    "policies": "NZE is driven by robust high-ambition policy packages needed to achieve global energy-sector net zero CO2 by 2050, including accelerated efficiency, electrification, renewables, methane abatement, sustainable fuels, CCUS and CO2 removals.",
-    "emissionsTargets": "NZE uses a net-zero CO2 emissions target for 2050 and is designed to be consistent with limiting long-term warming to 1.5 °C with 50% probability after an overshoot.",
-    "technologyCosts": "Technology costs affect the least-cost and feasible scaling of renewables, storage, hydrogen, CCUS and other low-emissions technologies; faster deployment accelerates learning and cost decline.",
-    "investmentChange": "Average annual energy investment in 2025-2035 reaches nearly USD 4.8 trillion, much higher than CPS/STEPS, especially for efficiency/electrification, renewables, grids/storage and low-emissions fuels.",
-    "macroeconomicDrivers": "GDP and population assumptions are common across scenarios; NZE meets similar energy-service needs with much lower final energy through rapid efficiency gains and electrification.",
+    "policies": "NZE assumes co-ordinated, front-loaded policy action across all major instrument types. Carbon pricing rises materially faster and higher than in the accompanying CPS/STEPS pathways. There are also explicit fossil-fuel and technology phase-out dates, target technology shares, subsidies, and feed-in-tariff-style price support to reach net zero by 2050.",
+    "emissionsTargets": "The NZE Scenario is designed and constrained to reach net-zero energy-related CO2 emissions globally by 2050, with a temperature peak at about 1.65°C around 2050 before declining below 1.5°C by 2100. This is a materially higher and longer overshoot than in earlier NZE editions.",
+    "technologyCosts": "NZE relies on the fastest and deepest technology cost declines of the three WEO scenarios to support its much larger and faster low-carbon build-out. This includes both for established and innovative low carbon technologies.",
+    "investmentChange": "Low-emissions technologies approach 100% of power-sector investment by 2035, with power investment above USD 2.5 trillion a year by 2035, nearly double today. Fossil-fuel supply investment falls from about USD 1 trillion a year to under USD 350 billion in 2035 and 90% below today by 2050.",
+    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO-2025 scenarios (global GDP CAGR 2024-2050 = 2.6%; population rising from 8.09 to 9.57 billion).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "NZE strongly depends on rapid transformation of the energy sector and large-scale CO2 removals that are currently unproven at scale, creating a material feasibility driver."
+    "otherDrivers": "Widespread deployment of CO2 removal technologies (direct air capture, and other CDR) that are 'currently unproven at large scale' is a distinct, load-bearing NZE assumption. It is what brings the temperature back below 1.5°C by 2100 after the mid-century overshoot."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Critical: NZE cannot be achieved without robust high-ambition policies that deliver rapid power decarbonisation, electrification, efficiency and low-emissions technologies. Mode: Explicit.",
+      "dependency_description": "NZE is not feasible without co-ordinated power-sector policy such as carbon prices rising materially faster than CPS/STEPS, explicit coal/gas phase-out, 100%-clean-generation trajectories, and strong target-technology-share and subsidy support. Generation and capacity outcomes go far beyond what current or drafted policy alone would deliver.",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Critical: Power-system regulation, permitting, market design and flexibility frameworks must enable very rapid renewables, storage and grid expansion. Mode: Quantitative proxy.",
+      "dependency_description": "Faster interconnection, permitting and market-design reform is implied by the scale and speed of the NZE build-out (e.g. solar capacity nearly doubling relative to STEPS by 2050).",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "High: NZE requires large capital reallocation toward low-emissions power, grids/storage and end-use electrification; fossil prices fall as demand declines. Mode: Quantitative proxy.",
+      "dependency_description": "NZE's materially higher and faster-rising carbon prices (Annex B.6) are the central economic lever making the pathway's very large low-carbon investment economically rational at the pace required.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "High: The very rapid scale-up of renewables, grids, storage, nuclear and CO2-removal infrastructure makes siting and societal acceptance a material enabling condition. Mode: Scenario-design inference.",
+      "dependency_description": "Nuclear capacity grows fastest of the three scenarios, with a large reliance on public acceptance of new nuclear (including SMRs).",
       "sector": "Power",
-      "evidence_type": "Anecdotal"
+      "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "High: NZE depends on rapid uptake of efficient electric end-use technologies and demand-side flexibility to reduce final energy while electricity demand rises. Mode: Quantitative proxy.",
+      "dependency_description": "NZE depends on rapid uptake of efficient electric end-use technologies and demand-side flexibility to reduce final energy while electricity demand rises.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Critical: NZE needs the fastest grid, storage and flexibility expansion; battery capacity reaches close to 2 900 GW by 2035 and flexibility needs rise two- to ten-fold. Mode: Quantitative proxy.",
+      "dependency_description": "NZE requires by far the largest battery-storage build of the three WEO2025 scenarios to integrate a power system where solar and wind alone reach roughly 75% of generation by 2050, making storage and grid-flexibility infrastructure a binding enabling condition for the pathway's feasibility.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "High: NZE relies on rapid deployment of low-emissions technologies and CO2 removal technologies that are currently unproven at large scale; no major breakthrough is assumed. Mode: Explicit.",
+      "dependency_description": "NZE depends on the fast deployment of technologies not yet fully market-ready. CCUS, green hydrogen/ammonia, enhanced geothermal (EGS/AGS), SMRs, and direct air capture reach market readiness and cost-competitiveness at a pace beyond CPS/STEPS.",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Critical: Fast NZE deployment raises both volume and concentration risks for critical minerals, batteries, grids and clean-technology supply chains. Mode: Explicit.",
+      "dependency_description": "NZE's large low-carbon technology build-out (solar capacity 24,530 GW by 2050, battery storage 5,716 GW) implies the largest critical-mineral demand of the three scenarios, directly engaging the report's central 2025 theme of concentrated mineral-refining supply chains as a transition bottleneck.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "Moderate: NZE still overshoots 1.5°C for several decades, so resilience remains necessary, but lower long-term warming reduces risk versus CPS/STEPS. Mode: Explicit.",
+      "dependency_description": "NZE's very high reliance on variable renewables and continued hydropower (7,398 TWh by 2050) increases exposure to the drought and extreme-weather risks the report flags for hydropower and grid infrastructure generally.",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "Cannot assess: Very rapid deployment likely increases skilled labor needs, but attached WEO materials do not provide pathway-specific Power labor bottleneck evidence. Mode: Scenario-design inference.",
+      "dependency_description": "NZE retires the most fossil generation capacity of the three WEO2025 scenarios (coal capacity falling from 2,259 to 381 GW) over the same period, implying the largest fossil-sector workforce displacement and retraining need alongside the largest new low-carbon-sector job creation.",
       "sector": "Power",
-      "evidence_type": "Anecdotal"
+      "evidence_type": "Quantitative"
     }
   ],
   "dataAvailability": {
     "overall": null,
     "byMetric": [
       {
-        "metricName": "Emissions intensity",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["Global"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["Scope 1"],
-        "scopeLimitations": "Power generation includes electricity-only and CHP before curtailment per WEO definition."
-      },
-      {
         "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": ["Global"],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "CO2 emissions from electricity and heat sectors; energy-related and industrial process CO2 definition applies."
+        "scopeLimitations": "Combustion emissions from the electricity and heat sectors are combined. Upstream (fuel extraction/processing) emissions are not included. This includes global aggregate power-system output, there is no separate captive or residential-rooftop generation series."
+      },
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Combustion emissions from the electricity and heat sectors are combined. Upstream (fuel extraction/processing) emissions are not included. This includes global aggregate power-system output, there is no separate captive or residential-rooftop generation series."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "Storage figure is battery storage capacity only, there is no separate pumped-hydro-storage series in this dataset."
       },
       {
         "metricName": "Generation",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": ["Global"],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": [
           "Coal",
@@ -320,16 +396,17 @@
           "Wind",
           "Solar",
           "Biomass",
+          "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Gross electricity generation before curtailment, including electricity-only and CHP."
+        "scopeLimitations": "Coal and natural gas are further split by 'unabated' and 'with-CCUS' in the source data. Solar combines Solar PV and concentrating solar power. 'Other' includes Marine and Hydrogen/H2-based generation."
       },
       {
         "metricName": "Technology mix",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": ["Global"],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": [
           "Coal",
@@ -340,19 +417,10 @@
           "Wind",
           "Solar",
           "Biomass",
+          "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Generation mix derived from gross electricity generation. Shares depend on reported technology rows."
-      },
-      {
-        "metricName": "Capacity",
-        "sector": "Power",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
+        "scopeLimitations": "Coal and natural gas are further split by 'unabated' and 'with-CCUS' in the source data. Solar combines Solar PV and concentrating solar power. 'Other' includes Marine and Hydrogen/H2-based generation."
       },
       {
         "metricName": "Transmission lines",
@@ -367,36 +435,32 @@
       {
         "metricName": "Technology cost",
         "sector": "Power",
-        "sectorSegment": ["Power generation"],
+        "sectorSegment": ["Unspecified"],
         "geography": ["Global"],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Selected regions/technologies in Annex B, not every WEO region; power generation technologies only."
+        "scopeLimitations": "Capital costs, capacity factor, and fuel/CO2/O&M costs by technology are disclosed for selected individual regions (e.g. United States), not globally."
       },
       {
         "metricName": "Investment requirement",
         "sector": "Power",
-        "sectorSegment": [
-          "Power generation",
-          "Energy storage",
-          "Transmission and distribution"
-        ],
-        "geography": ["Global"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["By tech, part of value chain"],
-        "scopeLimitations": "Aggregate investment categories; not always a full technology-by-region matrix in the free dataset."
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       },
       {
         "metricName": "Asset lifetime",
         "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["Global"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["No information"],
-        "scopeLimitations": "Partial general lifetime assumptions only."
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       }
     ]
   }

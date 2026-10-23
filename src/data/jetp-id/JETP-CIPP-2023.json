@@ -127,11 +127,7 @@
       {
         "sector": "Power",
         "geography": "ID",
-        "value": [
-          "Green H2/ammonia",
-          "Battery storage",
-          "Other new technologies"
-        ]
+        "value": ["Green H2/ammonia", "Battery storage"]
       }
     ],
     "investmentNeeds": [
@@ -143,12 +139,12 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Policies are reformed to support renewables scaling and coal phased down. RE/VRE target shares and phaseout/early retirement targets are embedded. Market-policy drivers: LCR reform, bankable PPAs/procurement and removal of coal price distortions are policy enablers.",
+    "policies": "Policies are reformed to support renewables scaling and coal phased down. RE/VRE target shares and phaseout/early retirement targets are embedded. Market-policy drivers are also included in the scenario: LCR reform, bankable PPAs/procurement and removal of coal price distortions are policy enablers.",
     "emissionsTargets": "The pathway uses an on-grid CO2 emissions cap of 250 Mt in 2030, a reduction to 175 Mt by 2040, and near net-zero emissions by 2050. This is a central normative constraint.",
     "technologyCosts": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive options for power generation.",
     "investmentChange": "Investment data are partial but substantial: Solar plus wind cumulative investment is nearly US$25B/yr by 2030 and almost US$80B/yr by 2040. Coal flexibility and repurposing can require up to US$10B and bioenergy/hydrogen repurposing represents an average of more than US$7B/yr in 2046-2050.",
-    "macroeconomicDrivers": "Estimates from the Ministry of Energy and Mineral Resources point to 6% GDP growth p.a. until 2030, 7% p.a. from 2030 to 2040, and then a convergence to high income countries between 2040 and 2050, while the population is estimated to grow from 276 mio. in 2022 to 324 mio. in 2050. Electricity demand growth is an important inpu in the JETP, with an assumed 6.0% annual demand growth including captive connections.",
-    "behavioralShifts": null,
+    "macroeconomicDrivers": "Estimates from the Ministry of Energy and Mineral Resources point to 6% GDP growth p.a. until 2030, 7% p.a. from 2030 to 2040, and then a convergence to high income countries between 2040 and 2050, while the population is estimated to grow from 276 mio. in 2022 to 324 mio. in 2050. Electricity demand growth is an important input in the JETP, with an assumed 6.0% annual demand growth including captive connections.",
+    "behavioralShifts": "not applicable.",
     "otherDrivers": "Grid integration and system flexibility are major additional drivers: transmission follows RUPTL to 2030, large-island interconnection starts from 2029, coal flexible utilization is explicitly included, and storage grows to 38 GW by 2050. Captive load connections affect demand, while captive generation decarbonization is planned separately."
   },
   "dependencies": [
@@ -160,13 +156,13 @@
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Regulatory reform is a binding enabler for renewable procurement and coal phase-out. The pathway calls for LCR reform, competitive procurement, bankable PPAs, legal clarity for early retirement and flexible coal use and captive power decarbonization. THese regulatory reforms affect pace and financeability of renewables scale up and coal phase-out.",
+      "dependency_description": "Regulatory reform is a binding enabler for renewable procurement and coal phase-out. The pathway calls for LCR reform, competitive procurement, bankable PPAs, legal clarity for early retirement and flexible coal use and captive power decarbonization. These regulatory reforms affect pace and financeability of renewables scale up and coal phase-out.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "The JETP agreement includes US$ 20bn in required investments, half of which are committed through public funding and half of which are meant to be privately finacned. A GFANZ working group including international financial institutions aims to mobilize that private capital and the expected financing structures are manifold from plain public and private financing instruments, to blended finance and philantropic grants.",
+      "dependency_description": "The JETP agreement includes US$ 20bn in required investments, half of which are committed through public funding and half of which are meant to be privately financed. A GFANZ working group including international financial institutions aims to mobilize that private capital and the expected financing structures are manifold from plain public and private financing instruments, to blended finance and philanthropic grants.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -175,6 +171,12 @@
       "dependency_description": "The pathway treats just transition and equitable risk/opportunity sharing as necessary for implementation, especially for communities and workers affected by coal phase-out and project deployment, but does not quantify the impacts in detail. The pathway mentions some local opposition to the Batang Toru hydro project, resulting in delays.",
       "sector": "Power",
       "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
     },
     {
       "dependency_name": "Infrastructure and logistics",
@@ -190,13 +192,19 @@
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Resource and supply-chain availability are material for solar/wind, bioenergy feedstock, land availability and local manufacturing. Indonesia's renewable energy potential is very high. The uneven distribution of RE potential, land use needs and demand centers increases the requriement for transmission capacity though. LCR reform is needed to reduce barriers to scaling of RE projects while supporting a strengthening of the local solar manufacturing supply chain.",
+      "dependency_description": "Resource and supply-chain availability are material for solar/wind, bioenergy feedstock, land availability and local manufacturing. The pathway identifies renewable supply-chain enhancement and land constraints for VRE, with LCR reform and supply-chain development used to manage costs and deployment.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
       "dependency_name": "Labor availability",
-      "dependency_description": "Labor/skills and job-transition needs are relevant because coal phase-down and renewable supply-chain development affect employment. Additional investment is projected to create over 400000 new jobs by 2030, but the CIPP acknowledges that phaseout of coal power will requrie re-skilling programs to cushion the impact of job losses in that area.",
+      "dependency_description": "Labor/skills and job-transition needs are relevant because coal phase-down and renewable supply-chain development affect employment. Additional investment is projected to create over 400000 new jobs by 2030, but the CIPP acknowledges that phaseout of coal power will require re-skilling programs to cushion the impact of job losses in that area.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
@@ -332,7 +340,7 @@
         "granularity": [
           "High-carbon assets lifetime face early retirement policy"
         ],
-        "scopeLimitations": "No complete unit-level asset lifetime table was extracted. Partial list avilable in the annex. Classification based on scenario design and narrative."
+        "scopeLimitations": "No complete unit-level asset lifetime table was extracted. Partial list available in the annex. Classification based on scenario design and narrative."
       }
     ]
   }

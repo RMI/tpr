@@ -210,7 +210,14 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 6,
-          geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+          geographies: [
+            "Global",
+            "ID",
+            "MY",
+            "Rest South East Asia",
+            "TH",
+            "VN",
+          ],
           sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
@@ -234,7 +241,14 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 6,
-          geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+          geographies: [
+            "Global",
+            "ID",
+            "MY",
+            "Rest South East Asia",
+            "TH",
+            "VN",
+          ],
           sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
@@ -257,7 +271,14 @@ export const index: TimeseriesIndex = {
           sectorCount: 1,
           sectors: ["power"],
           geographyCount: 6,
-          geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+          geographies: [
+            "Global",
+            "ID",
+            "MY",
+            "Rest South East Asia",
+            "TH",
+            "VN",
+          ],
           sectorSegments: ["Power generation"],
           metrics: [
             "absoluteEmissions",
@@ -753,7 +774,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 6,
-        geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+        geographies: ["Global", "ID", "MY", "Rest South East Asia", "TH", "VN"],
         sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
@@ -776,7 +797,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 6,
-        geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+        geographies: ["Global", "ID", "MY", "Rest South East Asia", "TH", "VN"],
         sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",
@@ -798,7 +819,7 @@ export const index: TimeseriesIndex = {
         sectorCount: 1,
         sectors: ["power"],
         geographyCount: 6,
-        geographies: ["Global", "ID", "MY", "South East Asia", "TH", "VN"],
+        geographies: ["Global", "ID", "MY", "Rest South East Asia", "TH", "VN"],
         sectorSegments: ["Power generation"],
         metrics: [
           "absoluteEmissions",

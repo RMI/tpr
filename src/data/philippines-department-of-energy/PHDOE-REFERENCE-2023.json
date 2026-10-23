@@ -28,12 +28,44 @@
   "geography": {
     "country": ["PH"]
   },
-  "pathwayType": "Predictive",
-  "modelYearStart": 2023,
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Geothermal",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
       "technologies": []
     },
     {
@@ -52,6 +84,11 @@
   "keyFeatures": {
     "emissionsTrajectory": [
       {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Significant increase"
+      },
+      {
         "sector": "Power",
         "geography": "PH",
         "value": "Significant increase"
@@ -59,61 +96,110 @@
     ],
     "energyEfficiency": [
       {
-        "sector": "Power",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Significant improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
       {
-        "sector": "Power",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "No information"
       }
     ],
     "electrification": [
       {
-        "sector": "Power",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not Applicable"
       }
     ],
     "policyTypes": [
       {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": [
+          "Target technology shares",
+          "Performance standards",
+          "Feed-in tariffs"
+        ]
+      },
+      {
         "sector": "Power",
         "geography": "PH",
-        "value": ["Subsidies", "Target technology shares", "Other"]
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
       {
-        "sector": "Power",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
       }
     ],
     "emissionsScope": [
       {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "CO2e (Kyoto)"
+      },
+      {
         "sector": "Power",
         "geography": "PH",
-        "value": "CO2e (unspecified GHGs)"
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyAmbition": [
       {
-        "sector": "Power",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "Current/legislated policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
       }
     ],
     "technologyCostsDetail": [
       {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
         "sector": "Power",
         "geography": "PH",
-        "value": "Capital costs, O&M, etc."
+        "value": "No information"
       }
     ],
     "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": ["Battery storage"]
+      },
       {
         "sector": "Power",
         "geography": "PH",
@@ -122,27 +208,215 @@
     ],
     "investmentNeeds": [
       {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "By sector"
+      },
+      {
         "sector": "Power",
         "geography": "PH",
-        "value": "By sector, part of value chain"
+        "value": "By technology"
       }
     ]
   },
   "coreDrivers": {
-    "policies": "Current plans/programs plus energy efficiency, renewable deployment, HELE, emerging technologies, EVs, natural gas and grid modernization.",
-    "emissionsTargets": "NDC contribution and reductions relative to the earlier NDC BAU, without a net-zero commitment.",
-    "technologyCosts": "Consumer affordability and financing conditions; no REF-specific technology cost trajectory.",
-    "investmentChange": "No REF-specific quantitative investment requirement reported.",
-    "macroeconomicDrivers": "Energy security, affordability, reliability and industrial development.",
-    "behavioralShifts": "Energy-efficiency and conservation practices across sectors.",
-    "otherDrivers": "Climate resilience, environmental compliance, energy security and stakeholder engagement."
+    "policies": "RE portfolio targets, biofuel mandates and efficiency programmes set capacity mix. Technology shares: ≥35% RE in generation by 2030, 50% by 2040, with NREP targets and CREZ limits by grid. Performance standards: 2% biodiesel and 10% bioethanol blends throughout; EE&C held at 5%. Capacity levels: domestic targets to 2050: 61.3 MMbbl oil, 5.1 tcf gas, 191 MMT coal; LNG imports from 2023. Price regulation: GEAP and RE contract awards are committed capacity. EVs 10% by 2040 (CREVI). No carbon price.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Unit technology costs drive capacity expansion, as the power outlook is a least-cost build. New-build options are costed from the 2022 National Renewable Energy Laboratory database, with separate fuel costs, and the model selects among fossil, renewable, hydro, storage and nuclear options. Declining RE capital costs explain why the blended generation rate rises only slightly. Solar and onshore wind dominate the build as the cheapest options within the Competitive Renewable Energy Zone limits.",
+    "investmentChange": "Low-carbon technology investment falls as a share of GDP over the horizon even as absolute volumes rise, because clean technology capital costs decline. RE and other low-carbon investment averages the lowest GDP share of the three pathways, declining over time as most RE capacity arrives after 2030. Cumulative investment over 2023-2050 is substantial, with power accounting for a large part, most of it in renewables.",
+    "macroeconomicDrivers": "As the reference pathway, with no emissions target and only current policy, macroeconomic assumptions dominate. Sustained high GDP growth roughly doubles GHG emissions and more than doubles final energy use. Demand is driven by sectoral and household income growth and population. Sources are the Philippine Development Plan 2023-2028, AmBisyon Natin 2040 and the Marcos administration’s eight-point socioeconomic agenda, with electricity sales forecast from GDP, value added and household spending.",
+    "behavioralShifts": "Shifts in household fuel preference materially change the demand mix. As households move from low- to upper-middle income, they increasingly prefer modern energy, and the publication attributes the halving of traditional biomass and the sharp rise in LPG by 2050 to this shift rather than to relative prices, noting persistent fuel stacking and emerging smart homes. Electricity becomes the primary household fuel, covering about half of household demand by 2050.",
+    "otherDrivers": "Geographic resource limits bound the build regardless of cost or policy ambition. Competitive Renewable Energy Zone potential and awarded service contracts cap RE capacity by grid, so RE targets cannot be met with the cheapest technology alone. A reserve margin keeps capacity above peak demand. With only the Leyte-Luzon HVDC link and the Mindanao-Visayas Interconnection Project joining the three grids, surplus cannot move freely. These are resource and network facts, not policy or cost effects."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The policy strategy for the pathway is shaped by RPS, FIT/GEAP, energy efficiency, grid modernization and technology policy.",
+      "dependency_description": "Grid decarbonisation is the pathway’s only active lever, delivered almost entirely by policy, not markets. The Renewable Energy Act’s portfolio standard, National Renewable Energy Program targets and Green Energy Auction Program more than double the RE share, with milestones binding capacity expansion as hard limits. Without them the lever stops, with no carbon price, emissions cap or retirement rule to substitute. Biomass gets weak support, and hydrogen, CCS and circular economy none.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The renewable build’s pace depends on permitting and market reform the publication deems not yet sufficient. Right-of-way and permitting delays are named as causes of transmission slippage, which matters as large RE additions must connect to a three-node network. The Energy Virtual One-Stop Shop consolidates permitting, and preferential RE dispatch in the Wholesale Electricity Spot Market underpins the investment case. Ancillary service rules decide if battery storage is paid for its service.",
       "sector": "Power",
       "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "As a least-cost build, technology economics set the RE mix within the target, and falling RE capital costs restrain blended generation rate growth. Yet the publication states that decarbonisation raises electricity costs, with the highest rate of the three pathways, and relies on income growth, not falling prices, for affordability. The Department’s Investment Promotion Office and fiscal incentives address capital, but no financing gap is quantified and no carbon price or green premium applies.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "With no nuclear and no technology flagged for societal opposition, acceptance concerns are confined to siting and land use for the large solar and onshore wind build, which reaches communities through right-of-way acquisition and the energy regulations host-community benefit mechanism. This allocates a per-kWh benefit to local government units, distribution utilities and indigenous peoples, alongside information and education campaigns, but the report does not treat opposition as a constraint.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Electricity is the end product, and the pathway assumes households absorb a rising blended generation rate without demand response: the publication holds that growing disposable income keeps household energy spending affordable, not that consumers pay a green premium or adjust use. Consumers do shift toward electricity, about half of household demand by 2050, and prosumers adopt net metering and rooftop solar, supporting electrification. No willingness to pay for low-carbon power is assumed.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Network topology bounds the pathway as much as resource. Luzon, Visayas and Mindanao are linked only by the Leyte-Luzon HVDC link and the Mindanao-Visayas Interconnection Project, so surplus cannot move freely and each grid carries its own reserve. Competitive Renewable Energy Zone parameters set RE siting and thus transmission needs, with right-of-way and permitting binding. Storage additions are modest. Analysis is strong, using hourly demand, NASA MERRA weather profiles and per-grid builds.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Grid-scale battery storage is the pathway’s only not-yet-market-ready technology, scaling up to keep the grid stable as variable renewables grow. Its role is limited, with low throughput, as the publication assigns stability and flexibility largely to rising gas capacity, noting that traditional plants need flexibility retrofits. Wind, solar, hydro, geothermal and biomass are mature and excluded from this dependency; no nuclear, hydrogen or carbon capture is deployed.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Two constraints matter. Land and site availability binds by construction: Competitive Renewable Energy Zone potential and awarded service contracts cap RE capacity by grid, so the build cannot exceed developable resource regardless of cost or policy. Import dependence is the second: self-sufficiency falls to around half, domestic coal output declines while coal generation continues, and LNG offsets falling domestic gas. Critical minerals for low-carbon technologies are also a supply question.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "The publication treats climate and disaster resilience as a condition rather than a quantified constraint, which matters for a typhoon-exposed archipelago: resilient, climate-proof infrastructure is a plan objective, with disaster risk financing and insurance and a national energy contingency framework as instruments. Projected hydro output shows sharp annual swings. Waste is a separate dependency, as end-of-life disposal for renewable equipment and batteries is flagged as needing policy.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The build creates a large, specific skills need rather than a quantified binding shortage. Most jobs come from building renewable plants, with more in EV installation and battery storage. The publication recognises the skills gap and directs the Department of Energy and the Department of Labor and Employment to run a Rightskilling of the Filipino Workforce initiative on technical education, certification and vocational training, noting traditional energy jobs decline as clean energy jobs grow.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
     }
-  ]
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Fuel extraction and processing"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived, not published: GHG / generation. Numerator is Transformation-sector GHG, which bundles refining and own-use with power generation, so the result runs about 1.5 percent above a power-only figure - 2022 check 77.44/111.52 = 0.694 against power-only 0.684 and the 0.68 tCO2e/MWh the publication states. Scope 1 combustion only, CO2e on the Kyoto basket. Excludes network losses. 2050 value 0.269 tCO2e/MWh."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Fuel extraction and processing"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Transformation sector, which is power generation plus refining and own use - about 1.5 percent wider than power alone at the 2022 baseline. Scope 1 combustion, CO2e on the Kyoto basket via LEAP IPCC GWP-100. Energy-sector emissions only: no land use, no industrial process emissions. Values 77.44 MtCO2e (2022) to 122.16 MtCO2e (2050)."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other",
+          "Energy storage"
+        ],
+        "scopeLimitations": "On-grid capacity across the Luzon, Visayas and Mindanao networks, from the PLEXOS expansion. Energy storage covers battery storage and pumped hydro but is reported as one BESS figure in Volume I with pumped hydro inside the hydro line. Only Power Development Plan 2023-2050 splits battery from pumped hydro - so the two are not distinguishable in the annual series. No reported series for rooftop and behind-the-meter solar, nor for captive industrial generation."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Gross generation, on-grid, across the three modelled networks. Gross rather than net, so station own-use is included and network losses are not netted off. BESS throughput is reported alongside but excluded from the generation total. Total rises from 111.52 TWh (2022) to 453.81 TWh (2050). Hourly dispatch underlies the annual figures but is not published."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Shares of gross generation, on-grid, three modelled networks - so the same boundary as Generation, including station own-use and excluding BESS throughput from the denominator. RE share moves from 22.13 percent (2022) to 50.73 percent (2050). Capacity shares are also published and differ from generation shares; the two should not be conflated."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "PhP billion at 2022 prices, converted at PhP55/USD. Two periods only, 2023-2028 and 2029-2050, not an annual series. The renewables line is an aggregate and is not split by individual RE technology, so solar, wind, hydro, geothermal and biomass investment cannot be separated - a material limitation given that renewables are the largest component. No transmission or distribution investment is included. Covers new build; maintenance and refurbishment treatment is not stated."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Applies to coal-fired capacity, the only high-carbon asset class with a lifetime assumption in the publication. Coal capacity constant at 14,733 MW from 2027 to 2050. Oil-based capacity is also flat at 3,854 MW but no lifetime rule is stated for it. Gas capacity grows throughout. No plant-level retirement schedule or vintage profile is published, so individual asset ages cannot be recovered."
+      }
+    ]
+  }
 }

@@ -22,11 +22,12 @@
  * Sheet names are parameterized (`--sheet-prefix`, default `draft_`) because the
  * final `pathway_*` sheets are not populated yet; switch the prefix once they are.
  *
- * Scope of the current workbook: 24 pathways -- IEA (WEO 2025), ACE, UN SDSN/CW
- * (Thailand, Myanmar, Laos, Singapore) and JETP-ID. Earlier versions also
- * carried Philippines DOE and JRC; their TARGETS entries stay, and the report
- * lists them as having no matching row. It carries NO NGFS data, so issue #801
- * (NGFS region memberships) is NOT addressed here -- the report says so.
+ * Scope of the current workbook: 75 pathways -- IEA (WEO 2025 and 2024), ACE,
+ * UN SDSN/CW (Thailand, Myanmar, Laos, Singapore, Malaysia, Philippines),
+ * Philippines DOE, CGS/IESR, JETP-ID, JRC, UTS-ISF, TransitionZero, EREA/DEA
+ * and NGFS (21, one per scenario and model). Rows without a TARGETS entry are
+ * listed in the report as unmatched and not imported. Region memberships come
+ * from each pathway's Regions cell.
  */
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
@@ -263,10 +264,11 @@ const GEO_ALIASES: Record<string, string> = {
 // Row -> target file mapping, keyed as canonicalKey() builds it: the only
 // stable join key across sheets is (publisher group, scenario code,
 // country), since pathway-name strings and publisher labels vary between
-// sheets (e.g. "State" vs "States" in ATS). IEA is a new WEO edition (2025 vs
-// the repo's 2024, and CPS is a brand-new scenario) so its rows create new
-// files and leave the 2024 files untouched, per the "keep both" decision.
-// Everyone else maps 1:1 onto an existing file and is updated in place.
+// sheets (e.g. "State" vs "States" in ATS). IEA keys also carry the WEO
+// edition year, because the workbook holds both WEO 2024 and WEO 2025 under
+// the same scenario codes. The 2025 rows create new files and the 2024 rows
+// update the existing ones, per the "keep both" decision. Everyone else maps
+// 1:1 onto an existing file and is updated in place.
 // --------------------------------------------------------------------------
 
 type Target =
@@ -281,27 +283,34 @@ type Target =
 
 export const TARGETS: Record<string, Target> = {
   // IEA World Energy Outlook 2025 -- new edition, new files.
-  "IEA:CPS:": {
+  "IEA:CPS 2025:": {
     mode: "new",
     file: "src/data/iea/IEA-CPS-2025.json",
     id: "IEA-CPS-2025",
     templateFile: "src/data/iea/IEA-STEPS-2024.json",
     note: "new WEO-2025 scenario (no 2024 equivalent)",
   },
-  "IEA:STEPS:": {
+  "IEA:STEPS 2025:": {
     mode: "new",
     file: "src/data/iea/IEA-STEPS-2025.json",
     id: "IEA-STEPS-2025",
     templateFile: "src/data/iea/IEA-STEPS-2024.json",
     note: "WEO-2025 edition; IEA-STEPS-2024 kept",
   },
-  "IEA:NZE:": {
+  "IEA:NZE 2025:": {
     mode: "new",
     file: "src/data/iea/IEA-NZE-2025.json",
     id: "IEA-NZE-2025",
     templateFile: "src/data/iea/IEA-NZE-2024.json",
     note: "WEO-2025 edition; IEA-NZE-2024 kept",
   },
+  // IEA World Energy Outlook 2024 -- already v2, refreshed.
+  "IEA:STEPS 2024:": {
+    mode: "update",
+    file: "src/data/iea/IEA-STEPS-2024.json",
+  },
+  "IEA:APS 2024:": { mode: "update", file: "src/data/iea/IEA-APS-2024.json" },
+  "IEA:NZE 2024:": { mode: "update", file: "src/data/iea/IEA-NZE-2024.json" },
   // ACE 8th ASEAN Energy Outlook -- already v2, refreshed.
   "ACE:BAS:": {
     mode: "update",
@@ -425,8 +434,83 @@ export const TARGETS: Record<string, Target> = {
     file: "src/data/un-sdsn-cw/SDSN-CW-HA2O-SG-2024.json",
     wasV1: true,
   },
+  // UN SDSN / ClimateWorks -- Malaysia. The workbook carries the Phase 2.2
+  // report, which replaces Phase 2.1. EP MY keeps its id and file but is
+  // rebuilt as "new" so its name, description and publication come from the
+  // workbook rather than the 2.1 file. All three take the publisher block from
+  // EP MY, whose links point at the 2.2 report. MAP MY and MAP1 MY are 2.1
+  // pathways and are removed separately.
+  "SDSN:EP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    id: "UNSDSN-CW-EP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "Phase 2.2 replaces Phase 2.1",
+  },
+  "SDSN:OEP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-MY-2024.json",
+    id: "UNSDSN-CW-OEP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "new Phase 2.2 pathway",
+  },
+  "SDSN:OMAP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-MY-2024.json",
+    id: "UNSDSN-CW-OMAP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "new Phase 2.2 pathway",
+  },
+  // UN SDSN / ClimateWorks -- Philippines. MAP3 and MAP4 are new pathways
+  // from the same report and take its publisher block from SEP PH.
+  "SDSN:SEP PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:OEP PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP1 PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP1-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP2 PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP2-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP3 PH:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP3-PH-2024.json",
+    id: "UNSDSN-CW-MAP3-PH-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    note: "new pathway",
+  },
+  "SDSN:MAP4 PH:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP4-PH-2024.json",
+    id: "UNSDSN-CW-MAP4-PH-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    note: "new pathway",
+  },
+  // CGS / IESR Indonesia. Existing v1 files, migrated in place.
+  "CGS:BaU:": {
+    mode: "update",
+    file: "src/data/cgs-iesr/CGS-IESR-BAU-2024.json",
+    wasV1: true,
+  },
+  "CGS:1.5°C:": {
+    mode: "update",
+    file: "src/data/cgs-iesr/CGS-IESR-1-5-2024.json",
+    wasV1: true,
+  },
   // JRC GECO -- repo files already year 2025, same edition; update in place.
-  "JRC:REFERENCE:": {
+  // The workbook now writes the codes "(Reference)" and "(1.5°C)".
+  "JRC:Reference:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
     wasV1: true,
@@ -436,9 +520,62 @@ export const TARGETS: Record<string, Target> = {
     file: "src/data/jrc/JRC-GECO-NDC-LTS-2025.json",
     wasV1: true,
   },
-  "JRC:1.5C:": {
+  "JRC:1.5°C:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-1-5-2025.json",
+    wasV1: true,
+  },
+  // UTS-ISF, TransitionZero and Viet Nam EREA/DEA -- existing v1 files,
+  // migrated in place. Viet Nam's baseline is "(BSL)" in the workbook and
+  // keeps its existing short name, "Baseline".
+  "UTS:OECM:": {
+    mode: "update",
+    file: "src/data/uts-isf/UTS-ISF-OECM-2024.json",
+    wasV1: true,
+  },
+  "TZ:BAU:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-BAU-2024.json",
+    wasV1: true,
+  },
+  "TZ:EBAU:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-EBAU-2024.json",
+    wasV1: true,
+  },
+  "TZ:REGI:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-REGI-2024.json",
+    wasV1: true,
+  },
+  "TZ:ISG:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-ISG-2024.json",
+    wasV1: true,
+  },
+  "EREA:BSL:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
+    wasV1: true,
+  },
+  "EREA:NZ:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-NZ-2024.json",
+    wasV1: true,
+  },
+  "EREA:NZ+:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
+    wasV1: true,
+  },
+  "EREA:GG:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-GG-2024.json",
+    wasV1: true,
+  },
+  "EREA:GT:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-GT-2024.json",
     wasV1: true,
   },
   // JETP Indonesia.
@@ -447,7 +584,36 @@ export const TARGETS: Record<string, Target> = {
     file: "src/data/jetp-id/JETP-CIPP-2023.json",
     wasV1: true,
   },
+  ...ngfsTargets(),
 };
+
+/**
+ * NGFS Phase V: one pathway per scenario and model, replacing the seven
+ * per-scenario files. The workbook carries every per-model value, so the
+ * template supplies only the publication block, which all 21 share. It is one
+ * of the 21 themselves: the old files it was first copied from are gone.
+ */
+function ngfsTargets(): Record<string, Target> {
+  const scenarios = ["LD", "NZ2050", "B2C", "DT", "NDC", "CP", "FW"];
+  const models = ["GCAM", "MESSAGE", "REMIND"];
+  return Object.fromEntries(
+    scenarios.flatMap((scenario) =>
+      models.map((model): [string, Target] => {
+        const id = `NGFS-${scenario}-${model}-2024`;
+        return [
+          `NGFS:${scenario} ${model}:`,
+          {
+            mode: "new",
+            file: `src/data/ngfs/${id}.json`,
+            id,
+            templateFile: "src/data/ngfs/NGFS-NZ2050-GCAM-2024.json",
+            note: "NGFS Phase V, per model",
+          },
+        ];
+      }),
+    ),
+  );
+}
 
 /** Publisher label (any sheet's spelling) -> canonical group used in the key. */
 export function publisherGroup(label: string): string | null {
@@ -460,6 +626,12 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";
   if (l.includes("jetp")) return "JETP";
   if (l.includes("sdsn") || l.includes("climateworks")) return "SDSN";
+  if (l.includes("global sustainability") || l.includes("iesr")) return "CGS";
+  if (l.includes("greening the financial") || l.includes("ngfs")) return "NGFS";
+  if (l.includes("technology sydney") || /\buts[- ]isf\b/.test(l)) return "UTS";
+  if (l.includes("transitionzero")) return "TZ";
+  if (l.includes("renewable energy authority") || /\berea\b/.test(l))
+    return "EREA";
   return null;
 }
 
@@ -469,11 +641,12 @@ export function scenarioParts(name: string): { code: string; country: string } {
   const parens = [...name.matchAll(/\(([^)]+)\)/g)].map((m) => m[1]);
   let code = parens.length > 0 ? parens[parens.length - 1] : "";
   if (!code) {
-    // JRC pathways have no parenthetical code.
+    // A JRC name written without its code in brackets: the same codes the
+    // workbook uses, so the row still reaches its TARGETS entry.
     const l = name.toLowerCase();
-    if (l.startsWith("reference")) code = "REFERENCE";
+    if (l.startsWith("reference")) code = "Reference";
     else if (l.includes("ndc-lts")) code = "NDC-LTS";
-    else if (l.includes("1.5")) code = "1.5C";
+    else if (l.includes("1.5")) code = "1.5°C";
   }
   return { code, country };
 }
@@ -481,11 +654,24 @@ export function scenarioParts(name: string): { code: string; country: string } {
 export function canonicalKey(
   publisher: string,
   pathwayName: string,
+  publication = "",
 ): string | null {
   const group = publisherGroup(publisher);
   if (!group) return null;
   const { code, country } = scenarioParts(pathwayName);
   if (!code) return null;
+  // WEO editions share scenario codes, so the edition year is part of the
+  // key: the year after "Outlook" or "WEO", else the first year in the title.
+  // A row whose publication names no year matches no IEA target and is
+  // reported as unmatched.
+  if (group === "IEA") {
+    const year =
+      /(?:Outlook|WEO)[^0-9]{0,3}(20\d\d)/i.exec(publication)?.[1] ??
+      /\b(20\d\d)\b/.exec(publication)?.[1];
+    return year
+      ? `${group}:${code} ${year}:${country}`
+      : `${group}:${code}:${country}`;
+  }
   return `${group}:${code}:${country}`;
 }
 
@@ -1244,20 +1430,43 @@ export function buildDataAvailability(
   return byMetric.length > 0 ? { overall: null, byMetric } : null;
 }
 
-/** Parse `Sector: [t, t]; Sector2: [..]` into a sector -> raw-tech-tokens map. */
-function parseSectorGroups(cell: string): Record<string, string[]> {
+/**
+ * Parse a per-sector list cell into a sector -> raw-tokens map. The workbook
+ * spells these four ways, and all must keep every item:
+ *
+ *   `Power: [a, b]; Steel: [c]`   bracketed groups, comma-separated
+ *   `Power: [a; b]`               bracketed, semicolon-separated
+ *   `Power: a; b`                 a named sector followed by bare items
+ *   `a; b`                        no sector named, keyed ""
+ *
+ * `;` separates groups only outside brackets, and an item without a label
+ * belongs to the last sector named. Splitting on every `;` first used to keep
+ * only the first item of the last three spellings, or none at all.
+ */
+export function parseSectorGroups(cell: string): Record<string, string[]> {
   const out: Record<string, string[]> = {};
-  if (!cell) return out;
-  for (const part of cell
-    .split(";")
-    .map((s) => s.trim())
-    .filter(Boolean)) {
-    const m = /^(.+?):\s*\[?([^\]]*)\]?$/.exec(part);
-    if (!m) continue;
-    out[m[1].trim()] = m[2]
-      .split(",")
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < cell.length; i++) {
+    if (cell[i] === "[") depth++;
+    else if (cell[i] === "]") depth = Math.max(0, depth - 1);
+    else if (cell[i] === ";" && depth === 0) {
+      parts.push(cell.slice(start, i));
+      start = i + 1;
+    }
+  }
+  parts.push(cell.slice(start));
+  let sector = "";
+  for (const part of parts) {
+    const labelled = /^\s*([^:[\]]+):\s*(.*)$/s.exec(part);
+    if (labelled) sector = labelled[1].trim();
+    const items = (labelled ? labelled[2] : part)
+      .replace(/[[\]]/g, "")
+      .split(/[;,]/)
       .map((s) => s.trim())
       .filter(Boolean);
+    if (items.length > 0) (out[sector] ??= []).push(...items);
   }
   return out;
 }
@@ -1276,6 +1485,20 @@ function buildSectors(
     const s = normalizeSector(k);
     if (s) techBySector[s] = v;
   }
+  const declared = [
+    ...new Set(
+      splitList(sectorsCell)
+        .map(normalizeSector)
+        .filter((s): s is string => s !== null),
+    ),
+  ];
+  // A list that names no sector can only belong to a single-sector pathway.
+  const unlabelled = techGroups[""] ?? [];
+  if (unlabelled.length > 0 && declared.length > 1)
+    report.note(
+      `${id}/sectors: Technology coverage names no sector but the pathway has ${declared.length} -- ` +
+        `write it as "Sector: [a, b]"; those technologies were dropped`,
+    );
   const out: Array<{ name: string; technologies: string[] }> = [];
   const seen = new Set<string>();
   for (const rawName of splitList(sectorsCell)) {
@@ -1287,7 +1510,9 @@ function buildSectors(
     if (seen.has(name)) continue;
     seen.add(name);
     const technologies: string[] = [];
-    for (const rawTech of techBySector[name] ?? []) {
+    const rawTechs =
+      techBySector[name] ?? (declared.length === 1 ? unlabelled : []);
+    for (const rawTech of rawTechs) {
       const tech = normalizeTechnology(rawTech);
       if (tech && technologyBelongsToSector(tech, name) === "yes") {
         if (!technologies.includes(tech)) technologies.push(tech);
@@ -1299,30 +1524,70 @@ function buildSectors(
     }
     out.push({ name, technologies });
   }
+  // Other sectors legitimately list none; a cell that yields none at all
+  // means its spelling went unread.
+  if (
+    techCell.trim() &&
+    !isAbsent(techCell) &&
+    out.length > 0 &&
+    out.every((s) => s.technologies.length === 0)
+  )
+    report.note(
+      `${id}/sectors: no technologies could be read from Technology coverage "${techCell}"`,
+    );
   return out;
 }
 
-/** Build the flat `metric` array for a new file from the Excel Metric cell. */
+/**
+ * Note each metric that data availability marks as covered but `metric`
+ * leaves out: the site's metric search reads only `metric`, so the pathway
+ * would not show up for it. Availability-only metrics (technology cost,
+ * investment requirement, ...) are not search metrics and are skipped.
+ */
+function reportUnlistedMetrics(
+  metric: string[],
+  dataAvailability: Json | undefined,
+  report: Report,
+  id: string,
+): void {
+  const rows =
+    (dataAvailability?.byMetric as
+      { metricName: string; dataFormat: string }[] | undefined) ?? [];
+  const unlisted = new Set<string>();
+  for (const row of rows) {
+    if (row.dataFormat === "Not covered") continue;
+    const m = normalizeMetric(row.metricName);
+    if (m && !metric.includes(m)) unlisted.add(m);
+  }
+  for (const m of unlisted)
+    report.note(
+      `${id}/metric: data availability covers "${m}" but the Metric column doesn't list it`,
+    );
+}
+
+/** Build the flat `metric` array from the Excel Metric cell. */
 function buildMetrics(
   metricCell: string,
   report: Report,
   id: string,
-): string[] {
+): { metrics: string[]; unknown: string[] } {
   const groups = parseSectorGroups(metricCell);
   const metrics: string[] = [];
+  const unknown: string[] = [];
   for (const tokens of Object.values(groups)) {
     for (const raw of tokens) {
       const m = normalizeMetric(raw);
       if (m) {
         if (!metrics.includes(m)) metrics.push(m);
       } else if (raw) {
+        unknown.push(raw);
         report.note(
           `${id}/metric: "${raw}" not in metric vocabulary -- dropped`,
         );
       }
     }
   }
-  return metrics;
+  return { metrics, unknown };
 }
 
 function parseYear(raw: string): number | undefined {
@@ -1405,12 +1670,41 @@ export function buildDoc(
       : ((existing?.sectors as typeof sectors) ?? []);
   const declaredSectors = new Set<string>(effectiveSectors.map((s) => s.name));
 
-  // Metric: rebuilt from Excel for new files; preserved for updates (existing
-  // values are already valid and tie to the hosted timeseries).
+  // Metric: the workbook's Metric cell, for updates as for new files. It drives
+  // the site's metric search, so a stale list hides a pathway from searches
+  // for metrics it covers. An update whose cell yields nothing keeps its own.
+  // The same metrics in a different order keep the file's order, so a re-import
+  // only touches files whose metrics actually changed.
+  // A cell with an item outside the vocabulary is only partly read, and a
+  // partial list could drop metrics the file rightly has: such a cell may add
+  // metrics to an update but not remove any.
+  const { metrics: fromWorkbook, unknown } = buildMetrics(
+    meta["Metric"] ?? "",
+    report,
+    id,
+  );
+  const existingMetric = (existing?.metric as string[] | undefined) ?? [];
+  const sameSet =
+    fromWorkbook.length === existingMetric.length &&
+    fromWorkbook.every((m) => existingMetric.includes(m));
+  const partial =
+    target.mode === "update" && unknown.length > 0 && existingMetric.length > 0;
+  const kept = partial
+    ? existingMetric.filter((m) => !fromWorkbook.includes(m))
+    : [];
+  if (kept.length > 0)
+    report.note(
+      `${id}/metric: kept ${kept.map((m) => `"${m}"`).join(", ")} although the Metric column omits it, because the column has item(s) outside the vocabulary`,
+    );
   const metric =
-    target.mode === "new"
-      ? buildMetrics(meta["Metric"] ?? "", report, id)
-      : ((existing?.metric as string[]) ?? []);
+    target.mode === "update" && (fromWorkbook.length === 0 || sameSet)
+      ? existingMetric
+      : partial
+        ? [
+            ...existingMetric,
+            ...fromWorkbook.filter((m) => !existingMetric.includes(m)),
+          ]
+        : fromWorkbook;
 
   const geoAllowed = allowedGeographies(geography ?? undefined);
   const fromV1 =
@@ -1439,6 +1733,7 @@ export function buildDoc(
       report,
       id,
     ) ?? (existing?.dataAvailability as Json | undefined);
+  reportUnlistedMetrics(metric, dataAvailability, report, id);
 
   // pathwayDescription from the Excel "Pathway Overview"; keep existing otherwise.
   let pathwayDescription: string | null;
@@ -1625,18 +1920,79 @@ async function readJson(file: string): Promise<Json | null> {
   }
 }
 
+/**
+ * The file an update rewrites, or the template a new file copies its
+ * publication block from; null when the pathway cannot be built. A missing
+ * template is an authoring error, so the import stops instead of writing a
+ * file without a publication block.
+ */
+export async function loadTargetFiles(
+  key: string,
+  target: Target,
+  report: Report,
+): Promise<{ existing: Json | null; template: Json | null } | null> {
+  if (target.mode === "new") {
+    const template = await readJson(target.templateFile);
+    if (!template) {
+      report.error(
+        `template ${target.templateFile} for ${key} not found or unreadable -- fix TARGETS or restore the file`,
+      );
+      return null;
+    }
+    return { existing: null, template };
+  }
+  const existing = await readJson(target.file);
+  if (!existing) {
+    report.note(`${key}: target file ${target.file} not found -- skipped`);
+    return null;
+  }
+  return { existing, template: null };
+}
+
 /** Group sub-sheet rows by canonical key. */
 function groupByKey(rows: Row[]): Map<string, Row[]> {
   const map = new Map<string, Row[]>();
   for (const row of rows) {
-    const key = canonicalKey(
-      row["Name of Publisher"] ?? "",
-      row["Name of Pathway"] ?? "",
-    );
+    const key = rowKey(row);
     if (!key) continue;
     (map.get(key) ?? map.set(key, []).get(key)!).push(row);
   }
   return map;
+}
+
+function rowKey(row: Row): string | null {
+  return canonicalKey(
+    row["Name of Publisher"] ?? "",
+    row["Name of Pathway"] ?? "",
+    row["Name of publication"] ?? "",
+  );
+}
+
+/**
+ * Sub-sheet rows that belong to no metadata row, one line per pathway and
+ * sheet. Such rows are never imported, so a spelling that differs from the
+ * metadata sheet (a year-less WEO title, a changed code) would otherwise lose
+ * a pathway's key features or drivers without a word.
+ */
+export function orphanSubRows(
+  metadata: Row[],
+  subSheets: Record<string, Row[]>,
+): string[] {
+  const metaKeys = new Set(metadata.map(rowKey).filter((k) => k !== null));
+  const out: string[] = [];
+  for (const [sheet, rows] of Object.entries(subSheets)) {
+    const seen = new Set<string>();
+    for (const row of rows) {
+      const key = rowKey(row);
+      if (key !== null && metaKeys.has(key)) continue;
+      const label = `${sheet}: ${row["Name of Publisher"] ?? ""} | ${row["Name of Pathway"] ?? ""} (key=${key ?? "?"})`;
+      if (!seen.has(label)) {
+        seen.add(label);
+        out.push(label);
+      }
+    }
+  }
+  return out;
 }
 
 async function main() {
@@ -1677,21 +2033,20 @@ async function main() {
   for (const meta of sheets.metadata) {
     const publisher = meta["Name of Publisher"] ?? "";
     const pathway = meta["Name of Pathway"] ?? "";
-    const key = canonicalKey(publisher, pathway);
+    const key = canonicalKey(
+      publisher,
+      pathway,
+      meta["Name of publication"] ?? "",
+    );
     if (!key || !TARGETS[key]) {
       unmatched.push(`${publisher} | ${pathway} (key=${key ?? "?"})`);
       continue;
     }
     seenKeys.add(key);
     const target = TARGETS[key];
-    const existing =
-      target.mode === "update" ? await readJson(target.file) : null;
-    const template =
-      target.mode === "new" ? await readJson(target.templateFile) : null;
-    if (target.mode === "update" && !existing) {
-      report.note(`${key}: target file ${target.file} not found -- skipped`);
-      continue;
-    }
+    const files = await loadTargetFiles(key, target, report);
+    if (!files) continue;
+    const { existing, template } = files;
 
     const sub = {
       keyFeatures: kfByKey.get(key) ?? [],
@@ -1734,12 +2089,17 @@ async function main() {
       `Unmatched Excel rows (${unmatched.length}): ${unmatched.join(" ;; ")}`,
     );
   }
-  report.note(
-    "#801 NOT addressed: the workbook carries no NGFS data, so the 7 NGFS files' " +
-      "empty region memberships are untouched. Region memberships ARE populated for " +
-      "the covered pathways from their Regions cell.",
-  );
-
+  const orphans = orphanSubRows(sheets.metadata, {
+    key_features: sheets.keyFeatures,
+    core_drivers: sheets.coreDrivers,
+    dependencies: sheets.dependencies,
+    data_availability: sheets.dataAvailability,
+  });
+  if (orphans.length > 0) {
+    report.note(
+      `Sub-sheet rows with no matching metadata row, not imported (${orphans.length}): ${orphans.join(" ;; ")}`,
+    );
+  }
   console.info(report.lines.join("\n"));
 
   if (report.errors.length > 0) {

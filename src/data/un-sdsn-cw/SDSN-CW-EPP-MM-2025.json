@@ -37,11 +37,23 @@
   "modelYearEnd": 2050,
   "sectors": [
     {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
       "name": "Power",
+      "technologies": ["Coal", "Gas", "Hydro", "Wind", "Solar", "Other"]
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Other",
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Existing Policies Pathway (EPP) is a predictive power-sector scenario for Myanmar that models the evolution of the energy system under current policies and to meet Nationally Determined Contribution (NDC) targets. This scenario is complemented by the Optimized Existing Policy Pathway—a scenario with the same assumptions but constructed using a cost optimization module—and the Optimized More Ambitious Pathway—a scenario where Myanmar reaches Near-Zero emissions in the power sector by 2050—from the same developers.\n\nEPP projects electricity demand growth across all major sectors and reflects planned additions of gas, hydro, and solar capacity, alongside retirements of aging thermal assets. While the pathway includes moderate expansion of renewables, it does not assume major policy shifts or other large-scale low-carbon interventions. As a result, the system experiences increasing reliability challenges, with reserve margin tightening significantly over time due to growing demand and limited new firm-capacity additions. Electricity generation in Myanmar increases by 57% from 2020 to 2040, but then declines by 16% between 2040 and 2050, resulting in a domestic electricity supply shortfall. Direct emissions from the power sector in Myanmar decrease, as coal and gas capacity are phased out by 2050, but this may be compensated for by power imports which reach 14% of demand by 2050.",
+  "pathwayDescription": "The Existing Policies Pathway (EPP) is a predictive power-sector scenario for Myanmar modeling the energy system under current policies and Nationally Determined Contribution (NDC) targets. It is complemented by two pathways from the same developers: the Optimized Existing Policy Pathway, which uses the same assumptions with cost optimization, and the Optimized More Ambitious Pathway, which reaches near-zero power-sector emissions by 2050. EPP projects demand growth across all major sectors and reflects planned gas, hydro, and solar additions alongside retirements of aging thermal assets. Renewables expand moderately; no major policy shifts or large-scale low-carbon interventions are assumed. Reserve margins tighten as demand grows and new firm capacity remains limited. Generation rises 57% from 2020 to 2040, then falls 16% by 2050, causing a domestic supply shortfall. Direct emissions fall as coal and gas are phased out by 2050, though imports reaching 14% of demand may offset this.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -133,7 +145,7 @@
     ]
   },
   "coreDrivers": {
-    "policies": "\"Demand side sector energy demand follows Myanmar official targets. To fulffil those additional demands, the scenario follows Myanmar official technology shares targets in 2030, sourced from a World Bank report. Myanmar also issued NDC Capacity targets additions, but due to political instability, challenges with natural gas supply, and the lack of foreign investment, the country power development landscape has changed.\".",
+    "policies": "Demand side sector energy demand follows Myanmar official targets. To fulffil those additional demands, the scenario follows Myanmar official technology shares targets in 2030, sourced from a World Bank report. Myanmar also issued NDC Capacity targets additions, but due to political instability, challenges with natural gas supply, and the lack of foreign investment, the country power development landscape has changed.",
     "emissionsTargets": null,
     "technologyCosts": null,
     "investmentChange": null,
@@ -196,7 +208,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Emissions intensity can be derived from total generation and absolute emissions. Domestic electricity generation only: imported-electricity emissions are excluded and are important in EP scenario. The country phase out fossil fuel power but we have no information on other country fossil fuel polciies. That's why emissions intensity tends to 0 in this scenario."
+        "scopeLimitations": "Emissions intensity can be derived from total generation and absolute emissions. Covers domestic generation only; imported-electricity emissions, significant in EP, are excluded. As fossil power is phased out domestically, intensity tends to 0."
       },
       {
         "metricName": "Absolute Emissions",
@@ -206,7 +218,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Domestic electricity generation only: imported-electricity emissions are excluded and are important in EP scenario. The country phase out fossil fuel power but we have no information on other country fossil fuel polciies. That's why absolute emissions tends to 0 in 2050 in this scenario"
+        "scopeLimitations": "Covers domestic generation only; imported-electricity emissions, significant in EP, are excluded as exporting countries' fossil fuel policies are unknown. As fossil power is phased out domestically, absolute emissions tend to 0 by 2050."
       },
       {
         "metricName": "Capacity",

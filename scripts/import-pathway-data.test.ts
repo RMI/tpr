@@ -23,7 +23,18 @@ import {
   buildCoreDrivers,
   buildDependencies,
   buildDoc,
+  parseSectorGroups,
+  orphanSubRows,
+  loadTargetFiles,
 } from "./import-pathway-data.ts";
+
+/** A pathway with no sub-sheet rows. */
+const EMPTY_SUB = {
+  keyFeatures: [],
+  coreDrivers: undefined,
+  dependencies: [],
+  dataAvailability: [],
+};
 
 describe("publisherGroup", () => {
   it("maps each sheet's spelling to one group", () => {
@@ -33,6 +44,27 @@ describe("publisherGroup", () => {
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
+    expect(
+      publisherGroup(
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+      ),
+    ).toBe("CGS");
+    expect(publisherGroup("CGS, IESR")).toBe("CGS");
+    expect(publisherGroup("CGS-IESR")).toBe("CGS");
+    expect(
+      publisherGroup("Network for Greening the Financial System (NGFS)"),
+    ).toBe("NGFS");
+    expect(
+      publisherGroup(
+        "University of Technology Sydney – Institute for Sustainable Futures (UTS ISF)",
+      ),
+    ).toBe("UTS");
+    expect(publisherGroup("TransitionZero (TZ)")).toBe("TZ");
+    expect(
+      publisherGroup(
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+      ),
+    ).toBe("EREA");
     expect(publisherGroup("Some Unknown Org")).toBeNull();
   });
 });
@@ -48,9 +80,18 @@ describe("scenarioParts", () => {
     ).toEqual({ code: "OMAP", country: "MM" });
   });
   it("derives JRC codes from names with no parenthetical", () => {
-    expect(scenarioParts("Reference scenario").code).toBe("REFERENCE");
+    expect(scenarioParts("Reference scenario").code).toBe("Reference");
     expect(scenarioParts("NDC-LTS scenario").code).toBe("NDC-LTS");
-    expect(scenarioParts("1.5°C scenario").code).toBe("1.5C");
+    expect(scenarioParts("1.5°C scenario").code).toBe("1.5°C");
+    // ...which are the TARGETS keys, so such a row still finds its pathway.
+    for (const name of [
+      "Reference scenario",
+      "NDC-LTS scenario",
+      "1.5°C scenario",
+    ]) {
+      const key = canonicalKey("JRC", name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
   });
 });
 
@@ -79,6 +120,30 @@ describe("canonicalKey", () => {
         "Optimized More Ambitious Policy (OMAP)",
       ),
     ).toBe("AGF:OMAP:");
+  });
+
+  it("keeps the WEO editions apart by the publication year", () => {
+    const iea = "International Energy Agency (IEA)";
+    const steps = "Stated Policies Scenario (STEPS)";
+    expect(canonicalKey(iea, steps, "World Energy Outlook 2024")).toBe(
+      "IEA:STEPS 2024:",
+    );
+    // Sub-sheets spell the same publication differently.
+    expect(
+      canonicalKey(iea, steps, "World Energy Outlook 2025 (WEO-2025)"),
+    ).toBe("IEA:STEPS 2025:");
+    // The edition year, not another year the title mentions first.
+    expect(
+      canonicalKey(iea, steps, "2025 update: World Energy Outlook 2024"),
+    ).toBe("IEA:STEPS 2024:");
+    // No year: matches no IEA target, so it is reported as unmatched.
+    const noYear = canonicalKey(iea, steps, "World Energy Outlook");
+    expect(noYear).toBe("IEA:STEPS:");
+    expect(TARGETS[noYear!]).toBeUndefined();
+    // Other publishers ignore the publication.
+    expect(
+      canonicalKey("UN SDSN, CW", "Existing Policy (EP MY)", "Report 2024"),
+    ).toBe("SDSN:EP MY:");
   });
 });
 
@@ -189,6 +254,116 @@ describe("TARGETS", () => {
       const key = canonicalKey("UN SDSN, CW", name);
       expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
     }
+  });
+
+  it("matches the Malaysia, Philippines and CGS/IESR rows", () => {
+    const rows: [string, string][] = [
+      ["UN SDSN, CW", "Existing Policy (EP MY)"],
+      ["UN SDSN, CW", "Optimised More Ambitious Policy (OMAP MY)"],
+      ["UN SDSN, CW", "Simulated Existing Policy Pathway (SEP PH)"],
+      ["UN SDSN, CW", "Most Ambitious Policy Scenario 4 (MAP4 PH)"],
+      [
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+        "Business as Usual Scenario (BaU)",
+      ],
+      [
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+        "1.5°C-Aligned Scenario (1.5°C)",
+      ],
+    ];
+    for (const [publisher, name] of rows) {
+      const key = canonicalKey(publisher, name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
+  });
+
+  it("matches the WEO 2024, JRC, UTS-ISF, TransitionZero and Viet Nam rows", () => {
+    const rows: [string, string, string, string][] = [
+      [
+        "International Energy Agency (IEA)",
+        "Announced Pledges Scenario (APS)",
+        "World Energy Outlook 2024",
+        "src/data/iea/IEA-APS-2024.json",
+      ],
+      [
+        "International Energy Agency (IEA)",
+        "Stated Policies Scenario (STEPS)",
+        "World Energy Outlook 2025",
+        "src/data/iea/IEA-STEPS-2025.json",
+      ],
+      [
+        "JRC",
+        "Reference Scenario (Reference)",
+        "",
+        "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
+      ],
+      [
+        "JRC",
+        "1.5°C Scenario (1.5°C)",
+        "",
+        "src/data/jrc/JRC-GECO-1-5-2025.json",
+      ],
+      [
+        "University of Technology Sydney – Institute for Sustainable Futures (UTS ISF)",
+        "One Earth Climate Model (OECM) 1.5 °C pathway",
+        "",
+        "src/data/uts-isf/UTS-ISF-OECM-2024.json",
+      ],
+      [
+        "TransitionZero (TZ)",
+        "Indonesia Supergrid (ISG)",
+        "",
+        "src/data/transitionzero/TZ-ISG-2024.json",
+      ],
+      [
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+        "Baseline scenario (BSL)",
+        "",
+        "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
+      ],
+      [
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+        "Net-Zero+ variation (NZ+)",
+        "",
+        "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
+      ],
+    ];
+    for (const [publisher, name, publication, file] of rows) {
+      const key = canonicalKey(publisher, name, publication);
+      expect(key && TARGETS[key]?.file, `${name} -> ${key}`).toBe(file);
+    }
+  });
+
+  it("gives each NGFS scenario and model its own pathway", () => {
+    const ngfs = "Network for Greening the Financial System (NGFS)";
+    const ids = new Set<string>();
+    for (const name of [
+      "Below 2°C, GCAM 6.0 NGFS (B2C GCAM)",
+      "Below 2°C, MESSAGEix-GLOBIOM 2.0-M-R12-NGFS (B2C MESSAGE)",
+      "Net Zero 2050, REMIND-MAgPIE 3.3-4.8 (NZ2050 REMIND)",
+    ]) {
+      const key = canonicalKey(ngfs, name);
+      const target = key ? TARGETS[key] : undefined;
+      expect(target?.mode, `${name} -> ${key}`).toBe("new");
+      if (target?.mode === "new") ids.add(target.id);
+    }
+    expect(ids).toEqual(
+      new Set([
+        "NGFS-B2C-GCAM-2024",
+        "NGFS-B2C-MESSAGE-2024",
+        "NGFS-NZ2050-REMIND-2024",
+      ]),
+    );
+    expect(
+      Object.keys(TARGETS).filter((k) => k.startsWith("NGFS:")),
+    ).toHaveLength(21);
+  });
+
+  it("rebuilds every new pathway from a template that exists", async () => {
+    const { access } = await import("node:fs/promises");
+    for (const t of Object.values(TARGETS))
+      if (t.mode === "new")
+        await expect(access(t.templateFile)).resolves.toBeUndefined();
   });
 });
 
@@ -457,12 +632,7 @@ describe("character limits (tpr-tpc decision 0028)", () => {
   });
 
   describe("buildDoc", () => {
-    const sub = {
-      keyFeatures: [],
-      coreDrivers: undefined,
-      dependencies: [],
-      dataAvailability: [],
-    };
+    const sub = EMPTY_SUB;
     const meta = (over: Record<string, string> = {}) => ({
       "Name of Pathway": "Current Policies Scenario (CPS)",
       "Name of publication": "World Energy Outlook 2025",
@@ -531,5 +701,217 @@ describe("character limits (tpr-tpc decision 0028)", () => {
       );
       expect(errors).toBe("");
     });
+  });
+});
+
+describe("per-sector list cells (Technology coverage, Metric)", () => {
+  it("keeps every item, however the cell is spelled", () => {
+    const all = { Power: ["Coal", "Oil", "Gas"] };
+    expect(parseSectorGroups("Power: [Coal, Oil, Gas]")).toEqual(all);
+    expect(parseSectorGroups("Power: [Coal; Oil; Gas]")).toEqual(all);
+    expect(parseSectorGroups("Power: Coal; Oil; Gas")).toEqual(all);
+    expect(parseSectorGroups("Coal; Oil; Gas")).toEqual({
+      "": ["Coal", "Oil", "Gas"],
+    });
+    expect(
+      parseSectorGroups("Power: [Coal; Gas]; Steel: [EAF, Other]"),
+    ).toEqual({ Power: ["Coal", "Gas"], Steel: ["EAF", "Other"] });
+    expect(parseSectorGroups("")).toEqual({});
+  });
+
+  it("builds a pathway's technologies and metrics from each spelling", () => {
+    const sub = EMPTY_SUB;
+    const build = (tech: string, metric: string) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+        {
+          "Name of Pathway": "Scenario (S)",
+          "Description": "A short description.",
+          "Sectors": "Power",
+          "Technology coverage": tech,
+          "Metric": metric,
+        },
+        sub,
+        null,
+        null,
+        report,
+      );
+      return {
+        technologies: (doc.sectors as { technologies: string[] }[])[0]
+          .technologies,
+        metric: doc.metric,
+        notes: report.lines.join("\n"),
+      };
+    };
+    const want = ["Coal", "Gas", "Solar"];
+    const metrics = ["Absolute Emissions", "Capacity", "Generation"];
+    for (const [tech, metric] of [
+      [
+        "Power: [Coal; Gas; Solar]",
+        "Power: [Absolute emissions; Capacity; Generation]",
+      ],
+      [
+        "Power: Coal; Gas; Solar",
+        "Power: Absolute emissions; Capacity; Generation",
+      ],
+      ["Coal; Gas; Solar", "Absolute emissions; Capacity; Generation"],
+    ]) {
+      const got = build(tech, metric);
+      expect(got.technologies, tech).toEqual(want);
+      expect(got.metric, metric).toEqual(metrics);
+    }
+  });
+
+  it("reports a cell from which no technologies could be read", () => {
+    const report = new Report();
+    buildDoc(
+      { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+      {
+        "Name of Pathway": "Scenario (S)",
+        "Description": "A short description.",
+        "Sectors": "Power; Steel",
+        "Technology coverage": "Coal; Gas",
+      },
+      EMPTY_SUB,
+      null,
+      null,
+      report,
+    );
+    const notes = report.lines.join("\n");
+    expect(notes).toContain(
+      "Technology coverage names no sector but the pathway has 2",
+    );
+    expect(notes).toContain(
+      "T/sectors: no technologies could be read from Technology coverage",
+    );
+  });
+});
+
+describe("metric list", () => {
+  const sub = EMPTY_SUB;
+  const update = (metricCell: string, existing: Record<string, unknown>) => {
+    const report = new Report();
+    const doc = buildDoc(
+      { mode: "update", file: "T.json" },
+      { Sectors: "Power", Metric: metricCell },
+      sub,
+      { id: "T", ...existing },
+      null,
+      report,
+    );
+    return { metric: doc.metric, notes: report.lines.join("\n") };
+  };
+
+  it("takes an update's metrics from the workbook, not the old file", () => {
+    expect(
+      update("Power: [Absolute emissions, Capacity]", {
+        metric: ["Absolute Emissions"],
+      }).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+
+  it("keeps an update's own order when the workbook lists the same metrics", () => {
+    expect(
+      update("Power: [Capacity, Absolute emissions]", {
+        metric: ["Absolute Emissions", "Capacity"],
+      }).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+
+  it("keeps an update's own metrics when the workbook cell is empty", () => {
+    expect(update("", { metric: ["Capacity"] }).metric).toEqual(["Capacity"]);
+  });
+
+  it("notes a metric data availability covers but the Metric column omits", () => {
+    const { notes } = update("Power: [Absolute emissions]", {
+      dataAvailability: {
+        overall: null,
+        byMetric: [
+          { metricName: "Absolute Emissions", dataFormat: "Tabular" },
+          { metricName: "Emissions intensity", dataFormat: "Tabular" },
+          { metricName: "Capacity", dataFormat: "Not covered" },
+          { metricName: "Technology cost", dataFormat: "Tabular" },
+        ],
+      },
+    });
+    expect(notes).toContain(
+      'T/metric: data availability covers "Emissions Intensity" but the Metric column doesn\'t list it',
+    );
+    // Not covered, and availability-only metrics, are not search metrics.
+    expect(notes).not.toContain('"Capacity"');
+    expect(notes).not.toContain("Technology cost");
+  });
+});
+
+describe("rows the import would otherwise lose without a word", () => {
+  const row = (pathway: string, publication = "World Energy Outlook 2025") => ({
+    "Name of Publisher": "International Energy Agency (IEA)",
+    "Name of publication": publication,
+    "Name of Pathway": pathway,
+  });
+
+  it("reports sub-sheet rows that belong to no metadata row", () => {
+    const orphans = orphanSubRows([row("Stated Policies Scenario (STEPS)")], {
+      key_features: [
+        row("Stated Policies Scenario (STEPS)"),
+        // Year-less title: keys to "IEA:STEPS:", which no metadata row has.
+        row("Stated Policies Scenario (STEPS)", "World Energy Outlook"),
+        row("Stated Policies Scenario (STEPS)", "World Energy Outlook"),
+      ],
+      core_drivers: [row("Stated Policies Scenario (STEPS)")],
+    });
+    expect(orphans).toEqual([
+      "key_features: International Energy Agency (IEA) | Stated Policies Scenario (STEPS) (key=IEA:STEPS:)",
+    ]);
+  });
+
+  it("stops on a new pathway whose template is missing", async () => {
+    const report = new Report();
+    const files = await loadTargetFiles(
+      "T:NEW:",
+      {
+        mode: "new",
+        file: "T.json",
+        id: "T",
+        templateFile: "does/not/exist.json",
+      },
+      report,
+    );
+    expect(files).toBeNull();
+    expect(report.errors.join("\n")).toContain(
+      "template does/not/exist.json for T:NEW: not found or unreadable",
+    );
+  });
+
+  it("never lets a partly unreadable Metric cell remove an update's metrics", () => {
+    const update = (cell: string, metric: string[]) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "update", file: "T.json" },
+        { Sectors: "Power", Metric: cell },
+        EMPTY_SUB,
+        { id: "T", metric },
+        null,
+        report,
+      );
+      return { metric: doc.metric, notes: report.lines.join("\n") };
+    };
+    // Unknown item: Emissions Intensity stays although the cell omits it.
+    const removed = update(
+      "Power: [Absolute emissions, Emissions intensity (total)]",
+      ["Absolute Emissions", "Emissions Intensity"],
+    );
+    expect(removed.metric).toEqual([
+      "Absolute Emissions",
+      "Emissions Intensity",
+    ]);
+    expect(removed.notes).toContain('T/metric: kept "Emissions Intensity"');
+    // ...but the recognised items can still add a metric.
+    expect(
+      update("Power: [Absolute emissions, Capacity, Storage capacity]", [
+        "Absolute Emissions",
+      ]).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
   });
 });

@@ -38,7 +38,7 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"]
     }
   ],
   "pathwayDescription": "The Business-As-Usual (BAU) scenario represents Singapore’s energy and emissions trajectory under the full implementation of selected currently legislated policies and national targets. It integrates the Energy Market Authority’s (EMA) emission standards, the Green Plan 2030, and sectoral electrification strategies across power, transport, and residential sectors. The BAU scenario assumes Singapore continues to adopt low carbon technologies gradually, driven only by existing government policies and current levels of investment, without any major acceleration or new initiatives.\n\nThe power mix diversifies modestly; natural gas falls to 65% of generation by 2050; imported renewables reach 25%; and hydrogen, coal, solar, and waste collectively supply the remaining 10%. Solar deployment expands fivefold to 2 GW by 2030 and continues gradual growth thereafter. The hydrogen-ready Keppel Sakra natural gas cogeneration plant contributes up to 600 MW by 2026, blending 30% hydrogen initially and 50% by 2035.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
@@ -155,6 +155,30 @@
       "dependency_description": "BAU's build-out is exogenous, so prices do not determine what is built - but the pathway's premise is that a series of commercial arrangements land on schedule, and the report's own evidence is that they can fail. It cites the Sun Cable project, conceptualised in 2022 to bring 1.75 GW from Australia over a 4,200 km cable and 'no longer deemed to be commercially viable at the time of writing', as the counter-example to the import programme BAU assumes.",
       "sector": "Power",
       "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "BAU's end-use adoption assumptions  turn transport and household energy demand into power demand. Half the bus fleet is electric by 2030 and the fleet is 100% cleaner-energy by 2040; internal combustion engines numbers in automotive, motorcycle and freight fall to zero by 2040; large uptake of EVs and hybrid is also projected for buses, motorcycles, and freight transport. Households take a 2.4% cut in energy intensity by 2030 from the smart-meter rollout.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The BAU power sector depends on interconnection being built on a specific schedule with Indonesia, Vietnam, and Cambodia being major future electricity suppliers, each modelled at 87% process efficiency after 12.9% HVDC losses. The Indonesian supply in particular rests on a single project, Vena Energy's 2 GW solar-plus-battery development, due to complete in phases by 2032. Domestic curtailment or grid-integration needs are not modeled.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "BAU depends on hydrogen-natural gas co-firing becoming mmore commercially established, starting at 30% hydrogen blend and 70% natural gas and reaching 70% green hydrogen by 2050 at the Keppel Sakra plant from 2026. Carbon capture must be retrofittable to gas, oil, WTE and coal plants from 2030, though the modelled abatement is deliberately conservative at 5% rising to 10% - and the report notes CCS in Singapore is 'still in its infancy' with no suitable domestic geological storage.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "BAU deepens import dependence on several fronts at once. Biomass consumption rises from 2.2 PJ in 2024 to 4.5 PJ in 2050 against a domestic supply of essentially zero. Hydrogen is assumed to be importable via a proposed Malaysia-Singapore pipeline targeted for 2027. The share of imported green hydrogen relative to blue hydrogen is still unclear.  And 24.9% of 2050 electricity depends on neighbouring countries' renewable resources being developed for export.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
     }
   ],
   "dataAvailability": {

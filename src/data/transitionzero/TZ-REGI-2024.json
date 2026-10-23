@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "TZ-REGI-2024",
   "publication": {
     "title": {
@@ -42,20 +42,30 @@
   "description": "ASEAN power model with significant new regional transmission infrastructure.",
   "geography": {
     "regions": {
-      "ASEAN": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
+      "ASEAN": ["BN", "KH", "ID", "LA", "MM", "MY", "PH", "SG", "TH", "VN"]
     },
-    "country": ["BN", "KH", "ID", "LA", "MY", "MM", "PH", "SG", "TH", "VN"]
+    "country": ["BN", "KH", "ID", "LA", "MM", "MY", "PH", "SG", "TH", "VN"]
   },
   "pathwayType": "Exploratory",
-  "modelYearStart": 2024,
+  "modelYearStart": 2023,
   "modelYearEnd": 2035,
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Geothermal",
+        "Energy storage"
+      ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Regional Interconnection (REGI) scenario marks the first major structural expansion of the ASEAN Power Grid in TransitionZero’s set of TZ-APG v1 pathways. It introduces new cross-border transmission projects identified under the ASEAN Interconnection Masterplan Study (AIMS III), including 18 interconnectors across the region and two additional subsea cables linking Singapore with Vietnam and Cambodia. These additions represent the backbone of a future interconnected ASEAN electricity market.\n\nWhile the model includes extensive new interconnection routes, the system-wide generation capacity and mix in 2035 remain nearly identical to BAU and EBAU. This reflects the TZ-APG model’s design emphasis on grid utilization and trade optimization rather than differential technology uptake. The scenario thus focuses on regional power flow patterns, investment costs, and trade efficiency rather than major shifts in generation technology.\n\nThe pathway demonstrates how regional coordination enhances flexibility, allowing countries to leverage resource complementarities. Integration also improves system utilization, reduces stranded-capacity risk, and slightly lowers system costs by avoiding redundant investment in domestic gas and storage. It reflects an ASEAN energy system beginning to function as a shared market rather than as a set of isolated national grids.\n\n#### Core Drivers\n\nREGI is driven by expanded investments in transmission, including regional interlinkages.\n\n*Policy:* Guided by the AIMS III framework, the scenario envisions member states implementing planned interconnectors by 2035. National generation targets continue to determine capacity development.\n\n*Infrastructure and investment:* Transmission expansion is the core feature of the REGI scenario. Investments focus on strategic corridors that enable high-volume trade, including Kalimantan–Sabah–Luzon and Laos–Thailand–Vietnam linkages. This pathway requires an estimated US$122 billion in new transmission investments to 2035.\n\n*Technology cost and deployment:* REGI is a cost-optimized model and maintains a balanced portfolio across coal, gas, hydro, and solar. No major technological shifts occur, but regional dispatch efficiency improves. The model reflects ongoing demand growth and industrialization across ASEAN, with regional integration serving as a mechanism to stabilize costs and reliability.\n\n#### Application to Transition Assessment\n\nThe Regional Interconnection scenario is best interpreted as an infrastructure-focused pathway rather than a low-carbon transition case. Given the negligible variance in capacity and generation values across scenarios, this scenario primarily provides insights into the economic and operational implications of ASEAN grid integration, including reduced investment duplication, enhanced regional trade, and cross-border policy coordination.\n\nFor transition assessments, this pathway is useful for analyzing how company strategies may align with or benefit from new transmission corridors, rather than for benchmarking emissions trajectories. It highlights how the physical expansion of interconnectors, despite stable generation structures, can reshape electricity trade and regional energy security outcomes. This scenario provides insights into operational dependencies on grid connectivity, informing resilience planning, investment in transmission-linked assets, and regional market positioning.\n\nThe REGI pathway provides capacity and generation data with limited time availability, providing only baseline 2023 and 2035 projections. It uses a moderately detailed breakdown by generation source, such as coal, solar, and wind. REGI provides both regional and country-specific results, allowing granular comparisons for companies operating across multiple countries. TransitionZero offers open access to its underlying TZ-APG model, providing significantly greater detail and customizability for users who are interested in more complex applications.",
+  "pathwayDescription": "The Regional Interconnection (REGI) scenario marks the first major structural expansion of the ASEAN Power Grid in TransitionZero’s set of TZ-APG v1 pathways. It introduces new cross-border transmission projects identified under the ASEAN Interconnection Masterplan Study (AIMS III), including 18 interconnectors across the region and two additional subsea cables linking Singapore with Vietnam and Cambodia. These additions represent the backbone of a future interconnected ASEAN electricity market.\n\nWhile the model includes extensive new interconnection routes, the system-wide generation capacity and mix in 2035 remain nearly identical to BAU and EBAU. This reflects the TZ-APG model’s design emphasis on grid utilization and trade optimization rather than differential technology uptake. The scenario thus focuses on regional power flow patterns, investment costs, and trade efficiency rather than major shifts in generation technology.\n\nThe pathway demonstrates how regional coordination enhances flexibility, allowing countries to leverage resource complementarities. Integration also improves system utilization, reduces stranded-capacity risk, and slightly lowers system costs by avoiding redundant investment in domestic gas and storage. It reflects an ASEAN energy system beginning to function as a shared market rather than as a set of isolated national grids.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -64,16 +74,924 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "No information",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": ["Target technology shares"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (unspecified GHGs)",
-    "policyAmbition": "NDCs incl. conditional targets",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "Total investment"
+    "emissionsTrajectory": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not Applicable"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": ["Target technology shares", "Other"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "CO2e (unspecified GHGs)"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Current and drafted policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": ["Battery storage"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Power",
+        "geography": "ASEAN",
+        "value": "By sector, part of value chain"
+      },
+      {
+        "sector": "Power",
+        "geography": "BN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "LA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MM",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SG",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TH",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Target technology shares: minimum RE/solar shares for Brunei, Indonesia, Malaysia and the Philippines are imposed as constraints. Target capacity levels: minimum hydro, solar, RE and wind capacities (Cambodia, Lao PDR, Myanmar, Singapore, Viet Nam) and coal caps (Myanmar, Viet Nam) are imposed, several binding exactly in 2035. The policy set is identical to BAU; new links let constraint-driven RE in one country (e.g. Kalimantan hydro) displace gas elsewhere, notably in the Philippines.",
+    "emissionsTargets": "Absolute emissions caps are imposed as model constraints: Indonesia's power emissions peak at 290 MtCO2eq by 2030 and Singapore's at 60 MtCO2eq in 2030. In REGI's 2035 results Indonesia emits 240.9 Mt and Singapore 23.2 Mt, so neither cap binds at the reported year.",
+    "technologyCosts": "Least-cost optimisation weighs new subsea and overland HVDC interconnectors (higher cost per km for subsea) against domestic storage and gas, using DEA catalogue capex/O&M. With USD 121.89bn of transmission, cheap Kalimantan and Lao hydro displaces gas, cutting Philippine gas capacity from 7.5 to 4.2 GW and ASEAN storage to 43.5 GW. ASEAN system cost falls to 88.47bn (−2.3% vs BAU).",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Electricity demand growth is an exogenous driver common to all four TZ-APG pathways and does not differentiate them: country CAGRs for 2023-2035 range from 1.6% (Myanmar) to 8.1% (Cambodia). Sources are national plans (Cambodia PDMP, Indonesia JETP CIPP, Philippines PDP, Singapore Energy 2050 Committee, Thailand PDP, Viet Nam PDP) and, for Brunei, Lao PDR, Malaysia and Myanmar, TransitionZero estimates based on historical trends and World Bank, IMF and IIASA population and GDP projections.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Grid topology: REGI adds the remaining AIMS III interconnectors and Singapore's links to Viet Nam and Cambodia (54 routes), assumed built by 2035. New subsea links such as Sabah→Luzon (3,648 MW, 20.0 TWh) and Kalimantan→Sabah (3,892 MW, 18.5 TWh) create the Borneo–Philippines 'green lane', reducing ASEAN storage to 43.5 GW and gas to 129.5 GW. The assumption is infrastructure design, not any of the other named drivers."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Beyond national targets, REGI assumes the full AIMS III programme and Singapore's import links are built by 2035. The pathway depends on regional frameworks the report describes as still under development: the renewed APG MOU, phase 3 of AIMS III, BIMP-PIP and Singapore's import-diversification strategy. The report presents BIMP-PIP and Malaysia's ENEGEM exchange as policy steps aligned with the modelled Kalimantan–Sabah–Luzon corridor.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "REGI's multilateral flows, including wheeling through Sabah to Luzon and through Malaysia to Singapore, require multilateral trading arrangements, harmonised grid codes and technical standards that the report says still need to be developed. The report also calls for a common green-electricity tracking framework to manage carbon leakage. Export, wheeling and import charges are not represented in v1, so their regulatory design is an unmodelled condition behind the trade volumes shown.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Transmission capex more than doubles to about USD 122bn for a 2.3% system-cost saving (USD 90.5bn → 88.47bn). The pathway depends on capital for long-lived, mostly subsea HVDC assets such as Sabah–Luzon (USD 23.5bn) and Sumatera–Singapore (USD 18.3bn). The report flags low-utilisation risk for Singapore's cables to Cambodia and Viet Nam (0.2 and 0.5 TWh) and says export, wheeling and import costs need better representation.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "With wider integration, emissions rise in more exporting nodes (Lao PDR 10.4 Mt and Thailand 108.7 Mt, versus 0.6 and 104.9 Mt in BAU). The report warns that uneven impacts on exporting communities and carbon-leakage risk require a common green-electricity tracking framework. It also states that political and social buy-in depends on transparent data.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Client demand for clean electricity and its traceability is the report's case for green corridors such as Kalimantan–Sabah–Luzon (20.0 TWh into Luzon). The report gives no willingness-to-pay or behavioural assumption, so this is context rather than a constraint.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "REGI rests on building the rest of AIMS III plus the Singapore links by 2035, which the annex assumes rather than assesses. New subsea HVDC routes carry the main shifts: Sabah→Luzon (3,648 MW, 20.0 TWh) replaces Philippine gas (7.5 → 4.2 GW), alongside Kalimantan→Sabah (3,892 MW, 18.5 TWh) and Sumatera→Singapore (3,664 MW, 6.6 TWh). Storage falls to 43.5 GW.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Storage falls to 43.5 GW (up to 36% below BAU), concentrated in Viet Nam (35.4 GW). Regional interconnection substitutes for BESS in Indonesia (1.3 GW) and Malaysia (2.5 GW).",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "REGI's 'green lane' relies on Kalimantan hydropower (7.4 GW, 39.5 TWh) for export to Sabah and Luzon, and on Lao hydro (94.2 TWh) for Viet Nam. Singapore diversifies imports to Sumatera (6.6 TWh), Peninsular Malaysia, Cambodia and Viet Nam because its own resources are limited.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "ASEAN",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Derived: node emissions ÷ node generation, 2035 (ASEAN 0.397 t/MWh). Generation-based, excludes imports. Gas basket and emissions scope not stated (report labels MtCO2eq). Grid-to-grid node model; plant data omits most rooftop/small-scale solar; no captive series."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "ASEAN",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": ["Unspecified"],
+        "scopeLimitations": "Total power-system emissions by node, Mt, 2035 (ASEAN 829.4 Mt). GHG basket and emissions scope not stated; report charts label MtCO2eq. Grid-to-grid node model; plant data omits most rooftop/small-scale solar; no captive series."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": [
+          "ASEAN",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Installed MW by node and technology, 2035. Storage = lithium-ion battery, separate column, MW only (no MWh). Pumped-storage hydro is included in hydropower, not separated. Coal limited to plants operating or under construction in 2023. Plant data omits most rooftop/small-scale solar; no captive series."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "ASEAN",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal"
+        ],
+        "scopeLimitations": "Annual GWh by node and technology, 2035 (ASEAN 2,088.4 TWh). Generation within each node; imports/exports shown separately in transmission trade. Plant data omits most rooftop/small-scale solar; no captive series."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "ASEAN",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal"
+        ],
+        "scopeLimitations": "Derived from generation by technology (share of node/country/ASEAN total), 2035. Same on-grid boundary as Generation; excludes imported electricity from the mix of the importing country."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": [
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": ["International and national transmission lines"],
+        "scopeLimitations": "Line-level trade (GWh), capacity (MW) and capex (USD bn) between the 24 nodes. 54 routes incl. new AIMS III and Singapore links; capacity optimised; capex for upgrades and new build vs BAU. Lines act as combined interfaces between node centre-points; HVAC/HVDC by distance; no distribution grid; no trade with China; no wheeling charges."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": [
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Capital (USD/MW), fixed O&M (USD/MW-yr), variable (USD/MWh) and fuel (USD/MWh) costs per country and technology, incl. Li-ion battery and HVAC/HVDC/subsea transmission. DEA Viet Nam/Indonesia average applied to all countries; single ASEAN fuel prices."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Transmission and distribution"],
+        "geography": [
+          "ASEAN",
+          "BN",
+          "KH",
+          "ID",
+          "LA",
+          "MM",
+          "MY",
+          "PH",
+          "SG",
+          "TH",
+          "VN"
+        ],
+        "timeResolution": "Medium-term data point",
+        "dataFormat": "Tabular",
+        "granularity": ["By sector, part of value chain"],
+        "scopeLimitations": "Systems cost by node = generator capex 2023-2035 plus 2035 opex (USD bn); blends capex with one year of opex. Transmission capex by line vs BAU (total USD 121.89bn). No technology split of generation capex."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Unspecified"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Tabular",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Static technical lifetimes (coal 30 yr, gas and oil 40 yr, hydro 50 yr, solar 25 yr, wind 27 yr). No early-retirement constraint; coal capacity identical across all four pathways (101.8 GW in 2035 vs 98.4 GW in 2023 incl. under-construction plants)."
+      }
+    ]
   }
 }
