@@ -432,6 +432,32 @@ describe("defaultGeographyForColumn", () => {
       defaultGeographyForColumn({ geography: "Southeast Asia" }, ace, outlined),
     ).toBeNull();
   });
+
+  it("answers a search with the closest geography that has data", () => {
+    // Thailand is declared but has no benchmark data; South East Asia, which
+    // contains it, does. A Thailand search should open there, not on Global.
+    const withThailand = {
+      ...ace,
+      geography: {
+        global: true,
+        regions: { "South East Asia": ["TH", "VN"] },
+        country: ["TH"],
+      },
+    } as unknown as PathwayMetadataType;
+    const mixed = [
+      ...options("Global", "South East Asia"),
+      {
+        token: "TH",
+        label: "Thailand",
+        kind: "country" as const,
+        available: false,
+      },
+    ];
+
+    expect(
+      defaultGeographyForColumn({ geography: "TH" }, withThailand, mixed),
+    ).toBe("South East Asia");
+  });
 });
 
 describe("columnsGeographyDivergence", () => {

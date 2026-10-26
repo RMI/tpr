@@ -269,10 +269,14 @@ export function defaultGeographyForColumn(
   options: readonly ColumnGeographyOption[],
 ): string | null {
   const available = options.filter((o) => o.available);
-  const seeded = seedGeographyFromFilters(filters.geography, pathway);
-  if (seeded !== null && available.some((o) => o.token === seeded)) {
-    return seeded;
-  }
+  const availableTokens = new Set(available.map((o) => o.token));
+  // Rank only the selectable tokens, so a search for a country without data
+  // lands on the closest region that has it rather than falling to Global.
+  const seeded = seedGeographyFromFilters(filters.geography, pathway, {
+    hasSector: () => true,
+    hasGeography: (token) => availableTokens.has(token),
+  });
+  if (seeded !== null) return seeded;
   return available[0]?.token ?? null;
 }
 
