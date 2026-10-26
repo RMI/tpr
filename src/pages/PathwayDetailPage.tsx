@@ -50,7 +50,7 @@ import {
 // The four tabs from Jacob's wireframe. The first is the default (see useActiveTab).
 const DETAIL_TABS: TabDef[] = [
   { id: "at-a-glance", label: "At a glance" },
-  { id: "overview", label: "Overview" },
+  { id: "assumptions", label: "Assumptions & Dependencies" },
   { id: "timeseries", label: "Timeseries" },
   { id: "scope", label: "Scope & Granularity" },
 ];
@@ -336,7 +336,8 @@ const PathwayDetailPage: React.FC = () => {
     surviving prose; core drivers moved to the structured `coreDrivers` object),
     and the heading now names the field it renders — settling the open question
     #859 left about what to call it. null means no description is available.
-    Lives on At a glance only; the Overview tab leads with the drivers instead.
+    Lives on At a glance only; the Assumptions & Dependencies tab leads with the
+    drivers instead.
   */
   const pathwayDescription = (
     <section>
@@ -545,7 +546,7 @@ const PathwayDetailPage: React.FC = () => {
           </TabPanel>
 
           <TabPanel
-            id="overview"
+            id="assumptions"
             activeId={activeTab}
             idBase="pathway"
           >

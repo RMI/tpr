@@ -227,7 +227,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
 
       await selectScope("Steel");
 
-      clickTab("Overview");
+      clickTab("Assumptions & Dependencies");
       await screen.findByRole(
         "rowheader",
         { name: "Resource availability" },
@@ -321,7 +321,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   it(
     "does not re-scope key features, which await the #869 resolver",
     async () => {
-      await mountDetailPage("/pathway/detail-scope?tab=overview");
+      await mountDetailPage("/pathway/detail-scope?tab=assumptions");
       await screen.findByRole(
         "heading",
         { name: "Assumptions & Trends Overview" },

@@ -40,12 +40,13 @@ const EvidenceBadge: React.FC<{ value: DependencyRow["evidence_type"] }> = ({
 );
 
 /**
- * The "Dependencies" table for the Overview tab: the conditions a pathway's
- * outcomes depend on, each with the strength of evidence behind it. `sector` is
- * shown only when the rows span more than one sector, so single-sector pathways
- * match the three-column wireframe (Dependency / Evidence / Constraint) and
- * multi-sector ones do not lose the scoping. An empty list is a normal state
- * (authoring is incremental) and renders an explanatory empty state.
+ * The "Dependencies" table for the Assumptions & Dependencies tab: the
+ * conditions a pathway's outcomes depend on, each with the strength of evidence
+ * behind it. `sector` is shown only when the rows span more than one sector, so
+ * single-sector pathways match the three-column wireframe (Dependency /
+ * Evidence / Constraint) and multi-sector ones do not lose the scoping. An
+ * empty list is a normal state (authoring is incremental) and renders an
+ * explanatory empty state.
  */
 const DependenciesTable: React.FC<DependenciesTableProps> = ({
   dependencies,
