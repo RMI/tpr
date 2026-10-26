@@ -50,6 +50,15 @@ describe("Tabs", () => {
     expect(screen.getAllByRole("tab")).toHaveLength(3);
   });
 
+  it("names each tab by its label alone", () => {
+    renderHarness();
+    // Each tab also holds a hidden copy of its label to reserve the semibold
+    // width; it must not be read out a second time ("One One").
+    for (const { label } of TABS) {
+      expect(screen.getByRole("tab", { name: label })).toBeInTheDocument();
+    }
+  });
+
   it("defaults to the first tab and shows only its panel", () => {
     renderHarness();
     expect(screen.getByRole("tab", { name: "One" })).toHaveAttribute(
