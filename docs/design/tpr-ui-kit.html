@@ -1177,7 +1177,24 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0 24px;
         font-size: 12px;
+      }
+      .ribbon .condensed.cols > span {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        min-width: 0;
+      }
+      .ribbon .condensed.cols .n {
         font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .ribbon .condensed.cols .y {
+        flex-shrink: 0;
+        font-variant-numeric: tabular-nums;
+        color: rgb(255 255 255 / 0.8);
       }
       .ribbon .axes {
         background: rgb(255 255 255 / 0.95);
@@ -4235,8 +4252,16 @@
               >
                 <div class="ribbon">
                   <div class="condensed cols">
-                    <span>IEA NZE</span><span>ACE ATS</span
-                    ><span>NGFS Net Zero</span>
+                    <span
+                      ><span class="n">IEA: NZE</span
+                      ><span class="y">2024</span></span
+                    ><span
+                      ><span class="n">IEA: NZE</span
+                      ><span class="y">2025</span></span
+                    ><span
+                      ><span class="n">NGFS: Net Zero 2050</span
+                      ><span class="y">2024</span></span
+                    >
                   </div>
                   <div
                     class="axes"

@@ -19,7 +19,7 @@ import type { PathwayMetadataType } from "../types";
 const iea = {
   id: "IEA-APS-2024",
   name: { full: "Announced Pledges Scenario", short: "APS" },
-  publication: { publisher: { short: "IEA", full: "IEA Long" } },
+  publication: { publisher: { short: "IEA", full: "IEA Long" }, year: 2024 },
   sectors: [{ name: "Power" }, { name: "Steel" }, { name: "Buildings" }],
   geography: {
     global: true,
@@ -31,7 +31,7 @@ const iea = {
 const ace = {
   id: "ACE-ATS-2024",
   name: { full: "ASEAN Target Scenario", short: "ATS" },
-  publication: { publisher: { short: "ACE", full: "ACE Long" } },
+  publication: { publisher: { short: "ACE", full: "ACE Long" }, year: 2024 },
   sectors: [{ name: "Power" }, { name: "Buildings" }],
   geography: {
     regions: { "South East Asia": ["ID", "TH", "VN"] },
@@ -156,20 +156,24 @@ describe("ComparisonScopeHeader", () => {
     it("gives every column its own control, named for its pathway", () => {
       renderHeader();
 
-      expect(columnTrigger("APS")).toBeInTheDocument();
-      expect(columnTrigger("ATS")).toBeInTheDocument();
+      expect(columnTrigger("IEA: APS (2024)")).toBeInTheDocument();
+      expect(columnTrigger("ACE: ATS (2024)")).toBeInTheDocument();
     });
 
     it("shows each column's own current geography", () => {
       renderHeader();
 
-      expect(columnTrigger("APS")).toHaveTextContent("Southeast Asia");
-      expect(columnTrigger("ATS")).toHaveTextContent("South East Asia");
+      expect(columnTrigger("IEA: APS (2024)")).toHaveTextContent(
+        "Southeast Asia",
+      );
+      expect(columnTrigger("ACE: ATS (2024)")).toHaveTextContent(
+        "South East Asia",
+      );
     });
 
     it("offers only the geographies that column's publisher declares", async () => {
       const { user } = renderHeader();
-      await user.click(columnTrigger("ATS"));
+      await user.click(columnTrigger("ACE: ATS (2024)"));
 
       const names = screen
         .getAllByRole("option")
@@ -183,7 +187,7 @@ describe("ComparisonScopeHeader", () => {
       // The column carries the provenance, so "(IEA)" would be pure noise —
       // and across the loadable pathways it disambiguates nothing anyway.
       const { user } = renderHeader();
-      await user.click(columnTrigger("APS"));
+      await user.click(columnTrigger("IEA: APS (2024)"));
 
       const names = screen
         .getAllByRole("option")
@@ -194,7 +198,7 @@ describe("ComparisonScopeHeader", () => {
 
     it("changes only the column that was used", async () => {
       const { onGeographyChange, user } = renderHeader();
-      await user.click(columnTrigger("APS"));
+      await user.click(columnTrigger("IEA: APS (2024)"));
       await user.click(screen.getByRole("option", { name: "Global" }));
 
       expect(onGeographyChange).toHaveBeenCalledTimes(1);
@@ -223,7 +227,7 @@ describe("ComparisonScopeHeader", () => {
         selectedGeographies: { [iea.id]: "Global", bare: null },
       });
 
-      expect(columnTrigger("BARE")).toBeDisabled();
+      expect(columnTrigger("ACE: BARE (2024)")).toBeDisabled();
     });
   });
 
@@ -231,7 +235,7 @@ describe("ComparisonScopeHeader", () => {
     it("shades the geographies this tool cannot plot", async () => {
       // 13 of IEA's 15 declared geographies carry no timeseries rows.
       const { user } = renderHeader({ available: ["Southeast Asia"] });
-      await user.click(columnTrigger("APS"));
+      await user.click(columnTrigger("IEA: APS (2024)"));
 
       const region = screen.getByRole("option", { name: "Southeast Asia" });
       expect(region.querySelector(".bg-transparent")).toBeNull();
@@ -242,7 +246,7 @@ describe("ComparisonScopeHeader", () => {
 
     it("leads with what can be plotted", async () => {
       const { user } = renderHeader({ available: ["Southeast Asia"] });
-      await user.click(columnTrigger("APS"));
+      await user.click(columnTrigger("IEA: APS (2024)"));
 
       expect(screen.getAllByRole("option")[0]).toHaveAccessibleName(
         "Southeast Asia",
@@ -302,7 +306,9 @@ describe("ComparisonScopeHeader", () => {
     it("stays collapsed until the cards scroll away", () => {
       renderHeader();
 
-      const bar = screen.getByText("APS").closest("div[aria-hidden='true']");
+      const bar = screen
+        .getByText("IEA: APS")
+        .closest("div[aria-hidden='true']");
       expect(bar).toHaveClass("h-0");
     });
 
@@ -310,16 +316,57 @@ describe("ComparisonScopeHeader", () => {
       renderHeader();
       scrollPast();
 
-      const bar = screen.getByText("APS").closest("div[aria-hidden='true']");
+      const bar = screen
+        .getByText("IEA: APS")
+        .closest("div[aria-hidden='true']");
       expect(bar).toHaveClass("h-8");
-      expect(screen.getByText("ATS")).toBeInTheDocument();
+      expect(screen.getByText("ACE: ATS")).toBeInTheDocument();
     });
 
     it("holds no focusables, so nothing hides in a collapsed bar", () => {
       renderHeader();
 
-      const bar = screen.getByText("APS").closest("div[aria-hidden='true']");
+      const bar = screen
+        .getByText("IEA: APS")
+        .closest("div[aria-hidden='true']");
       expect(bar?.querySelectorAll("button, a, input")).toHaveLength(0);
+    });
+
+    it("tells apart columns that share a short pathway name", () => {
+      // Two editions of one pathway, and another publisher's same short name.
+      const nze2024 = {
+        ...iea,
+        id: "IEA-NZE-2024",
+        name: { full: "Net Zero Emissions by 2050", short: "NZE" },
+      } as unknown as PathwayMetadataType;
+      const nze2025 = {
+        ...nze2024,
+        id: "IEA-NZE-2025",
+        publication: { ...nze2024.publication, year: 2025 },
+      } as unknown as PathwayMetadataType;
+      const otherNze = {
+        ...ace,
+        id: "ACE-NZE-2024",
+        name: { full: "Net Zero", short: "NZE" },
+      } as unknown as PathwayMetadataType;
+
+      renderHeader({
+        pathways: [nze2024, nze2025, otherNze],
+        selectedGeographies: {},
+      });
+      scrollPast();
+
+      const bar = screen
+        .getByText("ACE: NZE")
+        .closest("div[aria-hidden='true']") as HTMLElement;
+      expect(within(bar).getAllByText("IEA: NZE")).toHaveLength(2);
+      expect(within(bar).getByText("2025")).toBeInTheDocument();
+      expect(within(bar).getAllByText("2024")).toHaveLength(2);
+
+      // The geography selects are named apart too, year included.
+      expect(columnTrigger("IEA: NZE (2024)")).toBeInTheDocument();
+      expect(columnTrigger("IEA: NZE (2025)")).toBeInTheDocument();
+      expect(columnTrigger("ACE: NZE (2024)")).toBeInTheDocument();
     });
   });
 });
