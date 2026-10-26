@@ -38,6 +38,12 @@ export function useCondensedOnScroll(): [
     const sentinel = sentinelRef.current;
     if (!sentinel || typeof IntersectionObserver === "undefined") return;
 
+    // On non-production builds the sticky bars pin below EnvironmentBanner,
+    // not at the viewport top, so "scrolled past" starts at its bottom edge.
+    const bannerHeight =
+      document.querySelector("[data-env-banner]")?.getBoundingClientRect()
+        .height ?? 0;
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -45,10 +51,10 @@ export function useCondensedOnScroll(): [
           // viewport — a short window, or the initial callback before any
           // scroll. Only a sentinel that left via the top means "scrolled past".
           const top = entry.boundingClientRect?.top ?? -1;
-          setCondensed(!entry.isIntersecting && top < 0);
+          setCondensed(!entry.isIntersecting && top < bannerHeight);
         }
       },
-      { threshold: 0 },
+      { rootMargin: `-${bannerHeight}px 0px 0px 0px`, threshold: 0 },
     );
     observer.observe(sentinel);
 
@@ -75,11 +81,12 @@ interface PathwayContextRibbonProps {
  * this pathway covers, plus the tab list, plus a condensed restatement of the
  * title that appears once the full header scrolls away.
  *
- * The condensed bar, the ribbon rows and the tab list share ONE `sticky top-0`
- * wrapper, with the bar as its first in-flow child. That is what removes the
- * need for a `top-[Npx]` offset on the rows below: the bar pushes them down by
- * exactly its own height, measured by the browser rather than by us, so the
- * layout survives the ribbon wrapping to two lines and the bar losing a pill.
+ * The condensed bar, the ribbon rows and the tab list share ONE sticky wrapper
+ * (pinned at the top, below the environment banner when there is one), with the
+ * bar as its first in-flow child. That is what removes the need for a
+ * `top-[Npx]` offset on the rows below: the bar pushes them down by exactly its
+ * own height, measured by the browser rather than by us, so the layout survives
+ * the ribbon wrapping to two lines and the bar losing a pill.
  *
  * The badges here are deliberately NOT availability-aware, unlike the coverage
  * panels on the Scope tab. Availability is derived from the timeseries index,
@@ -133,7 +140,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
         className="h-px -mb-px"
       />
 
-      <div className="sticky top-0 z-20">
+      <div className="sticky top-(--env-banner-height) z-20">
         {/*
           Condensed title. aria-hidden because it restates the <h1> above, which
           stays in the accessibility tree whether or not it is on screen — one
