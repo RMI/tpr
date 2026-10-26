@@ -33,8 +33,17 @@ interface ComparisonScopeHeaderProps {
   divergence: ColumnGeographyDivergence;
 }
 
+/**
+ * "Publisher: Pathway", so two columns with the same short pathway name (two
+ * editions of IEA NZE, or two publishers' "Reference") stay distinguishable.
+ * Both the condensed bar and the geography selects' accessible names add the
+ * publication year, which separates two editions of the same pathway.
+ * `||` rather than `??`: some publishers have an empty short name.
+ */
 const columnLabel = (pathway: PathwayMetadataType): string =>
-  pathway.name.short || pathway.name.full;
+  `${pathway.publication.publisher.short || pathway.publication.publisher.full}: ${
+    pathway.name.short || pathway.name.full
+  }`;
 
 /**
  * The comparison page's sticky scope bar: one shared sector axis, one geography
@@ -93,9 +102,11 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
 
       <div className="sticky top-(--env-banner-height) z-20">
         {/*
-          Condensed column names. aria-hidden because it restates the pathway
-          cards above, which stay in the accessibility tree whether or not they
-          are on screen — and it holds no focusables, so nothing is lost.
+          Condensed column names, with the publication year on the right; the
+          year never truncates, so the name gives way first. aria-hidden
+          because it restates the pathway cards above, which stay in the
+          accessibility tree whether or not they are on screen — and it holds
+          no focusables, so nothing is lost.
         */}
         <div
           aria-hidden="true"
@@ -110,9 +121,14 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
             {pathways.map((pathway) => (
               <span
                 key={pathway.id}
-                className="text-xs font-semibold truncate"
+                className="flex items-baseline justify-between gap-2 min-w-0 text-xs"
               >
-                {columnLabel(pathway)}
+                <span className="font-semibold truncate">
+                  {columnLabel(pathway)}
+                </span>
+                <span className="shrink-0 tabular-nums text-white/80">
+                  {pathway.publication.year}
+                </span>
               </span>
             ))}
           </div>
@@ -171,7 +187,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
               {pathways.map((pathway) => (
                 <ColumnGeographySelect
                   key={pathway.id}
-                  pathwayName={columnLabel(pathway)}
+                  pathwayName={`${columnLabel(pathway)} (${pathway.publication.year})`}
                   options={geographyOptions[pathway.id] ?? []}
                   selected={selectedGeographies[pathway.id] ?? null}
                   onSelect={(token) => onGeographyChange(pathway.id, token)}

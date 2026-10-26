@@ -300,8 +300,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("A")).toHaveTextContent("Europe");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
     expect(
       screen
         .getAllByRole("button")
@@ -317,8 +317,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("A")).toHaveTextContent("Global");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Global");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
   });
 
   it("ignores a token the column does not declare", async () => {
@@ -330,8 +330,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("A")).toHaveTextContent("Global");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Global");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
   });
 
   it("warns that the columns are not showing the same geography", async () => {
@@ -369,11 +369,11 @@ describe("ComparisonPage — shared scope", () => {
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     const user = userEvent.setup();
-    await user.click(columnTrigger("A"));
+    await user.click(columnTrigger("PubA: A (2024)"));
     await user.click(screen.getByRole("option", { name: "Europe" }));
 
-    expect(columnTrigger("A")).toHaveTextContent("Europe");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
   });
 });
 

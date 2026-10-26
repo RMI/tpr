@@ -13,7 +13,7 @@ export type CoreDriverKey = keyof CoreDrivers;
  */
 export const CORE_DRIVER_LABELS: { key: CoreDriverKey; label: string }[] = [
   { key: "policies", label: "Policy drivers" },
-  { key: "emissionsTargets", label: "Emissions target (driver)" },
+  { key: "emissionsTargets", label: "Emissions target" },
   { key: "technologyCosts", label: "Technology cost drivers" },
   { key: "investmentChange", label: "Investment change" },
   { key: "macroeconomicDrivers", label: "Macroeconomic drivers" },
