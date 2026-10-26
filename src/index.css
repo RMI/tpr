@@ -75,3 +75,15 @@
   --color-rmigray-700: #2a2a2b;
   --color-rmigray-800: #231f20;
 }
+
+/* Height of EnvironmentBanner, which only non-production builds show. Things
+   that stick to the top of the screen sit below it. */
+:root {
+  --env-banner-height: 0px;
+}
+:root:has([data-env-banner]) {
+  --env-banner-height: 1.75rem;
+}
+html {
+  scroll-padding-top: var(--env-banner-height);
+}

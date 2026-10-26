@@ -307,7 +307,7 @@ const ComparisonPage: React.FC = () => {
       </Link>
 
       {/* ── Pathway summary cards ── */}
-      <div className={`${colClass} sticky top-0 z-20`}>
+      <div className={`${colClass} sticky top-(--env-banner-height) z-20`}>
         {pathways.map((p) => (
           <PathwaySummaryCard
             key={p.id}
