@@ -25,8 +25,9 @@ export const ALL_AVAILABLE: ScopeAvailability = {
  * Exact matches only: an "across sectors" or Global entry does not make every
  * other token available, or nearly every badge would stay clickable.
  *
- * TODO(#869): count key features once they are filtered by scope. Until then
- * selecting a token for its key features alone would change nothing visible.
+ * Key features do not count yet: they are not filtered by scope, so selecting
+ * a token for its key features alone would change nothing visible. Once #869
+ * scopes them, they belong here too.
  */
 export function scopeAvailability(
   pathway: Pick<PathwayMetadataType, "dependencies">,
