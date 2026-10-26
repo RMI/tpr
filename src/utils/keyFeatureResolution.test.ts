@@ -376,17 +376,25 @@ describe("resolveKeyFeature — edge cases", () => {
     });
   });
 
-  it("forbids Electrification × Power even with an across sectors value present", () => {
+  it("skips Power's own rows for Electrification and inherits across sectors", () => {
     const p = withEntries("electrification", [
-      e("across sectors", "Global", "Moderate increase"),
+      // Ignored whatever it says: electrification cannot apply to Power.
+      e("Power", "TH", "Significant increase"),
+      e("across sectors", "TH", "Moderate increase"),
     ]);
     expect(resolveKeyFeature(p, "electrification", at("Power", "TH"))).toEqual({
-      status: "forbidden",
+      status: "resolved",
+      value: "Moderate increase",
+      sourceScope: { sector: "across sectors", geography: "TH" },
       requestedScope: { sector: "Power", geography: "TH" },
+      isFallback: true,
+      notApplicableSector: "Power",
     });
   });
 
-  it("forbids it for a null sector on a single-sector Power pathway (SDSN)", () => {
+  it("is unavailable for Electrification on a Power-only pathway (SDSN)", () => {
+    // Nothing across sectors, and the authored Power row is skipped, so the
+    // chain is exhausted — for the ribbon's Power and for an empty sector alike.
     const p = withEntries(
       "electrification",
       [e("Power", "SG", "No information")],
@@ -395,9 +403,31 @@ describe("resolveKeyFeature — edge cases", () => {
         geography: { country: ["SG"] },
       },
     );
-    expect(resolveKeyFeature(p, "electrification", at(null, null))).toEqual({
-      status: "forbidden",
+    const unavailable = {
+      status: "unavailable",
       requestedScope: { sector: "Power", geography: "SG" },
+    };
+    expect(resolveKeyFeature(p, "electrification", at("Power", "SG"))).toEqual(
+      unavailable,
+    );
+    expect(resolveKeyFeature(p, "electrification", at(null, null))).toEqual(
+      unavailable,
+    );
+  });
+
+  it("leaves Electrification of other sectors alone", () => {
+    const p = withEntries("electrification", [
+      e("Buildings", "TH", "Minor increase"),
+      e("across sectors", "TH", "Moderate increase"),
+    ]);
+    expect(
+      resolveKeyFeature(p, "electrification", at("Buildings", "TH")),
+    ).toEqual({
+      status: "resolved",
+      value: "Minor increase",
+      sourceScope: { sector: "Buildings", geography: "TH" },
+      requestedScope: { sector: "Buildings", geography: "TH" },
+      isFallback: false,
     });
   });
 
@@ -479,7 +509,7 @@ describe("createKeyFeatureResolver", () => {
     expect(fields.map((field) => resolve(field).status)).toEqual([
       "resolved",
       "resolved",
-      "forbidden",
+      "resolved",
       "unavailable",
       "unavailable",
     ]);

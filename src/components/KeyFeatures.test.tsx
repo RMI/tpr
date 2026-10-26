@@ -2,7 +2,6 @@ import { describe, it, expect } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import KeyFeatures, { FeatureItem, GROUPS } from "./KeyFeatures";
 import { resolveKeyFeature } from "../utils/keyFeatureResolution";
-import type { ResolvedKeyFeature } from "../utils/keyFeatureResolution";
 import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
 import metadataSchema from "../schema/pathwayMetadata.v2.json" with { type: "json" };
@@ -447,50 +446,32 @@ describe("FeatureItem with a resolution (#869)", () => {
     expect(queryScopeBadge()).not.toBeInTheDocument();
   });
 
-  it("renders Electrification of Power as Not applicable, selecting nothing", async () => {
-    const { container } = renderResolved("electrification", [
+  it("inherits Electrification of Power from across sectors, and says why", async () => {
+    renderResolved("electrification", [
+      // Skipped whatever it says: electrification cannot apply to Power.
+      e("Power", "TH", "Significant increase"),
       e("across sectors", "South East Asia", "Moderate increase"),
     ]);
 
-    expect(screen.getByText("Not applicable")).toBeInTheDocument();
-    // Not the "No information" the scales fall back to for an unknown value,
-    // and not the across sectors value a fallback would have found.
-    expect(screen.queryByText("No information")).not.toBeInTheDocument();
-    expect(screen.queryByText("Moderate increase")).not.toBeInTheDocument();
-    expect(queryScopeBadge()).not.toBeInTheDocument();
-    // A selected scale bar is the tall one.
-    expect(container.querySelector(".h-3")).toBeNull();
-    expect(await tooltipOf("Not applicable")).toBe(
-      "Electrification does not apply to the Power sector.",
+    expect(screen.getByText("Moderate increase")).toBeInTheDocument();
+    expect(screen.queryByText("Significant increase")).not.toBeInTheDocument();
+    expect(screen.queryByText("Not applicable")).not.toBeInTheDocument();
+    expect(await tooltipOf("Across sectors · South East Asia")).toBe(
+      "Electrification does not apply to the Power sector; showing the" +
+        " closest broader scope this pathway reports.",
     );
   });
 
-  it("renders a forbidden pill feature with no pill selected, in both modes", () => {
-    // No pill feature is forbidden today; this keeps the rendering ready for
-    // one rather than letting it fall into a selected "No information" pill.
-    const forbidden: ResolvedKeyFeature = {
-      status: "forbidden",
-      requestedScope: { sector: "Power", geography: "TH" },
-    };
-    const props = {
-      feature: configFor("emissionsScope"),
-      keyFeatures: mockKeyFeatures,
-      resolution: forbidden,
-    };
+  it("shows No information for Electrification of Power with nothing across sectors", async () => {
+    renderResolved("electrification", [
+      e("Power", "TH", "Significant increase"),
+    ]);
 
-    const { container, unmount } = render(<FeatureItem {...props} />);
-    expect(screen.getByText("Not applicable")).toBeInTheDocument();
-    expect(container.querySelector(".bg-rmiblue-100")).toBeNull();
-    unmount();
-
-    render(
-      <FeatureItem
-        {...props}
-        selectedOnly
-      />,
+    expect(screen.queryByText("Significant increase")).not.toBeInTheDocument();
+    expect(queryScopeBadge()).not.toBeInTheDocument();
+    expect(await tooltipOf("No information")).toBe(
+      "Nothing is recorded for this pathway at any scope.",
     );
-    expect(screen.getByText("Not applicable")).toBeInTheDocument();
-    expect(screen.queryByText("No information")).not.toBeInTheDocument();
   });
 
   it("never renders the scope-level sentinel", () => {
@@ -605,8 +586,11 @@ describe("KeyFeatures with a pathway", () => {
         scope={{ sector: "Power", geography: "South East Asia" }}
       />,
     );
-    expect(screen.getByText("Not applicable")).toBeInTheDocument();
-    expect(screen.queryByText("Low or no change")).not.toBeInTheDocument();
+    // Power skips to the same across sectors row Buildings inherits.
+    expect(screen.getByText("Low or no change")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("Across sectors · South East Asia"),
+    ).toHaveLength(2);
   });
 
   it("resolves at the widest scope when given no scope", () => {
@@ -650,7 +634,7 @@ describe("feature config against the schema", () => {
     "No information",
     // Skipped by the resolver, never rendered.
     "Not applicable at this scope level",
-    // Only legal at Electrification × Power, which renders as forbidden.
+    // Only legal at Electrification × Power, whose rows the resolver skips.
     "Not Applicable",
   ]);
 

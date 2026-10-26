@@ -50,8 +50,12 @@ Keeping the validator out of PR 1 means the resolver can be reviewed with green 
   `No new technologies` ends the chain. A missing entry, or a `Not applicable at this scope
   level` cell, keeps it going. That includes arrays containing the sentinel: the sentinel
   stands for the whole cell.
-- **Forbidden Electrification × Power** is declared once and short-circuits to "Not
-  applicable" whether or not an entry exists. It never takes an `across sectors` value.
+- **Forbidden Electrification × Power** is declared once. *Revised after review (Jacob,
+  PR #998):* the resolver skips Power's rows, whatever they say, and falls back to
+  `across sectors` like any other missing value, badged, with a tooltip saying the feature
+  doesn't apply to Power. Showing "Not applicable" instead hid electrification on the
+  sector almost every pathway opens on. A pathway with nothing across sectors (e.g. the
+  Power-only SDSN ones) ends `unavailable`, as any exhausted chain does.
 - **"Fallback"** means the source token differs from the requested (effective) token on
   either axis.
 - **Wording:** exhausted and authored "No information" are distinct states in code, with the
@@ -90,8 +94,8 @@ This is kept separate from `keyFeatureScope.ts`, which keeps search's overlap se
 
 ```ts
 export type ResolvedKeyFeature =
-  | { status: "resolved"; value: string | string[]; sourceScope: Scope; requestedScope: Scope; isFallback: boolean }
-  | { status: "forbidden"; requestedScope: Scope }   // renders "Not applicable"
+  | { status: "resolved"; value: string | string[]; sourceScope: Scope; requestedScope: Scope; isFallback: boolean;
+      notApplicableSector?: string }                // set when a forbidden sector was skipped
   | { status: "unavailable"; requestedScope: Scope }; // exhausted; renders "No information"
 
 export function geographyChain(selected: string, geography: Geography | null | undefined): string[];
@@ -99,7 +103,8 @@ export function resolveKeyFeature(pathway, field: KeyFeatureKey, selection: Path
 ```
 
 1. **Effective scope:** fill each empty axis with its widest value (see Decisions).
-2. **Forbidden:** if `isForbiddenKeyFeatureSector(field, sector)`, return `forbidden`.
+2. **Forbidden:** if `isForbiddenKeyFeatureSector(field, sector)`, drop that sector from
+   the sector chain and record it as `notApplicableSector` on a resolved result.
 3. **Sector chain:**
    - `[sector, across sectors]`;
    - just `[across sectors]` when the sector already is that;
@@ -140,9 +145,9 @@ Also add `sourceScopeLabel(scope)` → `"Across sectors · South East Asia"`, us
     (plus the scope badge if it's a fallback).
   - **`unavailable`:** the same "No information" display, with tooltip "Nothing is recorded
     for this pathway at any scope". No badge.
-  - **`forbidden`:** a "Not applicable" badge with tooltip "{Feature} does not apply to the
-    {sector} sector". Scales and pills render with nothing selected. This is handled before
-    the sentiment/neutral code, which today turns `Not Applicable` into "No information".
+  - **Skipped forbidden sector:** the inherited value with its scope badge; the badge's
+    tooltip reads "{Feature} does not apply to the {sector} sector; showing the closest
+    broader scope this pathway reports."
   - The sentinel string is never rendered.
 - **Known limit, left to #852:** in full-option pill mode (single/multi-select without
   `selectedOnly`), "no value" shows as all pills unselected, so the two tooltips only appear
@@ -186,8 +191,8 @@ the stale `cross-sector` token to `across sectors`.
     - `None` and `No new technologies` are answers.
   - **Edge cases:**
     - an exhausted chain → `unavailable`;
-    - `electrification·Power` → `forbidden` with only an `across sectors` entry present,
-      including null sector on a single-sector Power pathway;
+    - `electrification·Power` skips Power's rows and inherits `across sectors`; a
+      Power-only pathway with no `across sectors` row → `unavailable`;
     - an undeclared sector gets no `across sectors` fallback;
     - null axes → widest;
     - array values are preserved;
@@ -197,7 +202,7 @@ the stale `cross-sector` token to `across sectors`.
   - fallback: badge text and tooltip;
   - inherited `No information` has the badge;
   - the authored vs. exhausted tooltips differ;
-  - forbidden renders "Not applicable", not "No information";
+  - a skipped forbidden sector badges the inherited value and says why;
   - the sentinel never appears;
   - the no-`pathway` path renders exactly as before.
 - **`Badge.test.tsx`:** the new variant.
@@ -219,7 +224,7 @@ the stale `cross-sector` token to `across sectors`.
 |---|---|---|
 | ACE-ATS-2024 | Buildings | Electrification "Low or no change" with badge "Across sectors · ASEAN" |
 | IEA-NZE-2024 | Power | "Across sectors · Global" badges |
-| SDSN (any) | Power | Electrification "Not applicable" |
+| SDSN (any) | Power | Electrification "No information" (nothing across sectors) |
 | JRC GECO | South East Asia | "Power · Global" badges (chain SEA → across regions → Global) |
 | JRC GECO | Power · TH | no badges |
 | PHDOE-CES2 | Other | resolves without errors |
@@ -248,11 +253,6 @@ swapping the axis priority is swapping the loop nesting in `resolveKeyFeature`.
   - **Drop `KeyFeatures`' `keyFeatures` prop.** It only feeds the widest-value path; once every
     caller passes `pathway`, it duplicates `pathway.keyFeatures` and the two can disagree.
     `FeatureItem`'s `keyFeatures` goes the same way once `resolution` is required.
-  - **Electrification × Power with an empty sector.** On a Power-only pathway that has an
-    `across sectors` row, a `null` sector resolves to `across sectors`, so the forbidden check
-    misses and Electrification inherits that row's value. The detail page never leaves the
-    sector empty; if the comparison page can, treat `across sectors` on a pathway whose only
-    declared sector is forbidden as that sector (e.g. in `isForbiddenKeyFeatureSector`'s caller).
 
 ### PR 2. Key-feature value validation (red CI accepted)
 

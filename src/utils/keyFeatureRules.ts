@@ -51,10 +51,9 @@ export const MEASURE_NOT_APPLICABLE = "Not Applicable";
  * Field × sector combinations that are not applicable by definition: power
  * cannot be electrified, because it already is electricity.
  *
- * Declared once here so the resolver short-circuits them and the validator (PR 2)
- * can require `Not Applicable` there and reject it everywhere else. A forbidden
- * combination never inherits an `across sectors` value — that value describes
- * the other sectors' end uses, not Power's.
+ * Declared once here so the resolver skips that sector's rows (falling back to
+ * `across sectors`) and the validator (PR 2) can require `Not Applicable` there
+ * and reject it everywhere else.
  */
 export const FORBIDDEN_KEY_FEATURE_SECTORS: Readonly<
   Partial<Record<KeyFeatureKey, readonly string[]>>

@@ -296,11 +296,19 @@ const AUTHORED_NO_INFORMATION_TOOLTIP = "The pathway does not report this.";
 const UNAVAILABLE_TOOLTIP =
   "Nothing is recorded for this pathway at any scope.";
 
-function fallbackTooltip(requested: Scope): string {
-  return (
-    `No value for ${scopeSelectionLabel(requested)}; showing the closest` +
-    ` broader scope this pathway reports.`
-  );
+/**
+ * Why a value is inherited. A feature that cannot apply to the requested sector
+ * says so, rather than claiming that sector simply has no value.
+ */
+function fallbackTooltip(
+  feature: FeatureConfig,
+  requested: Scope,
+  notApplicableSector: string | undefined,
+): string {
+  const reason = notApplicableSector
+    ? `${feature.label} does not apply to the ${notApplicableSector} sector`
+    : `No value for ${scopeSelectionLabel(requested)}`;
+  return `${reason}; showing the closest broader scope this pathway reports.`;
 }
 
 /** Nothing selected on either axis, which resolves at the pathway's widest. */
@@ -349,24 +357,16 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     <Badge tooltip={absenceTooltip}>{NO_INFORMATION}</Badge>
   );
 
-  // Settled before any value handling below: a forbidden combination selects
-  // nothing, and must not reach the scales' "unrecognised value means No
-  // information" fallback, which is what `Not Applicable` used to hit.
-  const notApplicable =
-    resolution?.status === "forbidden" ? (
-      <Badge
-        tooltip={`${feature.label} does not apply to the ${resolution.requestedScope.sector} sector.`}
-      >
-        Not applicable
-      </Badge>
-    ) : null;
-
   // Names the broader scope an inherited value came from (#859).
   const scopeBadge =
     resolution?.status === "resolved" && resolution.isFallback ? (
       <Badge
         variant="scope"
-        tooltip={fallbackTooltip(resolution.requestedScope)}
+        tooltip={fallbackTooltip(
+          feature,
+          resolution.requestedScope,
+          resolution.notApplicableSector,
+        )}
       >
         {sourceScopeLabel(resolution.sourceScope)}
       </Badge>
@@ -411,29 +411,19 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
   );
 
   if (feature.type === "single-select") {
-    const selected = notApplicable
-      ? null
-      : typeof rawValue === "string" && feature.options.includes(rawValue)
+    const selected =
+      typeof rawValue === "string" && feature.options.includes(rawValue)
         ? rawValue
         : NO_INFORMATION;
     return (
       <div>
         {header("mb-1.5")}
         <div className="flex flex-wrap">
-          {selectedOnly ? (
-            selected === null ? (
-              notApplicable
-            ) : selected === NO_INFORMATION ? (
-              noInformation
-            ) : (
-              pill(selected, true)
-            )
-          ) : (
-            <>
-              {notApplicable}
-              {feature.options.map((opt) => pill(opt, opt === selected))}
-            </>
-          )}
+          {selectedOnly
+            ? selected === NO_INFORMATION
+              ? noInformation
+              : pill(selected, true)
+            : feature.options.map((opt) => pill(opt, opt === selected))}
         </div>
       </div>
     );
@@ -441,7 +431,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   if (feature.type === "multi-select") {
     const selectedArr = (
-      notApplicable ? [] : Array.isArray(rawValue) ? rawValue : [rawValue]
+      Array.isArray(rawValue) ? rawValue : [rawValue]
     ) as string[];
     const validSelected = feature.options.filter((opt) =>
       selectedArr.includes(opt),
@@ -450,20 +440,13 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
       <div>
         {header("mb-1.5")}
         <div className="flex flex-wrap">
-          {selectedOnly ? (
-            validSelected.length === 0 ? (
-              (notApplicable ?? noInformation)
-            ) : (
-              validSelected.map((opt) => pill(opt, true))
-            )
-          ) : (
-            <>
-              {notApplicable}
-              {feature.options.map((opt) =>
+          {selectedOnly
+            ? validSelected.length === 0
+              ? noInformation
+              : validSelected.map((opt) => pill(opt, true))
+            : feature.options.map((opt) =>
                 pill(opt, selectedArr.includes(opt)),
               )}
-            </>
-          )}
         </div>
       </div>
     );
@@ -471,7 +454,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   if (feature.type === "sentiment") {
     const selectedValue =
-      !notApplicable && typeof rawValue === "string" && rawValue.trim()
+      typeof rawValue === "string" && rawValue.trim()
         ? rawValue
         : NO_INFORMATION;
     const selectedIndex = feature.scaleValues.indexOf(selectedValue);
@@ -481,15 +464,13 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
       feature.greenEnd,
     );
     const textColor = palette[selectedIndex]?.text ?? "text-rmigray-500";
-    const valueDisplay =
-      notApplicable ??
-      (isNoInfo ? (
-        noInformation
-      ) : (
-        <span className={`text-xs font-semibold ${textColor}`}>
-          {selectedValue}
-        </span>
-      ));
+    const valueDisplay = isNoInfo ? (
+      noInformation
+    ) : (
+      <span className={`text-xs font-semibold ${textColor}`}>
+        {selectedValue}
+      </span>
+    );
     const centerIdx = Math.floor(feature.scaleValues.length / 2);
     const alignClass =
       isNoInfo || selectedIndex < 0
@@ -525,7 +506,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   if (feature.type === "neutral") {
     const selectedValue =
-      !notApplicable && typeof rawValue === "string" && rawValue.trim()
+      typeof rawValue === "string" && rawValue.trim()
         ? rawValue
         : NO_INFORMATION;
     const selectedIndex = feature.scaleValues.indexOf(selectedValue);
@@ -533,15 +514,13 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     const textColor = isNoInfo
       ? "text-rmigray-500"
       : NEUTRAL_SELECTED_COLOR.text;
-    const valueDisplay =
-      notApplicable ??
-      (isNoInfo ? (
-        noInformation
-      ) : (
-        <span className={`text-xs font-semibold ${textColor}`}>
-          {selectedValue}
-        </span>
-      ));
+    const valueDisplay = isNoInfo ? (
+      noInformation
+    ) : (
+      <span className={`text-xs font-semibold ${textColor}`}>
+        {selectedValue}
+      </span>
+    );
     const centerIdx = Math.floor(feature.scaleValues.length / 2);
     const alignClass =
       isNoInfo || selectedIndex < 0

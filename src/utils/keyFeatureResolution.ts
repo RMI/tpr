@@ -50,9 +50,13 @@ export type ResolvedKeyFeature =
       requestedScope: Scope;
       /** The source differs from the request on either axis. */
       isFallback: boolean;
+      /**
+       * Set when the field cannot apply to the requested sector (Electrification
+       * × Power), so that sector's rows were skipped and the value comes from
+       * across sectors instead. Names the skipped sector.
+       */
+      notApplicableSector?: string;
     }
-  /** Not applicable by definition (Electrification × Power), whatever is authored. */
-  | { status: "forbidden"; requestedScope: Scope }
   /**
    * Nothing usable anywhere on the chain. Not the same as an authored
    * `No information`, which is the pathway's answer and resolves.
@@ -142,9 +146,14 @@ export function geographyChain(
  * else ends it, including an authored `No information`, `None` or `No new
  * technologies`: those are the pathway's answer, not an absence of one.
  *
- * A forbidden combination short-circuits before the walk, so it never inherits
- * an `across sectors` value. Malformed or non-array input degrades to "no
- * entries", and so to `unavailable`.
+ * A field that cannot apply to the requested sector (Electrification × Power)
+ * skips that sector's rows, whatever they say, and walks on to `across sectors`
+ * like any other missing value. Most pathways open on Power, so answering "not
+ * applicable" there would hide the pathway's electrification everywhere it is
+ * first seen; inheriting the across-sectors value, badged and explained, shows
+ * it. A pathway with nothing across sectors ends `unavailable`, as any
+ * exhausted chain does. Malformed or non-array input degrades to "no entries",
+ * and so to `unavailable`.
  */
 export function createKeyFeatureResolver(
   pathway: ResolvablePathway,
@@ -158,12 +167,16 @@ export function createKeyFeatureResolver(
   );
 
   return (field) => {
-    if (isForbiddenKeyFeatureSector(field, requestedScope.sector)) {
-      return { status: "forbidden", requestedScope };
-    }
+    const notApplicable = isForbiddenKeyFeatureSector(
+      field,
+      requestedScope.sector,
+    );
+    const fieldSectors = notApplicable
+      ? sectors.filter((sector) => sector !== requestedScope.sector)
+      : sectors;
 
     const entries = asEntries(pathway.keyFeatures?.[field]);
-    for (const sector of sectors) {
+    for (const sector of fieldSectors) {
       for (const geography of geographies) {
         const entry = entries.find(
           (e) => e.sector === sector && e.geography === geography,
@@ -178,6 +191,9 @@ export function createKeyFeatureResolver(
           isFallback:
             sector !== requestedScope.sector ||
             geography !== requestedScope.geography,
+          ...(notApplicable
+            ? { notApplicableSector: requestedScope.sector }
+            : {}),
         };
       }
     }
