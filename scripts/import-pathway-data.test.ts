@@ -309,6 +309,42 @@ describe("one country code is always a country (#998)", () => {
     expect(bad.size).toBe(0);
   });
 
+  describe("a region with no member countries", () => {
+    const errorsFor = (cell: string) => {
+      const report = new Report();
+      const geo = buildGeography(cell, report, "T");
+      return { errors: report.errors, geo };
+    };
+
+    it("is an import error, written bare or with an empty list", () => {
+      for (const cell of [
+        "Global; Atlantic Basin",
+        "Global; Atlantic Basin: []",
+      ])
+        expect(errorsFor(cell).errors).toEqual([
+          'T: region "Atlantic Basin" has no member countries -- list its ISO codes in the Regions cell, or remove it',
+        ]);
+    });
+
+    it("is an import error when every listed code is dropped, naming them", () => {
+      expect(errorsFor("Kosovo: [XK]").errors).toEqual([
+        'T: region "Kosovo" has no member countries (its only code(s) {XK} are not ISO-3166) -- list its ISO codes in the Regions cell, or remove it',
+      ]);
+    });
+
+    it("leaves regions with members, countries and the global flag alone", () => {
+      const { errors, geo } = errorsFor(
+        "Global; ASEAN: [TH, VN]; Japan: [JP]; TH: [TH]; PH",
+      );
+      expect(errors).toEqual([]);
+      expect(geo).toEqual({
+        global: true,
+        regions: { ASEAN: ["TH", "VN"] },
+        country: ["JP", "TH", "PH"],
+      });
+    });
+  });
+
   describe("key features recorded under both the label and the code", () => {
     const kf = (scope: string, value: string) => ({
       "Key features sector scope": "across sectors",

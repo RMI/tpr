@@ -886,8 +886,24 @@ interface Geography {
 }
 
 /**
+ * A region with no member countries matches nothing, and the classifier tends
+ * to pick these up from a passing mention of somewhere the pathway does not
+ * cover. Rather than import a scope nobody can select, the import stops so the
+ * cell is fixed in the workbook (#998).
+ */
+function memberless(id: string, label: string, dropped: string[]): string {
+  const why = dropped.length
+    ? ` (its only code(s) {${dropped.join(", ")}} are not ISO-3166)`
+    : "";
+  return (
+    `${id}: region "${label}" has no member countries${why} -- ` +
+    "list its ISO codes in the Regions cell, or remove it"
+  );
+}
+
+/**
  * Parse the metadata `Regions` cell into a v2 geography object. Format:
- *   Global; Africa: [DZ, EG]; Atlantic Basin: []; Brazil: [BR]; PH
+ *   Global; Africa: [DZ, EG]; Brazil: [BR]; PH
  * A bare token (`Global`) sets the flag or, if a 2-letter code, becomes a
  * standalone country. `Label: [..]` is a region and its ISO members.
  *
@@ -927,6 +943,10 @@ export function buildGeography(
           `${id}: geography region "${label}" dropped non-ISO code(s) {${dropped.join(", ")}}`,
         );
       }
+      if (members.length === 0) {
+        report.error(memberless(id, label, dropped));
+        continue;
+      }
       // `LA: [LA]` is how the cookbook writes an individually projected country
       // (validator rule R4.3 flags the bare `LA` form as non-standard), and
       // IEA's `Japan: [JP]` is the same country under its publication's name.
@@ -951,10 +971,7 @@ export function buildGeography(
       else report.note(`${id}: geography dropped non-ISO country "${part}"`);
     } else {
       // A region label with no bracketed member list.
-      regions[part] = [];
-      report.note(
-        `${id}: region "${part}" declared with no members (matches nothing)`,
-      );
+      report.error(memberless(id, part, []));
     }
   }
   if (Object.keys(regions).length > 0) geo.regions = regions;
