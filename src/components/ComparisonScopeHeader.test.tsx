@@ -339,11 +339,11 @@ describe("ComparisonScopeHeader", () => {
         id: "IEA-NZE-2024",
         name: { full: "Net Zero Emissions by 2050", short: "NZE" },
       } as unknown as PathwayMetadataType;
-      const nze2025 = {
+      const nze2025: PathwayMetadataType = {
         ...nze2024,
         id: "IEA-NZE-2025",
         publication: { ...nze2024.publication, year: 2025 },
-      } as unknown as PathwayMetadataType;
+      };
       const otherNze = {
         ...ace,
         id: "ACE-NZE-2024",
