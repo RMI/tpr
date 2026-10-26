@@ -211,6 +211,29 @@ describe("ComparisonPlots", () => {
     });
   });
 
+  it("leaves a column the cap reduced to one year out of the shared y-axis", async () => {
+    // p2 runs 2050..2060, so only 2050 survives the cap: its panel is hidden,
+    // and its 10,000 must not flatten p1's 100..200 series.
+    const p2 = makeMetricEntry("p2", "absoluteEmissions", [10000, 20000]);
+    p2.timeseriesdata?.data.forEach((d, i) => {
+      d.year = String(2050 + i * 10);
+    });
+    const entries = [
+      makeMetricEntry("p1", "absoluteEmissions", [100, 200]),
+      p2,
+    ];
+    render(<ComparisonPlots entries={entries} />);
+    await userEvent
+      .setup()
+      .selectOptions(screen.getAllByRole("combobox")[0], "Absolute Emissions");
+
+    expect(mockedMultiLineChart.mock.calls.length).toBeGreaterThan(0);
+    mockedMultiLineChart.mock.calls.forEach(([props]) => {
+      expect(props.yMin).toBe(100);
+      expect(props.yMax).toBe(200);
+    });
+  });
+
   describe("sector segment badge", () => {
     it("captions each column with the part of the sector the metric covers", async () => {
       // Matches the detail page's small multiples, which caption each panel

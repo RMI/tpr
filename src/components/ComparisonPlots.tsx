@@ -171,7 +171,9 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   //
   // Each entry contributes the rows for ITS OWN resolved geography: filtering
   // everything on one token would compute the axis from rows no chart shows,
-  // and leave columns that fell back scaled to someone else's data.
+  // and leave columns that fell back scaled to someone else's data. A column
+  // PlotPanel hides (fewer than two years, e.g. once capped at 2050) adds
+  // nothing either, or it would stretch the axis of the charts that are shown.
   const sharedYBounds = useMemo(() => {
     const isLineChart =
       selectedPlot === "capacity" ||
@@ -185,6 +187,7 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
     entries.forEach((e, idx) => {
       const used = resolutions[idx]?.used;
       if (!used) return;
+      if (!hasDataForMetricAndGeo(e.timeseriesdata, selectedPlot, used)) return;
       e.timeseriesdata?.data
         ?.filter(
           (d) =>
