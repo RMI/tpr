@@ -37,6 +37,29 @@ const renderRibbon = (
     </PathwayContextRibbon>,
   );
 
+/**
+ * Lay out any element whose text includes `label` on a second row, as a
+ * narrow ribbon would. Stubbed on the prototype so it also holds for badges
+ * BadgeArray mounts afresh when expanding. Returns the restore function.
+ */
+const wrapOntoSecondRow = (label: string) => {
+  const original = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "offsetTop",
+  );
+  Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+    configurable: true,
+    get(this: HTMLElement) {
+      return this.textContent?.includes(label) ? 24 : 0;
+    },
+  });
+  return () => {
+    if (original) {
+      Object.defineProperty(HTMLElement.prototype, "offsetTop", original);
+    }
+  };
+};
+
 /** Drive the sentinel past the top of the viewport. */
 const scrollPast = () =>
   act(() => {
@@ -268,13 +291,32 @@ describe("PathwayContextRibbon", () => {
   });
 
   it("reveals the remaining options on request", async () => {
+    // A narrow ribbon: the US badge wraps to a second row, so it is cut off.
+    const restore = wrapOntoSecondRow("United States of America");
+    try {
+      renderRibbon();
+
+      expect(
+        screen.queryByRole("button", { name: "United States of America" }),
+      ).toBeNull();
+      await userEvent.click(screen.getByRole("button", { name: "Show all" }));
+      expect(
+        screen.getByRole("button", { name: "United States of America" }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Show fewer" }),
+      ).toBeInTheDocument();
+    } finally {
+      restore();
+    }
+  });
+
+  it("offers no 'Show all' when every badge already fits (#1026)", () => {
+    // jsdom lays every badge out on one row, as a wide ribbon would.
     renderRibbon();
 
-    const toggle = screen.getByRole("button", { name: "Show all" });
-    await userEvent.click(toggle);
-    expect(
-      screen.getByRole("button", { name: "Show fewer" }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Show fewer" })).toBeNull();
   });
 
   it("respects reduced motion on the collapse transition", () => {

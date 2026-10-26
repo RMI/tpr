@@ -102,6 +102,12 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
   const [expanded, setExpanded] = useState({ sector: false, geography: false });
+  // Whether each axis has more badges than fit on one row, as BadgeArray
+  // measures it. Only then is there anything for "Show all" to reveal (#1026).
+  const [overflows, setOverflows] = useState({
+    sector: false,
+    geography: false,
+  });
   const baseId = useId();
 
   const geographies = pinSelected(
@@ -186,7 +192,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              expandable={sectors.length > 1}
+              expandable={overflows.sector}
               expanded={expanded.sector}
               onToggleExpand={() =>
                 setExpanded((prev) => ({ ...prev, sector: !prev.sector }))
@@ -198,7 +204,11 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
                 // rather than failing to type; the lookup falls back to
                 // "No tooltip available." for anything unrecognised.
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                maxRows={expanded.sector ? Infinity : 1}
+                maxRows={1}
+                expanded={expanded.sector}
+                onOverflowChange={(sector) =>
+                  setOverflows((prev) => ({ ...prev, sector }))
+                }
                 selected={scope.sector}
                 // BadgeArray reports null when the pressed badge is clicked
                 // again. Ignored: an axis always carries a value.
@@ -215,7 +225,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <ScopeAxisRow
               label="Geography"
               labelId={`${baseId}-geography`}
-              expandable={geographies.length > 1}
+              expandable={overflows.geography}
               expanded={expanded.geography}
               onToggleExpand={() =>
                 setExpanded((prev) => ({ ...prev, geography: !prev.geography }))
@@ -227,7 +237,11 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
                 )}
                 toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
                 tooltipGetter={tooltipForGeography}
-                maxRows={expanded.geography ? Infinity : 1}
+                maxRows={1}
+                expanded={expanded.geography}
+                onOverflowChange={(geography) =>
+                  setOverflows((prev) => ({ ...prev, geography }))
+                }
                 selected={scope.geography}
                 // Ignored on null, as for sector above.
                 onSelect={(next) =>

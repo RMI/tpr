@@ -144,6 +144,13 @@ describe("ComparisonScopeHeader", () => {
       expect(onSectorChange).not.toHaveBeenCalled();
     });
 
+    it("offers no 'Show all' when every sector already fits (#1026)", () => {
+      // Two shared sectors; jsdom lays them out on one row, as a wide bar would.
+      renderHeader();
+
+      expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
+    });
+
     it("stays one shared row rather than one per column", () => {
       // Sector is a closed vocabulary with a shared intersection, unlike
       // geography — the asymmetry in this header is deliberate.

@@ -315,6 +315,107 @@ describe("auto-fit & maxRows", () => {
   });
 });
 
+describe("overflow reporting (#1026)", () => {
+  const visibleToken = (flex: HTMLElement) =>
+    Array.from(flex.querySelectorAll("span")).find(
+      (el) =>
+        /\+\d+ more/.test(el.textContent || "") &&
+        el.getAttribute("aria-hidden") !== "true" &&
+        !el.classList.contains("invisible"),
+    );
+
+  it("reports no overflow when every item fits within maxRows", async () => {
+    const onOverflowChange = vi.fn();
+    render(
+      <BadgeArray
+        maxRows={1}
+        onOverflowChange={onOverflowChange}
+      >
+        {["A", "B", "C"]}
+      </BadgeArray>,
+    );
+
+    // jsdom lays every item out at offsetTop 0: one row.
+    await waitFor(() => expect(onOverflowChange).toHaveBeenCalledWith(false));
+    expect(onOverflowChange).not.toHaveBeenCalledWith(true);
+  });
+
+  it("reports overflow when items are cut off, and clears it once they fit", async () => {
+    const items = ["A", "B", "C", "D", "E", "F"];
+    const onOverflowChange = vi.fn();
+    const { container } = render(
+      <BadgeArray
+        maxRows={1}
+        onOverflowChange={onOverflowChange}
+      >
+        {items}
+      </BadgeArray>,
+    );
+    const flex = container.querySelector("div.flex.flex-wrap") as HTMLElement;
+
+    setContainerWidth(flex, 160);
+    forceRows(Array.from(flex.querySelectorAll("span.inline-block")), [4, 2]);
+    window.dispatchEvent(new Event("resize"));
+    await waitFor(() =>
+      expect(onOverflowChange).toHaveBeenLastCalledWith(true),
+    );
+
+    setContainerWidth(flex, 600);
+    forceRows(Array.from(flex.querySelectorAll("span.inline-block")), [
+      items.length,
+    ]);
+    window.dispatchEvent(new Event("resize"));
+    await waitFor(() =>
+      expect(onOverflowChange).toHaveBeenLastCalledWith(false),
+    );
+    restoreContainerWidth(flex);
+  });
+
+  it("shows every item when expanded, and still reports the overflow", async () => {
+    // "Show fewer" depends on this: expanded, the list must still say that
+    // collapsing it would hide something.
+    const items = ["A", "B", "C", "D", "E", "F"];
+    const onOverflowChange = vi.fn();
+    const { container } = render(
+      <BadgeArray
+        maxRows={1}
+        expanded
+        onOverflowChange={onOverflowChange}
+      >
+        {items}
+      </BadgeArray>,
+    );
+    const flex = container.querySelector("div.flex.flex-wrap") as HTMLElement;
+
+    setContainerWidth(flex, 160);
+    forceRows(Array.from(flex.querySelectorAll("span.inline-block")), [3, 3]);
+    window.dispatchEvent(new Event("resize"));
+
+    await waitFor(() =>
+      expect(onOverflowChange).toHaveBeenLastCalledWith(true),
+    );
+    expect(countBadgeWrappers(flex)).toBe(items.length);
+    expect(visibleToken(flex)).toBeFalsy();
+    restoreContainerWidth(flex);
+  });
+
+  it("reports no overflow when expanded items fit on one row", async () => {
+    const onOverflowChange = vi.fn();
+    render(
+      <BadgeArray
+        maxRows={1}
+        expanded
+        onOverflowChange={onOverflowChange}
+      >
+        {["A", "B"]}
+      </BadgeArray>,
+    );
+
+    await waitFor(() => expect(onOverflowChange).toHaveBeenCalledWith(false));
+    expect(onOverflowChange).not.toHaveBeenCalledWith(true);
+  });
+});
+
 describe("BadgeArray single-select toggles", () => {
   it("renders static spans and no buttons without onSelect", () => {
     // The regression guard for the four existing callers: opting out must
