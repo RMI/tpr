@@ -356,6 +356,20 @@ describe("resolveSharedSector", () => {
   it("degrades to null for an empty comparison", () => {
     expect(resolveSharedSector({ sector: null }, [])).toBeNull();
   });
+
+  it("only considers sectors with something to show (#1017)", () => {
+    const onlyBuildings = (sector: string) => sector === "Buildings";
+    expect(
+      resolveSharedSector({ sector: null }, [iea, ace], onlyBuildings),
+    ).toBe("Buildings");
+    // A searched-for sector with nothing to show is not seeded either.
+    expect(
+      resolveSharedSector({ sector: "Power" }, [iea, ace], onlyBuildings),
+    ).toBe("Buildings");
+    expect(resolveSharedSector({ sector: null }, [iea, ace], () => false)).toBe(
+      null,
+    );
+  });
 });
 
 describe("defaultGeographyForColumn", () => {
@@ -403,6 +417,20 @@ describe("defaultGeographyForColumn", () => {
 
   it("degrades to null for a column with no geographies", () => {
     expect(defaultGeographyForColumn({ geography: null }, ace, [])).toBeNull();
+  });
+
+  it("never opens on a geography with nothing to show (#1017)", () => {
+    const outlined = options("South East Asia").map((o) => ({
+      ...o,
+      available: false,
+    }));
+    // Not the leading option, and not the search selection either.
+    expect(
+      defaultGeographyForColumn({ geography: null }, ace, outlined),
+    ).toBeNull();
+    expect(
+      defaultGeographyForColumn({ geography: "Southeast Asia" }, ace, outlined),
+    ).toBeNull();
   });
 });
 

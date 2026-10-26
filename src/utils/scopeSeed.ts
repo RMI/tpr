@@ -12,6 +12,7 @@ import {
   geographyScopeOverlaps,
 } from "./keyFeatureScope";
 import { selectedGeographyToISO } from "./filterRegions";
+import { ALL_AVAILABLE, type ScopeAvailability } from "./scopeAvailability";
 
 /**
  * Collapse a search facet selection to a single token, or null.
@@ -47,15 +48,21 @@ export function collapseSelection(
  * `cross-sector` is deliberately not a candidate: it is a keyFeature scope
  * token, not a declared sector, and `sector === null` already occupies the
  * cross-sector position.
+ *
+ * A declared sector with nothing to show also yields null: the ribbon could not
+ * select it either (#1017).
  */
 export function seedSectorFromFilters(
   value: string | string[] | null | undefined,
   pathway: PathwayMetadataType,
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ): string | null {
   const token = collapseSelection(value);
   if (token === null) return null;
   const declared = (pathway.sectors ?? []).map((s) => s.name as string);
-  return declared.includes(token) ? token : null;
+  return declared.includes(token) && availability.hasSector(token)
+    ? token
+    : null;
 }
 
 /** How much of what the reader asked for a candidate answers, and what it drags in. */
@@ -92,17 +99,21 @@ function overlapScore(
  * already treats a null request as "use the broadest", so seeding Global adds
  * nothing, and a highlighted Global badge would falsely claim we had narrowed to
  * the reader's selection.
+ *
+ * Only tokens with something to show are candidates (#1017), so a search for
+ * Thailand lands on a region with data rather than on an outlined TH.
  */
 export function seedGeographyFromFilters(
   value: string | string[] | null | undefined,
   pathway: PathwayMetadataType,
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ): string | null {
   const token = collapseSelection(value);
   if (token === null) return null;
 
   const candidates = sortGeographiesForDetails(
     flattenGeography(pathway.geography),
-  );
+  ).filter(availability.hasGeography);
   const query = selectedGeographyToISO(token);
   if (query.kind === "absent") return null;
 
@@ -143,10 +154,15 @@ export function seedGeographyFromFilters(
 export function seedScopeFromFilters(
   filters: Pick<SearchFilters, "sector" | "geography">,
   pathway: PathwayMetadataType,
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ): PathwayScopeSelection {
   return {
-    sector: seedSectorFromFilters(filters.sector, pathway),
-    geography: seedGeographyFromFilters(filters.geography, pathway),
+    sector: seedSectorFromFilters(filters.sector, pathway, availability),
+    geography: seedGeographyFromFilters(
+      filters.geography,
+      pathway,
+      availability,
+    ),
   };
 }
 
@@ -166,14 +182,21 @@ export const DEFAULT_SECTOR = "Power";
  * first declared sector, so the axis still carries a value — the ribbon has no
  * clear affordance, and an axis with nothing selected would be unreachable
  * again once the reader had picked something.
+ *
+ * Both axes only consider tokens with something to show (#1017), since the
+ * ribbon cannot select the others. With none, the axis is null: nothing on it
+ * is selectable anyway, and null leaves the page unfiltered.
  */
 export function defaultScopeFor(
   pathway: PathwayMetadataType,
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ): PathwayScopeSelection {
-  const sectors = (pathway.sectors ?? []).map((s) => s.name as string);
+  const sectors = (pathway.sectors ?? [])
+    .map((s) => s.name as string)
+    .filter(availability.hasSector);
   const geographies = sortGeographiesForDetails(
     flattenGeography(pathway.geography),
-  );
+  ).filter(availability.hasGeography);
 
   return {
     sector: sectors.includes(DEFAULT_SECTOR)
@@ -194,9 +217,10 @@ export function defaultScopeFor(
 export function resolveInitialScope(
   filters: Pick<SearchFilters, "sector" | "geography">,
   pathway: PathwayMetadataType,
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ): PathwayScopeSelection {
-  const seeded = seedScopeFromFilters(filters, pathway);
-  const fallback = defaultScopeFor(pathway);
+  const seeded = seedScopeFromFilters(filters, pathway, availability);
+  const fallback = defaultScopeFor(pathway, availability);
 
   return {
     sector: seeded.sector ?? fallback.sector,

@@ -133,6 +133,22 @@ async function mountWithFixtures(ids: string): Promise<void> {
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));
+  // Benchmark data for the geographies these tests pick, which only a token
+  // with data may be (#1017). Unmapped Region and FR stay without.
+  vi.doMock("../data/index.gen", () => {
+    const power = (geographies: string[]) => [
+      { summary: { sectors: ["power"], geographies } },
+    ];
+    return {
+      index: {
+        byPathway: {
+          "cmp-a": power(["Global", "Europe", "US"]),
+          "cmp-b": power(["DE"]),
+          "cmp-d": power(["Global"]),
+        },
+      },
+    };
+  });
 
   // Import ComparisonProvider from the same fresh module graph so it shares the
   // React context instance the re-imported page consumes.

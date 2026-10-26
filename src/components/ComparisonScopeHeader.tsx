@@ -10,12 +10,18 @@ import type {
   ColumnGeographyOption,
 } from "../utils/comparisonScope";
 import { getSectorTooltip } from "../utils/tooltipUtils";
+import { sortByAvailability } from "../utils/timeseriesAvailability";
 
 interface ComparisonScopeHeaderProps {
   /** The compared pathways, in column order. */
   pathways: readonly PathwayMetadataType[];
   /** Sector names every compared pathway declares — one shared axis. */
   sectorOptions: string[];
+  /**
+   * Whether a sector has something to show in any column. Those that do are
+   * filled and selectable; the rest are outlined and cannot be picked (#1017).
+   */
+  isSectorAvailable: (sector: string) => boolean;
   selectedSector: string | null;
   onSectorChange: (next: string) => void;
   /** Each column's own geographies, keyed by pathway id. */
@@ -54,6 +60,7 @@ const columnLabel = (pathway: PathwayMetadataType): string =>
 export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
   pathways,
   sectorOptions,
+  isSectorAvailable,
   selectedSector,
   onSectorChange,
   geographyOptions,
@@ -65,7 +72,10 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
   const [sectorExpanded, setSectorExpanded] = useState(false);
   const baseId = useId();
 
-  const sectors = pinSelected(sectorOptions, selectedSector);
+  const sectors = pinSelected(
+    sortByAvailability(sectorOptions, isSectorAvailable),
+    selectedSector,
+  );
   const columns = `repeat(${pathways.length}, minmax(0, 1fr))`;
 
   return (
@@ -118,13 +128,16 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
               onToggleExpand={() => setSectorExpanded((prev) => !prev)}
             >
               <BadgeArray<string>
-                variant="sector"
+                variant={sectors.map((sector) =>
+                  isSectorAvailable(sector) ? "sector" : "sector-pub",
+                )}
                 // The scope selection is `string` so a stale value degrades
                 // rather than failing to type; the lookup falls back to
                 // "No tooltip available." for anything unrecognised.
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
                 maxRows={sectorExpanded ? Infinity : 1}
                 selected={selectedSector}
+                isSelectable={isSectorAvailable}
                 // BadgeArray reports null when the pressed badge is clicked
                 // again. Ignored: an axis always carries a value.
                 onSelect={(next) =>

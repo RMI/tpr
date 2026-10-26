@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PathwayMetadataType, PathwayScopeSelection, Sector } from "../types";
-import BadgeArray from "./BadgeArray";
+import BadgeArray, { type BadgeVariant } from "./BadgeArray";
 import ScopeAxisRow, { pinSelected } from "./ScopeAxisRow";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import {
@@ -12,6 +12,8 @@ import {
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import { getSectorTooltip } from "../utils/tooltipUtils";
+import { sortByAvailability } from "../utils/timeseriesAvailability";
+import type { ScopeAvailability } from "../utils/scopeAvailability";
 import { getPathwayTypeTooltip } from "../utils/tooltipUtils";
 import getTemperatureColor from "../utils/getTemperatureColor";
 
@@ -72,6 +74,11 @@ interface PathwayContextRibbonProps {
    */
   scope: PathwayScopeSelection;
   onScopeChange: (next: PathwayScopeSelection) => void;
+  /**
+   * Which tokens have something to show. Those that do render filled and can be
+   * selected; the rest render outlined and cannot (#1017).
+   */
+  availability: ScopeAvailability;
   /** The tab list, rendered at the bottom of the sticky stack. */
   children: React.ReactNode;
 }
@@ -88,16 +95,17 @@ interface PathwayContextRibbonProps {
  * own height, measured by the browser rather than by us, so the layout survives
  * the ribbon wrapping to two lines and the bar losing a pill.
  *
- * The badges here are deliberately NOT availability-aware, unlike the coverage
- * panels on the Scope tab. Availability is derived from the timeseries index,
- * which loads asynchronously, so availability-aware badges would visibly
- * restyle a moment after mount — in the most prominent chrome on the page. This
- * keeps the ribbon a pure function of `pathway`.
+ * The badges are availability-aware, like the coverage panels on the Scope
+ * tab: a token with nothing to show is outlined and cannot be selected, and
+ * the available ones sort first. The caller computes availability from the
+ * bundled timeseries index (`getTimeseriesIndex`), which is there on the first
+ * render, so the badges never restyle after mount.
  */
 export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   pathway,
   scope,
   onScopeChange,
+  availability,
   children,
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
@@ -105,11 +113,17 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   const baseId = useId();
 
   const geographies = pinSelected(
-    sortGeographiesForDetails(flattenGeography(pathway.geography)),
+    sortByAvailability(
+      sortGeographiesForDetails(flattenGeography(pathway.geography)),
+      availability.hasGeography,
+    ),
     scope.geography,
   );
   const sectors = pinSelected(
-    pathway.sectors.map((s) => s.name),
+    sortByAvailability(
+      pathway.sectors.map((s) => s.name),
+      availability.hasSector,
+    ),
     scope.sector,
   );
 
@@ -193,13 +207,16 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
               }
             >
               <BadgeArray<string>
-                variant="sector"
+                variant={sectors.map((sector) =>
+                  availability.hasSector(sector) ? "sector" : "sector-pub",
+                )}
                 // The scope selection is `string` so a stale value degrades
                 // rather than failing to type; the lookup falls back to
                 // "No tooltip available." for anything unrecognised.
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
                 maxRows={expanded.sector ? Infinity : 1}
                 selected={scope.sector}
+                isSelectable={availability.hasSector}
                 // BadgeArray reports null when the pressed badge is clicked
                 // again. Ignored: an axis always carries a value.
                 onSelect={(next) =>
@@ -222,13 +239,15 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
               }
             >
               <BadgeArray<string>
-                variant={geographies.map((geo) =>
-                  geographyVariant(geographyKind(geo)),
-                )}
+                variant={geographies.map((geo): BadgeVariant => {
+                  const base = geographyVariant(geographyKind(geo));
+                  return availability.hasGeography(geo) ? base : `${base}-pub`;
+                })}
                 toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
                 tooltipGetter={tooltipForGeography}
                 maxRows={expanded.geography ? Infinity : 1}
                 selected={scope.geography}
+                isSelectable={availability.hasGeography}
                 // Ignored on null, as for sector above.
                 onSelect={(next) =>
                   next === null

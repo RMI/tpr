@@ -4,6 +4,10 @@ import userEvent from "@testing-library/user-event";
 import PathwayContextRibbon from "./PathwayContextRibbon";
 import { MockIntersectionObserver } from "../test/mockIntersectionObserver";
 import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import {
+  ALL_AVAILABLE,
+  type ScopeAvailability,
+} from "../utils/scopeAvailability";
 
 const pathway = {
   id: "ribbon-fixture",
@@ -24,12 +28,14 @@ const NO_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
 const renderRibbon = (
   scope: PathwayScopeSelection = NO_SCOPE,
   onScopeChange: (next: PathwayScopeSelection) => void = () => {},
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ) =>
   render(
     <PathwayContextRibbon
       pathway={pathway}
       scope={scope}
       onScopeChange={onScopeChange}
+      availability={availability}
     >
       <div role="tablist">
         <button role="tab">At a glance</button>
@@ -185,6 +191,7 @@ describe("PathwayContextRibbon", () => {
         }
         scope={NO_SCOPE}
         onScopeChange={() => {}}
+        availability={ALL_AVAILABLE}
       >
         <div role="tablist" />
       </PathwayContextRibbon>,
@@ -246,6 +253,43 @@ describe("PathwayContextRibbon", () => {
     await userEvent.click(screen.getByRole("button", { name: "Global" }));
 
     expect(onScopeChange).not.toHaveBeenCalled();
+  });
+
+  describe("availability (#1017)", () => {
+    // Power and South East Asia have something to show; Global and US do not.
+    const SEA_POWER: ScopeAvailability = {
+      hasSector: (s) => s === "Power",
+      hasGeography: (g) => g === "South East Asia",
+    };
+
+    it("fills and enables only the tokens with something to show", () => {
+      renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
+
+      expect(
+        screen.getByRole("button", { name: "South East Asia" }),
+      ).not.toHaveClass("bg-transparent");
+      expect(screen.queryByRole("button", { name: "Global" })).toBeNull();
+      expect(screen.getByText("Global").closest(".bg-transparent")).not.toBe(
+        null,
+      );
+    });
+
+    it("ignores clicks on an outlined token", async () => {
+      const onScopeChange = vi.fn();
+      renderRibbon(NO_SCOPE, onScopeChange, SEA_POWER);
+
+      await userEvent.click(screen.getByText("Global"));
+      expect(onScopeChange).not.toHaveBeenCalled();
+    });
+
+    it("lists the available tokens first", () => {
+      renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
+
+      const geographyGroup = screen.getByRole("group", { name: "Geography" });
+      expect(
+        geographyGroup.textContent?.indexOf("South East Asia"),
+      ).toBeLessThan(geographyGroup.textContent?.indexOf("Global") ?? -1);
+    });
   });
 
   it("offers no clear control", () => {
