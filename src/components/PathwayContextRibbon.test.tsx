@@ -124,6 +124,36 @@ describe("PathwayContextRibbon", () => {
     expect(slot).toHaveClass("h-0");
   });
 
+  it("condenses as the header passes under the environment banner", () => {
+    const banner = document.createElement("div");
+    banner.setAttribute("data-env-banner", "");
+    vi.spyOn(banner, "getBoundingClientRect").mockReturnValue({
+      height: 28,
+    } as DOMRect);
+    document.body.prepend(banner);
+
+    try {
+      const { container } = renderRibbon();
+      const slot = container.querySelector(
+        "[class*='transition-\\[height\\]']",
+      ) as HTMLElement;
+
+      // The sticky bar pins at the banner's bottom edge, so the observed band
+      // starts there, and a sentinel hidden behind the banner has scrolled past.
+      expect(MockIntersectionObserver.instances.at(-1)?.rootMargin).toBe(
+        "-28px 0px 0px 0px",
+      );
+      act(() => {
+        const observer = MockIntersectionObserver.instances.at(-1);
+        const sentinel = container.querySelector("[aria-hidden='true']");
+        observer?.trigger(sentinel as Element, false, { top: 10 });
+      });
+      expect(slot).toHaveClass("h-10");
+    } finally {
+      banner.remove();
+    }
+  });
+
   it("restates the title without adding a second heading", () => {
     renderRibbon();
     scrollPast();

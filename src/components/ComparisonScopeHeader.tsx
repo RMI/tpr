@@ -81,7 +81,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
         className="h-px -mb-px"
       />
 
-      <div className="sticky top-0 z-20">
+      <div className="sticky top-(--env-banner-height) z-20">
         {/*
           Condensed column names. aria-hidden because it restates the pathway
           cards above, which stay in the accessibility tree whether or not they
