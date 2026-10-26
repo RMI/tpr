@@ -36,6 +36,30 @@ describe("CaseStudiesPage", () => {
     ]);
   });
 
+  it("gives every case study the same sub-sections, in order", () => {
+    renderPage();
+
+    const ids = screen
+      .getAllByRole("heading", { level: 3 })
+      .map((heading) => heading.id);
+
+    expect(ids).toEqual(
+      [
+        "company-target-setting",
+        "investment-opportunity-identification",
+        "policy-risk-assessment",
+      ].flatMap((study) =>
+        [
+          "situation",
+          "complication",
+          "how-the-tpr-helps",
+          "analysis",
+          "final-notes",
+        ].map((section) => `${study}-${section}`),
+      ),
+    );
+  });
+
   it("lists the case studies in the on-page index, with the open one's outline", () => {
     renderPage();
 
@@ -46,10 +70,11 @@ describe("CaseStudiesPage", () => {
     // The first case study is active on load, so its sub-headings show.
     expect(links.map((link) => link.textContent)).toEqual([
       "Company target setting",
-      "The question",
-      "The company",
-      "Finding matching pathways",
-      "Comparing the company to the pathways",
+      "Situation",
+      "Complication",
+      "How the Transition Pathways Repository helps",
+      "Analysis",
+      "Final notes",
       "Investment and financing opportunities",
       "Policy risk assessment",
     ]);

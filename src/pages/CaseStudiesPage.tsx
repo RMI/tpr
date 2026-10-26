@@ -20,40 +20,35 @@ const ToBeAdded: React.FC = () => (
   <p className="italic text-rmigray-500">Content to be added.</p>
 );
 
+/** The sub-sections every case study shares, in order. */
+const caseStudySections = [
+  { slug: "situation", title: "Situation" },
+  { slug: "complication", title: "Complication" },
+  {
+    slug: "how-the-tpr-helps",
+    title: "How the Transition Pathways Repository helps",
+  },
+  { slug: "analysis", title: "Analysis" },
+  { slug: "final-notes", title: "Final notes" },
+];
+
 /**
  * The shared outline of a case study. Each sub-heading gets an id prefixed by
  * the case study's own, so the on-page index nests it under the right entry.
  */
 const skeleton = (id: string) => (
   <>
-    <h3
-      id={`${id}-question`}
-      className="scroll-mt-8 text-lg font-semibold text-rmigray-800"
-    >
-      The question
-    </h3>
-    <ToBeAdded />
-    <h3
-      id={`${id}-company`}
-      className="scroll-mt-8 text-lg font-semibold text-rmigray-800"
-    >
-      The company
-    </h3>
-    <ToBeAdded />
-    <h3
-      id={`${id}-finding-pathways`}
-      className="scroll-mt-8 text-lg font-semibold text-rmigray-800"
-    >
-      Finding matching pathways
-    </h3>
-    <ToBeAdded />
-    <h3
-      id={`${id}-comparing`}
-      className="scroll-mt-8 text-lg font-semibold text-rmigray-800"
-    >
-      Comparing the company to the pathways
-    </h3>
-    <ToBeAdded />
+    {caseStudySections.map((section) => (
+      <React.Fragment key={section.slug}>
+        <h3
+          id={`${id}-${section.slug}`}
+          className="scroll-mt-8 text-lg font-semibold text-rmigray-800"
+        >
+          {section.title}
+        </h3>
+        <ToBeAdded />
+      </React.Fragment>
+    ))}
   </>
 );
 
