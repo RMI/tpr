@@ -42,31 +42,16 @@ export const SCOPE_LEVEL_NOT_APPLICABLE = "Not applicable at this scope level";
 
 /**
  * The measure for a field that cannot apply to a sector at all — Electrification
- * of the Power sector. Distinct from {@link SCOPE_LEVEL_NOT_APPLICABLE}, which is
- * about where a value is recorded rather than whether one can exist.
+ * of the Power sector, since power already is electricity. Distinct from
+ * {@link SCOPE_LEVEL_NOT_APPLICABLE}, which is about where a value is recorded
+ * rather than whether one can exist.
+ *
+ * The resolver treats it like that sentinel: not an answer, so it skips the cell
+ * and falls back to `across sectors`. Which (field, sector) pairs must carry it,
+ * and that it appears nowhere else, is the validator's rule (PR 2), so the
+ * resolver needs no list of them.
  */
 export const MEASURE_NOT_APPLICABLE = "Not Applicable";
-
-/**
- * Field × sector combinations that are not applicable by definition: power
- * cannot be electrified, because it already is electricity.
- *
- * Declared once here so the resolver skips that sector's rows (falling back to
- * `across sectors`) and the validator (PR 2) can require `Not Applicable` there
- * and reject it everywhere else.
- */
-export const FORBIDDEN_KEY_FEATURE_SECTORS: Readonly<
-  Partial<Record<KeyFeatureKey, readonly string[]>>
-> = {
-  electrification: ["Power"],
-};
-
-export function isForbiddenKeyFeatureSector(
-  field: KeyFeatureKey,
-  sector: string,
-): boolean {
-  return FORBIDDEN_KEY_FEATURE_SECTORS[field]?.includes(sector) ?? false;
-}
 
 /**
  * Is this cell the scope-level sentinel? True for the scalar, and for any array

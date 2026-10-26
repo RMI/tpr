@@ -50,12 +50,15 @@ Keeping the validator out of PR 1 means the resolver can be reviewed with green 
   `No new technologies` ends the chain. A missing entry, or a `Not applicable at this scope
   level` cell, keeps it going. That includes arrays containing the sentinel: the sentinel
   stands for the whole cell.
-- **Forbidden Electrification × Power** is declared once. *Revised after review (Jacob,
-  PR #998):* the resolver skips Power's rows, whatever they say, and falls back to
-  `across sectors` like any other missing value, badged, with a tooltip saying the feature
-  doesn't apply to Power. Showing "Not applicable" instead hid electrification on the
-  sector almost every pathway opens on. A pathway with nothing across sectors (e.g. the
-  Power-only SDSN ones) ends `unavailable`, as any exhausted chain does.
+- **Forbidden Electrification × Power.** *Revised after review (Jacob, PR #998):* a
+  `Not Applicable` cell is skipped like the scope-level sentinel, so the walk falls back to
+  `across sectors`, badged, with a tooltip saying the feature doesn't apply to that sector.
+  Showing "Not applicable" instead hid electrification on the sector almost every pathway
+  opens on. A pathway with nothing across sectors ends `unavailable`, as any exhausted chain
+  does. The resolver holds no list of forbidden pairs: which pairs must be `Not Applicable`
+  (and that it appears nowhere else) is PR 2's validator rule. Today 69 of 75 v2 pathways
+  already carry it at Electrification·Power; the six SDSN Singapore files say
+  `No information` and show that until fixed.
 - **"Fallback"** means the source token differs from the requested (effective) token on
   either axis.
 - **Wording:** exhausted and authored "No information" are distinct states in code, with the
@@ -74,8 +77,6 @@ the same way it already imports `timeseriesTaxonomy.ts`.
     to avoid adding a fourth copy.
   - `SCOPE_LEVEL_NOT_APPLICABLE = "Not applicable at this scope level"`
   - `MEASURE_NOT_APPLICABLE = "Not Applicable"`
-- **`FORBIDDEN_KEY_FEATURE_SECTORS`:** `{ electrification: ["Power"] }`, plus
-  `isForbiddenKeyFeatureSector(field, sector)`.
 - **`isScopeLevelNotApplicable(value)`:** true for the scalar, or for any array containing
   it.
 - **`declaredTokenCodes(token, geography)`:** the countries a token covers, for declared
@@ -95,7 +96,7 @@ This is kept separate from `keyFeatureScope.ts`, which keeps search's overlap se
 ```ts
 export type ResolvedKeyFeature =
   | { status: "resolved"; value: string | string[]; sourceScope: Scope; requestedScope: Scope; isFallback: boolean;
-      notApplicableSector?: string }                // set when a forbidden sector was skipped
+      notApplicableSector?: string }                // set when a Not Applicable cell was skipped
   | { status: "unavailable"; requestedScope: Scope }; // exhausted; renders "No information"
 
 export function geographyChain(selected: string, geography: Geography | null | undefined): string[];
@@ -103,8 +104,8 @@ export function resolveKeyFeature(pathway, field: KeyFeatureKey, selection: Path
 ```
 
 1. **Effective scope:** fill each empty axis with its widest value (see Decisions).
-2. **Forbidden:** if `isForbiddenKeyFeatureSector(field, sector)`, drop that sector from
-   the sector chain and record it as `notApplicableSector` on a resolved result.
+2. **Not Applicable:** a `Not Applicable` cell is skipped like the sentinel; the first one
+   skipped is recorded as `notApplicableSector` on a resolved result.
 3. **Sector chain:**
    - `[sector, across sectors]`;
    - just `[across sectors]` when the sector already is that;
@@ -145,7 +146,7 @@ Also add `sourceScopeLabel(scope)` → `"Across sectors · South East Asia"`, us
     (plus the scope badge if it's a fallback).
   - **`unavailable`:** the same "No information" display, with tooltip "Nothing is recorded
     for this pathway at any scope". No badge.
-  - **Skipped forbidden sector:** the inherited value with its scope badge; the badge's
+  - **Skipped `Not Applicable` cell:** the inherited value with its scope badge; the badge's
     tooltip reads "{Feature} does not apply to the {sector} sector; showing the closest
     broader scope this pathway reports."
   - The sentinel string is never rendered.
@@ -202,7 +203,7 @@ the stale `cross-sector` token to `across sectors`.
   - fallback: badge text and tooltip;
   - inherited `No information` has the badge;
   - the authored vs. exhausted tooltips differ;
-  - a skipped forbidden sector badges the inherited value and says why;
+  - a skipped `Not Applicable` cell badges the inherited value and says why;
   - the sentinel never appears;
   - the no-`pathway` path renders exactly as before.
 - **`Badge.test.tsx`:** the new variant.
@@ -258,7 +259,8 @@ swapping the axis priority is swapping the loop nesting in `resolveKeyFeature`.
 
 - **In `validateScopedEntries`:**
   - forbidden combinations both ways: Electrification·Power must be `Not Applicable`, and
-    `Not Applicable` is rejected anywhere else;
+    `Not Applicable` is rejected anywhere else. The pair list lives here (or in
+    `keyFeatureRules.ts`, if it should be shared); the resolver doesn't need it;
   - reject arrays that mix the sentinel with real values.
 - **Schema:** drop `No information` from the `policyTypes` enum, regenerate types, and update
   `pathwayMetadata.v2.test.ts`.

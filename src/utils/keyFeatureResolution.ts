@@ -27,8 +27,8 @@ import {
   containsCodes,
   declaredGeographyTokens,
   declaredTokenCodes,
-  isForbiddenKeyFeatureSector,
   isScopeLevelNotApplicable,
+  MEASURE_NOT_APPLICABLE,
   widestGeography,
   widestSector,
   type KeyFeatureKey,
@@ -51,9 +51,9 @@ export type ResolvedKeyFeature =
       /** The source differs from the request on either axis. */
       isFallback: boolean;
       /**
-       * Set when the field cannot apply to the requested sector (Electrification
-       * × Power), so that sector's rows were skipped and the value comes from
-       * across sectors instead. Names the skipped sector.
+       * Set when the walk skipped a `Not Applicable` cell (Electrification ×
+       * Power) before finding this value. Names that cell's sector, so the badge
+       * can say the feature does not apply there.
        */
       notApplicableSector?: string;
     }
@@ -146,14 +146,13 @@ export function geographyChain(
  * else ends it, including an authored `No information`, `None` or `No new
  * technologies`: those are the pathway's answer, not an absence of one.
  *
- * A field that cannot apply to the requested sector (Electrification × Power)
- * skips that sector's rows, whatever they say, and walks on to `across sectors`
- * like any other missing value. Most pathways open on Power, so answering "not
- * applicable" there would hide the pathway's electrification everywhere it is
- * first seen; inheriting the across-sectors value, badged and explained, shows
- * it. A pathway with nothing across sectors ends `unavailable`, as any
- * exhausted chain does. Malformed or non-array input degrades to "no entries",
- * and so to `unavailable`.
+ * A `Not Applicable` cell (Electrification × Power) is skipped the same way, and
+ * the walk goes on to `across sectors`. Most pathways open on Power, so stopping
+ * there would hide the pathway's electrification everywhere it is first seen;
+ * inheriting the across-sectors value, badged and explained, shows it. A pathway
+ * with nothing across sectors ends `unavailable`, as any exhausted chain does.
+ * Malformed or non-array input degrades to "no entries", and so to
+ * `unavailable`.
  */
 export function createKeyFeatureResolver(
   pathway: ResolvablePathway,
@@ -167,22 +166,19 @@ export function createKeyFeatureResolver(
   );
 
   return (field) => {
-    const notApplicable = isForbiddenKeyFeatureSector(
-      field,
-      requestedScope.sector,
-    );
-    const fieldSectors = notApplicable
-      ? sectors.filter((sector) => sector !== requestedScope.sector)
-      : sectors;
-
     const entries = asEntries(pathway.keyFeatures?.[field]);
-    for (const sector of fieldSectors) {
+    let notApplicableSector: string | undefined;
+    for (const sector of sectors) {
       for (const geography of geographies) {
         const entry = entries.find(
           (e) => e.sector === sector && e.geography === geography,
         );
         if (!entry || entry.value == null) continue;
         if (isScopeLevelNotApplicable(entry.value)) continue;
+        if (entry.value === MEASURE_NOT_APPLICABLE) {
+          notApplicableSector ??= sector;
+          continue;
+        }
         return {
           status: "resolved",
           value: entry.value,
@@ -191,9 +187,7 @@ export function createKeyFeatureResolver(
           isFallback:
             sector !== requestedScope.sector ||
             geography !== requestedScope.geography,
-          ...(notApplicable
-            ? { notApplicableSector: requestedScope.sector }
-            : {}),
+          ...(notApplicableSector ? { notApplicableSector } : {}),
         };
       }
     }

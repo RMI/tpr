@@ -376,10 +376,9 @@ describe("resolveKeyFeature — edge cases", () => {
     });
   });
 
-  it("skips Power's own rows for Electrification and inherits across sectors", () => {
+  it("skips a Not Applicable cell and inherits across sectors, naming its sector", () => {
     const p = withEntries("electrification", [
-      // Ignored whatever it says: electrification cannot apply to Power.
-      e("Power", "TH", "Significant increase"),
+      e("Power", "TH", "Not Applicable"),
       e("across sectors", "TH", "Moderate increase"),
     ]);
     expect(resolveKeyFeature(p, "electrification", at("Power", "TH"))).toEqual({
@@ -392,12 +391,12 @@ describe("resolveKeyFeature — edge cases", () => {
     });
   });
 
-  it("is unavailable for Electrification on a Power-only pathway (SDSN)", () => {
-    // Nothing across sectors, and the authored Power row is skipped, so the
-    // chain is exhausted — for the ribbon's Power and for an empty sector alike.
+  it("is unavailable when nothing follows the Not Applicable cell", () => {
+    // A Power-only pathway: no across sectors row to fall back to, for the
+    // ribbon's Power and for an empty sector alike.
     const p = withEntries(
       "electrification",
-      [e("Power", "SG", "No information")],
+      [e("Power", "SG", "Not Applicable")],
       {
         sectors: [{ name: "Power", technologies: [] }],
         geography: { country: ["SG"] },
@@ -413,6 +412,24 @@ describe("resolveKeyFeature — edge cases", () => {
     expect(resolveKeyFeature(p, "electrification", at(null, null))).toEqual(
       unavailable,
     );
+  });
+
+  it("knows no forbidden pairs: what Power records is its answer", () => {
+    // Only the data's Not Applicable marks a pair as inapplicable; requiring it
+    // at Electrification × Power is the validator's job (PR 2). Until then an
+    // authored value there is shown, like the six SDSN Singapore files' No
+    // information.
+    const p = withEntries("electrification", [
+      e("Power", "TH", "No information"),
+      e("across sectors", "TH", "Moderate increase"),
+    ]);
+    expect(resolveKeyFeature(p, "electrification", at("Power", "TH"))).toEqual({
+      status: "resolved",
+      value: "No information",
+      sourceScope: { sector: "Power", geography: "TH" },
+      requestedScope: { sector: "Power", geography: "TH" },
+      isFallback: false,
+    });
   });
 
   it("leaves Electrification of other sectors alone", () => {
