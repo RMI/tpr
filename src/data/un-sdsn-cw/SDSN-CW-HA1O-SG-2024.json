@@ -39,7 +39,16 @@
   "sectors": [
     {
       "name": "Power",
-      "technologies": []
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Solar",
+        "Biomass",
+        "Energy storage",
+        "Other"
+      ]
     }
   ],
   "pathwayDescription": "Highly Ambitious 1 Optimized (HA1O) is a least-cost capacity expansion and dispatch scenario for Singapore’s power system, developed using an optimization model linked to the Low Emissions Analysis Platform framework. The model determines the generation mix of technologies by minimizing system costs, subject to a set of technical and policy constraints.\n\nThe scenario incorporates explicit technical and policy rules, such as limits on unabated fossil fuel development and retirement of coal and oil-fired plants at end of life, that guide how the system transitions to near net zero by 2050. In this scenario waste-to-energy plants are required to keep operating at roughly the same utilization levels as today, rather than gradually reducing output over time. At the same time, the model sets generous limits on how much certain low-carbon technologies can be built. These rules give the system flexibility to rely on these technologies where they are cost-effective, while limiting the development of new unabated fossil-fuel generation. This leads to a significant but incomplete decarbonization of power. Power-sector emissions decrease substantially relative to today and to baseline scenarios, and the grid emissions factor falls sharply.\n\nThe resulting technology mix in 2050 for HA1O has nuclear becoming the dominant energy source (27% of supply), supported by hydrogen (22%), imported electricity (22%), and solar (11%), with geothermal, ammonia and biomass providing supplementary capacity. The HA1O power mix demonstrates that the optimizer favors a balanced portfolio anchored by firm, low-carbon baseload (nuclear) complemented by hydrogen, imports, and moderate domestic renewables, rather than an overwhelmingly renewable or hydrogen-led system.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
@@ -152,8 +161,38 @@
   },
   "dependencies": [
     {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "HA1O includes the exogenous 2050 phase-out of gas and oil, WTE retirement, coal out of the cogeneration feedstock, 100% green hydrogen feedstock, 50% WTE capture and the full demand-side electrification. But it keeps policy out of the choice of replacement. Policy therefore determines what must leave the system and what may not be added, but not what fills the gap, and the result is a mix led by SMR nuclear at 26.9%, a technology no Singapore policy currently supports.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The relevant conditions are the delivered cost of each low-carbon option relative to the others: green hydrogen against the hydrogen blend, low-carbon ammonia based on delivered blue and green offers, imported electricity priced by supplying country, nuclear fuel costs from the 7th ASEAN Energy Outlook, and municipal solid waste. Interconnection economics enter separately through capital and variable cost assumptions. A material shift in any of these prices changes what the pathway builds.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "SMRs supply 26.9% of 2050 generation and deep geothermal adds a further 4.8%. SMRs and floating nuclear plants 'remain politically challenging to deploy in and around Singapore even with the additional safety mechanisms' and deep geothermal requires invasive borehole drilling. The mid-2021 survey showing about 60% of young Singaporeans in favour of considering nuclear though. No acceptance strategy is porposed. The contrast with HA2O clarifies the scale of this dependency.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Cars and taxis reach 50% hybrid and 50% fully electric by 2040 and then 100% fully electric by 2050; buses and freight trucks go from 70% electric in 2040 to 100% by 2050; LPG cookers and natural-gas water heaters are phased out after 2030 so that all cooking and water heating is electric by 2050, displacing the 62% of households assumed to use town gas; and domestic shipping ends at 25% each of fully electric, biodiesel, methanol and low-carbon ammonia.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
       "dependency_name": "Infrastructure and logistics",
       "dependency_description": "BESS is added at 7.5 MW a year from 2025 to 195 MW cumulative by 2050, modelled with 85% round-trip efficiency, and its dispatch is reported hour by hour: charging in the early morning and around midday when solar output exceeds demand, discharging into the morning and evening peaks, with movements of up to about 10.2 GWh in a single hour. Imports reach 21.8% of 2050 generation and will require the corresponding connection infrastructure.  No transmission or distribution network is modelled.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "HA2S depends on technology readiness levels improving for hydrogen/ammonia supply, SMRs, EGS/AGS, and grid-scale energy storage, all of which were either not commercially viable when the report was released, or technological and safety concerns were raised. Because the mix is chosen on cost, an error in any of these technologies' assumed cost or performance changes not just the pace but the composition of the pathway.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

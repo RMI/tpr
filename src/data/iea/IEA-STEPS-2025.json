@@ -28,10 +28,112 @@
     "full": "Stated Policies Scenario",
     "short": "STEPS"
   },
-  "description": "Stated-policy WEO pathway; announced policies included.",
+  "description": "Exploratory global pathway including tabled-but-unadopted policies.",
   "geography": {
     "global": true,
     "regions": {
+      "North America": ["US", "CA", "MX"],
+      "United States": ["US"],
+      "Central and South America": [
+        "AR",
+        "BO",
+        "VE",
+        "BR",
+        "CL",
+        "CO",
+        "CR",
+        "CU",
+        "CW",
+        "DO",
+        "EC",
+        "SV",
+        "GT",
+        "GY",
+        "HT",
+        "HN",
+        "JM",
+        "NI",
+        "PA",
+        "PY",
+        "PE",
+        "SR",
+        "TT",
+        "UY"
+      ],
+      "Brazil": ["BR"],
+      "Europe": [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE",
+        "AL",
+        "BY",
+        "BA",
+        "GI",
+        "IS",
+        "IL",
+        "ME",
+        "MK",
+        "NO",
+        "MD",
+        "RS",
+        "CH",
+        "TR",
+        "UA",
+        "GB"
+      ],
+      "European Union": [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
       "Africa": [
         "DZ",
         "EG",
@@ -69,138 +171,6 @@
         "ZM",
         "ZW"
       ],
-      "Asia Pacific": [
-        "BN",
-        "KH",
-        "ID",
-        "LA",
-        "MY",
-        "MM",
-        "PH",
-        "SG",
-        "TH",
-        "VN",
-        "AU",
-        "BD",
-        "KP",
-        "IN",
-        "JP",
-        "KR",
-        "MN",
-        "NP",
-        "NZ",
-        "PK",
-        "CN",
-        "LK",
-        "TW"
-      ],
-      "Atlantic Basin": [],
-      "Brazil": ["BR"],
-      "Central and South America": [
-        "AR",
-        "BO",
-        "VE",
-        "BR",
-        "CL",
-        "CO",
-        "CR",
-        "CU",
-        "CW",
-        "DO",
-        "EC",
-        "SV",
-        "GT",
-        "GY",
-        "HT",
-        "HN",
-        "JM",
-        "NI",
-        "PA",
-        "PY",
-        "PE",
-        "SR",
-        "TT",
-        "UY"
-      ],
-      "China": ["CN", "HK"],
-      "East of Suez": [],
-      "Eurasia": ["AM", "AZ", "GE", "KZ", "KG", "TJ", "TM", "UZ", "RU"],
-      "Europe": [
-        "AL",
-        "BY",
-        "BA",
-        "GI",
-        "IS",
-        "IL",
-        "ME",
-        "MK",
-        "NO",
-        "MD",
-        "RS",
-        "CH",
-        "TR",
-        "UA",
-        "GB",
-        "AT",
-        "BE",
-        "BG",
-        "HR",
-        "CY",
-        "CZ",
-        "DK",
-        "EE",
-        "FI",
-        "FR",
-        "DE",
-        "GR",
-        "HU",
-        "IE",
-        "IT",
-        "LV",
-        "LT",
-        "LU",
-        "MT",
-        "NL",
-        "PL",
-        "PT",
-        "RO",
-        "SK",
-        "SI",
-        "ES",
-        "SE"
-      ],
-      "European Union": [
-        "AT",
-        "BE",
-        "BG",
-        "HR",
-        "CY",
-        "CZ",
-        "DK",
-        "EE",
-        "FI",
-        "FR",
-        "DE",
-        "GR",
-        "HU",
-        "IE",
-        "IT",
-        "LV",
-        "LT",
-        "LU",
-        "MT",
-        "NL",
-        "PL",
-        "PT",
-        "RO",
-        "SK",
-        "SI",
-        "ES",
-        "SE"
-      ],
-      "India": ["IN"],
-      "Japan": ["JP"],
-      "Japan and Korea": ["JP", "KR"],
       "Middle East": [
         "BH",
         "IR",
@@ -215,35 +185,21 @@
         "AE",
         "YE"
       ],
-      "Non-OPEC plus": [],
-      "North America": ["CA", "MX", "US"],
-      "OPECplus": [
-        "DZ",
-        "AO",
-        "VE",
-        "GQ",
-        "GA",
-        "IQ",
-        "IR",
-        "KW",
-        "LY",
-        "NG",
-        "CG",
-        "SA",
-        "AE",
-        "AZ",
-        "BH",
-        "BN",
-        "KZ",
-        "MY",
-        "MX",
-        "OM",
-        "RU",
-        "SS",
-        "SD"
-      ],
+      "Eurasia": ["AM", "AZ", "GE", "KZ", "KG", "TJ", "TM", "UZ", "RU"],
       "Russia": ["RU"],
-      "Southeast Asia": [
+      "Asia Pacific": [
+        "AU",
+        "BD",
+        "KP",
+        "IN",
+        "JP",
+        "KR",
+        "MN",
+        "NP",
+        "NZ",
+        "CN",
+        "LK",
+        "TW",
         "BN",
         "KH",
         "ID",
@@ -255,7 +211,21 @@
         "TH",
         "VN"
       ],
-      "United States": ["US"]
+      "China": ["CN", "HK"],
+      "India": ["IN"],
+      "Japan": ["JP"],
+      "Southeast Asia": [
+        "BN",
+        "KH",
+        "ID",
+        "LA",
+        "MY",
+        "MM",
+        "PH",
+        "SG",
+        "TH",
+        "VN"
+      ]
     }
   },
   "pathwayType": "Exploratory",
@@ -265,6 +235,18 @@
   "sectors": [
     {
       "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
       "technologies": []
     },
     {
@@ -290,6 +272,8 @@
         "Wind",
         "Solar",
         "Biomass",
+        "Geothermal",
+        "Energy storage",
         "Other"
       ]
     },
@@ -298,14 +282,23 @@
       "technologies": []
     },
     {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
       "name": "Other",
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Stated Policies Scenario (STEPS) projects the energy sector’s current direction of travel, based on the latest market data, technology costs and in-depth analysis of the stated policies in countries around the world. STEPS provides a detailed projection of future outcomes based on current conditions, but does not attempt to predict which existing policies or economic conditions are more or less likely to change. The STEPS pathway corresponds to 2.4°C of warming by 2100 (50% probability). This is significantly higher than the IEA’s announced pledges scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), and the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability).",
+  "pathwayDescription": "The Stated Policies Scenario (STEPS) projects the energy sector’s direction of travel based on a broader reading of policy than the Current Policies Scenario (CPS). Alongside adopted policies, it includes measures that have been formally tabled but not yet adopted, and official strategy documents such as power development plans. Time-bound policies are extended at a similar pace, and new technologies are introduced slightly faster than in the CPS. Targets are not assumed to be met automatically: their prospects are assessed against market, infrastructure and financial constraints, and aspirational goals such as those in the Paris Agreement are not assumed to be achieved. The STEPS pathway corresponds to 2.5°C of warming by 2100 (50% probability), up from 2.4°C in the 2024 edition. This compares with 2.9°C in the CPS and a return to below 1.5°C by 2100 in the IEA’s Net Zero Emissions by 2050 Scenario (NZE).",
   "metric": [
-    "Emissions Intensity",
     "Absolute Emissions",
+    "Emissions Intensity",
+    "Capacity",
     "Generation",
     "Technology Mix"
   ],
@@ -317,8 +310,158 @@
         "value": "Minor decrease"
       },
       {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Moderate decrease"
+      },
+      {
         "sector": "Power",
         "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Moderate decrease"
       }
     ],
@@ -327,6 +470,161 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Minor improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
@@ -336,9 +634,159 @@
         "value": "Moderate increase"
       },
       {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Low or no change"
+      },
+      {
         "sector": "Power",
         "geography": "Global",
-        "value": "Significant increase"
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "No information"
       }
     ],
     "electrification": [
@@ -346,6 +794,161 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not Applicable"
       }
     ],
     "policyTypes": [
@@ -357,10 +960,164 @@
           "Phaseout dates",
           "Subsidies",
           "Target technology shares",
-          "Feed-in tariffs",
           "Performance standards",
           "Other"
         ]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
@@ -368,6 +1125,161 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       }
     ],
     "emissionsScope": [
@@ -375,6 +1287,161 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "CO2"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       }
     ],
     "policyAmbition": [
@@ -382,6 +1449,161 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Current and drafted policies"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       }
     ],
     "technologyCostsDetail": [
@@ -391,9 +1613,159 @@
         "value": "Capital costs, O&M, etc."
       },
       {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
         "sector": "Power",
         "geography": "Global",
         "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       }
     ],
     "newTechnologiesIncluded": [
@@ -404,8 +1776,85 @@
           "CCUS",
           "Green H2/ammonia",
           "Battery storage",
+          "EGS/AGS",
+          "SMR",
           "Other new technologies"
         ]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
@@ -414,160 +1863,416 @@
           "CCUS",
           "Green H2/ammonia",
           "Battery storage",
+          "EGS/AGS",
+          "SMR",
           "Other new technologies"
         ]
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "investmentNeeds": [
       {
         "sector": "across sectors",
         "geography": "Global",
-        "value": "By tech, part of value chain"
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "Global",
-        "value": "By tech, part of value chain"
+        "value": "By technology"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
       }
     ]
   },
   "coreDrivers": {
-    "policies": "STEPS is driven by current policies plus formally tabled policies and official strategies, including carbon pricing, standards, subsidies, technology targets, phaseouts, tariffs/rate design and other market/regulatory policies.",
+    "policies": "STEPS incorporates a broader policy set than the accompanying CPS with policies formally tabled but not yet legislated, and includes official strategy documents that indicate a 'direction of travel' (e.g. power-sector development plans, transport/buildings regulatory reform plans), with time-bound policies assumed to be prolonged rather than lapsing. However, it does not assume aspirational goals (NDCs, Paris Agreement) are met in full.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Technology costs affect outcomes through learning-by-doing; faster clean technology deployment than CPS lowers costs faster and supports more renewables, electrification and storage.",
-    "investmentChange": "Average annual energy investment in 2025-2035 rises to over USD 3.4 trillion, with greater spending on renewables, grids/storage, efficiency and electrification than CPS.",
-    "macroeconomicDrivers": "GDP and population assumptions are common across scenarios; economic growth and emerging-market demand drive energy-service growth, but policies and technology adoption moderate final energy demand relative to CPS.",
+    "technologyCosts": "Falling unit costs for solar PV and battery storage continue to support their expansion, with faster and deeper cost declines feeding through to materially higher deployment than the more conservative CPS pathway. The same is seen for innovative low-carbon technology costs (steel, electrolysers, fuel cells) which fall further and faster than in CPS.",
+    "investmentChange": "Low-emissions share of total energy investment rises by almost ten percentage points to about 75% in 2035, as spending shifts to grids and storage, end-use electrification and efficiency. Total investment stabilises near USD 3.6 trillion in 2035 and stays broadly flat to 2050.",
+    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO-2025 scenarios (global GDP CAGR 2024-2050 = 2.6%; population rising from 8.09 to 9.57 billion).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Energy security, LNG market balances, grid integration, critical minerals and data centre/cooling demand are important contextual drivers and dependencies shaping STEPS outcomes."
+    "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "High: Broader stated policies and strategies support faster renewables, efficiency, electrification and grid reforms than CPS, making policy delivery a key enabler. Mode: Explicit.",
+      "dependency_description": "STEPS embeds specific power-sector development plans and renewable-target policies (e.g. national power development plans, feed-in and auction mechanisms) as a direct enabling strategy for the sector's build-out, though targets are not automatically assumed to be met in full.",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "High: Market reforms, permitting and grid-connection regulation remain material because renewables, storage and flexibility scale faster than CPS. Mode: Explicit and quantitative proxy.",
+      "dependency_description": "Market reforms, permitting and grid-connection regulation remain material because renewables, storage and flexibility scale faster than CPS.",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Moderate: Declining renewables and battery costs support deployment, while well-supplied LNG markets lower gas prices and shape dispatch/investment decisions. Mode: Explicit.",
+      "dependency_description": "CO2 prices for electricity rise further in STEPS than CPS across most regions, strengthening the economic case for low-carbon generation relative to CPS.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "Moderate: Faster build-out of renewables, grids, storage and nuclear increases siting/permitting exposure, but WEO does not present public acceptance as the dominant STEPS constraint. Mode: Scenario-design inference.",
+      "dependency_description": "Nuclear capacity grows further, consistent with the report's characterisation of a broad nuclear 'comeback' including new designs (SMRs) but no explicit public-opposition case is described for STEPS.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Moderate: Greater electrification increases the need for demand flexibility, smart charging and efficient appliances to control peak demand and affordability. Mode: Explicit.",
+      "dependency_description": "Greater electrification increases the need for demand flexibility, smart charging and efficient appliances to control peak demand and affordability.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "High: STEPS requires rapid grid, storage and flexibility build-out; battery capacity reaches about 1 700 GW by 2035 and short-term flexibility needs rise two- to seven-fold. Mode: Quantitative proxy.",
+      "dependency_description": "Battery storage grows further than in CPS  to manage a higher renewables share, but grid/transmission expansion is not separately quantified in this dataset for CPS.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Moderate: The pathway relies on continued cost declines and deployment of commercially scaling technologies without assuming major breakthroughs. Mode: Explicit.",
+      "dependency_description": "STEPS allows a slightly more rapid introduction of new energy technologies' than CPS, evidenced by larger CCUS, hydrogen/ammonia, SMR and enhanced-geothermal generation shares by 2050 than CPS, though these remain small relative to NZE.",
       "sector": "Power",
-      "evidence_type": "Qualitative"
+      "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "High: Critical minerals and clean technology value-chain concentration materially affect renewables, batteries and grids as deployment accelerates. Mode: Explicit.",
+      "dependency_description": "A larger low-carbon build-out than CPS increases exposure to the critical-mineral supply concentration the report highlights as a major 2025 theme (a single country refines 19 of 20 strategic minerals).",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "High: Weather-related outages, high temperatures and water constraints affect electricity reliability; STEPS exceeds 1.5°C around 2030 and reaches about 2.5°C by 2100. Mode: Explicit.",
+      "dependency_description": "Weather-related outages, high temperatures and water constraints affect electricity reliability.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "Cannot assess: Larger grid/storage/renewables build-out implies workforce needs, but pathway-specific power-sector labor constraints are not quantified in the attached materials. Mode: Scenario-design inference.",
+      "dependency_description": "STEPS retires substantially more coal capacity than CPS (-2,032 GW net by 2050 across scenario vs CPS's much smaller net change), implying materially larger fossil-sector job losses and retraining needs than CPS, alongside larger low-carbon-sector job creation from the larger renewables build.",
       "sector": "Power",
-      "evidence_type": "Anecdotal"
+      "evidence_type": "Quantitative"
     }
   ],
   "dataAvailability": {
     "overall": null,
     "byMetric": [
       {
-        "metricName": "Emissions intensity",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": [
-          "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
-          "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
-          "Europe",
-          "European Union",
-          "India",
-          "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
-        ],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["Scope 1"],
-        "scopeLimitations": "Power generation includes electricity-only and CHP before curtailment per WEO definition."
-      },
-      {
         "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
+          "North America",
+          "United States",
           "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
+          "Brazil",
           "Europe",
           "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Russia",
+          "Asia Pacific",
+          "China",
           "India",
           "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
+          "Southeast Asia"
         ],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "CO2 emissions from electricity and heat sectors; energy-related and industrial process CO2 definition applies."
+        "scopeLimitations": "Combustion emissions from the electricity and heat sectors are combined. Upstream (fuel extraction/processing) emissions are not included. This includes global aggregate power-system output, there is no separate captive or residential-rooftop generation series."
+      },
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "United States",
+          "Central and South America",
+          "Brazil",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Russia",
+          "Asia Pacific",
+          "China",
+          "India",
+          "Japan",
+          "Southeast Asia"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Combustion emissions from the electricity and heat sectors are combined. Upstream (fuel extraction/processing) emissions are not included. This includes global aggregate power-system output, there is no separate captive or residential-rooftop generation series."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "United States",
+          "Central and South America",
+          "Brazil",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Russia",
+          "Asia Pacific",
+          "China",
+          "India",
+          "Japan",
+          "Southeast Asia"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "Storage figure is battery storage capacity only, there is no separate pumped-hydro-storage series in this dataset."
       },
       {
         "metricName": "Generation",
@@ -575,28 +2280,23 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
+          "North America",
+          "United States",
           "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
+          "Brazil",
           "Europe",
           "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Russia",
+          "Asia Pacific",
+          "China",
           "India",
           "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
+          "Southeast Asia"
         ],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": [
           "Coal",
@@ -607,9 +2307,10 @@
           "Wind",
           "Solar",
           "Biomass",
+          "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Gross electricity generation before curtailment, including electricity-only and CHP."
+        "scopeLimitations": "Coal and natural gas are further split by 'unabated' and 'with-CCUS' in the source data. Solar combines Solar PV and concentrating solar power. 'Other' includes Marine and Hydrogen/H2-based generation."
       },
       {
         "metricName": "Technology mix",
@@ -617,28 +2318,23 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
+          "North America",
+          "United States",
           "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
+          "Brazil",
           "Europe",
           "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Russia",
+          "Asia Pacific",
+          "China",
           "India",
           "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
+          "Southeast Asia"
         ],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": [
           "Coal",
@@ -649,19 +2345,10 @@
           "Wind",
           "Solar",
           "Biomass",
+          "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Generation mix derived from gross electricity generation. Shares depend on reported technology rows."
-      },
-      {
-        "metricName": "Capacity",
-        "sector": "Power",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
+        "scopeLimitations": "Coal and natural gas are further split by 'unabated' and 'with-CCUS' in the source data. Solar combines Solar PV and concentrating solar power. 'Other' includes Marine and Hydrogen/H2-based generation."
       },
       {
         "metricName": "Transmission lines",
@@ -676,102 +2363,32 @@
       {
         "metricName": "Technology cost",
         "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": [
-          "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
-          "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
-          "Europe",
-          "European Union",
-          "India",
-          "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
-        ],
-        "timeResolution": "Other time resolution",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["United States", "European Union", "China", "India"],
+        "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Selected regions/technologies in Annex B, not every WEO region; power generation technologies only."
+        "scopeLimitations": "Capital costs, capacity factor, and fuel/CO2/O&M costs by technology are disclosed for selected individual regions (e.g. United States), not globally."
       },
       {
         "metricName": "Investment requirement",
         "sector": "Power",
-        "sectorSegment": [
-          "Power generation",
-          "Energy storage",
-          "Transmission and distribution"
-        ],
-        "geography": [
-          "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
-          "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
-          "Europe",
-          "European Union",
-          "India",
-          "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
-        ],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["By tech, part of value chain"],
-        "scopeLimitations": "Aggregate investment categories; not always a full technology-by-region matrix in the free dataset."
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       },
       {
         "metricName": "Asset lifetime",
         "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": [
-          "Global",
-          "Africa",
-          "Asia Pacific",
-          "Atlantic Basin",
-          "Brazil",
-          "Central and South America",
-          "China",
-          "East of Suez",
-          "Eurasia",
-          "Europe",
-          "European Union",
-          "India",
-          "Japan",
-          "Japan and Korea",
-          "Middle East",
-          "Non-OPEC plus",
-          "North America",
-          "OPECplus",
-          "Russia",
-          "Southeast Asia",
-          "United States"
-        ],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["No information"],
-        "scopeLimitations": "Partial general lifetime assumptions only."
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       }
     ]
   }

@@ -107,7 +107,7 @@
       {
         "sector": "Power",
         "geography": "TH",
-        "value": "CO2e (unspecified GHGs)"
+        "value": "CO2e (Kyoto)"
       }
     ],
     "policyAmbition": [
@@ -281,7 +281,7 @@
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": ["TH"],
-        "timeResolution": "Other time resolution",
+        "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
         "scopeLimitations": "Cost data are unit costs for power technologies, not total investment needs."

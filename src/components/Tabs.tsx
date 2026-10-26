@@ -114,13 +114,23 @@ export const Tabs: React.FC<TabsProps> = ({
             tabIndex={selected ? 0 : -1}
             onClick={() => onChange(t.id)}
             className={clsx(
-              "px-4 py-2.5 text-sm font-medium border-b-2 transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-energy focus-visible:ring-offset-1",
+              "px-4 py-2.5 text-sm border-b-2 rounded-t-md cursor-pointer transition-colors duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-energy focus-visible:ring-offset-1",
               selected
-                ? "border-bluespruce text-bluespruce"
-                : "border-transparent text-rmigray-600 hover:text-bluespruce hover:border-neutral-300",
+                ? "font-semibold border-bluespruce text-bluespruce"
+                : "font-medium border-transparent text-rmigray-600 hover:text-bluespruce hover:border-neutral-300 hover:bg-neutral-50",
             )}
           >
-            {t.label}
+            <span className="inline-flex flex-col">
+              {t.label}
+              {/* Reserves the semibold width, so selecting a tab doesn't
+                  nudge the tabs after it sideways. */}
+              <span
+                aria-hidden="true"
+                className="invisible h-0 overflow-hidden font-semibold"
+              >
+                {t.label}
+              </span>
+            </span>
           </button>
         );
       })}
