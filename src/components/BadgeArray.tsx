@@ -104,6 +104,16 @@ export default function BadgeArray<T extends Scalar = Scalar>({
   const itemRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const moreMeasureRef = useRef<HTMLSpanElement | null>(null);
   const [autoVisible, setAutoVisible] = useState<number | null>(null);
+  // New items invalidate the measured count: a longer list would otherwise be
+  // squeezed into the count that suited the old one, its extra items left
+  // behind "+N more" with no overflow reported (#1026). Resetting during render
+  // makes the next pass render — and measure — the full list.
+  const itemsKey = arr.map(String).join("\u0000");
+  const [measuredItemsKey, setMeasuredItemsKey] = useState(itemsKey);
+  if (measuredItemsKey !== itemsKey) {
+    setMeasuredItemsKey(itemsKey);
+    setAutoVisible(null);
+  }
   // When true, render all badges for one frame to measure expansion capacity
   const [renderAllOnce, setRenderAllOnce] = useState(false);
   // bump this to force recomputation on resize/font load
