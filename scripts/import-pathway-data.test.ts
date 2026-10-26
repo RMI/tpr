@@ -238,6 +238,130 @@ describe("buildGeography", () => {
   });
 });
 
+describe("one country code is always a country (#998)", () => {
+  it("imports a one-member region as its country, whatever the label, and reports the rename", () => {
+    const report = new Report();
+    const renamed = new Map<string, string>();
+    const geo = buildGeography(
+      "Global; Japan: [JP]; TH: [TH]; Asia: [CN, JP]",
+      report,
+      "T",
+      renamed,
+    );
+    expect(geo?.country).toEqual(["JP", "TH"]);
+    expect(Object.keys(geo?.regions ?? {})).toEqual(["Asia"]);
+    expect([...renamed]).toEqual([["Japan", "JP"]]);
+    expect(report.lines).toContain(
+      '  - T: region "Japan" has one member, imported as country JP',
+    );
+    // `TH: [TH]` loses no label, so it is not worth a line.
+    expect(report.lines.join("\n")).not.toContain('"TH"');
+  });
+
+  it("counts members after non-ISO codes are dropped", () => {
+    const geo = buildGeography("Japan: [JP, XK]", new Report(), "T");
+    expect(geo?.country).toEqual(["JP"]);
+    expect(geo?.regions).toBeUndefined();
+  });
+
+  it("lists a country once when it is also standalone or reached by two labels", () => {
+    const report = new Report();
+    const renamed = new Map<string, string>();
+    const geo = buildGeography(
+      "JP; Japan: [JP]; Nippon: [JP]",
+      report,
+      "T",
+      renamed,
+    );
+    expect(geo?.country).toEqual(["JP"]);
+    expect([...renamed.keys()]).toEqual(["Japan", "Nippon"]);
+    expect(report.lines).toContain(
+      "  - T: geography lists {JP} more than once; kept once",
+    );
+  });
+
+  it("resolves a renamed label to its country, loosely, and only when declared", () => {
+    const renamed = new Map([["United States of America", "US"]]);
+    const allowed = new Set(["Global", "US"]);
+    expect(resolveGeography("United States of America", allowed, renamed)).toBe(
+      "US",
+    );
+    expect(resolveGeography("united states of america", allowed, renamed)).toBe(
+      "US",
+    );
+    expect(resolveGeography("United States of America", allowed)).toBeNull();
+    expect(
+      resolveGeography(
+        "United States of America",
+        new Set(["Global"]),
+        renamed,
+      ),
+    ).toBeNull();
+  });
+
+  it("resolves data-availability coverage through the rename, listing the country once", () => {
+    const renamed = new Map([["Japan", "JP"]]);
+    const bad = new Set<string>();
+    const allowed = new Set(["Global", "JP"]);
+    expect(
+      parseCoverage("Global; Japan: [JP]; JP", allowed, bad, renamed),
+    ).toEqual(["Global", "JP"]);
+    expect(bad.size).toBe(0);
+  });
+
+  describe("key features recorded under both the label and the code", () => {
+    const kf = (scope: string, value: string) => ({
+      "Key features sector scope": "across sectors",
+      "Key features regional scope": scope,
+      "Emissions trajectory": value,
+    });
+    const build = (rows: Record<string, string>[]) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+        {
+          "Name of Pathway": "Current Policies Scenario (CPS)",
+          "Name of publication": "World Energy Outlook 2025",
+          "Description": "A short description.",
+          "Pathway Overview": "An overview.",
+          "Regions": "Global; Japan: [JP]",
+        },
+        { ...EMPTY_SUB, keyFeatures: rows },
+        null,
+        null,
+        report,
+      ) as { keyFeatures: Record<string, unknown[]> };
+      return { report, doc };
+    };
+
+    it("keeps one entry when they agree", () => {
+      const { report, doc } = build([
+        kf("Japan", "Moderate decrease"),
+        kf("JP", "Moderate decrease"),
+      ]);
+      expect(report.errors).toEqual([]);
+      expect(doc.keyFeatures.emissionsTrajectory).toEqual([
+        {
+          sector: "across sectors",
+          geography: "JP",
+          value: "Moderate decrease",
+        },
+      ]);
+    });
+
+    it("stops the import when they disagree, naming both", () => {
+      const { report } = build([
+        kf("Japan", "Moderate decrease"),
+        kf("JP", "Minor decrease"),
+      ]);
+      expect(report.errors).toEqual([
+        'T/keyFeatures/emissionsTrajectory: "Japan" and "JP" are both JP for sector "across sectors"' +
+          ' but disagree ("Moderate decrease" vs "Minor decrease") -- keep one in the workbook',
+      ]);
+    });
+  });
+});
+
 describe("TARGETS", () => {
   it("matches every row of the current workbook's renamed SDSN spellings", () => {
     // The workbook now writes the Myanmar/Laos pathways as "UN SDSN, CW" with

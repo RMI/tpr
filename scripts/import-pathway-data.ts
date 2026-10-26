@@ -890,11 +890,18 @@ interface Geography {
  *   Global; Africa: [DZ, EG]; Atlantic Basin: []; Brazil: [BR]; PH
  * A bare token (`Global`) sets the flag or, if a 2-letter code, becomes a
  * standalone country. `Label: [..]` is a region and its ISO members.
+ *
+ * One country code is always a country (#998): a region with a single member
+ * is that country, whatever its label, so `Brazil: [BR]` and a standalone `BR`
+ * are one scope rather than two that never find each other's values. Each such
+ * label is recorded in `renamed` (label -> code) so key-feature and
+ * data-availability cells that still name "Brazil" resolve to `BR`.
  */
 export function buildGeography(
   cell: string,
   report: Report,
   id: string,
+  renamed: Map<string, string> = new Map(),
 ): Geography | null {
   const raw = cell.trim().replace(/^"+|"+$/g, "");
   if (!raw) return null;
@@ -921,17 +928,17 @@ export function buildGeography(
         );
       }
       // `LA: [LA]` is how the cookbook writes an individually projected country
-      // (validator rule R4.3 flags the bare `LA` form as non-standard), not a
-      // region that happens to be named after its only member. Reading it as a
-      // region made every single-country pathway a pseudo-region -- except
-      // Thailand, whose cell is still written bare.
-      const code = label.toUpperCase();
-      if (
-        /^[A-Z]{2}$/.test(code) &&
-        VALID_COUNTRIES.has(code) &&
-        members.length === 1 &&
-        members[0] === code
-      ) {
+      // (validator rule R4.3 flags the bare `LA` form as non-standard), and
+      // IEA's `Japan: [JP]` is the same country under its publication's name.
+      // Only the second is reported: it is the one whose label disappears.
+      if (members.length === 1) {
+        const code = members[0];
+        if (label.toUpperCase() !== code) {
+          renamed.set(label, code);
+          report.note(
+            `${id}: region "${label}" has one member, imported as country ${code}`,
+          );
+        }
         countries.push(code);
         continue;
       }
@@ -951,7 +958,16 @@ export function buildGeography(
     }
   }
   if (Object.keys(regions).length > 0) geo.regions = regions;
-  if (countries.length > 0) geo.country = countries;
+  // A country can now arrive twice: listed standalone and as a one-member
+  // region, or as two one-member regions. It is one scope, so it is listed once.
+  const repeated = [
+    ...new Set(countries.filter((c, i) => countries.indexOf(c) !== i)),
+  ];
+  if (repeated.length)
+    report.note(
+      `${id}: geography lists {${repeated.join(", ")}} more than once; kept once`,
+    );
+  if (countries.length > 0) geo.country = [...new Set(countries)];
   return geo;
 }
 
@@ -973,9 +989,25 @@ function normKey(s: string): string {
   return s.toLowerCase().replace(/[^a-z0-9]/g, "");
 }
 
+/** The country a one-member region label became, matched as loosely as labels are. */
+function renamedCode(
+  token: string,
+  renamed: ReadonlyMap<string, string>,
+): string | undefined {
+  const tn = normKey(token);
+  for (const [label, code] of renamed) if (normKey(label) === tn) return code;
+  return undefined;
+}
+
+/**
+ * The declared token `token` names, or null. `renamed` holds the one-member
+ * region labels buildGeography turned into countries, so "Japan" still finds
+ * `JP` after the region it named is gone.
+ */
 export function resolveGeography(
   token: string,
   allowed: Set<string>,
+  renamed: ReadonlyMap<string, string> = new Map(),
 ): string | null {
   const t = token.trim();
   if (allowed.has(t)) return t;
@@ -983,11 +1015,13 @@ export function resolveGeography(
   if (/^[A-Z]{2}$/.test(up) && allowed.has(up)) return up;
   const alias = GEO_ALIASES[t.toLowerCase()];
   if (alias && allowed.has(alias)) return alias;
+  const tn = normKey(t);
+  const code = renamedCode(t, renamed);
+  if (code && allowed.has(code)) return code;
   // Last resort: match ignoring case, punctuation and spacing, so a key-feature
   // token like "Rest Sub Saharan Africa" resolves to a declared region labeled
   // "Rest Sub-Saharan Africa". Genuine word differences ("Other" vs "Rest") do
   // not match and are reported instead.
-  const tn = normKey(t);
   for (const a of allowed) {
     if (normKey(a) === tn) return a;
   }
@@ -1021,12 +1055,17 @@ function buildKeyFeatures(
   geoAllowed: Set<string>,
   report: Report,
   id: string,
+  renamed: ReadonlyMap<string, string> = new Map(),
 ): Record<string, ScopedEntry[]> {
   const fields: Record<string, ScopedEntry[]> = {};
-  const seen: Record<string, Set<string>> = {};
+  // The first value at each scope, and the geography cell it came from.
+  const seen: Record<
+    string,
+    Map<string, { value: string | string[]; rawGeo: string }>
+  > = {};
   for (const field of Object.values(KF_COLUMN_TO_FIELD)) {
     fields[field] = [];
-    seen[field] = new Set();
+    seen[field] = new Map();
   }
   const badSectors = new Set<string>();
   const badGeos = new Set<string>();
@@ -1054,7 +1093,7 @@ function buildKeyFeatures(
       badSectors.add(rawSector.trim() || "(blank)");
       continue;
     }
-    const geography = resolveGeography(rawGeo, geoAllowed);
+    const geography = resolveGeography(rawGeo, geoAllowed, renamed);
     if (!geography) {
       badGeos.add(rawGeo.trim() || "(blank)");
       continue;
@@ -1083,11 +1122,25 @@ function buildKeyFeatures(
         else badValues.add(`${field}:"${raw}"`);
       }
       if (value === null) continue;
-      if (seen[field].has(scopeKey)) {
+      const first = seen[field].get(scopeKey);
+      if (first) {
+        // "Japan" and "JP" are one scope now that a one-member region is its
+        // country. If the sheet gave them different values, keeping the first
+        // would quietly drop the publication's other answer, so stop instead.
+        if (
+          JSON.stringify(first.value) !== JSON.stringify(value) &&
+          (renamedCode(first.rawGeo, renamed) ?? renamedCode(rawGeo, renamed))
+        ) {
+          report.error(
+            `${id}/keyFeatures/${field}: "${first.rawGeo.trim()}" and "${rawGeo.trim()}" are both ` +
+              `${geography} for sector "${sector}" but disagree ` +
+              `(${JSON.stringify(first.value)} vs ${JSON.stringify(value)}) -- keep one in the workbook`,
+          );
+        }
         dupScopes++;
         continue;
       }
-      seen[field].add(scopeKey);
+      seen[field].set(scopeKey, { value, rawGeo });
       fields[field].push({ sector, geography, value });
     }
   }
@@ -1245,6 +1298,7 @@ export function parseCoverage(
   cell: string,
   geoAllowed: Set<string>,
   bad: Set<string>,
+  renamed: ReadonlyMap<string, string> = new Map(),
 ): string[] {
   const out: string[] = [];
   for (const chunk of cell.split(";")) {
@@ -1254,7 +1308,8 @@ export function parseCoverage(
       .trim();
     if (!label) continue;
     const hit =
-      matchEnum(label, DA_SENTINELS) ?? resolveGeography(label, geoAllowed);
+      matchEnum(label, DA_SENTINELS) ??
+      resolveGeography(label, geoAllowed, renamed);
     if (hit) {
       if (!out.includes(hit)) out.push(hit);
     } else bad.add(`geography:"${label}"`);
@@ -1304,6 +1359,7 @@ export function buildDataAvailability(
   geoAllowed: Set<string>,
   report: Report,
   id: string,
+  renamed: ReadonlyMap<string, string> = new Map(),
 ): { overall: null; byMetric: ByMetricRow[] } | null {
   if (rows.length === 0) return null;
   const byMetric: ByMetricRow[] = [];
@@ -1341,6 +1397,7 @@ export function buildDataAvailability(
       row["Geography coverage"] ?? "",
       geoAllowed,
       bad,
+      renamed,
     );
     const granularity = parseGranularity(row["Granularity"] ?? "", bad);
     withinLimit(
@@ -1625,10 +1682,12 @@ export function buildDoc(
     target.mode === "new" ? target.id : String(existing?.id ?? target.file);
 
   // Geography: rebuilt from Excel where present, else keep existing.
+  const renamed = new Map<string, string>();
   let geography = buildGeography(
     meta["Regions"] ?? "",
     report,
     id,
+    renamed,
   ) as Geography | null;
   if (!geography)
     geography =
@@ -1715,7 +1774,14 @@ export function buildDoc(
     report.note(`${id}: no key_features rows -- keyFeatures left empty`);
   const keyFeatures =
     fromV1 ??
-    buildKeyFeatures(sub.keyFeatures, declaredSectors, geoAllowed, report, id);
+    buildKeyFeatures(
+      sub.keyFeatures,
+      declaredSectors,
+      geoAllowed,
+      report,
+      id,
+      renamed,
+    );
   const coreDrivers = buildCoreDrivers(sub.coreDrivers, report, id);
   const dependencies = buildDependencies(
     sub.dependencies,
@@ -1732,6 +1798,7 @@ export function buildDoc(
       geoAllowed,
       report,
       id,
+      renamed,
     ) ?? (existing?.dataAvailability as Json | undefined);
   reportUnlistedMetrics(metric, dataAvailability, report, id);
 
