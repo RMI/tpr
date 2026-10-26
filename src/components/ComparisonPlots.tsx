@@ -21,6 +21,7 @@ import {
 } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
 import { plottedSegments } from "../utils/timeseriesSegments";
+import { capToPlotYears } from "../utils/plotYears";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 import { useElementWidth } from "../hooks/useElementWidth";
 
@@ -84,10 +85,21 @@ interface ComparisonPlotsProps {
 }
 
 const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
-  entries,
+  entries: fullEntries,
   requestedGeographies = NO_REQUESTS,
   requestedSector = null,
 }) => {
+  // Capped once, here, so everything below agrees with what is drawn — the
+  // shared y-axis above all, which would otherwise stretch to values past
+  // 2050 that no chart shows.
+  const entries = useMemo(
+    () =>
+      fullEntries.map((e) => ({
+        ...e,
+        timeseriesdata: capToPlotYears(e.timeseriesdata),
+      })),
+    [fullEntries],
+  );
   const n = entries.length;
 
   /*

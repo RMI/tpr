@@ -191,6 +191,26 @@ describe("ComparisonPlots", () => {
     });
   });
 
+  it("plots no year after 2050, and scales the y-axis to what it plots", async () => {
+    // Years 2020..2060: the 2060 peak must neither be drawn nor stretch the
+    // shared axis. The download keeps it; the plots do not.
+    const entries = [
+      makeMetricEntry("p1", "absoluteEmissions", [100, 200, 300, 400, 900]),
+      makeMetricEntry("p2", "absoluteEmissions", [50, 150]),
+    ];
+    render(<ComparisonPlots entries={entries} />);
+    await userEvent
+      .setup()
+      .selectOptions(screen.getAllByRole("combobox")[0], "Absolute Emissions");
+
+    expect(mockedMultiLineChart.mock.calls.length).toBeGreaterThan(0);
+    mockedMultiLineChart.mock.calls.forEach(([props]) => {
+      expect(props.yMax).toBe(400);
+      const years = props.data.data.map((d) => Number(d.year));
+      expect(Math.max(...years)).toBeLessThanOrEqual(2050);
+    });
+  });
+
   describe("sector segment badge", () => {
     it("captions each column with the part of the sector the metric covers", async () => {
       // Matches the detail page's small multiples, which caption each panel

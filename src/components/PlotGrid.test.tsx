@@ -1,14 +1,16 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import PlotGrid from "./PlotGrid";
+import MultiLineChart from "./MultiLineChart";
 import type { Geography } from "../types";
 
 vi.mock("./MultiLineChart", () => ({
-  default: () => <div data-testid="multi-line-chart" />,
+  default: vi.fn(() => <div data-testid="multi-line-chart" />),
 }));
 vi.mock("./NormalizedStackedAreaChart", () => ({
-  default: () => <div data-testid="stacked-area-chart" />,
+  default: vi.fn(() => <div data-testid="stacked-area-chart" />),
 }));
+const mockedMultiLineChart = vi.mocked(MultiLineChart);
 
 const SEA: Geography = {
   global: false,
@@ -57,6 +59,47 @@ describe("PlotGrid", () => {
     expect(screen.getByText("Capacity")).toBeInTheDocument();
     expect(screen.getByText("Generation")).toBeInTheDocument();
     expect(screen.getAllByTestId("multi-line-chart")).toHaveLength(2);
+  });
+
+  describe("years after 2050", () => {
+    const row = (metric: string, year: number) => ({
+      ...rows(metric, "Global")[0],
+      year: String(year),
+    });
+
+    it("hands the charts no year after 2050", () => {
+      mockedMultiLineChart.mockClear();
+      render(
+        <PlotGrid
+          timeseriesdata={{
+            data: [2030, 2050, 2070, 2100].map((y) => row("capacity", y)),
+          }}
+          pathwayGeography={SEA}
+        />,
+      );
+
+      expect(mockedMultiLineChart).toHaveBeenCalled();
+      mockedMultiLineChart.mock.calls.forEach(([props]) => {
+        expect(props.data.data.map((d) => d.year)).toEqual(["2030", "2050"]);
+      });
+    });
+
+    it("drops a panel left with a single year once later years are cut", () => {
+      render(
+        <PlotGrid
+          timeseriesdata={{
+            data: [
+              ...[2050, 2060, 2070].map((y) => row("capacity", y)),
+              ...[2030, 2040].map((y) => row("generation", y)),
+            ],
+          }}
+          pathwayGeography={SEA}
+        />,
+      );
+
+      expect(screen.queryByText("Capacity")).toBeNull();
+      expect(screen.getByText("Generation")).toBeInTheDocument();
+    });
   });
 
   it("skips a plot type that has no data at any geography", () => {
