@@ -37,6 +37,7 @@ import type { TimeSeries } from "../components/PlotSelector";
 import PlotGrid from "../components/PlotGrid";
 import { PLOT_ORDER } from "../components/PlotPanel";
 import getTemperatureColor from "../utils/getTemperatureColor";
+import { extendsPastPlotYears } from "../utils/plotYears";
 import TextWithTooltip from "../components/TextWithTooltip";
 import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import {
@@ -418,7 +419,7 @@ const PathwayDetailPage: React.FC = () => {
         <PublicationBlock publication={pathway.publication} />
 
         {tsIndexLoaded && datasets.length > 0
-          ? datasets.map((d) => {
+          ? datasets.map((d, i) => {
               const label = d.label ?? d.datasetId;
               const summary = summarizeSummary(d.summary);
               return (
@@ -427,6 +428,11 @@ const PathwayDetailPage: React.FC = () => {
                   label={label}
                   href={d.path}
                   summary={summary}
+                  // The plots draw the first dataset, so only it is known to
+                  // run past them.
+                  extendsPastPlots={
+                    i === 0 && extendsPastPlotYears(timeseriesdata)
+                  }
                 />
               );
             })

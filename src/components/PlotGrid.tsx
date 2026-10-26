@@ -21,6 +21,7 @@ import {
 } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
 import { plottedSegments } from "../utils/timeseriesSegments";
+import { capToPlotYears } from "../utils/plotYears";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 
 /** Panel size for the small multiples — two columns at desktop width. */
@@ -69,7 +70,7 @@ interface PlotGridProps {
  *    shows PlotPanel's empty state, because that absence is informative.
  */
 export const PlotGrid: React.FC<PlotGridProps> = ({
-  timeseriesdata,
+  timeseriesdata: fullTimeseriesdata,
   datasetId,
   pathwayGeography,
   requestedGeography = null,
@@ -78,6 +79,12 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
   title,
   className = "",
 }) => {
+  // Capped once, here, so everything below agrees with what is drawn.
+  const timeseriesdata = useMemo(
+    () => capToPlotYears(fullTimeseriesdata),
+    [fullTimeseriesdata],
+  );
+
   const availableGeographies = useMemo(() => {
     if (!timeseriesdata?.data) return [];
     return Array.from(

@@ -21,6 +21,7 @@ import {
 } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
 import { plottedSegments } from "../utils/timeseriesSegments";
+import { capToPlotYears } from "../utils/plotYears";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 import { useElementWidth } from "../hooks/useElementWidth";
 
@@ -84,10 +85,21 @@ interface ComparisonPlotsProps {
 }
 
 const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
-  entries,
+  entries: fullEntries,
   requestedGeographies = NO_REQUESTS,
   requestedSector = null,
 }) => {
+  // Capped once, here, so everything below agrees with what is drawn — the
+  // shared y-axis above all, which would otherwise stretch to values past
+  // 2050 that no chart shows.
+  const entries = useMemo(
+    () =>
+      fullEntries.map((e) => ({
+        ...e,
+        timeseriesdata: capToPlotYears(e.timeseriesdata),
+      })),
+    [fullEntries],
+  );
   const n = entries.length;
 
   /*
@@ -159,7 +171,9 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   //
   // Each entry contributes the rows for ITS OWN resolved geography: filtering
   // everything on one token would compute the axis from rows no chart shows,
-  // and leave columns that fell back scaled to someone else's data.
+  // and leave columns that fell back scaled to someone else's data. A column
+  // PlotPanel hides (fewer than two years, e.g. once capped at 2050) adds
+  // nothing either, or it would stretch the axis of the charts that are shown.
   const sharedYBounds = useMemo(() => {
     const isLineChart =
       selectedPlot === "capacity" ||
@@ -173,6 +187,7 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
     entries.forEach((e, idx) => {
       const used = resolutions[idx]?.used;
       if (!used) return;
+      if (!hasDataForMetricAndGeo(e.timeseriesdata, selectedPlot, used)) return;
       e.timeseriesdata?.data
         ?.filter(
           (d) =>
