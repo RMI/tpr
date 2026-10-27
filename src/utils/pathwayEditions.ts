@@ -4,9 +4,9 @@ import type { PathwayMetadataType } from "../types";
  * Editions: the same pathway re-published with new data under a new year.
  *
  * `IEA-NZE-2024` and `IEA-NZE-2025` are one scenario published twice. The
- * metadata has no field that says so (#869 raised it; adding one is a data
- * decision, not ours), so the link is derived here in the front end from the
- * id convention every record currently follows: `<series>-<year>`.
+ * metadata has no field that says so, and adding one is a data decision rather
+ * than ours to make, so the link is derived here in the front end from the id
+ * convention every record currently follows: `<series>-<year>`.
  *
  * That convention is not enforced by the schema. An edition published under a
  * differently shaped id silently fails to group, which is a missed link rather
