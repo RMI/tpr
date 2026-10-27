@@ -37,11 +37,30 @@
   "modelYearEnd": 2050,
   "sectors": [
     {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
       "name": "Power",
+      "technologies": [
+        "Coal",
+        "Gas",
+        "Hydro",
+        "Solar",
+        "Other",
+        "Energy storage"
+      ]
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Other",
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\nThe Optimized Existing Policy Pathway (OEPP) is a cost-optimized scenario that reflects Myanmar’s current and announced policies while allowing the model to select the least-cost technology mix required to meet rising electricity demand. This scenario is complemented by the Existing Policy Pathway (EPP)—a scenario which also reflects achieving current policy objectives in Myanmar, but without cost optimization—and the Optimized More Ambitious Pathway (OMAP)—a scenario where Myanmar reaches Near-Zero emissions in the power sector by 2050—from the same developers. \n\nThe OEPP follows the same power demand trajectory as the Existing Policies Pathway. The OEPP further uses the same socio-economic and policy foundations as EPP but integrates a system-level optimization module to determine the most economical combination of generation and storage assets. The scenario maintains Myanmar’s existing policy ambitions, including incremental renewable expansion and sectoral efficiency improvements, but does not impose any emissions constraint.\n\nElectricity demand continues to rise steadily due to economic growth, increasing electrification, and progress toward universal access. The optimization process accelerates renewable deployment compared with EPP where cost-effective, particularly in solar PV and small hydro facilities, while limiting uneconomic fossil-fuel expansion. However, the pathway still retains a material role for gas generation until the end of the model period. While coal is gradually phased out, gas capacity remains necessary to maintain system adequacy in the absence of stronger policy constraints. In this scenario, the continued role of gas-fired generation prevents a decline in electricity supply by 2050 (in contrast to EPP), enabling Myanmar to meet 100% of power demand domestically.",
+  "pathwayDescription": "Optimized Existing Policy Pathway (OEPP) is a cost-optimized scenario reflecting Myanmar’s current and announced policies while allowing the model to select the least-cost technology mix to meet rising electricity demand. It uses the same socio-economic and policy foundations as EPP but adds a system-level optimization module to find the most economical mix of generation and storage assets. Existing policy ambitions, including incremental renewable expansion and sectoral efficiency improvements, are maintained, but no emissions constraint is imposed. Demand rises steadily with economic growth, electrification, and progress toward universal access. Compared with EPP, optimization accelerates cost-effective renewable deployment, particularly solar PV and small hydro, while limiting uneconomic fossil-fuel expansion. Coal is gradually phased out, but gas retains a material role through 2050 to maintain system adequacy, enabling Myanmar to meet 100% of power demand domestically.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -133,7 +152,7 @@
     ]
   },
   "coreDrivers": {
-    "policies": "\"Demand side sector energy demand follows Myanmar official targets. To fulfil this demand, the optimisation tool NEMO was utilised to determine the least-cost generation mix while ensuring a reserve margin above 30% at all times\".",
+    "policies": "Demand side sector energy demand follows Myanmar official targets. To fulfil this demand, the optimisation tool NEMO was utilised to determine the least-cost generation mix while ensuring a reserve margin above 30% at all times.",
     "emissionsTargets": null,
     "technologyCosts": "Technology capital, O&M and fuel costs affect least-cost capacity choices; falling solar and battery costs support deployment.",
     "investmentChange": null,

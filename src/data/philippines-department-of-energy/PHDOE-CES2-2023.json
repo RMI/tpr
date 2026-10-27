@@ -28,12 +28,44 @@
   "geography": {
     "country": ["PH"]
   },
-  "pathwayType": "Normative",
-  "modelYearStart": 2023,
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2022,
   "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Geothermal",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
       "technologies": []
     },
     {
@@ -41,7 +73,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Clean Energy Scenario 2 (CES2) is an explorative power sector pathway for the Philippines developed by the Philippines Department of Energy (DoE) that builds on the assumptions of the Reference scenario. The Pathway includes the National Renewable Energy Program’s (NREP) power generation mix target of 50% renewable energy by 2040, and adds expanded build out of renewable energy capacity through 2050, including a major tranche of 50 GW of offshore wind capacity. This offshore wind expansion differentiates CES2 from DoE’s CES1 scenario.\n \nThe CES2 pathway makes strong socio-economic assumptions, with annual real GDP growth averaging well over 6% until 2050 driving significant increases in energy demand. As a result, emissions continue to grow, although at a significantly lower rate than in the DoE’s Reference scenario and slightly lower than in CES1. Emissions from coal quickly plateau and then decrease slightly, while emissions from natural gas and oil consumption continue to rise, driven by industry, transport, and other end-use sectors.",
+  "pathwayDescription": "The Clean Energy Scenario 2 (CES2) is an explorative power sector pathway for the Philippines developed by the Philippines Department of Energy (DoE) that builds on the assumptions of the Reference scenario. The Pathway includes the National Renewable Energy Program’s (NREP) power generation mix target of 50% renewable energy by 2040, and adds expanded build out of renewable energy capacity through 2050, including a major tranche of 50 GW of offshore wind capacity. This offshore wind expansion differentiates CES2 from DoE’s CES1 scenario.\n\nThe CES2 pathway makes strong socio-economic assumptions, with annual real GDP growth averaging well over 6% until 2050 driving significant increases in energy demand. As a result, emissions continue to grow, although at a significantly lower rate than in the DoE’s Reference scenario and slightly lower than in CES1. Emissions from coal quickly plateau and then decrease slightly, while emissions from natural gas and oil consumption continue to rise, driven by industry, transport, and other end-use sectors.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -54,36 +86,31 @@
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Other",
-        "geography": "PH",
-        "value": "Significant increase"
+        "value": "Moderate increase"
       },
       {
         "sector": "Power",
         "geography": "PH",
-        "value": "Significant increase"
+        "value": "Minor decrease"
       }
     ],
     "energyEfficiency": [
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "No information"
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
       }
     ],
     "energyDemand": [
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "No information"
-      },
-      {
-        "sector": "Other",
-        "geography": "PH",
-        "value": "No information"
+        "value": "Significant increase"
       },
       {
         "sector": "Power",
@@ -95,7 +122,12 @@
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "No information"
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not Applicable"
       }
     ],
     "policyTypes": [
@@ -103,32 +135,57 @@
         "sector": "across sectors",
         "geography": "PH",
         "value": [
-          "Subsidies",
           "Target technology shares",
-          "Feed-in tariffs",
           "Performance standards",
-          "Other"
+          "Feed-in tariffs",
+          "Phaseout dates"
         ]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Not applicable at this scope level"]
       }
     ],
     "technologyCostTrend": [
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "No information"
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
       }
     ],
-    "emissionsScope": [],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "policyAmbition": [
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "Current/legislated policies"
+        "value": "Current and drafted policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
       }
     ],
     "technologyCostsDetail": [
       {
-        "sector": "Other",
+        "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
       },
@@ -142,40 +199,227 @@
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": ["Other new technologies"]
+        "value": ["Battery storage", "SMR", "Green H2/ammonia"]
       },
       {
         "sector": "Power",
         "geography": "PH",
-        "value": ["Other new technologies"]
+        "value": ["Battery storage", "SMR", "Green H2/ammonia"]
       }
     ],
     "investmentNeeds": [
       {
         "sector": "across sectors",
         "geography": "PH",
-        "value": "No information"
-      },
-      {
-        "sector": "Other",
-        "geography": "PH",
-        "value": "No information"
+        "value": "By sector"
       },
       {
         "sector": "Power",
         "geography": "PH",
-        "value": "No information"
+        "value": "By technology"
       }
     ]
   },
   "coreDrivers": {
-    "policies": "Most ambitious application of enhanced PAMs, especially renewable-energy avoidance and power-sector transformation.",
-    "emissionsTargets": "29.7% cumulative reduction from REF and energy-sector emissions offset by 2033.",
-    "technologyCosts": "Affordability and finance become more binding under the deepest power-sector reduction.",
-    "investmentChange": "Part of a collective USD477.4 billion CES1/CES2 build requirement, with stronger implied deployment pressure.",
-    "macroeconomicDrivers": "Rapid clean-energy transformation constrained by affordability, reliability and national development.",
-    "behavioralShifts": "Energy-efficiency practices and coordinated stakeholder action support the more ambitious pathway.",
-    "otherDrivers": "Earlier emissions offset, climate finance, technology transfer, resilience and institutional readiness."
+    "policies": "The instrument classes match CES 1, differing only in a higher offshore wind setting. Target technology shares keep RE generation above half by 2050 under National Renewable Energy Program targets, with a far larger awarded-contract offshore wind option. Nuclear follows the same path. Coal technical life retires more capacity than in CES 1, as more renewables displace more coal. Demand-side standards for B5 blending, EV penetration and energy savings are identical. No carbon price applies.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Unit costs drive the build from the same 2022 National Renewable Energy Laboratory database and fuel costs, with capacity factor the distinguishing cost channel. Offshore wind’s capacity factor, the highest among variable renewables, gives the lowest blended generation rate of the three pathways despite the largest capital programme. It also displaces lower-capacity-factor capacity, with solar and onshore wind well below CES 1. Nuclear and offshore wind volumes are exogenous, not cost outcomes.",
+    "investmentChange": "Low-carbon investment reaches the highest GDP share of the three pathways, though it still declines over time as capital costs fall. Total investment is about an eighth above CES 1, with the increase concentrated in renewables, battery storage and natural gas, the last reflecting the additional firm capacity needed for the larger variable renewable share.",
+    "macroeconomicDrivers": "The macroeconomic and socioeconomic assumptions are identical to REF and CES 1 and recorded for consistency, not as a differentiator: sustained high real GDP growth, with sectoral growth, household income and population as demand predictors, sourced from the Philippine Development Plan 2023-2028 and AmBisyon Natin 2040. As in CES 1, they do not dominate; CES 2 differs from its siblings through an offshore wind resource assumption, not a different growth path, and its demand side is the same.",
+    "behavioralShifts": "Behavioural assumptions are identical to CES 1, and the publication states that demand does not differ between the two clean energy pathways. The household shift to modern energy operates as in REF, with traditional biomass declining and LPG and electricity covering most household demand by 2050, while the CES efficiency and conservation activity yields the same post-2040 savings on oil products and electricity. A higher bioethanol blend is explored only as a hypothetical, not as part of CES 2.",
+    "otherDrivers": "Offshore wind potential defines this pathway. Its build sits within an assessed, mostly floating national potential from Northwest Luzon to Negros-Panay, bounded by where that resource lies and what can reach it. The shared Competitive Renewable Energy Zone, service contract, reserve and network limits bind harder, as more generation is variable and concentrated. Nuclear rests on the CES 1 pre-commercial framework. These are resource, network and readiness conditions, not policy or costs."
   },
-  "dependencies": []
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The instruments match CES 1; only the setting differs. A far larger awarded-contract offshore wind option is the single assumption producing this pathway, lifting the RE share above CES 1 and making the coal technical-life rule retire more capacity. Nuclear, National Renewable Energy Program targets and demand-side instruments are unchanged. Policy is critical in a specific sense: no cost or market outcome would yield this offshore build, framed as a policy option against an assessed resource.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The nuclear legal gap matches CES 1, and the marine consenting burden is far larger. Offshore wind from Northwest Luzon to Negros-Panay needs seabed leasing, marine spatial planning, fisheries consultation and offshore permitting at a scale no Philippine regime has handled, with consenting work still under way. Storage rules matter more, as does paying for ancillary services and added gas firm capacity. Onshore right-of-way and permitting remain the binding constraint.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The best cost outcome and largest capital need both stem from capacity factor: offshore wind gives the lowest blended generation rate despite the highest investment. Composition matters commercially, as gas investment rises alongside renewables to firm the larger variable share, a cost the renewables line hides. Floating offshore wind, most of the potential, lacks local precedent and a remuneration route, and the quoted offshore levelised cost excludes transmission, understating delivered cost.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Nuclear acceptance needs match CES 1, with the same public information, stakeholder involvement and Nuclear Energy Awareness Training under the Philippine Nuclear Energy Program. Marine acceptance is far larger, engaging fisheries, navigation, tourism and coastal communities in an archipelago of dense coastal livelihoods. Onshore pressure eases as offshore capacity displaces solar and onshore wind, shifting land use offshore. The report does not treat opposition as a constraint on either.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Demand-side assumptions are identical to CES 1: EV penetration, B5 blending and post-2040 energy savings are stated once for both clean energy pathways, and their end-use emissions match every year. The same exposure applies, as mass vehicle purchases and sustained efficiency are needed but not modelled behaviourally. With the most favourable price path of the three, willingness to pay is least exposed here. A higher bioethanol blend is explored only as a hypothetical, outside this pathway.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The most binding of the three pathways. Largely floating offshore wind needs port, vessel, marine cable and dedicated transmission capability absent in the country, yet the quoted levelised cost omits offshore transmission, the largest new requirement. Storage, throughput and gas capacity all exceed CES 1, attributed to higher RE and coal retirement. The three-node network must absorb more variable, concentrated generation, and nuclear adds siting, cooling and fuel-cycle logistics.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "The same three not-yet-market-ready technologies as CES 1, differing in degree. Battery storage scales furthest of any pathway, serving bulk balancing rather than ancillary services. Floating offshore wind is the new risk: most potential is floating, with far fewer global references than fixed-bottom, though capacity is not split by type. Small modular reactors remain the nuclear route. Green hydrogen has its strongest case here, tied to awarded offshore wind, but still lacks volume or date.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Versus CES 1, site availability binds less onshore but more offshore, and import dependence falls furthest. Assessed offshore potential, confined to awarded contract areas by grid, is the operative constraint on the pathway’s defining feature, while onshore pressure eases as offshore displaces solar and onshore wind. Self-sufficiency is highest and coal generation lowest of the three. Nuclear fuel lacks a domestic supply chain, and critical minerals demand peaks with the largest battery fleet.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Physical climate exposure is highest of the three, as the most capacity sits offshore in the typhoon belt, engaging climate-proofing and disaster risk financing, insurance and contingency frameworks. Marine ecosystem impact is largest, though unassessed, while onshore land-use impact falls below CES 1. Waste is largest too: end-of-life policy is flagged for renewables and batteries as aggressive targets expand deployment, and this pathway has the largest battery fleet, plus radioactive waste.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "The largest workforce need of the three pathways, most concentrated in occupations lacking a domestic base. Renewable construction yields the highest RE employment, with more storage and gas jobs and a nuclear line. Offshore wind needs scarce marine construction, vessel and maintenance skills; nuclear a workforce built from nothing, a named issue in the Philippine Nuclear Energy Program. The response is rightskilling led by the Department of Energy and the Department of Labor and Employment.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Fuel extraction and processing"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived, not published: GHG / generation. Numerator is Transformation-sector GHG, which bundles refining and own-use with power generation, so the result runs about 1.5 percent above a power-only figure - 2022 check 77.44/111.52 = 0.694 against power-only 0.684 and the 0.68 tCO2e/MWh the publication states. Scope 1 combustion only, CO2e on the Kyoto basket. Excludes network losses. 2050 value 0.135 tCO2e/MWh."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Fuel extraction and processing"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Transformation sector, which is power generation plus refining and own use - about 1.5 percent wider than power alone at the 2022 baseline. Scope 1 combustion, CO2e on the Kyoto basket via LEAP IPCC GWP-100. Energy-sector emissions only: no land use, no industrial process emissions. Values 77.44 MtCO2e (2022) to 59.98 MtCO2e (2050)."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other",
+          "Energy storage"
+        ],
+        "scopeLimitations": "On-grid capacity across the Luzon, Visayas and Mindanao networks, from the PLEXOS expansion. Energy storage covers battery storage and pumped hydro but is reported as one BESS figure in Volume I with pumped hydro inside the hydro line. Only Power Development Plan 2023-2050 splits battery from pumped hydro - so the two are not distinguishable in the annual series. No reported series for rooftop and behind-the-meter solar, nor for captive industrial generation."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Gross generation, on-grid, across the three modelled networks. Gross rather than net, so station own-use is included and network losses are not netted off. BESS throughput is reported alongside but excluded from the generation total. Total rises from 111.52 TWh (2022) to 444.87 TWh (2050). Hourly dispatch underlies the annual figures but is not published."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Shares of gross generation, on-grid, three modelled networks - so the same boundary as Generation, including station own-use and excluding BESS throughput from the denominator. RE share moves from 22.13 percent (2022) to 70.71 percent (2050). Capacity shares are also published and differ from generation shares; the two should not be conflated."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "PhP billion at 2022 prices, converted at PhP55/USD. Two periods only, 2023-2028 and 2029-2050, not an annual series. The renewables line is an aggregate and is not split by individual RE technology, so solar, wind, hydro, geothermal and biomass investment cannot be separated - a material limitation given that renewables are the largest component. No transmission or distribution investment is included. Covers new build; maintenance and refurbishment treatment is not stated."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Applies to coal-fired capacity. A 40-year technical life retires 4,803 MW over 2023-2050, taking coal capacity to 9,929 MW by 2050. The publication describes the retirement as voluntary with possible repurposing rather than mandated, so it is a lifetime rule with an assumed uptake, not a legislated phaseout. No plant-level retirement schedule, vintage profile or repurposing pathway is published, and no lifetime assumption is stated for oil or gas assets."
+      }
+    ]
+  }
 }

@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PathwayMetadataType, PathwayScopeSelection, Sector } from "../types";
-import BadgeArray from "./BadgeArray";
+import BadgeArray, { type BadgeVariant } from "./BadgeArray";
 import ScopeAxisRow, { pinSelected } from "./ScopeAxisRow";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import {
@@ -12,6 +12,8 @@ import {
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import { getSectorTooltip } from "../utils/tooltipUtils";
+import { sortByAvailability } from "../utils/timeseriesAvailability";
+import type { ScopeAvailability } from "../utils/scopeAvailability";
 import { getPathwayTypeTooltip } from "../utils/tooltipUtils";
 import getTemperatureColor from "../utils/getTemperatureColor";
 
@@ -38,6 +40,12 @@ export function useCondensedOnScroll(): [
     const sentinel = sentinelRef.current;
     if (!sentinel || typeof IntersectionObserver === "undefined") return;
 
+    // On non-production builds the sticky bars pin below EnvironmentBanner,
+    // not at the viewport top, so "scrolled past" starts at its bottom edge.
+    const bannerHeight =
+      document.querySelector("[data-env-banner]")?.getBoundingClientRect()
+        .height ?? 0;
+
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -45,10 +53,10 @@ export function useCondensedOnScroll(): [
           // viewport — a short window, or the initial callback before any
           // scroll. Only a sentinel that left via the top means "scrolled past".
           const top = entry.boundingClientRect?.top ?? -1;
-          setCondensed(!entry.isIntersecting && top < 0);
+          setCondensed(!entry.isIntersecting && top < bannerHeight);
         }
       },
-      { threshold: 0 },
+      { rootMargin: `-${bannerHeight}px 0px 0px 0px`, threshold: 0 },
     );
     observer.observe(sentinel);
 
@@ -66,6 +74,11 @@ interface PathwayContextRibbonProps {
    */
   scope: PathwayScopeSelection;
   onScopeChange: (next: PathwayScopeSelection) => void;
+  /**
+   * Which tokens have something to show. Those that do render filled and can be
+   * selected; the rest render outlined and cannot (#1017).
+   */
+  availability: ScopeAvailability;
   /** The tab list, rendered at the bottom of the sticky stack. */
   children: React.ReactNode;
 }
@@ -75,34 +88,48 @@ interface PathwayContextRibbonProps {
  * this pathway covers, plus the tab list, plus a condensed restatement of the
  * title that appears once the full header scrolls away.
  *
- * The condensed bar, the ribbon rows and the tab list share ONE `sticky top-0`
- * wrapper, with the bar as its first in-flow child. That is what removes the
- * need for a `top-[Npx]` offset on the rows below: the bar pushes them down by
- * exactly its own height, measured by the browser rather than by us, so the
- * layout survives the ribbon wrapping to two lines and the bar losing a pill.
+ * The condensed bar, the ribbon rows and the tab list share ONE sticky wrapper
+ * (pinned at the top, below the environment banner when there is one), with the
+ * bar as its first in-flow child. That is what removes the need for a
+ * `top-[Npx]` offset on the rows below: the bar pushes them down by exactly its
+ * own height, measured by the browser rather than by us, so the layout survives
+ * the ribbon wrapping to two lines and the bar losing a pill.
  *
- * The badges here are deliberately NOT availability-aware, unlike the coverage
- * panels on the Scope tab. Availability is derived from the timeseries index,
- * which loads asynchronously, so availability-aware badges would visibly
- * restyle a moment after mount — in the most prominent chrome on the page. This
- * keeps the ribbon a pure function of `pathway`.
+ * The badges are availability-aware, like the coverage panels on the Scope
+ * tab: a token with nothing to show is outlined and cannot be selected, and
+ * the available ones sort first. The caller computes availability from the
+ * bundled timeseries index (`getTimeseriesIndex`), which is there on the first
+ * render, so the badges never restyle after mount.
  */
 export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   pathway,
   scope,
   onScopeChange,
+  availability,
   children,
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
   const [expanded, setExpanded] = useState({ sector: false, geography: false });
+  // Whether each axis has more badges than fit on one row, as BadgeArray
+  // measures it. Only then is there anything for "Show all" to reveal (#1026).
+  const [overflows, setOverflows] = useState({
+    sector: false,
+    geography: false,
+  });
   const baseId = useId();
 
   const geographies = pinSelected(
-    sortGeographiesForDetails(flattenGeography(pathway.geography)),
+    sortByAvailability(
+      sortGeographiesForDetails(flattenGeography(pathway.geography)),
+      availability.hasGeography,
+    ),
     scope.geography,
   );
   const sectors = pinSelected(
-    pathway.sectors.map((s) => s.name),
+    sortByAvailability(
+      pathway.sectors.map((s) => s.name),
+      availability.hasSector,
+    ),
     scope.sector,
   );
 
@@ -133,7 +160,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
         className="h-px -mb-px"
       />
 
-      <div className="sticky top-0 z-20">
+      <div className="sticky top-(--env-banner-height) z-20">
         {/*
           Condensed title. aria-hidden because it restates the <h1> above, which
           stays in the accessibility tree whether or not it is on screen — one
@@ -179,20 +206,27 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              expandable={sectors.length > 1}
+              expandable={overflows.sector}
               expanded={expanded.sector}
               onToggleExpand={() =>
                 setExpanded((prev) => ({ ...prev, sector: !prev.sector }))
               }
             >
               <BadgeArray<string>
-                variant="sector"
+                variant={sectors.map((sector) =>
+                  availability.hasSector(sector) ? "sector" : "sector-pub",
+                )}
                 // The scope selection is `string` so a stale value degrades
                 // rather than failing to type; the lookup falls back to
                 // "No tooltip available." for anything unrecognised.
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                maxRows={expanded.sector ? Infinity : 1}
+                maxRows={1}
+                expanded={expanded.sector}
+                onOverflowChange={(sector) =>
+                  setOverflows((prev) => ({ ...prev, sector }))
+                }
                 selected={scope.sector}
+                isSelectable={availability.hasSector}
                 // BadgeArray reports null when the pressed badge is clicked
                 // again. Ignored: an axis always carries a value.
                 onSelect={(next) =>
@@ -208,20 +242,26 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <ScopeAxisRow
               label="Geography"
               labelId={`${baseId}-geography`}
-              expandable={geographies.length > 1}
+              expandable={overflows.geography}
               expanded={expanded.geography}
               onToggleExpand={() =>
                 setExpanded((prev) => ({ ...prev, geography: !prev.geography }))
               }
             >
               <BadgeArray<string>
-                variant={geographies.map((geo) =>
-                  geographyVariant(geographyKind(geo)),
-                )}
+                variant={geographies.map((geo): BadgeVariant => {
+                  const base = geographyVariant(geographyKind(geo));
+                  return availability.hasGeography(geo) ? base : `${base}-pub`;
+                })}
                 toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
                 tooltipGetter={tooltipForGeography}
-                maxRows={expanded.geography ? Infinity : 1}
+                maxRows={1}
+                expanded={expanded.geography}
+                onOverflowChange={(geography) =>
+                  setOverflows((prev) => ({ ...prev, geography }))
+                }
                 selected={scope.geography}
+                isSelectable={availability.hasGeography}
                 // Ignored on null, as for sector above.
                 onSelect={(next) =>
                   next === null

@@ -4,6 +4,10 @@ import userEvent from "@testing-library/user-event";
 import PathwayContextRibbon from "./PathwayContextRibbon";
 import { MockIntersectionObserver } from "../test/mockIntersectionObserver";
 import type { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import {
+  ALL_AVAILABLE,
+  type ScopeAvailability,
+} from "../utils/scopeAvailability";
 
 const pathway = {
   id: "ribbon-fixture",
@@ -24,18 +28,43 @@ const NO_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
 const renderRibbon = (
   scope: PathwayScopeSelection = NO_SCOPE,
   onScopeChange: (next: PathwayScopeSelection) => void = () => {},
+  availability: ScopeAvailability = ALL_AVAILABLE,
 ) =>
   render(
     <PathwayContextRibbon
       pathway={pathway}
       scope={scope}
       onScopeChange={onScopeChange}
+      availability={availability}
     >
       <div role="tablist">
         <button role="tab">At a glance</button>
       </div>
     </PathwayContextRibbon>,
   );
+
+/**
+ * Lay out any element whose text includes `label` on a second row, as a
+ * narrow ribbon would. Stubbed on the prototype so it also holds for badges
+ * BadgeArray mounts afresh when expanding. Returns the restore function.
+ */
+const wrapOntoSecondRow = (label: string) => {
+  const original = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "offsetTop",
+  );
+  Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+    configurable: true,
+    get(this: HTMLElement) {
+      return this.textContent?.includes(label) ? 24 : 0;
+    },
+  });
+  return () => {
+    if (original) {
+      Object.defineProperty(HTMLElement.prototype, "offsetTop", original);
+    }
+  };
+};
 
 /** Drive the sentinel past the top of the viewport. */
 const scrollPast = () =>
@@ -124,6 +153,36 @@ describe("PathwayContextRibbon", () => {
     expect(slot).toHaveClass("h-0");
   });
 
+  it("condenses as the header passes under the environment banner", () => {
+    const banner = document.createElement("div");
+    banner.setAttribute("data-env-banner", "");
+    vi.spyOn(banner, "getBoundingClientRect").mockReturnValue({
+      height: 28,
+    } as DOMRect);
+    document.body.prepend(banner);
+
+    try {
+      const { container } = renderRibbon();
+      const slot = container.querySelector(
+        "[class*='transition-\\[height\\]']",
+      ) as HTMLElement;
+
+      // The sticky bar pins at the banner's bottom edge, so the observed band
+      // starts there, and a sentinel hidden behind the banner has scrolled past.
+      expect(MockIntersectionObserver.instances.at(-1)?.rootMargin).toBe(
+        "-28px 0px 0px 0px",
+      );
+      act(() => {
+        const observer = MockIntersectionObserver.instances.at(-1);
+        const sentinel = container.querySelector("[aria-hidden='true']");
+        observer?.trigger(sentinel as Element, false, { top: 10 });
+      });
+      expect(slot).toHaveClass("h-10");
+    } finally {
+      banner.remove();
+    }
+  });
+
   it("restates the title without adding a second heading", () => {
     renderRibbon();
     scrollPast();
@@ -155,6 +214,7 @@ describe("PathwayContextRibbon", () => {
         }
         scope={NO_SCOPE}
         onScopeChange={() => {}}
+        availability={ALL_AVAILABLE}
       >
         <div role="tablist" />
       </PathwayContextRibbon>,
@@ -218,6 +278,43 @@ describe("PathwayContextRibbon", () => {
     expect(onScopeChange).not.toHaveBeenCalled();
   });
 
+  describe("availability (#1017)", () => {
+    // Power and South East Asia have something to show; Global and US do not.
+    const SEA_POWER: ScopeAvailability = {
+      hasSector: (s) => s === "Power",
+      hasGeography: (g) => g === "South East Asia",
+    };
+
+    it("fills and enables only the tokens with something to show", () => {
+      renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
+
+      expect(
+        screen.getByRole("button", { name: "South East Asia" }),
+      ).not.toHaveClass("bg-transparent");
+      expect(screen.queryByRole("button", { name: "Global" })).toBeNull();
+      expect(screen.getByText("Global").closest(".bg-transparent")).not.toBe(
+        null,
+      );
+    });
+
+    it("ignores clicks on an outlined token", async () => {
+      const onScopeChange = vi.fn();
+      renderRibbon(NO_SCOPE, onScopeChange, SEA_POWER);
+
+      await userEvent.click(screen.getByText("Global"));
+      expect(onScopeChange).not.toHaveBeenCalled();
+    });
+
+    it("lists the available tokens first", () => {
+      renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
+
+      const geographyGroup = screen.getByRole("group", { name: "Geography" });
+      expect(
+        geographyGroup.textContent?.indexOf("South East Asia"),
+      ).toBeLessThan(geographyGroup.textContent?.indexOf("Global") ?? -1);
+    });
+  });
+
   it("offers no clear control", () => {
     renderRibbon({ sector: "Power", geography: "Global" });
 
@@ -238,13 +335,32 @@ describe("PathwayContextRibbon", () => {
   });
 
   it("reveals the remaining options on request", async () => {
+    // A narrow ribbon: the US badge wraps to a second row, so it is cut off.
+    const restore = wrapOntoSecondRow("United States of America");
+    try {
+      renderRibbon();
+
+      expect(
+        screen.queryByRole("button", { name: "United States of America" }),
+      ).toBeNull();
+      await userEvent.click(screen.getByRole("button", { name: "Show all" }));
+      expect(
+        screen.getByRole("button", { name: "United States of America" }),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Show fewer" }),
+      ).toBeInTheDocument();
+    } finally {
+      restore();
+    }
+  });
+
+  it("offers no 'Show all' when every badge already fits (#1026)", () => {
+    // jsdom lays every badge out on one row, as a wide ribbon would.
     renderRibbon();
 
-    const toggle = screen.getByRole("button", { name: "Show all" });
-    await userEvent.click(toggle);
-    expect(
-      screen.getByRole("button", { name: "Show fewer" }),
-    ).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
+    expect(screen.queryByRole("button", { name: "Show fewer" })).toBeNull();
   });
 
   it("respects reduced motion on the collapse transition", () => {

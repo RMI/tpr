@@ -103,6 +103,20 @@ const fixtures = [
   },
 ] as const;
 
+/*
+  Benchmark data for Power at Global and South East Asia, so those badges are
+  selectable (#1017). Steel is selectable through its dependency; SG has
+  nothing to show and stays outlined.
+*/
+const SYNC_INDEX = { synchronous: true };
+const SCOPE_DATASETS = [
+  {
+    datasetId: "detail-scope_timeseries",
+    path: "/data/detail-scope_timeseries.csv",
+    summary: { sectors: ["power"], geographies: ["Global", "South East Asia"] },
+  },
+];
+
 const WAIT = { timeout: 10_000 };
 const TEST_TIMEOUT = 20_000;
 
@@ -113,7 +127,11 @@ async function mountDetailPage(
   vi.doMock("../data/pathwayMetadata", () => ({ pathwayMetadata: fixtures }));
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
-    datasetsForPathway: () => [],
+    getTimeseriesIndex: () => SYNC_INDEX,
+    // Only the synchronous read behind the ribbon's availability sees data, so
+    // the plots' JSON fetch stays out of the test.
+    datasetsForPathway: (index: unknown) =>
+      index === SYNC_INDEX ? SCOPE_DATASETS : [],
     summarizeSummary: () => undefined,
   }));
 
@@ -183,6 +201,25 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   );
 
   it(
+    "outlines a token with nothing to show and does not let it be picked",
+    async () => {
+      await mountDetailPage();
+      await screen.findByText("The description prose.", undefined, WAIT);
+
+      // SG has no benchmark data and geographies take nothing else (#1017).
+      expect(
+        screen.queryByRole("button", { name: "Singapore" }),
+      ).not.toBeInTheDocument();
+      await userEvent.click(screen.getAllByText("Singapore")[0]);
+      expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
     "opens with the tables already narrowed to that scope",
     async () => {
       await mountDetailPage("/pathway/detail-scope?tab=scope");
@@ -227,7 +264,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
 
       await selectScope("Steel");
 
-      clickTab("Overview");
+      clickTab("Assumptions & Dependencies");
       await screen.findByRole(
         "rowheader",
         { name: "Resource availability" },
@@ -321,7 +358,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   it(
     "does not re-scope key features, which await the #869 resolver",
     async () => {
-      await mountDetailPage("/pathway/detail-scope?tab=overview");
+      await mountDetailPage("/pathway/detail-scope?tab=assumptions");
       await screen.findByRole(
         "heading",
         { name: "Assumptions & Trends Overview" },

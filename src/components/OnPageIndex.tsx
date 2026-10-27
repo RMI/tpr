@@ -143,7 +143,8 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
         if (topmost) setActiveId(topmost);
       },
       // The top inset must stay below the landing offset headings scroll to
-      // (`scroll-mt-8`/the sticky nav's `top-8`, 32px) — otherwise a heading
+      // (`scroll-mt-8`/the sticky nav's `top-8`, 32px, plus the environment
+      // banner's height when there is one) — otherwise a heading
       // that has just been scrolled to sits *above* the observed band and
       // is never marked intersecting, letting the next heading down (which
       // has already entered the band) incorrectly take over as active.
@@ -219,7 +220,7 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
   return (
     <nav
       aria-label="On this page"
-      className="hidden xl:block xl:sticky xl:top-8 self-start z-10"
+      className="hidden xl:block xl:sticky xl:top-[calc(2rem+var(--env-banner-height))] self-start z-10"
     >
       <p className="text-xs font-semibold uppercase tracking-[0.18em] text-rmiblue-800">
         On this page

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "EREA-DEA-NZ-2024",
   "publication": {
     "title": {
@@ -51,28 +51,17 @@
       "technologies": []
     },
     {
-      "name": "Coal Mining",
-      "technologies": []
-    },
-    {
-      "name": "Oil (Upstream)",
-      "technologies": []
-    },
-    {
-      "name": "Gas (Upstream)",
-      "technologies": []
-    },
-    {
       "name": "Power",
       "technologies": [
         "Coal",
         "Oil",
         "Gas",
+        "Nuclear",
         "Hydro",
-        "Solar",
         "Wind",
+        "Solar",
         "Biomass",
-        "Nuclear"
+        "Energy storage"
       ]
     },
     {
@@ -96,7 +85,7 @@
       "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Net Zero scenario outlines a cost-optimal, policy-enabled pathway for achieving Vietnam's net-zero greenhouse gas emissions target by 2050. The scenario caps 2050 emissions from the energy sector at 101 Mt and process emissions from the industrial sector at 20 Mt. Coal capacity is allowed early retirement, operational flexibility is introduced for gas plants after 2030, and solar land potential is doubled from EREA's Baseline scenario to 272 GW. \n\nThe power sector plays a pivotal role, with emissions from the sector peaking at 124 Mt in 2035, in comparison to 173 Mt in 2030 in the Baseline scenario. Electrification of the end-use sectors (specifically transport and heavy industry) are key in decarbonization of end-use demands toward 2050. Carbon capture also plays a role in addressing residual emissions from heavy industry. Fuel costs are reduced by 33% in 2050 in the Net Zero scenario compared to the Baseline scenario, however there is an increase in capital expenditures and operation and maintenance costs. Air pollution costs (i.e., the costs associated with the impact of air pollution on human health) are reduced by 18% compared to Baseline.\n\n#### Core Drivers\n\n*Policy and emissions constraints:* The Net Zero pathway introduces emissions caps for the power sector and industry, accompanied by a phaseout of high-emitting assets with supportive policies for early coal retirement. These ensure that Vietnam's emissions peak by 2030 and achieve neutrality by 2050.\n\n*Technology costs and deployment:* The Net Zero pathway is cost-optimized within the core emissions constraints. The interaction between falling renewable energy costs and expanded land availability for solar and wind shifts the least-cost solution of Vietnam's energy system toward large-scale renewable energy deployment. Solar is the largest contributor due to its low investment costs and distributed location, doubling its share in the power mix by 2030 and reaching 42% of generation in 2050.\n\n#### Application to Transition Assessment\n\nEREA's Net Zero pathway is a normative scenario encoding both aspirational policy objectives and least-cost optimization, offering useful transition benchmarks for corporate planning for Vietnam. It quantifies both the timing and the scale of the change required, providing practitioners a reference for feasibility analysis and corporate transition planning. As a single-country pathway, the Net Zero pathway does not model a global temperature rise, and therefore it should not be used to directly set or measure temperature alignment targets.\n\nFor corporate transition assessment, the Net Zero scenario provides useful benchmarks for assessing the alignment of a company's plan with a cost-efficient pathway to achieve net-zero objectives. Misalignment to the Net Zero pathway may be a useful indicator of potential future risks such as noncompliance with evolving energy policies or reduced competitiveness where low-carbon technologies are being prioritized. Alignment may indicate that a company is strategically positioned to benefit from market shifts. However, as the Net Zero pathway includes significant aspirational goals and policies that have not been implemented, misalignment does not necessarily imply exposure to current regulatory risk but rather a potential gap in future readiness.\n\nThe inclusion of detailed technology costs and deployment projections in a cost-optimized model makes the Net Zero pathway a strong candidate for contextualizing the commercial and technical feasibility of transition strategies under a net-zero-by-2050 ambition.\n\nThe Net Zero pathway includes 10-year resolution projections for generation and capacity using a detailed breakdown by energy sources such as coal, wind, solar, biomass, and geothermal. These are relevant and useful for running market analyses and analyzing specific decarbonization levers and project investment pipelines within company plans. Due to its country-specific nature, the Net Zero pathway has limited applicability to companies with operations across multiple geographies, but it offers strong specificity for companies in Vietnam.",
+  "pathwayDescription": "The Vietnam Energy Outlook Report is a governmental publication, developed by the Electricity and Renewable Energy Authority (EREA) in collaboration with external partners, that provides multiple potential pathways for Vietnam's energy sector. Its Net Zero scenario outlines a cost-optimal, policy-enabled pathway for achieving Vietnam's net-zero greenhouse gas emissions target by 2050. The scenario caps 2050 emissions from the energy sector at 101 Mt and process emissions from the industrial sector at 20 Mt. Coal capacity is allowed early retirement, operational flexibility is introduced for gas plants after 2030, and solar land potential is doubled from EREA's Baseline scenario to 272 GW. The power sector plays a pivotal role, with emissions from the sector peaking at 124 Mt in 2035, in comparison to 173 Mt in 2030 in the Baseline scenario. Electrification of the end-use sectors (specifically transport and heavy industry) are key in decarbonization of end-use demands toward 2050. Carbon capture also plays a role in addressing residual emissions from heavy industry. Fuel costs are reduced by 33% in 2050 in the Net Zero scenario compared to the Baseline scenario, however there is an increase in capital expenditures and operation and maintenance costs. Air pollution costs (i.e., the costs associated with the impact of air pollution on human health) are reduced by 18% compared to Baseline.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -105,16 +94,613 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Moderate decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "Significant increase",
-    "electrification": "Significant increase",
-    "policyTypes": ["Target technology shares", "Performance standards"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (unspecified GHGs)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage", "Green H2/ammonia", "CCUS"],
-    "investmentNeeds": "By technology"
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Low or no change"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not Applicable"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": ["Target technology shares", "Other"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "CO2e (unspecified GHGs)"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": ["Green H2/ammonia"]
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": ["CCUS", "Battery storage", "SMR"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": ["Green H2/ammonia"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "VN",
+        "value": "Total investment"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "VN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "VN",
+        "value": "By technology"
+      },
+      {
+        "sector": "Steel",
+        "geography": "VN",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The scenario doesn't follow policies: PDP8 plans only 2.8 of 11 GW of LNG additions. Rail electrification and exogenous modal shift follows local policy. Power operating rules are relaxed: early coal decommissioning and flexible operation from 2030.",
+    "emissionsTargets": "Emissions cap in 2050 from the National Climate Change Strategy: 101 Mt CO2eq energy system plus 20 Mt industrial process emissions; net zero closed by an exogenous -185 Mt LULUCF sink.",
+    "technologyCosts": "Least-cost choice under the cap front-loads cheap land solar (48 GW by 2030) and onshore wind to avoid stranded thermal plant; offshore wind (84 GW by 2050) and batteries (98 GW) follow as costs fall; CCS in power and H2 co-firing are rejected as too costly. A +70% solar CAPEX sensitivity cuts 2050 solar from ~406 GW to 250 GW.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "GDP growth of 7%/yr (2021-30) and 6.5%/yr (2030-50), with industry at 40% and services 50% of GDP from 2030, drives a 4.5-fold rise in electricity demand to 1,127 TWh. A 7.5%/yr High-GDP sensitivity is run on NZ.",
+    "behavioralShifts": "Modal shift from cars/motorcycles to urban rail and from road/ship/air to rail cuts transport fuel use by at least 9% versus BSL and is the main reason NZ system cost is 5% below BSL; 40% of EVs and 18% of electric industrial load are assumed to shift demand flexibly.",
+    "otherDrivers": "Renewable potential doubled: land-based solar potential 272 GW, assuming more land for energy; without it the cost-optimal RE build is not available."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "NZ needs power policy to move faster than PDP8 before 2030 - 78 GW wind+solar by 2030 with land solar 37.5 GW above PDP8 and an RE share of 64% - plus an ETS aligned with 2030/2035 power targets. Without it, thermal capacity built now is stranded after 10-15 years.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "NZ assumes rules change: PPA minimum-load terms end in 2030, ancillary-service payments reward flexibility, storage gets a framework after 2030, and offshore wind (from 2035, 84 GW by 2050) needs marine spatial planning, tenders and clear permitting given 6-10 year lead times. Flexible measures 'are highly dependent on the design of suitable regulatory frameworks'.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "NZ shifts power to a capital-intensive system; investor risk and capital cost for RE (tenders, DPPA, PPA terms, curtailment compensation) become binding. LNG price +50%/+100% cuts NZ LNG capacity from 30 GW to 23.7/11.1 GW, requiring earlier RE and storage; a 6.3% discount rate is also tested.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The 48 GW grid by 2030 is a pre-condition for security of supply; 1 GW HVDC North-Center Central from 2030, 10-13 GW HVDC by 2040, SC-SE link of 21 GW by 2050; storage 124 GW/793 GWh; 23 GW hydrogen pipelines that can substitute part of the grid. Hourly dispatch shows -79 GW residual demand at noon in 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Batteries become cost-effective only after 2035 (98 GW by 2050); until then flexibility comes from grid and flexible coal. Battery cost sensitivity matters: -52% adds 80 GW solar, +150% removes batteries and adds nuclear. SMR (1.3 GW) and LNG CCS are minor.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "NZ depends on doubling land for utility PV to 272 GW (~3,000 km2, 0.9% of Viet Nam land); the report asks for a multipurpose land-use study. 2/3 of RE potential is used by 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Planning reserves account for climate-related lower hydro and RE output and higher temperature-driven demand; this was modelled only in the NZ-Reserve sensitivity, adding 42 GW hydrogen-fired reserve plants. Low reservoir levels are cited as a stress case for flexibility.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "More than 590 GW of solar and wind and 84 GW offshore wind need a skilled workforce; operators lack know-how for low-load coal operation.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Under the cap, steel emissions are held flat (18.4 Mt in 2050); the report recommends support for green steel from 2030 (electricity and H2), no new coal in new industrial plants by 2030 and none from 2040 unless CCS.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Decree 06/2022 carbon quotas and a carbon market (pilot 2025, full 2028) give a regulatory route to steel efficiency and fuel switch; weak VNEEP enforcement remains a risk.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Green steel needs support mechanisms and a carbon price signal (ETS, CO2 tax), and exporters must meet CBAM; H2 use in steel is cost-effective only from ~2040.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Hydrogen for industry needs pipelines from RE-rich electrolysis sites to demand centres (23 GW by 2050); siting new energy-intensive industry near RE would save grid and pipeline investment.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Hydrogen-based steel routes are expected to mature only around 2040, delaying deep cuts; efficient 'Advanced' processes play a role only in cement, so steel relies on electrification and H2.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Biomass and green H2 (334 PJ) compete with transport for limited resources; CCS storage sites are unassessed (relevant mostly to cement).",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Report recommends education programmes targeting the highest-emitting industries.",
+      "sector": "Steel",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Report recommends prioritising H2 and e-fuels for aviation through target setting and market-based measures (CO2 tax or quota, credits); NZ still uses jet fuel in 2050.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "RE-fuels for aviation are an expensive abatement option with large cost uncertainty across production routes.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Modal shift moves some passenger and freight demand from aviation to rail, which needs incentives differentiated for passenger and freight; the shift is an exogenous assumption, not a modelled behavioural response.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Shifting demand from air to rail depends on the North-South high-speed railway and timely rail investment roadmaps; transport cost excludes this infrastructure.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Hydrogen use in aviation post-2030 depends on technology development; RE-fuel production routes carry large cost uncertainty.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Bio- and e-fuels depend on sustainable biomass (uncertain potential) and a cost-competitive CO2 source.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived: Fig 3.2 power emissions / Fig 4.7 generation; 2022 430 g/kWh. CO2e, gases unspecified. Includes rooftop solar in generation; no captive plants."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "CO2e, gases unspecified; excludes LULUCF/agriculture/waste; national."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Storage = pumped hydro and batteries, reported separately in GW plus total GWh (Fig 5.9); flywheels allowed but not built (p.52). Solar split land/float/rooftop; regional split for BSL/NZ/NZ+ 2050 (Fig 4.8)."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "Generation by technology plus RE share; on-grid incl. rooftop; no captive."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "Derived shares from generation by technology; RE share plotted directly."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["VN"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["International and national transmission lines"],
+        "scopeLimitations": "Inter-regional capacity between 7 regions, HVAC/HVDC split (Fig 5.6). Distribution grid not modelled as capacity."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "External catalogue values, USD2019, Viet Nam-adjusted; land cost excluded (catalogue p.14)."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["VN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Figure",
+        "granularity": ["By technology"],
+        "scopeLimitations": "NPV-discounted (10%) share of investment 2025-2050; excludes transmission (p.43 fn 12)."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["VN"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Applies to coal and gas plants; 40-year coal lifetime (p.40)."
+      },
+      {
+        "metricName": "Emissions intensity (total)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (primary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (secondary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute emissions",
+        "sector": "Steel",
+        "sectorSegment": ["Ironmaking", "Steelmaking"],
+        "geography": ["VN"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Includes energy + process emissions; excludes electricity-related (power) emissions; CO2e gases unspecified."
+      },
+      {
+        "metricName": "Technology mix (production by route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Steel production by technology (production route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Scrap share",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Steel",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["VN"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Figure",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Excludes fuel and air-pollution costs (p.80); absolute, not per tonne."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Steel",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["VN"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Industry-wide statement, not steel-specific."
+      }
+    ]
   }
 }

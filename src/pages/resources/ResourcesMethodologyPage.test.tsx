@@ -5,9 +5,6 @@ import ResourcesMethodologyPage from "./ResourcesMethodologyPage";
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
 import { MockIntersectionObserver } from "../../test/mockIntersectionObserver";
 
-const TERRITORIAL_CLAIMS =
-  "RMI does not make any statements on country delineations and/or conflicting territorial claims.";
-
 const renderPage = () =>
   render(
     <MemoryRouter>
@@ -23,19 +20,16 @@ const countOf = (haystack: string, needle: string): number =>
   haystack.split(needle).length - 1;
 
 describe("ResourcesMethodologyPage — Regions note", () => {
-  it("states that region mappings come from the pathway's model, not RMI (#800)", () => {
+  it("states that regional representations follow the data sources, not RMI (#917)", () => {
     const { container } = renderPage();
-    expect(flatText(container)).toContain(REGION_MAPPING_DISCLAIMER);
+    expect(flatText(container)).toContain(`Note: ${REGION_MAPPING_DISCLAIMER}`);
   });
 
-  it("keeps the existing territorial-claims sentence in the same note", () => {
+  it("drops the earlier territorial-claims sentence and shows the note once", () => {
     const { container } = renderPage();
     const text = flatText(container);
 
-    expect(text).toContain(TERRITORIAL_CLAIMS);
-    // Reconciled into one note rather than added alongside the old one — a second
-    // near-duplicate note is exactly what #800 asked us to avoid.
-    expect(countOf(text, TERRITORIAL_CLAIMS)).toBe(1);
+    expect(text).not.toContain("conflicting territorial claims");
     expect(countOf(text, REGION_MAPPING_DISCLAIMER)).toBe(1);
   });
 
@@ -43,10 +37,9 @@ describe("ResourcesMethodologyPage — Regions note", () => {
     const { container } = renderPage();
 
     const italics = Array.from(container.querySelectorAll("i")).filter((el) =>
-      (el.textContent ?? "").replace(/\s+/g, " ").includes(TERRITORIAL_CLAIMS),
+      flatText(el).includes(REGION_MAPPING_DISCLAIMER),
     );
     expect(italics).toHaveLength(1);
-    expect(flatText(italics[0])).toContain(REGION_MAPPING_DISCLAIMER);
   });
 
   it("shows the note without any interaction, now that subsections no longer collapse (#955)", () => {

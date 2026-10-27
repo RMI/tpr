@@ -173,7 +173,7 @@ const LandingPage: React.FC = () => {
               <p className="mt-8 text-sm md:text-base text-white/85 max-w-3xl mx-auto">
                 Note that this version of the TPR is a pilot covering only
                 pathways related to the power sector in Southeast Asia. Stay
-                tuned for more pathways being added in 2026!
+                tuned for more pathways being added in 2026.
               </p>
 
               <div className="mt-10">

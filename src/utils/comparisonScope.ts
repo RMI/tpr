@@ -237,12 +237,16 @@ export function decodeColumnGeographies(
  * Split out of `resolveSharedScope` when geography stopped being one shared
  * value. Sector stays shared because it is a closed vocabulary with a
  * guaranteed non-empty intersection (see `comparisonBlock`).
+ *
+ * Only sectors `isAvailable` accepts are candidates (#1017): the header cannot
+ * select the others. With none, the axis is null.
  */
 export function resolveSharedSector(
   filters: Pick<SearchFilters, "sector">,
   pathways: readonly PathwayMetadataType[],
+  isAvailable: (sector: string) => boolean = () => true,
 ): string | null {
-  const sectors = sharedSectors(pathways);
+  const sectors = sharedSectors(pathways).filter(isAvailable);
   const seeded = collapseSelection(filters.sector);
 
   if (seeded !== null && sectors.includes(seeded)) return seeded;
@@ -255,18 +259,25 @@ export function resolveSharedSector(
  *
  * Prefers the reader's search selection, translated into this publication's own
  * vocabulary by the existing single-pathway seeder, and falls back to the
- * leading option. Because `columnGeographyOptions` ranks what this tool can
- * plot first, that fallback means "the broadest geography with actual data"
- * rather than merely the broadest declared.
+ * broadest geography with actual data. Only available options are candidates,
+ * since the column's control cannot select the others (#1017); with none, the
+ * column has no geography and its plots fall back on their own.
  */
 export function defaultGeographyForColumn(
   filters: Pick<SearchFilters, "geography">,
   pathway: PathwayMetadataType,
   options: readonly ColumnGeographyOption[],
 ): string | null {
-  const seeded = seedGeographyFromFilters(filters.geography, pathway);
-  if (seeded !== null && options.some((o) => o.token === seeded)) return seeded;
-  return options[0]?.token ?? null;
+  const available = options.filter((o) => o.available);
+  const availableTokens = new Set(available.map((o) => o.token));
+  // Rank only the selectable tokens, so a search for a country without data
+  // lands on the closest region that has it rather than falling to Global.
+  const seeded = seedGeographyFromFilters(filters.geography, pathway, {
+    hasSector: () => true,
+    hasGeography: (token) => availableTokens.has(token),
+  });
+  if (seeded !== null) return seeded;
+  return available[0]?.token ?? null;
 }
 
 export type ColumnGeographyDivergence =

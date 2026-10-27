@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
@@ -272,12 +272,24 @@ const ComparisonPage: React.FC = () => {
   */
   const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
 
+  // A shared sector is worth selecting when any column has data for it: the
+  // plots are the only thing it scopes here (#1017).
+  const isSectorAvailable = useCallback(
+    (sector: string) => availabilities.some((a) => a.hasSector(sector)),
+    [availabilities],
+  );
+
   const [sector, setSector] = useUrlParamState({
     param: "sector",
-    options: sectorOptions,
+    // Only selectable sectors are legal, so a link naming an outlined one
+    // falls back to the default like any other unknown value.
+    options: useMemo(
+      () => sectorOptions.filter(isSectorAvailable),
+      [sectorOptions, isSectorAvailable],
+    ),
     defaultValue: useMemo(
-      () => resolveSharedSector({ sector: null }, pathways),
-      [pathways],
+      () => resolveSharedSector({ sector: null }, pathways, isSectorAvailable),
+      [pathways, isSectorAvailable],
     ),
   });
 
@@ -318,8 +330,9 @@ const ComparisonPage: React.FC = () => {
     const resolved: Record<string, string | null> = {};
     for (const pathway of pathways) {
       const requested = fromUrl[pathway.id];
+      // Outlined options cannot be chosen, so a link naming one is not legal.
       const legal = (geographyOptions[pathway.id] ?? []).some(
-        (option) => option.token === requested,
+        (option) => option.token === requested && option.available,
       );
       resolved[pathway.id] = legal
         ? requested
@@ -668,6 +681,7 @@ const ComparisonPage: React.FC = () => {
       <ComparisonScopeHeader
         pathways={pathways}
         sectorOptions={sectorOptions}
+        isSectorAvailable={isSectorAvailable}
         selectedSector={sector}
         onSectorChange={setSector}
         geographyOptions={geographyOptions}

@@ -99,6 +99,7 @@ async function mountDetailPage(
   });
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
+    getTimeseriesIndex: () => ({}),
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));
@@ -165,7 +166,7 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
   );
 
   it(
-    "routes the full driver/feature grid and dependencies into the Overview tab",
+    "routes the full driver/feature grid and dependencies into the Assumptions & Dependencies tab",
     async () => {
       await mountDetailPage();
       await screen.findByText(
@@ -174,7 +175,7 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
         WAIT,
       );
 
-      clickTab("Overview");
+      clickTab("Assumptions & Dependencies");
 
       await screen.findByRole(
         "heading",
