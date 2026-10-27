@@ -15,6 +15,7 @@ import {
 } from "../utils/comparisonScope";
 import { PathwayMetadataType } from "../types";
 import { useUrlParamState } from "../hooks/useUrlParamState";
+import { useSessionFlag } from "../hooks/useSessionFlag";
 import ComparisonScopeHeader from "../components/ComparisonScopeHeader";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import {
@@ -370,6 +371,16 @@ const ComparisonPage: React.FC = () => {
     [selectedGeographies, pathways],
   );
 
+  /*
+    "Freeze plots" (#1033): remembered for the tab, across comparisons, so
+    leaving for a detail page and coming back keeps the reader's choice. The
+    header reports its height so frozen plots sit flush beneath it.
+  */
+  const [plotsFrozen, setPlotsFrozen] = useSessionFlag(
+    "pathway-comparison-freeze-plots",
+  );
+  const [scopeHeaderHeight, setScopeHeaderHeight] = useState(0);
+
   // Timeseries data state: one entry per pathway
   const [plotEntries, setPlotEntries] = useState<ComparisonPlotsEntry[]>([]);
 
@@ -478,14 +489,21 @@ const ComparisonPage: React.FC = () => {
   const sectionNodes: Record<string, React.ReactNode> = {
     plots: (
       <>
-        {/* ── Benchmark Metric Plots ── */}
-        <div className="mt-8">
-          <ComparisonPlots
-            entries={plotEntries}
-            requestedGeographies={selectedGeographies}
-            requestedSector={sector}
-          />
-        </div>
+        {/*
+          ── Benchmark Metric Plots ──
+          No wrapper: a sticky element only sticks within its parent, so the
+          plots must be a direct child of the page container to stay frozen
+          for the whole page.
+        */}
+        <ComparisonPlots
+          className="mt-8"
+          entries={plotEntries}
+          requestedGeographies={selectedGeographies}
+          requestedSector={sector}
+          frozen={plotsFrozen}
+          onFrozenChange={setPlotsFrozen}
+          stickyTop={scopeHeaderHeight}
+        />
       </>
     ),
     keyFeatures: (
@@ -688,6 +706,7 @@ const ComparisonPage: React.FC = () => {
         selectedGeographies={selectedGeographies}
         onGeographyChange={handleGeographyChange}
         divergence={divergence}
+        onHeightChange={setScopeHeaderHeight}
       />
 
       {sectionOrder.map((key) => (
