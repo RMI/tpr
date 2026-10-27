@@ -119,6 +119,12 @@ html {
     opacity: 1;
   }
 }
+.editions-modal {
+  /* The browser centres a modal <dialog> with `margin: auto` against its
+     `inset: 0`. Tailwind's preflight resets margin to 0 on every element,
+     which lands the dialog in the top-left corner instead. Restore it. */
+  margin: auto;
+}
 .editions-modal[open] {
   animation: modal-in 200ms ease-out;
 }
