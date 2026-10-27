@@ -36,6 +36,17 @@ export type BadgeArrayProps<T extends string | number> = Omit<
   /** Max rows to display before collapsing into “+N more”. Use Infinity for unlimited rows. Default: 1. */
   maxRows?: number;
   /**
+   * Show every item, with no “+N more”, while `maxRows` stays the limit the
+   * list collapses back to — so `onOverflowChange` keeps measuring against it.
+   */
+  expanded?: boolean;
+  /**
+   * Reports whether the full list needs more than `maxRows` rows, i.e. whether
+   * collapsing hides anything. Called during layout and only on change, so a
+   * control that depends on it never flashes. Not called for unlimited rows.
+   */
+  onOverflowChange?: (overflows: boolean) => void;
+  /**
    * Turns the badges into single-select toggles. Pass `onSelect` to opt in;
    * `selected` marks which item reads as pressed. Without `onSelect` the markup
    * is unchanged, so existing callers are unaffected.
@@ -58,6 +69,8 @@ export default function BadgeArray<T extends Scalar = Scalar>({
   toLabel,
   renderLabel,
   maxRows = 1,
+  expanded = false,
+  onOverflowChange,
   selected,
   onSelect,
   isSelectable,
@@ -97,10 +110,31 @@ export default function BadgeArray<T extends Scalar = Scalar>({
   const itemRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const moreMeasureRef = useRef<HTMLSpanElement | null>(null);
   const [autoVisible, setAutoVisible] = useState<number | null>(null);
+  // New items invalidate the measured count: a longer list would otherwise be
+  // squeezed into the count that suited the old one, its extra items left
+  // behind "+N more" with no overflow reported (#1026). Resetting during render
+  // makes the next pass render — and measure — the full list.
+  const itemsKey = arr.map(String).join("\u0000");
+  const [measuredItemsKey, setMeasuredItemsKey] = useState(itemsKey);
+  if (measuredItemsKey !== itemsKey) {
+    setMeasuredItemsKey(itemsKey);
+    setAutoVisible(null);
+  }
   // When true, render all badges for one frame to measure expansion capacity
   const [renderAllOnce, setRenderAllOnce] = useState(false);
   // bump this to force recomputation on resize/font load
   const [measureSeq, setMeasureSeq] = useState(0);
+
+  // Overflow reporting goes through refs so the layout effect can call the
+  // latest callback without re-running whenever a caller passes a new one.
+  const onOverflowChangeRef = useRef(onOverflowChange);
+  onOverflowChangeRef.current = onOverflowChange;
+  const reportedOverflowRef = useRef<boolean | null>(null);
+  const reportOverflowRef = useRef((overflows: boolean) => {
+    if (reportedOverflowRef.current === overflows) return;
+    reportedOverflowRef.current = overflows;
+    onOverflowChangeRef.current?.(overflows);
+  });
 
   // keep refs array in sync with children length
   itemRefs.current = useMemo(
@@ -135,6 +169,7 @@ export default function BadgeArray<T extends Scalar = Scalar>({
     const container = containerRef.current;
     if (!container || arr.length === 0) {
       setAutoVisible(0);
+      reportOverflowRef.current(false);
       return;
     }
     // Unlimited rows → show all, no token
@@ -152,11 +187,21 @@ export default function BadgeArray<T extends Scalar = Scalar>({
     const cRect = container.getBoundingClientRect();
     const containerWidth = cRect.width || container.clientWidth || 0;
 
+    // Expanded: everything is rendered, so the rows say whether collapsing
+    // would hide anything.
+    if (expanded) {
+      reportOverflowRef.current(rows.length > allowed);
+      setAutoVisible(arr.length);
+      if (renderAllOnce) setRenderAllOnce(false);
+      return;
+    }
+
     // If everything is within allowed rows:
     if (rows.length <= allowed) {
       // Expand to all only if we measured the full list OR we explicitly rendered all for this pass.
       if (wrappers.length === arr.length || renderAllOnce) {
         setAutoVisible(arr.length);
+        reportOverflowRef.current(false);
       }
       // Clear the one-shot flag if it was set.
       if (renderAllOnce) setRenderAllOnce(false);
@@ -190,8 +235,9 @@ export default function BadgeArray<T extends Scalar = Scalar>({
     }
 
     setAutoVisible(Math.max(1, keep));
+    reportOverflowRef.current(true);
     if (renderAllOnce) setRenderAllOnce(false);
-  }, [arr, visibleCount, maxRows, measureSeq, renderAllOnce]);
+  }, [arr, visibleCount, maxRows, expanded, measureSeq, renderAllOnce]);
 
   // Recompute on container resize and when fonts finish loading (labels can change width)
   useEffect(() => {
@@ -234,8 +280,8 @@ export default function BadgeArray<T extends Scalar = Scalar>({
   const finalVisible =
     typeof visibleCount === "number"
       ? visibleCount
-      : renderAllOnce
-        ? arr.length // temporarily render all to measure expansion capacity
+      : expanded || renderAllOnce
+        ? arr.length // expanded, or temporarily all to measure expansion capacity
         : (autoVisible ?? arr.length);
   const showMore =
     finalVisible < arr.length && Number.isFinite(maxRows) && finalVisible >= 0;

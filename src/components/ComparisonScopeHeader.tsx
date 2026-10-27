@@ -79,6 +79,8 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
   const [sectorExpanded, setSectorExpanded] = useState(false);
+  // As on the detail page: "Show all" only when sectors are cut off (#1026).
+  const [sectorOverflows, setSectorOverflows] = useState(false);
   const baseId = useId();
 
   const sectors = pinSelected(
@@ -139,7 +141,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
             <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              expandable={sectors.length > 1}
+              expandable={sectorOverflows}
               expanded={sectorExpanded}
               onToggleExpand={() => setSectorExpanded((prev) => !prev)}
             >
@@ -151,7 +153,9 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
                 // rather than failing to type; the lookup falls back to
                 // "No tooltip available." for anything unrecognised.
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                maxRows={sectorExpanded ? Infinity : 1}
+                maxRows={1}
+                expanded={sectorExpanded}
+                onOverflowChange={setSectorOverflows}
                 selected={selectedSector}
                 isSelectable={isSectorAvailable}
                 // BadgeArray reports null when the pressed badge is clicked

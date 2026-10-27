@@ -315,6 +315,155 @@ describe("auto-fit & maxRows", () => {
   });
 });
 
+describe("overflow reporting (#1026)", () => {
+  const visibleToken = (flex: HTMLElement) =>
+    Array.from(flex.querySelectorAll("span")).find(
+      (el) =>
+        /\+\d+ more/.test(el.textContent || "") &&
+        el.getAttribute("aria-hidden") !== "true" &&
+        !el.classList.contains("invisible"),
+    );
+
+  it("reports no overflow when every item fits within maxRows", async () => {
+    const onOverflowChange = vi.fn();
+    render(
+      <BadgeArray
+        maxRows={1}
+        onOverflowChange={onOverflowChange}
+      >
+        {["A", "B", "C"]}
+      </BadgeArray>,
+    );
+
+    // jsdom lays every item out at offsetTop 0: one row.
+    await waitFor(() => expect(onOverflowChange).toHaveBeenCalledWith(false));
+    expect(onOverflowChange).not.toHaveBeenCalledWith(true);
+  });
+
+  it("reports overflow when items are cut off, and clears it once they fit", async () => {
+    const items = ["A", "B", "C", "D", "E", "F"];
+    const onOverflowChange = vi.fn();
+    const { container } = render(
+      <BadgeArray
+        maxRows={1}
+        onOverflowChange={onOverflowChange}
+      >
+        {items}
+      </BadgeArray>,
+    );
+    const flex = container.querySelector("div.flex.flex-wrap") as HTMLElement;
+
+    setContainerWidth(flex, 160);
+    forceRows(Array.from(flex.querySelectorAll("span.inline-block")), [4, 2]);
+    window.dispatchEvent(new Event("resize"));
+    await waitFor(() =>
+      expect(onOverflowChange).toHaveBeenLastCalledWith(true),
+    );
+
+    setContainerWidth(flex, 600);
+    forceRows(Array.from(flex.querySelectorAll("span.inline-block")), [
+      items.length,
+    ]);
+    window.dispatchEvent(new Event("resize"));
+    await waitFor(() =>
+      expect(onOverflowChange).toHaveBeenLastCalledWith(false),
+    );
+    restoreContainerWidth(flex);
+  });
+
+  it("shows every item when expanded, and still reports the overflow", async () => {
+    // "Show fewer" depends on this: expanded, the list must still say that
+    // collapsing it would hide something.
+    const items = ["A", "B", "C", "D", "E", "F"];
+    const onOverflowChange = vi.fn();
+    const { container } = render(
+      <BadgeArray
+        maxRows={1}
+        expanded
+        onOverflowChange={onOverflowChange}
+      >
+        {items}
+      </BadgeArray>,
+    );
+    const flex = container.querySelector("div.flex.flex-wrap") as HTMLElement;
+
+    setContainerWidth(flex, 160);
+    forceRows(Array.from(flex.querySelectorAll("span.inline-block")), [3, 3]);
+    window.dispatchEvent(new Event("resize"));
+
+    await waitFor(() =>
+      expect(onOverflowChange).toHaveBeenLastCalledWith(true),
+    );
+    expect(countBadgeWrappers(flex)).toBe(items.length);
+    expect(visibleToken(flex)).toBeFalsy();
+    restoreContainerWidth(flex);
+  });
+
+  it("reports no overflow when expanded items fit on one row", async () => {
+    const onOverflowChange = vi.fn();
+    render(
+      <BadgeArray
+        maxRows={1}
+        expanded
+        onOverflowChange={onOverflowChange}
+      >
+        {["A", "B"]}
+      </BadgeArray>,
+    );
+
+    await waitFor(() => expect(onOverflowChange).toHaveBeenCalledWith(false));
+    expect(onOverflowChange).not.toHaveBeenCalledWith(true);
+  });
+
+  it("re-measures when the items change, with no resize to prompt it", async () => {
+    // The detail page keeps its ribbon mounted when moving between pathways,
+    // and the comparison page's shared sectors change as columns come and go.
+    // A longer list must not be squeezed into the count that suited the old one.
+    const onOverflowChange = vi.fn();
+    const { container, rerender } = render(
+      <BadgeArray
+        maxRows={1}
+        onOverflowChange={onOverflowChange}
+      >
+        {["A", "B"]}
+      </BadgeArray>,
+    );
+    await waitFor(() => expect(onOverflowChange).toHaveBeenCalledWith(false));
+
+    // The two added items wrap onto a second row.
+    const original = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "offsetTop",
+    );
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      get(this: HTMLElement) {
+        return ["C", "D"].includes(this.textContent ?? "") ? 24 : 0;
+      },
+    });
+    try {
+      rerender(
+        <BadgeArray
+          maxRows={1}
+          onOverflowChange={onOverflowChange}
+        >
+          {["A", "B", "C", "D"]}
+        </BadgeArray>,
+      );
+
+      await waitFor(() =>
+        expect(onOverflowChange).toHaveBeenLastCalledWith(true),
+      );
+      const flex = container.querySelector("div.flex.flex-wrap") as HTMLElement;
+      expect(countBadgeWrappers(flex)).toBe(2);
+    } finally {
+      if (original) {
+        Object.defineProperty(HTMLElement.prototype, "offsetTop", original);
+      }
+    }
+  });
+});
+
 describe("BadgeArray single-select toggles", () => {
   it("renders static spans and no buttons without onSelect", () => {
     // The regression guard for the four existing callers: opting out must
