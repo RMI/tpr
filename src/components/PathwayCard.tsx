@@ -41,6 +41,17 @@ interface PathwayCardProps {
   editions?: readonly PathwayMetadataType[];
   /** Open the editions modal. Owned by the page, so the card never imports it. */
   onOpenEditions?: () => void;
+  /**
+   * Show this card for reference only: dimmed, with its actions blocked.
+   *
+   * Used in the editions modal for an edition the current filters exclude. The
+   * actions are refused in the handlers rather than with `disabled` or
+   * `pointer-events-none`, because both of those also kill hover and keyboard
+   * focus, and the card has to stay readable and reachable.
+   */
+  inactive?: boolean;
+  /** Id of the note that explains why this card is inactive. */
+  inactiveDescribedBy?: string;
 }
 
 const truncateText = (text: string, maxLength: number) =>
@@ -51,6 +62,8 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
   searchTerm = "",
   editions,
   onOpenEditions,
+  inactive = false,
+  inactiveDescribedBy,
 }) => {
   const {
     addToComparison,
@@ -176,7 +189,12 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
     : null;
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full border border-neutral-200">
+    <div
+      className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 flex flex-col h-full border border-neutral-200 ${
+        inactive ? "opacity-60" : ""
+      }`}
+      aria-describedby={inactive ? inactiveDescribedBy : undefined}
+    >
       <div className="flex items-stretch">
         <div className="px-5 py-3 bg-neutral-100 flex-grow flex items-center min-w-0">
           <span className="text-sm font-medium text-rmigray-700 uppercase truncate overflow-hidden whitespace-nowrap w-full">
@@ -396,7 +414,13 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
           <div className="flex gap-2">
             <Link
               to={`/pathway/${pathway.id}`}
-              className="bg-rmiblue-100 hover:bg-rmiblue-200 transition-colors duration-200 h-12 flex items-center justify-center flex-1"
+              aria-disabled={inactive || undefined}
+              onClick={(event) => {
+                if (inactive) event.preventDefault();
+              }}
+              className={`bg-rmiblue-100 transition-colors duration-200 h-12 flex items-center justify-center flex-1 ${
+                inactive ? "cursor-not-allowed" : "hover:bg-rmiblue-200"
+              }`}
             >
               <span className="text-bluespruce font-medium">View Details</span>
               <ChevronRight
@@ -407,12 +431,13 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
             {ribbonExpanded && (
               <button
                 type="button"
-                onClick={() =>
-                  inComparison
-                    ? removeFromComparison(pathway.id)
-                    : addToComparison(pathway.id)
-                }
-                disabled={blockedReason !== null}
+                onClick={() => {
+                  if (inactive) return;
+                  if (inComparison) removeFromComparison(pathway.id);
+                  else addToComparison(pathway.id);
+                }}
+                disabled={!inactive && blockedReason !== null}
+                aria-disabled={inactive || undefined}
                 aria-label={actionLabel}
                 aria-pressed={inComparison}
                 title={actionLabel}

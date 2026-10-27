@@ -96,3 +96,39 @@
 html {
   scroll-padding-top: var(--env-banner-height);
 }
+
+/* The editions modal. A native <dialog>, so the backdrop is ::backdrop rather
+   than an element: Tailwind cannot reach it from a class on the dialog, and
+   the animations have to name the element they run on. 200ms ease-out matches
+   the transitions the rest of the app already uses. Closing is instant. */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.editions-modal[open] {
+  animation: modal-in 200ms ease-out;
+}
+.editions-modal::backdrop {
+  background: rgb(29 35 40 / 0.55); /* --color-neutral-900 at 55% */
+  animation: modal-fade 200ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .editions-modal[open],
+  .editions-modal::backdrop {
+    animation: none;
+  }
+}
