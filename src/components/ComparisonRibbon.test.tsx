@@ -51,6 +51,25 @@ vi.mock("../data/pathwayMetadata", () => ({
   ],
 }));
 
+/*
+  Benchmark data for every fixture region, in Power and Steel, so the compare
+  link can seed them: it only seeds what the page could select (#1017).
+*/
+vi.mock("../data/index.gen", () => {
+  const dataset = (geographies: string[]) => [
+    { summary: { sectors: ["power", "steel"], geographies } },
+  ];
+  return {
+    index: {
+      byPathway: {
+        p1: dataset(["South East Asia"]),
+        p2: dataset(["South East Asia"]),
+        p3: dataset(["Latin America: Central, South"]),
+      },
+    },
+  };
+});
+
 // ── Helpers ─────────────────────────────────────────────────────────────────
 
 const defaultContext = {

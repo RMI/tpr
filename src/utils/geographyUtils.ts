@@ -5,13 +5,13 @@ countries.registerLocale(en);
 
 export type GeographyKind = "global" | "region" | "country";
 
-// Approved wording from #800 (2026-08-10). Single source of truth for the
-// region-mapping disclaimer, rendered on the methodology page, in the detail-page
-// geography tooltip, and under the Geography filter dropdown — the three places a
-// user meets a region→country mapping.
+// Wording from the RMI policy doc (#917, replacing #800's). Single source of truth
+// for the region-mapping disclaimer, rendered on the methodology page, in the
+// detail-page geography tooltip, and under the Geography filter dropdown — the
+// three places a user meets a region→country mapping.
 export const REGION_MAPPING_DISCLAIMER =
-  "The mapping of any individual country or territory to a region reflects the " +
-  "mappings of the model used in the pathway. It does not reflect any opinion of RMI.";
+  "Country and regional representations follow the conventions used in the " +
+  "underlying data sources and do not reflect any institutional point of view by RMI.";
 
 // Flatten the structured geography object into the ordered flat token list the
 // rest of the app historically operated on: "Global" (when global) → region

@@ -54,7 +54,13 @@ const ComparisonRibbon: React.FC = () => {
   const handleCompare = () => {
     if (!canCompare) return;
 
-    const sector = resolveSharedSector(filters, pathways);
+    // Only a sector some column has data for can be selected there (#1017).
+    const availabilities = pathways.map((pathway) =>
+      pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
+    );
+    const sector = resolveSharedSector(filters, pathways, (s) =>
+      availabilities.some((a) => a.hasSector(s)),
+    );
 
     /*
       Geography is one value per column, translated into each publication's own
@@ -63,14 +69,11 @@ const ComparisonRibbon: React.FC = () => {
       winning and the other falling back.
     */
     const geographies: Record<string, string> = {};
-    for (const pathway of pathways) {
-      const options = columnGeographyOptions(
-        pathway,
-        pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
-      );
+    pathways.forEach((pathway, idx) => {
+      const options = columnGeographyOptions(pathway, availabilities[idx]);
       const token = defaultGeographyForColumn(filters, pathway, options);
       if (token !== null) geographies[pathway.id] = token;
-    }
+    });
 
     const params = [`ids=${pathways.map((p) => p.id).join(",")}`];
     if (sector !== null) params.push(`sector=${encodeURIComponent(sector)}`);

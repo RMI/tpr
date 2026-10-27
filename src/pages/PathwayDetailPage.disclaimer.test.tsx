@@ -46,6 +46,7 @@ async function mountDetailPage(): Promise<void> {
   });
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
+    getTimeseriesIndex: () => ({}),
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));

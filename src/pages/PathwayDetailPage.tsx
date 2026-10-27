@@ -30,13 +30,16 @@ import DownloadDataset from "../components/DownloadDataset";
 import {
   fetchTimeseriesIndex,
   datasetsForPathway,
+  getTimeseriesIndex,
   summarizeSummary,
 } from "../utils/timeseriesIndex";
+import { ALL_AVAILABLE, scopeAvailability } from "../utils/scopeAvailability";
 import PublicationBlock from "../components/PublicationBlock";
 import type { TimeSeries } from "../components/PlotSelector";
 import PlotGrid from "../components/PlotGrid";
 import { PLOT_ORDER } from "../components/PlotPanel";
 import getTemperatureColor from "../utils/getTemperatureColor";
+import { extendsPastPlotYears } from "../utils/plotYears";
 import TextWithTooltip from "../components/TextWithTooltip";
 import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import {
@@ -50,7 +53,7 @@ import {
 // The four tabs from Jacob's wireframe. The first is the default (see useActiveTab).
 const DETAIL_TABS: TabDef[] = [
   { id: "at-a-glance", label: "At a glance" },
-  { id: "overview", label: "Overview" },
+  { id: "assumptions", label: "Assumptions & Dependencies" },
   { id: "timeseries", label: "Timeseries" },
   { id: "scope", label: "Scope & Granularity" },
 ];
@@ -78,13 +81,27 @@ const PathwayDetailPage: React.FC = () => {
   });
   const seededFor = useRef<string | null>(null);
 
+  // Which ribbon tokens have something to show (#1017). Read synchronously
+  // from the bundled index, so the ribbon and the seed agree from the first
+  // render and nothing restyles once the async dataset load below finishes.
+  const scopeAvail = useMemo(
+    () =>
+      pathway
+        ? scopeAvailability(
+            pathway,
+            datasetsForPathway(getTimeseriesIndex(), pathway.id),
+          )
+        : ALL_AVAILABLE,
+    [pathway],
+  );
+
   useEffect(() => {
     // The pathway arrives after a load delay, and the legal token set does not
     // exist until it does — so seed on arrival, once per pathway.
     if (!pathway || seededFor.current === pathway.id) return;
     seededFor.current = pathway.id;
-    setScope(resolveInitialScope(filters, pathway));
-  }, [pathway, filters]);
+    setScope(resolveInitialScope(filters, pathway, scopeAvail));
+  }, [pathway, filters, scopeAvail]);
 
   useEffect(() => {
     setLoading(true);
@@ -336,7 +353,8 @@ const PathwayDetailPage: React.FC = () => {
     surviving prose; core drivers moved to the structured `coreDrivers` object),
     and the heading now names the field it renders — settling the open question
     #859 left about what to call it. null means no description is available.
-    Lives on At a glance only; the Overview tab leads with the drivers instead.
+    Lives on At a glance only; the Assumptions & Dependencies tab leads with the
+    drivers instead.
   */
   const pathwayDescription = (
     <section>
@@ -417,7 +435,7 @@ const PathwayDetailPage: React.FC = () => {
         <PublicationBlock publication={pathway.publication} />
 
         {tsIndexLoaded && datasets.length > 0
-          ? datasets.map((d) => {
+          ? datasets.map((d, i) => {
               const label = d.label ?? d.datasetId;
               const summary = summarizeSummary(d.summary);
               return (
@@ -426,6 +444,11 @@ const PathwayDetailPage: React.FC = () => {
                   label={label}
                   href={d.path}
                   summary={summary}
+                  // The plots draw the first dataset, so only it is known to
+                  // run past them.
+                  extendsPastPlots={
+                    i === 0 && extendsPastPlotYears(timeseriesdata)
+                  }
                 />
               );
             })
@@ -520,6 +543,7 @@ const PathwayDetailPage: React.FC = () => {
           pathway={pathway}
           scope={scope}
           onScopeChange={setScope}
+          availability={scopeAvail}
         >
           <Tabs
             tabs={DETAIL_TABS}
@@ -545,7 +569,7 @@ const PathwayDetailPage: React.FC = () => {
           </TabPanel>
 
           <TabPanel
-            id="overview"
+            id="assumptions"
             activeId={activeTab}
             idBase="pathway"
           >

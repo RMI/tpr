@@ -356,16 +356,13 @@ const ResourcesMethodologyPage: React.FC = () => {
                       are allowed, based on ISO2 (3166) definitions. Regions are
                       provided as defined in the pathway.
                     </p>
-                    {/* Kept as a single italic block: #800 reconciled two
-                        near-duplicate notes into this one, and the test suite
-                        asserts exactly one italic run carries it. */}
+                    {/* Kept as a single italic block: #917 replaced the
+                        earlier two-sentence note with the policy wording alone,
+                        and the test suite asserts exactly one italic run carries
+                        it. */}
                     <InfoCallout>
                       <p>
-                        <i>
-                          Note: {REGION_MAPPING_DISCLAIMER} RMI does not make
-                          any statements on country delineations and/or
-                          conflicting territorial claims.
-                        </i>
+                        <i>Note: {REGION_MAPPING_DISCLAIMER}</i>
                       </p>
                     </InfoCallout>
                   </div>

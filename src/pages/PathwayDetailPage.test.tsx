@@ -51,6 +51,7 @@ async function mountDetailPage(id: string): Promise<void> {
   // not affect the tooltip wiring under test.
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
+    getTimeseriesIndex: () => ({}),
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));

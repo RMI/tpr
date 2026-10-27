@@ -5,8 +5,9 @@ import ColumnGeographySelect from "./ColumnGeographySelect";
 import type { ColumnGeographyOption } from "../utils/comparisonScope";
 
 /**
- * IEA's real shape in miniature: Global and Southeast Asia are the two its
- * timeseries actually carries; the rest are declared by the publication only.
+ * IEA's real shape in miniature: the timeseries carries Global, Southeast Asia
+ * and the US; Europe is declared by the publication only. Available first, as
+ * `columnGeographyOptions` orders them.
  */
 const OPTIONS: ColumnGeographyOption[] = [
   { token: "Global", label: "Global", kind: "global", available: true },
@@ -16,13 +17,13 @@ const OPTIONS: ColumnGeographyOption[] = [
     kind: "region",
     available: true,
   },
-  { token: "Europe", label: "Europe", kind: "region", available: false },
   {
     token: "US",
     label: "United States of America",
     kind: "country",
-    available: false,
+    available: true,
   },
+  { token: "Europe", label: "Europe", kind: "region", available: false },
 ];
 
 const setup = (
@@ -126,8 +127,8 @@ describe("ColumnGeographySelect", () => {
       expect(names).toEqual([
         "Global",
         "Southeast Asia",
-        "Europe",
         "United States of America",
+        "Europe",
       ]);
       // No publisher suffix: the column carries the provenance.
       expect(names.join(" ")).not.toContain("(");
@@ -183,28 +184,32 @@ describe("ColumnGeographySelect", () => {
     it("closes after choosing", async () => {
       const { user } = setup();
       await user.click(trigger());
-      await user.click(screen.getByRole("option", { name: "Europe" }));
+      await user.click(screen.getByRole("option", { name: "Southeast Asia" }));
 
       expect(screen.queryByRole("listbox")).toBeNull();
     });
 
-    it("lets an unavailable geography be chosen", async () => {
-      // Shaded is a caveat, not a veto — the fallback note under the chart
-      // then says what was shown instead.
+    it("does not let an outlined geography be chosen (#1017)", async () => {
+      // It would only show a fallback note: nothing here plots it.
       const { onSelect, user } = setup();
       await user.click(trigger());
-      await user.click(screen.getByRole("option", { name: "Europe" }));
+      const europe = screen.getByRole("option", { name: "Europe" });
+      expect(europe).toHaveAttribute("aria-disabled", "true");
 
-      expect(onSelect).toHaveBeenCalledWith("Europe");
+      await user.click(europe);
+      expect(onSelect).not.toHaveBeenCalled();
+      expect(screen.getByRole("listbox")).toBeInTheDocument();
     });
   });
 
   describe("keyboard", () => {
     it("focuses the selected option on open, not the first", async () => {
-      const { user } = setup({ selected: "Europe" });
+      const { user } = setup({ selected: "US" });
       await user.click(trigger());
 
-      expect(screen.getByRole("option", { name: "Europe" })).toHaveFocus();
+      expect(
+        screen.getByRole("option", { name: "United States of America" }),
+      ).toHaveFocus();
     });
 
     it("moves through the options with the arrow keys", async () => {
@@ -222,7 +227,8 @@ describe("ColumnGeographySelect", () => {
     });
 
     it("stops at the ends rather than wrapping", async () => {
-      // With 152 options the ends are a useful landmark.
+      // With 152 options the ends are a useful landmark. The last end is the
+      // last option that can be chosen: the outlined Europe is skipped.
       const { user } = setup();
       await user.click(trigger());
 
