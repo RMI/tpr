@@ -153,10 +153,7 @@
         "TD",
         "TG"
       ],
-      "Argentina": ["AR"],
       "Australia NZ": ["AU", "NZ"],
-      "Brazil": ["BR"],
-      "Canada": ["CA"],
       "Central America and Caribbean": [
         "AG",
         "AI",
@@ -190,7 +187,6 @@
       ],
       "Central Asia": ["AM", "AZ", "GE", "KG", "KZ", "MN", "TJ", "TM", "UZ"],
       "China": ["CN", "HK", "MO"],
-      "Colombia": ["CO"],
       "EU-12": [
         "BG",
         "CY",
@@ -239,10 +235,6 @@
       "Europe Eastern": ["BY", "MD", "UA"],
       "Europe Non EU": ["AL", "BA", "HR", "ME", "MK", "RS", "TR"],
       "European Free Trade Association": ["CH", "IS", "LI", "NO", "SJ"],
-      "India": ["IN"],
-      "Indonesia": ["ID"],
-      "Japan": ["JP"],
-      "Mexico": ["MX"],
       "Middle East": [
         "AE",
         "BH",
@@ -259,13 +251,9 @@
         "SY",
         "YE"
       ],
-      "Pakistan": ["PK"],
-      "Russia": ["RU"],
-      "South Africa": ["ZA"],
       "South America Northern": ["GF", "GY", "SR", "VE"],
       "South America Southern": ["BO", "CL", "EC", "PE", "PY", "UY"],
       "South Asia": ["AF", "BD", "BT", "LK", "MV", "NP"],
-      "South Korea": ["KR"],
       "Southeast Asia": [
         "AS",
         "BN",
@@ -305,9 +293,23 @@
         "WS",
         "YT"
       ],
-      "Taiwan": ["TW"],
       "USA": ["PR", "US", "VI"]
-    }
+    },
+    "country": [
+      "AR",
+      "BR",
+      "CA",
+      "CO",
+      "IN",
+      "ID",
+      "JP",
+      "MX",
+      "PK",
+      "RU",
+      "ZA",
+      "KR",
+      "TW"
+    ]
   },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.6,
@@ -423,7 +425,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Significant decrease"
       },
       {
@@ -433,12 +435,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Significant decrease"
       },
       {
@@ -458,7 +460,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Significant decrease"
       },
       {
@@ -488,22 +490,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Moderate decrease"
       },
       {
@@ -513,17 +515,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Minor decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Significant decrease"
       },
       {
@@ -543,7 +545,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Significant decrease"
       },
       {
@@ -553,7 +555,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Moderate decrease"
       },
       {
@@ -598,7 +600,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "No information"
       },
       {
@@ -608,12 +610,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "No information"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "No information"
       },
       {
@@ -633,7 +635,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "No information"
       },
       {
@@ -663,22 +665,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "No information"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "No information"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "No information"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "No information"
       },
       {
@@ -688,17 +690,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "No information"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "No information"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "No information"
       },
       {
@@ -718,7 +720,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "No information"
       },
       {
@@ -728,7 +730,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "No information"
       },
       {
@@ -758,7 +760,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Significant decrease"
       },
       {
@@ -768,12 +770,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Significant decrease"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Significant decrease"
       },
       {
@@ -793,7 +795,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Significant decrease"
       },
       {
@@ -823,22 +825,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Moderate decrease"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Moderate decrease"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Moderate decrease"
       },
       {
@@ -848,17 +850,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Moderate decrease"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Significant decrease"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Significant decrease"
       },
       {
@@ -878,7 +880,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Significant decrease"
       },
       {
@@ -888,7 +890,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Significant decrease"
       },
       {
@@ -918,7 +920,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Significant decrease"
       },
       {
@@ -928,12 +930,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Significant decrease"
       },
       {
@@ -953,7 +955,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Significant decrease"
       },
       {
@@ -983,22 +985,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Moderate decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Moderate decrease"
       },
       {
@@ -1008,17 +1010,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Significant increase"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Significant decrease"
       },
       {
@@ -1038,7 +1040,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Significant decrease"
       },
       {
@@ -1048,7 +1050,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Significant decrease"
       },
       {
@@ -1085,7 +1087,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Moderate improvement"
       },
       {
@@ -1095,12 +1097,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Moderate improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Moderate improvement"
       },
       {
@@ -1120,7 +1122,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Moderate improvement"
       },
       {
@@ -1150,22 +1152,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Moderate improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Moderate improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Moderate improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Moderate improvement"
       },
       {
@@ -1175,17 +1177,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Significant improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Moderate improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Moderate improvement"
       },
       {
@@ -1205,7 +1207,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Moderate improvement"
       },
       {
@@ -1215,7 +1217,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Moderate improvement"
       },
       {
@@ -1260,7 +1262,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1270,12 +1272,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1295,7 +1297,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1325,22 +1327,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1350,17 +1352,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1380,7 +1382,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1390,7 +1392,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1420,7 +1422,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1430,12 +1432,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1455,7 +1457,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1485,22 +1487,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1510,17 +1512,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1540,7 +1542,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1550,7 +1552,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1580,7 +1582,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1590,12 +1592,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1615,7 +1617,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1645,22 +1647,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1670,17 +1672,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1700,7 +1702,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1710,7 +1712,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1747,7 +1749,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Low or no change"
       },
       {
@@ -1757,12 +1759,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Minor increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Moderate decrease"
       },
       {
@@ -1782,7 +1784,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Moderate increase"
       },
       {
@@ -1812,22 +1814,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Moderate increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Minor increase"
       },
       {
@@ -1837,17 +1839,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Minor increase"
       },
       {
@@ -1867,7 +1869,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Significant decrease"
       },
       {
@@ -1877,7 +1879,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Significant decrease"
       },
       {
@@ -1922,7 +1924,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Moderate decrease"
       },
       {
@@ -1932,12 +1934,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Minor decrease"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Significant decrease"
       },
       {
@@ -1957,7 +1959,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Minor increase"
       },
       {
@@ -1987,22 +1989,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant increase"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Significant increase"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Moderate increase"
       },
       {
@@ -2012,17 +2014,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Significant increase"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Low or no change"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Low or no change"
       },
       {
@@ -2042,7 +2044,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Significant decrease"
       },
       {
@@ -2052,7 +2054,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Significant decrease"
       },
       {
@@ -2082,7 +2084,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "No information"
       },
       {
@@ -2092,12 +2094,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "No information"
       },
       {
@@ -2117,7 +2119,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "No information"
       },
       {
@@ -2147,22 +2149,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "No information"
       },
       {
@@ -2172,17 +2174,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "No information"
       },
       {
@@ -2202,7 +2204,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "No information"
       },
       {
@@ -2212,7 +2214,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "No information"
       },
       {
@@ -2242,7 +2244,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Moderate increase"
       },
       {
@@ -2252,12 +2254,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Moderate increase"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Significant decrease"
       },
       {
@@ -2277,7 +2279,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Significant increase"
       },
       {
@@ -2307,22 +2309,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant increase"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Significant increase"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Significant increase"
       },
       {
@@ -2332,17 +2334,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Significant increase"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Moderate decrease"
       },
       {
@@ -2362,7 +2364,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Significant decrease"
       },
       {
@@ -2372,7 +2374,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Significant decrease"
       },
       {
@@ -2409,7 +2411,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Significant increase"
       },
       {
@@ -2419,12 +2421,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Significant increase"
       },
       {
@@ -2444,7 +2446,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Significant increase"
       },
       {
@@ -2474,22 +2476,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Moderate increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Significant increase"
       },
       {
@@ -2499,17 +2501,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Significant increase"
       },
       {
@@ -2529,7 +2531,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Moderate increase"
       },
       {
@@ -2539,7 +2541,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Moderate increase"
       },
       {
@@ -2584,7 +2586,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2594,12 +2596,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2619,7 +2621,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2649,22 +2651,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2674,17 +2676,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2704,7 +2706,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2714,7 +2716,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2744,7 +2746,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not Applicable"
       },
       {
@@ -2754,12 +2756,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not Applicable"
       },
       {
@@ -2779,7 +2781,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not Applicable"
       },
       {
@@ -2809,22 +2811,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not Applicable"
       },
       {
@@ -2834,17 +2836,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not Applicable"
       },
       {
@@ -2864,7 +2866,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not Applicable"
       },
       {
@@ -2874,7 +2876,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not Applicable"
       },
       {
@@ -2904,7 +2906,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2914,12 +2916,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2939,7 +2941,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2969,22 +2971,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2994,17 +2996,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3024,7 +3026,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3034,7 +3036,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3071,7 +3073,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3081,12 +3083,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3106,7 +3108,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3136,22 +3138,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3161,17 +3163,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3191,7 +3193,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3201,7 +3203,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3246,7 +3248,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3256,12 +3258,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3281,7 +3283,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3311,22 +3313,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3336,17 +3338,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3366,7 +3368,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3376,7 +3378,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3406,7 +3408,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3416,12 +3418,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3441,7 +3443,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3471,22 +3473,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3496,17 +3498,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3526,7 +3528,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3536,7 +3538,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3566,7 +3568,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3576,12 +3578,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3601,7 +3603,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3631,22 +3633,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3656,17 +3658,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3686,7 +3688,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3696,7 +3698,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3733,7 +3735,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3743,12 +3745,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3768,7 +3770,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3798,22 +3800,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3823,17 +3825,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3853,7 +3855,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3863,7 +3865,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3908,7 +3910,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3918,12 +3920,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3943,7 +3945,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3973,22 +3975,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3998,17 +4000,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4028,7 +4030,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4038,7 +4040,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4068,7 +4070,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4078,12 +4080,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4103,7 +4105,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4133,22 +4135,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4158,17 +4160,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4188,7 +4190,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4198,7 +4200,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4228,7 +4230,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4238,12 +4240,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4263,7 +4265,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4293,22 +4295,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4318,17 +4320,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4348,7 +4350,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4358,7 +4360,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4395,7 +4397,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4405,12 +4407,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4430,7 +4432,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4460,22 +4462,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4485,17 +4487,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4515,7 +4517,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4525,7 +4527,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4570,7 +4572,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4580,12 +4582,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4605,7 +4607,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4635,22 +4637,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4660,17 +4662,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4690,7 +4692,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4700,7 +4702,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4730,7 +4732,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4740,12 +4742,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4765,7 +4767,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4795,22 +4797,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4820,17 +4822,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4850,7 +4852,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4860,7 +4862,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4890,7 +4892,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4900,12 +4902,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4925,7 +4927,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4955,22 +4957,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4980,17 +4982,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5010,7 +5012,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5020,7 +5022,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5057,7 +5059,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5067,12 +5069,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5092,7 +5094,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5122,22 +5124,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5147,17 +5149,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5177,7 +5179,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5187,7 +5189,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5232,7 +5234,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5242,12 +5244,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5267,7 +5269,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5297,22 +5299,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5322,17 +5324,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5352,7 +5354,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5362,7 +5364,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5392,7 +5394,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5402,12 +5404,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5427,7 +5429,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5457,22 +5459,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5482,17 +5484,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5512,7 +5514,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5522,7 +5524,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5552,7 +5554,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5562,12 +5564,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5587,7 +5589,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5617,22 +5619,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5642,17 +5644,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5672,7 +5674,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5682,7 +5684,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5719,7 +5721,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5729,12 +5731,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5754,7 +5756,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5784,22 +5786,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5809,17 +5811,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5839,7 +5841,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5849,7 +5851,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5894,7 +5896,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5904,12 +5906,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5929,7 +5931,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5959,22 +5961,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -5984,17 +5986,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6014,7 +6016,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6024,7 +6026,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6054,7 +6056,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6064,12 +6066,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6089,7 +6091,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6119,22 +6121,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6144,17 +6146,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6174,7 +6176,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6184,7 +6186,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6214,7 +6216,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6224,12 +6226,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6249,7 +6251,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6279,22 +6281,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6304,17 +6306,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6334,7 +6336,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6344,7 +6346,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -6381,7 +6383,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6391,12 +6393,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6416,7 +6418,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6446,22 +6448,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6471,17 +6473,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6501,7 +6503,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6511,7 +6513,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6556,7 +6558,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6566,12 +6568,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6591,7 +6593,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6621,22 +6623,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6646,17 +6648,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6676,7 +6678,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6686,7 +6688,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6716,7 +6718,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6726,12 +6728,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6751,7 +6753,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6781,22 +6783,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6806,17 +6808,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6836,7 +6838,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6846,7 +6848,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6876,7 +6878,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6886,12 +6888,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6911,7 +6913,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6941,22 +6943,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6966,17 +6968,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -6996,7 +6998,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -7006,7 +7008,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -7043,7 +7045,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7053,12 +7055,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7078,7 +7080,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7108,22 +7110,22 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7133,17 +7135,17 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7163,7 +7165,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7173,7 +7175,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7218,7 +7220,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7228,12 +7230,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7253,7 +7255,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7283,22 +7285,22 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7308,17 +7310,17 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7338,7 +7340,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7348,7 +7350,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7378,7 +7380,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7388,12 +7390,12 @@
       },
       {
         "sector": "Power",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7413,7 +7415,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7443,22 +7445,22 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7468,17 +7470,17 @@
       },
       {
         "sector": "Power",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7498,7 +7500,7 @@
       },
       {
         "sector": "Power",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7508,7 +7510,7 @@
       },
       {
         "sector": "Power",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7538,7 +7540,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Argentina",
+        "geography": "AR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7548,12 +7550,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "Brazil",
+        "geography": "BR",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Canada",
+        "geography": "CA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7573,7 +7575,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Colombia",
+        "geography": "CO",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7603,22 +7605,22 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Indonesia",
+        "geography": "ID",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Mexico",
+        "geography": "MX",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7628,17 +7630,17 @@
       },
       {
         "sector": "Steel",
-        "geography": "Pakistan",
+        "geography": "PK",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Russia",
+        "geography": "RU",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "South Africa",
+        "geography": "ZA",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7658,7 +7660,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "South Korea",
+        "geography": "KR",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7668,7 +7670,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Taiwan",
+        "geography": "TW",
         "value": "Not applicable at this scope level"
       },
       {
@@ -7882,33 +7884,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -7926,33 +7928,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -7970,33 +7972,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8024,33 +8026,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8078,33 +8080,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8142,33 +8144,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8186,33 +8188,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8240,33 +8242,33 @@
           "Global",
           "Africa Northern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8302,33 +8304,33 @@
           "Global",
           "Africa Northern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
@@ -8446,33 +8448,33 @@
           "Africa Northern",
           "Africa Southern",
           "Africa Western",
-          "Argentina",
+          "AR",
           "Australia NZ",
-          "Brazil",
-          "Canada",
+          "BR",
+          "CA",
           "Central America and Caribbean",
           "Central Asia",
           "China",
-          "Colombia",
+          "CO",
           "EU-12",
           "EU-15",
           "Europe Eastern",
           "Europe Non EU",
           "European Free Trade Association",
-          "India",
-          "Indonesia",
-          "Japan",
-          "Mexico",
+          "IN",
+          "ID",
+          "JP",
+          "MX",
           "Middle East",
-          "Pakistan",
-          "Russia",
-          "South Africa",
+          "PK",
+          "RU",
+          "ZA",
           "South America Northern",
           "South America Southern",
           "South Asia",
-          "South Korea",
+          "KR",
           "Southeast Asia",
-          "Taiwan",
+          "TW",
           "USA"
         ],
         "timeResolution": "5-year steps",
