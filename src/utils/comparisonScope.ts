@@ -305,10 +305,11 @@ const columnLabel = (pathway: PathwayMetadataType): string =>
  *    countries is not a discrepancy, and no longer warns.
  *  - One name covering different countries is one, and still does.
  *
- * A column whose region maps to no countries is treated as *unknown
+ * A column whose scope resolves to no countries is treated as *unknown
  * membership* and skipped rather than counted as different — the rule the
  * sector restriction already follows, where a data gap must not look like a
- * rule.
+ * rule. Every declared region has two or more members (#998), so only malformed
+ * data reaches this.
  *
  * There is no "does not declare it" case any more: each column only offers
  * what its own pathway declares.
@@ -334,7 +335,7 @@ export function columnsGeographyDivergence(
       };
     })
     .filter((column): column is NonNullable<typeof column> => column !== null)
-    // An empty mapping is unknown membership, not an empty geography.
+    // No countries is unknown membership, not an empty geography.
     .filter((column) => column.signature !== "");
 
   if (columns.length < 2) return { kind: "none" };

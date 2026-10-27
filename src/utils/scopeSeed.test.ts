@@ -22,7 +22,6 @@ function pathway(over: Partial<PathwayMetadataType> = {}): PathwayMetadataType {
       global: true,
       regions: {
         "South East Asia": ["ID", "TH", "VN"],
-        "Unmapped Region": [],
       },
       country: ["US", "SG"],
     },
@@ -145,18 +144,6 @@ describe("seedGeographyFromFilters", () => {
     // A global pathway asked for an unrelated country: null, not "Global", so
     // the ribbon does not claim to have narrowed to the reader's selection.
     expect(seedGeographyFromFilters("BR", pathway())).toBeNull();
-  });
-
-  it("never pre-selects a region the publication left unmapped", () => {
-    const p = pathway({
-      geography: {
-        global: false,
-        regions: { "Unmapped Region": [] },
-        country: [],
-      },
-    });
-
-    expect(seedGeographyFromFilters("Southeast Asia", p)).toBeNull();
   });
 
   it("treats the None bucket as no preference", () => {

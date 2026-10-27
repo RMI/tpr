@@ -8,6 +8,10 @@
  * A single ISO-3166-1 alpha-2 country code (e.g., US, DE). Only 2-letter codes are accepted; do not use full country names or 3-letter codes. 2-letter strings that do not map to a country (e.g., EU) will throw downstream errors.
  */
 export type CountryCode = import("./countryCode.v1").CountryCodeV1;
+/**
+ * A single ISO-3166-1 alpha-2 country code (e.g., US, DE). Only 2-letter codes are accepted; do not use full country names or 3-letter codes. 2-letter strings that do not map to a country (e.g., EU) will throw downstream errors.
+ */
+export type CountryCode1 = import("./countryCode.v1").CountryCodeV1;
 
 /**
  * Geographical coverage of a pathway. 'global' marks whole-world coverage (a literal flag, not a list of every country); 'regions' maps an author-defined region label, kept as named in the source publication, to the two or more ISO-3166-1 alpha-2 country codes it contains; 'country' lists standalone ISO-3166-1 alpha-2 country codes. One country code is always a country: a place the publication names for a single country (e.g. 'Japan') is that country's code in 'country', never a one-member region.
@@ -24,10 +28,10 @@ export interface GeographyV1 {
     /**
      * @minItems 2
      */
-    [k: string]: import("./countryCode.v1").CountryCodeV1[];
+    [k: string]: [CountryCode, CountryCode, ...CountryCode[]];
   };
   /**
    * Standalone ISO-3166-1 alpha-2 country codes covered by the pathway.
    */
-  country?: CountryCode[];
+  country?: CountryCode1[];
 }

@@ -21,7 +21,6 @@
         "type": "array",
         "uniqueItems": true,
         "minItems": 2,
-        "tsType": "import('./countryCode.v1').CountryCodeV1[]",
         "items": {
           "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json",
           "tsType": "import('./countryCode.v1').CountryCodeV1"

@@ -22,7 +22,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: { Europe: [] } },
+    geography: { global: true, regions: { Europe: ["DE", "FR"] } },
     keyFeatures: { emissionsTrajectory: "foo" },
   },
   {
