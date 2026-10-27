@@ -10,7 +10,7 @@ import {
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import { PathwayMetadataType } from "../types";
-import { ChevronRight, Plus, Check, Info } from "lucide-react";
+import { ChevronRight, Plus, Check, Info, Layers } from "lucide-react";
 import HighlightedText from "./HighlightedText";
 import { prioritizeMatches, prioritizeGeographies } from "../utils/sortUtils";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
@@ -18,6 +18,7 @@ import getTemperatureColor from "../utils/getTemperatureColor";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import { sectorsCompatible } from "../utils/comparisonScope";
+import { editionYear } from "../utils/pathwayEditions";
 import { index } from "../data/index.gen";
 import {
   pathwayToolAvailability,
@@ -32,6 +33,14 @@ import RegionMembersTooltip from "./RegionMembersTooltip";
 interface PathwayCardProps {
   pathway: PathwayMetadataType;
   searchTerm?: string;
+  /**
+   * Every edition in this pathway's series, oldest first, when the card stands
+   * for a series rather than a single record. One entry or undefined means a
+   * single-edition pathway, which renders exactly as it always has.
+   */
+  editions?: readonly PathwayMetadataType[];
+  /** Open the editions modal. Owned by the page, so the card never imports it. */
+  onOpenEditions?: () => void;
 }
 
 const truncateText = (text: string, maxLength: number) =>
@@ -40,6 +49,8 @@ const truncateText = (text: string, maxLength: number) =>
 const PathwayCard: React.FC<PathwayCardProps> = ({
   pathway,
   searchTerm = "",
+  editions,
+  onOpenEditions,
 }) => {
   const {
     addToComparison,
@@ -73,6 +84,33 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
       : sectorsCompatible(selectedPathways, pathway)
         ? null
         : "sector";
+
+  /*
+    The editions this card stands for, beyond the one it shows.
+
+    A "hidden" edition is any other edition in the series: the card shows only
+    the newest, so a compare selection on an older one would otherwise be
+    invisible on the grid. The pill turns dark to say so.
+  */
+  const hasEditions = (editions?.length ?? 0) > 1;
+  const otherEditions = hasEditions
+    ? (editions ?? []).filter((edition) => edition.id !== pathway.id)
+    : [];
+  const hiddenInComparison = otherEditions.filter((edition) =>
+    comparedPathwayIds.includes(edition.id),
+  );
+  const hiddenYears = hiddenInComparison
+    .map((edition) => editionYear(edition))
+    .join(", ");
+  const editionCount = editions?.length ?? 0;
+  const editionPillLabel =
+    hiddenInComparison.length > 0
+      ? `${hiddenYears} in compare`
+      : `+${editionCount - 1} ${editionCount - 1 === 1 ? "edition" : "editions"}`;
+  const editionPillAriaLabel =
+    hiddenInComparison.length > 0
+      ? `${hiddenYears} edition in comparison. See all ${editionCount} editions`
+      : `See all ${editionCount} editions`;
 
   const actionLabel = inComparison
     ? "Remove from comparison"
@@ -297,9 +335,16 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
         </div>
         <div className="mt-auto pt-3 border-t border-gray-100">
           <div className="flex justify-between items-center mb-2">
-            <div>
+            {/*
+              `min-w-0` lets this block shrink below its content width, which a
+              flex child refuses to do by default, and `truncate` then cuts the
+              title rather than wrapping. Wrapping would add a line and change
+              the card's height, which the search grid cannot absorb. The
+              existing 40-character cut stays as the first line of defence.
+            */}
+            <div className="min-w-0">
               <p className="text-xs text-rmigray-500">Publication:</p>
-              <p className="text-sm font-medium text-rmigray-800">
+              <p className="text-sm font-medium text-rmigray-800 truncate">
                 <HighlightedText
                   text={truncateText(
                     pathway.publication.title.short ||
@@ -310,14 +355,42 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
                 />
               </p>
             </div>
-            <div className="text-right">
+            <div className="text-right flex-shrink-0">
               <p className="text-xs text-rmigray-500">Published:</p>
-              <p className="text-sm font-medium text-rmigray-800">
-                <HighlightedText
-                  text={pathway.publication.year}
-                  searchTerm={searchTerm}
-                />
-              </p>
+              <div className="flex items-center justify-end gap-2">
+                {hasEditions && (
+                  <button
+                    type="button"
+                    aria-haspopup="dialog"
+                    aria-label={editionPillAriaLabel}
+                    onClick={onOpenEditions}
+                    className={`inline-flex items-center gap-1 rounded-full border px-2 py-px text-xs font-medium whitespace-nowrap transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-energy-400 ${
+                      hiddenInComparison.length > 0
+                        ? "bg-bluespruce border-bluespruce text-white hover:bg-energy hover:border-energy"
+                        : "bg-rmiblue-100 border-rmiblue-200 text-bluespruce hover:bg-rmiblue-200"
+                    }`}
+                  >
+                    {hiddenInComparison.length > 0 ? (
+                      <Check
+                        size={12}
+                        aria-hidden="true"
+                      />
+                    ) : (
+                      <Layers
+                        size={12}
+                        aria-hidden="true"
+                      />
+                    )}
+                    {editionPillLabel}
+                  </button>
+                )}
+                <p className="text-sm font-medium text-rmigray-800 tabular-nums">
+                  <HighlightedText
+                    text={pathway.publication.year}
+                    searchTerm={searchTerm}
+                  />
+                </p>
+              </div>
             </div>
           </div>
           <div className="flex gap-2">
