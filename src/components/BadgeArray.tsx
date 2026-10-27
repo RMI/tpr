@@ -43,6 +43,11 @@ export type BadgeArrayProps<T extends string | number> = Omit<
   selected?: T | null;
   /** Receives the clicked item, or null when it was already selected. */
   onSelect?: (next: T | null) => void;
+  /**
+   * With `onSelect`, which items can be picked. The others render as plain
+   * badges, not buttons, with their tooltip intact. Default: all.
+   */
+  isSelectable?: (item: T) => boolean;
 };
 
 export default function BadgeArray<T extends Scalar = Scalar>({
@@ -55,6 +60,7 @@ export default function BadgeArray<T extends Scalar = Scalar>({
   maxRows = 1,
   selected,
   onSelect,
+  isSelectable,
   className,
   ...rest
 }: BadgeArrayProps<T>) {
@@ -250,6 +256,9 @@ export default function BadgeArray<T extends Scalar = Scalar>({
       {arr.slice(0, finalVisible).map((value, idx) => {
         const isSelected =
           onSelect != null && value != null && value === selected;
+        const selectable =
+          onSelect != null &&
+          (value == null || (isSelectable?.(value) ?? true));
         // Ring and weight, never colour: colour already encodes the badge's
         // variant (a geography's kind, say), so reusing it for selection would
         // overload one channel with two meanings.
@@ -281,7 +290,7 @@ export default function BadgeArray<T extends Scalar = Scalar>({
               renderLabel={renderLabel}
               className={itemClassName || undefined}
               buttonProps={
-                onSelect
+                selectable && onSelect
                   ? {
                       "aria-pressed": isSelected,
                       "onClick": () =>

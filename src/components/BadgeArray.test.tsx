@@ -438,4 +438,44 @@ describe("BadgeArray single-select toggles", () => {
     fireEvent.focus(screen.getByRole("button"));
     expect(await screen.findByRole("tooltip")).toHaveTextContent("About Power");
   });
+
+  describe("isSelectable", () => {
+    it("renders only the selectable items as buttons", async () => {
+      const onSelect = vi.fn();
+      render(
+        <BadgeArray
+          onSelect={onSelect}
+          isSelectable={(item) => item === "Power"}
+          visibleCount={Infinity}
+        >
+          {["Power", "Steel"]}
+        </BadgeArray>,
+      );
+
+      expect(screen.getAllByRole("button")).toHaveLength(1);
+      expect(screen.getByRole("button", { name: "Power" })).toBeInTheDocument();
+
+      await userEvent.setup().click(screen.getByText("Steel"));
+      expect(onSelect).not.toHaveBeenCalled();
+    });
+
+    it("keeps the tooltip on an item that cannot be selected", async () => {
+      render(
+        <BadgeArray
+          onSelect={() => {}}
+          isSelectable={() => false}
+          tooltipGetter={(item) => `About ${item}`}
+          visibleCount={Infinity}
+        >
+          {["Steel"]}
+        </BadgeArray>,
+      );
+
+      expect(screen.queryByRole("button")).not.toBeInTheDocument();
+      fireEvent.focus(screen.getByText("Steel").closest("[tabindex]")!);
+      expect(await screen.findByRole("tooltip")).toHaveTextContent(
+        "About Steel",
+      );
+    });
+  });
 });

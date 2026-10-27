@@ -62,6 +62,8 @@ interface Options {
   selectedSector?: string | null;
   selectedGeographies?: Record<string, string | null>;
   available?: string[];
+  /** Sectors with something to show; every sector by default. */
+  availableSectors?: string[] | null;
 }
 
 const renderHeader = ({
@@ -72,6 +74,7 @@ const renderHeader = ({
     [ace.id]: "South East Asia",
   },
   available = [],
+  availableSectors = null,
 }: Options = {}) => {
   const onSectorChange = vi.fn();
   const onGeographyChange = vi.fn();
@@ -80,6 +83,9 @@ const renderHeader = ({
     <ComparisonScopeHeader
       pathways={pathways}
       sectorOptions={sharedSectors(pathways)}
+      isSectorAvailable={(sector) =>
+        availableSectors === null || availableSectors.includes(sector)
+      }
       selectedSector={selectedSector}
       onSectorChange={onSectorChange}
       geographyOptions={optionsFor(pathways, available)}
@@ -150,6 +156,19 @@ describe("ComparisonScopeHeader", () => {
       renderHeader();
       expect(screen.getAllByRole("button", { name: "Power" })).toHaveLength(1);
     });
+
+    it("outlines a sector no column has data for, and ignores clicks on it", async () => {
+      const { onSectorChange, user } = renderHeader({
+        availableSectors: ["Power"],
+      });
+
+      expect(screen.queryByRole("button", { name: "Buildings" })).toBeNull();
+      expect(
+        screen.getByText("Buildings").closest(".bg-transparent"),
+      ).not.toBeNull();
+      await user.click(screen.getByText("Buildings"));
+      expect(onSectorChange).not.toHaveBeenCalled();
+    });
   });
 
   describe("geography, per column", () => {
@@ -197,7 +216,9 @@ describe("ComparisonScopeHeader", () => {
     });
 
     it("changes only the column that was used", async () => {
-      const { onGeographyChange, user } = renderHeader();
+      const { onGeographyChange, user } = renderHeader({
+        available: ["Global"],
+      });
       await user.click(columnTrigger("IEA: APS (2024)"));
       await user.click(screen.getByRole("option", { name: "Global" }));
 
