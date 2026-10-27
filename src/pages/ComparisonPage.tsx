@@ -32,6 +32,7 @@ import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
 import ComparisonKeyFeatures from "../components/ComparisonKeyFeatures";
+import ComparisonDependencies from "../components/ComparisonDependencies";
 import ComparisonPlots, {
   ComparisonPlotsEntry,
 } from "../components/ComparisonPlots";
@@ -44,6 +45,7 @@ import {
   SECTOR_AVAILABILITY_TOOLTIP,
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
+import { scopeAvailability } from "../utils/scopeAvailability";
 import TextWithTooltip from "../components/TextWithTooltip";
 import { editionLabelSuffix } from "../utils/pathwayEditions";
 
@@ -276,11 +278,22 @@ const ComparisonPage: React.FC = () => {
   */
   const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
 
-  // A shared sector is worth selecting when any column has data for it: the
-  // plots are the only thing it scopes here (#1017).
+  /*
+    A shared sector is worth selecting when any column has something to show
+    for it: benchmark data for the plots, or recorded dependencies (#1017,
+    #1030). The same rule the detail page's ribbon uses. The coverage sections
+    below keep the timeseries-only `availabilities`, since their outlined
+    badges speak about data in this tool.
+  */
+  const sectorAvailabilities = useMemo(
+    () =>
+      pathways.map((p) => scopeAvailability(p, index.byPathway[p.id] ?? [])),
+    [pathways],
+  );
+
   const isSectorAvailable = useCallback(
-    (sector: string) => availabilities.some((a) => a.hasSector(sector)),
-    [availabilities],
+    (sector: string) => sectorAvailabilities.some((a) => a.hasSector(sector)),
+    [sectorAvailabilities],
   );
 
   const [sector, setSector] = useUrlParamState({
@@ -478,7 +491,7 @@ const ComparisonPage: React.FC = () => {
   }
 
   /*
-    The five comparison sections, as nodes rather than inline JSX, so their
+    The six comparison sections, as nodes rather than inline JSX, so their
     order can be a data decision below.
   */
   const sectionNodes: Record<string, React.ReactNode> = {
@@ -499,6 +512,38 @@ const ComparisonPage: React.FC = () => {
         {/* ── Key Features ── */}
         <div className="mt-8">
           <ComparisonKeyFeatures pathways={pathways} />
+        </div>
+      </>
+    ),
+    dependencies: (
+      <>
+        {/* ── Dependencies ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Dependencies
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip="Shown for the sector selected above. Dependencies are not specific to a geography."
+                ariaLabel="Dependencies information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          <div style={{ gridColumn: "1 / -1" }}>
+            <ComparisonDependencies
+              pathways={pathways}
+              sector={sector}
+            />
+          </div>
         </div>
       </>
     ),
@@ -648,6 +693,7 @@ const ComparisonPage: React.FC = () => {
   const sectionOrder = [
     "plots",
     "keyFeatures",
+    "dependencies",
     "geographies",
     "sectors",
     "metrics",
