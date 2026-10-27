@@ -147,6 +147,19 @@ describe("EditionsModal with filtered-out editions", () => {
     ).toBeTruthy();
   });
 
+  it("blocks BOTH links on an excluded card, not just View Details", () => {
+    // A card carries two links to the same pathway: its title and the View
+    // Details button. Blocking only one leaves the edition openable.
+    renderModal({ excludedIds: [older.id] });
+    const links = screen
+      .getAllByRole("link")
+      .filter((a) => a.getAttribute("href") === `/pathway/${older.id}`);
+    expect(links.length).toBeGreaterThan(1);
+    for (const link of links) {
+      expect(link.getAttribute("aria-disabled")).toBe("true");
+    }
+  });
+
   it("marks the excluded card disabled but leaves it reachable", () => {
     // aria-disabled rather than `disabled` or pointer-events-none: both of
     // those also kill hover and focus, and the card must stay readable.

@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useMemo, useRef } from "react";
 import PathwayCard from "../components/PathwayCard";
+import EditionsModal from "../components/EditionsModal";
 import SearchSection from "../components/SearchSection";
 import StepByStepGuide from "../components/StepByStepGuide";
 import ComparisonRibbon from "../components/ComparisonRibbon";
@@ -7,6 +8,7 @@ import { pathwayMetadata } from "../data/pathwayMetadata";
 import { filterPathways } from "../utils/searchUtils";
 import { SearchFilters, PathwayMetadataType } from "../types";
 import { useFilters } from "../context/FilterContext";
+import { groupEditions, newestEdition } from "../utils/pathwayEditions";
 
 const PathwaySearch: React.FC = () => {
   // Ref for the top section to handle scrolling
@@ -22,6 +24,45 @@ const PathwaySearch: React.FC = () => {
   const [filteredPathways, setFilteredPathways] =
     useState<PathwayMetadataType[]>(pathwayMetadata);
   const [isFiltering, setIsFiltering] = useState(false);
+  /** The series whose editions modal is open, or null. */
+  const [openSeries, setOpenSeries] = useState<string | null>(null);
+
+  /*
+    Editions are grouped AFTER filtering, so a card stands for the newest
+    edition that actually matches: filtering for Predictive shows STEPS 2024,
+    because STEPS 2025 is Exploratory.
+
+    The pill and the modal still cover the WHOLE series, which is why the full
+    corpus is grouped separately here. The modal is "all editions of this
+    pathway", not "all editions that match", and the ones that do not match
+    are shown inactive with an explanation rather than hidden.
+  */
+  const allEditionsBySeries = useMemo(() => {
+    const map = new Map<string, readonly PathwayMetadataType[]>();
+    for (const group of groupEditions(pathwayMetadata)) {
+      if (group.series !== null) map.set(group.series, group.editions);
+    }
+    return map;
+  }, []);
+
+  const editionGroups = useMemo(() => {
+    return groupEditions(filteredPathways).map((group) => {
+      const all =
+        group.series === null
+          ? group.editions
+          : (allEditionsBySeries.get(group.series) ?? group.editions);
+      const matchingIds = new Set(group.editions.map((e) => e.id));
+      return {
+        key: newestEdition(group).id,
+        series: group.series,
+        shown: newestEdition(group),
+        allEditions: all,
+        excludedIds: all
+          .filter((edition) => !matchingIds.has(edition.id))
+          .map((edition) => edition.id),
+      };
+    });
+  }, [filteredPathways, allEditionsBySeries]);
 
   // Track previous filter state to detect changes
   const prevFiltersRef = useRef<SearchFilters>(filters);
@@ -123,14 +164,31 @@ const PathwaySearch: React.FC = () => {
           isFiltering ? "opacity-50" : "opacity-100"
         }`}
       >
-        {filteredPathways.map((pathway) => (
+        {editionGroups.map((group) => (
           <PathwayCard
-            key={pathway.id}
-            pathway={pathway}
+            key={group.key}
+            pathway={group.shown}
             searchTerm={filters.searchTerm}
+            editions={group.allEditions}
+            onOpenEditions={() => setOpenSeries(group.series)}
           />
         ))}
       </div>
+
+      {/* Outside the grid: a dialog placed inside it becomes a grid item and
+          leaves an empty cell in the layout. */}
+      {editionGroups
+        .filter((group) => group.allEditions.length > 1)
+        .map((group) => (
+          <EditionsModal
+            key={`editions-${group.key}`}
+            editions={group.allEditions}
+            excludedIds={group.excludedIds}
+            open={openSeries !== null && openSeries === group.series}
+            onClose={() => setOpenSeries(null)}
+            searchTerm={filters.searchTerm}
+          />
+        ))}
 
       {filteredPathways.length === 0 && (
         <div className="text-center py-12">

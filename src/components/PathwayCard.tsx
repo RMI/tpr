@@ -230,7 +230,13 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
 
       <div className="p-5 flex flex-col h-full">
         <div className="mb-4">
-          <Link to={`/pathway/${pathway.id}`}>
+          <Link
+            to={`/pathway/${pathway.id}`}
+            aria-disabled={inactive || undefined}
+            onClick={(event) => {
+              if (inactive) event.preventDefault();
+            }}
+          >
             <h2 className="text-xl font-semibold text-bluespruce mb-2">
               <HighlightedText
                 text={
