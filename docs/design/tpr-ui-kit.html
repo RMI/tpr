@@ -1545,6 +1545,101 @@
           padding: 28px 20px 100px;
         }
       }
+
+      /* ── Pathway editions (v2) ─────────────────────────────────────────── */
+      .ed-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        border-radius: 9999px;
+        border: 1px solid var(--color-rmiblue-200);
+        background: var(--color-rmiblue-100);
+        color: var(--color-bluespruce);
+        padding: 1px 8px;
+        font-size: 12px;
+        font-weight: 500;
+        white-space: nowrap;
+        line-height: 16px;
+      }
+      .ed-pill.compare {
+        background: var(--color-bluespruce);
+        border-color: var(--color-bluespruce);
+        color: #fff;
+      }
+      .ed-published {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+      }
+      .ed-published .year {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--color-rmigray-800);
+        font-variant-numeric: tabular-nums;
+      }
+      .ed-modal {
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface-2);
+        overflow: hidden;
+      }
+      .ed-modal .head {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 14px 16px 10px;
+      }
+      .ed-modal .eyebrow {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--color-rmigray-500);
+      }
+      .ed-modal .title {
+        font-size: 18px;
+        font-weight: 600;
+        color: var(--color-bluespruce);
+        margin-top: 2px;
+      }
+      .ed-modal .ribbon-row {
+        background: var(--surface);
+        border-bottom: 1px solid var(--border);
+        padding: 8px 16px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+      .ed-modal .body {
+        padding: 16px;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: 1fr 1fr;
+      }
+      .ed-modal .note {
+        grid-column: 1 / -1;
+        font-size: 13px;
+        color: var(--color-rmigray-600);
+        margin: 0 0 2px;
+      }
+      .ed-mini {
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--surface);
+        padding: 12px;
+        font-size: 12px;
+      }
+      .ed-mini .mini-title {
+        font-weight: 600;
+        color: var(--color-bluespruce);
+      }
+      .ed-mini .mini-foot {
+        display: flex;
+        justify-content: space-between;
+        color: var(--text-faint);
+        margin-top: 10px;
+      }
+      .ed-mini.inactive {
+        opacity: 0.6;
+      }
     </style>
   </head>
   <body>
@@ -1581,6 +1676,7 @@
           <a href="#notices"
             >Notices &amp; empty states<span class="new-dot"></span
           ></a>
+          <a href="#editions">Pathway editions<span class="new-dot"></span></a>
         </div>
         <div class="toc-group">
           <h6>Handoff</h6>
@@ -3922,6 +4018,171 @@
                 hotter rmired-400. The add-to-comparison button only appears
                 while the comparison tray is open. In the app the card's width
                 is set by the results grid (three columns on wide screens).
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          class="block"
+          id="editions"
+        >
+          <h2>Pathway editions <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            Some pathways are re-published with a new year and new data. The
+            search grid shows one card per pathway, not one per edition, and the
+            other editions live behind a pill in the card's existing
+            &ldquo;Published&rdquo; row. The pill must never change the card's
+            height: the results grid stretches every card in a row to the
+            tallest, so a card that grows drags its neighbours with it.
+          </p>
+
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="stage">
+                <div class="ed-published">
+                  <span class="ed-pill">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        d="m12 2 9 5-9 5-9-5 9-5ZM3 12l9 5 9-5M3 17l9 5 9-5"
+                      />
+                    </svg>
+                    +1 edition
+                  </span>
+                  <span class="year">2025</span>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Edition pill &mdash; default</h4>
+                <p class="src">PathwayCard.tsx</p>
+                <div class="tags">
+                  <span class="tag">bg-rmiblue-100</span
+                  ><span class="tag">border-rmiblue-200</span
+                  ><span class="tag">text-bluespruce</span
+                  ><span class="tag">hover:bg-rmiblue-200</span
+                  ><span class="tag">rounded-full px-2 py-px</span
+                  ><span class="tag">text-xs font-medium</span
+                  ><span class="tag">lucide Layers 12px</span>
+                </div>
+                <p class="note">
+                  Counts the OTHER editions, so a two-edition pathway reads
+                  &ldquo;+1 edition&rdquo;. Deliberately the same blue as the
+                  card's &ldquo;View Details&rdquo; button. It sits inside the
+                  year's line box, which is what keeps the row height unchanged.
+                </p>
+              </div>
+            </div>
+
+            <div class="comp-card">
+              <div class="stage">
+                <div class="ed-published">
+                  <span class="ed-pill compare">
+                    <svg
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    2024 in compare
+                  </span>
+                  <span class="year">2025</span>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Edition pill &mdash; hidden edition in comparison</h4>
+                <p class="src">PathwayCard.tsx</p>
+                <div class="tags">
+                  <span class="tag">bg-bluespruce</span
+                  ><span class="tag">border-bluespruce</span
+                  ><span class="tag">text-white</span
+                  ><span class="tag">hover:bg-energy</span
+                  ><span class="tag">lucide Check 12px</span>
+                </div>
+                <p class="note">
+                  The card shows only the newest edition, so a comparison
+                  selection on an older one would otherwise leave no trace on
+                  the grid. Matches the card's own &ldquo;in comparison&rdquo;
+                  button, including the energy hover.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="comp-card span2">
+            <div class="stage tight align-start">
+              <div class="ed-modal">
+                <div class="head">
+                  <div class="eyebrow">2 editions of this pathway</div>
+                  <div class="title">
+                    IEA: Net Zero Emissions by 2050 Scenario
+                  </div>
+                </div>
+                <div class="ribbon-row">Compare Pathways &nbsp;+</div>
+                <div class="body">
+                  <p class="note">
+                    Editions that do not match your current filters are shown
+                    for reference and cannot be opened or compared.
+                  </p>
+                  <div class="ed-mini">
+                    <div class="mini-title">
+                      IEA: Net Zero Emissions by 2050 Scenario
+                    </div>
+                    <div class="mini-foot">
+                      <span>Publication: WEO</span><span>2025</span>
+                    </div>
+                  </div>
+                  <div class="ed-mini inactive">
+                    <div class="mini-title">
+                      IEA: Net Zero Emissions by 2050 Scenario
+                    </div>
+                    <div class="mini-foot">
+                      <span>Publication: WEO</span><span>2024</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="info">
+              <h4>Editions modal</h4>
+              <p class="src">EditionsModal.tsx</p>
+              <div class="tags">
+                <span class="tag">native &lt;dialog&gt; + showModal()</span
+                ><span class="tag">backdrop: neutral-900 / 55%</span
+                ><span class="tag">max-w-5xl rounded-lg</span
+                ><span class="tag">header: bg-white border-b</span
+                ><span class="tag">body: bg-gray-50 grid gap-6</span
+                ><span class="tag">modal-in / modal-fade 200ms ease-out</span
+                ><span class="tag">inactive: opacity-60</span>
+              </div>
+              <p class="note">
+                Every edition as a normal pathway card, newest first, with no
+                nested pill. The comparison ribbon is rendered INSIDE the
+                dialog: a modal dialog makes everything outside the top layer
+                inert, so the page's own ribbon would be unusable. It shares the
+                same comparison state, so two editions of one pathway can be
+                compared against each other.
+              </p>
+              <p class="note">
+                An edition the current filters exclude is shown at 60% opacity
+                with both of its links blocked &mdash; the title and &ldquo;View
+                Details&rdquo; &mdash; using <code>aria-disabled</code> and a
+                prevented click rather than <code>disabled</code> or
+                <code>pointer-events-none</code>, because those also kill hover
+                and keyboard focus. The explanatory line above the cards is what
+                carries the reason; hover is not required to understand it.
+                Closing is instant, and no animation runs under
+                <code>prefers-reduced-motion</code>.
               </p>
             </div>
           </div>
