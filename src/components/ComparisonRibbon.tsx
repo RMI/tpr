@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router";
 import { X, Plus, GitCompareArrows, Trash2 } from "lucide-react";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
+import { editionLabelSuffix } from "../utils/pathwayEditions";
 import { useFilters } from "../context/FilterContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import {
@@ -119,11 +120,15 @@ const ComparisonRibbon: React.FC = () => {
               : undefined;
 
             if (pathway) {
+              // The year is appended only when another edition of the same
+              // pathway is in the tray, which would otherwise give two
+              // identical slot labels.
               const label =
                 (pathway.publication.publisher.short ??
                   pathway.publication.publisher.full) +
                 ": " +
-                pathway.name.full;
+                pathway.name.full +
+                editionLabelSuffix(pathway, pathways);
               return (
                 <div
                   key={slotIdx}

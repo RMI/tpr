@@ -45,12 +45,15 @@ import {
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
 import TextWithTooltip from "../components/TextWithTooltip";
+import { editionLabelSuffix } from "../utils/pathwayEditions";
 
 // ── Pathway summary card (compact) ──────────────────────────────────────────
 
-const PathwaySummaryCard: React.FC<{ pathway: PathwayMetadataType }> = ({
-  pathway,
-}) => {
+const PathwaySummaryCard: React.FC<{
+  pathway: PathwayMetadataType;
+  /** The other columns, so an edition year is added only when it disambiguates. */
+  shownWith?: readonly PathwayMetadataType[];
+}> = ({ pathway, shownWith = [] }) => {
   const formattedTemp = pathway.modelTempIncrease
     ? `${pathway.modelTempIncrease}°C`
     : null;
@@ -95,7 +98,8 @@ const PathwaySummaryCard: React.FC<{ pathway: PathwayMetadataType }> = ({
           {(pathway.publication.publisher.short ??
             pathway.publication.publisher.full) +
             ": " +
-            pathway.name.full}
+            pathway.name.full +
+            editionLabelSuffix(pathway, shownWith)}
         </h3>
         <p className="text-xs text-rmigray-600 line-clamp-3 mb-3">
           {pathway.description}
@@ -422,10 +426,12 @@ const ComparisonPage: React.FC = () => {
   }, [pathways]);
 
   if (block !== null) {
+    // Disambiguated against the whole comparison, not just the offenders: the
+    // other edition may be the column that is NOT an offender.
     const names = block.offenders
       .map(
         (p) =>
-          `${p.publication.publisher.short ?? p.publication.publisher.full}: ${p.name.full}`,
+          `${p.publication.publisher.short ?? p.publication.publisher.full}: ${p.name.full}${editionLabelSuffix(p, pathways)}`,
       )
       .join(", ");
     return (
@@ -674,6 +680,7 @@ const ComparisonPage: React.FC = () => {
           <PathwaySummaryCard
             key={p.id}
             pathway={p}
+            shownWith={pathways}
           />
         ))}
       </div>
