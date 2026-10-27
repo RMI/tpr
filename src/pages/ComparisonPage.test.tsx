@@ -102,6 +102,37 @@ const fixtures = [
     geography: { global: true, regions: {}, country: [] },
     keyFeatures: {},
   },
+  {
+    // Records dependencies but has no benchmark data, and shares Steel with B
+    // where neither has data: Steel is selectable for its dependencies alone.
+    id: "cmp-e",
+    name: { full: "Comparison Pathway E", short: "E" },
+    description: "Pathway E description",
+    pathwayType: "Net Zero",
+    publication: {
+      publisher: { full: "Publisher E", short: "PubE" },
+      title: { full: "Publication E", short: "PubTitleE" },
+      year: 2024,
+    },
+    sectors: [{ name: "Power" }, { name: "Steel" }],
+    metric: ["Capacity"],
+    geography: { global: true, regions: {}, country: [] },
+    keyFeatures: {},
+    dependencies: [
+      {
+        dependency_name: "Policy strategy",
+        dependency_description: "Relies on a national carbon price.",
+        sector: "Power",
+        evidence_type: "Qualitative",
+      },
+      {
+        dependency_name: "Technology",
+        dependency_description: "Needs green hydrogen.",
+        sector: "Steel",
+        evidence_type: "Anecdotal",
+      },
+    ],
+  },
 ] as const;
 
 /*
@@ -374,6 +405,66 @@ describe("ComparisonPage — shared scope", () => {
 
     expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
     expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
+  });
+});
+
+describe("ComparisonPage — dependencies", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+    vi.restoreAllMocks();
+  });
+
+  it("places the section between Key Features and Geographies", async () => {
+    await mountWithFixtures("cmp-b,cmp-e");
+    await screen.findByText("PubE: Comparison Pathway E", undefined, WAIT);
+
+    const keyFeatures = screen.getByRole("heading", { name: "Policies" });
+    const dependencies = screen.getByRole("heading", { name: /^Dependencies/ });
+    const geographies = screen.getByRole("heading", { name: /Geographies/ });
+
+    expect(
+      keyFeatures.compareDocumentPosition(dependencies) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      dependencies.compareDocumentPosition(geographies) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("shows the selected sector's dependencies, with a note for a column that has none", async () => {
+    await mountWithFixtures("cmp-b,cmp-e&sector=Power");
+    await screen.findByText("PubE: Comparison Pathway E", undefined, WAIT);
+
+    expect(
+      screen.getByText("Relies on a national carbon price."),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Needs green hydrogen.")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("This pathway has no dependencies recorded for Power."),
+    ).toBeInTheDocument();
+  });
+
+  it("follows the sector selection, including a sector with dependencies but no plot data", async () => {
+    await mountWithFixtures("cmp-b,cmp-e&sector=Power");
+    await screen.findByText("PubE: Comparison Pathway E", undefined, WAIT);
+
+    // Steel has no benchmark data in either column; E's dependencies alone
+    // make it a selectable sector rather than an outlined one.
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Steel" }));
+
+    expect(screen.getByText("Needs green hydrogen.")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Relies on a national carbon price."),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText("This pathway has no dependencies recorded for Steel."),
+    ).toBeInTheDocument();
   });
 });
 
