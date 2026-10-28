@@ -361,7 +361,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       await mountDetailPage("/pathway/detail-scope?tab=assumptions");
       await screen.findByRole(
         "heading",
-        { name: "Assumptions & Trends Overview" },
+        { name: "Assumptions & Trends" },
         WAIT,
       );
 
