@@ -179,7 +179,7 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
 
       await screen.findByRole(
         "heading",
-        { name: "Assumptions & Trends Overview" },
+        { name: "Assumptions & Trends" },
         WAIT,
       );
       // All six groups here, against At a glance's three.
@@ -293,6 +293,62 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
         plots.compareDocumentPosition(supplemental) &
           Node.DOCUMENT_POSITION_FOLLOWING,
       ).toBeTruthy();
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "introduces every section under its heading, except Pathway Description (#1029)",
+    async () => {
+      await mountDetailPage();
+      await screen.findByText(
+        "The full pathway description prose.",
+        undefined,
+        WAIT,
+      );
+
+      const intro = (name: string): Element | null =>
+        screen.getByRole("heading", { name }).nextElementSibling;
+
+      // The description prose explains itself.
+      expect(intro("Pathway Description")?.tagName).not.toBe("P");
+      expect(intro("Timeseries Preview")).toHaveTextContent(
+        /Navigate to the “Timeseries” tab/,
+      );
+      expect(intro("Assumptions & Trends Preview")).toHaveTextContent(
+        /Navigate to the “Assumptions & Dependencies” tab/,
+      );
+
+      clickTab("Assumptions & Dependencies");
+      await screen.findByRole(
+        "heading",
+        { name: "Assumptions & Trends" },
+        WAIT,
+      );
+      expect(intro("Assumptions & Trends")).toHaveTextContent(
+        /^The key assumptions the pathway makes/,
+      );
+      expect(intro("Dependencies")).toHaveTextContent(
+        /^Dependencies are factors in the broader environment/,
+      );
+
+      clickTab("Timeseries");
+      await screen.findByRole("heading", { name: "Benchmark Plots" }, WAIT);
+      expect(intro("Benchmark Plots")).toHaveTextContent(
+        /^Sector-specific overview of how key metrics develop/,
+      );
+      expect(intro("Supplemental Information")).toHaveTextContent(
+        /^Citations, license information/,
+      );
+
+      clickTab("Scope & Granularity");
+      await screen.findByRole("heading", { name: "Data Availability" }, WAIT);
+      expect(intro("Data Availability")).toHaveTextContent(
+        /^Overview of availability, coverage, granularity/,
+      );
+      expect(intro("Coverage")).toHaveTextContent(
+        /^Pathway level coverage of geographies, sectors, and metrics\.$/,
+      );
     },
     TEST_TIMEOUT,
   );

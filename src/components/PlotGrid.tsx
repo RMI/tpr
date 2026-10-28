@@ -7,6 +7,7 @@ import {
   hasDataForMetricAndGeo,
 } from "./PlotPanel";
 import Badge from "./Badge";
+import SectionIntro from "./SectionIntro";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import type { Geography } from "../types";
 import {
@@ -55,6 +56,8 @@ interface PlotGridProps {
   plotTypes?: PlotType[];
   /** Panel heading. Omit for a bare grid with no surrounding panel. */
   title?: React.ReactNode;
+  /** A short explanation of the panel, shown under the heading (#1029). */
+  description?: React.ReactNode;
   className?: string;
 }
 
@@ -77,6 +80,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
   requestedSector = null,
   plotTypes,
   title,
+  description,
   className = "",
 }) => {
   // Capped once, here, so everything below agrees with what is drawn.
@@ -118,7 +122,12 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
       <div
         className={`bg-neutral-50 border border-neutral-200 rounded-lg p-4 ${className}`}
       >
-        <h3 className="text-lg font-medium text-rmigray-800 mb-3">{title}</h3>
+        <h3
+          className={`text-lg font-medium text-rmigray-800 ${description ? "mb-1" : "mb-3"}`}
+        >
+          {title}
+        </h3>
+        {description ? <SectionIntro>{description}</SectionIntro> : null}
         {content}
       </div>
     ) : (
