@@ -193,7 +193,7 @@ describe("columnGeographyOptions", () => {
       publisher: "Z",
       sectors: ["Power"],
       global: true,
-      regions: { "North America": ["US"] },
+      regions: { "North America": ["US", "CA"] },
       country: ["SG"],
     });
     expect(columnGeographyOptions(mixed, nothing).map((o) => o.kind)).toEqual([
@@ -219,7 +219,7 @@ describe("columnGeographyOptions", () => {
       publisher: "Z",
       sectors: ["Power"],
       global: true,
-      regions: { "North America": ["US"] },
+      regions: { "North America": ["US", "CA"] },
       country: ["SG"],
     });
     // Only the country is plottable, so it leads; the rest keep global→region.
@@ -544,13 +544,13 @@ describe("columnsGeographyDivergence", () => {
       id: "a",
       publisher: "IEA",
       sectors: ["Power"],
-      regions: { SEA: ["ID", "TH"] },
+      regions: { SEA: ["ID", "TH", "VN"] },
     });
     const b = pathway({
       id: "b",
       publisher: "IEA",
       sectors: ["Power"],
-      regions: { SEA: ["ID"] },
+      regions: { SEA: ["ID", "TH"] },
     });
     const result = columnsGeographyDivergence({ a: "SEA", b: "SEA" }, [a, b]);
 
@@ -575,9 +575,10 @@ describe("columnsGeographyDivergence", () => {
     }
   });
 
-  it("treats an unmapped region as unknown, not as different", () => {
+  it("treats a scope with no countries as unknown, not as different", () => {
     // A data gap must not look like a rule — the same principle the sector
-    // restriction follows. Real case: regions: { Europe: [] }.
+    // restriction follows. The schema forbids an empty region (#998); this is
+    // the guard for malformed data.
     const unmapped = pathway({
       id: "u",
       publisher: "Z",
