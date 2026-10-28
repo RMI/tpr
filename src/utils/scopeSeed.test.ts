@@ -22,7 +22,6 @@ function pathway(over: Partial<PathwayMetadataType> = {}): PathwayMetadataType {
       global: true,
       regions: {
         "South East Asia": ["ID", "TH", "VN"],
-        "Unmapped Region": [],
       },
       country: ["US", "SG"],
     },
@@ -145,18 +144,6 @@ describe("seedGeographyFromFilters", () => {
     // A global pathway asked for an unrelated country: null, not "Global", so
     // the ribbon does not claim to have narrowed to the reader's selection.
     expect(seedGeographyFromFilters("BR", pathway())).toBeNull();
-  });
-
-  it("never pre-selects a region the publication left unmapped", () => {
-    const p = pathway({
-      geography: {
-        global: false,
-        regions: { "Unmapped Region": [] },
-        country: [],
-      },
-    });
-
-    expect(seedGeographyFromFilters("Southeast Asia", p)).toBeNull();
   });
 
   it("treats the None bucket as no preference", () => {
@@ -288,5 +275,53 @@ describe("resolveInitialScope", () => {
     expect(
       resolveInitialScope({ sector: "Cement", geography: "BR" }, ace),
     ).toEqual({ sector: "Power", geography: "South East Asia" });
+  });
+});
+
+describe("seeding only what can be selected (#1017)", () => {
+  /** Only these tokens have something to show. */
+  const only = (sectors: string[], geographies: string[]) => ({
+    hasSector: (s: string) => sectors.includes(s),
+    hasGeography: (g: string) => geographies.includes(g),
+  });
+
+  it("defaults to the widest geography with data, not the widest declared", () => {
+    expect(
+      defaultScopeFor(pathway(), only(["Power"], ["South East Asia"])),
+    ).toEqual({ sector: "Power", geography: "South East Asia" });
+  });
+
+  it("skips Power when it has nothing to show", () => {
+    expect(defaultScopeFor(pathway(), only(["Steel"], [])).sector).toBe(
+      "Steel",
+    );
+  });
+
+  it("leaves both axes null when nothing has anything to show", () => {
+    expect(defaultScopeFor(pathway(), only([], []))).toEqual({
+      sector: null,
+      geography: null,
+    });
+  });
+
+  it("does not seed a searched-for token that has nothing to show", () => {
+    expect(
+      resolveInitialScope(
+        { sector: "Steel", geography: "US" },
+        pathway(),
+        only(["Power"], ["Global"]),
+      ),
+    ).toEqual({ sector: "Power", geography: "Global" });
+  });
+
+  it("answers a country search with the best region that has data", () => {
+    // TH itself is not declared; of the regions containing it, only one has
+    // data, so that is the one seeded.
+    expect(
+      seedGeographyFromFilters("TH", pathway(), only([], ["South East Asia"])),
+    ).toBe("South East Asia");
+    expect(
+      seedGeographyFromFilters("TH", pathway(), only([], ["Global"])),
+    ).toBeNull();
   });
 });

@@ -83,6 +83,94 @@ describe("ComparisonPlots", () => {
     mockedStackedAreaChart.mockClear();
   });
 
+  describe("freeze plots", () => {
+    const entries = () => [
+      makeEntry("p1", ["Global"]),
+      makeEntry("p2", ["Global"]),
+    ];
+
+    /** The plots' root: the grid that holds the selector and every panel. */
+    const root = (container: HTMLElement) =>
+      container.firstElementChild as HTMLElement;
+
+    it("offers an unchecked checkbox, and reports a click", () => {
+      const onFrozenChange = vi.fn();
+      render(
+        <ComparisonPlots
+          entries={entries()}
+          onFrozenChange={onFrozenChange}
+        />,
+      );
+
+      const box = screen.getByRole("checkbox", { name: "Freeze plots" });
+      expect(box).not.toBeChecked();
+
+      fireEvent.click(box);
+      expect(onFrozenChange).toHaveBeenCalledWith(true);
+    });
+
+    it("stays in the page flow until frozen", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={entries()}
+          onFrozenChange={() => {}}
+        />,
+      );
+
+      expect(root(container)).not.toHaveClass("sticky");
+      expect(root(container).style.top).toBe("");
+    });
+
+    it("pins below the scope header when frozen", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={entries()}
+          frozen
+          onFrozenChange={() => {}}
+          stickyTop={142}
+        />,
+      );
+
+      expect(
+        screen.getByRole("checkbox", { name: "Freeze plots" }),
+      ).toBeChecked();
+      expect(root(container)).toHaveClass("sticky");
+      expect(root(container).style.top).toBe(
+        "calc(var(--env-banner-height) + 142px)",
+      );
+    });
+
+    it("pins nothing, and offers no checkbox, when there is no data", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={[
+            { pathwayId: "p1", timeseriesdata: null },
+            { pathwayId: "p2", timeseriesdata: null },
+          ]}
+          frozen
+          onFrozenChange={() => {}}
+        />,
+      );
+
+      expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+      expect(root(container)).not.toHaveClass("sticky");
+    });
+
+    it("pins nothing for a sector the plots do not cover", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={entries()}
+          requestedSector="Steel"
+          frozen
+          onFrozenChange={() => {}}
+        />,
+      );
+
+      expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+      expect(root(container)).not.toHaveClass("sticky");
+    });
+  });
+
   it("shows a 'no timeseries data' message when all entries have null data", () => {
     const entries: ComparisonPlotsEntry[] = [
       { pathwayId: "p1", timeseriesdata: null },
@@ -188,6 +276,49 @@ describe("ComparisonPlots", () => {
     mockedMultiLineChart.mock.calls.forEach(([props]) => {
       expect(props.yMin).toBe(10);
       expect(props.yMax).toBe(500);
+    });
+  });
+
+  it("plots no year after 2050, and scales the y-axis to what it plots", async () => {
+    // Years 2020..2060: the 2060 peak must neither be drawn nor stretch the
+    // shared axis. The download keeps it; the plots do not.
+    const entries = [
+      makeMetricEntry("p1", "absoluteEmissions", [100, 200, 300, 400, 900]),
+      makeMetricEntry("p2", "absoluteEmissions", [50, 150]),
+    ];
+    render(<ComparisonPlots entries={entries} />);
+    await userEvent
+      .setup()
+      .selectOptions(screen.getAllByRole("combobox")[0], "Absolute Emissions");
+
+    expect(mockedMultiLineChart.mock.calls.length).toBeGreaterThan(0);
+    mockedMultiLineChart.mock.calls.forEach(([props]) => {
+      expect(props.yMax).toBe(400);
+      const years = props.data.data.map((d) => Number(d.year));
+      expect(Math.max(...years)).toBeLessThanOrEqual(2050);
+    });
+  });
+
+  it("leaves a column the cap reduced to one year out of the shared y-axis", async () => {
+    // p2 runs 2050..2060, so only 2050 survives the cap: its panel is hidden,
+    // and its 10,000 must not flatten p1's 100..200 series.
+    const p2 = makeMetricEntry("p2", "absoluteEmissions", [10000, 20000]);
+    p2.timeseriesdata?.data.forEach((d, i) => {
+      d.year = String(2050 + i * 10);
+    });
+    const entries = [
+      makeMetricEntry("p1", "absoluteEmissions", [100, 200]),
+      p2,
+    ];
+    render(<ComparisonPlots entries={entries} />);
+    await userEvent
+      .setup()
+      .selectOptions(screen.getAllByRole("combobox")[0], "Absolute Emissions");
+
+    expect(mockedMultiLineChart.mock.calls.length).toBeGreaterThan(0);
+    mockedMultiLineChart.mock.calls.forEach(([props]) => {
+      expect(props.yMin).toBe(100);
+      expect(props.yMax).toBe(200);
     });
   });
 

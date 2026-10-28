@@ -5,13 +5,13 @@ countries.registerLocale(en);
 
 export type GeographyKind = "global" | "region" | "country";
 
-// Approved wording from #800 (2026-08-10). Single source of truth for the
-// region-mapping disclaimer, rendered on the methodology page, in the detail-page
-// geography tooltip, and under the Geography filter dropdown — the three places a
-// user meets a region→country mapping.
+// Wording from the RMI policy doc (#917, replacing #800's). Single source of truth
+// for the region-mapping disclaimer, rendered on the methodology page, in the
+// detail-page geography tooltip, and under the Geography filter dropdown — the
+// three places a user meets a region→country mapping.
 export const REGION_MAPPING_DISCLAIMER =
-  "The mapping of any individual country or territory to a region reflects the " +
-  "mappings of the model used in the pathway. It does not reflect any opinion of RMI.";
+  "Country and regional representations follow the conventions used in the " +
+  "underlying data sources and do not reflect any institutional point of view by RMI.";
 
 // Flatten the structured geography object into the ordered flat token list the
 // rest of the app historically operated on: "Global" (when global) → region
@@ -63,12 +63,11 @@ export function pathwayISOCoverage(
 // the publication's mapping, never the filter-region vocabulary in
 // `filterRegions.ts`. `flattenGeography` carries region labels only, so this is how
 // display code gets the membership behind a region badge back (#799). Returns an
-// empty array both when `label` is not one of the pathway's regions and when the
-// publication provides no mapping for it (empty member array). Those two cases are
-// NOT distinguishable from the result, and `geographyKind` cannot tell them apart
-// either — it answers "region" for any non-Global, non-country token, including a
-// label this pathway never declared. A caller that needs the difference has to look
-// for the label in `geo.regions` itself. Unrecognised codes are
+// empty array when `label` is not one of the pathway's regions; every declared
+// region has two or more members (#998). `geographyKind` cannot tell an undeclared
+// label apart either — it answers "region" for any non-Global, non-country token —
+// so a caller that needs to know has to look for the label in `geo.regions`
+// itself. Unrecognised codes are
 // dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the order
 // comes from `sortGeographiesForDetails` so members read A→Z by ISO2 exactly like
 // country badges elsewhere.
@@ -100,9 +99,7 @@ export function regionMemberCodes(
 // A pathway has "absent" geography when flattening yields no tokens — i.e. an
 // empty/missing geography object (`{}`, `undefined`, or the legacy empty array).
 // Single source of truth shared by the "None" facet gate and the ABSENT match
-// arm so the two can never disagree about what counts as empty. Note a region
-// with an empty member array (e.g. `{regions:{X:[]}}`) is NOT absent — it still
-// carries a region label token.
+// arm so the two can never disagree about what counts as empty.
 export function isGeographyAbsent(geo: Geography | null | undefined): boolean {
   return flattenGeography(geo).length === 0;
 }

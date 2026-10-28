@@ -81,6 +81,52 @@ describe("validateTimeseries — geography", () => {
     ).toEqual(['/pathwayId/1 "GONE" is not the id of any pathway']);
   });
 
+  describe("a country written by name (#998)", () => {
+    it("says which code to use for a declared country", () => {
+      expect(
+        validateTimeseries(
+          timeseries([row({ geography: "Singapore" })]),
+          metadata,
+        ),
+      ).toEqual([
+        '/data/0/geography "Singapore" is not a geography pathway P1 declares -- use "SG"',
+      ]);
+    });
+
+    it("matches a region's member, ignoring case and spacing", () => {
+      expect(
+        validateTimeseries(
+          timeseries([row({ geography: " thailand " })], ["P1", "P2"]),
+          metadata,
+        ),
+      ).toEqual([
+        '/data/0/geography " thailand " is not a geography pathway P1 declares -- use "TH"',
+        '/data/0/geography " thailand " is not a geography pathway P2 declares -- use "TH"',
+      ]);
+    });
+
+    it("gives no hint for a country the pathway does not declare", () => {
+      expect(
+        validateTimeseries(timeseries([row({ geography: "Japan" })]), metadata),
+      ).toEqual([
+        '/data/0/geography "Japan" is not a geography pathway P1 declares',
+      ]);
+    });
+
+    it("gives no hint for a name Intl spells differently", () => {
+      // Intl's English name is "United States"; the hint is an exact match.
+      const usa = new Map([["P3", { country: ["US"] }]]) as typeof metadata;
+      expect(
+        validateTimeseries(
+          timeseries([row({ geography: "United States of America" })], ["P3"]),
+          usa,
+        ),
+      ).toEqual([
+        '/data/0/geography "United States of America" is not a geography pathway P3 declares',
+      ]);
+    });
+  });
+
   it("reports a repeated mistake once, with a row count", () => {
     const rows = [1, 2, 3].map(() => row({ geography: "Atlantis" }));
     expect(validateTimeseries(timeseries(rows), metadata)).toEqual([

@@ -21,6 +21,7 @@ import {
 } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
 import { plottedSegments } from "../utils/timeseriesSegments";
+import { capToPlotYears } from "../utils/plotYears";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 import { useElementWidth } from "../hooks/useElementWidth";
 
@@ -81,13 +82,38 @@ interface ComparisonPlotsProps {
    * other sector gets an explanation rather than Power series relabelled.
    */
   requestedSector?: string | null;
+  /**
+   * Whether the reader has frozen the plots (#1033). When they have, and there
+   * are charts to show, the plots stay pinned below the scope header while the
+   * rest of the page scrolls.
+   */
+  frozen?: boolean;
+  onFrozenChange?: (next: boolean) => void;
+  /** The scope header's height, so frozen plots sit flush beneath it. */
+  stickyTop?: number;
+  className?: string;
 }
 
 const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
-  entries,
+  entries: fullEntries,
   requestedGeographies = NO_REQUESTS,
   requestedSector = null,
+  frozen = false,
+  onFrozenChange,
+  stickyTop = 0,
+  className,
 }) => {
+  // Capped once, here, so everything below agrees with what is drawn — the
+  // shared y-axis above all, which would otherwise stretch to values past
+  // 2050 that no chart shows.
+  const entries = useMemo(
+    () =>
+      fullEntries.map((e) => ({
+        ...e,
+        timeseriesdata: capToPlotYears(e.timeseriesdata),
+      })),
+    [fullEntries],
+  );
   const n = entries.length;
 
   /*
@@ -159,7 +185,9 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   //
   // Each entry contributes the rows for ITS OWN resolved geography: filtering
   // everything on one token would compute the axis from rows no chart shows,
-  // and leave columns that fell back scaled to someone else's data.
+  // and leave columns that fell back scaled to someone else's data. A column
+  // PlotPanel hides (fewer than two years, e.g. once capped at 2050) adds
+  // nothing either, or it would stretch the axis of the charts that are shown.
   const sharedYBounds = useMemo(() => {
     const isLineChart =
       selectedPlot === "capacity" ||
@@ -173,6 +201,7 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
     entries.forEach((e, idx) => {
       const used = resolutions[idx]?.used;
       if (!used) return;
+      if (!hasDataForMetricAndGeo(e.timeseriesdata, selectedPlot, used)) return;
       e.timeseriesdata?.data
         ?.filter(
           (d) =>
@@ -231,16 +260,42 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   */
   if (requestedSector !== null && requestedSector !== PLOT_SECTOR.displayName) {
     return (
-      <p className="text-sm text-rmigray-600">
+      <p className={`text-sm text-rmigray-600 ${className ?? ""}`}>
         {`The benchmark plots cover the ${PLOT_SECTOR.displayName} sector only, so there is nothing to show for ${requestedSector}. Select ${PLOT_SECTOR.displayName} above to see them.`}
       </p>
     );
   }
 
+  /*
+    Only charts are pinned. With no data there is nothing worth the space, and
+    no checkbox to unfreeze with; the preference itself is kept, so the plots
+    freeze again once there is something to show.
+
+    The grid stays in place either way and only gains `sticky`, so toggling
+    neither moves nor remounts the panels: the plot type and hover survive.
+    z-10 keeps it under the scope header (z-20), whose dropdowns and tooltips
+    open over it.
+  */
+  const isPinned = frozen && hasAnyData;
+
   return (
     <div
-      className="grid gap-x-6"
-      style={{ gridTemplateColumns: `repeat(${n}, 1fr)`, alignItems: "start" }}
+      className={[
+        "grid gap-x-6",
+        className,
+        isPinned
+          ? "sticky z-10 bg-white border-b border-neutral-200 pt-3 pb-2"
+          : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{
+        gridTemplateColumns: `repeat(${n}, 1fr)`,
+        alignItems: "start",
+        ...(isPinned
+          ? { top: `calc(var(--env-banner-height) + ${stickyTop}px)` }
+          : {}),
+      }}
     >
       {/* Shared plot-type selector — spans all pathway columns */}
       <div
@@ -266,6 +321,16 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
                 </option>
               ))}
             </select>
+            {onFrozenChange ? (
+              <label className="ml-2 flex items-center gap-2 text-sm text-rmigray-700 whitespace-nowrap">
+                <input
+                  type="checkbox"
+                  checked={frozen}
+                  onChange={(e) => onFrozenChange(e.target.checked)}
+                />
+                Freeze plots
+              </label>
+            ) : null}
           </div>
         ) : (
           <p className="text-sm text-rmigray-400 italic">

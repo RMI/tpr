@@ -80,10 +80,9 @@ export function sectorScopeContains(
 /**
  * The ISO codes an entry's geography scope covers, or `null` for "everything".
  *
- * A region label resolves through the pathway's own `geography.regions` mapping,
- * which is why an unmapped region (empty member array, e.g. the NGFS files
- * pending #801) resolves to the empty set and therefore matches nothing rather
- * than matching everything.
+ * A region label resolves through the pathway's own `geography.regions` mapping.
+ * A token that is neither declared nor an ISO code resolves to the empty set and
+ * therefore matches nothing rather than matching everything.
  */
 export function entryISOSet(
   entryGeography: string,
@@ -150,9 +149,8 @@ export function pathwayScopeOverlaps(
   const querySet = scopeISOSet(selectedToken, geo);
   if (querySet === null) return false; // only a Global entry answers Global
 
-  // An unrecognised token, or a region the publication never mapped, yields an
-  // empty set and so overlaps nothing — a stale selection matches nothing
-  // rather than everything.
+  // An unrecognised token yields an empty set and so overlaps nothing — a stale
+  // selection matches nothing rather than everything.
   for (const code of querySet) if (entrySet.has(code)) return true;
   return false;
 }
@@ -194,9 +192,8 @@ export function geographyScopeOverlaps(
   if (entrySet === null) return true; // a Global entry answers any real selection
 
   if (query.kind === "global") return false; // only a Global entry answers Global
-  // An unrecognised token, or a region the publication never mapped, yields an
-  // empty set and so overlaps nothing -- a stale selection matches nothing
-  // rather than everything.
+  // An unrecognised token yields an empty set and so overlaps nothing -- a stale
+  // selection matches nothing rather than everything.
   for (const code of query.iso) if (entrySet.has(code)) return true;
   return false;
 }

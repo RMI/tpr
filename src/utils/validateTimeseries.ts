@@ -50,6 +50,35 @@ const SEGMENT_SENTINELS: ReadonlySet<string> = new Set([
   UNSEGMENTED,
 ]);
 
+const REGION_NAMES = new Intl.DisplayNames(["en"], { type: "region" });
+
+/**
+ * The countries a pathway declares, keyed by lower-cased English name, so a
+ * rejected label like "Japan" can say which code to write instead (#998: one
+ * country code is always a country). Countries inside regions count, as they do
+ * for `declaredGeographies`.
+ *
+ * Uses Intl's short names ("United States", "China") rather than
+ * geographyUtils' i18n-iso-countries names: that module imports its locale JSON
+ * without an import attribute, so the ts-node scripts that run this file cannot
+ * load it. An exact name match is a hint, not a rule, so a label written another
+ * way ("United States of America") just gets the plain error.
+ */
+function declaredCountriesByName(
+  geo: PathwayMetadataV2["geography"] | null | undefined,
+): Map<string, string> {
+  const codes = [
+    ...(geo?.country ?? []),
+    ...Object.values(geo?.regions ?? {}).flat(),
+  ];
+  const byName = new Map<string, string>();
+  for (const code of codes) {
+    const name = REGION_NAMES.of(code);
+    if (name && name !== code) byName.set(name.toLowerCase(), code);
+  }
+  return byName;
+}
+
 export function validateTimeseries(
   doc: PathwayTimeseriesV2,
   metadataGeographyById: MetadataGeographyById,
@@ -65,6 +94,7 @@ export function validateTimeseries(
     .map((id) => ({
       id,
       declared: declaredGeographies(metadataGeographyById.get(id)),
+      countryByName: declaredCountriesByName(metadataGeographyById.get(id)),
     }));
 
   // message -> first path and how many rows repeat it
@@ -76,12 +106,14 @@ export function validateTimeseries(
   };
 
   doc.data.forEach((row, i) => {
-    for (const { id, declared } of declaredBy) {
-      if (!declared.has(row.geography))
-        report(
-          `/data/${i}/geography`,
-          `"${row.geography}" is not a geography pathway ${id} declares`,
-        );
+    for (const { id, declared, countryByName } of declaredBy) {
+      if (declared.has(row.geography)) continue;
+      const code = countryByName.get(row.geography.trim().toLowerCase());
+      report(
+        `/data/${i}/geography`,
+        `"${row.geography}" is not a geography pathway ${id} declares` +
+          (code ? ` -- use "${code}"` : ""),
+      );
     }
 
     const sectorName = SECTORS_BY_KEY[row.sector]?.displayName;

@@ -1177,7 +1177,24 @@
         grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 0 24px;
         font-size: 12px;
+      }
+      .ribbon .condensed.cols > span {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 8px;
+        min-width: 0;
+      }
+      .ribbon .condensed.cols .n {
         font-weight: 600;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .ribbon .condensed.cols .y {
+        flex-shrink: 0;
+        font-variant-numeric: tabular-nums;
+        color: rgb(255 255 255 / 0.8);
       }
       .ribbon .axes {
         background: rgb(255 255 255 / 0.95);
@@ -4024,9 +4041,10 @@
           <h2>Tabs <span class="new-pill">v2</span></h2>
           <p class="lede">
             The pathway detail page is now split into four tabs: At a glance,
-            Overview, Timeseries, and Scope &amp; Granularity. The active tab is
-            saved in the URL (<code>?tab=</code>), so a link opens the same tab.
-            Arrow keys, Home, and End move between tabs.
+            Assumptions &amp; Dependencies, Timeseries, and Scope &amp;
+            Granularity. The active tab is saved in the URL
+            (<code>?tab=</code>), so a link opens the same tab. Arrow keys,
+            Home, and End move between tabs.
           </p>
           <div class="comp-card span2">
             <div
@@ -4048,7 +4066,7 @@
                   role="tab"
                   aria-selected="false"
                 >
-                  Overview
+                  Assumptions &amp; Dependencies
                 </button>
                 <button
                   role="tab"
@@ -4198,7 +4216,8 @@
                   </div>
                   <div class="tablist">
                     <button aria-selected="true">At a glance</button
-                    ><button aria-selected="false">Overview</button
+                    ><button aria-selected="false">
+                      Assumptions &amp; Dependencies</button
                     ><button aria-selected="false">Timeseries</button
                     ><button aria-selected="false">
                       Scope &amp; Granularity
@@ -4235,8 +4254,16 @@
               >
                 <div class="ribbon">
                   <div class="condensed cols">
-                    <span>IEA NZE</span><span>ACE ATS</span
-                    ><span>NGFS Net Zero</span>
+                    <span
+                      ><span class="n">IEA: NZE</span
+                      ><span class="y">2024</span></span
+                    ><span
+                      ><span class="n">IEA: NZE</span
+                      ><span class="y">2025</span></span
+                    ><span
+                      ><span class="n">NGFS: Net Zero 2050</span
+                      ><span class="y">2024</span></span
+                    >
                   </div>
                   <div
                     class="axes"
@@ -4668,8 +4695,8 @@
               <div class="info">
                 <h4>Dependencies table + evidence pills</h4>
                 <p class="src">
-                  DependenciesTable.tsx (Overview tab) — EvidenceBadge,
-                  strongest → weakest
+                  DependenciesTable.tsx (Assumptions &amp; Dependencies tab) —
+                  EvidenceBadge, strongest → weakest
                 </p>
                 <div class="tags">
                   <span class="tag"
@@ -4802,7 +4829,7 @@
                     <div class="group-card">
                       <h4>Emissions</h4>
                       <div class="item">
-                        <p class="item-lab">Emissions target (driver)</p>
+                        <p class="item-lab">Emissions target</p>
                         <p class="item-body absent">
                           Not a core driver for this pathway.
                         </p>

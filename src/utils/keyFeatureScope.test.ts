@@ -14,8 +14,7 @@ import { ABSENT_FILTER_TOKEN } from "./absent";
 import type { PathwayMetadataType } from "../types";
 
 /**
- * A pathway covering Power and Steel, with one mapped region, one unmapped region
- * (the NGFS shape pending #801), and one standalone country.
+ * A pathway covering Power and Steel, with one region and one standalone country.
  */
 function pathway(over: Partial<PathwayMetadataType> = {}): PathwayMetadataType {
   return {
@@ -26,7 +25,6 @@ function pathway(over: Partial<PathwayMetadataType> = {}): PathwayMetadataType {
     geography: {
       regions: {
         "South East Asia": ["ID", "TH", "VN"],
-        "Unmapped Region": [],
       },
       country: ["US"],
     },
@@ -101,12 +99,6 @@ describe("entryISOSet", () => {
     expect([...(entryISOSet("US", pathway()) ?? [])]).toEqual(["US"]);
   });
 
-  it("resolves an unmapped region to the empty set, not to everything", () => {
-    // #801: a region the publication never mapped must match nothing rather than
-    // silently behaving like Global.
-    expect(entryISOSet("Unmapped Region", pathway())?.size).toBe(0);
-  });
-
   it("resolves across regions to the pathway's whole ISO coverage", () => {
     const set = entryISOSet("across regions", pathway());
     expect([...(set ?? [])].sort()).toEqual(["ID", "TH", "US", "VN"]);
@@ -171,10 +163,6 @@ describe("geographyScopeOverlaps", () => {
     expect(
       geographyScopeOverlaps("South East Asia", ABSENT_FILTER_TOKEN, p),
     ).toBe(true);
-  });
-
-  it("an unmapped region overlaps nothing", () => {
-    expect(geographyScopeOverlaps("Unmapped Region", "TH", p)).toBe(false);
   });
 });
 
@@ -380,7 +368,6 @@ describe("scopeISOSet", () => {
       "Global",
       "across regions",
       "South East Asia",
-      "Unmapped Region",
       "US",
       "not a real token",
     ]) {
@@ -429,14 +416,6 @@ describe("pathwayScopeOverlaps", () => {
   it("matches a region entry against a country selection inside it", () => {
     expect(pathwayScopeOverlaps("South East Asia", "TH", geo)).toBe(true);
     expect(pathwayScopeOverlaps("South East Asia", "US", geo)).toBe(false);
-  });
-
-  it("treats an unmapped region as matching nothing but Global entries", () => {
-    // The NGFS shape: a declared region the publication never mapped.
-    expect(
-      pathwayScopeOverlaps("South East Asia", "Unmapped Region", geo),
-    ).toBe(false);
-    expect(pathwayScopeOverlaps("Global", "Unmapped Region", geo)).toBe(true);
   });
 
   it("overlaps an across-regions entry with any covered selection", () => {

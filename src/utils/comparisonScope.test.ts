@@ -193,7 +193,7 @@ describe("columnGeographyOptions", () => {
       publisher: "Z",
       sectors: ["Power"],
       global: true,
-      regions: { "North America": ["US"] },
+      regions: { "North America": ["US", "CA"] },
       country: ["SG"],
     });
     expect(columnGeographyOptions(mixed, nothing).map((o) => o.kind)).toEqual([
@@ -219,7 +219,7 @@ describe("columnGeographyOptions", () => {
       publisher: "Z",
       sectors: ["Power"],
       global: true,
-      regions: { "North America": ["US"] },
+      regions: { "North America": ["US", "CA"] },
       country: ["SG"],
     });
     // Only the country is plottable, so it leads; the rest keep global→region.
@@ -356,6 +356,20 @@ describe("resolveSharedSector", () => {
   it("degrades to null for an empty comparison", () => {
     expect(resolveSharedSector({ sector: null }, [])).toBeNull();
   });
+
+  it("only considers sectors with something to show (#1017)", () => {
+    const onlyBuildings = (sector: string) => sector === "Buildings";
+    expect(
+      resolveSharedSector({ sector: null }, [iea, ace], onlyBuildings),
+    ).toBe("Buildings");
+    // A searched-for sector with nothing to show is not seeded either.
+    expect(
+      resolveSharedSector({ sector: "Power" }, [iea, ace], onlyBuildings),
+    ).toBe("Buildings");
+    expect(resolveSharedSector({ sector: null }, [iea, ace], () => false)).toBe(
+      null,
+    );
+  });
 });
 
 describe("defaultGeographyForColumn", () => {
@@ -403,6 +417,46 @@ describe("defaultGeographyForColumn", () => {
 
   it("degrades to null for a column with no geographies", () => {
     expect(defaultGeographyForColumn({ geography: null }, ace, [])).toBeNull();
+  });
+
+  it("never opens on a geography with nothing to show (#1017)", () => {
+    const outlined = options("South East Asia").map((o) => ({
+      ...o,
+      available: false,
+    }));
+    // Not the leading option, and not the search selection either.
+    expect(
+      defaultGeographyForColumn({ geography: null }, ace, outlined),
+    ).toBeNull();
+    expect(
+      defaultGeographyForColumn({ geography: "Southeast Asia" }, ace, outlined),
+    ).toBeNull();
+  });
+
+  it("answers a search with the closest geography that has data", () => {
+    // Thailand is declared but has no benchmark data; South East Asia, which
+    // contains it, does. A Thailand search should open there, not on Global.
+    const withThailand = {
+      ...ace,
+      geography: {
+        global: true,
+        regions: { "South East Asia": ["TH", "VN"] },
+        country: ["TH"],
+      },
+    } as unknown as PathwayMetadataType;
+    const mixed = [
+      ...options("Global", "South East Asia"),
+      {
+        token: "TH",
+        label: "Thailand",
+        kind: "country" as const,
+        available: false,
+      },
+    ];
+
+    expect(
+      defaultGeographyForColumn({ geography: "TH" }, withThailand, mixed),
+    ).toBe("South East Asia");
   });
 });
 
@@ -490,13 +544,13 @@ describe("columnsGeographyDivergence", () => {
       id: "a",
       publisher: "IEA",
       sectors: ["Power"],
-      regions: { SEA: ["ID", "TH"] },
+      regions: { SEA: ["ID", "TH", "VN"] },
     });
     const b = pathway({
       id: "b",
       publisher: "IEA",
       sectors: ["Power"],
-      regions: { SEA: ["ID"] },
+      regions: { SEA: ["ID", "TH"] },
     });
     const result = columnsGeographyDivergence({ a: "SEA", b: "SEA" }, [a, b]);
 
@@ -521,9 +575,10 @@ describe("columnsGeographyDivergence", () => {
     }
   });
 
-  it("treats an unmapped region as unknown, not as different", () => {
+  it("treats a scope with no countries as unknown, not as different", () => {
     // A data gap must not look like a rule — the same principle the sector
-    // restriction follows. Real case: regions: { Europe: [] }.
+    // restriction follows. The schema forbids an empty region (#998); this is
+    // the guard for malformed data.
     const unmapped = pathway({
       id: "u",
       publisher: "Z",

@@ -1,6 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { CoreDriverItem, CORE_DRIVER_LABELS } from "./CoreDrivers";
+import {
+  CoreDriverItem,
+  CORE_DRIVER_LABELS,
+  coreDriverLabel,
+} from "./CoreDrivers";
 import type { CoreDrivers } from "./CoreDrivers";
 
 const drivers = {
@@ -92,5 +96,9 @@ describe("CoreDriverItem", () => {
       "behavioralShifts",
       "otherDrivers",
     ]);
+  });
+
+  it('labels the emissions target driver plainly, without "(driver)"', () => {
+    expect(coreDriverLabel("emissionsTargets")).toBe("Emissions target");
   });
 });

@@ -31,7 +31,9 @@ interface ColumnGeographySelectProps {
  *
  * Options are the same badges the Geographies coverage section shows, outlined
  * where this tool holds no timeseries data for them. That distinction is
- * load-bearing here: 13 of IEA's 15 declared geographies produce no chart.
+ * load-bearing here: 13 of IEA's 15 declared geographies produce no chart, so
+ * outlined options are listed but cannot be chosen (#1017). They are not
+ * buttons, which also keeps them out of the arrow-key navigation below.
  *
  * Built on `useDropdown` — the same open/close, click-outside and Escape
  * behaviour as the search page's filter dropdowns.
@@ -136,6 +138,19 @@ export const ColumnGeographySelect: React.FC<ColumnGeographySelectProps> = ({
             >
               {options.map((option) => {
                 const base = geographyVariant(option.kind);
+                if (!option.available) {
+                  return (
+                    <div
+                      key={option.token}
+                      role="option"
+                      aria-selected={false}
+                      aria-disabled="true"
+                      className="flex w-full items-center px-1 py-0.5"
+                    >
+                      <Badge variant={`${base}-pub`}>{option.label}</Badge>
+                    </div>
+                  );
+                }
                 return (
                   <button
                     key={option.token}
@@ -150,9 +165,7 @@ export const ColumnGeographySelect: React.FC<ColumnGeographySelectProps> = ({
                       option.token === selected ? "bg-neutral-100" : ""
                     }`}
                   >
-                    <Badge variant={option.available ? base : `${base}-pub`}>
-                      {option.label}
-                    </Badge>
+                    <Badge variant={base}>{option.label}</Badge>
                   </button>
                 );
               })}

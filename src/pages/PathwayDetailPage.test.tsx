@@ -9,8 +9,8 @@ import {
 import { MemoryRouter, Route, Routes } from "react-router";
 
 // Structured-geography fixture (#799): one region the publication mapped to three
-// countries, one it declared but left unmapped (the NGFS shape), plus a global flag
-// and a standalone country so the non-region badges are covered too.
+// countries, plus a global flag and a standalone country so the non-region badges
+// are covered too.
 const fixtures = [
   {
     id: "detail-a",
@@ -31,7 +31,6 @@ const fixtures = [
       global: true,
       regions: {
         "South East Asia": ["VN", "ID", "TH"],
-        "Unmapped Region": [],
       },
       country: ["US"],
     },
@@ -52,6 +51,7 @@ async function mountDetailPage(id: string): Promise<void> {
   // not affect the tooltip wiring under test.
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
+    getTimeseriesIndex: () => ({}),
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));
@@ -155,20 +155,6 @@ describe("PathwayDetailPage — region geography tooltips", () => {
       expect(tooltip).toHaveTextContent("Indonesia");
       expect(tooltip).toHaveTextContent("Thailand");
       expect(tooltip).toHaveTextContent("Vietnam");
-    },
-    TEST_TIMEOUT,
-  );
-
-  it(
-    "tells the user when a declared region has no published mapping",
-    async () => {
-      await mountDetailPage("detail-a");
-
-      const panel = await geographiesPanel();
-      expect(within(panel).getByText("Unmapped Region")).toBeInTheDocument();
-
-      const tooltip = await openTooltipFor(panel, "Unmapped Region");
-      expect(tooltip).toHaveTextContent("No country mapping available");
     },
     TEST_TIMEOUT,
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
@@ -15,6 +15,7 @@ import {
 } from "../utils/comparisonScope";
 import { PathwayMetadataType } from "../types";
 import { useUrlParamState } from "../hooks/useUrlParamState";
+import { useSessionFlag } from "../hooks/useSessionFlag";
 import ComparisonScopeHeader from "../components/ComparisonScopeHeader";
 import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import {
@@ -32,6 +33,7 @@ import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
 import ComparisonKeyFeatures from "../components/ComparisonKeyFeatures";
+import ComparisonDependencies from "../components/ComparisonDependencies";
 import ComparisonPlots, {
   ComparisonPlotsEntry,
 } from "../components/ComparisonPlots";
@@ -44,6 +46,7 @@ import {
   SECTOR_AVAILABILITY_TOOLTIP,
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
+import { scopeAvailability } from "../utils/scopeAvailability";
 import TextWithTooltip from "../components/TextWithTooltip";
 
 // ── Pathway summary card (compact) ──────────────────────────────────────────
@@ -272,12 +275,35 @@ const ComparisonPage: React.FC = () => {
   */
   const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
 
+  /*
+    A shared sector is worth selecting when any column has something to show
+    for it: benchmark data for the plots, or recorded dependencies (#1017,
+    #1030). The same rule the detail page's ribbon uses. The coverage sections
+    below keep the timeseries-only `availabilities`, since their outlined
+    badges speak about data in this tool.
+  */
+  const sectorAvailabilities = useMemo(
+    () =>
+      pathways.map((p) => scopeAvailability(p, index.byPathway[p.id] ?? [])),
+    [pathways],
+  );
+
+  const isSectorAvailable = useCallback(
+    (sector: string) => sectorAvailabilities.some((a) => a.hasSector(sector)),
+    [sectorAvailabilities],
+  );
+
   const [sector, setSector] = useUrlParamState({
     param: "sector",
-    options: sectorOptions,
+    // Only selectable sectors are legal, so a link naming an outlined one
+    // falls back to the default like any other unknown value.
+    options: useMemo(
+      () => sectorOptions.filter(isSectorAvailable),
+      [sectorOptions, isSectorAvailable],
+    ),
     defaultValue: useMemo(
-      () => resolveSharedSector({ sector: null }, pathways),
-      [pathways],
+      () => resolveSharedSector({ sector: null }, pathways, isSectorAvailable),
+      [pathways, isSectorAvailable],
     ),
   });
 
@@ -318,8 +344,9 @@ const ComparisonPage: React.FC = () => {
     const resolved: Record<string, string | null> = {};
     for (const pathway of pathways) {
       const requested = fromUrl[pathway.id];
+      // Outlined options cannot be chosen, so a link naming one is not legal.
       const legal = (geographyOptions[pathway.id] ?? []).some(
-        (option) => option.token === requested,
+        (option) => option.token === requested && option.available,
       );
       resolved[pathway.id] = legal
         ? requested
@@ -356,6 +383,16 @@ const ComparisonPage: React.FC = () => {
     () => columnsGeographyDivergence(selectedGeographies, pathways),
     [selectedGeographies, pathways],
   );
+
+  /*
+    "Freeze plots" (#1033): remembered for the tab, across comparisons, so
+    leaving for a detail page and coming back keeps the reader's choice. The
+    header reports its height so frozen plots sit flush beneath it.
+  */
+  const [plotsFrozen, setPlotsFrozen] = useSessionFlag(
+    "pathway-comparison-freeze-plots",
+  );
+  const [scopeHeaderHeight, setScopeHeaderHeight] = useState(0);
 
   // Timeseries data state: one entry per pathway
   const [plotEntries, setPlotEntries] = useState<ComparisonPlotsEntry[]>([]);
@@ -459,20 +496,27 @@ const ComparisonPage: React.FC = () => {
   }
 
   /*
-    The five comparison sections, as nodes rather than inline JSX, so their
+    The six comparison sections, as nodes rather than inline JSX, so their
     order can be a data decision below.
   */
   const sectionNodes: Record<string, React.ReactNode> = {
     plots: (
       <>
-        {/* ── Benchmark Metric Plots ── */}
-        <div className="mt-8">
-          <ComparisonPlots
-            entries={plotEntries}
-            requestedGeographies={selectedGeographies}
-            requestedSector={sector}
-          />
-        </div>
+        {/*
+          ── Benchmark Metric Plots ──
+          No wrapper: a sticky element only sticks within its parent, so the
+          plots must be a direct child of the page container to stay frozen
+          for the whole page.
+        */}
+        <ComparisonPlots
+          className="mt-8"
+          entries={plotEntries}
+          requestedGeographies={selectedGeographies}
+          requestedSector={sector}
+          frozen={plotsFrozen}
+          onFrozenChange={setPlotsFrozen}
+          stickyTop={scopeHeaderHeight}
+        />
       </>
     ),
     keyFeatures: (
@@ -480,6 +524,38 @@ const ComparisonPage: React.FC = () => {
         {/* ── Key Features ── */}
         <div className="mt-8">
           <ComparisonKeyFeatures pathways={pathways} />
+        </div>
+      </>
+    ),
+    dependencies: (
+      <>
+        {/* ── Dependencies ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Dependencies
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip="Shown for the sector selected above. Dependencies are not specific to a geography."
+                ariaLabel="Dependencies information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          <div style={{ gridColumn: "1 / -1" }}>
+            <ComparisonDependencies
+              pathways={pathways}
+              sector={sector}
+            />
+          </div>
         </div>
       </>
     ),
@@ -629,6 +705,7 @@ const ComparisonPage: React.FC = () => {
   const sectionOrder = [
     "plots",
     "keyFeatures",
+    "dependencies",
     "geographies",
     "sectors",
     "metrics",
@@ -668,12 +745,14 @@ const ComparisonPage: React.FC = () => {
       <ComparisonScopeHeader
         pathways={pathways}
         sectorOptions={sectorOptions}
+        isSectorAvailable={isSectorAvailable}
         selectedSector={sector}
         onSectorChange={setSector}
         geographyOptions={geographyOptions}
         selectedGeographies={selectedGeographies}
         onGeographyChange={handleGeographyChange}
         divergence={divergence}
+        onHeightChange={setScopeHeaderHeight}
       />
 
       {sectionOrder.map((key) => (

@@ -18,6 +18,8 @@ const ROW_CONTROL_CLASS =
  * One scope axis: its label, its options as toggle badges, and a control that
  * reveals options the single-row collapse has pushed into "+N more", which
  * would otherwise be visible in the overflow tooltip but not selectable.
+ * Callers pass `expandable` from BadgeArray's `onOverflowChange`, so the control
+ * appears only when the badges do not fit on one row (#1026).
  *
  * There is no clear control: both axes always carry a value, so "no selection"
  * is not a state the reader can reach or would benefit from.

@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import type { PathwayMetadataType, Sector } from "../types";
 import BadgeArray from "./BadgeArray";
 import ScopeAxisRow, { LABEL_CLASS, pinSelected } from "./ScopeAxisRow";
@@ -10,12 +10,18 @@ import type {
   ColumnGeographyOption,
 } from "../utils/comparisonScope";
 import { getSectorTooltip } from "../utils/tooltipUtils";
+import { sortByAvailability } from "../utils/timeseriesAvailability";
 
 interface ComparisonScopeHeaderProps {
   /** The compared pathways, in column order. */
   pathways: readonly PathwayMetadataType[];
   /** Sector names every compared pathway declares — one shared axis. */
   sectorOptions: string[];
+  /**
+   * Whether a sector has something to show in any column. Those that do are
+   * filled and selectable; the rest are outlined and cannot be picked (#1017).
+   */
+  isSectorAvailable: (sector: string) => boolean;
   selectedSector: string | null;
   onSectorChange: (next: string) => void;
   /** Each column's own geographies, keyed by pathway id. */
@@ -25,10 +31,25 @@ interface ComparisonScopeHeaderProps {
   onGeographyChange: (pathwayId: string, next: string) => void;
   /** Whether the columns are showing the same thing. */
   divergence: ColumnGeographyDivergence;
+  /**
+   * Called with the sticky bar's height whenever it changes — the condensed
+   * names sliding in, "Show all" sectors, the divergence notice — so content
+   * frozen below it (#1033) can sit flush against it.
+   */
+  onHeightChange?: (height: number) => void;
 }
 
+/**
+ * "Publisher: Pathway", so two columns with the same short pathway name (two
+ * editions of IEA NZE, or two publishers' "Reference") stay distinguishable.
+ * Both the condensed bar and the geography selects' accessible names add the
+ * publication year, which separates two editions of the same pathway.
+ * `||` rather than `??`: some publishers have an empty short name.
+ */
 const columnLabel = (pathway: PathwayMetadataType): string =>
-  pathway.name.short || pathway.name.full;
+  `${pathway.publication.publisher.short || pathway.publication.publisher.full}: ${
+    pathway.name.short || pathway.name.full
+  }`;
 
 /**
  * The comparison page's sticky scope bar: one shared sector axis, one geography
@@ -54,18 +75,46 @@ const columnLabel = (pathway: PathwayMetadataType): string =>
 export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
   pathways,
   sectorOptions,
+  isSectorAvailable,
   selectedSector,
   onSectorChange,
   geographyOptions,
   selectedGeographies,
   onGeographyChange,
   divergence,
+  onHeightChange,
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
+
+  // Kept in a ref so a caller passing an inline callback does not recreate
+  // the observer on every render.
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+  const onHeightChangeRef = useRef(onHeightChange);
+  onHeightChangeRef.current = onHeightChange;
+
+  useEffect(() => {
+    const el = stickyRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        onHeightChangeRef.current?.(entry.contentRect?.height ?? 0);
+      }
+    });
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
+
   const [sectorExpanded, setSectorExpanded] = useState(false);
+  // As on the detail page: "Show all" only when sectors are cut off (#1026).
+  const [sectorOverflows, setSectorOverflows] = useState(false);
   const baseId = useId();
 
-  const sectors = pinSelected(sectorOptions, selectedSector);
+  const sectors = pinSelected(
+    sortByAvailability(sectorOptions, isSectorAvailable),
+    selectedSector,
+  );
   const columns = `repeat(${pathways.length}, minmax(0, 1fr))`;
 
   return (
@@ -81,11 +130,16 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
         className="h-px -mb-px"
       />
 
-      <div className="sticky top-(--env-banner-height) z-20">
+      <div
+        ref={stickyRef}
+        className="sticky top-(--env-banner-height) z-20"
+      >
         {/*
-          Condensed column names. aria-hidden because it restates the pathway
-          cards above, which stay in the accessibility tree whether or not they
-          are on screen — and it holds no focusables, so nothing is lost.
+          Condensed column names, with the publication year on the right; the
+          year never truncates, so the name gives way first. aria-hidden
+          because it restates the pathway cards above, which stay in the
+          accessibility tree whether or not they are on screen — and it holds
+          no focusables, so nothing is lost.
         */}
         <div
           aria-hidden="true"
@@ -100,9 +154,14 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
             {pathways.map((pathway) => (
               <span
                 key={pathway.id}
-                className="text-xs font-semibold truncate"
+                className="flex items-baseline justify-between gap-2 min-w-0 text-xs"
               >
-                {columnLabel(pathway)}
+                <span className="font-semibold truncate">
+                  {columnLabel(pathway)}
+                </span>
+                <span className="shrink-0 tabular-nums text-white/80">
+                  {pathway.publication.year}
+                </span>
               </span>
             ))}
           </div>
@@ -113,18 +172,23 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
             <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              expandable={sectors.length > 1}
+              expandable={sectorOverflows}
               expanded={sectorExpanded}
               onToggleExpand={() => setSectorExpanded((prev) => !prev)}
             >
               <BadgeArray<string>
-                variant="sector"
+                variant={sectors.map((sector) =>
+                  isSectorAvailable(sector) ? "sector" : "sector-pub",
+                )}
                 // The scope selection is `string` so a stale value degrades
                 // rather than failing to type; the lookup falls back to
                 // "No tooltip available." for anything unrecognised.
                 tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                maxRows={sectorExpanded ? Infinity : 1}
+                maxRows={1}
+                expanded={sectorExpanded}
+                onOverflowChange={setSectorOverflows}
                 selected={selectedSector}
+                isSelectable={isSectorAvailable}
                 // BadgeArray reports null when the pressed badge is clicked
                 // again. Ignored: an axis always carries a value.
                 onSelect={(next) =>
@@ -158,7 +222,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
               {pathways.map((pathway) => (
                 <ColumnGeographySelect
                   key={pathway.id}
-                  pathwayName={columnLabel(pathway)}
+                  pathwayName={`${columnLabel(pathway)} (${pathway.publication.year})`}
                   options={geographyOptions[pathway.id] ?? []}
                   selected={selectedGeographies[pathway.id] ?? null}
                   onSelect={(token) => onGeographyChange(pathway.id, token)}

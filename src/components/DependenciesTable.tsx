@@ -5,7 +5,7 @@ import ScopeFilterNotice from "./ScopeFilterNotice";
 // One conditions-of-outcome row. Derived from the schema type so it tracks the
 // metadata contract. Dependencies are descriptive and deliberately not part of
 // the #869 inheritance chain, so they are not scoped by geography.
-type DependencyRow = PathwayMetadataType["dependencies"][number];
+export type DependencyRow = PathwayMetadataType["dependencies"][number];
 
 interface DependenciesTableProps {
   dependencies: PathwayMetadataType["dependencies"];
@@ -29,9 +29,11 @@ const EVIDENCE_STYLES: Record<DependencyRow["evidence_type"], string> = {
   "No evidence": "bg-neutral-100 text-rmigray-600 border-neutral-300",
 };
 
-const EvidenceBadge: React.FC<{ value: DependencyRow["evidence_type"] }> = ({
-  value,
-}) => (
+// Exported for the comparison page's dependencies section, so both views share
+// one evidence colour scale.
+export const EvidenceBadge: React.FC<{
+  value: DependencyRow["evidence_type"];
+}> = ({ value }) => (
   <span
     className={`inline-flex items-center whitespace-nowrap rounded-full border px-2.5 py-0.5 text-xs font-medium ${EVIDENCE_STYLES[value]}`}
   >
@@ -40,12 +42,13 @@ const EvidenceBadge: React.FC<{ value: DependencyRow["evidence_type"] }> = ({
 );
 
 /**
- * The "Dependencies" table for the Overview tab: the conditions a pathway's
- * outcomes depend on, each with the strength of evidence behind it. `sector` is
- * shown only when the rows span more than one sector, so single-sector pathways
- * match the three-column wireframe (Dependency / Evidence / Constraint) and
- * multi-sector ones do not lose the scoping. An empty list is a normal state
- * (authoring is incremental) and renders an explanatory empty state.
+ * The "Dependencies" table for the Assumptions & Dependencies tab: the
+ * conditions a pathway's outcomes depend on, each with the strength of evidence
+ * behind it. `sector` is shown only when the rows span more than one sector, so
+ * single-sector pathways match the three-column wireframe (Dependency /
+ * Evidence / Constraint) and multi-sector ones do not lose the scoping. An
+ * empty list is a normal state (authoring is incremental) and renders an
+ * explanatory empty state.
  */
 const DependenciesTable: React.FC<DependenciesTableProps> = ({
   dependencies,

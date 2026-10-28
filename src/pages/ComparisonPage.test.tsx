@@ -32,9 +32,7 @@ const fixtures = [
     metric: ["Capacity"],
     geography: {
       global: true,
-      // One region with a published mapping and one without, so both arms of
-      // the member tooltip are reachable.
-      regions: { "Europe": ["DE", "FR", "IT"], "Unmapped Region": [] },
+      regions: { Europe: ["DE", "FR", "IT"] },
       country: ["US"],
     },
     keyFeatures: {
@@ -102,6 +100,37 @@ const fixtures = [
     geography: { global: true, regions: {}, country: [] },
     keyFeatures: {},
   },
+  {
+    // Records dependencies but has no benchmark data, and shares Steel with B
+    // where neither has data: Steel is selectable for its dependencies alone.
+    id: "cmp-e",
+    name: { full: "Comparison Pathway E", short: "E" },
+    description: "Pathway E description",
+    pathwayType: "Net Zero",
+    publication: {
+      publisher: { full: "Publisher E", short: "PubE" },
+      title: { full: "Publication E", short: "PubTitleE" },
+      year: 2024,
+    },
+    sectors: [{ name: "Power" }, { name: "Steel" }],
+    metric: ["Capacity"],
+    geography: { global: true, regions: {}, country: [] },
+    keyFeatures: {},
+    dependencies: [
+      {
+        dependency_name: "Policy strategy",
+        dependency_description: "Relies on a national carbon price.",
+        sector: "Power",
+        evidence_type: "Qualitative",
+      },
+      {
+        dependency_name: "Technology",
+        dependency_description: "Needs green hydrogen.",
+        sector: "Steel",
+        evidence_type: "Anecdotal",
+      },
+    ],
+  },
 ] as const;
 
 /*
@@ -133,6 +162,22 @@ async function mountWithFixtures(ids: string): Promise<void> {
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));
+  // Benchmark data for the geographies these tests pick, which only a token
+  // with data may be (#1017). Unmapped Region and FR stay without.
+  vi.doMock("../data/index.gen", () => {
+    const power = (geographies: string[]) => [
+      { summary: { sectors: ["power"], geographies } },
+    ];
+    return {
+      index: {
+        byPathway: {
+          "cmp-a": power(["Global", "Europe", "US"]),
+          "cmp-b": power(["DE"]),
+          "cmp-d": power(["Global"]),
+        },
+      },
+    };
+  });
 
   // Import ComparisonProvider from the same fresh module graph so it shares the
   // React context instance the re-imported page consumes.
@@ -284,8 +329,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("A")).toHaveTextContent("Europe");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
     expect(
       screen
         .getAllByRole("button")
@@ -301,8 +346,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("A")).toHaveTextContent("Global");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Global");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
   });
 
   it("ignores a token the column does not declare", async () => {
@@ -314,8 +359,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("A")).toHaveTextContent("Global");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Global");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
   });
 
   it("warns that the columns are not showing the same geography", async () => {
@@ -353,11 +398,71 @@ describe("ComparisonPage — shared scope", () => {
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     const user = userEvent.setup();
-    await user.click(columnTrigger("A"));
+    await user.click(columnTrigger("PubA: A (2024)"));
     await user.click(screen.getByRole("option", { name: "Europe" }));
 
-    expect(columnTrigger("A")).toHaveTextContent("Europe");
-    expect(columnTrigger("B")).toHaveTextContent("Germany");
+    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
+    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
+  });
+});
+
+describe("ComparisonPage — dependencies", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+    vi.restoreAllMocks();
+  });
+
+  it("places the section between Key Features and Geographies", async () => {
+    await mountWithFixtures("cmp-b,cmp-e");
+    await screen.findByText("PubE: Comparison Pathway E", undefined, WAIT);
+
+    const keyFeatures = screen.getByRole("heading", { name: "Policies" });
+    const dependencies = screen.getByRole("heading", { name: /^Dependencies/ });
+    const geographies = screen.getByRole("heading", { name: /Geographies/ });
+
+    expect(
+      keyFeatures.compareDocumentPosition(dependencies) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(
+      dependencies.compareDocumentPosition(geographies) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("shows the selected sector's dependencies, with a note for a column that has none", async () => {
+    await mountWithFixtures("cmp-b,cmp-e&sector=Power");
+    await screen.findByText("PubE: Comparison Pathway E", undefined, WAIT);
+
+    expect(
+      screen.getByText("Relies on a national carbon price."),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Needs green hydrogen.")).not.toBeInTheDocument();
+    expect(
+      screen.getByText("This pathway has no dependencies recorded for Power."),
+    ).toBeInTheDocument();
+  });
+
+  it("follows the sector selection, including a sector with dependencies but no plot data", async () => {
+    await mountWithFixtures("cmp-b,cmp-e&sector=Power");
+    await screen.findByText("PubE: Comparison Pathway E", undefined, WAIT);
+
+    // Steel has no benchmark data in either column; E's dependencies alone
+    // make it a selectable sector rather than an outlined one.
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Steel" }));
+
+    expect(screen.getByText("Needs green hydrogen.")).toBeInTheDocument();
+    expect(
+      screen.queryByText("Relies on a national carbon price."),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText("This pathway has no dependencies recorded for Steel."),
+    ).toBeInTheDocument();
   });
 });
 
@@ -425,14 +530,6 @@ describe("ComparisonPage — region geography tooltips", () => {
     expect(await openTooltipFor(section, "Europe")).toHaveTextContent(
       "Germany",
     );
-  });
-
-  it("says so when a declared region has no published mapping", async () => {
-    await mountWithFixtures("cmp-a,cmp-b");
-    const section = await geographiesSection();
-
-    const tooltip = await openTooltipFor(section, "Unmapped Region");
-    expect(tooltip).toHaveTextContent("No country mapping available");
   });
 
   it("leaves Global and country badges without a tooltip trigger", async () => {

@@ -24,7 +24,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: { "South East Asia": ["TH"] } },
+    geography: { global: true, regions: { "South East Asia": ["TH", "VN"] } },
     keyFeatures: { emissionsTrajectory: "Significant decrease" },
   },
 ] as const;
@@ -46,6 +46,7 @@ async function mountDetailPage(): Promise<void> {
   });
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
+    getTimeseriesIndex: () => ({}),
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));
