@@ -84,12 +84,14 @@ const PathwayDetailPage: React.FC = () => {
   // Which ribbon tokens have something to show (#1017). Read synchronously
   // from the bundled index, so the ribbon and the seed agree from the first
   // render and nothing restyles once the async dataset load below finishes.
+  // Key features count here because this page resolves them for the scope.
   const scopeAvail = useMemo(
     () =>
       pathway
         ? scopeAvailability(
             pathway,
             datasetsForPathway(getTimeseriesIndex(), pathway.id),
+            { keyFeatures: true },
           )
         : ALL_AVAILABLE,
     [pathway],

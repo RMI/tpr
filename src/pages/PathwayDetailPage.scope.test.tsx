@@ -26,6 +26,8 @@ const fixtures = [
     sectors: [
       { name: "Power", technologies: [] },
       { name: "Steel", technologies: [] },
+      // Nothing but a key feature, which is enough to make it selectable.
+      { name: "Buildings", technologies: [] },
     ],
     metric: ["Capacity"],
     geography: {
@@ -48,6 +50,15 @@ const fixtures = [
           geography: "Global",
           value: "Moderate decrease",
         },
+        {
+          sector: "Buildings",
+          geography: "Global",
+          value: "Minor decrease",
+        },
+      ],
+      // SG records only "No information", which does not make it selectable.
+      energyDemand: [
+        { sector: "Power", geography: "SG", value: "No information" },
       ],
     },
     coreDrivers: {
@@ -113,8 +124,8 @@ const fixtures = [
 
 /*
   Benchmark data for Power at Global and South East Asia, so those badges are
-  selectable (#1017). Steel is selectable through its dependency; SG has
-  nothing to show and stays outlined.
+  selectable (#1017). Steel is selectable through its dependency, Buildings
+  through a key feature; SG has nothing to show and stays outlined.
 */
 const SYNC_INDEX = { synchronous: true };
 const SCOPE_DATASETS = [
@@ -214,7 +225,8 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       await mountDetailPage();
       await screen.findByText("The description prose.", undefined, WAIT);
 
-      // SG has no benchmark data and geographies take nothing else (#1017).
+      // SG has no benchmark data, and its only key feature says "No
+      // information", so there is nothing to show for it (#1017).
       expect(
         screen.queryByRole("button", { name: "Singapore" }),
       ).not.toBeInTheDocument();
@@ -223,6 +235,30 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
         "aria-pressed",
         "true",
       );
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "makes a sector selectable through its key features alone",
+    async () => {
+      await mountDetailPage("/pathway/detail-scope?tab=assumptions");
+      await screen.findByRole(
+        "heading",
+        { name: "Assumptions & Trends Overview" },
+        WAIT,
+      );
+
+      // Buildings has no benchmark data or dependency, only a key feature.
+      await selectScope("Buildings");
+      expect(screen.getByRole("button", { name: "Buildings" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+      expect(
+        screen.getByRole("heading", { level: 4, name: "Emissions" })
+          .parentElement,
+      ).toHaveTextContent("Minor decrease");
     },
     TEST_TIMEOUT,
   );

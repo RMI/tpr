@@ -251,6 +251,10 @@ swapping the axis priority is swapping the loop nesting in `resolveKeyFeature`.
 - Then delete `widestValue`, `sectorBreadth` and `geographyBreadth` (which also removes the
   two-letter-regex bug that ranks JRC's `"EU"` as a country).
 - From the PR 1 review:
+  - **Count key features for the comparison ribbon's selectable tokens.** The detail page
+    passes `{ keyFeatures: true }` to `scopeAvailability` (#1017), so a sector or geography
+    whose only data is key features can be picked there. `ComparisonPage` leaves it off
+    until it resolves key features per column; turn it on then.
   - **Drop `KeyFeatures`' `keyFeatures` prop.** It only feeds the widest-value path; once every
     caller passes `pathway`, it duplicates `pathway.keyFeatures` and the two can disagree.
     `FeatureItem`'s `keyFeatures` goes the same way once `resolution` is required.
