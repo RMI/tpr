@@ -85,13 +85,13 @@ export function declaredGeographyTokens(
  *   - `Global` → `null`.
  *   - `across regions` → every country the pathway declares, in any region or
  *     standalone.
- *   - a region label → its members. Checked before countries, so JRC's regions
- *     named `"TH"` and `"EU"` resolve through their member lists: `"EU"` is not a
- *     country at all, and the region `"TH"` is what JRC means by it.
+ *   - a region label → its members. Checked before countries, so a two-letter
+ *     region label such as JRC's `"EU"` resolves through its member list rather
+ *     than being read as a country code.
  *   - a declared country → itself. "Declared" as `validateScopes` means it: a
  *     standalone country or a member of a declared region.
- *   - anything else → the empty set, as does a region the publication never
- *     mapped. Both mean "unknown", not "nothing": see {@link containsCodes}.
+ *   - anything else → the empty set, meaning "unknown", not "nothing": see
+ *     {@link containsCodes}.
  *
  * Unlike `scopeISOSet`, which serves search and accepts any ISO-looking token, this
  * only answers for tokens the pathway declares, so a stale selection cannot claim
@@ -122,10 +122,10 @@ export function declaredTokenCodes(
 /**
  * Does `outer` cover every country in `inner`? `null` is everything.
  *
- * An empty `inner` is never contained. It comes from an unmapped region or an
- * unknown token, whose coverage is unknown rather than nothing, so no other token
- * can be shown to include it — counting it as a vacuous subset would let any
- * region "contain" one the publication never described.
+ * An empty `inner` is never contained. It comes from an unknown token (a stale
+ * selection, or malformed data), whose coverage is unknown rather than nothing,
+ * so no other token can be shown to include it — counting it as a vacuous subset
+ * would let any region "contain" a token the pathway never described.
  */
 export function containsCodes(
   outer: ReadonlySet<string> | null,
@@ -168,10 +168,6 @@ export function widestSector(
  * token's (ACE's single `ASEAN`, an SDSN pathway's single country, a region
  * listed alongside its own members); otherwise `across regions`, the aggregate
  * of regions none of which contains the rest.
- *
- * An unmapped region is contained by nothing (see {@link containsCodes}), so a
- * pathway that declares one alongside other tokens has no provable widest token
- * and gets `across regions`.
  */
 export function widestGeography(
   pathway: Pick<PathwayMetadataV2, "geography">,

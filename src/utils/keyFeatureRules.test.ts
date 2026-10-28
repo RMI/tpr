@@ -37,10 +37,7 @@ const sorted = (set: ReadonlySet<string> | null) =>
 describe("declaredTokenCodes", () => {
   const geo: Geography = {
     global: true,
-    regions: {
-      "South East Asia": ["ID", "TH", "VN"],
-      "Unmapped Region": [],
-    },
+    regions: { "South East Asia": ["ID", "TH", "VN"] },
     country: ["US"],
   };
 
@@ -82,24 +79,20 @@ describe("declaredTokenCodes", () => {
     expect(sorted(declaredTokenCodes("Atlantis", geo))).toEqual([]);
   });
 
-  it("an unmapped region resolves to nothing", () => {
-    expect(sorted(declaredTokenCodes("Unmapped Region", geo))).toEqual([]);
-  });
-
-  it("checks region labels before countries (JRC's 'TH' and 'EU' regions)", () => {
+  it("checks region labels before countries (JRC's 'EU' region)", () => {
     const jrc: Geography = {
       global: true,
       regions: {
         EU: ["AT", "BE", "DE"],
-        TH: ["TH"],
         // Not in the data: a region whose label is a country code but whose
         // members differ, which is what makes the order observable.
         CN: ["CN", "HK"],
       },
+      country: ["TH"],
     };
     expect(sorted(declaredTokenCodes("EU", jrc))).toEqual(["AT", "BE", "DE"]);
-    expect(sorted(declaredTokenCodes("TH", jrc))).toEqual(["TH"]);
     expect(sorted(declaredTokenCodes("CN", jrc))).toEqual(["CN", "HK"]);
+    expect(sorted(declaredTokenCodes("TH", jrc))).toEqual(["TH"]);
   });
 
   it("degrades to nothing for a missing geography", () => {
@@ -113,7 +106,10 @@ describe("declaredGeographyTokens", () => {
     expect(
       declaredGeographyTokens({
         global: true,
-        regions: { "Asia Pacific": ["JP", "TH"], "Southeast Asia": ["TH"] },
+        regions: {
+          "Asia Pacific": ["JP", "TH", "VN"],
+          "Southeast Asia": ["TH", "VN"],
+        },
         country: ["JP"],
       }),
     ).toEqual(["Asia Pacific", "Southeast Asia", "JP"]);
@@ -208,7 +204,7 @@ describe("widestGeography", () => {
     expect(
       widestGeography(
         pathway({
-          geography: { global: true, regions: { Europe: ["DE"] } },
+          geography: { global: true, regions: { Europe: ["DE", "FR"] } },
         }),
       ),
     ).toBe(GLOBAL_SCOPE);
@@ -260,28 +256,10 @@ describe("widestGeography", () => {
     expect(
       widestGeography(
         pathway({
-          geography: { regions: { Europe: ["DE"] }, country: ["US"] },
+          geography: { regions: { Europe: ["DE", "FR"] }, country: ["US"] },
         }),
       ),
     ).toBe(ACROSS_REGIONS);
-  });
-
-  it("is across regions when an unmapped region could extend past the rest", () => {
-    expect(
-      widestGeography(
-        pathway({
-          geography: {
-            regions: { "South East Asia": ["TH", "VN"], "East of Suez": [] },
-          },
-        }),
-      ),
-    ).toBe(ACROSS_REGIONS);
-  });
-
-  it("is a lone unmapped region, since there is nothing else to contain", () => {
-    expect(
-      widestGeography(pathway({ geography: { regions: { Somewhere: [] } } })),
-    ).toBe("Somewhere");
   });
 
   it("is across regions for a pathway with no geography", () => {

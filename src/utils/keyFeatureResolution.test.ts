@@ -11,9 +11,9 @@ import type { Geography, PathwayMetadataType } from "../types";
 const SENTINEL = "Not applicable at this scope level";
 
 /**
- * A pathway covering Power and Buildings in one mapped region (two of its
- * members also standalone), one unmapped region, and nothing global. Fixtures
- * carry only the fields the resolver reads — hence the cast.
+ * A pathway covering Power and Buildings in one region (two of its members also
+ * standalone) and nothing global, so South East Asia is its widest geography.
+ * Fixtures carry only the fields the resolver reads — hence the cast.
  */
 function pathway(over: Record<string, unknown> = {}): PathwayMetadataType {
   return {
@@ -22,27 +22,13 @@ function pathway(over: Record<string, unknown> = {}): PathwayMetadataType {
       { name: "Buildings", technologies: [] },
     ],
     geography: {
-      regions: {
-        "South East Asia": ["ID", "TH", "VN"],
-        "East of Suez": [],
-      },
+      regions: { "South East Asia": ["ID", "TH", "VN"] },
       country: ["TH", "VN"],
     },
     keyFeatures: {},
     ...over,
   } as unknown as PathwayMetadataType;
 }
-
-/**
- * The same geography without the unmapped region, so South East Asia is
- * provably the widest token (see widestGeography).
- */
-const MAPPED_ONLY = {
-  geography: {
-    regions: { "South East Asia": ["ID", "TH", "VN"] },
-    country: ["TH", "VN"],
-  },
-};
 
 const e = (sector: string, geography: string, value: string | string[]) => ({
   sector,
@@ -65,19 +51,19 @@ const at = (sector: string | null, geography: string | null) => ({
 });
 
 describe("geographyChain", () => {
-  it("walks nested regions outward (IEA-2025: Japan → Japan and Korea → Asia Pacific)", () => {
+  it("walks a country out through nested regions, smallest first", () => {
     const geo: Geography = {
       global: true,
       regions: {
         "Asia Pacific": ["AU", "JP", "KR", "TH"],
-        "Japan": ["JP"],
         "Japan and Korea": ["JP", "KR"],
-        // Overlaps Japan without containing it, so it is never on the chain.
+        // Overlaps Japan and Korea without containing JP, so never on the chain.
         "East Asia": ["CN", "KR"],
       },
+      country: ["JP"],
     };
-    expect(geographyChain("Japan", geo)).toEqual([
-      "Japan",
+    expect(geographyChain("JP", geo)).toEqual([
+      "JP",
       "Japan and Korea",
       "Asia Pacific",
       "across regions",
@@ -130,14 +116,15 @@ describe("geographyChain", () => {
     ).toEqual(["SA", "Middle East", "OPECplus", "across regions", "Global"]);
   });
 
-  it("walks from a country through the regions that contain it (JRC's 'TH' region)", () => {
+  it("walks from a country only through the regions that contain it", () => {
     const geo: Geography = {
       global: true,
       regions: {
         "South East Asia": ["ID", "TH", "VN"],
+        // Shares members with South East Asia but not TH itself.
         "Rest South East Asia": ["ID", "VN"],
-        "TH": ["TH"],
       },
+      country: ["TH"],
     };
     expect(geographyChain("TH", geo)).toEqual([
       "TH",
@@ -153,14 +140,6 @@ describe("geographyChain", () => {
 
   it("puts across regions just before Global", () => {
     expect(geographyChain("across regions", pathway().geography)).toEqual([
-      "across regions",
-      "Global",
-    ]);
-  });
-
-  it("skips straight to the aggregates for an unmapped region", () => {
-    expect(geographyChain("East of Suez", pathway().geography)).toEqual([
-      "East of Suez",
       "across regions",
       "Global",
     ]);
@@ -190,11 +169,9 @@ describe("effectiveScope", () => {
   });
 
   it("fills empty axes with the widest scope", () => {
-    const p = withEntries(
-      "emissionsTrajectory",
-      [e("across sectors", "South East Asia", "Minor decrease")],
-      MAPPED_ONLY,
-    );
+    const p = withEntries("emissionsTrajectory", [
+      e("across sectors", "South East Asia", "Minor decrease"),
+    ]);
     expect(effectiveScope(p, at(null, null))).toEqual({
       sector: "across sectors",
       geography: "South East Asia",
@@ -458,14 +435,10 @@ describe("resolveKeyFeature — edge cases", () => {
   });
 
   it("resolves null axes at the widest scope, as an exact match", () => {
-    const p = withEntries(
-      "emissionsTrajectory",
-      [
-        e("across sectors", "South East Asia", "Moderate increase"),
-        e("Power", "South East Asia", "Moderate decrease"),
-      ],
-      MAPPED_ONLY,
-    );
+    const p = withEntries("emissionsTrajectory", [
+      e("across sectors", "South East Asia", "Moderate increase"),
+      e("Power", "South East Asia", "Moderate decrease"),
+    ]);
     expect(resolveKeyFeature(p, "emissionsTrajectory", at(null, null))).toEqual(
       {
         status: "resolved",

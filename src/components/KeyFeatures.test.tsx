@@ -522,7 +522,7 @@ describe("FeatureItem with a resolution (#869)", () => {
       ],
       geography: {
         global: false,
-        regions: { Europe: ["DE"] },
+        regions: { Europe: ["DE", "FR"] },
         country: ["US"],
       },
       keyFeatures: {

@@ -104,7 +104,7 @@ function sectorChain(sector: string, pathway: ResolvablePathway): string[] {
  * Sorting by size rather than declaration order is what keeps that walk
  * outward when a publication lists the broader region first.
  *
- * A selection whose countries are unknown — an unmapped region, a stale token —
+ * A selection whose countries are unknown — a stale token, say —
  * is contained by nothing (see `containsCodes`), so it goes straight to
  * `[selected, across regions, Global]`.
  */
