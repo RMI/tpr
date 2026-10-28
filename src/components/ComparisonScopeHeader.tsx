@@ -1,4 +1,4 @@
-import React, { useId, useState } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import type { PathwayMetadataType, Sector } from "../types";
 import BadgeArray from "./BadgeArray";
 import ScopeAxisRow, { LABEL_CLASS, pinSelected } from "./ScopeAxisRow";
@@ -31,6 +31,12 @@ interface ComparisonScopeHeaderProps {
   onGeographyChange: (pathwayId: string, next: string) => void;
   /** Whether the columns are showing the same thing. */
   divergence: ColumnGeographyDivergence;
+  /**
+   * Called with the sticky bar's height whenever it changes — the condensed
+   * names sliding in, "Show all" sectors, the divergence notice — so content
+   * frozen below it (#1033) can sit flush against it.
+   */
+  onHeightChange?: (height: number) => void;
 }
 
 /**
@@ -76,8 +82,30 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
   selectedGeographies,
   onGeographyChange,
   divergence,
+  onHeightChange,
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
+
+  // Kept in a ref so a caller passing an inline callback does not recreate
+  // the observer on every render.
+  const stickyRef = useRef<HTMLDivElement | null>(null);
+  const onHeightChangeRef = useRef(onHeightChange);
+  onHeightChangeRef.current = onHeightChange;
+
+  useEffect(() => {
+    const el = stickyRef.current;
+    if (!el || typeof ResizeObserver === "undefined") return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        onHeightChangeRef.current?.(entry.contentRect?.height ?? 0);
+      }
+    });
+    observer.observe(el);
+
+    return () => observer.disconnect();
+  }, []);
+
   const [sectorExpanded, setSectorExpanded] = useState(false);
   // As on the detail page: "Show all" only when sectors are cut off (#1026).
   const [sectorOverflows, setSectorOverflows] = useState(false);
@@ -102,7 +130,10 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
         className="h-px -mb-px"
       />
 
-      <div className="sticky top-(--env-banner-height) z-20">
+      <div
+        ref={stickyRef}
+        className="sticky top-(--env-banner-height) z-20"
+      >
         {/*
           Condensed column names, with the publication year on the right; the
           year never truncates, so the name gives way first. aria-hidden
