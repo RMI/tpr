@@ -142,6 +142,20 @@ describe("KeyFeatures", () => {
     expect(screen.queryByText("Key Features")).not.toBeInTheDocument();
   });
 
+  it("shows a description directly under the heading (#1029)", () => {
+    render(
+      <KeyFeatures
+        keyFeatures={mockKeyFeatures}
+        title="Assumptions & Trends"
+        description="What this panel is for."
+      />,
+    );
+    expect(
+      screen.getByRole("heading", { name: "Assumptions & Trends" })
+        .nextElementSibling,
+    ).toHaveTextContent("What this panel is for.");
+  });
+
   it("renders nothing when the requested group set is empty", () => {
     const { container } = render(
       <KeyFeatures

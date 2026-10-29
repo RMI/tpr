@@ -14,6 +14,7 @@ import { scopeSelectionLabel } from "../utils/scopeLabel";
 import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import TextWithTooltip from "./TextWithTooltip";
 import Badge from "./Badge";
+import SectionIntro from "./SectionIntro";
 import SentimentScale, { getSentimentPalette } from "./SentimentScale";
 import NeutralScale, { NEUTRAL_SELECTED_COLOR } from "./NeutralScale";
 import { CoreDriverItem } from "./CoreDrivers";
@@ -81,7 +82,7 @@ interface GroupConfig {
 }
 
 /**
- * The six themed groups of the "Assumptions & Trends Overview".
+ * The six themed groups of the "Assumptions & Trends" panel.
  *
  * Each group interleaves the free-text `coreDrivers` narrative with the
  * enumerated `keyFeatures` values for the same theme — a pathway's policy
@@ -578,6 +579,8 @@ interface KeyFeaturesProps {
   groups?: KeyFeatureGroupId[];
   /** Panel heading. Defaults to "Key Features". */
   title?: React.ReactNode;
+  /** A short explanation of the panel, shown under the heading (#1029). */
+  description?: React.ReactNode;
 }
 
 const KeyFeatures: React.FC<KeyFeaturesProps> = ({
@@ -587,6 +590,7 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
   coreDrivers,
   groups,
   title = "Key Features",
+  description,
 }) => {
   const visible = groups
     ? GROUPS.filter((group) => groups.includes(group.id))
@@ -603,8 +607,13 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
   return (
     <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
       {title ? (
-        <h3 className="text-lg font-medium text-rmigray-800 mb-3">{title}</h3>
+        <h3
+          className={`text-lg font-medium text-rmigray-800 ${description ? "mb-1" : "mb-3"}`}
+        >
+          {title}
+        </h3>
       ) : null}
+      {description ? <SectionIntro>{description}</SectionIntro> : null}
       {/*
         Each group is its own card, so the grid `gap` owns all separation — no
         index-derived borders, which could not have expressed "first row" across

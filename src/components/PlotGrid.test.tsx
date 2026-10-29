@@ -325,6 +325,26 @@ describe("PlotGrid", () => {
     expect(screen.queryByRole("heading")).not.toBeInTheDocument();
   });
 
+  it("shows a description directly under the heading, with or without data (#1029)", () => {
+    const data = timeseries({ metric: "capacity", geography: "Global" });
+
+    for (const timeseriesdata of [data, null]) {
+      const { unmount } = render(
+        <PlotGrid
+          timeseriesdata={timeseriesdata}
+          pathwayGeography={SEA}
+          title="Benchmark Plots"
+          description="What these plots are for."
+        />,
+      );
+      expect(
+        screen.getByRole("heading", { name: "Benchmark Plots" })
+          .nextElementSibling,
+      ).toHaveTextContent("What these plots are for.");
+      unmount();
+    }
+  });
+
   it("keeps the titled panel when there is nothing to plot", () => {
     render(
       <PlotGrid
