@@ -1,8 +1,9 @@
 import type { PathwayMetadataType } from "../types";
 import { asEntries } from "./keyFeatureScope";
 import {
-  MEASURE_NOT_APPLICABLE,
+  isForbiddenKeyFeatureSector,
   isScopeLevelNotApplicable,
+  type KeyFeatureKey,
 } from "./keyFeatureRules";
 import { pathwayToolAvailability } from "./timeseriesAvailability";
 
@@ -23,14 +24,12 @@ export const ALL_AVAILABLE: ScopeAvailability = {
 };
 
 /**
- * Does a key-feature value say something about its scope? Not the two
- * not-applicable markers, which the resolver skips, and not "No information":
- * a token whose only values are "No information" would show nothing new when
- * selected.
+ * Does a key-feature value say something about its scope? Not the scope-level
+ * marker, which the resolver skips, and not "No information": a token whose
+ * only values are "No information" would show nothing new when selected.
  */
 function isInformative(value: unknown): boolean {
   if (value == null || isScopeLevelNotApplicable(value)) return false;
-  if (value === MEASURE_NOT_APPLICABLE) return false;
   const values = Array.isArray(value) ? value : [value];
   return values.some((v) => v !== "No information");
 }
@@ -41,8 +40,11 @@ function keyFeatureScopes(
 ): { sectors: Set<string>; geographies: Set<string> } {
   const sectors = new Set<string>();
   const geographies = new Set<string>();
-  for (const field of Object.values(keyFeatures ?? {})) {
-    for (const entry of asEntries(field)) {
+  for (const [field, value] of Object.entries(keyFeatures ?? {})) {
+    for (const entry of asEntries(value)) {
+      // The resolver never reads a forbidden sector, whatever it holds.
+      if (isForbiddenKeyFeatureSector(field as KeyFeatureKey, entry.sector))
+        continue;
       if (!isInformative(entry.value)) continue;
       sectors.add(entry.sector);
       geographies.add(entry.geography);

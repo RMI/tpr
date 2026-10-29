@@ -1,7 +1,7 @@
 /**
  * The rules for reading scoped keyFeatures that the app and the validator must
  * agree on (#869, cookbook decision 0023): the scope sentinels, the
- * Electrification × Power exclusion, the scope-level sentinel value, which
+ * forbidden field × sector combinations, the scope-level sentinel value, which
  * countries a pathway's own geography token covers, and a pathway's widest scope
  * on each axis.
  *
@@ -41,17 +41,29 @@ export const ACROSS_REGIONS = "across regions";
 export const SCOPE_LEVEL_NOT_APPLICABLE = "Not applicable at this scope level";
 
 /**
- * The measure for a field that cannot apply to a sector at all — Electrification
- * of the Power sector, since power already is electricity. Distinct from
+ * Field × sector combinations that cannot apply by definition: power cannot be
+ * electrified, because it already is electricity. Distinct from
  * {@link SCOPE_LEVEL_NOT_APPLICABLE}, which is about where a value is recorded
  * rather than whether one can exist.
  *
- * The resolver treats it like that sentinel: not an answer, so it skips the cell
- * and falls back to `across sectors`. Which (field, sector) pairs must carry it,
- * and that it appears nowhere else, is the validator's rule (PR 2), so the
- * resolver needs no list of them.
+ * A forbidden combination carries no value at all — not a marker, not
+ * `No information` — so nothing in the data says it is forbidden; this list is
+ * the one place that does. The validator rejects any entry at one, and the
+ * resolver drops the sector from the chain without reading it, so the page can
+ * say the feature does not apply rather than that nothing is recorded.
  */
-export const MEASURE_NOT_APPLICABLE = "Not Applicable";
+export const FORBIDDEN_KEY_FEATURE_SECTORS: Readonly<
+  Partial<Record<KeyFeatureKey, readonly string[]>>
+> = {
+  electrification: ["Power"],
+};
+
+export function isForbiddenKeyFeatureSector(
+  field: KeyFeatureKey,
+  sector: string,
+): boolean {
+  return FORBIDDEN_KEY_FEATURE_SECTORS[field]?.includes(sector) ?? false;
+}
 
 /**
  * Is this cell the scope-level sentinel? True for the scalar, and for any array

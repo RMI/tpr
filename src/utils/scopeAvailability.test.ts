@@ -93,7 +93,6 @@ describe("scopeAvailability", () => {
       const av = scopeAvailability(
         withKeyFeatures(
           entry("Steel", "TH", "Not applicable at this scope level"),
-          entry("Power", "VN", "Not Applicable"),
           entry("Cement", "ID", "No information"),
           entry("Rail", "MY", ["No information"]),
           entry("Aviation", "PH", ["Not applicable at this scope level"]),
@@ -102,12 +101,30 @@ describe("scopeAvailability", () => {
         { keyFeatures: true },
       );
 
-      for (const sector of ["Steel", "Power", "Cement", "Rail", "Aviation"]) {
+      for (const sector of ["Steel", "Cement", "Rail", "Aviation"]) {
         expect(av.hasSector(sector)).toBe(false);
       }
-      for (const geography of ["TH", "VN", "ID", "MY", "PH"]) {
+      for (const geography of ["TH", "ID", "MY", "PH"]) {
         expect(av.hasGeography(geography)).toBe(false);
       }
+    });
+
+    it("ignore a forbidden field × sector, whatever it holds", () => {
+      // The resolver never reads Electrification of Power, so a value there
+      // would make Power selectable with nothing new to show.
+      const av = scopeAvailability(
+        {
+          dependencies: [],
+          keyFeatures: {
+            electrification: [entry("Power", "VN", "Significant increase")],
+          },
+        } as unknown as PathwayMetadataType,
+        [],
+        { keyFeatures: true },
+      );
+
+      expect(av.hasSector("Power")).toBe(false);
+      expect(av.hasGeography("VN")).toBe(false);
     });
 
     it("count an array value with anything besides No information", () => {
