@@ -22,6 +22,7 @@ const ALL_VARIANTS = [
   "geographyCountry-pub",
   "sector-pub",
   "metric-pub",
+  "scope",
 ] as const;
 
 describe("Badge component", () => {
@@ -220,6 +221,19 @@ describe("Badge component", () => {
       expect(badge).toHaveClass("text-rmipurple-800");
       expect(badge).toHaveClass("border-rmipurple-400");
     });
+  });
+
+  it("applies outlined neutral styling when variant is 'scope'", () => {
+    const { container } = render(
+      <Badge variant="scope">Across sectors · Global</Badge>,
+    );
+    const badge = container.firstChild as HTMLElement;
+    expect(badge).toHaveClass("bg-transparent");
+    expect(badge).toHaveClass("text-rmigray-500");
+    expect(badge).toHaveClass("border-rmigray-200");
+    // Neutral, so it cannot be mistaken for the sector or geography badges.
+    expect(badge).not.toHaveClass("text-solar-800");
+    expect(badge).not.toHaveClass("text-pinishgreen-800");
   });
 
   describe("every colour class resolves to a defined theme token", () => {

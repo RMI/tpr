@@ -29,21 +29,21 @@ const fixtures = [
     keyFeatures: {
       emissionsTrajectory: [
         {
-          sector: "cross-sector",
+          sector: "across sectors",
           geography: "Global",
           value: "Significant decrease",
         },
       ],
       policyAmbition: [
         {
-          sector: "cross-sector",
+          sector: "across sectors",
           geography: "Global",
           value: "High ambition policies",
         },
       ],
       policyTypes: [
         {
-          sector: "cross-sector",
+          sector: "across sectors",
           geography: "Global",
           value: ["Carbon price"],
         },

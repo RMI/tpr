@@ -85,12 +85,14 @@ const PathwayDetailPage: React.FC = () => {
   // Which ribbon tokens have something to show (#1017). Read synchronously
   // from the bundled index, so the ribbon and the seed agree from the first
   // render and nothing restyles once the async dataset load below finishes.
+  // Key features count here because this page resolves them for the scope.
   const scopeAvail = useMemo(
     () =>
       pathway
         ? scopeAvailability(
             pathway,
             datasetsForPathway(getTimeseriesIndex(), pathway.id),
+            { keyFeatures: true },
           )
         : ALL_AVAILABLE,
     [pathway],
@@ -375,11 +377,15 @@ const PathwayDetailPage: React.FC = () => {
 
   /*
     The same component and config render both the full driver/feature grid and
-    the At-a-glance subset, so the two cannot drift apart.
+    the At-a-glance subset, so the two cannot drift apart. Both resolve each key
+    feature for the ribbon's scope (#869), like the plots and tables below; an
+    empty axis needs no guard, because the resolver reads it as the widest.
   */
   const assumptionsPanel = (
     <KeyFeatures
       keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
       coreDrivers={pathway.coreDrivers}
       title="Assumptions & Trends"
       description="The key assumptions the pathway makes to drive changes over time, and the resulting trends in the output variables. Parameters which are ‘assumptions’ in one pathway may be ‘trends’ in another, depending on the design of the pathway."
@@ -389,6 +395,8 @@ const PathwayDetailPage: React.FC = () => {
   const assumptionsSummary = (
     <KeyFeatures
       keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
       coreDrivers={pathway.coreDrivers}
       groups={["policies", "emissions", "technology"]}
       title="Assumptions & Trends Preview"

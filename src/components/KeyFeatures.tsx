@@ -1,7 +1,17 @@
 import React from "react";
+import clsx from "clsx";
 import { PathwayMetadataType } from "../types";
+import type { PathwayScopeSelection } from "../types";
 import { getKeyFeatureTooltip } from "../utils/tooltipUtils";
 import { widestValue } from "../utils/keyFeatureScope";
+import {
+  createKeyFeatureResolver,
+  sourceScopeLabel,
+  type ResolvedKeyFeature,
+  type Scope,
+} from "../utils/keyFeatureResolution";
+import { scopeSelectionLabel } from "../utils/scopeLabel";
+import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import TextWithTooltip from "./TextWithTooltip";
 import Badge from "./Badge";
 import SectionIntro from "./SectionIntro";
@@ -15,24 +25,22 @@ const PILL_SELECTED =
 const PILL_UNSELECTED =
   "inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-neutral-50 text-neutral-400 border-neutral-200 mr-2 mb-1";
 
-type FeatureKey = keyof PathwayMetadataType["keyFeatures"];
-
 interface SingleSelectFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "single-select";
   options: string[];
 }
 
 interface MultiSelectFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "multi-select";
   options: string[];
 }
 
 interface SentimentFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "sentiment";
   scaleValues: string[];
@@ -40,7 +48,7 @@ interface SentimentFeatureConfig {
 }
 
 interface NeutralFeatureConfig {
-  key: FeatureKey;
+  key: KeyFeatureKey;
   label: string;
   type: "neutral";
   scaleValues: string[];
@@ -189,6 +197,7 @@ export const GROUPS: GroupConfig[] = [
           "SAF",
           "Battery storage",
           "EGS/AGS",
+          "SMR",
           "Other new technologies",
         ],
       },
@@ -275,9 +284,46 @@ export const GROUPS: GroupConfig[] = [
   },
 ];
 
+/** The visible text of every absent value, authored or not. */
+const NO_INFORMATION = "No information";
+
+/*
+  Tooltip copy for the states the resolver tells apart (#869). Authored and
+  exhausted "No information" read the same on the page and differ only here:
+  one is the pathway's own answer, the other means nothing is recorded at any
+  scope it reports.
+*/
+const AUTHORED_NO_INFORMATION_TOOLTIP = "The pathway does not report this.";
+const UNAVAILABLE_TOOLTIP =
+  "Nothing is recorded for this pathway at any scope.";
+
+/**
+ * Why a value is inherited. A feature that cannot apply to the requested sector
+ * says so, rather than claiming that sector simply has no value.
+ */
+function fallbackTooltip(
+  feature: FeatureConfig,
+  requested: Scope,
+  notApplicableSector: string | undefined,
+): string {
+  const reason = notApplicableSector
+    ? `${feature.label} does not apply to the ${notApplicableSector} sector`
+    : `No value for ${scopeSelectionLabel(requested)}`;
+  return `${reason}; showing the closest broader scope this pathway reports.`;
+}
+
+/** Nothing selected on either axis, which resolves at the pathway's widest. */
+const WIDEST_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
+
 export interface FeatureItemProps {
   feature: FeatureConfig;
   keyFeatures: PathwayMetadataType["keyFeatures"];
+  /**
+   * The resolver's answer for the reader's scope (#869). Without it the item
+   * renders the field's widest value, exactly as it did before the resolver —
+   * the comparison page's path until it resolves per column (1b).
+   */
+  resolution?: ResolvedKeyFeature;
   selectedOnly?: boolean;
   labelClassName?: string;
   showLabel?: boolean;
@@ -286,59 +332,99 @@ export interface FeatureItemProps {
 export const FeatureItem: React.FC<FeatureItemProps> = ({
   feature,
   keyFeatures,
+  resolution,
   selectedOnly = false,
   labelClassName = "text-xs font-medium text-rmigray-500",
   showLabel = true,
 }) => {
   // v2 stores each feature as scoped {sector, geography, value} entries (#858).
-  // Render the value at the broadest scope, which reproduces v1's output exactly
-  // for codemod-migrated data (one entry, at its widest scope). #869 replaces this
-  // with a scope-aware resolver and #859 adds the badge that names the scope.
-  const rawValue = widestValue(keyFeatures[feature.key]);
+  // A resolution carries the value for the reader's scope; without one, the
+  // broadest scope's value reproduces v1's output for codemod-migrated data.
+  const rawValue = resolution
+    ? resolution.status === "resolved"
+      ? resolution.value
+      : undefined
+    : widestValue(keyFeatures[feature.key]);
 
-  const label = <p className={`${labelClassName} mb-1.5`}>{feature.label}</p>;
+  // Only a resolution can say which kind of absence this is, so the
+  // widest-value path keeps its untooltipped badge.
+  const absenceTooltip =
+    resolution?.status === "unavailable"
+      ? UNAVAILABLE_TOOLTIP
+      : resolution
+        ? AUTHORED_NO_INFORMATION_TOOLTIP
+        : undefined;
+  const noInformation = (
+    <Badge tooltip={absenceTooltip}>{NO_INFORMATION}</Badge>
+  );
+
+  // Names the broader scope an inherited value came from (#859).
+  const scopeBadge =
+    resolution?.status === "resolved" && resolution.isFallback ? (
+      <Badge
+        variant="scope"
+        tooltip={fallbackTooltip(
+          feature,
+          resolution.requestedScope,
+          resolution.notApplicableSector,
+        )}
+      >
+        {sourceScopeLabel(resolution.sourceScope)}
+      </Badge>
+    ) : null;
+
+  /*
+    The feature label, with the scope badge beside it. Without a badge this is
+    the plain label it always was; without a label (the comparison grid's
+    cells) the badge stands alone, so an inherited value never appears without
+    saying where it came from.
+  */
+  const header = (spacing?: string) => {
+    if (!showLabel) return scopeBadge;
+    if (!scopeBadge) {
+      return <p className={clsx(labelClassName, spacing)}>{feature.label}</p>;
+    }
+    return (
+      <div className={clsx("flex flex-wrap items-baseline gap-x-2", spacing)}>
+        <p className={labelClassName}>{feature.label}</p>
+        {scopeBadge}
+      </div>
+    );
+  };
+
+  // A selected "No information" pill explains the absence the way the badge
+  // does; every other pill describes its own value.
+  const pill = (opt: string, isSelected: boolean) => (
+    <TextWithTooltip
+      key={opt}
+      text={
+        <span className={isSelected ? PILL_SELECTED : PILL_UNSELECTED}>
+          {opt}
+        </span>
+      }
+      tooltip={
+        isSelected && opt === NO_INFORMATION && absenceTooltip
+          ? absenceTooltip
+          : getKeyFeatureTooltip(feature.key, opt)
+      }
+      position="right"
+    />
+  );
 
   if (feature.type === "single-select") {
     const selected =
       typeof rawValue === "string" && feature.options.includes(rawValue)
         ? rawValue
-        : "No information";
+        : NO_INFORMATION;
     return (
       <div>
-        {showLabel && label}
+        {header("mb-1.5")}
         <div className="flex flex-wrap">
-          {selectedOnly ? (
-            selected === "No information" ? (
-              <Badge>No information</Badge>
-            ) : (
-              <TextWithTooltip
-                text={<span className={PILL_SELECTED}>{selected}</span>}
-                tooltip={getKeyFeatureTooltip(feature.key, selected)}
-                position="right"
-              />
-            )
-          ) : (
-            feature.options.map((opt) => {
-              if (opt === selected) {
-                return (
-                  <TextWithTooltip
-                    key={opt}
-                    text={<span className={PILL_SELECTED}>{opt}</span>}
-                    tooltip={getKeyFeatureTooltip(feature.key, opt)}
-                    position="right"
-                  />
-                );
-              }
-              return (
-                <TextWithTooltip
-                  key={opt}
-                  text={<span className={PILL_UNSELECTED}>{opt}</span>}
-                  tooltip={getKeyFeatureTooltip(feature.key, opt)}
-                  position="right"
-                />
-              );
-            })
-          )}
+          {selectedOnly
+            ? selected === NO_INFORMATION
+              ? noInformation
+              : pill(selected, true)
+            : feature.options.map((opt) => pill(opt, opt === selected))}
         </div>
       </div>
     );
@@ -353,43 +439,15 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     );
     return (
       <div>
-        {showLabel && label}
+        {header("mb-1.5")}
         <div className="flex flex-wrap">
-          {selectedOnly ? (
-            validSelected.length === 0 ? (
-              <Badge>No information</Badge>
-            ) : (
-              validSelected.map((opt) => (
-                <TextWithTooltip
-                  key={opt}
-                  text={<span className={PILL_SELECTED}>{opt}</span>}
-                  tooltip={getKeyFeatureTooltip(feature.key, opt)}
-                  position="right"
-                />
-              ))
-            )
-          ) : (
-            feature.options.map((opt) => {
-              if (selectedArr.includes(opt)) {
-                return (
-                  <TextWithTooltip
-                    key={opt}
-                    text={<span className={PILL_SELECTED}>{opt}</span>}
-                    tooltip={getKeyFeatureTooltip(feature.key, opt)}
-                    position="right"
-                  />
-                );
-              }
-              return (
-                <TextWithTooltip
-                  key={opt}
-                  text={<span className={PILL_UNSELECTED}>{opt}</span>}
-                  tooltip={getKeyFeatureTooltip(feature.key, opt)}
-                  position="right"
-                />
-              );
-            })
-          )}
+          {selectedOnly
+            ? validSelected.length === 0
+              ? noInformation
+              : validSelected.map((opt) => pill(opt, true))
+            : feature.options.map((opt) =>
+                pill(opt, selectedArr.includes(opt)),
+              )}
         </div>
       </div>
     );
@@ -399,16 +457,16 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     const selectedValue =
       typeof rawValue === "string" && rawValue.trim()
         ? rawValue
-        : "No information";
+        : NO_INFORMATION;
     const selectedIndex = feature.scaleValues.indexOf(selectedValue);
-    const isNoInfo = selectedValue === "No information" || selectedIndex < 0;
+    const isNoInfo = selectedValue === NO_INFORMATION || selectedIndex < 0;
     const palette = getSentimentPalette(
       feature.scaleValues.length,
       feature.greenEnd,
     );
     const textColor = palette[selectedIndex]?.text ?? "text-rmigray-500";
     const valueDisplay = isNoInfo ? (
-      <Badge>No information</Badge>
+      noInformation
     ) : (
       <span className={`text-xs font-semibold ${textColor}`}>
         {selectedValue}
@@ -427,11 +485,14 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
       <div>
         {showLabel ? (
           <div className="mb-1.5">
-            <p className={labelClassName}>{feature.label}</p>
+            {header()}
             <div className={alignClass}>{valueDisplay}</div>
           </div>
         ) : (
-          <div className={`mb-1.5 ${alignClass}`}>{valueDisplay}</div>
+          <>
+            {header()}
+            <div className={`mb-1.5 ${alignClass}`}>{valueDisplay}</div>
+          </>
         )}
         <SentimentScale
           values={feature.scaleValues}
@@ -448,14 +509,14 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     const selectedValue =
       typeof rawValue === "string" && rawValue.trim()
         ? rawValue
-        : "No information";
+        : NO_INFORMATION;
     const selectedIndex = feature.scaleValues.indexOf(selectedValue);
-    const isNoInfo = selectedValue === "No information" || selectedIndex < 0;
+    const isNoInfo = selectedValue === NO_INFORMATION || selectedIndex < 0;
     const textColor = isNoInfo
       ? "text-rmigray-500"
       : NEUTRAL_SELECTED_COLOR.text;
     const valueDisplay = isNoInfo ? (
-      <Badge>No information</Badge>
+      noInformation
     ) : (
       <span className={`text-xs font-semibold ${textColor}`}>
         {selectedValue}
@@ -474,11 +535,14 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
       <div>
         {showLabel ? (
           <div className="mb-1.5">
-            <p className={labelClassName}>{feature.label}</p>
+            {header()}
             <div className={alignClass}>{valueDisplay}</div>
           </div>
         ) : (
-          <div className={`mb-1.5 ${alignClass}`}>{valueDisplay}</div>
+          <>
+            {header()}
+            <div className={`mb-1.5 ${alignClass}`}>{valueDisplay}</div>
+          </>
         )}
         <NeutralScale
           values={feature.scaleValues}
@@ -496,6 +560,17 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 interface KeyFeaturesProps {
   keyFeatures: PathwayMetadataType["keyFeatures"];
   /**
+   * Resolve each feature for `scope` (#869) instead of showing its widest
+   * value, badging any value inherited from a broader scope. Omit for the
+   * widest-value rendering.
+   */
+  pathway?: PathwayMetadataType;
+  /**
+   * The scope to resolve for, read only with `pathway`. An empty axis, or no
+   * scope at all, resolves at the pathway's widest value on that axis.
+   */
+  scope?: PathwayScopeSelection;
+  /**
    * The pathway's core drivers. Omit to render key features alone — no driver
    * prose appears unless this is supplied.
    */
@@ -510,6 +585,8 @@ interface KeyFeaturesProps {
 
 const KeyFeatures: React.FC<KeyFeaturesProps> = ({
   keyFeatures,
+  pathway,
+  scope = WIDEST_SCOPE,
   coreDrivers,
   groups,
   title = "Key Features",
@@ -520,6 +597,12 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
     : GROUPS;
 
   if (visible.length === 0) return null;
+
+  // One resolver per render, shared by every feature: the effective scope and
+  // its fallback chains are the same for all of them.
+  const resolve = pathway
+    ? createKeyFeatureResolver(pathway, scope)
+    : undefined;
 
   return (
     <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
@@ -564,6 +647,7 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
                   key={feature.key}
                   feature={feature}
                   keyFeatures={keyFeatures}
+                  resolution={resolve?.(feature.key)}
                 />
               ))}
             </div>
