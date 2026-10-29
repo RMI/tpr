@@ -237,6 +237,43 @@ describe("validateScopedEntries — reporting", () => {
   });
 });
 
+describe("validateScopedEntries — forbidden field × sector", () => {
+  const electrification = (sector: string, value: string) =>
+    validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          electrification: [{ sector, geography: "SG", value }],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+
+  it.each(["Not Applicable", "No information", "Moderate increase"])(
+    "rejects Electrification of Power holding %s",
+    (value) => {
+      const errors = electrification("Power", value);
+      expect(errors).toHaveLength(1);
+      expect(errors[0]).toContain("/keyFeatures/electrification/0 ");
+      expect(errors[0]).toContain("Leave the entry out");
+    },
+  );
+
+  it("accepts Electrification of another sector, and across sectors", () => {
+    expect(electrification("Steel", "Moderate increase")).toEqual([]);
+    expect(electrification("across sectors", "Moderate increase")).toEqual([]);
+  });
+
+  it("accepts other fields for Power", () => {
+    const errors = validateScopedEntries(
+      pathway({
+        keyFeatures: {
+          emissionsTrajectory: [entry("Power", "SG")],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+});
+
 describe("validateScopedEntries — one value per scope", () => {
   const dup = (geography: string, value: string) => ({
     sector: "Power",

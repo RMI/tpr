@@ -192,12 +192,36 @@ describe("upgradeV1ToV2", () => {
     const { doc } = upgradeV1ToV2(v1({}));
     const kf = doc.keyFeatures;
     expect(Object.keys(kf)).toHaveLength(11);
-    for (const entries of Object.values(kf)) {
+    for (const [field, entries] of Object.entries(kf)) {
+      // Power-only, so Electrification has no scope it can apply to: see below.
+      if (field === "electrification") continue;
       expect(entries).toHaveLength(1);
       expect(entries[0].sector).toBe("Power");
       expect(entries[0].geography).toBe("Global");
     }
     expect(kf.emissionsTrajectory[0].value).toBe("Significant decrease");
+  });
+
+  it("emits no Electrification for a Power-only pathway, which it cannot apply to", () => {
+    expect(upgradeV1ToV2(v1({})).doc.keyFeatures.electrification).toEqual([]);
+  });
+
+  it("keeps Electrification across sectors for a multi-sector pathway", () => {
+    const { doc } = upgradeV1ToV2(
+      v1({
+        sectors: [
+          { name: "Power", technologies: [] },
+          { name: "Buildings", technologies: [] },
+        ],
+      } as Partial<PathwayMetadataV1>),
+    );
+    expect(doc.keyFeatures.electrification).toEqual([
+      {
+        sector: "across sectors",
+        geography: "Global",
+        value: "Significant increase",
+      },
+    ]);
   });
 
   it("nests an array-valued field rather than splatting it into entries", () => {

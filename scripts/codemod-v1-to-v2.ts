@@ -39,6 +39,7 @@ import { fileURLToPath } from "node:url";
 import type { PathwayMetadataV1 } from "../src/types/pathwayMetadata.v1.d.ts";
 import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
 import { technologyBelongsToSector } from "../src/utils/timeseriesTaxonomy.ts";
+import { isForbiddenKeyFeatureSector } from "../src/utils/keyFeatureRules.ts";
 
 const V1_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v1.json";
 const V2_ID = "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
@@ -223,7 +224,14 @@ export function upgradeV1ToV2(doc: PathwayMetadataV1): UpgradeResult {
           ),
           energyEfficiency: scoped(sector, geography, kf.energyEfficiency),
           energyDemand: scoped(sector, geography, kf.energyDemand),
-          electrification: scoped(sector, geography, kf.electrification),
+          // A Power-only pathway's widest scope is Power, which electrification
+          // cannot apply to: the pair carries no value at all.
+          electrification: isForbiddenKeyFeatureSector(
+            "electrification",
+            sector,
+          )
+            ? []
+            : scoped(sector, geography, kf.electrification),
           policyTypes: scoped(sector, geography, kf.policyTypes),
           technologyCostTrend: scoped(
             sector,

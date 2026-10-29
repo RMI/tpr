@@ -18,6 +18,7 @@ import {
   buildDataAvailability,
   descriptionFromV1,
   keyFeaturesFromV1,
+  buildKeyFeatures,
   charCount,
   withinLimit,
   buildCoreDrivers,
@@ -164,12 +165,17 @@ describe("value normalization", () => {
     expect(isAbsent("No information")).toBe(false);
   });
 
-  it("does not treat the scope sentinels as absent", () => {
-    // Cookbook decision 0023 made these authored values, and #858 added them to
-    // the schema. They used to be swallowed here, which discarded the very
-    // distinction they exist to draw: an explicit value terminates #869's
+  it("does not treat the scope sentinel as absent", () => {
+    // Cookbook decision 0023 made it an authored value, and #858 added it to
+    // the schema. It used to be swallowed here, which discarded the very
+    // distinction it exists to draw: an explicit value terminates #869's
     // fallback chain where an absent entry keeps broadening.
     expect(isAbsent("Not applicable at this scope level")).toBe(false);
+  });
+
+  it("does not treat the retired Not Applicable as absent either", () => {
+    // Electrification × Power must now be blank. A leftover Not Applicable is
+    // a value, so it reaches buildKeyFeatures' refusal instead of vanishing.
     expect(isAbsent("Not Applicable")).toBe(false);
   });
 
@@ -489,6 +495,81 @@ describe("keyFeaturesFromV1", () => {
     };
     expect(keyFeaturesFromV1(v2, new Report(), "T")).toBeNull();
     expect(keyFeaturesFromV1(null, new Report(), "T")).toBeNull();
+  });
+  it("drops Electrification of a Power-only pathway, which cannot apply", () => {
+    const kf = keyFeaturesFromV1(
+      {
+        ...v1,
+        keyFeatures: { ...v1.keyFeatures, electrification: "Minor increase" },
+      },
+      new Report(),
+      "T",
+    );
+    expect(kf?.electrification).toEqual([]);
+    expect(kf?.emissionsTrajectory).toHaveLength(1);
+  });
+});
+
+describe("buildKeyFeatures", () => {
+  const SECTORS = new Set(["Power", "Buildings"]);
+  const GEOS = new Set(["across regions", "TH", "VN"]);
+  const row = (sector: string, geography: string, electrification: string) => ({
+    "Key features sector scope": sector,
+    "Key features regional scope": geography,
+    "Emissions trajectory": "Moderate decrease",
+    "Electrification": electrification,
+  });
+
+  it.each(["Not Applicable", "No information", "Moderate increase"])(
+    "refuses an Electrification cell on a Power row holding %s",
+    (value) => {
+      const report = new Report();
+      const kf = buildKeyFeatures(
+        [row("Power", "TH", value), row("Power", "VN", value)],
+        SECTORS,
+        GEOS,
+        report,
+        "T",
+      );
+      // One error naming both rows, not one per cell.
+      expect(report.errors).toHaveLength(1);
+      expect(report.errors[0]).toContain(
+        "T: Electrification cannot apply to the Power sector",
+      );
+      expect(report.errors[0]).toContain("{TH, VN}");
+      expect(kf.electrification).toEqual([]);
+      // The rest of the row still imports.
+      expect(kf.emissionsTrajectory).toHaveLength(2);
+    },
+  );
+
+  it("accepts a blank Electrification cell on a Power row", () => {
+    const report = new Report();
+    const kf = buildKeyFeatures(
+      [row("Power", "TH", "")],
+      SECTORS,
+      GEOS,
+      report,
+      "T",
+    );
+    expect(report.errors).toEqual([]);
+    expect(kf.electrification).toEqual([]);
+  });
+
+  it("imports Electrification for other sectors and across sectors", () => {
+    const report = new Report();
+    const kf = buildKeyFeatures(
+      [
+        row("Buildings", "TH", "Minor increase"),
+        row("across sectors", "across regions", "Moderate increase"),
+      ],
+      SECTORS,
+      GEOS,
+      report,
+      "T",
+    );
+    expect(report.errors).toEqual([]);
+    expect(kf.electrification).toHaveLength(2);
   });
 });
 

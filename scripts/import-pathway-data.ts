@@ -42,6 +42,10 @@ import {
   availabilityMetricsForSector,
   technologyBelongsToSector,
 } from "../src/utils/timeseriesTaxonomy.ts";
+import {
+  isForbiddenKeyFeatureSector,
+  type KeyFeatureKey,
+} from "../src/utils/keyFeatureRules.ts";
 import countryCodeSchema from "../src/schema/common/countryCode.v1.json" with { type: "json" };
 import pathwayMetadataV2Schema from "../src/schema/pathwayMetadata.v2.json" with { type: "json" };
 import sectorSchema from "../src/schema/common/sector.v1.json" with { type: "json" };
@@ -769,14 +773,19 @@ async function readWorkbook(path: string, prefix: string): Promise<Sheets> {
  * Whether a cell records nothing at all, as against recording an absence.
  *
  * The `not applicable` / `not available` prefixes used to be here, and taking
- * them out is the point of the change. Cookbook decision 0023 made those
- * authored values rather than empty cells: `Not applicable at this scope level`
- * says this row is not the widest scope the field is calculated for, and
- * `Not Applicable` says the measure is meaningless for the sector at any scope.
- * #858 added both to the schema, and the epic turns on the distinction — an
+ * them out is the point of the change. Cookbook decision 0023 made
+ * `Not applicable at this scope level` an authored value rather than an empty
+ * cell: it says this row is not the widest scope the field is calculated for.
+ * #858 added it to the schema, and the epic turns on the distinction — an
  * explicit value terminates #869's fallback chain where an absent entry keeps
- * broadening. Swallowing them here threw away exactly what they were added to
+ * broadening. Swallowing it here threw away exactly what it was added to
  * express.
+ *
+ * 0023's other value, `Not Applicable` for a measure that is meaningless for
+ * the sector (Electrification × Power), is retired: such a pair now has no
+ * value at all, so its cell must be blank. It is deliberately not absent here
+ * either, so a leftover one reaches {@link buildKeyFeatures}'s refusal rather
+ * than vanishing.
  *
  * A consequence worth keeping: a cell still carrying a pre-0023 spelling now
  * fails `matchEnum` and is reported in `badValues` instead of vanishing, so the
@@ -1046,8 +1055,14 @@ type ScopedEntry = {
  * Emits every resolvable (sector, geography) scope. Entries whose sector or
  * geography does not resolve against the pathway's declared coverage are
  * omitted and reported, so the file still passes validateScopedEntries.
+ *
+ * A cell at a field × sector that cannot apply (Electrification × Power, see
+ * `FORBIDDEN_KEY_FEATURE_SECTORS`) must be blank. Any value there -- including
+ * the retired `Not Applicable` and `No information` -- is an authoring error
+ * that stops the import, as validateScopedEntries would reject the entry.
+ * Refused rather than dropped, so the workbook and the data cannot disagree.
  */
-function buildKeyFeatures(
+export function buildKeyFeatures(
   rows: Row[],
   declaredSectors: Set<string>,
   geoAllowed: Set<string>,
@@ -1063,6 +1078,8 @@ function buildKeyFeatures(
   const badSectors = new Set<string>();
   const badGeos = new Set<string>();
   const badValues = new Set<string>();
+  // "<column>\0<sector>" -> the geographies of rows with a value there.
+  const forbidden = new Map<string, string[]>();
   let dupScopes = 0;
 
   for (const row of rows) {
@@ -1096,6 +1113,11 @@ function buildKeyFeatures(
     for (const [column, field] of Object.entries(KF_COLUMN_TO_FIELD)) {
       const raw = row[column] ?? "";
       if (isAbsent(raw)) continue;
+      if (isForbiddenKeyFeatureSector(field as KeyFeatureKey, sector)) {
+        const key = `${column}\u0000${sector}`;
+        forbidden.set(key, [...(forbidden.get(key) ?? []), geography]);
+        continue;
+      }
       let value: string | string[] | null = null;
       if (KF_ARRAY_FIELDS.has(field)) {
         const tokens = splitList(raw);
@@ -1140,6 +1162,17 @@ function buildKeyFeatures(
     );
   if (dupScopes) parts.push(`${dupScopes} duplicate-scope value(s) collapsed`);
   if (parts.length > 1) report.note(`${id}: ${parts.join("; ")}`);
+
+  // One error per column and sector, naming its rows, rather than one per cell:
+  // a pathway can have dozens of Power rows.
+  for (const [key, geographies] of forbidden) {
+    const [column, sector] = key.split("\u0000");
+    report.error(
+      `${id}: ${column} cannot apply to the ${sector} sector, but ${geographies.length}` +
+        ` ${sector} row(s) give it a value {${geographies.join(", ")}} -- leave` +
+        ` those ${column} cells blank (not "Not Applicable", not "No information")`,
+    );
+  }
 
   for (const field of Object.keys(fields)) {
     fields[field].sort(

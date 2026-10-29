@@ -655,9 +655,6 @@ describe("feature config against the schema", () => {
     "No information",
     // Skipped by the resolver, never rendered.
     "Not applicable at this scope level",
-    // Retired: Electrification × Power, the one place it was used, now carries
-    // no value at all. Leaves the schema with the validator change.
-    "Not Applicable",
   ]);
 
   type ValueSchema = {

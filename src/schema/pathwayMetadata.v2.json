@@ -216,7 +216,7 @@
           }
         },
         "electrification": {
-          "description": "Represents the extent to which energy end-uses transition from fossil fuels to electricity. Scoped: see keyFeatures.",
+          "description": "Represents the extent to which energy end-uses transition from fossil fuels to electricity. Scoped: see keyFeatures. Never recorded for the Power sector, which it cannot apply to (validateScopes enforces this).",
           "type": "array",
           "uniqueItems": true,
           "items": {
@@ -241,7 +241,6 @@
                   "Minor increase",
                   "Moderate increase",
                   "Significant increase",
-                  "Not Applicable",
                   "Not applicable at this scope level"
                 ]
               }
