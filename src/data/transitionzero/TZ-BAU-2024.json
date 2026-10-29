@@ -245,63 +245,7 @@
         "value": "No information"
       }
     ],
-    "electrification": [
-      {
-        "sector": "Power",
-        "geography": "ASEAN",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "BN",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "ID",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "KH",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "LA",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "MM",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "MY",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "PH",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "SG",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "TH",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "VN",
-        "value": "Not Applicable"
-      }
-    ],
+    "electrification": [],
     "policyTypes": [
       {
         "sector": "Power",

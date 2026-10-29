@@ -123,11 +123,6 @@
         "sector": "across sectors",
         "geography": "PH",
         "value": "Moderate increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "PH",
-        "value": "Not Applicable"
       }
     ],
     "policyTypes": [
