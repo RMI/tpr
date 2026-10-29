@@ -38,6 +38,12 @@ const fixtures = [
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "across sectors", geography: "Global", value: "foo" },
+        // Only Europe records this, so it shows only while A is scoped there.
+        {
+          sector: "Power",
+          geography: "Europe",
+          value: "Moderate decrease",
+        },
       ],
     },
   },
@@ -391,6 +397,26 @@ describe("ComparisonPage — shared scope", () => {
       geographies.compareDocumentPosition(keyFeatures) &
         Node.DOCUMENT_POSITION_PRECEDING,
     ).toBeTruthy();
+  });
+
+  it("resolves each column's key features for its own geography", async () => {
+    await mountWithFixtures(
+      "cmp-a,cmp-b&sector=Power&geography=cmp-a:Europe,cmp-b:DE",
+    );
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
+
+    expect(screen.getByText("Moderate decrease")).toBeInTheDocument();
+  });
+
+  it("badges a key feature the column inherits from a broader scope", async () => {
+    // US records nothing, so A's trajectory comes from across sectors · Global.
+    await mountWithFixtures(
+      "cmp-a,cmp-b&sector=Power&geography=cmp-a:US,cmp-b:DE",
+    );
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
+
+    expect(screen.queryByText("Moderate decrease")).not.toBeInTheDocument();
+    expect(screen.getByText("Across sectors · Global")).toBeInTheDocument();
   });
 
   it("changes one column without disturbing the other", async () => {

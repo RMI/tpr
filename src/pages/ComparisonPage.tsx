@@ -523,7 +523,11 @@ const ComparisonPage: React.FC = () => {
       <>
         {/* ── Key Features ── */}
         <div className="mt-8">
-          <ComparisonKeyFeatures pathways={pathways} />
+          <ComparisonKeyFeatures
+            pathways={pathways}
+            sector={sector}
+            geographies={selectedGeographies}
+          />
         </div>
       </>
     ),
