@@ -243,11 +243,9 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     "makes a sector selectable through its key features alone",
     async () => {
       await mountDetailPage("/pathway/detail-scope?tab=assumptions");
-      await screen.findByRole(
-        "heading",
-        { name: "Assumptions & Trends Overview" },
-        WAIT,
-      );
+      // Wait for the Emissions group, not the panel title: the title differs
+      // per tab and has been renamed before (#1041).
+      await screen.findByRole("heading", { level: 4, name: "Emissions" }, WAIT);
 
       // Buildings has no benchmark data or dependency, only a key feature.
       await selectScope("Buildings");
@@ -408,11 +406,9 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     "resolves key features for the ribbon's scope on %s, badging inherited values",
     async (_tab, path) => {
       await mountDetailPage(path);
-      await screen.findByRole(
-        "heading",
-        { name: "Assumptions & Trends Overview" },
-        WAIT,
-      );
+      // Wait for the Emissions group, not the panel title: the title differs
+      // per tab and has been renamed before (#1041).
+      await screen.findByRole("heading", { level: 4, name: "Emissions" }, WAIT);
       const emissions = (): HTMLElement =>
         screen.getByRole("heading", { level: 4, name: "Emissions" })
           .parentElement as HTMLElement;
