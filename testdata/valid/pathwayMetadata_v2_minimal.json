@@ -9,7 +9,7 @@
   },
   "description": "A minimal v2 pathway file that passes schema validation.",
   "pathwayType": "Exploratory",
-  "geography": { "regions": { "South East Asia": [] } },
+  "geography": { "regions": { "South East Asia": ["ID", "TH", "VN"] } },
   "sectors": [{ "name": "Other", "technologies": [] }],
   "pathwayDescription": null,
   "metric": ["Capacity"],

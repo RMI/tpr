@@ -83,6 +83,94 @@ describe("ComparisonPlots", () => {
     mockedStackedAreaChart.mockClear();
   });
 
+  describe("freeze plots", () => {
+    const entries = () => [
+      makeEntry("p1", ["Global"]),
+      makeEntry("p2", ["Global"]),
+    ];
+
+    /** The plots' root: the grid that holds the selector and every panel. */
+    const root = (container: HTMLElement) =>
+      container.firstElementChild as HTMLElement;
+
+    it("offers an unchecked checkbox, and reports a click", () => {
+      const onFrozenChange = vi.fn();
+      render(
+        <ComparisonPlots
+          entries={entries()}
+          onFrozenChange={onFrozenChange}
+        />,
+      );
+
+      const box = screen.getByRole("checkbox", { name: "Freeze plots" });
+      expect(box).not.toBeChecked();
+
+      fireEvent.click(box);
+      expect(onFrozenChange).toHaveBeenCalledWith(true);
+    });
+
+    it("stays in the page flow until frozen", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={entries()}
+          onFrozenChange={() => {}}
+        />,
+      );
+
+      expect(root(container)).not.toHaveClass("sticky");
+      expect(root(container).style.top).toBe("");
+    });
+
+    it("pins below the scope header when frozen", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={entries()}
+          frozen
+          onFrozenChange={() => {}}
+          stickyTop={142}
+        />,
+      );
+
+      expect(
+        screen.getByRole("checkbox", { name: "Freeze plots" }),
+      ).toBeChecked();
+      expect(root(container)).toHaveClass("sticky");
+      expect(root(container).style.top).toBe(
+        "calc(var(--env-banner-height) + 142px)",
+      );
+    });
+
+    it("pins nothing, and offers no checkbox, when there is no data", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={[
+            { pathwayId: "p1", timeseriesdata: null },
+            { pathwayId: "p2", timeseriesdata: null },
+          ]}
+          frozen
+          onFrozenChange={() => {}}
+        />,
+      );
+
+      expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+      expect(root(container)).not.toHaveClass("sticky");
+    });
+
+    it("pins nothing for a sector the plots do not cover", () => {
+      const { container } = render(
+        <ComparisonPlots
+          entries={entries()}
+          requestedSector="Steel"
+          frozen
+          onFrozenChange={() => {}}
+        />,
+      );
+
+      expect(screen.queryByRole("checkbox")).not.toBeInTheDocument();
+      expect(root(container)).not.toHaveClass("sticky");
+    });
+  });
+
   it("shows a 'no timeseries data' message when all entries have null data", () => {
     const entries: ComparisonPlotsEntry[] = [
       { pathwayId: "p1", timeseriesdata: null },

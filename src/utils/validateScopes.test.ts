@@ -96,7 +96,7 @@ describe("validateScopedEntries — geography axis", () => {
 
   it("accepts Global only when the pathway actually is global", () => {
     const globalPathway = pathway({
-      geography: { global: true, regions: { "South East Asia": ["TH"] } },
+      geography: { global: true, regions: { "South East Asia": ["TH", "VN"] } },
     });
     expect(
       validateScopedEntries({
@@ -327,7 +327,7 @@ describe("validateScopedEntries — one value per scope", () => {
     const errors = validateScopedEntries(
       pathway({
         sectors: [{ name: "Power", technologies: [] }],
-        geography: { regions: { "Power SG": ["SG"] }, country: ["SG"] },
+        geography: { regions: { "Power SG": ["SG", "MY"] }, country: ["SG"] },
         keyFeatures: {
           emissionsTrajectory: [
             { sector: "Power", geography: "SG", value: "Minor increase" },

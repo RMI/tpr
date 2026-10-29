@@ -24,7 +24,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: { "South East Asia": ["TH"] } },
+    geography: { global: true, regions: { "South East Asia": ["TH", "VN"] } },
     keyFeatures: { emissionsTrajectory: "Significant decrease" },
   },
 ] as const;

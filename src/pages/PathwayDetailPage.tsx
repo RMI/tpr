@@ -26,6 +26,7 @@ import {
   getMetricTooltip,
 } from "../utils/tooltipUtils";
 import KeyFeatures from "../components/KeyFeatures";
+import SectionIntro from "../components/SectionIntro";
 import DownloadDataset from "../components/DownloadDataset";
 import {
   fetchTimeseriesIndex,
@@ -84,12 +85,14 @@ const PathwayDetailPage: React.FC = () => {
   // Which ribbon tokens have something to show (#1017). Read synchronously
   // from the bundled index, so the ribbon and the seed agree from the first
   // render and nothing restyles once the async dataset load below finishes.
+  // Key features count here because this page resolves them for the scope.
   const scopeAvail = useMemo(
     () =>
       pathway
         ? scopeAvailability(
             pathway,
             datasetsForPathway(getTimeseriesIndex(), pathway.id),
+            { keyFeatures: true },
           )
         : ALL_AVAILABLE,
     [pathway],
@@ -374,22 +377,30 @@ const PathwayDetailPage: React.FC = () => {
 
   /*
     The same component and config render both the full driver/feature grid and
-    the At-a-glance subset, so the two cannot drift apart.
+    the At-a-glance subset, so the two cannot drift apart. Both resolve each key
+    feature for the ribbon's scope (#869), like the plots and tables below; an
+    empty axis needs no guard, because the resolver reads it as the widest.
   */
   const assumptionsPanel = (
     <KeyFeatures
       keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
       coreDrivers={pathway.coreDrivers}
-      title="Assumptions & Trends Overview"
+      title="Assumptions & Trends"
+      description="The key assumptions the pathway makes to drive changes over time, and the resulting trends in the output variables. Parameters which are ‘assumptions’ in one pathway may be ‘trends’ in another, depending on the design of the pathway."
     />
   );
 
   const assumptionsSummary = (
     <KeyFeatures
       keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
       coreDrivers={pathway.coreDrivers}
       groups={["policies", "emissions", "technology"]}
-      title="Assumptions & Trends Overview"
+      title="Assumptions & Trends Preview"
+      description="A subset of the pathway assumptions, trends, and drivers. Navigate to the “Assumptions & Dependencies” tab for more details."
     />
   );
 
@@ -406,7 +417,8 @@ const PathwayDetailPage: React.FC = () => {
       requestedGeography={scope.geography}
       requestedSector={scope.sector}
       plotTypes={PLOT_ORDER.slice(0, 3)}
-      title="Plots Overview"
+      title="Timeseries Preview"
+      description="A subset of the key metrics for the chosen sector under this pathway. Navigate to the “Timeseries” tab for more metrics and details."
     />
   );
 
@@ -418,6 +430,7 @@ const PathwayDetailPage: React.FC = () => {
       requestedGeography={scope.geography}
       requestedSector={scope.sector}
       title="Benchmark Plots"
+      description="Sector-specific overview of how key metrics develop over time according to the pathway. These are the quantitative outputs of the pathway which can be used to inform corporate transition planning and assessments."
     />
   );
 
@@ -428,9 +441,14 @@ const PathwayDetailPage: React.FC = () => {
         headings. It was an unstyled h4 inside the prose, which skipped two
         levels below the page's h1 and took its size from prose's defaults.
       */}
-      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
         Supplemental Information
       </h2>
+      <SectionIntro>
+        Citations, license information, and links to original sources used to
+        develop this summary. A standardized download of benchmark data can also
+        be found here when data is available.
+      </SectionIntro>
       <div className="prose text-rmigray-700">
         <PublicationBlock publication={pathway.publication} />
 
@@ -576,9 +594,17 @@ const PathwayDetailPage: React.FC = () => {
             <div className="space-y-6">
               {assumptionsPanel}
               <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
                   Dependencies
                 </h2>
+                <SectionIntro>
+                  Dependencies are factors in the broader environment necessary
+                  for a pathway to become a reality. These can be bottlenecks
+                  that prevent technologies scaling or enabling factors that
+                  facilitate technological change. These may be explicitly
+                  modeled in a pathway, or implicit based on related
+                  assumptions.
+                </SectionIntro>
                 <DependenciesTable
                   dependencies={pathway.dependencies}
                   sector={scope.sector}
@@ -605,9 +631,14 @@ const PathwayDetailPage: React.FC = () => {
           >
             <div className="space-y-8">
               <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
                   Data Availability
                 </h2>
+                <SectionIntro>
+                  Overview of availability, coverage, granularity, format, and
+                  limitations of timeseries and related data in the underlying
+                  resources for the pathway.
+                </SectionIntro>
                 <DataAvailabilityTable
                   dataAvailability={pathway.dataAvailability}
                   scope={scope}
@@ -615,9 +646,12 @@ const PathwayDetailPage: React.FC = () => {
                 />
               </section>
               <section>
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
                   Coverage
                 </h2>
+                <SectionIntro>
+                  Pathway level coverage of geographies, sectors, and metrics.
+                </SectionIntro>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {coveragePanels}
                 </div>

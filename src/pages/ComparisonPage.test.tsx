@@ -32,9 +32,7 @@ const fixtures = [
     metric: ["Capacity"],
     geography: {
       global: true,
-      // One region with a published mapping and one without, so both arms of
-      // the member tooltip are reachable.
-      regions: { "Europe": ["DE", "FR", "IT"], "Unmapped Region": [] },
+      regions: { Europe: ["DE", "FR", "IT"] },
       country: ["US"],
     },
     keyFeatures: {
@@ -532,14 +530,6 @@ describe("ComparisonPage — region geography tooltips", () => {
     expect(await openTooltipFor(section, "Europe")).toHaveTextContent(
       "Germany",
     );
-  });
-
-  it("says so when a declared region has no published mapping", async () => {
-    await mountWithFixtures("cmp-a,cmp-b");
-    const section = await geographiesSection();
-
-    const tooltip = await openTooltipFor(section, "Unmapped Region");
-    expect(tooltip).toHaveTextContent("No country mapping available");
   });
 
   it("leaves Global and country badges without a tooltip trigger", async () => {

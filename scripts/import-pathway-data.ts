@@ -886,10 +886,32 @@ interface Geography {
 }
 
 /**
+ * A region with no member countries matches nothing, and the classifier tends
+ * to pick these up from a passing mention of somewhere the pathway does not
+ * cover. Rather than import a scope nobody can select, the import stops so the
+ * cell is fixed in the workbook (#998).
+ */
+function memberless(id: string, label: string, dropped: string[]): string {
+  const why = dropped.length
+    ? ` (its only code(s) {${dropped.join(", ")}} are not ISO-3166)`
+    : "";
+  return (
+    `${id}: region "${label}" has no member countries${why} -- ` +
+    "list its ISO codes in the Regions cell, or remove it"
+  );
+}
+
+/**
  * Parse the metadata `Regions` cell into a v2 geography object. Format:
- *   Global; Africa: [DZ, EG]; Atlantic Basin: []; Brazil: [BR]; PH
+ *   Global; Africa: [DZ, EG]; BR: [BR]; PH
  * A bare token (`Global`) sets the flag or, if a 2-letter code, becomes a
  * standalone country. `Label: [..]` is a region and its ISO members.
+ *
+ * One country code is always a country (#998): a region with a single member
+ * is that country, and the sheet has to say so. `BR: [BR]` (or a bare `BR`) is
+ * the country; `Brazil: [BR]` is an error, because importing it under either
+ * name leaves key-feature and data-availability cells that say "Brazil" or
+ * "BR" pointing at a scope the other does not reach.
  */
 export function buildGeography(
   cell: string,
@@ -920,18 +942,23 @@ export function buildGeography(
           `${id}: geography region "${label}" dropped non-ISO code(s) {${dropped.join(", ")}}`,
         );
       }
+      if (members.length === 0) {
+        report.error(memberless(id, label, dropped));
+        continue;
+      }
       // `LA: [LA]` is how the cookbook writes an individually projected country
-      // (validator rule R4.3 flags the bare `LA` form as non-standard), not a
-      // region that happens to be named after its only member. Reading it as a
-      // region made every single-country pathway a pseudo-region -- except
-      // Thailand, whose cell is still written bare.
-      const code = label.toUpperCase();
-      if (
-        /^[A-Z]{2}$/.test(code) &&
-        VALID_COUNTRIES.has(code) &&
-        members.length === 1 &&
-        members[0] === code
-      ) {
+      // (validator rule R4.3 flags the bare `LA` form as non-standard). IEA's
+      // `Japan: [JP]` is the same country under its publication's name, and is
+      // refused rather than renamed.
+      if (members.length === 1) {
+        const code = members[0];
+        if (label.toUpperCase() !== code) {
+          report.error(
+            `${id}: region "${label}" has one member, ${code} -- one country code is ` +
+              `a country, so write ${code} in the Regions cell and in every scope that says "${label}"`,
+          );
+          continue;
+        }
         countries.push(code);
         continue;
       }
@@ -944,14 +971,19 @@ export function buildGeography(
       else report.note(`${id}: geography dropped non-ISO country "${part}"`);
     } else {
       // A region label with no bracketed member list.
-      regions[part] = [];
-      report.note(
-        `${id}: region "${part}" declared with no members (matches nothing)`,
-      );
+      report.error(memberless(id, part, []));
     }
   }
   if (Object.keys(regions).length > 0) geo.regions = regions;
-  if (countries.length > 0) geo.country = countries;
+  // `JP; JP: [JP]` names one country twice. It is one scope, so it is listed once.
+  const repeated = [
+    ...new Set(countries.filter((c, i) => countries.indexOf(c) !== i)),
+  ];
+  if (repeated.length)
+    report.note(
+      `${id}: geography lists {${repeated.join(", ")}} more than once; kept once`,
+    );
+  if (countries.length > 0) geo.country = [...new Set(countries)];
   return geo;
 }
 

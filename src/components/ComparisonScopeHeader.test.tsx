@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen, act, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ComparisonScopeHeader from "./ComparisonScopeHeader";
@@ -64,6 +64,7 @@ interface Options {
   available?: string[];
   /** Sectors with something to show; every sector by default. */
   availableSectors?: string[] | null;
+  onHeightChange?: (height: number) => void;
 }
 
 const renderHeader = ({
@@ -75,6 +76,7 @@ const renderHeader = ({
   },
   available = [],
   availableSectors = null,
+  onHeightChange,
 }: Options = {}) => {
   const onSectorChange = vi.fn();
   const onGeographyChange = vi.fn();
@@ -92,6 +94,7 @@ const renderHeader = ({
       selectedGeographies={selectedGeographies}
       onGeographyChange={onGeographyChange}
       divergence={columnsGeographyDivergence(selectedGeographies, pathways)}
+      onHeightChange={onHeightChange}
     />,
   );
 
@@ -395,6 +398,47 @@ describe("ComparisonScopeHeader", () => {
       expect(columnTrigger("IEA: NZE (2024)")).toBeInTheDocument();
       expect(columnTrigger("IEA: NZE (2025)")).toBeInTheDocument();
       expect(columnTrigger("ACE: NZE (2024)")).toBeInTheDocument();
+    });
+  });
+  describe("height reporting", () => {
+    /** Drives the bar's observed height; jsdom has no layout of its own. */
+    let observed: ResizeObserverCallback | null = null;
+    class StubResizeObserver {
+      constructor(callback: ResizeObserverCallback) {
+        observed = callback;
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    }
+
+    beforeEach(() => {
+      observed = null;
+      vi.stubGlobal("ResizeObserver", StubResizeObserver);
+    });
+
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+
+    const resizeTo = (height: number) =>
+      act(() =>
+        observed?.(
+          [{ contentRect: { height } } as unknown as ResizeObserverEntry],
+          {} as ResizeObserver,
+        ),
+      );
+
+    it("reports the sticky bar's height as it changes", () => {
+      // Frozen plots (#1033) sit flush under the bar, so they need its height
+      // — including while the condensed names slide in.
+      const onHeightChange = vi.fn();
+      renderHeader({ onHeightChange });
+
+      resizeTo(120);
+      resizeTo(152);
+
+      expect(onHeightChange.mock.calls).toEqual([[120], [152]]);
     });
   });
 });

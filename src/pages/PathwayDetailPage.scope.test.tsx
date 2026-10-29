@@ -26,6 +26,8 @@ const fixtures = [
     sectors: [
       { name: "Power", technologies: [] },
       { name: "Steel", technologies: [] },
+      // Nothing but a key feature, which is enough to make it selectable.
+      { name: "Buildings", technologies: [] },
     ],
     metric: ["Capacity"],
     geography: {
@@ -33,13 +35,30 @@ const fixtures = [
       regions: { "South East Asia": ["ID", "TH", "VN"] },
       country: ["SG"],
     },
+    // `across sectors`, not the retired `cross-sector`: the resolver looks
+    // scopes up exactly, so the old spelling would match nothing. The Steel row
+    // gives the ribbon a value to move to on each axis.
     keyFeatures: {
       emissionsTrajectory: [
         {
-          sector: "cross-sector",
+          sector: "across sectors",
           geography: "Global",
           value: "Significant decrease",
         },
+        {
+          sector: "Steel",
+          geography: "Global",
+          value: "Moderate decrease",
+        },
+        {
+          sector: "Buildings",
+          geography: "Global",
+          value: "Minor decrease",
+        },
+      ],
+      // SG records only "No information", which does not make it selectable.
+      energyDemand: [
+        { sector: "Power", geography: "SG", value: "No information" },
       ],
     },
     coreDrivers: {
@@ -105,8 +124,8 @@ const fixtures = [
 
 /*
   Benchmark data for Power at Global and South East Asia, so those badges are
-  selectable (#1017). Steel is selectable through its dependency; SG has
-  nothing to show and stays outlined.
+  selectable (#1017). Steel is selectable through its dependency, Buildings
+  through a key feature; SG has nothing to show and stays outlined.
 */
 const SYNC_INDEX = { synchronous: true };
 const SCOPE_DATASETS = [
@@ -206,7 +225,8 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       await mountDetailPage();
       await screen.findByText("The description prose.", undefined, WAIT);
 
-      // SG has no benchmark data and geographies take nothing else (#1017).
+      // SG has no benchmark data, and its only key feature says "No
+      // information", so there is nothing to show for it (#1017).
       expect(
         screen.queryByRole("button", { name: "Singapore" }),
       ).not.toBeInTheDocument();
@@ -215,6 +235,28 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
         "aria-pressed",
         "true",
       );
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "makes a sector selectable through its key features alone",
+    async () => {
+      await mountDetailPage("/pathway/detail-scope?tab=assumptions");
+      // Wait for the Emissions group, not the panel title: the title differs
+      // per tab and has been renamed before (#1041).
+      await screen.findByRole("heading", { level: 4, name: "Emissions" }, WAIT);
+
+      // Buildings has no benchmark data or dependency, only a key feature.
+      await selectScope("Buildings");
+      expect(screen.getByRole("button", { name: "Buildings" })).toHaveAttribute(
+        "aria-pressed",
+        "true",
+      );
+      expect(
+        screen.getByRole("heading", { level: 4, name: "Emissions" })
+          .parentElement,
+      ).toHaveTextContent("Minor decrease");
     },
     TEST_TIMEOUT,
   );
@@ -355,27 +397,36 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     TEST_TIMEOUT,
   );
 
-  it(
-    "does not re-scope key features, which await the #869 resolver",
-    async () => {
-      await mountDetailPage("/pathway/detail-scope?tab=assumptions");
-      await screen.findByRole(
-        "heading",
-        { name: "Assumptions & Trends Overview" },
-        WAIT,
-      );
+  // Both tabs render their own KeyFeatures panel, each wired separately, so
+  // each is checked: At a glance is the default tab, opened without `?tab`.
+  it.each([
+    ["At a glance", "/pathway/detail-scope"],
+    ["Assumptions & Dependencies", "/pathway/detail-scope?tab=assumptions"],
+  ])(
+    "resolves key features for the ribbon's scope on %s, badging inherited values",
+    async (_tab, path) => {
+      await mountDetailPage(path);
+      // Wait for the Emissions group, not the panel title: the title differs
+      // per tab and has been renamed before (#1041).
+      await screen.findByRole("heading", { level: 4, name: "Emissions" }, WAIT);
+      const emissions = (): HTMLElement =>
+        screen.getByRole("heading", { level: 4, name: "Emissions" })
+          .parentElement as HTMLElement;
 
-      const before = screen
-        .getAllByRole("heading", { level: 4 })
-        .map((h) => h.parentElement?.textContent);
+      // Power · Global has no row of its own: inherited from across sectors.
+      expect(emissions()).toHaveTextContent("Significant decrease");
+      expect(emissions()).toHaveTextContent("Across sectors · Global");
 
+      // Steel · Global is recorded exactly, so nothing is inherited.
       await selectScope("Steel");
+      expect(emissions()).toHaveTextContent("Moderate decrease");
+      expect(emissions()).not.toHaveTextContent(" · ");
 
-      expect(
-        screen
-          .getAllByRole("heading", { level: 4 })
-          .map((h) => h.parentElement?.textContent),
-      ).toEqual(before);
+      // Steel · South East Asia falls back up the geography chain, and stays
+      // in Steel rather than taking the across sectors value.
+      await selectScope("South East Asia");
+      expect(emissions()).toHaveTextContent("Moderate decrease");
+      expect(emissions()).toHaveTextContent("Steel · Global");
     },
     TEST_TIMEOUT,
   );

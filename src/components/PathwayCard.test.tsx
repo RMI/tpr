@@ -266,7 +266,7 @@ describe("PathwayCard component", () => {
       // Create a pathway with only 2 geographies
       const pathwayWithFewGeography = {
         ...mockPathwayFull,
-        geography: { global: true, regions: { EU: [] } }, // Only 2 geography
+        geography: { global: true, regions: { EU: ["DE", "FR"] } }, // Only 2 geography
       };
 
       const { container } = renderPathwayCard(pathwayWithFewGeography);
@@ -332,7 +332,11 @@ describe("PathwayCard component", () => {
   it("renders mapped country names on badges (not ISO2 codes)", () => {
     const pathway = {
       ...mockPathway,
-      geography: { global: true, regions: { APAC: [] }, country: ["DE"] }, // DE should render as "Germany"
+      geography: {
+        global: true,
+        regions: { APAC: ["AU", "JP"] },
+        country: ["DE"],
+      }, // DE should render as "Germany"
     };
 
     // Make the container wide enough for 3+ badges in JSDOM
@@ -354,7 +358,7 @@ describe("PathwayCard search highlighting", () => {
       ...mockPathwayFull.geography,
       regions: {
         ...mockPathwayFull.geography.regions,
-        "Hidden Match Geography": [],
+        "Hidden Match Geography": ["DE", "FR"],
       },
     },
     sectors: [

@@ -14,19 +14,22 @@
  * query on both axes — sector by containment, geography by non-empty ISO
  * intersection (see geographyScopeOverlaps for why the two axes differ). There is
  * no cost model, no ranking, and no notion of how far the query had to broaden —
- * that is #869's resolver, which is where strict containment belongs, as the basis
- * for ranking rather than as a hard filter.
+ * that is #869's resolver in keyFeatureResolution, which is where strict
+ * containment belongs, as the basis for ranking rather than as a hard filter.
  */
 import type { Geography, GeographyCode, PathwayMetadataType } from "../types";
 import { pathwayISOCoverage, toISO2 } from "./geographyUtils";
 import { selectedGeographyToISO } from "./filterRegions";
 import { ABSENT_FILTER_TOKEN } from "./absent";
+import {
+  ACROSS_REGIONS,
+  ACROSS_SECTORS,
+  GLOBAL_SCOPE,
+} from "./keyFeatureRules";
 
-/** Sector sentinel: the union of *this pathway's own* declared sectors. */
-export const ACROSS_SECTORS = "across sectors";
-/** Geography sentinels: everything, and a multi-region non-global aggregate. */
-export const GLOBAL_SCOPE = "Global";
-export const ACROSS_REGIONS = "across regions";
+// Defined in keyFeatureRules, which the validator can share; re-exported so the
+// existing importers of this module keep working.
+export { ACROSS_REGIONS, ACROSS_SECTORS, GLOBAL_SCOPE };
 
 /** One scoped entry, structurally — the 11 fields differ only in `value`. */
 export interface ScopedEntry {
@@ -43,7 +46,7 @@ export interface ScopedEntry {
  * "no entries" is better than throwing. `Array.isArray` narrows a typed
  * `readonly T[]` union to `any[]`, so the cast is what keeps this type-safe.
  */
-function asEntries(value: unknown): readonly ScopedEntry[] {
+export function asEntries(value: unknown): readonly ScopedEntry[] {
   return Array.isArray(value) ? (value as readonly ScopedEntry[]) : [];
 }
 
@@ -77,10 +80,9 @@ export function sectorScopeContains(
 /**
  * The ISO codes an entry's geography scope covers, or `null` for "everything".
  *
- * A region label resolves through the pathway's own `geography.regions` mapping,
- * which is why an unmapped region (empty member array, e.g. the NGFS files
- * pending #801) resolves to the empty set and therefore matches nothing rather
- * than matching everything.
+ * A region label resolves through the pathway's own `geography.regions` mapping.
+ * A token that is neither declared nor an ISO code resolves to the empty set and
+ * therefore matches nothing rather than matching everything.
  */
 export function entryISOSet(
   entryGeography: string,
@@ -133,7 +135,8 @@ export function scopeISOSet(
  * answers anything, but selecting Global is answered only by a Global entry, so
  * it narrows rather than quietly matching everything.
  *
- * #869's resolver will need this same own-vocabulary comparison.
+ * The resolver (keyFeatureResolution) compares in the same own vocabulary, but
+ * by containment through `declaredTokenCodes` rather than by overlap.
  */
 export function pathwayScopeOverlaps(
   entryGeography: string,
@@ -146,9 +149,8 @@ export function pathwayScopeOverlaps(
   const querySet = scopeISOSet(selectedToken, geo);
   if (querySet === null) return false; // only a Global entry answers Global
 
-  // An unrecognised token, or a region the publication never mapped, yields an
-  // empty set and so overlaps nothing — a stale selection matches nothing
-  // rather than everything.
+  // An unrecognised token yields an empty set and so overlaps nothing — a stale
+  // selection matches nothing rather than everything.
   for (const code of querySet) if (entrySet.has(code)) return true;
   return false;
 }
@@ -190,9 +192,8 @@ export function geographyScopeOverlaps(
   if (entrySet === null) return true; // a Global entry answers any real selection
 
   if (query.kind === "global") return false; // only a Global entry answers Global
-  // An unrecognised token, or a region the publication never mapped, yields an
-  // empty set and so overlaps nothing -- a stale selection matches nothing
-  // rather than everything.
+  // An unrecognised token yields an empty set and so overlaps nothing -- a stale
+  // selection matches nothing rather than everything.
   for (const code of query.iso) if (entrySet.has(code)) return true;
   return false;
 }
@@ -280,11 +281,11 @@ function geographyBreadth(geography: string): number {
 /**
  * The value at the broadest scope a field declares.
  *
- * **Provisional.** This is a placeholder for #869's resolver, which will pick the
- * value for the scope the *user* is looking at and report how far it had to
- * broaden so #859 can badge it. Until then the components show the widest value,
- * which is what v1 effectively showed — every codemod-migrated pathway has exactly
- * one entry, at its widest scope — so rendering is unchanged for current data.
+ * **Comparison page only, until 1b.** The detail page resolves each feature for
+ * the reader's scope with `resolveKeyFeature` (#869); the comparison grid still
+ * shows the widest value, which is what v1 effectively showed — every
+ * codemod-migrated pathway has exactly one entry, at its widest scope. Once the
+ * grid resolves per column, this and the breadth helpers above can go.
  *
  * Returns `undefined` when nothing is authored at any scope, which the callers
  * already render as "No information".

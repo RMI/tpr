@@ -150,8 +150,6 @@
         "SI",
         "SK"
       ],
-      "India": ["IN"],
-      "Japan": ["JP"],
       "Latin America and the Caribbean": [
         "AG",
         "AI",
@@ -352,9 +350,9 @@
         "ZA",
         "ZM",
         "ZW"
-      ],
-      "United States of America": ["US"]
-    }
+      ]
+    },
+    "country": ["IN", "JP", "US"]
   },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.4,
@@ -472,12 +470,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -507,7 +505,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant decrease"
       },
       {
@@ -547,12 +545,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Minor decrease"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Moderate decrease"
       },
       {
@@ -582,7 +580,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Moderate decrease"
       },
       {
@@ -607,12 +605,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant decrease"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -642,7 +640,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant decrease"
       },
       {
@@ -667,12 +665,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -702,7 +700,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant decrease"
       }
     ],
@@ -734,12 +732,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant improvement"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant improvement"
       },
       {
@@ -769,7 +767,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant improvement"
       },
       {
@@ -809,12 +807,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -844,7 +842,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -869,12 +867,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -904,7 +902,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -929,12 +927,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -964,7 +962,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -996,12 +994,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Moderate increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1031,7 +1029,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant decrease"
       },
       {
@@ -1071,12 +1069,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant increase"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1106,7 +1104,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant decrease"
       },
       {
@@ -1131,12 +1129,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "No information"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "No information"
       },
       {
@@ -1166,7 +1164,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "No information"
       },
       {
@@ -1191,12 +1189,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Minor decrease"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1226,7 +1224,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant decrease"
       }
     ],
@@ -1258,12 +1256,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Significant increase"
       },
       {
@@ -1293,7 +1291,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Significant increase"
       },
       {
@@ -1333,12 +1331,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1368,7 +1366,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1393,12 +1391,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not Applicable"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not Applicable"
       },
       {
@@ -1428,7 +1426,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not Applicable"
       },
       {
@@ -1453,12 +1451,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1488,7 +1486,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -1520,12 +1518,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1555,7 +1553,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1595,12 +1593,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1630,7 +1628,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1655,12 +1653,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1690,7 +1688,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1715,12 +1713,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1750,7 +1748,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       }
     ],
@@ -1782,12 +1780,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1817,7 +1815,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1857,12 +1855,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1892,7 +1890,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1917,12 +1915,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1952,7 +1950,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1977,12 +1975,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2012,7 +2010,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -2044,12 +2042,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2079,7 +2077,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2119,12 +2117,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2154,7 +2152,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2179,12 +2177,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2214,7 +2212,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2239,12 +2237,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2274,7 +2272,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -2306,12 +2304,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2341,7 +2339,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2381,12 +2379,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2416,7 +2414,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2441,12 +2439,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2476,7 +2474,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2501,12 +2499,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2536,7 +2534,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -2568,12 +2566,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2603,7 +2601,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2643,12 +2641,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2678,7 +2676,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2703,12 +2701,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2738,7 +2736,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2763,12 +2761,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2798,7 +2796,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -2830,12 +2828,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2865,7 +2863,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2905,12 +2903,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2940,7 +2938,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2965,12 +2963,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3000,7 +2998,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3025,12 +3023,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3060,7 +3058,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       }
     ],
@@ -3092,12 +3090,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3127,7 +3125,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3167,12 +3165,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3202,7 +3200,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3227,12 +3225,12 @@
       },
       {
         "sector": "Power",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3262,7 +3260,7 @@
       },
       {
         "sector": "Power",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3287,12 +3285,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "India",
+        "geography": "IN",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
-        "geography": "Japan",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3322,7 +3320,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "United States of America",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       }
     ]
@@ -3531,14 +3529,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3555,14 +3553,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3579,14 +3577,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3615,14 +3613,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3650,14 +3648,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3695,14 +3693,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3723,14 +3721,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3759,14 +3757,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3803,14 +3801,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3887,14 +3885,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3921,14 +3919,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
@@ -3955,14 +3953,14 @@
           "China",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
-          "India",
-          "Japan",
+          "IN",
+          "JP",
           "Latin America and the Caribbean",
           "Middle East / North Africa / Central Asia",
           "Non-EU28 Europe",
           "Other Asia",
           "Sub-saharan Africa",
-          "United States of America"
+          "US"
         ],
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",

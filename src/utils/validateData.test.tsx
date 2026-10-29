@@ -77,7 +77,7 @@ describe("pathway schema enforces expected limits", () => {
         modelYearEnd: 2100,
         modelYearNetzero: 2030,
         modelTempIncrease: 0.5, // min
-        geography: { regions: { "Europe and Central Asia": [] } },
+        geography: { regions: { "Europe and Central Asia": ["DE", "FR"] } },
       },
     });
   });
@@ -96,7 +96,7 @@ describe("pathway schema enforces expected limits", () => {
           name: { full: "Other" },
           geography: {
             global: true,
-            regions: { "Europe and Central Asia": [] },
+            regions: { "Europe and Central Asia": ["DE", "FR"] },
           },
         },
       },
@@ -241,6 +241,30 @@ describe("pathway schema enforces expected limits", () => {
       name: "geography.json",
       data: { ...basePathway, geography: { regions: { "": ["US"] } } },
     });
+  });
+
+  it("fails on a one-member region: one country code is a country (#998)", () => {
+    // `Japan: [JP]` is the country JP, and belongs in `country`. Both versions
+    // share the geography schema.
+    const geography = { regions: { Japan: ["JP"] } };
+    fail(
+      { name: "geography.json", data: { ...basePathway, geography } },
+      /regions\/Japan must NOT have fewer than 2 items/,
+    );
+    fail2(
+      { name: "geography.json", data: { ...v2Minimal, geography } },
+      /regions\/Japan must NOT have fewer than 2 items/,
+    );
+  });
+
+  it("fails on a region with no members", () => {
+    fail(
+      {
+        name: "geography.json",
+        data: { ...basePathway, geography: { regions: { Atlantis: [] } } },
+      },
+      /regions\/Atlantis must NOT have fewer than 2 items/,
+    );
   });
 
   it("fails when sectors item missing required fields", () => {

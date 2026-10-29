@@ -1,4 +1,5 @@
 import type { FacetMode } from "../utils/searchUtils";
+import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import type { PathwayMetadataV1 } from "./pathwayMetadata.v1";
 import type { PathwayMetadataV2 } from "./pathwayMetadata.v2";
 import type { PublicationV1 } from "./common/publication.v1";
@@ -15,7 +16,7 @@ export type PublicationType = PublicationV1;
 export type { PathwayMetadataV1, PathwayMetadataV2 };
 
 /** A single scoped keyFeatures entry: {sector, geography, value} (#858). */
-export type ScopedKeyFeature<K extends keyof PathwayMetadataV2["keyFeatures"]> =
+export type ScopedKeyFeature<K extends KeyFeatureKey> =
   PathwayMetadataV2["keyFeatures"][K][number];
 
 // Enum-like types derived from the schema

@@ -17,7 +17,7 @@
   "pathwayType": "Exploratory",
   "geography": {
     "regions": {
-      "South East Asia": []
+      "South East Asia": ["ID", "TH", "VN"]
     }
   },
   "sectors": [

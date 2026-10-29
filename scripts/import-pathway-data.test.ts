@@ -238,6 +238,78 @@ describe("buildGeography", () => {
   });
 });
 
+describe("one country code is always a country (#998)", () => {
+  const JAPAN =
+    'T: region "Japan" has one member, JP -- one country code is a country, ' +
+    'so write JP in the Regions cell and in every scope that says "Japan"';
+
+  it("refuses a one-member region named for its country, telling the sheet to write the code", () => {
+    const report = new Report();
+    const geo = buildGeography(
+      "Global; Japan: [JP]; TH: [TH]; Asia: [CN, JP]",
+      report,
+      "T",
+    );
+    expect(report.errors).toEqual([JAPAN]);
+    // The rest of the cell still parses, so every other problem is reported
+    // in the same run; the error alone keeps anything from being written.
+    expect(geo?.country).toEqual(["TH"]);
+    expect(Object.keys(geo?.regions ?? {})).toEqual(["Asia"]);
+  });
+
+  it("counts members after non-ISO codes are dropped", () => {
+    const report = new Report();
+    buildGeography("Japan: [JP, XK]", report, "T");
+    expect(report.errors).toEqual([JAPAN]);
+  });
+
+  it("lists a country once when it is written bare and as `JP: [JP]`", () => {
+    const report = new Report();
+    const geo = buildGeography("JP; JP: [JP]; jp: [JP]", report, "T");
+    expect(report.errors).toEqual([]);
+    expect(geo?.country).toEqual(["JP"]);
+    expect(report.lines).toContain(
+      "  - T: geography lists {JP} more than once; kept once",
+    );
+  });
+
+  describe("a region with no member countries", () => {
+    const errorsFor = (cell: string) => {
+      const report = new Report();
+      const geo = buildGeography(cell, report, "T");
+      return { errors: report.errors, geo };
+    };
+
+    it("is an import error, written bare or with an empty list", () => {
+      for (const cell of [
+        "Global; Atlantic Basin",
+        "Global; Atlantic Basin: []",
+      ])
+        expect(errorsFor(cell).errors).toEqual([
+          'T: region "Atlantic Basin" has no member countries -- list its ISO codes in the Regions cell, or remove it',
+        ]);
+    });
+
+    it("is an import error when every listed code is dropped, naming them", () => {
+      expect(errorsFor("Kosovo: [XK]").errors).toEqual([
+        'T: region "Kosovo" has no member countries (its only code(s) {XK} are not ISO-3166) -- list its ISO codes in the Regions cell, or remove it',
+      ]);
+    });
+
+    it("leaves regions with members, countries and the global flag alone", () => {
+      const { errors, geo } = errorsFor(
+        "Global; ASEAN: [TH, VN]; JP: [JP]; PH",
+      );
+      expect(errors).toEqual([]);
+      expect(geo).toEqual({
+        global: true,
+        regions: { ASEAN: ["TH", "VN"] },
+        country: ["JP", "PH"],
+      });
+    });
+  });
+});
+
 describe("TARGETS", () => {
   it("matches every row of the current workbook's renamed SDSN spellings", () => {
     // The workbook now writes the Myanmar/Laos pathways as "UN SDSN, CW" with

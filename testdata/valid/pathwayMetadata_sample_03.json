@@ -19,7 +19,7 @@
   "modelTempIncrease": 3,
   "geography": {
     "regions": {
-      "North America": []
+      "North America": ["US", "CA", "MX"]
     }
   },
   "sectors": [
