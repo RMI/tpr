@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   columnGeographyOptions,
   columnsGeographyDivergence,
+  comparisonScopeAvailability,
   decodeColumnGeographies,
   defaultGeographyForColumn,
   encodeColumnGeographies,
@@ -11,6 +12,7 @@ import {
   comparisonBlock,
 } from "./comparisonScope";
 import type { PathwayMetadataType } from "../types";
+import { pathwayToolAvailability } from "./timeseriesAvailability";
 
 interface Shape {
   id: string;
@@ -234,9 +236,66 @@ describe("columnGeographyOptions", () => {
     expect(options.every((o) => !o.available)).toBe(true);
   });
 
+  it("flags the same tokens by whichever availability it is given", () => {
+    // North America records key features but has no timeseries: selectable in
+    // the header, outlined in the coverage section, from one list.
+    const withKeyFeatures = {
+      ...iea,
+      keyFeatures: {
+        emissionsTrajectory: [
+          {
+            sector: "Power",
+            geography: "North America",
+            value: "Moderate decrease",
+          },
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+
+    const coverage = columnGeographyOptions(
+      withKeyFeatures,
+      pathwayToolAvailability([]),
+    );
+    const selectable = columnGeographyOptions(
+      withKeyFeatures,
+      comparisonScopeAvailability(withKeyFeatures, []),
+    );
+
+    const flagOf = (options: typeof coverage, token: string) =>
+      options.find((o) => o.token === token)?.available;
+    expect(flagOf(coverage, "North America")).toBe(false);
+    expect(flagOf(selectable, "North America")).toBe(true);
+    expect(selectable[0].token).toBe("North America");
+    expect(selectable.map((o) => o.label).sort()).toEqual(
+      coverage.map((o) => o.label).sort(),
+    );
+  });
+
   it("degrades to an empty list for a pathway declaring no geography", () => {
     const none = pathway({ id: "n", publisher: "Z", sectors: ["Power"] });
     expect(columnGeographyOptions(none, nothing)).toEqual([]);
+  });
+});
+
+describe("comparisonScopeAvailability", () => {
+  it("counts key features and dependencies, not only timeseries", () => {
+    // What the header and the compare link select by (#1017, #1030, #869).
+    const scoped = {
+      ...pathway({ id: "s", publisher: "S", sectors: ["Power", "Steel"] }),
+      dependencies: [{ sector: "Steel" }],
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "Power", geography: "VN", value: "Moderate decrease" },
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+
+    const availability = comparisonScopeAvailability(scoped, []);
+    expect(availability.hasSector("Power")).toBe(true);
+    expect(availability.hasSector("Steel")).toBe(true);
+    expect(availability.hasGeography("VN")).toBe(true);
+    expect(availability.hasSector("Cement")).toBe(false);
+    expect(availability.hasGeography("TH")).toBe(false);
   });
 });
 

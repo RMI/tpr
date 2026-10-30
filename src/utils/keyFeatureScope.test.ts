@@ -8,7 +8,6 @@ import {
   scopeISOSet,
   entriesInScope,
   valuesInScope,
-  widestValue,
 } from "./keyFeatureScope";
 import { ABSENT_FILTER_TOKEN } from "./absent";
 import type { PathwayMetadataType } from "../types";
@@ -287,64 +286,6 @@ describe("entriesInScope — the ABSENT/None token", () => {
         noSectors,
       ),
     ).toHaveLength(1);
-  });
-});
-
-describe("widestValue", () => {
-  it("returns undefined when nothing is authored", () => {
-    expect(widestValue([])).toBeUndefined();
-    expect(widestValue(undefined)).toBeUndefined();
-  });
-
-  it("returns the only value when there is one entry", () => {
-    expect(widestValue([e("across sectors", "Global", "only")])).toBe("only");
-  });
-
-  it("prefers across sectors over a named sector", () => {
-    expect(
-      widestValue([
-        e("Power", "Global", "narrow"),
-        e("across sectors", "Global", "wide"),
-      ]),
-    ).toBe("wide");
-  });
-
-  it("prefers Global over a region, and a region over a country", () => {
-    expect(
-      widestValue([
-        e("across sectors", "TH", "country"),
-        e("across sectors", "South East Asia", "region"),
-        e("across sectors", "Global", "global"),
-      ]),
-    ).toBe("global");
-    expect(
-      widestValue([
-        e("across sectors", "TH", "country"),
-        e("across sectors", "South East Asia", "region"),
-      ]),
-    ).toBe("region");
-  });
-
-  it("ranks sector ahead of geography", () => {
-    // A across sectors entry wins even when its geography is narrower, matching the
-    // "sector > geography" precedence #869 defines for its cost model.
-    expect(
-      widestValue([
-        e("Power", "Global", "power-global"),
-        e("across sectors", "TH", "cross-th"),
-      ]),
-    ).toBe("cross-th");
-  });
-
-  it("preserves an array value intact", () => {
-    expect(widestValue([e("across sectors", "Global", ["a", "b"])])).toEqual([
-      "a",
-      "b",
-    ]);
-  });
-
-  it("degrades to undefined for a stale v1 scalar", () => {
-    expect(widestValue("Moderate decrease")).toBeUndefined();
   });
 });
 

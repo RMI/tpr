@@ -7,12 +7,12 @@ import { useFilters } from "../context/FilterContext";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import {
   columnGeographyOptions,
+  comparisonScopeAvailability,
   defaultGeographyForColumn,
   encodeColumnGeographies,
   resolveSharedSector,
 } from "../utils/comparisonScope";
 import { index } from "../data/index.gen";
-import { pathwayToolAvailability } from "../utils/timeseriesAvailability";
 import type { PathwayMetadataType } from "../types";
 
 const SLOTS = [0, 1, 2] as const;
@@ -55,9 +55,11 @@ const ComparisonRibbon: React.FC = () => {
   const handleCompare = () => {
     if (!canCompare) return;
 
-    // Only a sector some column has data for can be selected there (#1017).
+    // Only what the page itself can select (#1017), by the page's own rule, so
+    // the two cannot drift: a seed the page rejected would silently fall back
+    // to its default.
     const availabilities = pathways.map((pathway) =>
-      pathwayToolAvailability(index.byPathway[pathway.id] ?? []),
+      comparisonScopeAvailability(pathway, index.byPathway[pathway.id] ?? []),
     );
     const sector = resolveSharedSector(filters, pathways, (s) =>
       availabilities.some((a) => a.hasSector(s)),

@@ -4,10 +4,18 @@ import ComparisonKeyFeatures from "./ComparisonKeyFeatures";
 import { NOT_A_CORE_DRIVER_TEXT } from "./CoreDrivers";
 import type { CoreDrivers } from "./CoreDrivers";
 import type { PathwayMetadataType } from "../types";
+import {
+  resolveKeyFeature,
+  sourceScopeLabel,
+} from "../utils/keyFeatureResolution";
+import { ACROSS_SECTORS } from "../utils/keyFeatureRules";
 
-/** v2 stores every key feature as scoped entries; widest scope is what renders. */
+/**
+ * v2 stores every key feature as scoped entries. One entry at the pathway's
+ * widest scope, which is where a grid with no scope selected resolves.
+ */
 const wide = (value: string | string[]) => [
-  { sector: "cross-sector", geography: "Global", value },
+  { sector: "across sectors", geography: "Global", value },
 ];
 
 const KEY_FEATURES = {
@@ -42,12 +50,76 @@ const pathway = (
   ({
     id,
     name: { full: `Pathway ${id}`, short: id },
+    sectors: [{ name: "Power" }],
+    geography: { global: true },
     keyFeatures: KEY_FEATURES,
     coreDrivers: { ...NO_DRIVERS, ...coreDrivers },
   }) as unknown as PathwayMetadataType;
 
+/** No sector or geography selected: every column resolves at its widest. */
 const renderGrid = (pathways: PathwayMetadataType[]) =>
-  render(<ComparisonKeyFeatures pathways={pathways} />);
+  render(
+    <ComparisonKeyFeatures
+      pathways={pathways}
+      sector={null}
+      geographies={{}}
+    />,
+  );
+
+const renderScoped = (
+  pathways: PathwayMetadataType[],
+  sector: string | null,
+  geographies: Record<string, string | null>,
+) =>
+  render(
+    <ComparisonKeyFeatures
+      pathways={pathways}
+      sector={sector}
+      geographies={geographies}
+    />,
+  );
+
+/** A scoped entry. */
+const e = (sector: string, geography: string, value: string | string[]) => ({
+  sector,
+  geography,
+  value,
+});
+
+/**
+ * A Power pathway with its own region and country mapping, holding only the
+ * key features given.
+ */
+const scopedPathway = (
+  id: string,
+  regions: Record<string, string[]>,
+  keyFeatures: Record<string, ReturnType<typeof e>[]>,
+): PathwayMetadataType =>
+  ({
+    id,
+    name: { full: `Pathway ${id}`, short: id },
+    sectors: [{ name: "Power" }, { name: "Buildings" }],
+    geography: { global: true, regions, country: ["TH", "VN"] },
+    keyFeatures,
+    coreDrivers: NO_DRIVERS,
+  }) as unknown as PathwayMetadataType;
+
+/**
+ * The cells of one feature row, in column order. A row is its label, spanning
+ * every column, followed by one cell per pathway.
+ */
+const cellsOf = (label: string, columns: number): HTMLElement[] => {
+  let el = screen.getByText(label, { selector: "p" }).parentElement;
+  const cells: HTMLElement[] = [];
+  for (let i = 0; i < columns; i++) {
+    el = el?.nextElementSibling as HTMLElement | null;
+    if (el) cells.push(el);
+  }
+  return cells;
+};
+
+/** Any scope badge, whatever it names: they all read "<sector> · <geography>". */
+const queryScopeBadge = (cell: HTMLElement) => within(cell).queryByText(/ · /);
 
 const groupHeadings = () =>
   screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
@@ -224,6 +296,146 @@ describe("ComparisonKeyFeatures", () => {
 
       const pill = screen.getAllByText("Carbon price")[0];
       expect(pill.closest("[tabindex]")).not.toBeNull();
+    });
+  });
+
+  describe("resolution per column (#869)", () => {
+    const SEA = { "Southeast Asia": ["TH", "VN"] };
+
+    it("resolves each column against its own geography", () => {
+      // The same data in both columns, so only the geography tells them apart.
+      const trajectory = {
+        emissionsTrajectory: [
+          e("Power", "Southeast Asia", "Moderate decrease"),
+          e("across sectors", "Global", "Significant increase"),
+        ],
+      };
+      renderScoped(
+        [
+          scopedPathway("a", SEA, trajectory),
+          scopedPathway("b", SEA, trajectory),
+        ],
+        "Power",
+        { a: "Southeast Asia", b: "Global" },
+      );
+
+      const [a, b] = cellsOf("Emissions trajectory", 2);
+      expect(within(a).getByText("Moderate decrease")).toBeInTheDocument();
+      expect(within(b).getByText("Significant increase")).toBeInTheDocument();
+    });
+
+    it("walks each column out through its own regions", () => {
+      // Both columns ask for Thailand, which neither records. Each falls back to
+      // the region that contains it in its own publication's mapping, spelled
+      // as that publisher spells it.
+      renderScoped(
+        [
+          scopedPathway("a", SEA, {
+            emissionsTrajectory: [
+              e("Power", "Southeast Asia", "Minor decrease"),
+            ],
+          }),
+          scopedPathway(
+            "b",
+            { "South East Asia": ["TH", "VN"] },
+            {
+              emissionsTrajectory: [
+                e("Power", "South East Asia", "Moderate increase"),
+              ],
+            },
+          ),
+        ],
+        "Power",
+        { a: "TH", b: "TH" },
+      );
+
+      const [a, b] = cellsOf("Emissions trajectory", 2);
+      expect(within(a).getByText("Minor decrease")).toBeInTheDocument();
+      expect(within(a).getByText("Power · Southeast Asia")).toBeInTheDocument();
+      expect(within(b).getByText("Moderate increase")).toBeInTheDocument();
+      expect(
+        within(b).getByText("Power · South East Asia"),
+      ).toBeInTheDocument();
+    });
+
+    it("badges a fallback cell, and only that cell", () => {
+      const trajectory = {
+        emissionsTrajectory: [
+          e("Power", "TH", "Moderate decrease"),
+          e("Power", "Southeast Asia", "Minor decrease"),
+        ],
+      };
+      renderScoped(
+        [
+          scopedPathway("a", SEA, trajectory),
+          scopedPathway("b", SEA, trajectory),
+        ],
+        "Power",
+        { a: "TH", b: "VN" },
+      );
+
+      const [a, b] = cellsOf("Emissions trajectory", 2);
+      expect(queryScopeBadge(a)).not.toBeInTheDocument();
+      expect(within(b).getByText("Minor decrease")).toBeInTheDocument();
+      expect(within(b).getByText("Power · Southeast Asia")).toBeInTheDocument();
+    });
+
+    it("falls Electrification on Power back to across sectors, badged", () => {
+      // Electrification is not recorded for Power itself. Asserted against the
+      // resolver's own answer rather than tooltip copy, which is changing.
+      const pathway = scopedPathway("a", SEA, {
+        electrification: [e("across sectors", "Global", "Moderate increase")],
+      });
+      const other = scopedPathway("b", SEA, {});
+      const resolution = resolveKeyFeature(pathway, "electrification", {
+        sector: "Power",
+        geography: "Global",
+      });
+      if (resolution.status !== "resolved") {
+        throw new Error("expected Electrification to resolve");
+      }
+      expect(resolution.isFallback).toBe(true);
+      expect(resolution.sourceScope.sector).toBe(ACROSS_SECTORS);
+
+      renderScoped([pathway, other], "Power", { a: "Global", b: "Global" });
+
+      const [a] = cellsOf("Electrification", 2);
+      expect(within(a).getByText("Moderate increase")).toBeInTheDocument();
+      expect(
+        within(a).getByText(sourceScopeLabel(resolution.sourceScope)),
+      ).toBeInTheDocument();
+    });
+
+    it("says Not applicable for Electrification on Power with nothing across sectors", () => {
+      // The JETP-CIPP / SDSN Singapore shape: Power only, so nothing broader
+      // to inherit. The grid must say the feature does not apply rather than
+      // that nothing is recorded (#1045), while a column with an across-sectors
+      // value still inherits it.
+      const powerOnly = {
+        ...scopedPathway("a", SEA, {}),
+        sectors: [{ name: "Power" }],
+      } as PathwayMetadataType;
+      const inherits = scopedPathway("b", SEA, {
+        electrification: [e("across sectors", "Global", "Moderate increase")],
+      });
+      const resolution = resolveKeyFeature(powerOnly, "electrification", {
+        sector: "Power",
+        geography: "Global",
+      });
+      expect(resolution).toMatchObject({
+        status: "unavailable",
+        notApplicableSector: "Power",
+      });
+
+      renderScoped([powerOnly, inherits], "Power", {
+        a: "Global",
+        b: "Global",
+      });
+
+      const [a, b] = cellsOf("Electrification", 2);
+      expect(within(a).getByText("Not applicable")).toBeInTheDocument();
+      expect(within(a).queryByText("No information")).not.toBeInTheDocument();
+      expect(within(b).getByText("Moderate increase")).toBeInTheDocument();
     });
   });
 

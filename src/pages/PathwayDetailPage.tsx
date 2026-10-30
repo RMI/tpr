@@ -383,7 +383,6 @@ const PathwayDetailPage: React.FC = () => {
   */
   const assumptionsPanel = (
     <KeyFeatures
-      keyFeatures={pathway.keyFeatures}
       pathway={pathway}
       scope={scope}
       coreDrivers={pathway.coreDrivers}
@@ -394,7 +393,6 @@ const PathwayDetailPage: React.FC = () => {
 
   const assumptionsSummary = (
     <KeyFeatures
-      keyFeatures={pathway.keyFeatures}
       pathway={pathway}
       scope={scope}
       coreDrivers={pathway.coreDrivers}
