@@ -345,7 +345,9 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       await selectScope("Steel");
 
       expect(
-        screen.getByText("No timeseries data available for this pathway."),
+        screen.getByText(
+          "No benchmark data can be displayed for this pathway.",
+        ),
       ).toBeInTheDocument();
     },
     TEST_TIMEOUT,

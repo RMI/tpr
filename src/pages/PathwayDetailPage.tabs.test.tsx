@@ -282,7 +282,9 @@ describe("PathwayDetailPage — tabbed layout wiring", () => {
       );
       // datasetsForPathway is stubbed empty, so there is nothing to plot.
       expect(
-        screen.getByText("No timeseries data available for this pathway."),
+        screen.getByText(
+          "No benchmark data can be displayed for this pathway.",
+        ),
       ).toBeInTheDocument();
 
       // Supplemental Information was demoted from the left column to the bottom.
