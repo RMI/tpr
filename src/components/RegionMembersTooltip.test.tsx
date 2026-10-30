@@ -46,23 +46,14 @@ describe("RegionMembersTooltip", () => {
     expect(screen.queryByText("ID")).toBeNull();
   });
 
-  it("heads the list with a count, pluralized", () => {
-    const { unmount } = render(
+  it("heads the list with a count", () => {
+    render(
       <RegionMembersTooltip
         geography={{ regions: { Pair: ["TH", "ID"] } }}
         label="Pair"
       />,
     );
     expect(screen.getByText("2 countries")).toBeInTheDocument();
-    unmount();
-
-    render(
-      <RegionMembersTooltip
-        geography={{ regions: { Single: ["TH"] } }}
-        label="Single"
-      />,
-    );
-    expect(screen.getByText("1 country")).toBeInTheDocument();
   });
 
   it("orders members A→Z by ISO2, matching the country badges", () => {
@@ -113,20 +104,10 @@ describe("RegionMembersTooltip", () => {
     expect(container.textContent).toMatch(/Thailand.*Germany/);
   });
 
-  it("says so when the publication provides no mapping for the region", () => {
-    render(
-      <RegionMembersTooltip
-        geography={{ regions: { "South East Asia": [] } }}
-        label="South East Asia"
-      />,
-    );
-    expect(screen.getByText(NO_REGION_MAPPING_TEXT)).toBeInTheDocument();
-  });
-
   it("shows the no-mapping copy rather than an empty box for unknown or missing geography", () => {
     const { unmount } = render(
       <RegionMembersTooltip
-        geography={{ regions: { Europe: ["DE"] } }}
+        geography={{ regions: { Europe: ["DE", "FR"] } }}
         label="Africa"
       />,
     );

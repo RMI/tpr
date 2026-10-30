@@ -1,27 +1,39 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Link, useSearchParams } from "react-router";
 import { ArrowLeft, ChevronRight, Info } from "lucide-react";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import {
+  columnGeographyOptions,
+  columnsGeographyDivergence,
+  comparisonBlock,
+  decodeColumnGeographies,
+  defaultGeographyForColumn,
+  encodeColumnGeographies,
+  resolveSharedSector,
+  sharedSectors,
+  type ColumnGeographyOption,
+} from "../utils/comparisonScope";
 import { PathwayMetadataType } from "../types";
-import { useComparison } from "../context/ComparisonContext";
+import { useUrlParamState } from "../hooks/useUrlParamState";
+import { useSessionFlag } from "../hooks/useSessionFlag";
+import ComparisonScopeHeader from "../components/ComparisonScopeHeader";
+import { useComparison, MAX_COMPARED } from "../context/ComparisonContext";
 import {
   fetchTimeseriesIndex,
   datasetsForPathway,
 } from "../utils/timeseriesIndex";
 import { TimeSeries } from "../components/PlotSelector";
 import {
-  flattenGeography,
   geographyKind,
-  geographyLabel,
   geographyVariant,
-  normalizeGeography,
   REGION_MAPPING_DISCLAIMER,
-  sortGeographiesForDetails,
 } from "../utils/geographyUtils";
-import BadgeArray from "../components/BadgeArray";
+import RegionMembersTooltip from "../components/RegionMembersTooltip";
+import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
 import getTemperatureColor from "../utils/getTemperatureColor";
 import { getSectorTooltip, getMetricTooltip } from "../utils/tooltipUtils";
 import ComparisonKeyFeatures from "../components/ComparisonKeyFeatures";
+import ComparisonDependencies from "../components/ComparisonDependencies";
 import ComparisonPlots, {
   ComparisonPlotsEntry,
 } from "../components/ComparisonPlots";
@@ -34,13 +46,17 @@ import {
   SECTOR_AVAILABILITY_TOOLTIP,
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
+import { scopeAvailability } from "../utils/scopeAvailability";
 import TextWithTooltip from "../components/TextWithTooltip";
+import { editionLabelSuffix } from "../utils/pathwayEditions";
 
 // ── Pathway summary card (compact) ──────────────────────────────────────────
 
-const PathwaySummaryCard: React.FC<{ pathway: PathwayMetadataType }> = ({
-  pathway,
-}) => {
+const PathwaySummaryCard: React.FC<{
+  pathway: PathwayMetadataType;
+  /** The other columns, so an edition year is added only when it disambiguates. */
+  shownWith?: readonly PathwayMetadataType[];
+}> = ({ pathway, shownWith = [] }) => {
   const formattedTemp = pathway.modelTempIncrease
     ? `${pathway.modelTempIncrease}°C`
     : null;
@@ -85,7 +101,8 @@ const PathwaySummaryCard: React.FC<{ pathway: PathwayMetadataType }> = ({
           {(pathway.publication.publisher.short ??
             pathway.publication.publisher.full) +
             ": " +
-            pathway.name.full}
+            pathway.name.full +
+            editionLabelSuffix(pathway, shownWith)}
         </h3>
         <p className="text-xs text-rmigray-600 line-clamp-3 mb-3">
           {pathway.description}
@@ -133,25 +150,43 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
 }) => (
   <>
     {pathways.map((pathway, idx) => {
-      const availability = availabilities[idx];
-      const sorted = sortByAvailability(
-        sortGeographiesForDetails(flattenGeography(pathway.geography)),
-        (geo) => availability.hasGeography(geo),
-      );
+      // Same helper the scope header's per-column control reads, so this
+      // read-only view and the selectable one cannot drift.
+      const options = columnGeographyOptions(pathway, availabilities[idx]);
       return (
         <div
           key={pathway.id}
           className="min-w-0"
         >
           <BadgeArray
-            variant={sorted.map((geo) => {
-              const base = geographyVariant(geographyKind(geo));
-              return availability.hasGeography(geo) ? base : `${base}-pub`;
+            variant={options.map((option): BadgeVariant => {
+              const base = geographyVariant(option.kind);
+              return option.available ? base : `${base}-pub`;
             })}
-            toLabel={(geo) => geographyLabel(normalizeGeography(geo ?? ""))}
+            toLabel={(token) =>
+              options.find((o) => o.token === token)?.label ?? ""
+            }
+            /*
+              Region membership, the same tooltip the card view and both detail
+              page surfaces carry. Regions only: "Global" and a country name
+              have no members to list, and a tooltip-less badge stays a plain
+              span with no focus trigger.
+
+              `tooltipGetter` receives the raw child, which here is the
+              publisher's own token — exactly what `regionMemberCodes` matches
+              on. No `searchTerm`: nothing is being searched on this page.
+            */
+            tooltipGetter={(token) =>
+              geographyKind(token) === "region" ? (
+                <RegionMembersTooltip
+                  geography={pathway.geography}
+                  label={token}
+                />
+              ) : undefined
+            }
             visibleCount={Infinity}
           >
-            {sorted}
+            {options.map((option) => option.token)}
           </BadgeArray>
         </div>
       );
@@ -175,7 +210,7 @@ const SectionHeading: React.FC<{ children: React.ReactNode }> = ({
 // ── Main page ────────────────────────────────────────────────────────────────
 
 const ComparisonPage: React.FC = () => {
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { setComparedPathwayIds } = useComparison();
 
   // Parse IDs from URL — the source of truth for which pathways to compare.
@@ -195,14 +230,8 @@ const ComparisonPage: React.FC = () => {
         seen.add(id);
         return true;
       })
-      .slice(0, 3);
+      .slice(0, MAX_COMPARED);
   }, [searchParams]);
-
-  // Always sync URL IDs back into context so the ribbon stays current,
-  // including when the URL resolves to 0–1 valid IDs (clears stale state).
-  useEffect(() => {
-    setComparedPathwayIds(ids);
-  }, [ids, setComparedPathwayIds]);
 
   const pathways = useMemo(
     () =>
@@ -212,6 +241,22 @@ const ComparisonPage: React.FC = () => {
     [ids],
   );
 
+  /*
+    Alex's hard restriction: a comparison needs one sector in common. The tray
+    can no longer assemble an illegal set (see PathwayCard), but `?ids=` is
+    read straight from the query string and validated only for existence, so a
+    hand-edited or stale shared link still has to be caught here.
+  */
+  const block = useMemo(() => comparisonBlock(pathways), [pathways]);
+
+  // Sync URL IDs back into context so the ribbon stays current, including when
+  // the URL resolves to 0–1 valid IDs (clears stale state). Skipped for a
+  // blocked set only: a bad link must not clobber the reader's own selection.
+  useEffect(() => {
+    if (block !== null) return;
+    setComparedPathwayIds(ids);
+  }, [ids, block, setComparedPathwayIds]);
+
   const n = pathways.length;
 
   const availabilities = useMemo(
@@ -219,6 +264,139 @@ const ComparisonPage: React.FC = () => {
       pathways.map((p) => pathwayToolAvailability(index.byPathway[p.id] ?? [])),
     [pathways],
   );
+
+  /*
+    The scope, backed by the URL.
+
+    `pathwayMetadata` is read at module load and `ids` resolve synchronously
+    above, so the legal option sets exist at first render — no deferred seeding
+    effect is needed here, unlike the detail page.
+
+    Defaults are computed with no filters: `ComparisonRibbon` already wrote the
+    reader's search scope into the URL at navigation time, so resolving an
+    absent param against session filters here would mean a shared link showed
+    the recipient's scope rather than the sender's.
+  */
+  const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
+
+  /*
+    A shared sector is worth selecting when any column has something to show
+    for it: benchmark data for the plots, or recorded dependencies (#1017,
+    #1030). The same rule the detail page's ribbon uses. The coverage sections
+    below keep the timeseries-only `availabilities`, since their outlined
+    badges speak about data in this tool.
+  */
+  const sectorAvailabilities = useMemo(
+    () =>
+      pathways.map((p) => scopeAvailability(p, index.byPathway[p.id] ?? [])),
+    [pathways],
+  );
+
+  const isSectorAvailable = useCallback(
+    (sector: string) => sectorAvailabilities.some((a) => a.hasSector(sector)),
+    [sectorAvailabilities],
+  );
+
+  const [sector, setSector] = useUrlParamState({
+    param: "sector",
+    // Only selectable sectors are legal, so a link naming an outlined one
+    // falls back to the default like any other unknown value.
+    options: useMemo(
+      () => sectorOptions.filter(isSectorAvailable),
+      [sectorOptions, isSectorAvailable],
+    ),
+    defaultValue: useMemo(
+      () => resolveSharedSector({ sector: null }, pathways, isSectorAvailable),
+      [pathways, isSectorAvailable],
+    ),
+  });
+
+  /** Each column's own geographies, keyed by pathway id. */
+  const geographyOptions = useMemo(() => {
+    const byPathway: Record<string, ColumnGeographyOption[]> = {};
+    pathways.forEach((pathway, idx) => {
+      byPathway[pathway.id] = columnGeographyOptions(
+        pathway,
+        availabilities[idx],
+      );
+    });
+    return byPathway;
+  }, [pathways, availabilities]);
+
+  const geographyDefaults = useMemo(() => {
+    const byPathway: Record<string, string | null> = {};
+    for (const pathway of pathways) {
+      byPathway[pathway.id] = defaultGeographyForColumn(
+        { geography: null },
+        pathway,
+        geographyOptions[pathway.id] ?? [],
+      );
+    }
+    return byPathway;
+  }, [pathways, geographyOptions]);
+
+  /*
+    Geography is one value per column, so it cannot use `useUrlParamState` —
+    that hook is a single scalar validated against a single option set. The
+    same four behaviours are kept by hand: validate each column's token against
+    that column's options, delete the param when every column is at its
+    default, a functional updater so `?ids=` and `?sector=` survive, and
+    `{ replace: false }` so Back steps through selections.
+  */
+  const selectedGeographies = useMemo(() => {
+    const fromUrl = decodeColumnGeographies(searchParams.get("geography"));
+    const resolved: Record<string, string | null> = {};
+    for (const pathway of pathways) {
+      const requested = fromUrl[pathway.id];
+      // Outlined options cannot be chosen, so a link naming one is not legal.
+      const legal = (geographyOptions[pathway.id] ?? []).some(
+        (option) => option.token === requested && option.available,
+      );
+      resolved[pathway.id] = legal
+        ? requested
+        : (geographyDefaults[pathway.id] ?? null);
+    }
+    return resolved;
+  }, [searchParams, pathways, geographyOptions, geographyDefaults]);
+
+  const handleGeographyChange = (pathwayId: string, next: string): void => {
+    const merged: Record<string, string> = {};
+    for (const pathway of pathways) {
+      const token =
+        pathway.id === pathwayId ? next : selectedGeographies[pathway.id];
+      // Only non-default choices need saying; a column at its default stays
+      // out of the URL so the common case has no `geography` param at all.
+      if (token && token !== geographyDefaults[pathway.id]) {
+        merged[pathway.id] = token;
+      }
+    }
+
+    setSearchParams(
+      (prev) => {
+        const params = new URLSearchParams(prev);
+        const encoded = encodeColumnGeographies(merged);
+        if (encoded === "") params.delete("geography");
+        else params.set("geography", encoded);
+        return params;
+      },
+      { replace: false },
+    );
+  };
+
+  const divergence = useMemo(
+    () => columnsGeographyDivergence(selectedGeographies, pathways),
+    [selectedGeographies, pathways],
+  );
+
+  /*
+    "Freeze plots" (#1033): remembered for the tab, across comparisons, so
+    leaving for a detail page and coming back keeps the reader's choice. The
+    header reports its height so frozen plots sit flush beneath it.
+  */
+  const [plotsFrozen, setPlotsFrozen] = useSessionFlag(
+    "pathway-comparison-freeze-plots",
+  );
+  const [scopeHeaderHeight, setScopeHeaderHeight] = useState(0);
 
   // Timeseries data state: one entry per pathway
   const [plotEntries, setPlotEntries] = useState<ComparisonPlotsEntry[]>([]);
@@ -237,6 +415,7 @@ const ComparisonPage: React.FC = () => {
               pathwayId: p.id,
               timeseriesdata: null,
               datasetId: undefined,
+              pathwayGeography: p.geography,
             };
           }
           const first = datasets[0];
@@ -249,12 +428,14 @@ const ComparisonPage: React.FC = () => {
               pathwayId: p.id,
               timeseriesdata: data,
               datasetId: first.datasetId,
+              pathwayGeography: p.geography,
             };
           } catch {
             return {
               pathwayId: p.id,
               timeseriesdata: null,
               datasetId: first.datasetId,
+              pathwayGeography: p.geography,
             };
           }
         }),
@@ -267,6 +448,37 @@ const ComparisonPage: React.FC = () => {
       cancelled = true;
     };
   }, [pathways]);
+
+  if (block !== null) {
+    // Disambiguated against the whole comparison, not just the offenders: the
+    // other edition may be the column that is NOT an offender.
+    const names = block.offenders
+      .map(
+        (p) =>
+          `${p.publication.publisher.short ?? p.publication.publisher.full}: ${p.name.full}${editionLabelSuffix(p, pathways)}`,
+      )
+      .join(", ");
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <h2 className="text-xl font-semibold text-rmigray-800 mb-2">
+          These pathways cannot be compared
+        </h2>
+        <p className="text-rmigray-600 mb-4 max-w-xl mx-auto">
+          {`${names} shares no sector with the others, and a comparison needs one sector in common.`}
+        </p>
+        <Link
+          to="/pathway"
+          className="inline-flex items-center text-bluespruce hover:text-energy"
+        >
+          <ArrowLeft
+            size={16}
+            className="mr-1"
+          />
+          Back to pathways
+        </Link>
+      </div>
+    );
+  }
 
   // Guard: need at least 2 valid pathways
   if (ids.length < 2) {
@@ -289,6 +501,222 @@ const ComparisonPage: React.FC = () => {
     );
   }
 
+  /*
+    The six comparison sections, as nodes rather than inline JSX, so their
+    order can be a data decision below.
+  */
+  const sectionNodes: Record<string, React.ReactNode> = {
+    plots: (
+      <>
+        {/*
+          ── Benchmark Metric Plots ──
+          No wrapper: a sticky element only sticks within its parent, so the
+          plots must be a direct child of the page container to stay frozen
+          for the whole page.
+        */}
+        <ComparisonPlots
+          className="mt-8"
+          entries={plotEntries}
+          requestedGeographies={selectedGeographies}
+          requestedSector={sector}
+          frozen={plotsFrozen}
+          onFrozenChange={setPlotsFrozen}
+          stickyTop={scopeHeaderHeight}
+        />
+      </>
+    ),
+    keyFeatures: (
+      <>
+        {/* ── Key Features ── */}
+        <div className="mt-8">
+          <ComparisonKeyFeatures pathways={pathways} />
+        </div>
+      </>
+    ),
+    dependencies: (
+      <>
+        {/* ── Dependencies ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Dependencies
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip="Shown for the sector selected above. Dependencies are not specific to a geography."
+                ariaLabel="Dependencies information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          <div style={{ gridColumn: "1 / -1" }}>
+            <ComparisonDependencies
+              pathways={pathways}
+              sector={sector}
+            />
+          </div>
+        </div>
+      </>
+    ),
+    geographies: (
+      <>
+        {/* ── Geographies ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Geographies
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip={
+                  <>
+                    <span className="block">
+                      {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+                    </span>
+                    <span className="mt-2 block italic">
+                      {REGION_MAPPING_DISCLAIMER}
+                    </span>
+                  </>
+                }
+                ariaLabel="Geography availability information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          <ComparisonGeographies
+            pathways={pathways}
+            availabilities={availabilities}
+          />
+        </div>
+      </>
+    ),
+    sectors: (
+      <>
+        {/* ── Sectors ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Sectors
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip={SECTOR_AVAILABILITY_TOOLTIP}
+                ariaLabel="Sector availability information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          {pathways.map((p, idx) => {
+            const sortedSectors = sortByAvailability(p.sectors, (s) =>
+              availabilities[idx].hasSector(s.name),
+            );
+            return (
+              <div
+                key={p.id}
+                className="min-w-0"
+              >
+                <BadgeArray
+                  variant={sortedSectors.map((s) =>
+                    availabilities[idx].hasSector(s.name)
+                      ? "sector"
+                      : "sector-pub",
+                  )}
+                  tooltipGetter={getSectorTooltip}
+                  visibleCount={Infinity}
+                >
+                  {sortedSectors.map((s) => s.name)}
+                </BadgeArray>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    ),
+    metrics: (
+      <>
+        {/* ── Benchmark Metrics (badge arrays) ── */}
+        <div
+          className="grid gap-x-6 mt-8"
+          style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
+        >
+          <SectionHeading>
+            <span className="flex items-center gap-1.5">
+              Benchmark Metrics
+              <TextWithTooltip
+                text={
+                  <Info
+                    size={14}
+                    className="text-white/80 cursor-help"
+                  />
+                }
+                tooltip={METRIC_AVAILABILITY_TOOLTIP}
+                ariaLabel="Benchmark metric availability information"
+                position="right"
+              />
+            </span>
+          </SectionHeading>
+          {pathways.map((p, idx) => {
+            const sortedMetrics = sortByAvailability(p.metric, (m) =>
+              availabilities[idx].hasMetric(m),
+            );
+            return (
+              <div
+                key={p.id}
+                className="min-w-0"
+              >
+                <BadgeArray
+                  variant={sortedMetrics.map((m) =>
+                    availabilities[idx].hasMetric(m) ? "metric" : "metric-pub",
+                  )}
+                  tooltipGetter={getMetricTooltip}
+                  visibleCount={Infinity}
+                >
+                  {sortedMetrics}
+                </BadgeArray>
+              </div>
+            );
+          })}
+        </div>
+      </>
+    ),
+  };
+
+  /*
+    A fixed order. The geographies section used to float to the top whenever
+    the columns disagreed; with a geography control in the header under each
+    column, the discrepancy is stated where the reader chose it and the section
+    stays put.
+  */
+  const sectionOrder = [
+    "plots",
+    "keyFeatures",
+    "dependencies",
+    "geographies",
+    "sectors",
+    "metrics",
+  ];
+
   const colClass =
     n === 2 ? "grid grid-cols-2 gap-6" : "grid grid-cols-3 gap-6";
 
@@ -306,151 +734,37 @@ const ComparisonPage: React.FC = () => {
         Back to pathways
       </Link>
 
-      {/* ── Pathway summary cards ── */}
-      <div className={`${colClass} sticky top-(--env-banner-height) z-20`}>
+      {/*
+        The cards are static. A sticky scope header and three sticky ~200px
+        cards cannot share a viewport; the header's condensed bar restates the
+        column names once these have scrolled away.
+      */}
+      <div className={colClass}>
         {pathways.map((p) => (
           <PathwaySummaryCard
             key={p.id}
             pathway={p}
+            shownWith={pathways}
           />
         ))}
       </div>
 
-      {/* ── Benchmark Metric Plots ── */}
-      <div className="mt-8">
-        <ComparisonPlots entries={plotEntries} />
-      </div>
+      <ComparisonScopeHeader
+        pathways={pathways}
+        sectorOptions={sectorOptions}
+        isSectorAvailable={isSectorAvailable}
+        selectedSector={sector}
+        onSectorChange={setSector}
+        geographyOptions={geographyOptions}
+        selectedGeographies={selectedGeographies}
+        onGeographyChange={handleGeographyChange}
+        divergence={divergence}
+        onHeightChange={setScopeHeaderHeight}
+      />
 
-      {/* ── Key Features ── */}
-      <div className="mt-8">
-        <ComparisonKeyFeatures pathways={pathways} />
-      </div>
-
-      {/* ── Geographies ── */}
-      <div
-        className="grid gap-x-6 mt-8"
-        style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
-      >
-        <SectionHeading>
-          <span className="flex items-center gap-1.5">
-            Geographies
-            <TextWithTooltip
-              text={
-                <Info
-                  size={14}
-                  className="text-white/80 cursor-help"
-                />
-              }
-              tooltip={
-                <>
-                  <span className="block">
-                    {GEOGRAPHY_AVAILABILITY_TOOLTIP}
-                  </span>
-                  <span className="mt-2 block italic">
-                    {REGION_MAPPING_DISCLAIMER}
-                  </span>
-                </>
-              }
-              ariaLabel="Geography availability information"
-              position="right"
-            />
-          </span>
-        </SectionHeading>
-        <ComparisonGeographies
-          pathways={pathways}
-          availabilities={availabilities}
-        />
-      </div>
-
-      {/* ── Sectors ── */}
-      <div
-        className="grid gap-x-6 mt-8"
-        style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
-      >
-        <SectionHeading>
-          <span className="flex items-center gap-1.5">
-            Sectors
-            <TextWithTooltip
-              text={
-                <Info
-                  size={14}
-                  className="text-white/80 cursor-help"
-                />
-              }
-              tooltip={SECTOR_AVAILABILITY_TOOLTIP}
-              ariaLabel="Sector availability information"
-              position="right"
-            />
-          </span>
-        </SectionHeading>
-        {pathways.map((p, idx) => {
-          const sortedSectors = sortByAvailability(p.sectors, (s) =>
-            availabilities[idx].hasSector(s.name),
-          );
-          return (
-            <div
-              key={p.id}
-              className="min-w-0"
-            >
-              <BadgeArray
-                variant={sortedSectors.map((s) =>
-                  availabilities[idx].hasSector(s.name)
-                    ? "sector"
-                    : "sector-pub",
-                )}
-                tooltipGetter={getSectorTooltip}
-                visibleCount={Infinity}
-              >
-                {sortedSectors.map((s) => s.name)}
-              </BadgeArray>
-            </div>
-          );
-        })}
-      </div>
-
-      {/* ── Benchmark Metrics (badge arrays) ── */}
-      <div
-        className="grid gap-x-6 mt-8"
-        style={{ gridTemplateColumns: `repeat(${n}, 1fr)` }}
-      >
-        <SectionHeading>
-          <span className="flex items-center gap-1.5">
-            Benchmark Metrics
-            <TextWithTooltip
-              text={
-                <Info
-                  size={14}
-                  className="text-white/80 cursor-help"
-                />
-              }
-              tooltip={METRIC_AVAILABILITY_TOOLTIP}
-              ariaLabel="Benchmark metric availability information"
-              position="right"
-            />
-          </span>
-        </SectionHeading>
-        {pathways.map((p, idx) => {
-          const sortedMetrics = sortByAvailability(p.metric, (m) =>
-            availabilities[idx].hasMetric(m),
-          );
-          return (
-            <div
-              key={p.id}
-              className="min-w-0"
-            >
-              <BadgeArray
-                variant={sortedMetrics.map((m) =>
-                  availabilities[idx].hasMetric(m) ? "metric" : "metric-pub",
-                )}
-                tooltipGetter={getMetricTooltip}
-                visibleCount={Infinity}
-              >
-                {sortedMetrics}
-              </BadgeArray>
-            </div>
-          );
-        })}
-      </div>
+      {sectionOrder.map((key) => (
+        <React.Fragment key={key}>{sectionNodes[key]}</React.Fragment>
+      ))}
     </div>
   );
 };

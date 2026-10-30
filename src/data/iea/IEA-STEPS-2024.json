@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "IEA-STEPS-2024",
   "publication": {
     "title": {
@@ -123,6 +123,35 @@
         "UA",
         "GB"
       ],
+      "European Union": [
+        "AT",
+        "BE",
+        "BG",
+        "HR",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE"
+      ],
       "Africa": [
         "DZ",
         "EG",
@@ -236,6 +265,7 @@
         "TO",
         "VU"
       ],
+      "CN": ["CN", "HK"],
       "Southeast Asia": [
         "BN",
         "KH",
@@ -247,14 +277,99 @@
         "SG",
         "TH",
         "VN"
+      ],
+      "OECD": [
+        "AU",
+        "AT",
+        "BE",
+        "CA",
+        "CL",
+        "CO",
+        "CR",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IS",
+        "IE",
+        "IL",
+        "IT",
+        "JP",
+        "KR",
+        "LV",
+        "LT",
+        "LU",
+        "MX",
+        "NL",
+        "NZ",
+        "NO",
+        "PL",
+        "PT",
+        "SK",
+        "SI",
+        "ES",
+        "SE",
+        "CH",
+        "TR",
+        "GB",
+        "US"
+      ],
+      "Advanced economies": [
+        "AU",
+        "AT",
+        "BE",
+        "CA",
+        "CL",
+        "CO",
+        "CR",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IS",
+        "IE",
+        "IL",
+        "IT",
+        "JP",
+        "KR",
+        "LV",
+        "LT",
+        "LU",
+        "MX",
+        "NL",
+        "NZ",
+        "NO",
+        "PL",
+        "PT",
+        "SK",
+        "SI",
+        "ES",
+        "SE",
+        "CH",
+        "TR",
+        "GB",
+        "US",
+        "BG",
+        "HR",
+        "CY",
+        "MT",
+        "RO"
       ]
     },
-    "country": ["US", "BR", "RU", "CN", "IN", "JP"]
+    "country": ["US", "BR", "RU", "IN", "JP"]
   },
-  "pathwayType": "Predictive",
+  "pathwayType": "Exploratory",
   "modelTempIncrease": 2.4,
   "modelYearStart": 2023,
-  "modelYearEnd": 2100,
+  "modelYearEnd": 2050,
   "sectors": [
     {
       "name": "Buildings",
@@ -295,7 +410,8 @@
         "Wind",
         "Solar",
         "Biomass",
-        "Renewables",
+        "Geothermal",
+        "Energy storage",
         "Other"
       ]
     },
@@ -308,6 +424,10 @@
       "technologies": []
     },
     {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
       "name": "Shipping",
       "technologies": []
     },
@@ -316,8 +436,7 @@
       "technologies": []
     }
   ],
-  "pathwayOverview": "The Stated Policies Scenario (STEPS) provides a sense of the energy sector’s direction of travel today, based on the latest market data, technology costs and in-depth analysis of the prevailing policy settings in countries around the world. STEPS is complemented by APS, a scenario which assumes that countries’ aspirational targets will be met in full. The difference between STEPS and APS highlights a commitment gap.",
-  "expertOverview": "#### Pathway Description\n\nThe Stated Policies Scenario (STEPS) projects the energy sector’s current direction of travel, based on the latest market data, technology costs and in-depth analysis of the stated policies in countries around the world. STEPS provides a detailed projection of future outcomes based on current conditions, but does not attempt to predict which existing policies or economic conditions are more or less likely to change. The STEPS pathway corresponds to 2.4°C of warming by 2100 (50% probability). This is significantly higher than the IEA’s announced pledges scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), and the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability).\n\n#### Core Drivers\n\nThe STEPS pathway is primarily driven by existing policy dynamics and forecast future declines in technology costs, which drive large-scale deployment of mature low-carbon technologies.\n\n*Policy:* The STEPS pathway models stated policies, such as energy subsidies or power development plans, but does not include aspirational policy goals that lack specific provisions for their implementation, such as long-term net-zero pledges. The STEPS pathway includes only existing or scheduled carbon pricing schemes for electricity, industry, and energy production sectors, and does not introduce a global carbon price, as is done in the APS and NZE pathway.\n\n*Technology costs:* Depending on the region, the IEA STEPS assumes moderate to significant cost declines in solar PV, onshore wind, and offshore wind power generation and modest cost declines in nuclear power generation. These declines are mostly driven by falling capital costs. The pathway projects moderate increases in fossil fuel power generation costs in advanced economies, but mixed trends in EMDEs. \n\nThe STEPS pathway provides detailed projections for demand shifts, infrastructure buildout, investment flows, and new technology deployment, but these factors are primarily caused by modelled existing policies and declining technology costs.  \n\n#### Application to Transition Assessment\n\nAs a predictive pathway based on detailed modeling of current stated policies, market conditions, and technology trends, STEPS provides a valuable base-case projection for benchmarking the impact of future transition impacts in the absence of significant policy or market shifts. As a global integrated assessment model, STEPS provides a direct connection between the described pathway and a global temperature outcome. While this allows assessing the ambition of stated targets or plans against a 2.4°C outcome, this high level of implied temperature rise is not applicable for most institutional targets.\n\nDue to its strong focus on modeling existing policy and market trends, STEPS is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of market shifts. Misalignment to the STEPS pathway indicates that a company or plan may already be lagging forecasted rates of change, potentially exposing them to regulatory risks or declining market share as other segments of the energy sector grow. As STEPS only models stated policies with clear implementation plans, and does not include aspirational pledges such as those modeled in APS, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition forecast in STEPS may still be exposed to future risks if new policies or technology shifts occur.\n\nSTEPS provides benchmark data on 5- and 10-year intervals and uses a moderately detailed breakdown of specific generation technologies such as coal, onshore wind, offshore wind, solar PV, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers and project pipelines within company plans. However, STEPS provides data at only the regional level. This limits its suitability for assessing companies which have operations concentrated in one or few countries, as it allows comparison only to the regional average.",
+  "pathwayDescription": "The Stated Policies Scenario (STEPS) projects the energy sector’s current direction of travel, based on the latest market data, technology costs and in-depth analysis of the stated policies in countries around the world. STEPS provides a detailed projection of future outcomes based on current conditions, but does not attempt to predict which existing policies or economic conditions are more or less likely to change. The STEPS pathway corresponds to 2.4°C of warming by 2100 (50% probability). This is significantly higher than the IEA’s announced pledges scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), and the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability).",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -326,29 +445,4246 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Minor decrease",
-    "energyEfficiency": "Moderate improvement",
-    "energyDemand": "Moderate increase",
-    "electrification": "Moderate increase",
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "No information"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Subsidies",
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "Carbon price",
+          "Subsidies",
+          "Performance standards",
+          "Target technology shares",
+          "Phaseout dates",
+          "Other"
+        ]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2",
-    "policyAmbition": "Current and drafted policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "CO2"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Current and drafted policies"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Total costs"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "newTechnologiesIncluded": [
-      "CCUS",
-      "DAC",
-      "Green H2/ammonia",
-      "SAF",
-      "Battery storage"
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": ["SAF", "Green H2/ammonia"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["CCUS", "Green H2/ammonia"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      }
     ],
-    "investmentNeeds": "By tech, part of value chain"
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "By sector"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "By technology"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Advanced economies",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Asia Pacific",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Eurasia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "European Union",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "North America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "OECD",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Southeast Asia",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The pathway models stated policies, such as energy subsisies or power development  plans, but does not include policy targets that lack specific provisions for their implementation. Carbon pricing is applied through existing and scheduled schemes, and target technology shares and capacity plans shape the power mix. Fossil fuel consumption subsidies are removed only where a specific commitment exists, and coal phase-out plans are carried where legislated or provisioned.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Unit technology costs are endogenous and deployment-linked: future cost evolution is tied to deployment levels, following a non-linear learning curve. Falling low-carbon capital costs drive build-out of solar and wind while coal and gas capital costs are held flat, so the relative economics shift toward low-carbon technologies, and utility-scale battery cost decreases which underpins the growth of storage capacity.",
+    "investmentChange": "Low-carbon investment rises as a share of total energy investment. Average annual investment across supply, power and end-use grows from USD 3 254.8 billion in 2024-2030 to USD 3 653.0 billion in 2041-2050, while the fossil component (oil and gas supply, coal supply and unabated fossil generation) falls from USD 977.2 to USD 732.1 billion, so the fossil share drops from about 30% to about 20% and the low-carbon share rises correspondingly.",
+    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from USD 175,981 billion to USD 357,510 billion (2023, PPP).",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "not applicable."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Policy support is the organising assumption of this pathway but is not stretched beyond what is already in place or provisioned, so it enables the decarbonisation levers without being a binding condition on them. Carbon pricing covers only the jurisdictions that already have schemes, efficiency and vehicle standards pull end-use electrification along, and renewable and capacity targets shape the power mix.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Permitting and grid planning rules set the pace at which the electrification lever can be delivered, without being the dominant constraint at this pathway's deployment rate. Grid projects can take over a decade to complete, much longer than the renewable projects they serve, and connection queues and congestion have already arisen from delayed extensions. Global grid line length grows about 15% by 2030.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Cost of capital and carbon prices shape which levers are economic, but the pathway does not require market conditions to change. Financing costs differ by technology and by stage of economic development which favours variable renewables over firm low-carbon capacity in exactly the regions that need capacity most. Carbon prices exist only where already scheduled, so in most of the world the hydrogen and CCUS levers have no price signal and stay small.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "The only acceptance risk the publication names is local opposition to proposed transmission line routes, cited as one of several complications in grid project delivery. That matters for the electrification lever, since grid expansion is its precondition, but at this pathway's build rate the exposure is correspondingly limited. No acceptance issue is raised for generation technologies.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "End-use electrification is the largest lever in this pathway and it runs through household and firm purchasing decisions, so adoption rates are a real constraint on it. This is driven by regulation and falling production costs rather than by preference, and flags that public charging availability remains a major hurdle in rural areas, where long-distance driving is common and long heat pump payback periods of ten to 13 years.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The electrification lever depends on grid and storage build-out that is already constrained. Global grid line length grows about 15% by 2030; network investment nearly doubles by 2050 from current levels and battery investment rises, raising storage capacity. Grid projects take over a decade against much shorter renewable project timelines, which has already produced connection queues and congestion.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "The pathway depends on emerging technologies only modestly. Captured CO2 reaches 395 Mt and DAC 44 Mt by 2050, low-emissions hydrogen production 4.7 EJ, DAC and hydrogen are present but immaterial to the outcome. Battery storage is the exception and is the one new technology this pathway genuinely relies on. Costs are endogenous and deployment-linked.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "The publication warns that reduced investment following the 2023 price fall could cause future supply shortages and price spikes for critical minerals, which would slow or reverse clean energy cost reductions. Concentration risk compounds it, with tariffs and trade measures narrowing supply routes for solar PV, EVs and batteries. Land availability is not assessed anywhere, and bioenergy demand reaches 56.1 EJ of modern solid bioenergy supply without any stated land constraint.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "The publication raises physical climate risk to energy infrastructure from extreme weather as a general concern and identifies it among the risks to fuel supply chains, but it models no climate impact on any decarbonisation lever and quantifies no adaptation requirement.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Over 6 million additional energy workers are needed worldwide by 2030, and the publication states that several parts of the energy industry already face skill shortages, with clean energy sectors competing for the same limited pool of construction workers, welders and electricians - the same trades the grid build-out depends on, where a shortage of qualified staff is already named as a cause of project delay.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "US",
+          "Central and South America",
+          "BR",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "RU",
+          "Asia Pacific",
+          "CN",
+          "IN",
+          "JP",
+          "Southeast Asia",
+          "OECD",
+          "Advanced economies"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Heat is bundled with electricity and cannot be separated. Negative values occur where BECCS and CCUS exceed combustion emissions."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "US",
+          "Central and South America",
+          "BR",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "RU",
+          "Asia Pacific",
+          "CN",
+          "IN",
+          "JP",
+          "Southeast Asia",
+          "OECD",
+          "Advanced economies"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Heat is bundled with electricity and cannot be separated. Negative values occur where BECCS and CCUS exceed combustion emissions."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": [
+          "Global",
+          "North America",
+          "US",
+          "Central and South America",
+          "BR",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "RU",
+          "Asia Pacific",
+          "CN",
+          "IN",
+          "JP",
+          "Southeast Asia",
+          "OECD",
+          "Advanced economies"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop capacity cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "US",
+          "Central and South America",
+          "BR",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "RU",
+          "Asia Pacific",
+          "CN",
+          "IN",
+          "JP",
+          "Southeast Asia",
+          "OECD",
+          "Advanced economies"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "US",
+          "Central and South America",
+          "BR",
+          "Europe",
+          "European Union",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "RU",
+          "Asia Pacific",
+          "CN",
+          "IN",
+          "JP",
+          "Southeast Asia",
+          "OECD",
+          "Advanced economies"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": [
+          "Global",
+          "North America",
+          "Central and South America",
+          "Europe",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Asia Pacific"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["Transmission and distribution"],
+        "scopeLimitations": "Covers combined transmission and distribution networks. Reported as investment spending and as an economy-wide percentage growth in grid line length."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["US", "European Union", "CN", "IN"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Unit costs for nuclear, coal, gas CCGT, solar PV, onshore wind and offshore wind only - no cost data for hydro, bioenergy, geothermal, marine, CCUS-equipped plant or storage."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": [
+          "Global",
+          "North America",
+          "Central and South America",
+          "Europe",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Asia Pacific"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Covers generation, networks and battery storage across the power value chain. Figures are multi-year averages and cumulative totals, not annual series, and include maintenance and infrastructure spend, so they are not derivable from capacity growth and unit costs."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "North America",
+          "Central and South America",
+          "Europe",
+          "Africa",
+          "Middle East",
+          "Eurasia",
+          "Asia Pacific",
+          "CN",
+          "IN"
+        ],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Retirements and additions are cumulative over 2024-2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
+      }
+    ]
   }
 }

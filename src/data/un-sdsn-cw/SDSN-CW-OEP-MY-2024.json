@@ -1,0 +1,401 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "UNSDSN-CW-OEP-MY-2024",
+  "publication": {
+    "title": {
+      "full": "ASEAN Green Future Project Phase 2.2 Report, Optimising Malaysia's Electrifying Future"
+    },
+    "publisher": {
+      "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
+      "short": "UN SDSN, CW"
+    },
+    "year": 2024,
+    "month": 12,
+    "links": [
+      {
+        "url": "https://files.unsdsn.org/AGF%20-%20Malaysia%202.2%20Report%20-%20FINAL.pdf",
+        "description": "Report"
+      }
+    ]
+  },
+  "name": {
+    "full": "Optimised Existing Policy",
+    "short": "OEP MY"
+  },
+  "description": "Exploratory MY least-cost power optimisation within Existing Policy targets; no emissions cap.",
+  "geography": {
+    "country": ["MY"]
+  },
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2019,
+  "modelYearEnd": 2050,
+  "sectors": [
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "Exploratory least-cost Malaysian power pathway (2019–2050) that keeps NETR/MyRER targets as floors, with no new coal and coal out by 2050, but optimises the rest on cost in NEMO with no emissions cap. Solar stays at the 56 GW NETR floor while gas nearly doubles to 53 GW and biomass generation drops 77%. Investment falls 15% to USD 219bn and costs 18% versus EP, but power emissions still rise slightly to 96 MtCO2e by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "metric": [
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix",
+    "Emissions Intensity"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Minor increase"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Current and drafted policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": ["Battery storage", "Other new technologies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Existing Policy targets act as fixed floors: the NETR/MyRER RE capacity targets are added exogenously and coal's maximum capacity addition is set to zero, keeping the coal moratorium and phase-out by 2050. Demand-side efficiency standards and transport targets are unchanged from EP because only generation is optimised. Above the policy floor, additions are chosen on cost rather than RE preference, so policy fixes solar at exactly the NETR 56.3 GW.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "OEP minimises financial cost in NEMO with NREL ATB 2023 capital/O&M costs and ACE fuel costs at a 7% discount rate (Table 9 & 10). Although solar capex falls (USD 1,291/kW in 2018 to 632/kW in 2050), solar stays at the NETR floor while gas grows to 53.4 GW, almost twice NETR’s 28.1 GW (2050 gas CC capex USD 971/kW, fuel USD 27.9/MWh). Biomass generation drops 77% and hydro use rises. Real investment falls 15% (USD 219bn vs 257bn) and 2050 production cost 18% (7.2 vs 8.8 US cents/kWh).",
+    "investmentChange": "Cumulative power generation investment overcomes USD 200 bn, with around USD 100 bn in fossil fuel. This pathway experiences less investment in low carbon technology.",
+    "macroeconomicDrivers": "OEP inherits EP's GDP, population, urbanisation and sectoral value-added assumptions unchanged, so it must meet the same 393 TWh of 2050 electricity demand. Macro assumptions are therefore not a differentiator for OEP; sources as in EP (government projections, UN World Urbanization Prospects, World Bank, LEAP defaults).",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Build-rate and utilisation limits bound the optimiser: maximum annual additions are small hydro 100 MW, mini hydro 10 MW, biogas 10 MW and MSW 50 MW (gas, solar and large hydro unlimited), and every unit must run at least 50% of capacity (25% for hydro). These constraints sit outside cost and policy targets but shape which technologies the least-cost solution can add each period. The report itself flags the resulting biomass decline and gas over-capacity for further investigation."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "OEP keeps the same NETR policy floor, so its renewable build depends on those targets being met, but above the floor cost decides. Policy strategy therefore pins solar at exactly the NETR 56.3 GW and leaves gas expansion to 53.4 GW, almost double NETR's 28.1 GW, unchecked. The report calls for a cost-benefit analysis of that gas build and for more ambitious measures, since OEP still emits 96 MtCO2e from power in 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "OEP inherits EP's regulatory setting: weak enforcement of building rules, limited financing for energy performance contracts and an EECA covering only 21% of commercial consumption and under 1% of users. The report raises no OEP-specific market rules. The relevant point is contractual: the optimiser nearly doubles gas capacity, while the report recommends a roadmap for moving uncontracted gas and existing coal plants to renewables.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "OEP is the cheapest pathway on financial cost (USD 219bn real investment; 7.2 US cents/kWh in 2050), but its 53.4 GW gas fleet raises exposure to gas prices, imports and stranding. Once carbon is priced at USD 185/t its social cost (10.96 US cents/kWh) exceeds OMAP's (10.67), so its economic advantage depends on carbon staying unpriced.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "OEP cuts hydro capacity to 10.7 GW (9.47 large, 1.22 small), close to NETR, which lowers exposure to the hydro siting concerns the report raises; its larger gas fleet raises no acceptance issue in the report.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "OEP carries EP's demand-side adoption assumptions unchanged by design — demand is not re-optimised — so consumer behaviour affects OEP only through the 393 TWh it must supply. No OEP-specific behavioural evidence exists.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "With solar held at 56.3 GW and gas firming the system, OEP needs only 0.76 GW of batteries, less storage than a high-solar system would (evidence-based inference from Table 3). Sabah's 275 kV backbone and limited interconnection are the main bottleneck the report identifies, and higher gas use increases reliance on gas import and supply infrastructure. No hourly or curtailment analysis is reported.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Batteries reach 0.76 GW in 2050 in OEP; with gas providing flexibility, the pathway does not depend on battery maturation.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "OEP raises gas generation to 264.6 TWh, 60% of 2050 output, and capacity to 53.4 GW, so its dependence on gas supply and imports exceeds EP's 55% (evidence-based inference from generation share). Solar and hydro stay within domestic potential and biomass falls to 1.0 GW.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "OEP's hydro output is slightly higher than EP's (94.9 vs 87.7 TWh) because optimisation raises utilisation, so drought exposure persists; the report's caveat that no sensitivity or resilience analysis was run, including on hydro availability across the two monsoon seasons, applies.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived, not reported: power-generation GHG / total generation, 2050 = 96 / 441.64 TWh = 0.217 tCO2e/MWh. National grid only; no captive or rooftop split. CO2e basket not listed (Kyoto inferred from LEAP)."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Power-generation GHG, MtCO2e; 2050 = 96 Mt (Table 5). Annual series only as line charts (Figs 22, 27). No upstream fuel-supply or T&D-loss emissions; no captive or rooftop split. Gases not listed (Kyoto inferred, LEAP)."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Installed GW by technology, Malaysia national grid; no captive or rooftop split. Storage: batteries only, 0.76 GW. Biomass includes biogas; diesel shown as Oil; geothermal not broken out."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "2050 data point",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Annual TWh by technology, national grid; no captive or rooftop split. Biomass includes biogas; Other includes MSW and 'All others'."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Generation shares by technology, national grid; derived from TWh by technology where not charted."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Table 9 capex (USD/kW), fixed O&M (USD/kW-yr), variable (USD/MWh) by technology from NREL ATB 2023 (US-based, not localised); fuel costs Table 10 (ACE 2022). Same table in all pathways. Drives OEP's least-cost optimisation."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), USD. Excludes transmission and distribution; storage not shown separately in the investment figures."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Retirement treatment of coal, gas and diesel plants as stated in the scenario assumptions; no plant-level lifetimes or retirement schedule published."
+      }
+    ]
+  }
+}

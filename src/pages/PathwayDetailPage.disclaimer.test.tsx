@@ -24,7 +24,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: { "South East Asia": ["TH"] } },
+    geography: { global: true, regions: { "South East Asia": ["TH", "VN"] } },
     keyFeatures: { emissionsTrajectory: "Significant decrease" },
   },
 ] as const;
@@ -46,21 +46,31 @@ async function mountDetailPage(): Promise<void> {
   });
   vi.doMock("../utils/timeseriesIndex", () => ({
     fetchTimeseriesIndex: () => Promise.resolve({}),
+    getTimeseriesIndex: () => ({}),
     datasetsForPathway: () => [],
     summarizeSummary: () => undefined,
   }));
 
   const { default: PathwayDetailPage } = await import("./PathwayDetailPage");
+  // Imported from the same post-reset module graph as the page. A static import
+  // would resolve to a different FilterContext instance than the one the page's
+  // useFilters reads, and the provider would not be found.
+  const { FilterProvider } = await import("../context/FilterContext");
 
+  // The coverage panels carrying these ⓘ triggers live on the Scope &
+  // Granularity tab, so deep-link straight to it rather than clicking through.
+  // FilterProvider mirrors production; useFilters throws outside a provider.
   render(
-    <MemoryRouter initialEntries={["/pathway/detail-disclaimer"]}>
-      <Routes>
-        <Route
-          path="/pathway/:id"
-          element={<PathwayDetailPage />}
-        />
-      </Routes>
-    </MemoryRouter>,
+    <FilterProvider>
+      <MemoryRouter initialEntries={["/pathway/detail-disclaimer?tab=scope"]}>
+        <Routes>
+          <Route
+            path="/pathway/:id"
+            element={<PathwayDetailPage />}
+          />
+        </Routes>
+      </MemoryRouter>
+    </FilterProvider>,
   );
 }
 

@@ -99,7 +99,7 @@ describe("sortGeographiesForDetails", () => {
     // `input.map is not a function`.
     const structuredGeography = {
       global: true,
-      regions: { Europe: [] },
+      regions: { Europe: ["DE", "FR"] },
       country: ["US"],
     };
     expect(() =>
@@ -209,10 +209,10 @@ describe("makeGeographyOptions", () => {
 describe("pathwayISOCoverage", () => {
   it("unions country[] and all region members", () => {
     const cov = pathwayISOCoverage({
-      regions: { "South East Asia": ["ID", "TH"], "Europe": ["DE"] },
+      regions: { "South East Asia": ["ID", "TH"], "Europe": ["DE", "FR"] },
       country: ["US"],
     });
-    expect([...cov].sort()).toEqual(["DE", "ID", "TH", "US"]);
+    expect([...cov].sort()).toEqual(["DE", "FR", "ID", "TH", "US"]);
   });
 
   it("does NOT expand the global flag (global-only → empty set)", () => {
@@ -227,7 +227,6 @@ describe("pathwayISOCoverage", () => {
     ]).toEqual(["US"]);
     expect(pathwayISOCoverage(undefined).size).toBe(0);
     expect(pathwayISOCoverage({}).size).toBe(0);
-    expect(pathwayISOCoverage({ regions: { X: [] } }).size).toBe(0);
   });
 });
 
@@ -238,7 +237,7 @@ describe("regionMemberCodes", () => {
         {
           regions: {
             "South East Asia": ["VN", "ID", "TH"],
-            "Europe": ["DE"],
+            "Europe": ["DE", "FR"],
           },
           country: ["US"],
         },
@@ -250,25 +249,25 @@ describe("regionMemberCodes", () => {
   it("matches the label by its normalized form", () => {
     // The badge token comes from flattenGeography, so the lookup has to survive
     // stray whitespace / zero-width characters on either side.
-    const geo = { regions: { " South East Asia ": ["ID"] } } as Geography;
-    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["ID"]);
+    const geo = { regions: { " South East Asia ": ["ID", "TH"] } } as Geography;
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["ID", "TH"]);
     expect(
-      regionMemberCodes({ regions: { Europe: ["DE"] } }, "\u200BEurope"),
-    ).toEqual(["DE"]);
+      regionMemberCodes({ regions: { Europe: ["DE", "FR"] } }, "\u200BEurope"),
+    ).toEqual(["DE", "FR"]);
   });
 
-  it("returns [] for a region the publication left unmapped", () => {
-    // The NGFS shape: a declared region label with no member codes.
-    expect(
-      regionMemberCodes(
-        { regions: { "South East Asia": [] } },
-        "South East Asia",
-      ),
-    ).toEqual([]);
+  it("matches the declared label only, not another spelling of it (#945)", () => {
+    // Timeseries now carry the metadata's own label, so no fold is needed.
+    const geo = { regions: { "Southeast Asia": ["TH", "VN"] } } as Geography;
+    expect(regionMemberCodes(geo, "Southeast Asia")).toEqual(["TH", "VN"]);
+    expect(regionMemberCodes(geo, "South East Asia")).toEqual([]);
   });
 
   it("returns [] for labels that are not one of the pathway's regions", () => {
-    const geo: Geography = { regions: { Europe: ["DE"] }, country: ["US"] };
+    const geo: Geography = {
+      regions: { Europe: ["DE", "FR"] },
+      country: ["US"],
+    };
     expect(regionMemberCodes(geo, "Africa")).toEqual([]);
     expect(regionMemberCodes(geo, "US")).toEqual([]); // a country, not a region
     expect(regionMemberCodes(geo, "Global")).toEqual([]);
@@ -305,8 +304,7 @@ describe("isGeographyAbsent", () => {
   it("is true only when flattening yields no tokens", () => {
     expect(isGeographyAbsent(undefined)).toBe(true);
     expect(isGeographyAbsent({})).toBe(true);
-    // A region label with empty members is still PRESENT (carries a token).
-    expect(isGeographyAbsent({ regions: { X: [] } })).toBe(false);
+    expect(isGeographyAbsent({ regions: { X: ["DE", "FR"] } })).toBe(false);
     expect(isGeographyAbsent({ global: true })).toBe(false);
     expect(isGeographyAbsent({ country: ["US"] })).toBe(false);
   });

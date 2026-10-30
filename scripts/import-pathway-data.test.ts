@@ -1,0 +1,1088 @@
+import { describe, it, expect } from "vitest";
+import {
+  Report,
+  publisherGroup,
+  scenarioParts,
+  canonicalKey,
+  matchEnum,
+  normalizeSector,
+  splitList,
+  ensurePeriod,
+  isAbsent,
+  resolveGeography,
+  buildGeography,
+  TARGETS,
+  parseSegments,
+  parseCoverage,
+  parseGranularity,
+  buildDataAvailability,
+  descriptionFromV1,
+  keyFeaturesFromV1,
+  buildKeyFeatures,
+  charCount,
+  withinLimit,
+  buildCoreDrivers,
+  buildDependencies,
+  buildDoc,
+  parseSectorGroups,
+  orphanSubRows,
+  loadTargetFiles,
+} from "./import-pathway-data.ts";
+
+/** A pathway with no sub-sheet rows. */
+const EMPTY_SUB = {
+  keyFeatures: [],
+  coreDrivers: undefined,
+  dependencies: [],
+  dataAvailability: [],
+};
+
+describe("publisherGroup", () => {
+  it("maps each sheet's spelling to one group", () => {
+    expect(publisherGroup("International Energy Agency (IEA)")).toBe("IEA");
+    expect(publisherGroup("ASEAN Centre for Energy (ACE)")).toBe("ACE");
+    expect(publisherGroup("ACE")).toBe("ACE");
+    // AGF must win over the SDSN check even though both live under un-sdsn-cw.
+    expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
+    expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
+    expect(
+      publisherGroup(
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+      ),
+    ).toBe("CGS");
+    expect(publisherGroup("CGS, IESR")).toBe("CGS");
+    expect(publisherGroup("CGS-IESR")).toBe("CGS");
+    expect(
+      publisherGroup("Network for Greening the Financial System (NGFS)"),
+    ).toBe("NGFS");
+    expect(
+      publisherGroup(
+        "University of Technology Sydney – Institute for Sustainable Futures (UTS ISF)",
+      ),
+    ).toBe("UTS");
+    expect(publisherGroup("TransitionZero (TZ)")).toBe("TZ");
+    expect(
+      publisherGroup(
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+      ),
+    ).toBe("EREA");
+    expect(publisherGroup("Some Unknown Org")).toBeNull();
+  });
+});
+
+describe("scenarioParts", () => {
+  it("reads the trailing (CODE) and [CC]", () => {
+    expect(scenarioParts("Current Policies Scenario (CPS)")).toEqual({
+      code: "CPS",
+      country: "",
+    });
+    expect(
+      scenarioParts("Optimised More Ambitious Pathway (OMAP) [MM]"),
+    ).toEqual({ code: "OMAP", country: "MM" });
+  });
+  it("derives JRC codes from names with no parenthetical", () => {
+    expect(scenarioParts("Reference scenario").code).toBe("Reference");
+    expect(scenarioParts("NDC-LTS scenario").code).toBe("NDC-LTS");
+    expect(scenarioParts("1.5°C scenario").code).toBe("1.5°C");
+    // ...which are the TARGETS keys, so such a row still finds its pathway.
+    for (const name of [
+      "Reference scenario",
+      "NDC-LTS scenario",
+      "1.5°C scenario",
+    ]) {
+      const key = canonicalKey("JRC", name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
+  });
+});
+
+describe("canonicalKey", () => {
+  it("joins the sheets across their name/publisher variations", () => {
+    // "State" vs "States" typo in the sub-sheets must not break the join.
+    expect(
+      canonicalKey("ACE", "ASEAN Member State Targets Scenario (ATS)"),
+    ).toBe("ACE:ATS:");
+    expect(
+      canonicalKey(
+        "ASEAN Centre for Energy (ACE)",
+        "ASEAN Member States Targets Scenario (ATS)",
+      ),
+    ).toBe("ACE:ATS:");
+    // Myanmar and Laos OMAP resolve to distinct keys.
+    expect(
+      canonicalKey(
+        "ASEAN Green Future (AGF)",
+        "Optimised More Ambitious Pathway (OMAP) [MM]",
+      ),
+    ).toBe("AGF:OMAP:MM");
+    expect(
+      canonicalKey(
+        "ASEAN Green Future (AGF)",
+        "Optimized More Ambitious Policy (OMAP)",
+      ),
+    ).toBe("AGF:OMAP:");
+  });
+
+  it("keeps the WEO editions apart by the publication year", () => {
+    const iea = "International Energy Agency (IEA)";
+    const steps = "Stated Policies Scenario (STEPS)";
+    expect(canonicalKey(iea, steps, "World Energy Outlook 2024")).toBe(
+      "IEA:STEPS 2024:",
+    );
+    // Sub-sheets spell the same publication differently.
+    expect(
+      canonicalKey(iea, steps, "World Energy Outlook 2025 (WEO-2025)"),
+    ).toBe("IEA:STEPS 2025:");
+    // The edition year, not another year the title mentions first.
+    expect(
+      canonicalKey(iea, steps, "2025 update: World Energy Outlook 2024"),
+    ).toBe("IEA:STEPS 2024:");
+    // No year: matches no IEA target, so it is reported as unmatched.
+    const noYear = canonicalKey(iea, steps, "World Energy Outlook");
+    expect(noYear).toBe("IEA:STEPS:");
+    expect(TARGETS[noYear!]).toBeUndefined();
+    // Other publishers ignore the publication.
+    expect(
+      canonicalKey("UN SDSN, CW", "Existing Policy (EP MY)", "Report 2024"),
+    ).toBe("SDSN:EP MY:");
+  });
+});
+
+describe("value normalization", () => {
+  it("matches enums case-insensitively and fixes the 'Signifcant' typo", () => {
+    const demand = ["Significant decrease", "Low or no change"];
+    expect(matchEnum("Signifcant Decrease", demand)).toBe(
+      "Significant decrease",
+    );
+    expect(matchEnum("carbon price", ["Carbon price"])).toBe("Carbon price");
+    expect(matchEnum("nonsense", demand)).toBeNull();
+  });
+  it("treats only NULL / n/a / blank as absent", () => {
+    expect(isAbsent("NULL")).toBe(true);
+    expect(isAbsent("n/a")).toBe(true);
+    expect(isAbsent("")).toBe(true);
+    expect(isAbsent("   ")).toBe(true);
+    expect(isAbsent("No information")).toBe(false);
+  });
+
+  it("does not treat the scope sentinel as absent", () => {
+    // Cookbook decision 0023 made it an authored value, and #858 added it to
+    // the schema. It used to be swallowed here, which discarded the very
+    // distinction it exists to draw: an explicit value terminates #869's
+    // fallback chain where an absent entry keeps broadening.
+    expect(isAbsent("Not applicable at this scope level")).toBe(false);
+  });
+
+  it("does not treat 0023's measure-level Not Applicable as absent either", () => {
+    // It means something only at a forbidden pair, where buildKeyFeatures
+    // drops it; anywhere else it must reach the off-enum report.
+    expect(isAbsent("Not Applicable")).toBe(false);
+  });
+
+  it("reports a pre-0023 spelling rather than hiding it", () => {
+    // Not absent, and not an enum member either, so it lands in the importer's
+    // badValues report -- which is what names the cells still to correct in the
+    // workbook. Previously it disappeared silently.
+    for (const retired of [
+      "Not available at this scope",
+      "Not applicable at that scope level",
+    ]) {
+      expect(isAbsent(retired)).toBe(false);
+      expect(matchEnum(retired, ["Not applicable at this scope level"])).toBe(
+        null,
+      );
+    }
+  });
+  it("ensures a trailing period and splits mixed-delimiter lists", () => {
+    expect(ensurePeriod("foo")).toBe("foo.");
+    expect(ensurePeriod("foo.")).toBe("foo.");
+    expect(splitList("Carbon price; Subsidies, performance standards")).toEqual(
+      ["Carbon price", "Subsidies", "performance standards"],
+    );
+    expect(normalizeSector("power")).toBe("Power");
+    expect(normalizeSector("nope")).toBeNull();
+  });
+});
+
+describe("buildGeography", () => {
+  it("parses the Regions cell, dropping non-ISO codes", () => {
+    const report = new Report();
+    const geo = buildGeography(
+      "Global; Africa: [DZ, EG, XK]; PH",
+      report,
+      "TEST",
+    );
+    expect(geo?.global).toBe(true);
+    expect(geo?.regions?.Africa).toEqual(["DZ", "EG"]); // XK dropped
+    expect(geo?.country).toEqual(["PH"]);
+    expect(report.lines.some((l) => l.includes("XK"))).toBe(true);
+  });
+  it("resolves geography tokens against declared coverage, ignoring punctuation", () => {
+    const allowed = new Set(["Rest Sub-Saharan Africa", "TH", "Global"]);
+    expect(resolveGeography("Rest Sub Saharan Africa", allowed)).toBe(
+      "Rest Sub-Saharan Africa",
+    );
+    expect(resolveGeography("th", allowed)).toBe("TH");
+    expect(resolveGeography("EFTA", allowed)).toBeNull();
+  });
+  it("reads `LA: [LA]` as the country it is, not a region named after it", () => {
+    // The cookbook's mandated notation for an individually projected country.
+    // Read as a region, every single-country pathway became a pseudo-region --
+    // except Thailand, whose cell is written bare.
+    const geo = buildGeography("LA: [LA]", new Report(), "TEST");
+    expect(geo?.country).toEqual(["LA"]);
+    expect(geo?.regions).toBeUndefined();
+    // A real region, and a region whose label is a code but has several
+    // members, stay regions.
+    const multi = buildGeography(
+      "ASEAN: [TH, VN]; EU: [FR, DE]",
+      new Report(),
+      "T",
+    );
+    expect(Object.keys(multi?.regions ?? {})).toEqual(["ASEAN", "EU"]);
+    expect(multi?.country).toBeUndefined();
+  });
+});
+
+describe("one country code is always a country (#998)", () => {
+  const JAPAN =
+    'T: region "Japan" has one member, JP -- one country code is a country, ' +
+    'so write JP in the Regions cell and in every scope that says "Japan"';
+
+  it("refuses a one-member region named for its country, telling the sheet to write the code", () => {
+    const report = new Report();
+    const geo = buildGeography(
+      "Global; Japan: [JP]; TH: [TH]; Asia: [CN, JP]",
+      report,
+      "T",
+    );
+    expect(report.errors).toEqual([JAPAN]);
+    // The rest of the cell still parses, so every other problem is reported
+    // in the same run; the error alone keeps anything from being written.
+    expect(geo?.country).toEqual(["TH"]);
+    expect(Object.keys(geo?.regions ?? {})).toEqual(["Asia"]);
+  });
+
+  it("counts members after non-ISO codes are dropped", () => {
+    const report = new Report();
+    buildGeography("Japan: [JP, XK]", report, "T");
+    expect(report.errors).toEqual([JAPAN]);
+  });
+
+  it("lists a country once when it is written bare and as `JP: [JP]`", () => {
+    const report = new Report();
+    const geo = buildGeography("JP; JP: [JP]; jp: [JP]", report, "T");
+    expect(report.errors).toEqual([]);
+    expect(geo?.country).toEqual(["JP"]);
+    expect(report.lines).toContain(
+      "  - T: geography lists {JP} more than once; kept once",
+    );
+  });
+
+  describe("a region with no member countries", () => {
+    const errorsFor = (cell: string) => {
+      const report = new Report();
+      const geo = buildGeography(cell, report, "T");
+      return { errors: report.errors, geo };
+    };
+
+    it("is an import error, written bare or with an empty list", () => {
+      for (const cell of [
+        "Global; Atlantic Basin",
+        "Global; Atlantic Basin: []",
+      ])
+        expect(errorsFor(cell).errors).toEqual([
+          'T: region "Atlantic Basin" has no member countries -- list its ISO codes in the Regions cell, or remove it',
+        ]);
+    });
+
+    it("is an import error when every listed code is dropped, naming them", () => {
+      expect(errorsFor("Kosovo: [XK]").errors).toEqual([
+        'T: region "Kosovo" has no member countries (its only code(s) {XK} are not ISO-3166) -- list its ISO codes in the Regions cell, or remove it',
+      ]);
+    });
+
+    it("leaves regions with members, countries and the global flag alone", () => {
+      const { errors, geo } = errorsFor(
+        "Global; ASEAN: [TH, VN]; JP: [JP]; PH",
+      );
+      expect(errors).toEqual([]);
+      expect(geo).toEqual({
+        global: true,
+        regions: { ASEAN: ["TH", "VN"] },
+        country: ["JP", "PH"],
+      });
+    });
+  });
+});
+
+describe("TARGETS", () => {
+  it("matches every row of the current workbook's renamed SDSN spellings", () => {
+    // The workbook now writes the Myanmar/Laos pathways as "UN SDSN, CW" with
+    // the country inside the code. Under the old "AGF:...:MM" keys all seven
+    // silently stopped matching, and the six Singapore files were never listed.
+    for (const name of [
+      "Existing Policies Pathway (EPP MM)",
+      "Optimised More Ambitious Pathway (OMAP MM)",
+      "Optimized More Ambitious Policy Scenario (OMAP LA)",
+      "Existing Policy Scenario (EP LA)",
+      "Baseline Scenario (BAS SG)",
+      "Highly Ambitious Scenario 2 Simulated (HA2S SG)",
+    ]) {
+      const key = canonicalKey("UN SDSN, CW", name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
+  });
+
+  it("matches the Malaysia, Philippines and CGS/IESR rows", () => {
+    const rows: [string, string][] = [
+      ["UN SDSN, CW", "Existing Policy (EP MY)"],
+      ["UN SDSN, CW", "Optimised More Ambitious Policy (OMAP MY)"],
+      ["UN SDSN, CW", "Simulated Existing Policy Pathway (SEP PH)"],
+      ["UN SDSN, CW", "Most Ambitious Policy Scenario 4 (MAP4 PH)"],
+      [
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+        "Business as Usual Scenario (BaU)",
+      ],
+      [
+        "Center for Global Sustainability, University of Maryland (CGS), Institute for Essential Services Reform (IESR)",
+        "1.5°C-Aligned Scenario (1.5°C)",
+      ],
+    ];
+    for (const [publisher, name] of rows) {
+      const key = canonicalKey(publisher, name);
+      expect(key && TARGETS[key], `${name} -> ${key}`).toBeTruthy();
+    }
+  });
+
+  it("matches the WEO 2024, JRC, UTS-ISF, TransitionZero and Viet Nam rows", () => {
+    const rows: [string, string, string, string][] = [
+      [
+        "International Energy Agency (IEA)",
+        "Announced Pledges Scenario (APS)",
+        "World Energy Outlook 2024",
+        "src/data/iea/IEA-APS-2024.json",
+      ],
+      [
+        "International Energy Agency (IEA)",
+        "Stated Policies Scenario (STEPS)",
+        "World Energy Outlook 2025",
+        "src/data/iea/IEA-STEPS-2025.json",
+      ],
+      [
+        "JRC",
+        "Reference Scenario (Reference)",
+        "",
+        "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
+      ],
+      [
+        "JRC",
+        "1.5°C Scenario (1.5°C)",
+        "",
+        "src/data/jrc/JRC-GECO-1-5-2025.json",
+      ],
+      [
+        "University of Technology Sydney – Institute for Sustainable Futures (UTS ISF)",
+        "One Earth Climate Model (OECM) 1.5 °C pathway",
+        "",
+        "src/data/uts-isf/UTS-ISF-OECM-2024.json",
+      ],
+      [
+        "TransitionZero (TZ)",
+        "Indonesia Supergrid (ISG)",
+        "",
+        "src/data/transitionzero/TZ-ISG-2024.json",
+      ],
+      [
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+        "Baseline scenario (BSL)",
+        "",
+        "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
+      ],
+      [
+        "Electricity and Renewable Energy Authority of Viet Nam (EREA), Danish Energy Agency (DEA)",
+        "Net-Zero+ variation (NZ+)",
+        "",
+        "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
+      ],
+    ];
+    for (const [publisher, name, publication, file] of rows) {
+      const key = canonicalKey(publisher, name, publication);
+      expect(key && TARGETS[key]?.file, `${name} -> ${key}`).toBe(file);
+    }
+  });
+
+  it("gives each NGFS scenario and model its own pathway", () => {
+    const ngfs = "Network for Greening the Financial System (NGFS)";
+    const ids = new Set<string>();
+    for (const name of [
+      "Below 2°C, GCAM 6.0 NGFS (B2C GCAM)",
+      "Below 2°C, MESSAGEix-GLOBIOM 2.0-M-R12-NGFS (B2C MESSAGE)",
+      "Net Zero 2050, REMIND-MAgPIE 3.3-4.8 (NZ2050 REMIND)",
+    ]) {
+      const key = canonicalKey(ngfs, name);
+      const target = key ? TARGETS[key] : undefined;
+      expect(target?.mode, `${name} -> ${key}`).toBe("new");
+      if (target?.mode === "new") ids.add(target.id);
+    }
+    expect(ids).toEqual(
+      new Set([
+        "NGFS-B2C-GCAM-2024",
+        "NGFS-B2C-MESSAGE-2024",
+        "NGFS-NZ2050-REMIND-2024",
+      ]),
+    );
+    expect(
+      Object.keys(TARGETS).filter((k) => k.startsWith("NGFS:")),
+    ).toHaveLength(21);
+  });
+
+  it("rebuilds every new pathway from a template that exists", async () => {
+    const { access } = await import("node:fs/promises");
+    for (const t of Object.values(TARGETS))
+      if (t.mode === "new")
+        await expect(access(t.templateFile)).resolves.toBeUndefined();
+  });
+});
+
+describe("descriptionFromV1", () => {
+  const overview =
+    "#### Pathway Description\n\nA pathway about Laos\n\n#### Core Drivers\n\nPrices.";
+  it("takes the Pathway Description section of a v1 expertOverview", () => {
+    const report = new Report();
+    expect(descriptionFromV1({ expertOverview: overview }, report, "T")).toBe(
+      "A pathway about Laos.",
+    );
+    expect(report.lines.some((l) => l.includes("taken from v1"))).toBe(true);
+  });
+  it("returns null when there is no v1 text to fall back on", () => {
+    expect(descriptionFromV1({}, new Report(), "T")).toBeNull();
+    expect(descriptionFromV1(null, new Report(), "T")).toBeNull();
+  });
+});
+
+describe("keyFeaturesFromV1", () => {
+  const v1 = {
+    $schema: "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+    sectors: [{ name: "Power" }],
+    geography: { country: ["PH"] },
+    keyFeatures: {
+      emissionsTrajectory: "Moderate increase",
+      policyTypes: ["Carbon price", "Subsidies"],
+    },
+  };
+  it("keeps a v1 file's authored values as widest-scope entries", () => {
+    const report = new Report();
+    const kf = keyFeaturesFromV1(v1, report, "T");
+    expect(kf?.emissionsTrajectory).toEqual([
+      { sector: "Power", geography: "PH", value: "Moderate increase" },
+    ]);
+    expect(kf?.policyTypes).toEqual([
+      {
+        sector: "Power",
+        geography: "PH",
+        value: ["Carbon price", "Subsidies"],
+      },
+    ]);
+    expect(report.lines.some((l) => l.includes("converted from v1"))).toBe(
+      true,
+    );
+  });
+  it("leaves a v2 file to the workbook", () => {
+    const v2 = {
+      ...v1,
+      $schema: "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+    };
+    expect(keyFeaturesFromV1(v2, new Report(), "T")).toBeNull();
+    expect(keyFeaturesFromV1(null, new Report(), "T")).toBeNull();
+  });
+  it("drops Electrification of a Power-only pathway, which cannot apply", () => {
+    const kf = keyFeaturesFromV1(
+      {
+        ...v1,
+        keyFeatures: { ...v1.keyFeatures, electrification: "Minor increase" },
+      },
+      new Report(),
+      "T",
+    );
+    expect(kf?.electrification).toEqual([]);
+    expect(kf?.emissionsTrajectory).toHaveLength(1);
+  });
+});
+
+describe("buildKeyFeatures", () => {
+  const SECTORS = new Set(["Power", "Buildings"]);
+  const GEOS = new Set(["across regions", "TH", "VN"]);
+  const row = (sector: string, geography: string, electrification: string) => ({
+    "Key features sector scope": sector,
+    "Key features regional scope": geography,
+    "Emissions trajectory": "Moderate decrease",
+    "Electrification": electrification,
+  });
+
+  it.each(["No information", "Moderate increase"])(
+    "refuses an Electrification cell on a Power row holding %s",
+    (value) => {
+      const report = new Report();
+      const kf = buildKeyFeatures(
+        [row("Power", "TH", value), row("Power", "VN", value)],
+        SECTORS,
+        GEOS,
+        report,
+        "T",
+      );
+      // One error naming both rows, not one per cell.
+      expect(report.errors).toHaveLength(1);
+      expect(report.errors[0]).toContain(
+        "T: Electrification cannot apply to the Power sector",
+      );
+      expect(report.errors[0]).toContain("{TH, VN}");
+      expect(kf.electrification).toEqual([]);
+      // The rest of the row still imports.
+      expect(kf.emissionsTrajectory).toHaveLength(2);
+    },
+  );
+
+  it.each(["", "Not Applicable", " not applicable "])(
+    "accepts and drops an Electrification cell on a Power row holding %j",
+    (value) => {
+      const report = new Report();
+      const kf = buildKeyFeatures(
+        [row("Power", "TH", value)],
+        SECTORS,
+        GEOS,
+        report,
+        "T",
+      );
+      expect(report.errors).toEqual([]);
+      expect(report.lines).toEqual([]);
+      expect(kf.electrification).toEqual([]);
+    },
+  );
+
+  it("still reports Not Applicable off-enum away from a forbidden pair", () => {
+    const report = new Report();
+    const kf = buildKeyFeatures(
+      [row("Buildings", "TH", "Not Applicable")],
+      SECTORS,
+      GEOS,
+      report,
+      "T",
+    );
+    expect(report.errors).toEqual([]);
+    expect(report.lines.join("\n")).toContain("off-enum value(s) dropped");
+    expect(kf.electrification).toEqual([]);
+  });
+
+  it("imports Electrification for other sectors and across sectors", () => {
+    const report = new Report();
+    const kf = buildKeyFeatures(
+      [
+        row("Buildings", "TH", "Minor increase"),
+        row("across sectors", "across regions", "Moderate increase"),
+      ],
+      SECTORS,
+      GEOS,
+      report,
+      "T",
+    );
+    expect(report.errors).toEqual([]);
+    expect(kf.electrification).toHaveLength(2);
+  });
+});
+
+describe("data-availability cell parsing", () => {
+  it("unwraps `Sector: [..]` and splits segments on ; or ,", () => {
+    const bad = new Set<string>();
+    expect(
+      parseSegments("Power: [Power generation, Energy storage]", "Power", bad),
+    ).toEqual(["Power generation", "Energy storage"]);
+    expect(
+      parseSegments("power generation; Energy Storage", "Power", bad),
+    ).toEqual(["Power generation", "Energy storage"]);
+    expect(bad.size).toBe(0);
+  });
+  it("takes the label of `Label: [members]` coverage and normalises sentinel case", () => {
+    const allowed = new Set(["SG", "ASEAN"]);
+    const bad = new Set<string>();
+    expect(parseCoverage("SG: [SG]", allowed, bad)).toEqual(["SG"]);
+    expect(parseCoverage("Not Covered", allowed, bad)).toEqual(["Not covered"]);
+    expect(parseCoverage("ASEAN; Atlantis", allowed, bad)).toEqual(["ASEAN"]);
+    expect([...bad]).toEqual(['geography:"Atlantis"']);
+  });
+  it("does not split granularity values that contain commas", () => {
+    const bad = new Set<string>();
+    expect(parseGranularity("Capital costs, O&M, etc.", bad)).toEqual([
+      "Capital costs, O&M, etc.",
+    ]);
+    expect(parseGranularity("Coal / Oil / Gas", bad)).toEqual([
+      "Coal",
+      "Oil",
+      "Gas",
+    ]);
+    // A comma list is split only when every part is a known value.
+    expect(parseGranularity("Coal, Solar", bad)).toEqual(["Coal", "Solar"]);
+    expect(bad.size).toBe(0);
+    parseGranularity("Coal, Moonbeams", bad);
+    expect([...bad]).toEqual(['granularity:"Coal, Moonbeams"']);
+  });
+});
+
+describe("buildDataAvailability", () => {
+  const row = (over: Record<string, string> = {}) => ({
+    "Sector": "Power",
+    "Metric": "Capacity",
+    "Sector segment": "Power generation",
+    "Granularity": "Coal; Solar",
+    "Scope limitations": "Grid-connected only.",
+    "Geography coverage": "TH",
+    "Time resolution": "5-year steps",
+    "Data Format": "Tabular",
+    ...over,
+  });
+  const build = (rows: Record<string, string>[], sectors = ["Power"]) => {
+    const report = new Report();
+    const out = buildDataAvailability(
+      rows,
+      new Set(sectors),
+      new Set(["TH"]),
+      report,
+      "T",
+    );
+    return {
+      out,
+      notes: report.lines.join("\n"),
+      errors: report.errors.join("\n"),
+    };
+  };
+
+  it("emits a complete row with schema-cased values", () => {
+    const { out } = build([row({ Metric: "absolute emissions" })]);
+    expect(out?.overall).toBeNull();
+    expect(out?.byMetric).toEqual([
+      {
+        metricName: "Absolute Emissions",
+        sector: "Power",
+        sectorSegment: ["Power generation"],
+        geography: ["TH"],
+        timeResolution: "5-year steps",
+        dataFormat: "Tabular",
+        granularity: ["Coal", "Solar"],
+        scopeLimitations: "Grid-connected only.",
+      },
+    ]);
+  });
+  it("matches the metric against the row's own sector first", () => {
+    // Power spells it "Absolute Emissions", Steel "Absolute emissions"; a flat
+    // case-insensitive match would hand Steel the Power spelling.
+    const { out } = build(
+      [
+        row({
+          Sector: "Steel",
+          Metric: "Absolute Emissions",
+          Granularity: "Scope 1",
+        }),
+      ],
+      ["Steel"],
+    );
+    expect(out?.byMetric[0].metricName).toBe("Absolute emissions");
+  });
+  it("reports a row with no Data Format as an error rather than inventing one", () => {
+    const { out, errors } = build([
+      row(),
+      row({ "Metric": "Generation", "Data Format": "" }),
+    ]);
+    expect(out?.byMetric.map((r) => r.metricName)).toEqual(["Capacity"]);
+    expect(errors).toContain(
+      "T/dataAvailability Power Generation: blank or unrecognised data format",
+    );
+  });
+  it("reports a row that is Not covered on some variables only as an error", () => {
+    const { out, errors } = build([row({ "Data Format": "Not covered" })]);
+    expect(out).toBeNull();
+    expect(errors).toContain('"Not covered" on data format only');
+  });
+  it("keeps a row that is Not covered on every variable", () => {
+    const nc = "Not covered";
+    const { out, errors } = build([
+      row({
+        "Sector segment": nc,
+        "Granularity": nc,
+        "Scope limitations": nc,
+        "Geography coverage": "Not Covered",
+        "Time resolution": nc,
+        "Data Format": nc,
+      }),
+    ]);
+    expect(out?.byMetric).toHaveLength(1);
+    expect(errors).toBe("");
+  });
+  it("returns null when the sheet has no rows for the pathway", () => {
+    expect(build([]).out).toBeNull();
+  });
+});
+
+describe("character limits (tpr-tpc decision 0028)", () => {
+  /** A string of exactly `n` characters, ending in a period. */
+  const text = (n: number) => `${"a".repeat(n - 1)}.`;
+  const errorsOf = (fn: (report: Report) => unknown) => {
+    const report = new Report();
+    fn(report);
+    return report.errors.join("\n");
+  };
+
+  it("counts code points, as the cookbook and JSON-schema maxLength do", () => {
+    expect(charCount("CO₂")).toBe(3);
+    expect(charCount("🌍")).toBe(1);
+  });
+
+  it("reports text over the limit as an error, and none at the limit", () => {
+    expect(errorsOf((r) => withinLimit(text(500), 500, "T/x", r))).toBe("");
+    expect(errorsOf((r) => withinLimit(text(501), 500, "T/x", r))).toBe(
+      "T/x: 501 chars > 500 -- shorten it in the workbook",
+    );
+  });
+
+  it("errors on a core driver over 500, rather than leaving it null", () => {
+    expect(
+      errorsOf((r) => buildCoreDrivers({ Policy: text(500) }, r, "T")),
+    ).toBe("");
+    expect(
+      errorsOf((r) => buildCoreDrivers({ Policy: text(501) }, r, "T")),
+    ).toContain("T/coreDrivers.policies: 501 chars > 500");
+  });
+
+  it("counts the period the importer adds", () => {
+    expect(
+      errorsOf((r) => buildCoreDrivers({ Policy: "a".repeat(500) }, r, "T")),
+    ).toContain("T/coreDrivers.policies: 501 chars > 500");
+  });
+
+  it("errors on a dependency over 500, rather than skipping it", () => {
+    const deps = (prose: string) =>
+      errorsOf((r) =>
+        buildDependencies(
+          [{ Sector: "Power", Technology: prose }],
+          new Set(["Power"]),
+          r,
+          "T",
+        ),
+      );
+    expect(deps(text(500))).toBe("");
+    expect(deps(text(501))).toContain(
+      'T/dependencies "Technology" (Power): 501 chars > 500',
+    );
+  });
+
+  it("errors on scope limitations over 500", () => {
+    const da = (scope: string) =>
+      errorsOf((r) =>
+        buildDataAvailability(
+          [
+            {
+              "Sector": "Power",
+              "Metric": "Capacity",
+              "Sector segment": "Power generation",
+              "Granularity": "Coal",
+              "Scope limitations": scope,
+              "Geography coverage": "TH",
+              "Time resolution": "5-year steps",
+              "Data Format": "Tabular",
+            },
+          ],
+          new Set(["Power"]),
+          new Set(["TH"]),
+          r,
+          "T",
+        ),
+      );
+    expect(da(text(500))).toBe("");
+    expect(da(text(501))).toContain(
+      "T/dataAvailability Power Capacity: scope limitations: 501 chars > 500",
+    );
+  });
+
+  describe("buildDoc", () => {
+    const sub = EMPTY_SUB;
+    const meta = (over: Record<string, string> = {}) => ({
+      "Name of Pathway": "Current Policies Scenario (CPS)",
+      "Name of publication": "World Energy Outlook 2025",
+      "Description": "A short description.",
+      "Pathway Overview": "An overview.",
+      ...over,
+    });
+    const newDoc = (over: Record<string, string> = {}) =>
+      errorsOf((r) =>
+        buildDoc(
+          { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+          meta(over),
+          sub,
+          null,
+          null,
+          r,
+        ),
+      );
+
+    it("accepts every field at its limit", () => {
+      expect(
+        newDoc({
+          // Cookbook format: geography suffix inside the brackets, counted in the 20.
+          "Name of Pathway": `${"a".repeat(177)} (${"B".repeat(17)} ID)`,
+          "Name of publication": "p".repeat(200),
+          "Description": text(100),
+          "Pathway Overview": text(2500),
+        }),
+      ).toBe("");
+    });
+
+    it("errors on each field one over its limit", () => {
+      expect(newDoc({ "Name of Pathway": `${"a".repeat(194)} (CODE)` })).toBe(
+        "T/name: 201 chars > 200 -- shorten it in the workbook",
+      );
+      expect(
+        newDoc({ "Name of Pathway": "Plan (Indonesia on-grid power)" }),
+      ).toContain(
+        'T/name: short name "(Indonesia on-grid power)": 23 chars > 20',
+      );
+      expect(newDoc({ "Name of publication": "p".repeat(201) })).toContain(
+        "T/publication.title: 201 chars > 200",
+      );
+      expect(newDoc({ Description: text(101) })).toContain(
+        "T/description: 101 chars > 100",
+      );
+      expect(newDoc({ "Pathway Overview": text(2501) })).toContain(
+        "T/pathwayDescription: 2501 chars > 2500",
+      );
+    });
+
+    it("does not check the name, description or publication of an update, which keeps its own", () => {
+      const errors = errorsOf((r) =>
+        buildDoc(
+          { mode: "update", file: "T.json" },
+          meta({
+            "Name of Pathway": `${"a".repeat(300)} (${"B".repeat(30)})`,
+            "Name of publication": "p".repeat(300),
+            "Description": text(150),
+          }),
+          sub,
+          { id: "T", name: { full: "Kept" }, description: "Kept." },
+          null,
+          r,
+        ),
+      );
+      expect(errors).toBe("");
+    });
+  });
+});
+
+describe("per-sector list cells (Technology coverage, Metric)", () => {
+  it("keeps every item, however the cell is spelled", () => {
+    const all = { Power: ["Coal", "Oil", "Gas"] };
+    expect(parseSectorGroups("Power: [Coal, Oil, Gas]")).toEqual(all);
+    expect(parseSectorGroups("Power: [Coal; Oil; Gas]")).toEqual(all);
+    expect(parseSectorGroups("Power: Coal; Oil; Gas")).toEqual(all);
+    expect(parseSectorGroups("Coal; Oil; Gas")).toEqual({
+      "": ["Coal", "Oil", "Gas"],
+    });
+    expect(
+      parseSectorGroups("Power: [Coal; Gas]; Steel: [EAF, Other]"),
+    ).toEqual({ Power: ["Coal", "Gas"], Steel: ["EAF", "Other"] });
+    expect(parseSectorGroups("")).toEqual({});
+  });
+
+  it("builds a pathway's technologies and metrics from each spelling", () => {
+    const sub = EMPTY_SUB;
+    const build = (tech: string, metric: string) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+        {
+          "Name of Pathway": "Scenario (S)",
+          "Description": "A short description.",
+          "Sectors": "Power",
+          "Technology coverage": tech,
+          "Metric": metric,
+        },
+        sub,
+        null,
+        null,
+        report,
+      );
+      return {
+        technologies: (doc.sectors as { technologies: string[] }[])[0]
+          .technologies,
+        metric: doc.metric,
+        notes: report.lines.join("\n"),
+      };
+    };
+    const want = ["Coal", "Gas", "Solar"];
+    const metrics = ["Absolute Emissions", "Capacity", "Generation"];
+    for (const [tech, metric] of [
+      [
+        "Power: [Coal; Gas; Solar]",
+        "Power: [Absolute emissions; Capacity; Generation]",
+      ],
+      [
+        "Power: Coal; Gas; Solar",
+        "Power: Absolute emissions; Capacity; Generation",
+      ],
+      ["Coal; Gas; Solar", "Absolute emissions; Capacity; Generation"],
+    ]) {
+      const got = build(tech, metric);
+      expect(got.technologies, tech).toEqual(want);
+      expect(got.metric, metric).toEqual(metrics);
+    }
+  });
+
+  it("reports a cell from which no technologies could be read", () => {
+    const report = new Report();
+    buildDoc(
+      { mode: "new", file: "T.json", id: "T", templateFile: "t.json" },
+      {
+        "Name of Pathway": "Scenario (S)",
+        "Description": "A short description.",
+        "Sectors": "Power; Steel",
+        "Technology coverage": "Coal; Gas",
+      },
+      EMPTY_SUB,
+      null,
+      null,
+      report,
+    );
+    const notes = report.lines.join("\n");
+    expect(notes).toContain(
+      "Technology coverage names no sector but the pathway has 2",
+    );
+    expect(notes).toContain(
+      "T/sectors: no technologies could be read from Technology coverage",
+    );
+  });
+});
+
+describe("metric list", () => {
+  const sub = EMPTY_SUB;
+  const update = (metricCell: string, existing: Record<string, unknown>) => {
+    const report = new Report();
+    const doc = buildDoc(
+      { mode: "update", file: "T.json" },
+      { Sectors: "Power", Metric: metricCell },
+      sub,
+      { id: "T", ...existing },
+      null,
+      report,
+    );
+    return { metric: doc.metric, notes: report.lines.join("\n") };
+  };
+
+  it("takes an update's metrics from the workbook, not the old file", () => {
+    expect(
+      update("Power: [Absolute emissions, Capacity]", {
+        metric: ["Absolute Emissions"],
+      }).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+
+  it("keeps an update's own order when the workbook lists the same metrics", () => {
+    expect(
+      update("Power: [Capacity, Absolute emissions]", {
+        metric: ["Absolute Emissions", "Capacity"],
+      }).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+
+  it("keeps an update's own metrics when the workbook cell is empty", () => {
+    expect(update("", { metric: ["Capacity"] }).metric).toEqual(["Capacity"]);
+  });
+
+  it("notes a metric data availability covers but the Metric column omits", () => {
+    const { notes } = update("Power: [Absolute emissions]", {
+      dataAvailability: {
+        overall: null,
+        byMetric: [
+          { metricName: "Absolute Emissions", dataFormat: "Tabular" },
+          { metricName: "Emissions intensity", dataFormat: "Tabular" },
+          { metricName: "Capacity", dataFormat: "Not covered" },
+          { metricName: "Technology cost", dataFormat: "Tabular" },
+        ],
+      },
+    });
+    expect(notes).toContain(
+      'T/metric: data availability covers "Emissions Intensity" but the Metric column doesn\'t list it',
+    );
+    // Not covered, and availability-only metrics, are not search metrics.
+    expect(notes).not.toContain('"Capacity"');
+    expect(notes).not.toContain("Technology cost");
+  });
+});
+
+describe("rows the import would otherwise lose without a word", () => {
+  const row = (pathway: string, publication = "World Energy Outlook 2025") => ({
+    "Name of Publisher": "International Energy Agency (IEA)",
+    "Name of publication": publication,
+    "Name of Pathway": pathway,
+  });
+
+  it("reports sub-sheet rows that belong to no metadata row", () => {
+    const orphans = orphanSubRows([row("Stated Policies Scenario (STEPS)")], {
+      key_features: [
+        row("Stated Policies Scenario (STEPS)"),
+        // Year-less title: keys to "IEA:STEPS:", which no metadata row has.
+        row("Stated Policies Scenario (STEPS)", "World Energy Outlook"),
+        row("Stated Policies Scenario (STEPS)", "World Energy Outlook"),
+      ],
+      core_drivers: [row("Stated Policies Scenario (STEPS)")],
+    });
+    expect(orphans).toEqual([
+      "key_features: International Energy Agency (IEA) | Stated Policies Scenario (STEPS) (key=IEA:STEPS:)",
+    ]);
+  });
+
+  it("stops on a new pathway whose template is missing", async () => {
+    const report = new Report();
+    const files = await loadTargetFiles(
+      "T:NEW:",
+      {
+        mode: "new",
+        file: "T.json",
+        id: "T",
+        templateFile: "does/not/exist.json",
+      },
+      report,
+    );
+    expect(files).toBeNull();
+    expect(report.errors.join("\n")).toContain(
+      "template does/not/exist.json for T:NEW: not found or unreadable",
+    );
+  });
+
+  it("never lets a partly unreadable Metric cell remove an update's metrics", () => {
+    const update = (cell: string, metric: string[]) => {
+      const report = new Report();
+      const doc = buildDoc(
+        { mode: "update", file: "T.json" },
+        { Sectors: "Power", Metric: cell },
+        EMPTY_SUB,
+        { id: "T", metric },
+        null,
+        report,
+      );
+      return { metric: doc.metric, notes: report.lines.join("\n") };
+    };
+    // Unknown item: Emissions Intensity stays although the cell omits it.
+    const removed = update(
+      "Power: [Absolute emissions, Emissions intensity (total)]",
+      ["Absolute Emissions", "Emissions Intensity"],
+    );
+    expect(removed.metric).toEqual([
+      "Absolute Emissions",
+      "Emissions Intensity",
+    ]);
+    expect(removed.notes).toContain('T/metric: kept "Emissions Intensity"');
+    // ...but the recognised items can still add a metric.
+    expect(
+      update("Power: [Absolute emissions, Capacity, Storage capacity]", [
+        "Absolute Emissions",
+      ]).metric,
+    ).toEqual(["Absolute Emissions", "Capacity"]);
+  });
+});

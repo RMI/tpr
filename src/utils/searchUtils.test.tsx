@@ -233,7 +233,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "B",
       name: "B",
       sectors: [{ name: "Power" }],
-      geography: { regions: { Europe: [] } },
+      geography: { regions: { Europe: ["DE", "FR"] } },
       modelTempIncrease: 2.0,
       pathwayType: "Normative",
       modelYearNetzero: 2040,
@@ -245,7 +245,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "C",
       name: "C",
       sectors: [{ name: "Steel" }],
-      geography: { regions: { Asia: [] } },
+      geography: { regions: { Asia: ["CN", "JP"] } },
       modelTempIncrease: 1.5,
       pathwayType: "Exploratory",
       modelYearNetzero: 2030,
@@ -539,11 +539,10 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
     }),
     p("mix2", {
       global: true,
-      regions: { "South East Asia": ["TH"] },
+      regions: { "South East Asia": ["TH", "VN"] },
       country: ["US"],
     }),
     p("empty", {}),
-    p("emptyreg", { regions: { "South East Asia": [] } }),
   ];
   const ids = (f: SearchFilters) =>
     filterPathways(pathways, f).map((x) => x.id);
@@ -553,7 +552,7 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
   });
 
   it("a defined region matches by ISO overlap and excludes global-only pathways", () => {
-    // "Southeast Asia" (10 ASEAN codes) overlaps sea (ID/TH/VN) and mix2 (TH),
+    // "Southeast Asia" (10 ASEAN codes) overlaps sea (ID/TH/VN) and mix2 (TH/VN),
     // but not the global-only 'g' (empty coverage) despite its global flag.
     expect(ids({ geography: ["Southeast Asia"] })).toEqual(["sea", "mix2"]);
   });
@@ -582,7 +581,7 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
     expect(ids({ geography: ["AQ"] })).toEqual([]);
   });
 
-  it("ABSENT/'None' matches only empty geography, not empty-member regions", () => {
+  it("ABSENT/'None' matches only empty geography", () => {
     expect(ids({ geography: [ABSENT_FILTER_TOKEN] })).toEqual(["empty"]);
   });
 

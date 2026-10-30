@@ -1,9 +1,15 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "react-router";
 import Markdown from "../components/Markdown";
 import { pathwayMetadata } from "../data/pathwayMetadata";
-import { PathwayMetadataType } from "../types";
-import BadgeArray from "../components/BadgeArray";
+import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import BadgeArray, { BadgeVariant } from "../components/BadgeArray";
+import { Tabs, TabPanel, useActiveTab, TabDef } from "../components/Tabs";
+import DataAvailabilityTable from "../components/DataAvailabilityTable";
+import DependenciesTable from "../components/DependenciesTable";
+import PathwayContextRibbon from "../components/PathwayContextRibbon";
+import { useFilters } from "../context/FilterContext";
+import { resolveInitialScope } from "../utils/scopeSeed";
 import {
   flattenGeography,
   geographyKind,
@@ -20,15 +26,21 @@ import {
   getMetricTooltip,
 } from "../utils/tooltipUtils";
 import KeyFeatures from "../components/KeyFeatures";
+import SectionIntro from "../components/SectionIntro";
 import DownloadDataset from "../components/DownloadDataset";
 import {
   fetchTimeseriesIndex,
   datasetsForPathway,
+  getTimeseriesIndex,
   summarizeSummary,
 } from "../utils/timeseriesIndex";
+import { ALL_AVAILABLE, scopeAvailability } from "../utils/scopeAvailability";
 import PublicationBlock from "../components/PublicationBlock";
-import { PlotSelector, TimeSeries } from "../components/PlotSelector";
+import type { TimeSeries } from "../components/PlotSelector";
+import PlotGrid from "../components/PlotGrid";
+import { PLOT_ORDER } from "../components/PlotPanel";
 import getTemperatureColor from "../utils/getTemperatureColor";
+import { extendsPastPlotYears } from "../utils/plotYears";
 import TextWithTooltip from "../components/TextWithTooltip";
 import RegionMembersTooltip from "../components/RegionMembersTooltip";
 import {
@@ -39,11 +51,60 @@ import {
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
 
+// The four tabs from Jacob's wireframe. The first is the default (see useActiveTab).
+const DETAIL_TABS: TabDef[] = [
+  { id: "at-a-glance", label: "At a glance" },
+  { id: "assumptions", label: "Assumptions & Dependencies" },
+  { id: "timeseries", label: "Timeseries" },
+  { id: "scope", label: "Scope & Granularity" },
+];
+
 const PathwayDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const [pathway, setPathway] = useState<PathwayMetadataType | null>(null);
   const [loading, setLoading] = useState(true);
   const [timeseriesdata, setTimeseriesdata] = useState<TimeSeries | null>(null);
+  const [activeTab, setActiveTab] = useActiveTab(DETAIL_TABS);
+
+  /*
+    The scope ribbon's selection (#872). Seeded per axis from the search filters
+    the reader arrived with, and from `defaultScopeFor` for whichever axis the
+    search left unset — so the page always opens on a definite scope rather than
+    on an unfiltered view the ribbon does not describe.
+
+    Held locally: browsing a pathway must never disturb the search they came
+    from, so this deliberately does not write back to the shared filter state.
+  */
+  const { filters } = useFilters();
+  const [scope, setScope] = useState<PathwayScopeSelection>({
+    sector: null,
+    geography: null,
+  });
+  const seededFor = useRef<string | null>(null);
+
+  // Which ribbon tokens have something to show (#1017). Read synchronously
+  // from the bundled index, so the ribbon and the seed agree from the first
+  // render and nothing restyles once the async dataset load below finishes.
+  // Key features count here because this page resolves them for the scope.
+  const scopeAvail = useMemo(
+    () =>
+      pathway
+        ? scopeAvailability(
+            pathway,
+            datasetsForPathway(getTimeseriesIndex(), pathway.id),
+            { keyFeatures: true },
+          )
+        : ALL_AVAILABLE,
+    [pathway],
+  );
+
+  useEffect(() => {
+    // The pathway arrives after a load delay, and the legal token set does not
+    // exist until it does — so seed on arrival, once per pathway.
+    if (!pathway || seededFor.current === pathway.id) return;
+    seededFor.current = pathway.id;
+    setScope(resolveInitialScope(filters, pathway, scopeAvail));
+  }, [pathway, filters, scopeAvail]);
 
   useEffect(() => {
     setLoading(true);
@@ -178,6 +239,242 @@ const PathwayDetailPage: React.FC = () => {
     );
   }
 
+  // The availability-aware Geographies / Sectors / Benchmark-Metrics panels,
+  // shown on the Scope & Granularity tab beneath the Data Availability table.
+  // Each is a labelled landmark so tests (and screen-reader users) can address
+  // one panel rather than matching a geography label that also appears in the
+  // sticky context ribbon.
+  const coveragePanels = (
+    <>
+      <section
+        aria-label="Geographies"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Geographies
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={
+              <>
+                <span className="block">{GEOGRAPHY_AVAILABILITY_TOOLTIP}</span>
+                <span className="mt-2 block italic">
+                  {REGION_MAPPING_DISCLAIMER}
+                </span>
+              </>
+            }
+            ariaLabel="Geography availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedGeos.map((geo): BadgeVariant => {
+            const base = geographyVariant(geographyKind(geo));
+            return availability.hasGeography(geo) ? base : `${base}-pub`;
+          })}
+          toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+          tooltipGetter={(geo) =>
+            geographyKind(geo) === "region" ? (
+              <RegionMembersTooltip
+                geography={pathway.geography}
+                label={geo}
+              />
+            ) : undefined
+          }
+          visibleCount={Infinity}
+        >
+          {sortedGeos}
+        </BadgeArray>
+      </section>
+
+      <section
+        aria-label="Sectors"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Sectors
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={SECTOR_AVAILABILITY_TOOLTIP}
+            ariaLabel="Sector availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedSectors.map((s) =>
+            availability.hasSector(s.name) ? "sector" : "sector-pub",
+          )}
+          tooltipGetter={getSectorTooltip}
+          visibleCount={Infinity}
+        >
+          {sortedSectors.map((s) => s.name)}
+        </BadgeArray>
+      </section>
+
+      <section
+        aria-label="Benchmark Metrics"
+        className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 h-full"
+      >
+        <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
+          Benchmark Metrics
+          <TextWithTooltip
+            text={
+              <Info
+                size={14}
+                className="text-rmigray-400 cursor-help"
+              />
+            }
+            tooltip={METRIC_AVAILABILITY_TOOLTIP}
+            ariaLabel="Benchmark metric availability information"
+            position="right"
+          />
+        </h3>
+        <BadgeArray
+          variant={sortedMetrics.map((m) =>
+            availability.hasMetric(m) ? "metric" : "metric-pub",
+          )}
+          tooltipGetter={getMetricTooltip}
+          visibleCount={Infinity}
+        >
+          {sortedMetrics}
+        </BadgeArray>
+      </section>
+    </>
+  );
+
+  /*
+    v2 replaced v1's single `expertOverview` blob with `pathwayDescription` (the
+    surviving prose; core drivers moved to the structured `coreDrivers` object),
+    and the heading now names the field it renders — settling the open question
+    #859 left about what to call it. null means no description is available.
+    Lives on At a glance only; the Assumptions & Dependencies tab leads with the
+    drivers instead.
+  */
+  const pathwayDescription = (
+    <section>
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
+        Pathway Description
+      </h2>
+      {/*
+        `max-w-none` overrides the 65ch line-length cap `prose` applies by
+        default, which otherwise left most of the tab width empty and pushed
+        the plots below the fold.
+      */}
+      <div className="prose max-w-none text-rmigray-700">
+        <Markdown>{pathway.pathwayDescription ?? ""}</Markdown>
+      </div>
+    </section>
+  );
+
+  /*
+    The same component and config render both the full driver/feature grid and
+    the At-a-glance subset, so the two cannot drift apart. Both resolve each key
+    feature for the ribbon's scope (#869), like the plots and tables below; an
+    empty axis needs no guard, because the resolver reads it as the widest.
+  */
+  const assumptionsPanel = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
+      coreDrivers={pathway.coreDrivers}
+      title="Assumptions & Trends"
+      description="The key assumptions the pathway makes to drive changes over time, and the resulting trends in the output variables. Parameters which are ‘assumptions’ in one pathway may be ‘trends’ in another, depending on the design of the pathway."
+    />
+  );
+
+  const assumptionsSummary = (
+    <KeyFeatures
+      keyFeatures={pathway.keyFeatures}
+      pathway={pathway}
+      scope={scope}
+      coreDrivers={pathway.coreDrivers}
+      groups={["policies", "emissions", "technology"]}
+      title="Assumptions & Trends Preview"
+      description="A subset of the pathway assumptions, trends, and drivers. Navigate to the “Assumptions & Dependencies” tab for more details."
+    />
+  );
+
+  /*
+    The benchmark plots as small multiples rather than one plot behind a
+    dropdown, scoped by the ribbon's selection: a null axis means no preference,
+    which resolves geography to the broadest series available.
+  */
+  const plotsOverview = (
+    <PlotGrid
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
+      plotTypes={PLOT_ORDER.slice(0, 3)}
+      title="Timeseries Preview"
+      description="A subset of the key metrics for the chosen sector under this pathway. Navigate to the “Timeseries” tab for more metrics and details."
+    />
+  );
+
+  const benchmarkPlots = (
+    <PlotGrid
+      timeseriesdata={timeseriesdata}
+      datasetId={datasets[0]?.datasetId}
+      pathwayGeography={pathway.geography}
+      requestedGeography={scope.geography}
+      requestedSector={scope.sector}
+      title="Benchmark Plots"
+      description="Sector-specific overview of how key metrics develop over time according to the pathway. These are the quantitative outputs of the pathway which can be used to inform corporate transition planning and assessments."
+    />
+  );
+
+  const supplementalInfo = (
+    <section>
+      {/*
+        An h2 outside the prose wrapper, matching the other tab section
+        headings. It was an unstyled h4 inside the prose, which skipped two
+        levels below the page's h1 and took its size from prose's defaults.
+      */}
+      <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
+        Supplemental Information
+      </h2>
+      <SectionIntro>
+        Citations, license information, and links to original sources used to
+        develop this summary. A standardized download of benchmark data can also
+        be found here when data is available.
+      </SectionIntro>
+      <div className="prose text-rmigray-700">
+        <PublicationBlock publication={pathway.publication} />
+
+        {tsIndexLoaded && datasets.length > 0
+          ? datasets.map((d, i) => {
+              const label = d.label ?? d.datasetId;
+              const summary = summarizeSummary(d.summary);
+              return (
+                <DownloadDataset
+                  key={d.datasetId}
+                  label={label}
+                  href={d.path}
+                  summary={summary}
+                  // The plots draw the first dataset, so only it is known to
+                  // run past them.
+                  extendsPastPlots={
+                    i === 0 && extendsPastPlotYears(timeseriesdata)
+                  }
+                />
+              );
+            })
+          : null}
+      </div>
+    </section>
+  );
+
   return (
     <div className="container mx-auto px-4 py-8">
       <Link
@@ -191,8 +488,8 @@ const PathwayDetailPage: React.FC = () => {
         Back to pathways
       </Link>
 
-      <div className="bg-white rounded-lg shadow-md overflow-hidden">
-        <div className="bg-bluespruce p-6 text-white">
+      <div className="bg-white rounded-lg shadow-md">
+        <div className="bg-bluespruce p-6 text-white rounded-t-lg">
           <h1 className="text-2xl md:text-3xl font-bold mb-2">
             {pathway.name.full +
               (pathway.name.short ? ` (${pathway.name.short})` : "")}
@@ -254,149 +551,113 @@ const PathwayDetailPage: React.FC = () => {
           </div>
         </div>
 
+        {/*
+          The sector/geography context and the tab list stay in view as the page
+          scrolls, and the title header collapses into a slim bar behind them.
+          The card above deliberately has no `overflow-hidden`, which is what
+          lets this stick at all.
+        */}
+        <PathwayContextRibbon
+          pathway={pathway}
+          scope={scope}
+          onScopeChange={setScope}
+          availability={scopeAvail}
+        >
+          <Tabs
+            tabs={DETAIL_TABS}
+            activeId={activeTab}
+            onChange={setActiveTab}
+            label="Pathway detail sections"
+            idBase="pathway"
+            className="px-6 pt-2"
+          />
+        </PathwayContextRibbon>
+
         <div className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-            <div className="md:col-span-7">
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold text-rmigray-800 mb-3">
-                  Expert Overview
+          <TabPanel
+            id="at-a-glance"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-8">
+              {pathwayDescription}
+              {plotsOverview}
+              {assumptionsSummary}
+            </div>
+          </TabPanel>
+
+          <TabPanel
+            id="assumptions"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-6">
+              {assumptionsPanel}
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
+                  Dependencies
                 </h2>
-                <div className="prose text-rmigray-700">
-                  <Markdown>{pathway.expertOverview}</Markdown>
-                </div>
+                <SectionIntro>
+                  Dependencies are factors in the broader environment necessary
+                  for a pathway to become a reality. These can be bottlenecks
+                  that prevent technologies scaling or enabling factors that
+                  facilitate technological change. These may be explicitly
+                  modeled in a pathway, or implicit based on related
+                  assumptions.
+                </SectionIntro>
+                <DependenciesTable
+                  dependencies={pathway.dependencies}
+                  sector={scope.sector}
+                />
               </section>
+            </div>
+          </TabPanel>
 
-              <section className="mt-8">
-                <div className="prose text-rmigray-700">
-                  <h4>Supplemental Information</h4>
-                  <PublicationBlock publication={pathway.publication} />
+          <TabPanel
+            id="timeseries"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-8">
+              {benchmarkPlots}
+              {supplementalInfo}
+            </div>
+          </TabPanel>
 
-                  {tsIndexLoaded && datasets.length > 0
-                    ? datasets.map((d) => {
-                        const label = d.label ?? d.datasetId;
-                        const summary = summarizeSummary(d.summary);
-                        return (
-                          <DownloadDataset
-                            key={d.datasetId}
-                            label={label}
-                            href={d.path}
-                            summary={summary}
-                          />
-                        );
-                      })
-                    : null}
+          <TabPanel
+            id="scope"
+            activeId={activeTab}
+            idBase="pathway"
+          >
+            <div className="space-y-8">
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
+                  Data Availability
+                </h2>
+                <SectionIntro>
+                  Overview of availability, coverage, granularity, format, and
+                  limitations of timeseries and related data in the underlying
+                  resources for the pathway.
+                </SectionIntro>
+                <DataAvailabilityTable
+                  dataAvailability={pathway.dataAvailability}
+                  scope={scope}
+                  pathwayGeography={pathway.geography}
+                />
+              </section>
+              <section>
+                <h2 className="text-xl font-semibold text-rmigray-800 mb-1">
+                  Coverage
+                </h2>
+                <SectionIntro>
+                  Pathway level coverage of geographies, sectors, and metrics.
+                </SectionIntro>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  {coveragePanels}
                 </div>
               </section>
             </div>
-
-            <div className="md:col-span-5">
-              <PlotSelector
-                timeseriesdata={timeseriesdata}
-                datasetId={datasets[0]?.datasetId}
-                className="mb-6"
-              />
-
-              <KeyFeatures keyFeatures={pathway.keyFeatures} />
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Geographies
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={
-                      <>
-                        <span className="block">
-                          {GEOGRAPHY_AVAILABILITY_TOOLTIP}
-                        </span>
-                        <span className="mt-2 block italic">
-                          {REGION_MAPPING_DISCLAIMER}
-                        </span>
-                      </>
-                    }
-                    ariaLabel="Geography availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedGeos.map((geo) => {
-                    const base = geographyVariant(geographyKind(geo));
-                    return availability.hasGeography(geo)
-                      ? base
-                      : `${base}-pub`;
-                  })}
-                  toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
-                  tooltipGetter={(geo) =>
-                    geographyKind(geo) === "region" ? (
-                      <RegionMembersTooltip
-                        geography={pathway.geography}
-                        label={geo}
-                      />
-                    ) : undefined
-                  }
-                  visibleCount={Infinity}
-                >
-                  {sortedGeos}
-                </BadgeArray>
-              </div>
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Sectors
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={SECTOR_AVAILABILITY_TOOLTIP}
-                    ariaLabel="Sector availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedSectors.map((s) =>
-                    availability.hasSector(s.name) ? "sector" : "sector-pub",
-                  )}
-                  tooltipGetter={getSectorTooltip}
-                  visibleCount={Infinity}
-                >
-                  {sortedSectors.map((s) => s.name)}
-                </BadgeArray>
-              </div>
-
-              <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
-                <h3 className="text-lg font-medium text-rmigray-800 mb-3 flex items-center gap-1.5">
-                  Benchmark Metrics
-                  <TextWithTooltip
-                    text={
-                      <Info
-                        size={14}
-                        className="text-rmigray-400 cursor-help"
-                      />
-                    }
-                    tooltip={METRIC_AVAILABILITY_TOOLTIP}
-                    ariaLabel="Benchmark metric availability information"
-                    position="right"
-                  />
-                </h3>
-                <BadgeArray
-                  variant={sortedMetrics.map((m) =>
-                    availability.hasMetric(m) ? "metric" : "metric-pub",
-                  )}
-                  tooltipGetter={getMetricTooltip}
-                  visibleCount={Infinity}
-                >
-                  {sortedMetrics}
-                </BadgeArray>
-              </div>
-            </div>
-          </div>
+          </TabPanel>
         </div>
       </div>
     </div>

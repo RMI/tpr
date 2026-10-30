@@ -1,0 +1,2198 @@
+/**
+ * Import pathway metadata from the working Excel workbook into v2 JSON (#860).
+ *
+ * Supersedes the one-shot `codemod-v1-to-v2.ts`: where the codemod scaffolded
+ * `coreDrivers` null, `dependencies` [], and a single widest-scope keyFeatures
+ * entry, this reads the real values out of `pathway_data_prepared.xlsx` and
+ * writes them onto the metadata files.
+ *
+ *   npx ts-node --esm scripts/import-pathway-data.ts --dry-run
+ *   npx ts-node --esm scripts/import-pathway-data.ts
+ *   npx ts-node --esm scripts/import-pathway-data.ts --xlsx other.xlsx --sheet-prefix pathway_
+ *
+ * Then run `npm run schema:check` and prettier over the written src/data JSON.
+ *
+ * This is a development tool, not a runtime path. It writes files in place and
+ * prints a report of everything it could not map cleanly (unresolved scopes,
+ * enum/vocabulary mismatches) rather than emitting anything that would fail
+ * `npm run schema:check`. Over-length prose is an authoring error that blocks
+ * the import: the limits are the cookbook's (tpr-tpc decision 0028), and text
+ * over one would otherwise be lost.
+ *
+ * Sheet names are parameterized (`--sheet-prefix`, default `draft_`) because the
+ * final `pathway_*` sheets are not populated yet; switch the prefix once they are.
+ *
+ * Scope of the current workbook: 75 pathways -- IEA (WEO 2025 and 2024), ACE,
+ * UN SDSN/CW (Thailand, Myanmar, Laos, Singapore, Malaysia, Philippines),
+ * Philippines DOE, CGS/IESR, JETP-ID, JRC, UTS-ISF, TransitionZero, EREA/DEA
+ * and NGFS (21, one per scenario and model). Rows without a TARGETS entry are
+ * listed in the report as unmatched and not imported. Region memberships come
+ * from each pathway's Regions cell.
+ */
+import { promises as fs } from "node:fs";
+import { fileURLToPath } from "node:url";
+import ExcelJS from "exceljs";
+import {
+  PATHWAY_DESCRIPTION,
+  splitExpertOverview,
+  upgradeV1ToV2,
+} from "./codemod-v1-to-v2.ts";
+import type { PathwayMetadataV1 } from "../src/types/pathwayMetadata.v1.d.ts";
+import {
+  availabilityMetricsForSector,
+  technologyBelongsToSector,
+} from "../src/utils/timeseriesTaxonomy.ts";
+import {
+  isForbiddenKeyFeatureSector,
+  type KeyFeatureKey,
+} from "../src/utils/keyFeatureRules.ts";
+import countryCodeSchema from "../src/schema/common/countryCode.v1.json" with { type: "json" };
+import pathwayMetadataV2Schema from "../src/schema/pathwayMetadata.v2.json" with { type: "json" };
+import sectorSchema from "../src/schema/common/sector.v1.json" with { type: "json" };
+import technologySchema from "../src/schema/common/technology.v1.json" with { type: "json" };
+import metricSchema from "../src/schema/common/metric.v1.json" with { type: "json" };
+import emissionsScopeSchema from "../src/schema/common/emissionsScope.v1.json" with { type: "json" };
+import dataAvailabilitySchema from "../src/schema/common/dataAvailability.v1.json" with { type: "json" };
+import dataAvailabilityMetricSchema from "../src/schema/common/dataAvailabilityMetric.v1.json" with { type: "json" };
+import sectorSegmentSchema from "../src/schema/common/sectorSegment.v1.json" with { type: "json" };
+
+/** Valid ISO 3166-1 alpha-2 codes, from the schema (rejects e.g. "XK"). */
+const VALID_COUNTRIES = new Set<string>(
+  (countryCodeSchema as { enum?: string[] }).enum ?? [],
+);
+
+const V2_ID =
+  (pathwayMetadataV2Schema as { $id?: string }).$id ??
+  "http://pathways.rmi.org/schema/pathwayMetadata.v2.json";
+
+/** Widest sentinels, mirroring src/utils/validateScopes.ts. */
+const ACROSS_SECTORS = "across sectors";
+const GLOBAL_SCOPE = "Global";
+const ACROSS_REGIONS = "across regions";
+
+/**
+ * Workbook sheet selection -- the single source of truth. The data is not
+ * finalized, so this is expected to change:
+ *  - `SHEET_PREFIX` picks which set to read. It currently reads the populated
+ *    `draft_` sheets; change it to `"pathway_"` (or override for one run with
+ *    `--sheet-prefix pathway_`) once the final sheets are filled in.
+ *  - `SHEET_BASENAMES` maps each logical sheet to its un-prefixed name; edit
+ *    here if a sheet is renamed.
+ *  - The `draft_` sheets carry two header rows (row 1 is a prose instruction);
+ *    the final `pathway_` sheets carry one. `TWO_HEADER_ROW_PREFIX` selects that.
+ */
+const SHEET_PREFIX = "draft_";
+const TWO_HEADER_ROW_PREFIX = "draft_";
+const SHEET_BASENAMES = {
+  metadata: "metadata",
+  keyFeatures: "key_features",
+  coreDrivers: "core_drivers",
+  dependencies: "dependencies",
+  dataAvailability: "data_availability",
+} as const;
+
+// --------------------------------------------------------------------------
+// Controlled vocabularies, read from src/schema/** at load time so they cannot
+// drift from the schema this output must validate against. Only the Excel-to-
+// schema *mappings* below are literals -- those have no schema representation.
+// --------------------------------------------------------------------------
+
+/** Just enough of the JSON Schema shape to pull enums out of. */
+type SchemaNode = {
+  enum?: string[];
+  type?: string;
+  $ref?: string;
+  anyOf?: SchemaNode[];
+  items?: SchemaNode;
+  properties?: Record<string, SchemaNode>;
+  $defs?: Record<string, SchemaNode>;
+  definitions?: Record<string, SchemaNode>;
+};
+
+/** The `displayName` enum of a common vocabulary schema (sector/tech/metric). */
+function displayNameEnum(schema: SchemaNode): string[] {
+  return (schema.$defs ?? schema.definitions ?? {}).displayName?.enum ?? [];
+}
+
+const SECTORS = displayNameEnum(sectorSchema as SchemaNode);
+const METRICS = displayNameEnum(metricSchema as SchemaNode);
+const TECHNOLOGIES = displayNameEnum(technologySchema as SchemaNode);
+
+/** dataAvailability vocabularies (#870), read from the schema like the rest. */
+const DA_DEFS = (dataAvailabilitySchema as SchemaNode).$defs ?? {};
+const DA_METRICS = displayNameEnum(dataAvailabilityMetricSchema as SchemaNode);
+const SEGMENTS = displayNameEnum(sectorSegmentSchema as SchemaNode);
+const TIME_RESOLUTIONS = DA_DEFS.timeResolution?.enum ?? [];
+const DATA_FORMATS = DA_DEFS.dataFormat?.enum ?? [];
+const GRANULARITY_VALUES = [
+  ...(DA_DEFS.granularityBreakdown?.enum ?? []),
+  ...TECHNOLOGIES,
+];
+/** Sentinels shared by the list-valued fields; never resolved as places. */
+const DA_SENTINELS = ["Unspecified", "Not covered"];
+
+const V2_PROPS = (pathwayMetadataV2Schema as SchemaNode).properties ?? {};
+const PATHWAY_TYPES = V2_PROPS.pathwayType?.enum ?? [];
+const EVIDENCE_TYPES =
+  V2_PROPS.dependencies?.items?.properties?.evidence_type?.enum ?? [];
+
+/**
+ * Per-field keyFeatures value enums, read straight from the v2 schema. A field's
+ * `value` takes one of four shapes:
+ *
+ *  - an inline enum (most fields);
+ *  - an array of enum strings (policyTypes / newTechnologiesIncluded);
+ *  - a `$ref` to a shared enum schema;
+ *  - an `anyOf` composing a `$ref` with an inline enum — emissionsScope, which
+ *    draws its gas vocabulary from `emissionsScope.v1.json` (shared with
+ *    pathwayTimeseries.v1) and adds the scope sentinel locally.
+ *
+ * The last shape is why `membersOf` is recursive rather than a branch per case.
+ * Returning `[]` for an unrecognised shape is what it used to do for an
+ * unhandled one, and it fails quietly: `matchEnum` then rejects every cell and
+ * the whole field is dropped from every pathway. Hence the assertion below.
+ *
+ * KF_ARRAY_FIELDS records which fields are arrays.
+ */
+const REF_ENUMS: Record<string, string[]> = {
+  "emissionsScope.v1.json": (emissionsScopeSchema as SchemaNode).enum ?? [],
+};
+
+function membersOf(node: SchemaNode | undefined): readonly string[] {
+  if (!node) return [];
+  if (node.enum) return node.enum;
+  if (node.$ref) return REF_ENUMS[node.$ref.split("/").pop() ?? ""] ?? [];
+  if (node.anyOf) return node.anyOf.flatMap(membersOf);
+  return [];
+}
+
+const KF_SCALAR_ENUMS: Record<string, readonly string[]> = {};
+const KF_ARRAY_ENUMS: Record<string, readonly string[]> = {};
+const KF_ARRAY_FIELDS = new Set<string>();
+for (const [field, spec] of Object.entries(
+  V2_PROPS.keyFeatures?.properties ?? {},
+)) {
+  const value = spec.items?.properties?.value;
+  if (!value) continue;
+  if (value.type === "array") {
+    KF_ARRAY_ENUMS[field] = membersOf(value.items);
+    KF_ARRAY_FIELDS.add(field);
+  } else {
+    KF_SCALAR_ENUMS[field] = membersOf(value);
+  }
+}
+
+// An empty vocabulary is never legitimate, and silently means "drop every value
+// this field has". Better to refuse to run than to emit 60 files quietly
+// missing a field.
+for (const [field, members] of [
+  ...Object.entries(KF_SCALAR_ENUMS),
+  ...Object.entries(KF_ARRAY_ENUMS),
+]) {
+  if (members.length === 0) {
+    throw new Error(
+      `keyFeatures.${field}: could not read a value vocabulary out of the v2` +
+        ` schema. Extend membersOf() to cover its 'value' shape -- leaving it` +
+        ` empty would drop every ${field} cell in the workbook.`,
+    );
+  }
+}
+for (const [name, members] of Object.entries({
+  dataAvailabilityMetric: DA_METRICS,
+  sectorSegment: SEGMENTS,
+  timeResolution: TIME_RESOLUTIONS,
+  dataFormat: DATA_FORMATS,
+})) {
+  if (members.length === 0) {
+    throw new Error(
+      `dataAvailability: the ${name} vocabulary read empty from the schema --` +
+        ` every availability row would be dropped.`,
+    );
+  }
+}
+
+/** Excel key_features column header -> v2 keyFeatures field name. */
+const KF_COLUMN_TO_FIELD: Record<string, string> = {
+  "Emissions trajectory": "emissionsTrajectory",
+  "Energy efficiency": "energyEfficiency",
+  "Energy demand": "energyDemand",
+  "Electrification": "electrification",
+  "Policy types": "policyTypes",
+  "Technology cost trend": "technologyCostTrend",
+  "Emissions scope": "emissionsScope",
+  "Policy ambition": "policyAmbition",
+  "Technology costs detail": "technologyCostsDetail",
+  "New technologies included": "newTechnologiesIncluded",
+  "Investment needs": "investmentNeeds",
+};
+
+/** Excel core_drivers column header -> v2 coreDrivers field name. */
+const CORE_DRIVER_COLUMNS: Array<[string, string]> = [
+  ["Policy", "policies"],
+  ["Emissions targets", "emissionsTargets"],
+  ["Technology costs", "technologyCosts"],
+  ["Investment trend", "investmentChange"],
+  ["Macroeconomic trends", "macroeconomicDrivers"],
+  ["Behavioral shifts", "behavioralShifts"],
+  ["Other drivers", "otherDrivers"],
+];
+
+/** Excel dependency dimension column -> schema `dependency_name` enum value. */
+const DEPENDENCY_COLUMNS: Array<[string, string]> = [
+  ["Policy Strategy", "Policy strategy"],
+  ["Regulatory framework", "Regulatory framework"],
+  ["Market and economics", "Market and economics"],
+  ["Public acceptance", "Public acceptance"],
+  ["Consumer and client behavior", "Consumer and client behavior"],
+  ["Infrastructure and logistics", "Infrastructure and logistics"],
+  ["Technology", "Technology"],
+  ["Resource availability", "Resource availability"],
+  [
+    "Environmental impacts and ecosystem services",
+    "Environmental impacts and ecosystem services",
+  ],
+  ["Labor availability", "Labor availability"],
+];
+
+/**
+ * Geography tokens that keyFeatures rows use but the metadata `Regions` cell
+ * spells differently. Only applied when the canonical form is a geography the
+ * pathway actually declares, so it can never widen coverage.
+ */
+const GEO_ALIASES: Record<string, string> = {
+  "eu": "European Union",
+  "european union": "EU",
+};
+
+// --------------------------------------------------------------------------
+// Row -> target file mapping, keyed as canonicalKey() builds it: the only
+// stable join key across sheets is (publisher group, scenario code,
+// country), since pathway-name strings and publisher labels vary between
+// sheets (e.g. "State" vs "States" in ATS). IEA keys also carry the WEO
+// edition year, because the workbook holds both WEO 2024 and WEO 2025 under
+// the same scenario codes. The 2025 rows create new files and the 2024 rows
+// update the existing ones, per the "keep both" decision. Everyone else maps
+// 1:1 onto an existing file and is updated in place.
+// --------------------------------------------------------------------------
+
+type Target =
+  | { mode: "update"; file: string; wasV1?: boolean; note?: string }
+  | {
+      mode: "new";
+      file: string;
+      id: string;
+      templateFile: string;
+      note?: string;
+    };
+
+export const TARGETS: Record<string, Target> = {
+  // IEA World Energy Outlook 2025 -- new edition, new files.
+  "IEA:CPS 2025:": {
+    mode: "new",
+    file: "src/data/iea/IEA-CPS-2025.json",
+    id: "IEA-CPS-2025",
+    templateFile: "src/data/iea/IEA-STEPS-2024.json",
+    note: "new WEO-2025 scenario (no 2024 equivalent)",
+  },
+  "IEA:STEPS 2025:": {
+    mode: "new",
+    file: "src/data/iea/IEA-STEPS-2025.json",
+    id: "IEA-STEPS-2025",
+    templateFile: "src/data/iea/IEA-STEPS-2024.json",
+    note: "WEO-2025 edition; IEA-STEPS-2024 kept",
+  },
+  "IEA:NZE 2025:": {
+    mode: "new",
+    file: "src/data/iea/IEA-NZE-2025.json",
+    id: "IEA-NZE-2025",
+    templateFile: "src/data/iea/IEA-NZE-2024.json",
+    note: "WEO-2025 edition; IEA-NZE-2024 kept",
+  },
+  // IEA World Energy Outlook 2024 -- already v2, refreshed.
+  "IEA:STEPS 2024:": {
+    mode: "update",
+    file: "src/data/iea/IEA-STEPS-2024.json",
+  },
+  "IEA:APS 2024:": { mode: "update", file: "src/data/iea/IEA-APS-2024.json" },
+  "IEA:NZE 2024:": { mode: "update", file: "src/data/iea/IEA-NZE-2024.json" },
+  // ACE 8th ASEAN Energy Outlook -- already v2, refreshed.
+  "ACE:BAS:": {
+    mode: "update",
+    file: "src/data/asean-centre-for-energy/ACE-BAS-2024.json",
+  },
+  "ACE:ATS:": {
+    mode: "update",
+    file: "src/data/asean-centre-for-energy/ACE-ATS-2024.json",
+  },
+  "ACE:RAS:": {
+    mode: "update",
+    file: "src/data/asean-centre-for-energy/ACE-RAS-2024.json",
+  },
+  "ACE:CNS:": {
+    mode: "update",
+    file: "src/data/asean-centre-for-energy/ACE-CNS-2024.json",
+  },
+  // UN SDSN / ClimateWorks -- Thailand.
+  "SDSN:EXT TH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-EXT-TH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP TH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP-TH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:NZE TH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-NZE-TH-2024.json",
+    wasV1: true,
+  },
+  // Philippines DOE. Excel Year of Publication is 2024 while the repo ids say
+  // 2023 (id uses the plan's base year); same single report, so update in place.
+  "PHDOE:REF:": {
+    mode: "update",
+    file: "src/data/philippines-department-of-energy/PHDOE-REFERENCE-2023.json",
+    wasV1: true,
+    note: "Excel year 2024 vs repo id year 2023 (same report)",
+  },
+  "PHDOE:CES1:": {
+    mode: "update",
+    file: "src/data/philippines-department-of-energy/PHDOE-CES1-2023.json",
+    wasV1: true,
+    note: "Excel year 2024 vs repo id year 2023 (same report)",
+  },
+  "PHDOE:CES2:": {
+    mode: "update",
+    file: "src/data/philippines-department-of-energy/PHDOE-CES2-2023.json",
+    wasV1: true,
+    note: "Excel year 2024 vs repo id year 2023 (same report)",
+  },
+  // ASEAN Green Future -- stored under un-sdsn-cw. The workbook now publishes
+  // these as "UN SDSN, CW" with the country inside the code ("EPP MM"), not as
+  // "ASEAN Green Future ... [MM]", so the keys follow that spelling. Under the
+  // old keys all seven silently stopped matching.
+  "SDSN:EPP MM:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-EPP-MM-2025.json",
+    wasV1: true,
+  },
+  "SDSN:OEPP MM:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEPP-MM-2025.json",
+    wasV1: true,
+  },
+  "SDSN:OMAP MM:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-MM-2025.json",
+    wasV1: true,
+  },
+  "SDSN:EP LA:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-EP-LA-2025.json",
+    wasV1: true,
+  },
+  "SDSN:OEP LA:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-LA-2025.json",
+    wasV1: true,
+  },
+  "SDSN:MAP LA:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP-LA-2025.json",
+    wasV1: true,
+  },
+  "SDSN:OMAP LA:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-LA-2025.json",
+    wasV1: true,
+  },
+  // UN SDSN / ClimateWorks -- Singapore. Existing v1 files, migrated in place.
+  "SDSN:BAS SG:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-BAS-SG-2024.json",
+    wasV1: true,
+  },
+  "SDSN:BAU SG:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-BAU-SG-2024.json",
+    wasV1: true,
+  },
+  "SDSN:HA1S SG:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-HA1S-SG-2024.json",
+    wasV1: true,
+  },
+  "SDSN:HA2S SG:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-HA2S-SG-2024.json",
+    wasV1: true,
+  },
+  "SDSN:HA1O SG:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-HA1O-SG-2024.json",
+    wasV1: true,
+  },
+  "SDSN:HA2O SG:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-HA2O-SG-2024.json",
+    wasV1: true,
+  },
+  // UN SDSN / ClimateWorks -- Malaysia. The workbook carries the Phase 2.2
+  // report, which replaces Phase 2.1. EP MY keeps its id and file but is
+  // rebuilt as "new" so its name, description and publication come from the
+  // workbook rather than the 2.1 file. All three take the publisher block from
+  // EP MY, whose links point at the 2.2 report. MAP MY and MAP1 MY are 2.1
+  // pathways and are removed separately.
+  "SDSN:EP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    id: "UNSDSN-CW-EP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "Phase 2.2 replaces Phase 2.1",
+  },
+  "SDSN:OEP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-MY-2024.json",
+    id: "UNSDSN-CW-OEP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "new Phase 2.2 pathway",
+  },
+  "SDSN:OMAP MY:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-MY-2024.json",
+    id: "UNSDSN-CW-OMAP-MY-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
+    note: "new Phase 2.2 pathway",
+  },
+  // UN SDSN / ClimateWorks -- Philippines. MAP3 and MAP4 are new pathways
+  // from the same report and take its publisher block from SEP PH.
+  "SDSN:SEP PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:OEP PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-OEP-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP1 PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP1-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP2 PH:": {
+    mode: "update",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP2-PH-2024.json",
+    wasV1: true,
+  },
+  "SDSN:MAP3 PH:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP3-PH-2024.json",
+    id: "UNSDSN-CW-MAP3-PH-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    note: "new pathway",
+  },
+  "SDSN:MAP4 PH:": {
+    mode: "new",
+    file: "src/data/un-sdsn-cw/SDSN-CW-MAP4-PH-2024.json",
+    id: "UNSDSN-CW-MAP4-PH-2024",
+    templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
+    note: "new pathway",
+  },
+  // CGS / IESR Indonesia. Existing v1 files, migrated in place.
+  "CGS:BaU:": {
+    mode: "update",
+    file: "src/data/cgs-iesr/CGS-IESR-BAU-2024.json",
+    wasV1: true,
+  },
+  "CGS:1.5°C:": {
+    mode: "update",
+    file: "src/data/cgs-iesr/CGS-IESR-1-5-2024.json",
+    wasV1: true,
+  },
+  // JRC GECO -- repo files already year 2025, same edition; update in place.
+  // The workbook now writes the codes "(Reference)" and "(1.5°C)".
+  "JRC:Reference:": {
+    mode: "update",
+    file: "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
+    wasV1: true,
+  },
+  "JRC:NDC-LTS:": {
+    mode: "update",
+    file: "src/data/jrc/JRC-GECO-NDC-LTS-2025.json",
+    wasV1: true,
+  },
+  "JRC:1.5°C:": {
+    mode: "update",
+    file: "src/data/jrc/JRC-GECO-1-5-2025.json",
+    wasV1: true,
+  },
+  // UTS-ISF, TransitionZero and Viet Nam EREA/DEA -- existing v1 files,
+  // migrated in place. Viet Nam's baseline is "(BSL)" in the workbook and
+  // keeps its existing short name, "Baseline".
+  "UTS:OECM:": {
+    mode: "update",
+    file: "src/data/uts-isf/UTS-ISF-OECM-2024.json",
+    wasV1: true,
+  },
+  "TZ:BAU:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-BAU-2024.json",
+    wasV1: true,
+  },
+  "TZ:EBAU:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-EBAU-2024.json",
+    wasV1: true,
+  },
+  "TZ:REGI:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-REGI-2024.json",
+    wasV1: true,
+  },
+  "TZ:ISG:": {
+    mode: "update",
+    file: "src/data/transitionzero/TZ-ISG-2024.json",
+    wasV1: true,
+  },
+  "EREA:BSL:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
+    wasV1: true,
+  },
+  "EREA:NZ:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-NZ-2024.json",
+    wasV1: true,
+  },
+  "EREA:NZ+:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
+    wasV1: true,
+  },
+  "EREA:GG:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-GG-2024.json",
+    wasV1: true,
+  },
+  "EREA:GT:": {
+    mode: "update",
+    file: "src/data/vn-erea-dea/EREA-DEA-GT-2024.json",
+    wasV1: true,
+  },
+  // JETP Indonesia.
+  "JETP:CIPP:": {
+    mode: "update",
+    file: "src/data/jetp-id/JETP-CIPP-2023.json",
+    wasV1: true,
+  },
+  ...ngfsTargets(),
+};
+
+/**
+ * NGFS Phase V: one pathway per scenario and model, replacing the seven
+ * per-scenario files. The workbook carries every per-model value, so the
+ * template supplies only the publication block, which all 21 share. It is one
+ * of the 21 themselves: the old files it was first copied from are gone.
+ */
+function ngfsTargets(): Record<string, Target> {
+  const scenarios = ["LD", "NZ2050", "B2C", "DT", "NDC", "CP", "FW"];
+  const models = ["GCAM", "MESSAGE", "REMIND"];
+  return Object.fromEntries(
+    scenarios.flatMap((scenario) =>
+      models.map((model): [string, Target] => {
+        const id = `NGFS-${scenario}-${model}-2024`;
+        return [
+          `NGFS:${scenario} ${model}:`,
+          {
+            mode: "new",
+            file: `src/data/ngfs/${id}.json`,
+            id,
+            templateFile: "src/data/ngfs/NGFS-NZ2050-GCAM-2024.json",
+            note: "NGFS Phase V, per model",
+          },
+        ];
+      }),
+    ),
+  );
+}
+
+/** Publisher label (any sheet's spelling) -> canonical group used in the key. */
+export function publisherGroup(label: string): string | null {
+  const l = label.toLowerCase();
+  if (l.includes("green future") || l.includes("agf")) return "AGF";
+  if (l.includes("iea") || l.includes("international energy")) return "IEA";
+  if (l.includes("asean centre") || l === "ace") return "ACE";
+  if (l.includes("philippines") || l.includes("department of energy"))
+    return "PHDOE";
+  if (l.includes("joint research") || l.includes("jrc")) return "JRC";
+  if (l.includes("jetp")) return "JETP";
+  if (l.includes("sdsn") || l.includes("climateworks")) return "SDSN";
+  if (l.includes("global sustainability") || l.includes("iesr")) return "CGS";
+  if (l.includes("greening the financial") || l.includes("ngfs")) return "NGFS";
+  if (l.includes("technology sydney") || /\buts[- ]isf\b/.test(l)) return "UTS";
+  if (l.includes("transitionzero")) return "TZ";
+  if (l.includes("renewable energy authority") || /\berea\b/.test(l))
+    return "EREA";
+  return null;
+}
+
+/** Scenario code + optional [CC] country, from the pathway name. */
+export function scenarioParts(name: string): { code: string; country: string } {
+  const country = /\[([A-Z]{2})\]/.exec(name)?.[1] ?? "";
+  const parens = [...name.matchAll(/\(([^)]+)\)/g)].map((m) => m[1]);
+  let code = parens.length > 0 ? parens[parens.length - 1] : "";
+  if (!code) {
+    // A JRC name written without its code in brackets: the same codes the
+    // workbook uses, so the row still reaches its TARGETS entry.
+    const l = name.toLowerCase();
+    if (l.startsWith("reference")) code = "Reference";
+    else if (l.includes("ndc-lts")) code = "NDC-LTS";
+    else if (l.includes("1.5")) code = "1.5°C";
+  }
+  return { code, country };
+}
+
+export function canonicalKey(
+  publisher: string,
+  pathwayName: string,
+  publication = "",
+): string | null {
+  const group = publisherGroup(publisher);
+  if (!group) return null;
+  const { code, country } = scenarioParts(pathwayName);
+  if (!code) return null;
+  // WEO editions share scenario codes, so the edition year is part of the
+  // key: the year after "Outlook" or "WEO", else the first year in the title.
+  // A row whose publication names no year matches no IEA target and is
+  // reported as unmatched.
+  if (group === "IEA") {
+    const year =
+      /(?:Outlook|WEO)[^0-9]{0,3}(20\d\d)/i.exec(publication)?.[1] ??
+      /\b(20\d\d)\b/.exec(publication)?.[1];
+    return year
+      ? `${group}:${code} ${year}:${country}`
+      : `${group}:${code}:${country}`;
+  }
+  return `${group}:${code}:${country}`;
+}
+
+// --------------------------------------------------------------------------
+// Workbook reading.
+// --------------------------------------------------------------------------
+
+type Row = Record<string, string>;
+
+interface Sheets {
+  metadata: Row[];
+  keyFeatures: Row[];
+  coreDrivers: Row[];
+  dependencies: Row[];
+  dataAvailability: Row[];
+}
+
+/** Flatten one ExcelJS cell value to trimmed text. */
+function cellText(value: ExcelJS.CellValue): string {
+  if (value === null || value === undefined) return "";
+  if (typeof value === "string") return value.trim();
+  if (typeof value === "number" || typeof value === "boolean")
+    return String(value);
+  if (value instanceof Date) return String(value.getFullYear());
+  if (typeof value === "object") {
+    const v = value as Record<string, unknown>;
+    if (Array.isArray(v.richText)) {
+      return v.richText
+        .map((r) => (r as { text?: string }).text ?? "")
+        .join("")
+        .trim();
+    }
+    if ("text" in v && typeof v.text === "string") return v.text.trim();
+    if ("result" in v) return cellText(v.result as ExcelJS.CellValue);
+    if ("formula" in v) return "";
+  }
+  return String(value).trim();
+}
+
+/**
+ * Read one sheet into records. Draft sheets have two header rows -- row 1 is a
+ * prose instruction, row 2 is the field name -- so field names come from row 2
+ * and data from row 3 on. `CHECK *` and blank-header helper columns are dropped.
+ * The final `pathway_*` sheets carry a single header row; `headerRow` handles that.
+ */
+function readSheet(
+  ws: ExcelJS.Worksheet | undefined,
+  headerRow: number,
+): Row[] {
+  if (!ws) return [];
+  const headers: Record<number, string> = {};
+  ws.getRow(headerRow).eachCell({ includeEmpty: true }, (cell, col) => {
+    const h = cellText(cell.value);
+    if (h && !h.startsWith("CHECK")) headers[col] = h;
+  });
+  const rows: Row[] = [];
+  for (let r = headerRow + 1; r <= ws.rowCount; r++) {
+    const row = ws.getRow(r);
+    const rec: Row = {};
+    let any = false;
+    for (const [colStr, header] of Object.entries(headers)) {
+      const text = cellText(row.getCell(Number(colStr)).value);
+      rec[header] = text;
+      if (text) any = true;
+    }
+    if (any) rows.push(rec);
+  }
+  return rows;
+}
+
+async function readWorkbook(path: string, prefix: string): Promise<Sheets> {
+  const wb = new ExcelJS.Workbook();
+  await wb.xlsx.readFile(path);
+  // Draft sheets: two header rows. Final `pathway_` sheets: one.
+  const headerRow = prefix === TWO_HEADER_ROW_PREFIX ? 2 : 1;
+  const sheet = (base: string) => wb.getWorksheet(`${prefix}${base}`);
+  return {
+    metadata: readSheet(sheet(SHEET_BASENAMES.metadata), headerRow),
+    keyFeatures: readSheet(sheet(SHEET_BASENAMES.keyFeatures), headerRow),
+    coreDrivers: readSheet(sheet(SHEET_BASENAMES.coreDrivers), headerRow),
+    dependencies: readSheet(sheet(SHEET_BASENAMES.dependencies), headerRow),
+    dataAvailability: readSheet(
+      sheet(SHEET_BASENAMES.dataAvailability),
+      headerRow,
+    ),
+  };
+}
+
+// --------------------------------------------------------------------------
+// Value normalization helpers.
+// --------------------------------------------------------------------------
+
+/** 0023's measure-level marker, lower-cased; meaningful only at a forbidden pair. */
+const NOT_APPLICABLE_CELL = "not applicable";
+
+/** Cells that mean "no value at this scope" -- the entry is omitted entirely. */
+/**
+ * Whether a cell records nothing at all, as against recording an absence.
+ *
+ * The `not applicable` / `not available` prefixes used to be here, and taking
+ * them out is the point of the change. Cookbook decision 0023 made
+ * `Not applicable at this scope level` an authored value rather than an empty
+ * cell: it says this row is not the widest scope the field is calculated for.
+ * #858 added it to the schema, and the epic turns on the distinction — an
+ * explicit value terminates #869's fallback chain where an absent entry keeps
+ * broadening. Swallowing it here threw away exactly what it was added to
+ * express.
+ *
+ * 0023's other value, `Not Applicable` for a measure that is meaningless for
+ * the sector (Electrification × Power), stays in the workbook but not in the
+ * data: such a pair has no entry at all. It is deliberately not absent here,
+ * because it means something only at a forbidden pair; {@link buildKeyFeatures}
+ * drops it there, and anywhere else it is off-enum and reported.
+ *
+ * A consequence worth keeping: a cell still carrying a pre-0023 spelling now
+ * fails `matchEnum` and is reported in `badValues` instead of vanishing, so the
+ * importer's own report names the cells left to correct.
+ */
+export function isAbsent(raw: string): boolean {
+  const l = raw.trim().toLowerCase();
+  return l === "" || l === "null" || l === "n/a";
+}
+
+export function matchEnum(
+  raw: string,
+  options: readonly string[],
+): string | null {
+  const cleaned = raw.trim().replace(/signifcant/gi, "Significant");
+  const hit = options.find((o) => o.toLowerCase() === cleaned.toLowerCase());
+  return hit ?? null;
+}
+
+export function ensurePeriod(text: string): string {
+  const t = text.trim();
+  return /\.$/.test(t) ? t : `${t}.`;
+}
+
+export function normalizeSector(raw: string): string | null {
+  return (
+    SECTORS.find((s) => s.toLowerCase() === raw.trim().toLowerCase()) ?? null
+  );
+}
+
+function normalizeTechnology(raw: string): string | null {
+  return (
+    TECHNOLOGIES.find((t) => t.toLowerCase() === raw.trim().toLowerCase()) ??
+    null
+  );
+}
+
+function normalizeMetric(raw: string): string | null {
+  return (
+    METRICS.find((m) => m.toLowerCase() === raw.trim().toLowerCase()) ?? null
+  );
+}
+
+/** Split a delimited list cell on `;` and `,`, dropping empties. */
+export function splitList(raw: string): string[] {
+  return raw
+    .split(/[;,]/)
+    .map((s) => s.trim())
+    .filter((s) => s.length > 0);
+}
+
+// --------------------------------------------------------------------------
+// Reporting.
+// --------------------------------------------------------------------------
+
+export class Report {
+  readonly lines: string[] = [];
+  /**
+   * Authoring mistakes the workbook has to fix. Unlike a note, any one of these
+   * stops the import: main() writes no files while the list is non-empty.
+   */
+  readonly errors: string[] = [];
+  section(title: string) {
+    this.lines.push(`\n## ${title}`);
+  }
+  note(text: string) {
+    this.lines.push(`  - ${text}`);
+  }
+  error(text: string) {
+    this.errors.push(text);
+  }
+}
+
+/**
+ * Length in code points -- what the cookbook and JSON-schema `maxLength` count.
+ * `.length` counts UTF-16 units, which disagrees for e.g. emoji.
+ */
+export function charCount(text: string): number {
+  return [...text].length;
+}
+
+/**
+ * Whether `text` fits in `max` characters; reports it as an authoring error
+ * when it does not. Over-length text is never truncated or dropped, since that
+ * would lose content nobody chose to lose.
+ */
+export function withinLimit(
+  text: string,
+  max: number,
+  where: string,
+  report: Report,
+): boolean {
+  const n = charCount(text);
+  if (n <= max) return true;
+  report.error(`${where}: ${n} chars > ${max} -- shorten it in the workbook`);
+  return false;
+}
+
+// --------------------------------------------------------------------------
+// Field builders.
+// --------------------------------------------------------------------------
+
+interface Geography {
+  global?: boolean;
+  regions?: Record<string, string[]>;
+  country?: string[];
+}
+
+/**
+ * A region with no member countries matches nothing, and the classifier tends
+ * to pick these up from a passing mention of somewhere the pathway does not
+ * cover. Rather than import a scope nobody can select, the import stops so the
+ * cell is fixed in the workbook (#998).
+ */
+function memberless(id: string, label: string, dropped: string[]): string {
+  const why = dropped.length
+    ? ` (its only code(s) {${dropped.join(", ")}} are not ISO-3166)`
+    : "";
+  return (
+    `${id}: region "${label}" has no member countries${why} -- ` +
+    "list its ISO codes in the Regions cell, or remove it"
+  );
+}
+
+/**
+ * Parse the metadata `Regions` cell into a v2 geography object. Format:
+ *   Global; Africa: [DZ, EG]; BR: [BR]; PH
+ * A bare token (`Global`) sets the flag or, if a 2-letter code, becomes a
+ * standalone country. `Label: [..]` is a region and its ISO members.
+ *
+ * One country code is always a country (#998): a region with a single member
+ * is that country, and the sheet has to say so. `BR: [BR]` (or a bare `BR`) is
+ * the country; `Brazil: [BR]` is an error, because importing it under either
+ * name leaves key-feature and data-availability cells that say "Brazil" or
+ * "BR" pointing at a scope the other does not reach.
+ */
+export function buildGeography(
+  cell: string,
+  report: Report,
+  id: string,
+): Geography | null {
+  const raw = cell.trim().replace(/^"+|"+$/g, "");
+  if (!raw) return null;
+  const geo: Geography = {};
+  const regions: Record<string, string[]> = {};
+  const countries: string[] = [];
+  // Split top-level entries on `;` (member lists inside [..] use commas only).
+  for (const part of raw
+    .split(";")
+    .map((s) => s.trim())
+    .filter(Boolean)) {
+    const m = /^(.+?):\s*\[(.*)\]$/.exec(part);
+    if (m) {
+      const label = m[1].trim();
+      const all = m[2]
+        .split(",")
+        .map((s) => s.trim().toUpperCase())
+        .filter((s) => /^[A-Z]{2}$/.test(s));
+      const members = all.filter((c) => VALID_COUNTRIES.has(c));
+      const dropped = all.filter((c) => !VALID_COUNTRIES.has(c));
+      if (dropped.length) {
+        report.note(
+          `${id}: geography region "${label}" dropped non-ISO code(s) {${dropped.join(", ")}}`,
+        );
+      }
+      if (members.length === 0) {
+        report.error(memberless(id, label, dropped));
+        continue;
+      }
+      // `LA: [LA]` is how the cookbook writes an individually projected country
+      // (validator rule R4.3 flags the bare `LA` form as non-standard). IEA's
+      // `Japan: [JP]` is the same country under its publication's name, and is
+      // refused rather than renamed.
+      if (members.length === 1) {
+        const code = members[0];
+        if (label.toUpperCase() !== code) {
+          report.error(
+            `${id}: region "${label}" has one member, ${code} -- one country code is ` +
+              `a country, so write ${code} in the Regions cell and in every scope that says "${label}"`,
+          );
+          continue;
+        }
+        countries.push(code);
+        continue;
+      }
+      regions[label] = members;
+    } else if (/^global$/i.test(part)) {
+      geo.global = true;
+    } else if (/^[A-Z]{2}$/.test(part.toUpperCase()) && part.length === 2) {
+      const c = part.toUpperCase();
+      if (VALID_COUNTRIES.has(c)) countries.push(c);
+      else report.note(`${id}: geography dropped non-ISO country "${part}"`);
+    } else {
+      // A region label with no bracketed member list.
+      report.error(memberless(id, part, []));
+    }
+  }
+  if (Object.keys(regions).length > 0) geo.regions = regions;
+  // `JP; JP: [JP]` names one country twice. It is one scope, so it is listed once.
+  const repeated = [
+    ...new Set(countries.filter((c, i) => countries.indexOf(c) !== i)),
+  ];
+  if (repeated.length)
+    report.note(
+      `${id}: geography lists {${repeated.join(", ")}} more than once; kept once`,
+    );
+  if (countries.length > 0) geo.country = [...new Set(countries)];
+  return geo;
+}
+
+/** Every geography token entries on this pathway may name (mirrors validateScopes). */
+export function allowedGeographies(geo: Geography | undefined): Set<string> {
+  const allowed = new Set<string>([ACROSS_REGIONS]);
+  if (!geo) return allowed;
+  if (geo.global === true) allowed.add(GLOBAL_SCOPE);
+  for (const [label, members] of Object.entries(geo.regions ?? {})) {
+    allowed.add(label);
+    members.forEach((m) => allowed.add(m));
+  }
+  (geo.country ?? []).forEach((c) => allowed.add(c));
+  return allowed;
+}
+
+/** Alnum-only, lowercase -- for punctuation/spacing-insensitive label matching. */
+function normKey(s: string): string {
+  return s.toLowerCase().replace(/[^a-z0-9]/g, "");
+}
+
+export function resolveGeography(
+  token: string,
+  allowed: Set<string>,
+): string | null {
+  const t = token.trim();
+  if (allowed.has(t)) return t;
+  const up = t.toUpperCase();
+  if (/^[A-Z]{2}$/.test(up) && allowed.has(up)) return up;
+  const alias = GEO_ALIASES[t.toLowerCase()];
+  if (alias && allowed.has(alias)) return alias;
+  // Last resort: match ignoring case, punctuation and spacing, so a key-feature
+  // token like "Rest Sub Saharan Africa" resolves to a declared region labeled
+  // "Rest Sub-Saharan Africa". Genuine word differences ("Other" vs "Rest") do
+  // not match and are reported instead.
+  const tn = normKey(t);
+  for (const a of allowed) {
+    if (normKey(a) === tn) return a;
+  }
+  return null;
+}
+
+function sectorBreadth(s: string): number {
+  return s === ACROSS_SECTORS ? 0 : 1;
+}
+function geographyBreadth(g: string): number {
+  if (g === GLOBAL_SCOPE) return 0;
+  if (g === ACROSS_REGIONS) return 1;
+  return /^[A-Z]{2}$/.test(g) ? 3 : 2;
+}
+
+type ScopedEntry = {
+  sector: string;
+  geography: string;
+  value: string | string[];
+};
+
+/**
+ * Build the 11 scoped keyFeatures arrays from this pathway's key_features rows.
+ * Emits every resolvable (sector, geography) scope. Entries whose sector or
+ * geography does not resolve against the pathway's declared coverage are
+ * omitted and reported, so the file still passes validateScopedEntries.
+ *
+ * A cell at a field × sector that cannot apply (Electrification × Power, see
+ * `FORBIDDEN_KEY_FEATURE_SECTORS`) is written as no entry at all. The workbook
+ * may say so with 0023's `Not Applicable` or leave the cell blank; either is
+ * dropped. Any other value there -- `No information` included -- is an
+ * authoring error that stops the import, as validateScopedEntries would reject
+ * the entry. Refused rather than dropped, so the workbook and the data cannot
+ * disagree about what the pathway reports.
+ */
+export function buildKeyFeatures(
+  rows: Row[],
+  declaredSectors: Set<string>,
+  geoAllowed: Set<string>,
+  report: Report,
+  id: string,
+): Record<string, ScopedEntry[]> {
+  const fields: Record<string, ScopedEntry[]> = {};
+  const seen: Record<string, Set<string>> = {};
+  for (const field of Object.values(KF_COLUMN_TO_FIELD)) {
+    fields[field] = [];
+    seen[field] = new Set();
+  }
+  const badSectors = new Set<string>();
+  const badGeos = new Set<string>();
+  const badValues = new Set<string>();
+  // "<column>\0<sector>" -> the geographies of rows with a value there.
+  const forbidden = new Map<string, string[]>();
+  let dupScopes = 0;
+
+  for (const row of rows) {
+    const rawSector = row["Key features sector scope"] ?? "";
+    const rawGeo = row["Key features regional scope"] ?? "";
+    /*
+      The sheet's sector-scope sentinel is the schema's, so this normalizes
+      case and nothing else. It used to translate `across sectors` into a
+      repo-local `cross-sector`; #858 settled on the cookbook's spelling, so
+      that translation now produces a value the schema rejects -- and did so for
+      40 of this workbook's 98 key-feature rows.
+    */
+    let sector: string | null;
+    if (rawSector.trim().toLowerCase() === ACROSS_SECTORS)
+      sector = ACROSS_SECTORS;
+    else sector = normalizeSector(rawSector);
+    if (
+      !sector ||
+      (sector !== ACROSS_SECTORS && !declaredSectors.has(sector))
+    ) {
+      badSectors.add(rawSector.trim() || "(blank)");
+      continue;
+    }
+    const geography = resolveGeography(rawGeo, geoAllowed);
+    if (!geography) {
+      badGeos.add(rawGeo.trim() || "(blank)");
+      continue;
+    }
+    const scopeKey = `${sector}\u0000${geography}`;
+
+    for (const [column, field] of Object.entries(KF_COLUMN_TO_FIELD)) {
+      const raw = row[column] ?? "";
+      if (isAbsent(raw)) continue;
+      if (isForbiddenKeyFeatureSector(field as KeyFeatureKey, sector)) {
+        if (raw.trim().toLowerCase() === NOT_APPLICABLE_CELL) continue;
+        const key = `${column}\u0000${sector}`;
+        forbidden.set(key, [...(forbidden.get(key) ?? []), geography]);
+        continue;
+      }
+      let value: string | string[] | null = null;
+      if (KF_ARRAY_FIELDS.has(field)) {
+        const tokens = splitList(raw);
+        const mapped: string[] = [];
+        for (const tok of tokens) {
+          const hit = matchEnum(tok, KF_ARRAY_ENUMS[field]);
+          if (hit) {
+            if (!mapped.includes(hit)) mapped.push(hit);
+          } else {
+            badValues.add(`${field}:"${tok}"`);
+          }
+        }
+        value = mapped.length > 0 ? mapped : null;
+      } else {
+        const hit = matchEnum(raw, KF_SCALAR_ENUMS[field]);
+        if (hit) value = hit;
+        else badValues.add(`${field}:"${raw}"`);
+      }
+      if (value === null) continue;
+      if (seen[field].has(scopeKey)) {
+        dupScopes++;
+        continue;
+      }
+      seen[field].add(scopeKey);
+      fields[field].push({ sector, geography, value });
+    }
+  }
+
+  const emitted = Object.values(fields).reduce((n, a) => n + a.length, 0);
+  const parts: string[] = [`${emitted} keyFeature entries emitted`];
+  if (badSectors.size)
+    parts.push(`undeclared sector scopes {${[...badSectors].join(", ")}}`);
+  if (badGeos.size)
+    parts.push(`unresolved geographies {${[...badGeos].join(", ")}}`);
+  // Named, not just counted: these are the cells to correct in the workbook,
+  // and a bare count says nothing about which. `badSectors` and `badGeos` above
+  // have always named theirs; this one is now the more useful of the three,
+  // since isAbsent stopped hiding retired scope-sentinel spellings from it.
+  if (badValues.size)
+    parts.push(
+      `${badValues.size} off-enum value(s) dropped {${[...badValues].join(", ")}}`,
+    );
+  if (dupScopes) parts.push(`${dupScopes} duplicate-scope value(s) collapsed`);
+  if (parts.length > 1) report.note(`${id}: ${parts.join("; ")}`);
+
+  // One error per column and sector, naming its rows, rather than one per cell:
+  // a pathway can have dozens of Power rows.
+  for (const [key, geographies] of forbidden) {
+    const [column, sector] = key.split("\u0000");
+    report.error(
+      `${id}: ${column} cannot apply to the ${sector} sector, but ${geographies.length}` +
+        ` ${sector} row(s) give it a value {${geographies.join(", ")}} -- leave` +
+        ` those ${column} cells blank or "Not Applicable" (not "No information")`,
+    );
+  }
+
+  for (const field of Object.keys(fields)) {
+    fields[field].sort(
+      (a, b) =>
+        sectorBreadth(a.sector) - sectorBreadth(b.sector) ||
+        geographyBreadth(a.geography) - geographyBreadth(b.geography) ||
+        a.sector.localeCompare(b.sector) ||
+        a.geography.localeCompare(b.geography),
+    );
+  }
+  return fields;
+}
+
+export function buildCoreDrivers(
+  row: Row | undefined,
+  report: Report,
+  id: string,
+): Record<string, string | null> {
+  const out: Record<string, string | null> = {};
+  for (const [column, field] of CORE_DRIVER_COLUMNS) {
+    const raw = row?.[column] ?? "";
+    if (isAbsent(raw)) {
+      out[field] = null;
+      continue;
+    }
+    const text = ensurePeriod(raw);
+    withinLimit(text, 500, `${id}/coreDrivers.${field}`, report);
+    out[field] = text;
+  }
+  return out;
+}
+
+export function buildDependencies(
+  rows: Row[],
+  declaredSectors: Set<string>,
+  report: Report,
+  id: string,
+): Array<Record<string, string>> {
+  const deps: Array<Record<string, string>> = [];
+  const seen = new Set<string>();
+  for (const row of rows) {
+    const sector = normalizeSector(row["Sector"] ?? "");
+    if (!sector) {
+      report.note(
+        `${id}/dependencies: sector "${row["Sector"]}" not a valid sector -- rows skipped`,
+      );
+      continue;
+    }
+    if (!declaredSectors.has(sector)) {
+      report.note(
+        `${id}/dependencies: sector "${sector}" not declared by pathway -- rows skipped`,
+      );
+      continue;
+    }
+    for (const [column, name] of DEPENDENCY_COLUMNS) {
+      const prose = row[column] ?? "";
+      if (isAbsent(prose)) continue;
+      const description = ensurePeriod(prose);
+      withinLimit(
+        description,
+        500,
+        `${id}/dependencies "${name}" (${sector})`,
+        report,
+      );
+      const evidence =
+        matchEnum(row[`${column}_Evidence type`] ?? "", EVIDENCE_TYPES) ??
+        "No evidence";
+      const key = `${name}\u0000${sector}\u0000${description}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      deps.push({
+        dependency_name: name,
+        dependency_description: description,
+        sector,
+        evidence_type: evidence,
+      });
+    }
+  }
+  return deps;
+}
+
+// --------------------------------------------------------------------------
+// dataAvailability (#870), from the data_availability sheet.
+// --------------------------------------------------------------------------
+
+type ByMetricRow = {
+  metricName: string;
+  sector: string;
+  sectorSegment: string[];
+  geography: string[];
+  timeResolution: string;
+  dataFormat: string;
+  granularity: string[];
+  scopeLimitations: string;
+};
+
+/**
+ * The inner list of a `Sector: [a, b]` cell, for this row's sector. Cells also
+ * arrive bare (`a, b`, `a; b`), in which case they pass through unchanged.
+ */
+export function unwrapSectorGroup(cell: string, sector: string): string {
+  const groups = [...cell.matchAll(/([^:;[\]]+):\s*\[([^\]]*)\]/g)];
+  if (groups.length === 0) return cell;
+  const own = groups.find(
+    (g) => g[1].trim().toLowerCase() === sector.toLowerCase(),
+  );
+  return (own ?? groups[0])[2];
+}
+
+/** Segments, case-normalised against the schema; sentinels included. */
+export function parseSegments(
+  cell: string,
+  sector: string,
+  bad: Set<string>,
+): string[] {
+  const out: string[] = [];
+  for (const tok of unwrapSectorGroup(cell, sector).split(/[;,]/)) {
+    const t = tok.trim();
+    if (!t) continue;
+    const hit = matchEnum(t, SEGMENTS);
+    if (hit) {
+      if (!out.includes(hit)) out.push(hit);
+    } else bad.add(`sectorSegment:"${t}"`);
+  }
+  return out;
+}
+
+/**
+ * Geography coverage: `;`-separated, each token either a bare label (`ASEAN`,
+ * `TH`) or the cookbook's `Label: [members]` form, of which only the label is
+ * a scope token. Labels resolve against the pathway's own declared geography,
+ * the same way key-feature scopes do.
+ */
+export function parseCoverage(
+  cell: string,
+  geoAllowed: Set<string>,
+  bad: Set<string>,
+): string[] {
+  const out: string[] = [];
+  for (const chunk of cell.split(";")) {
+    const label = chunk
+      .replace(/\[[^\]]*\]/g, "")
+      .replace(/:\s*$/, "")
+      .trim();
+    if (!label) continue;
+    const hit =
+      matchEnum(label, DA_SENTINELS) ?? resolveGeography(label, geoAllowed);
+    if (hit) {
+      if (!out.includes(hit)) out.push(hit);
+    } else bad.add(`geography:"${label}"`);
+  }
+  return out;
+}
+
+/**
+ * Granularity: `;` or ` / ` separated. Commas are not separators at the top
+ * level, because several values contain them ("Capital costs, O&M, etc.",
+ * "By sector, part of value chain"); a chunk is split on commas only when it is
+ * not itself a known value and every part is.
+ */
+export function parseGranularity(cell: string, bad: Set<string>): string[] {
+  const out: string[] = [];
+  const add = (v: string) => {
+    if (!out.includes(v)) out.push(v);
+  };
+  for (const chunk of cell.split(/\s*;\s*|\s+\/\s+/)) {
+    const t = chunk.trim();
+    if (!t) continue;
+    const hit = matchEnum(t, GRANULARITY_VALUES);
+    if (hit) {
+      add(hit);
+      continue;
+    }
+    const parts = t
+      .split(",")
+      .map((x) => x.trim())
+      .filter(Boolean);
+    const hits = parts.map((x) => matchEnum(x, GRANULARITY_VALUES));
+    if (parts.length > 1 && hits.every(Boolean)) hits.forEach((h) => add(h!));
+    else bad.add(`granularity:"${t}"`);
+  }
+  return out;
+}
+
+/**
+ * The byMetric rows for one pathway. A row is emitted only when every required
+ * field is present: an empty Data Format, say, is unauthored data, and making
+ * one up would put a claim about the publication into the repo that nobody
+ * made. Skipped rows are named in the report -- they are the authoring worklist.
+ */
+export function buildDataAvailability(
+  rows: Row[],
+  declaredSectors: Set<string>,
+  geoAllowed: Set<string>,
+  report: Report,
+  id: string,
+): { overall: null; byMetric: ByMetricRow[] } | null {
+  if (rows.length === 0) return null;
+  const byMetric: ByMetricRow[] = [];
+  const skipped: string[] = [];
+  const bad = new Set<string>();
+  const seen = new Set<string>();
+
+  for (const row of rows) {
+    const rawMetric = (row["Metric"] ?? "").trim();
+    const sector = normalizeSector(row["Sector"] ?? "");
+    if (!sector || !declaredSectors.has(sector)) {
+      skipped.push(
+        `${rawMetric}: sector "${row["Sector"] ?? ""}" not declared`,
+      );
+      continue;
+    }
+    // Sector-aware first: Power spells it "Absolute Emissions", Steel and
+    // Aviation "Absolute emissions", and a case-insensitive match against the
+    // flat list would hand Steel the Power spelling.
+    const metricName =
+      matchEnum(rawMetric, availabilityMetricsForSector(sector) ?? []) ??
+      matchEnum(rawMetric, DA_METRICS);
+    const timeResolution = matchEnum(
+      row["Time resolution"] ?? "",
+      TIME_RESOLUTIONS,
+    );
+    const dataFormat = matchEnum(row["Data Format"] ?? "", DATA_FORMATS);
+    const scopeLimitations = (row["Scope limitations"] ?? "").trim();
+    const sectorSegment = parseSegments(
+      row["Sector segment"] ?? "",
+      sector,
+      bad,
+    );
+    const geography = parseCoverage(
+      row["Geography coverage"] ?? "",
+      geoAllowed,
+      bad,
+    );
+    const granularity = parseGranularity(row["Granularity"] ?? "", bad);
+    withinLimit(
+      scopeLimitations,
+      500,
+      `${id}/dataAvailability ${sector} ${rawMetric || "(no metric)"}: scope limitations`,
+      report,
+    );
+
+    // Every column is required (a row for every allowable pair, per the
+    // cookbook), so a blank or unrecognised cell is an authoring error that
+    // blocks the import -- dropping the row would silently lose what the rest
+    // of it says.
+    const missing = [
+      !metricName && "metric",
+      !timeResolution && "time resolution",
+      !dataFormat && "data format",
+      !scopeLimitations && "scope limitations",
+      sectorSegment.length === 0 && "sector segment",
+      geography.length === 0 && "geography",
+      granularity.length === 0 && "granularity",
+    ].filter(Boolean);
+    if (missing.length > 0 || !metricName || !timeResolution || !dataFormat) {
+      report.error(
+        `${id}/dataAvailability ${sector} ${rawMetric || "(no metric)"}: ` +
+          `blank or unrecognised ${missing.join(", ")}`,
+      );
+      continue;
+    }
+
+    // "Not covered" describes the whole (sector, metric) pair, so a row either
+    // carries it on every variable or on none -- the rule validateScopedEntries
+    // enforces. A row authored as covered on some variables and "Not covered"
+    // on others contradicts itself, and only the author can say which half is
+    // right: report it as an error rather than guess.
+    const notCovered = (v: string | string[]) =>
+      Array.isArray(v) ? v.includes("Not covered") : v === "Not covered";
+    const variables = {
+      "sector segment": sectorSegment,
+      geography,
+      "time resolution": timeResolution,
+      "data format": dataFormat,
+      granularity,
+      "scope limitations": scopeLimitations,
+    };
+    const uncovered = Object.entries(variables)
+      .filter(([, v]) => notCovered(v))
+      .map(([k]) => k);
+    if (uncovered.length > 0 && uncovered.length < 6) {
+      report.error(
+        `${id}/dataAvailability ${sector} ${metricName}: "Not covered" on ` +
+          `${uncovered.join(", ")} only -- either every column says ` +
+          `"Not covered" or none does`,
+      );
+      continue;
+    }
+
+    const key = [
+      metricName,
+      sector,
+      [...sectorSegment].sort().join(","),
+      [...geography].sort().join(","),
+    ].join("\u0000");
+    if (seen.has(key)) {
+      skipped.push(`${metricName}: duplicate scope`);
+      continue;
+    }
+    seen.add(key);
+    byMetric.push({
+      metricName,
+      sector,
+      sectorSegment,
+      geography,
+      timeResolution,
+      dataFormat,
+      granularity,
+      scopeLimitations,
+    });
+  }
+
+  const parts = [`${byMetric.length} availability row(s) emitted`];
+  if (skipped.length)
+    parts.push(`${skipped.length} skipped {${skipped.join("; ")}}`);
+  if (bad.size) parts.push(`unrecognised values {${[...bad].join(", ")}}`);
+  report.note(`${id}: ${parts.join("; ")}`);
+
+  return byMetric.length > 0 ? { overall: null, byMetric } : null;
+}
+
+/**
+ * Parse a per-sector list cell into a sector -> raw-tokens map. The workbook
+ * spells these four ways, and all must keep every item:
+ *
+ *   `Power: [a, b]; Steel: [c]`   bracketed groups, comma-separated
+ *   `Power: [a; b]`               bracketed, semicolon-separated
+ *   `Power: a; b`                 a named sector followed by bare items
+ *   `a; b`                        no sector named, keyed ""
+ *
+ * `;` separates groups only outside brackets, and an item without a label
+ * belongs to the last sector named. Splitting on every `;` first used to keep
+ * only the first item of the last three spellings, or none at all.
+ */
+export function parseSectorGroups(cell: string): Record<string, string[]> {
+  const out: Record<string, string[]> = {};
+  const parts: string[] = [];
+  let depth = 0;
+  let start = 0;
+  for (let i = 0; i < cell.length; i++) {
+    if (cell[i] === "[") depth++;
+    else if (cell[i] === "]") depth = Math.max(0, depth - 1);
+    else if (cell[i] === ";" && depth === 0) {
+      parts.push(cell.slice(start, i));
+      start = i + 1;
+    }
+  }
+  parts.push(cell.slice(start));
+  let sector = "";
+  for (const part of parts) {
+    const labelled = /^\s*([^:[\]]+):\s*(.*)$/s.exec(part);
+    if (labelled) sector = labelled[1].trim();
+    const items = (labelled ? labelled[2] : part)
+      .replace(/[[\]]/g, "")
+      .split(/[;,]/)
+      .map((s) => s.trim())
+      .filter(Boolean);
+    if (items.length > 0) (out[sector] ??= []).push(...items);
+  }
+  return out;
+}
+
+/** Build v2 `sectors` for a new file from the Excel Sectors + Technology coverage. */
+function buildSectors(
+  sectorsCell: string,
+  techCell: string,
+  report: Report,
+  id: string,
+): Array<{ name: string; technologies: string[] }> {
+  const techGroups = parseSectorGroups(techCell);
+  // Normalize the tech-group keys to sector display names for lookup.
+  const techBySector: Record<string, string[]> = {};
+  for (const [k, v] of Object.entries(techGroups)) {
+    const s = normalizeSector(k);
+    if (s) techBySector[s] = v;
+  }
+  const declared = [
+    ...new Set(
+      splitList(sectorsCell)
+        .map(normalizeSector)
+        .filter((s): s is string => s !== null),
+    ),
+  ];
+  // A list that names no sector can only belong to a single-sector pathway.
+  const unlabelled = techGroups[""] ?? [];
+  if (unlabelled.length > 0 && declared.length > 1)
+    report.note(
+      `${id}/sectors: Technology coverage names no sector but the pathway has ${declared.length} -- ` +
+        `write it as "Sector: [a, b]"; those technologies were dropped`,
+    );
+  const out: Array<{ name: string; technologies: string[] }> = [];
+  const seen = new Set<string>();
+  for (const rawName of splitList(sectorsCell)) {
+    const name = normalizeSector(rawName);
+    if (!name) {
+      report.note(`${id}/sectors: "${rawName}" not a valid sector -- skipped`);
+      continue;
+    }
+    if (seen.has(name)) continue;
+    seen.add(name);
+    const technologies: string[] = [];
+    const rawTechs =
+      techBySector[name] ?? (declared.length === 1 ? unlabelled : []);
+    for (const rawTech of rawTechs) {
+      const tech = normalizeTechnology(rawTech);
+      if (tech && technologyBelongsToSector(tech, name) === "yes") {
+        if (!technologies.includes(tech)) technologies.push(tech);
+      } else if (rawTech) {
+        report.note(
+          `${id}/sectors.${name}: technology "${rawTech}" not valid for sector -- dropped`,
+        );
+      }
+    }
+    out.push({ name, technologies });
+  }
+  // Other sectors legitimately list none; a cell that yields none at all
+  // means its spelling went unread.
+  if (
+    techCell.trim() &&
+    !isAbsent(techCell) &&
+    out.length > 0 &&
+    out.every((s) => s.technologies.length === 0)
+  )
+    report.note(
+      `${id}/sectors: no technologies could be read from Technology coverage "${techCell}"`,
+    );
+  return out;
+}
+
+/**
+ * Note each metric that data availability marks as covered but `metric`
+ * leaves out: the site's metric search reads only `metric`, so the pathway
+ * would not show up for it. Availability-only metrics (technology cost,
+ * investment requirement, ...) are not search metrics and are skipped.
+ */
+function reportUnlistedMetrics(
+  metric: string[],
+  dataAvailability: Json | undefined,
+  report: Report,
+  id: string,
+): void {
+  const rows =
+    (dataAvailability?.byMetric as
+      { metricName: string; dataFormat: string }[] | undefined) ?? [];
+  const unlisted = new Set<string>();
+  for (const row of rows) {
+    if (row.dataFormat === "Not covered") continue;
+    const m = normalizeMetric(row.metricName);
+    if (m && !metric.includes(m)) unlisted.add(m);
+  }
+  for (const m of unlisted)
+    report.note(
+      `${id}/metric: data availability covers "${m}" but the Metric column doesn't list it`,
+    );
+}
+
+/** Build the flat `metric` array from the Excel Metric cell. */
+function buildMetrics(
+  metricCell: string,
+  report: Report,
+  id: string,
+): { metrics: string[]; unknown: string[] } {
+  const groups = parseSectorGroups(metricCell);
+  const metrics: string[] = [];
+  const unknown: string[] = [];
+  for (const tokens of Object.values(groups)) {
+    for (const raw of tokens) {
+      const m = normalizeMetric(raw);
+      if (m) {
+        if (!metrics.includes(m)) metrics.push(m);
+      } else if (raw) {
+        unknown.push(raw);
+        report.note(
+          `${id}/metric: "${raw}" not in metric vocabulary -- dropped`,
+        );
+      }
+    }
+  }
+  return { metrics, unknown };
+}
+
+function parseYear(raw: string): number | undefined {
+  const n = Number(raw);
+  return Number.isInteger(n) && n >= 1900 && n <= 2100 ? n : undefined;
+}
+
+function parseTemp(raw: string): number | undefined {
+  const n = Number(raw);
+  if (!Number.isFinite(n) || n < 0.5 || n > 3) return undefined;
+  return Math.round(n * 10) / 10;
+}
+
+// --------------------------------------------------------------------------
+// Document assembly.
+// --------------------------------------------------------------------------
+
+type Json = Record<string, unknown>;
+
+/** Assemble the full v2 document for one pathway. */
+export function buildDoc(
+  target: Target,
+  meta: Row,
+  sub: {
+    keyFeatures: Row[];
+    coreDrivers: Row | undefined;
+    dependencies: Row[];
+    dataAvailability: Row[];
+  },
+  existing: Json | null,
+  template: Json | null,
+  report: Report,
+): Json {
+  const id =
+    target.mode === "new" ? target.id : String(existing?.id ?? target.file);
+
+  // Geography: rebuilt from Excel where present, else keep existing.
+  let geography = buildGeography(
+    meta["Regions"] ?? "",
+    report,
+    id,
+  ) as Geography | null;
+  if (!geography)
+    geography =
+      (existing?.geography as Geography) ??
+      (template?.geography as Geography) ??
+      null;
+  else if (existing?.geography) {
+    const before = JSON.stringify(existing.geography);
+    const after = JSON.stringify(geography);
+    if (before !== after) {
+      report.note(
+        `${id}: geography rebuilt. before regions=[${Object.keys((existing.geography as Geography).regions ?? {}).join(", ")}]` +
+          ` country=[${((existing.geography as Geography).country ?? []).join(", ")}] global=${(existing.geography as Geography).global}` +
+          ` -> after regions=[${Object.keys(geography.regions ?? {}).join(", ")}]` +
+          ` country=[${(geography.country ?? []).join(", ")}] global=${geography.global}`,
+      );
+    }
+  }
+
+  // Sectors are rebuilt from the Excel for every file, not preserved: the
+  // workbook's Sectors cell is authoritative (it drives which keyFeatures scopes
+  // are in-bounds), and preserving a v1 file's sectors could carry a technology
+  // that violates #461 and fails schema:check. Technologies are filtered to the
+  // sector's own vocabulary (technologiesForSector), dropping e.g. "BESS".
+  const sectors = buildSectors(
+    meta["Sectors"] ?? "",
+    meta["Technology coverage"] ?? "",
+    report,
+    id,
+  );
+  if (sectors.length === 0 && existing?.sectors) {
+    report.note(
+      `${id}: Excel declared no parseable sectors -- kept existing sectors`,
+    );
+  }
+  const effectiveSectors =
+    sectors.length > 0
+      ? sectors
+      : ((existing?.sectors as typeof sectors) ?? []);
+  const declaredSectors = new Set<string>(effectiveSectors.map((s) => s.name));
+
+  // Metric: the workbook's Metric cell, for updates as for new files. It drives
+  // the site's metric search, so a stale list hides a pathway from searches
+  // for metrics it covers. An update whose cell yields nothing keeps its own.
+  // The same metrics in a different order keep the file's order, so a re-import
+  // only touches files whose metrics actually changed.
+  // A cell with an item outside the vocabulary is only partly read, and a
+  // partial list could drop metrics the file rightly has: such a cell may add
+  // metrics to an update but not remove any.
+  const { metrics: fromWorkbook, unknown } = buildMetrics(
+    meta["Metric"] ?? "",
+    report,
+    id,
+  );
+  const existingMetric = (existing?.metric as string[] | undefined) ?? [];
+  const sameSet =
+    fromWorkbook.length === existingMetric.length &&
+    fromWorkbook.every((m) => existingMetric.includes(m));
+  const partial =
+    target.mode === "update" && unknown.length > 0 && existingMetric.length > 0;
+  const kept = partial
+    ? existingMetric.filter((m) => !fromWorkbook.includes(m))
+    : [];
+  if (kept.length > 0)
+    report.note(
+      `${id}/metric: kept ${kept.map((m) => `"${m}"`).join(", ")} although the Metric column omits it, because the column has item(s) outside the vocabulary`,
+    );
+  const metric =
+    target.mode === "update" && (fromWorkbook.length === 0 || sameSet)
+      ? existingMetric
+      : partial
+        ? [
+            ...existingMetric,
+            ...fromWorkbook.filter((m) => !existingMetric.includes(m)),
+          ]
+        : fromWorkbook;
+
+  const geoAllowed = allowedGeographies(geography ?? undefined);
+  const fromV1 =
+    sub.keyFeatures.length === 0
+      ? keyFeaturesFromV1(existing, report, id)
+      : null;
+  if (sub.keyFeatures.length === 0 && !fromV1)
+    report.note(`${id}: no key_features rows -- keyFeatures left empty`);
+  const keyFeatures =
+    fromV1 ??
+    buildKeyFeatures(sub.keyFeatures, declaredSectors, geoAllowed, report, id);
+  const coreDrivers = buildCoreDrivers(sub.coreDrivers, report, id);
+  const dependencies = buildDependencies(
+    sub.dependencies,
+    declaredSectors,
+    report,
+    id,
+  );
+  // Rebuilt from the sheet when it has rows for this pathway; otherwise
+  // whatever the file already carries is kept.
+  const dataAvailability =
+    buildDataAvailability(
+      sub.dataAvailability,
+      declaredSectors,
+      geoAllowed,
+      report,
+      id,
+    ) ?? (existing?.dataAvailability as Json | undefined);
+  reportUnlistedMetrics(metric, dataAvailability, report, id);
+
+  // pathwayDescription from the Excel "Pathway Overview"; keep existing otherwise.
+  let pathwayDescription: string | null;
+  const overview = (meta["Pathway Overview"] ?? "").trim();
+  if (overview && !isAbsent(overview)) {
+    pathwayDescription = ensurePeriod(overview);
+    withinLimit(pathwayDescription, 2500, `${id}/pathwayDescription`, report);
+  } else {
+    pathwayDescription =
+      (existing?.pathwayDescription as string | null) ??
+      descriptionFromV1(existing, report, id);
+  }
+
+  // Scalars: take from Excel where valid, else keep existing/template.
+  const pathwayType = (PATHWAY_TYPES as readonly string[]).includes(
+    meta["Pathway Type"] ?? "",
+  )
+    ? meta["Pathway Type"]
+    : (existing?.pathwayType ?? template?.pathwayType);
+  const modelYearStart =
+    parseYear(meta["Start Year of Model"] ?? "") ??
+    (existing?.modelYearStart as number | undefined) ??
+    (template?.modelYearStart as number | undefined);
+  const modelYearEnd =
+    parseYear(meta["End Year of Model"] ?? "") ??
+    (existing?.modelYearEnd as number | undefined) ??
+    (template?.modelYearEnd as number | undefined);
+  const netzero = parseYear(meta["Net Zero Reached"] ?? "");
+  const modelYearNetzero =
+    (netzero && netzero >= 2030 ? netzero : undefined) ??
+    (existing?.modelYearNetzero as number | undefined);
+  const modelTempIncrease =
+    parseTemp(meta["Modeled Temperature Increase"] ?? "") ??
+    (existing?.modelTempIncrease as number | undefined) ??
+    (template?.modelTempIncrease as number | undefined);
+
+  // Publication / name / description.
+  let publication: unknown;
+  let name: unknown;
+  let description: unknown;
+  if (target.mode === "new") {
+    // Checked only here: an update keeps its existing name, description and
+    // publication, so those cells are not imported for it.
+    const pathwayName = (meta["Name of Pathway"] ?? "").trim();
+    withinLimit(pathwayName, 200, `${id}/name`, report);
+    const { code } = scenarioParts(pathwayName);
+    withinLimit(code, 20, `${id}/name: short name "(${code})"`, report);
+    const full = pathwayName
+      .replace(/\s*\([^)]*\)/g, "")
+      .replace(/\s*\[[A-Z]{2}\]/g, "")
+      .trim();
+    name = { full, short: code };
+    const desc = ensurePeriod(meta["Description"] ?? "");
+    withinLimit(desc, 100, `${id}/description`, report);
+    description = desc;
+    publication = buildPublicationForNew(
+      template?.publication as Json,
+      meta,
+      report,
+      id,
+    );
+  } else {
+    publication = existing?.publication;
+    name = existing?.name;
+    description = existing?.description;
+  }
+
+  const doc: Json = {
+    $schema: V2_ID,
+    id,
+    publication,
+    name,
+    description,
+    geography,
+    pathwayType,
+  };
+  if (modelTempIncrease !== undefined)
+    doc.modelTempIncrease = modelTempIncrease;
+  if (modelYearStart !== undefined) doc.modelYearStart = modelYearStart;
+  if (modelYearEnd !== undefined) doc.modelYearEnd = modelYearEnd;
+  if (modelYearNetzero !== undefined) doc.modelYearNetzero = modelYearNetzero;
+  doc.sectors = effectiveSectors;
+  doc.pathwayDescription = pathwayDescription;
+  doc.metric = metric;
+  doc.keyFeatures = keyFeatures;
+  doc.coreDrivers = coreDrivers;
+  doc.dependencies = dependencies;
+  if (dataAvailability) doc.dataAvailability = dataAvailability;
+  return doc;
+}
+
+/**
+ * A v1 file's description, for when the workbook has none.
+ *
+ * The fallback used to be `existing.pathwayDescription` alone. A v1 document has
+ * no such field -- its description sits inside `expertOverview` -- so migrating a
+ * v1 file whose workbook row had an empty "Pathway Overview" set the description
+ * to null and dropped the v1 text. That is how 13 pathways (3 JRC, 3 PHDOE, 7
+ * Myanmar/Laos) lost 4-5 KB of description each.
+ *
+ * Extracts the "Pathway Description" section with the codemod's own parser, so
+ * the importer and the codemod cannot disagree about where it is.
+ */
+export function descriptionFromV1(
+  existing: Json | null,
+  report: Report,
+  id: string,
+): string | null {
+  const overview = existing?.expertOverview;
+  if (typeof overview !== "string" || overview.trim() === "") return null;
+  const section = splitExpertOverview(overview).get(PATHWAY_DESCRIPTION) ?? "";
+  if (section.trim() === "") return null;
+  const text = ensurePeriod(section);
+  if (text.length > 2500) {
+    report.note(
+      `${id}/pathwayDescription: v1 description is ${text.length} chars > 2500 -- left null`,
+    );
+    return null;
+  }
+  report.note(`${id}/pathwayDescription: taken from v1 expertOverview`);
+  return text;
+}
+
+/**
+ * The v1 key features of an existing file, converted to v2 scoped entries.
+ *
+ * A pathway with no key_features rows used to get 11 empty arrays, which on a
+ * v1 file throws away every authored value -- how PHDOE-CES1 and
+ * PHDOE-REFERENCE came to show "No information" throughout. Converting with the
+ * codemod's own upgradeV1ToV2 keeps the two migrations from disagreeing about
+ * how a v1 value is scoped.
+ */
+export function keyFeaturesFromV1(
+  existing: Json | null,
+  report: Report,
+  id: string,
+): Record<string, ScopedEntry[]> | null {
+  if (!existing || existing.$schema === V2_ID || !existing.keyFeatures)
+    return null;
+  const { doc } = upgradeV1ToV2(existing as unknown as PathwayMetadataV1);
+  report.note(`${id}/keyFeatures: no key_features rows -- converted from v1`);
+  return doc.keyFeatures as unknown as Record<string, ScopedEntry[]>;
+}
+
+/** Publication block for a new file: template's publisher block + Excel title/year. */
+function buildPublicationForNew(
+  template: Json | undefined,
+  meta: Row,
+  report: Report,
+  id: string,
+): Json {
+  const pub: Json = template ? JSON.parse(JSON.stringify(template)) : {};
+  const title = (meta["Name of publication"] ?? "").trim();
+  withinLimit(title, 200, `${id}/publication.title`, report);
+  const year = parseYear(meta["Year of Publication"] ?? "");
+  const oldYear = pub.year as number | undefined;
+  if (title) pub.title = { ...(pub.title as Json), full: title };
+  if (year !== undefined) pub.year = year;
+  // Bump any year in the link URLs to match (WEO 2024 -> 2025).
+  if (oldYear && year && Array.isArray(pub.links)) {
+    pub.links = (
+      pub.links as Array<{ url?: string; description?: string }>
+    ).map((l) => ({
+      ...l,
+      url: l.url?.replace(String(oldYear), String(year)),
+    }));
+  }
+  if (!template)
+    report.note(
+      `${id}: no template for publication -- block may be incomplete`,
+    );
+  return pub;
+}
+
+// --------------------------------------------------------------------------
+// Main.
+// --------------------------------------------------------------------------
+
+async function readJson(file: string): Promise<Json | null> {
+  try {
+    return JSON.parse(await fs.readFile(file, "utf8")) as Json;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * The file an update rewrites, or the template a new file copies its
+ * publication block from; null when the pathway cannot be built. A missing
+ * template is an authoring error, so the import stops instead of writing a
+ * file without a publication block.
+ */
+export async function loadTargetFiles(
+  key: string,
+  target: Target,
+  report: Report,
+): Promise<{ existing: Json | null; template: Json | null } | null> {
+  if (target.mode === "new") {
+    const template = await readJson(target.templateFile);
+    if (!template) {
+      report.error(
+        `template ${target.templateFile} for ${key} not found or unreadable -- fix TARGETS or restore the file`,
+      );
+      return null;
+    }
+    return { existing: null, template };
+  }
+  const existing = await readJson(target.file);
+  if (!existing) {
+    report.note(`${key}: target file ${target.file} not found -- skipped`);
+    return null;
+  }
+  return { existing, template: null };
+}
+
+/** Group sub-sheet rows by canonical key. */
+function groupByKey(rows: Row[]): Map<string, Row[]> {
+  const map = new Map<string, Row[]>();
+  for (const row of rows) {
+    const key = rowKey(row);
+    if (!key) continue;
+    (map.get(key) ?? map.set(key, []).get(key)!).push(row);
+  }
+  return map;
+}
+
+function rowKey(row: Row): string | null {
+  return canonicalKey(
+    row["Name of Publisher"] ?? "",
+    row["Name of Pathway"] ?? "",
+    row["Name of publication"] ?? "",
+  );
+}
+
+/**
+ * Sub-sheet rows that belong to no metadata row, one line per pathway and
+ * sheet. Such rows are never imported, so a spelling that differs from the
+ * metadata sheet (a year-less WEO title, a changed code) would otherwise lose
+ * a pathway's key features or drivers without a word.
+ */
+export function orphanSubRows(
+  metadata: Row[],
+  subSheets: Record<string, Row[]>,
+): string[] {
+  const metaKeys = new Set(metadata.map(rowKey).filter((k) => k !== null));
+  const out: string[] = [];
+  for (const [sheet, rows] of Object.entries(subSheets)) {
+    const seen = new Set<string>();
+    for (const row of rows) {
+      const key = rowKey(row);
+      if (key !== null && metaKeys.has(key)) continue;
+      const label = `${sheet}: ${row["Name of Publisher"] ?? ""} | ${row["Name of Pathway"] ?? ""} (key=${key ?? "?"})`;
+      if (!seen.has(label)) {
+        seen.add(label);
+        out.push(label);
+      }
+    }
+  }
+  return out;
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const dryRun = args.includes("--dry-run");
+  const getArg = (flag: string, def: string) => {
+    const i = args.indexOf(flag);
+    return i >= 0 && args[i + 1] ? args[i + 1] : def;
+  };
+  const xlsx = getArg("--xlsx", "pathway_data_prepared.xlsx");
+  const prefix = getArg("--sheet-prefix", SHEET_PREFIX);
+  const outRoot = getArg("--out", "src/data");
+  void outRoot; // targets carry explicit paths; --out reserved for future use.
+
+  const report = new Report();
+  const sheets = await readWorkbook(xlsx, prefix);
+  report.note(
+    `Read ${xlsx} sheets ${prefix}{metadata,key_features,core_drivers,dependencies,data_availability}: ` +
+      `${sheets.metadata.length} pathways, ${sheets.keyFeatures.length} key-feature rows, ` +
+      `${sheets.dataAvailability.length} data-availability rows.`,
+  );
+
+  const kfByKey = groupByKey(sheets.keyFeatures);
+  const cdByKey = groupByKey(sheets.coreDrivers);
+  const depByKey = groupByKey(sheets.dependencies);
+  const daByKey = groupByKey(sheets.dataAvailability);
+
+  const seenKeys = new Set<string>();
+  let updated = 0;
+  let created = 0;
+  let migratedV1 = 0;
+  const unmatched: string[] = [];
+  // Written only once every pathway has been built without an error, so a
+  // workbook with mistakes leaves src/data untouched rather than half-imported.
+  const pending: { file: string; doc: Json }[] = [];
+
+  report.section("Per-pathway");
+  for (const meta of sheets.metadata) {
+    const publisher = meta["Name of Publisher"] ?? "";
+    const pathway = meta["Name of Pathway"] ?? "";
+    const key = canonicalKey(
+      publisher,
+      pathway,
+      meta["Name of publication"] ?? "",
+    );
+    if (!key || !TARGETS[key]) {
+      unmatched.push(`${publisher} | ${pathway} (key=${key ?? "?"})`);
+      continue;
+    }
+    seenKeys.add(key);
+    const target = TARGETS[key];
+    const files = await loadTargetFiles(key, target, report);
+    if (!files) continue;
+    const { existing, template } = files;
+
+    const sub = {
+      keyFeatures: kfByKey.get(key) ?? [],
+      coreDrivers: (cdByKey.get(key) ?? [])[0],
+      dependencies: depByKey.get(key) ?? [],
+      dataAvailability: daByKey.get(key) ?? [],
+    };
+
+    const doc = buildDoc(target, meta, sub, existing, template, report);
+    const wasV1 = target.mode === "update" && existing?.$schema !== V2_ID;
+
+    pending.push({ file: target.file, doc });
+    if (target.mode === "new") {
+      created++;
+      report.note(
+        `NEW  ${target.file}${target.note ? ` (${target.note})` : ""}`,
+      );
+    } else {
+      updated++;
+      if (wasV1) migratedV1++;
+      report.note(
+        `UPD  ${target.file}${wasV1 ? " [v1->v2]" : ""}${target.note ? ` (${target.note})` : ""}`,
+      );
+    }
+  }
+
+  // Targets in the table that no metadata row hit.
+  for (const [key, t] of Object.entries(TARGETS)) {
+    if (!seenKeys.has(key))
+      report.note(`table entry ${key} -> ${t.file} had no matching Excel row`);
+  }
+
+  report.section("Summary");
+  report.note(
+    `${dryRun ? "Would update" : "Updated"} ${updated} file(s) (${migratedV1} migrated v1->v2), ` +
+      `${dryRun ? "would create" : "created"} ${created} new file(s).`,
+  );
+  if (unmatched.length > 0) {
+    report.note(
+      `Unmatched Excel rows (${unmatched.length}): ${unmatched.join(" ;; ")}`,
+    );
+  }
+  const orphans = orphanSubRows(sheets.metadata, {
+    key_features: sheets.keyFeatures,
+    core_drivers: sheets.coreDrivers,
+    dependencies: sheets.dependencies,
+    data_availability: sheets.dataAvailability,
+  });
+  if (orphans.length > 0) {
+    report.note(
+      `Sub-sheet rows with no matching metadata row, not imported (${orphans.length}): ${orphans.join(" ;; ")}`,
+    );
+  }
+  console.info(report.lines.join("\n"));
+
+  if (report.errors.length > 0) {
+    console.error(
+      `\n## ${report.errors.length} authoring error(s) -- nothing written\n` +
+        "Fix these in the workbook and re-run the import:\n" +
+        report.errors.map((e) => `  - ${e}`).join("\n"),
+    );
+    process.exitCode = 1;
+    return;
+  }
+  if (dryRun) return;
+  for (const { file, doc } of pending)
+    await fs.writeFile(file, `${JSON.stringify(doc, null, 2)}\n`);
+  console.info(
+    '\nRun `npm run schema:check` and `npx prettier --write "src/data/**/*.json"` next.',
+  );
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
+  main().catch((e: unknown) => {
+    console.error(String(e instanceof Error ? e.stack : e));
+    process.exit(1);
+  });
+}

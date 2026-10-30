@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/common/dataAvailabilityMetric.v1.json",
+  "title": "Data Availability Metric",
+  "description": "The metric a dataAvailability row describes — the cookbook's 'Metrics – Extended' (#870).",
+  "$comment": "Deliberately NOT metric.v1.json. The cookbook carries two metric variables and register item D16 records that they legitimately differ rather than conflicting: metadata's `Metric` is the pathway-level multi-select, five values for Power, and drives the search facet; this one is the row key of the Data Availability table and adds the four metrics that are reported but not plotted (transmission lines, technology cost, investment requirement, asset lifetime). D16 also settles that `Storage capacity` is dropped, which the v2 model had already done. Capitalisation differs from metric.v1.json in places -- 'Emissions intensity' here against 'Emissions Intensity' there -- and #858 accepts that for now. Flat across sectors, with per-sector membership enforced by validateScopedEntries against SECTORS_BY_KEY in src/utils/timeseriesTaxonomy.ts, the same pattern sectorSegment and technology use and for the same draft-07 reason.",
+  "type": "object",
+  "properties": {
+    "displayName": { "$ref": "#/$defs/displayName" }
+  },
+  "required": ["displayName"],
+  "additionalProperties": false,
+
+  "$defs": {
+    "displayName": {
+      "description": "Display name of the metric as the Data Availability table keys its rows.",
+      "type": "string",
+      "enum": [
+        "Emissions intensity",
+        "Absolute Emissions",
+        "Capacity",
+        "Generation",
+        "Technology mix",
+        "Transmission lines",
+        "Technology cost",
+        "Investment requirement",
+        "Asset lifetime",
+        "Emissions intensity (total)",
+        "Emissions intensity (primary)",
+        "Emissions intensity (secondary)",
+        "Absolute emissions",
+        "Technology mix (production by route)",
+        "Steel production by technology (production route)",
+        "Scrap share",
+        "Emissions intensity (passenger)",
+        "Emissions intensity (freight)",
+        "Absolute emissions Well-to-Wheel (passenger)",
+        "Absolute emissions Well-to-Wheel (freight)",
+        "Total demand (passenger)",
+        "Total demand (freight)",
+        "Demand by propulsion technology (passenger)",
+        "Demand by propulsion technology (freight)",
+        "Demand share by propulsion technology (passenger)",
+        "Demand share by propulsion technology (freight)"
+      ]
+    }
+  }
+}

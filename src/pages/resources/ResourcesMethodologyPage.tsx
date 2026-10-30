@@ -356,16 +356,13 @@ const ResourcesMethodologyPage: React.FC = () => {
                       are allowed, based on ISO2 (3166) definitions. Regions are
                       provided as defined in the pathway.
                     </p>
-                    {/* Kept as a single italic block: #800 reconciled two
-                        near-duplicate notes into this one, and the test suite
-                        asserts exactly one italic run carries it. */}
+                    {/* Kept as a single italic block: #917 replaced the
+                        earlier two-sentence note with the policy wording alone,
+                        and the test suite asserts exactly one italic run carries
+                        it. */}
                     <InfoCallout>
                       <p>
-                        <i>
-                          Note: {REGION_MAPPING_DISCLAIMER} RMI does not make
-                          any statements on country delineations and/or
-                          conflicting territorial claims.
-                        </i>
+                        <i>Note: {REGION_MAPPING_DISCLAIMER}</i>
                       </p>
                     </InfoCallout>
                   </div>
@@ -484,7 +481,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                       <ul>
                         <li>
                           Power: Coal, oil, gas, nuclear, hydro, wind, solar,
-                          biomass, renewables, other
+                          biomass, geothermal, energy storage, other
                         </li>
                         {/* <li>
                         Steel: BOF, DRI-BOF, BF-BOF, EAF, DRI-EAF, scrap-EAF,
@@ -658,6 +655,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                           <li>SAF</li>
                           <li>Battery storage</li>
                           <li>EGS/AGS</li>
+                          <li>SMR</li>
                           <li>Other new technologies</li>
                           <li>No information</li>
                         </ul>

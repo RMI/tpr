@@ -7,14 +7,9 @@
   "properties": {
     "displayName": {
       "$ref": "#/$defs/displayName"
-    },
-    "sectorScope": {
-      "type": "string",
-      "maxLength": 1000,
-      "description": "Specifies which parts of the sector value chain the metric applies to."
     }
   },
-  "required": ["displayName", "sectorScope"],
+  "required": ["displayName"],
   "additionalProperties": false,
 
   "$defs": {
