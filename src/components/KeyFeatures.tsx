@@ -349,19 +349,17 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
   const rawValue =
     resolution.status === "resolved" ? resolution.value : undefined;
 
-  // Only a resolution can say which kind of absence this is, so the
-  // widest-value path keeps its untooltipped badge.
+  // Which kind of absence this is: a feature that cannot apply to the sector,
+  // nothing recorded at any scope, or the pathway's own "No information".
   const notApplicableSector =
-    resolution?.status === "unavailable"
+    resolution.status === "unavailable"
       ? resolution.notApplicableSector
       : undefined;
   const absenceTooltip = notApplicableSector
     ? notApplicableTooltip(feature, notApplicableSector)
-    : resolution?.status === "unavailable"
+    : resolution.status === "unavailable"
       ? UNAVAILABLE_TOOLTIP
-      : resolution
-        ? AUTHORED_NO_INFORMATION_TOOLTIP
-        : undefined;
+      : AUTHORED_NO_INFORMATION_TOOLTIP;
   const absenceBadge = (
     <Badge tooltip={absenceTooltip}>
       {notApplicableSector ? NOT_APPLICABLE : NO_INFORMATION}
@@ -413,7 +411,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
         </span>
       }
       tooltip={
-        isSelected && opt === NO_INFORMATION && absenceTooltip
+        isSelected && opt === NO_INFORMATION
           ? absenceTooltip
           : getKeyFeatureTooltip(feature.key, opt)
       }
