@@ -158,6 +158,27 @@ describe("PlotGrid", () => {
     expect(screen.getAllByTestId("multi-line-chart")).toHaveLength(1);
   });
 
+  it("says a metric has no data when its years are split across geographies", () => {
+    // Generation has 2020 at Global and 2030 at VN: no geography can plot it.
+    const generation = rows("generation", "Global");
+    render(
+      <PlotGrid
+        timeseriesdata={{
+          data: [
+            ...rows("capacity", "Global"),
+            generation[0],
+            { ...generation[1], geography: "VN" },
+          ],
+        }}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    expect(screen.getByText("Generation").closest("figure")).toHaveTextContent(
+      "This pathway has no data for this metric.",
+    );
+  });
+
   it("replaces the grid with one note when none of the requested plots has data", () => {
     render(
       <PlotGrid

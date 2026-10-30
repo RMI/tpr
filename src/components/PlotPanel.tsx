@@ -51,17 +51,26 @@ export const PLOT_OPTIONS: { value: PlotType; label: string }[] =
 /** Just the plot types, in order — for callers taking a subset. */
 export const PLOT_ORDER: PlotType[] = PLOT_OPTIONS.map((opt) => opt.value);
 
-/** Does this pathway carry a plottable series for `metric` at any geography? */
+/**
+ * Does this pathway carry a plottable series for `metric` at any geography?
+ *
+ * Years are counted per geography, as `hasDataForMetricAndGeo` counts them: a
+ * 2020 row at Global and a 2030 row at VN plot nothing anywhere.
+ */
 export function hasDataForMetric(
   data: TimeSeries | null,
   metric: string,
 ): boolean {
   if (!data?.data) return false;
-  const filtered = data.data.filter(
-    (d) => d.sector === "power" && d.metric === metric,
-  );
-  if (filtered.length === 0) return false;
-  return new Set(filtered.map((d) => d.year)).size > 1;
+  const yearsByGeo = new Map<string, Set<string>>();
+  for (const d of data.data) {
+    if (d.sector !== "power" || d.metric !== metric) continue;
+    const years = yearsByGeo.get(d.geography) ?? new Set<string>();
+    years.add(d.year);
+    if (years.size > 1) return true;
+    yearsByGeo.set(d.geography, years);
+  }
+  return false;
 }
 
 /** Does this pathway carry a plottable series for `metric` at `geo` specifically? */
