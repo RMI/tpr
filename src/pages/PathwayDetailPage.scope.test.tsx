@@ -125,7 +125,7 @@ const fixtures = [
 /*
   Benchmark data for Power at Global and South East Asia, so those badges are
   selectable (#1017). Steel is selectable through its dependency, Buildings
-  through a key feature; SG has nothing to show and stays outlined.
+  through a key feature; SG has nothing to show and is left out.
 */
 const SYNC_INDEX = { synchronous: true };
 const SCOPE_DATASETS = [
@@ -220,21 +220,20 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   );
 
   it(
-    "outlines a token with nothing to show and does not let it be picked",
+    "leaves a token with nothing to show out of the ribbon, but not out of Coverage (#1046)",
     async () => {
-      await mountDetailPage();
-      await screen.findByText("The description prose.", undefined, WAIT);
+      await mountDetailPage("/pathway/detail-scope?tab=scope");
+      await screen.findByRole("region", { name: "Geographies" }, WAIT);
 
       // SG has no benchmark data, and its only key feature says "No
       // information", so there is nothing to show for it (#1017).
       expect(
-        screen.queryByRole("button", { name: "Singapore" }),
-      ).not.toBeInTheDocument();
-      await userEvent.click(screen.getAllByText("Singapore")[0]);
-      expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      );
+        screen.getByRole("group", { name: "Geography" }),
+      ).not.toHaveTextContent("Singapore");
+      // The Coverage panel still lists the pathway's full coverage.
+      expect(
+        screen.getByRole("region", { name: "Geographies" }),
+      ).toHaveTextContent("Singapore");
     },
     TEST_TIMEOUT,
   );

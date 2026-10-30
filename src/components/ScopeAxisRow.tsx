@@ -11,6 +11,11 @@ export function pinSelected(
 
 export const LABEL_CLASS =
   "text-[10px] font-semibold uppercase tracking-wider text-rmigray-500";
+/**
+ * For the note an axis shows in place of its badges when nothing on it can be
+ * selected (#1046), sized to sit where a badge row would.
+ */
+export const EMPTY_AXIS_CLASS = "py-0.5 text-xs italic text-rmigray-500";
 const ROW_CONTROL_CLASS =
   "text-[10px] underline text-rmigray-500 hover:text-bluespruce focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-1 rounded";
 

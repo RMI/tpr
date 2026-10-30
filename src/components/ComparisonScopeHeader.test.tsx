@@ -61,6 +61,7 @@ interface Options {
   pathways?: PathwayMetadataType[];
   selectedSector?: string | null;
   selectedGeographies?: Record<string, string | null>;
+  /** Geography tokens with data; every one in the fixtures by default. */
   available?: string[];
   /** Sectors with something to show; every sector by default. */
   availableSectors?: string[] | null;
@@ -74,7 +75,7 @@ const renderHeader = ({
     [iea.id]: "Southeast Asia",
     [ace.id]: "South East Asia",
   },
-  available = [],
+  available = ["Global", "Southeast Asia", "US", "South East Asia"],
   availableSectors = null,
   onHeightChange,
 }: Options = {}) => {
@@ -167,17 +168,23 @@ describe("ComparisonScopeHeader", () => {
       expect(screen.getAllByRole("button", { name: "Power" })).toHaveLength(1);
     });
 
-    it("outlines a sector no column has data for, and ignores clicks on it", async () => {
-      const { onSectorChange, user } = renderHeader({
-        availableSectors: ["Power"],
-      });
+    it("lists only the sectors some column has data for (#1046)", () => {
+      renderHeader({ availableSectors: ["Power"] });
 
-      expect(screen.queryByRole("button", { name: "Buildings" })).toBeNull();
+      const sectorGroup = screen.getByRole("group", { name: "Sector" });
       expect(
-        screen.getByText("Buildings").closest(".bg-transparent"),
-      ).not.toBeNull();
-      await user.click(screen.getByText("Buildings"));
-      expect(onSectorChange).not.toHaveBeenCalled();
+        within(sectorGroup).getByRole("button", { name: "Power" }),
+      ).toBeInTheDocument();
+      // Not outlined: not there at all. The Sectors section shows coverage.
+      expect(sectorGroup).not.toHaveTextContent("Buildings");
+    });
+
+    it("says so, in place of the badges, when no shared sector has data", () => {
+      renderHeader({ availableSectors: [], selectedSector: null });
+
+      expect(screen.getByRole("group", { name: "Sector" })).toHaveTextContent(
+        "These pathways share no sector with information to compare.",
+      );
     });
   });
 
@@ -263,25 +270,14 @@ describe("ComparisonScopeHeader", () => {
   });
 
   describe("availability", () => {
-    it("shades the geographies this tool cannot plot", async () => {
+    it("offers only the geographies this tool can plot (#1046)", async () => {
       // 13 of IEA's 15 declared geographies carry no timeseries rows.
       const { user } = renderHeader({ available: ["Southeast Asia"] });
       await user.click(columnTrigger("IEA: APS (2024)"));
 
-      const region = screen.getByRole("option", { name: "Southeast Asia" });
-      expect(region.querySelector(".bg-transparent")).toBeNull();
-
-      const global = screen.getByRole("option", { name: "Global" });
-      expect(global.querySelector(".bg-transparent")).not.toBeNull();
-    });
-
-    it("leads with what can be plotted", async () => {
-      const { user } = renderHeader({ available: ["Southeast Asia"] });
-      await user.click(columnTrigger("IEA: APS (2024)"));
-
-      expect(screen.getAllByRole("option")[0]).toHaveAccessibleName(
-        "Southeast Asia",
-      );
+      expect(
+        screen.getAllByRole("option").map((o) => o.textContent?.trim()),
+      ).toEqual(["Southeast Asia"]);
     });
   });
 

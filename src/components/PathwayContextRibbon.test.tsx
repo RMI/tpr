@@ -278,40 +278,40 @@ describe("PathwayContextRibbon", () => {
     expect(onScopeChange).not.toHaveBeenCalled();
   });
 
-  describe("availability (#1017)", () => {
+  describe("availability (#1017, #1046)", () => {
     // Power and South East Asia have something to show; Global and US do not.
     const SEA_POWER: ScopeAvailability = {
       hasSector: (s) => s === "Power",
       hasGeography: (g) => g === "South East Asia",
     };
 
-    it("fills and enables only the tokens with something to show", () => {
-      renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
-
-      expect(
-        screen.getByRole("button", { name: "South East Asia" }),
-      ).not.toHaveClass("bg-transparent");
-      expect(screen.queryByRole("button", { name: "Global" })).toBeNull();
-      expect(screen.getByText("Global").closest(".bg-transparent")).not.toBe(
-        null,
-      );
-    });
-
-    it("ignores clicks on an outlined token", async () => {
-      const onScopeChange = vi.fn();
-      renderRibbon(NO_SCOPE, onScopeChange, SEA_POWER);
-
-      await userEvent.click(screen.getByText("Global"));
-      expect(onScopeChange).not.toHaveBeenCalled();
-    });
-
-    it("lists the available tokens first", () => {
+    it("lists only the tokens with something to show", () => {
       renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
 
       const geographyGroup = screen.getByRole("group", { name: "Geography" });
       expect(
-        geographyGroup.textContent?.indexOf("South East Asia"),
-      ).toBeLessThan(geographyGroup.textContent?.indexOf("Global") ?? -1);
+        screen.getByRole("button", { name: "South East Asia" }),
+      ).not.toHaveClass("bg-transparent");
+      // Not outlined: not there at all. Coverage is the Scope tab's job.
+      expect(geographyGroup).not.toHaveTextContent("Global");
+      expect(geographyGroup).not.toHaveTextContent("United States of America");
+    });
+
+    it("says so, in place of the badges, when nothing on an axis can be selected", () => {
+      renderRibbon(NO_SCOPE, () => {}, {
+        hasSector: () => false,
+        hasGeography: () => false,
+      });
+
+      expect(screen.getByRole("group", { name: "Sector" })).toHaveTextContent(
+        "No sector-specific information for this pathway.",
+      );
+      expect(
+        screen.getByRole("group", { name: "Geography" }),
+      ).toHaveTextContent(
+        "No geography-specific information for this pathway.",
+      );
+      expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
     });
   });
 
