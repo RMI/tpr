@@ -33,7 +33,7 @@ interface ColumnGeographySelectProps {
  *
  * Options are the badges the Geographies coverage section shows, but only those
  * this tool holds data for (#1046): 13 of IEA's 15 declared geographies produce
- * no chart, and listing them as options that cannot be chosen (#1017) cost
+ * no chart, and listing them as options that cannot be chosen (#1017) took up
  * space for nothing a reader could pick. The coverage section, further down
  * the page, still lists them all, and the panel's footer says so.
  *
