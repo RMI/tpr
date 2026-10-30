@@ -137,6 +137,27 @@ const fixtures = [
       },
     ],
   },
+  {
+    // Key features only: no benchmark data and no dependencies, so its Global
+    // and its Steel are selectable for their key features alone (#869).
+    id: "cmp-f",
+    name: { full: "Comparison Pathway F", short: "F" },
+    description: "Pathway F description",
+    pathwayType: "Net Zero",
+    publication: {
+      publisher: { full: "Publisher F", short: "PubF" },
+      title: { full: "Publication F", short: "PubTitleF" },
+      year: 2024,
+    },
+    sectors: [{ name: "Power" }, { name: "Steel" }],
+    metric: ["Capacity"],
+    geography: { global: true, regions: {}, country: [] },
+    keyFeatures: {
+      emissionsTrajectory: [
+        { sector: "Steel", geography: "Global", value: "Minor decrease" },
+      ],
+    },
+  },
 ] as const;
 
 /*
@@ -489,6 +510,47 @@ describe("ComparisonPage — dependencies", () => {
     expect(
       screen.getByText("This pathway has no dependencies recorded for Steel."),
     ).toBeInTheDocument();
+  });
+});
+
+describe("ComparisonPage — key features make a token selectable", () => {
+  beforeEach(() => {
+    sessionStorage.clear();
+  });
+
+  afterEach(() => {
+    vi.resetModules();
+    vi.restoreAllMocks();
+  });
+
+  it("selects a geography with only key features, but keeps it outlined in Geographies", async () => {
+    await mountWithFixtures("cmp-b,cmp-f");
+    await screen.findByText("PubF: Comparison Pathway F", undefined, WAIT);
+
+    // F has no benchmark data, so without its key features the column would
+    // have no geography at all.
+    expect(
+      screen.getByRole("button", { name: "Geography for PubF: F (2024)" }),
+    ).toHaveTextContent("Global");
+
+    // The coverage section still speaks only about data in this tool.
+    const coverage = screen
+      .getByRole("heading", { name: /Geographies/ })
+      .closest(".grid") as HTMLElement;
+    expect(within(coverage).getByText("Global")).toHaveClass("bg-transparent");
+  });
+
+  it("selects a sector with only key features, and resolves the grid for it", async () => {
+    await mountWithFixtures("cmp-b,cmp-f&sector=Power");
+    await screen.findByText("PubF: Comparison Pathway F", undefined, WAIT);
+    expect(screen.queryByText("Minor decrease")).not.toBeInTheDocument();
+
+    // Neither column has Steel data or a Steel dependency; F's key features
+    // alone make it selectable.
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Steel" }));
+
+    expect(screen.getByText("Minor decrease")).toBeInTheDocument();
   });
 });
 

@@ -11,6 +11,8 @@ import {
   comparisonBlock,
 } from "./comparisonScope";
 import type { PathwayMetadataType } from "../types";
+import { scopeAvailability } from "./scopeAvailability";
+import { pathwayToolAvailability } from "./timeseriesAvailability";
 
 interface Shape {
   id: string;
@@ -232,6 +234,41 @@ describe("columnGeographyOptions", () => {
     const options = columnGeographyOptions(iea, nothing);
     expect(options.length).toBeGreaterThan(0);
     expect(options.every((o) => !o.available)).toBe(true);
+  });
+
+  it("flags the same tokens by whichever availability it is given", () => {
+    // North America records key features but has no timeseries: selectable in
+    // the header, outlined in the coverage section, from one list.
+    const withKeyFeatures = {
+      ...iea,
+      keyFeatures: {
+        emissionsTrajectory: [
+          {
+            sector: "Power",
+            geography: "North America",
+            value: "Moderate decrease",
+          },
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+
+    const coverage = columnGeographyOptions(
+      withKeyFeatures,
+      pathwayToolAvailability([]),
+    );
+    const selectable = columnGeographyOptions(
+      withKeyFeatures,
+      scopeAvailability(withKeyFeatures, [], { keyFeatures: true }),
+    );
+
+    const flagOf = (options: typeof coverage, token: string) =>
+      options.find((o) => o.token === token)?.available;
+    expect(flagOf(coverage, "North America")).toBe(false);
+    expect(flagOf(selectable, "North America")).toBe(true);
+    expect(selectable[0].token).toBe("North America");
+    expect(selectable.map((o) => o.label).sort()).toEqual(
+      coverage.map((o) => o.label).sort(),
+    );
   });
 
   it("degrades to an empty list for a pathway declaring no geography", () => {

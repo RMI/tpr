@@ -12,10 +12,8 @@ import {
   type GeographyKind,
 } from "./geographyUtils";
 import { GLOBAL_SCOPE, scopeISOSet } from "./keyFeatureScope";
-import {
-  sortByAvailability,
-  type PathwayToolAvailability,
-} from "./timeseriesAvailability";
+import { sortByAvailability } from "./timeseriesAvailability";
+import type { ScopeAvailability } from "./scopeAvailability";
 import {
   DEFAULT_SECTOR,
   collapseSelection,
@@ -130,28 +128,36 @@ export interface ColumnGeographyOption {
   /** Badge text: country names for ISO-2 tokens, region labels as written. */
   label: string;
   kind: GeographyKind;
-  /** Whether this tool holds timeseries data for it, or only the publication does. */
+  /**
+   * Whether the caller's availability counts this token: filled where it does,
+   * outlined where only the publication covers it.
+   */
   available: boolean;
 }
 
 /**
- * One pathway's own geographies, ordered and flagged exactly as the comparison
- * page's Geographies coverage section shows them.
+ * One pathway's own geographies, in the order the comparison page shows them,
+ * each flagged by `availability`.
  *
  * Geography is the one axis that cannot be pooled across compared pathways: a
  * token resolves to an ISO set only against its own publication's `regions`
  * mapping, and across the loadable pathways no token is declared by more than
  * one publisher. So each column offers its own list, and this is the single
  * place that list is derived — the header's per-column control and the coverage
- * section both read it, so the two cannot drift.
+ * section both read it, so the two cannot drift on tokens, labels or order.
+ *
+ * They differ only in what counts as available, which is why it is passed in.
+ * The coverage section passes timeseries availability: its outlined badges say
+ * what this tool holds data for. The header passes `scopeAvailability` with key
+ * features, since the grid resolves them for the column's geography: a token
+ * with only key features is still worth selecting there.
  *
  * Ordering: global → regions → countries (`sortGeographiesForDetails`), then
- * stable-partitioned available-first, so what the reader can actually plot
- * leads.
+ * stable-partitioned available-first, so what the reader can select leads.
  */
 export function columnGeographyOptions(
   pathway: PathwayMetadataType,
-  availability: PathwayToolAvailability,
+  availability: Pick<ScopeAvailability, "hasGeography">,
 ): ColumnGeographyOption[] {
   // sortGeographiesForDetails normalizes and drops empty tokens, so these are
   // already clean enough to use as values.

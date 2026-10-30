@@ -30,10 +30,10 @@ interface ColumnGeographySelectProps {
  * options be labelled plainly.
  *
  * Options are the same badges the Geographies coverage section shows, outlined
- * where this tool holds no timeseries data for them. That distinction is
- * load-bearing here: 13 of IEA's 15 declared geographies produce no chart, so
- * outlined options are listed but cannot be chosen (#1017). They are not
- * buttons, which also keeps them out of the arrow-key navigation below.
+ * where the column has nothing to show for them: no timeseries data and no key
+ * features recorded there. Outlined options are listed but cannot be chosen
+ * (#1017). They are not buttons, which also keeps them out of the arrow-key
+ * navigation below.
  *
  * Built on `useDropdown` — the same open/close, click-outside and Escape
  * behaviour as the search page's filter dropdowns.
