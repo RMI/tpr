@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import { PathwayMetadataType, PathwayScopeSelection, Sector } from "../types";
-import BadgeArray, { type BadgeVariant } from "./BadgeArray";
-import ScopeAxisRow, { pinSelected } from "./ScopeAxisRow";
+import BadgeArray from "./BadgeArray";
+import ScopeAxisRow, { EMPTY_AXIS_CLASS, pinSelected } from "./ScopeAxisRow";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import {
   flattenGeography,
@@ -12,7 +12,6 @@ import {
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import { getSectorTooltip } from "../utils/tooltipUtils";
-import { sortByAvailability } from "../utils/timeseriesAvailability";
 import type { ScopeAvailability } from "../utils/scopeAvailability";
 import { getPathwayTypeTooltip } from "../utils/tooltipUtils";
 import getTemperatureColor from "../utils/getTemperatureColor";
@@ -75,8 +74,8 @@ interface PathwayContextRibbonProps {
   scope: PathwayScopeSelection;
   onScopeChange: (next: PathwayScopeSelection) => void;
   /**
-   * Which tokens have something to show. Those that do render filled and can be
-   * selected; the rest render outlined and cannot (#1017).
+   * Which tokens have something to show (#1017). Only those are listed (#1046):
+   * the Coverage panels on the Scope tab show the pathway's full coverage.
    */
   availability: ScopeAvailability;
   /** The tab list, rendered at the bottom of the sticky stack. */
@@ -95,11 +94,12 @@ interface PathwayContextRibbonProps {
  * own height, measured by the browser rather than by us, so the layout survives
  * the ribbon wrapping to two lines and the bar losing a pill.
  *
- * The badges are availability-aware, like the coverage panels on the Scope
- * tab: a token with nothing to show is outlined and cannot be selected, and
- * the available ones sort first. The caller computes availability from the
+ * The badges list only tokens with something to show, so every one can be
+ * selected (#1046). Those without data took up a row's worth of space for
+ * nothing a reader could pick, and showing full coverage is the Coverage
+ * panels' job on the Scope tab. The caller computes availability from the
  * bundled timeseries index (`getTimeseriesIndex`), which is there on the first
- * render, so the badges never restyle after mount.
+ * render, so the badges never change after mount.
  */
 export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   pathway,
@@ -119,17 +119,13 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   const baseId = useId();
 
   const geographies = pinSelected(
-    sortByAvailability(
-      sortGeographiesForDetails(flattenGeography(pathway.geography)),
+    sortGeographiesForDetails(flattenGeography(pathway.geography)).filter(
       availability.hasGeography,
     ),
     scope.geography,
   );
   const sectors = pinSelected(
-    sortByAvailability(
-      pathway.sectors.map((s) => s.name),
-      availability.hasSector,
-    ),
+    pathway.sectors.map((s) => s.name).filter(availability.hasSector),
     scope.sector,
   );
 
@@ -206,71 +202,78 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
             <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              expandable={overflows.sector}
+              expandable={sectors.length > 0 && overflows.sector}
               expanded={expanded.sector}
               onToggleExpand={() =>
                 setExpanded((prev) => ({ ...prev, sector: !prev.sector }))
               }
             >
-              <BadgeArray<string>
-                variant={sectors.map((sector) =>
-                  availability.hasSector(sector) ? "sector" : "sector-pub",
-                )}
-                // The scope selection is `string` so a stale value degrades
-                // rather than failing to type; the lookup falls back to
-                // "No tooltip available." for anything unrecognised.
-                tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                maxRows={1}
-                expanded={expanded.sector}
-                onOverflowChange={(sector) =>
-                  setOverflows((prev) => ({ ...prev, sector }))
-                }
-                selected={scope.sector}
-                isSelectable={availability.hasSector}
-                // BadgeArray reports null when the pressed badge is clicked
-                // again. Ignored: an axis always carries a value.
-                onSelect={(next) =>
-                  next === null
-                    ? undefined
-                    : onScopeChange({ ...scope, sector: next })
-                }
-              >
-                {sectors}
-              </BadgeArray>
+              {sectors.length === 0 ? (
+                <p className={EMPTY_AXIS_CLASS}>
+                  No sector-specific information for this pathway.
+                </p>
+              ) : (
+                <BadgeArray<string>
+                  variant="sector"
+                  // The scope selection is `string` so a stale value degrades
+                  // rather than failing to type; the lookup falls back to
+                  // "No tooltip available." for anything unrecognised.
+                  tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
+                  maxRows={1}
+                  expanded={expanded.sector}
+                  onOverflowChange={(sector) =>
+                    setOverflows((prev) => ({ ...prev, sector }))
+                  }
+                  selected={scope.sector}
+                  // BadgeArray reports null when the pressed badge is clicked
+                  // again. Ignored: an axis always carries a value.
+                  onSelect={(next) =>
+                    next === null
+                      ? undefined
+                      : onScopeChange({ ...scope, sector: next })
+                  }
+                >
+                  {sectors}
+                </BadgeArray>
+              )}
             </ScopeAxisRow>
 
             <ScopeAxisRow
               label="Geography"
               labelId={`${baseId}-geography`}
-              expandable={overflows.geography}
+              expandable={geographies.length > 0 && overflows.geography}
               expanded={expanded.geography}
               onToggleExpand={() =>
                 setExpanded((prev) => ({ ...prev, geography: !prev.geography }))
               }
             >
-              <BadgeArray<string>
-                variant={geographies.map((geo): BadgeVariant => {
-                  const base = geographyVariant(geographyKind(geo));
-                  return availability.hasGeography(geo) ? base : `${base}-pub`;
-                })}
-                toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
-                tooltipGetter={tooltipForGeography}
-                maxRows={1}
-                expanded={expanded.geography}
-                onOverflowChange={(geography) =>
-                  setOverflows((prev) => ({ ...prev, geography }))
-                }
-                selected={scope.geography}
-                isSelectable={availability.hasGeography}
-                // Ignored on null, as for sector above.
-                onSelect={(next) =>
-                  next === null
-                    ? undefined
-                    : onScopeChange({ ...scope, geography: next })
-                }
-              >
-                {geographies}
-              </BadgeArray>
+              {geographies.length === 0 ? (
+                <p className={EMPTY_AXIS_CLASS}>
+                  No geography-specific information for this pathway.
+                </p>
+              ) : (
+                <BadgeArray<string>
+                  variant={geographies.map((geo) =>
+                    geographyVariant(geographyKind(geo)),
+                  )}
+                  toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
+                  tooltipGetter={tooltipForGeography}
+                  maxRows={1}
+                  expanded={expanded.geography}
+                  onOverflowChange={(geography) =>
+                    setOverflows((prev) => ({ ...prev, geography }))
+                  }
+                  selected={scope.geography}
+                  // Ignored on null, as for sector above.
+                  onSelect={(next) =>
+                    next === null
+                      ? undefined
+                      : onScopeChange({ ...scope, geography: next })
+                  }
+                >
+                  {geographies}
+                </BadgeArray>
+              )}
             </ScopeAxisRow>
           </div>
           {children}

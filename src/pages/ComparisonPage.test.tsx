@@ -372,6 +372,22 @@ describe("ComparisonPage — shared scope", () => {
     ).toBeInTheDocument();
   });
 
+  it("offers only geographies with data, while the Geographies section lists them all (#1046)", async () => {
+    // B declares DE and FR, but holds data for DE only.
+    await mountWithFixtures("cmp-a,cmp-b");
+    await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
+
+    await userEvent.click(columnTrigger("PubB: B (2023)"));
+    expect(
+      screen.getAllByRole("option").map((o) => o.textContent?.trim()),
+    ).toEqual(["Germany"]);
+
+    const coverage = screen
+      .getByRole("heading", { name: /Geographies/ })
+      .closest(".grid") as HTMLElement;
+    expect(coverage).toHaveTextContent("France");
+  });
+
   it("keeps the Geographies section in place when the columns diverge", async () => {
     /*
       The section used to float above the plots on any divergence. With a

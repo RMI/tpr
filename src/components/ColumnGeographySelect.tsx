@@ -4,12 +4,14 @@ import Badge from "./Badge";
 import { useDropdown } from "../hooks/useDropdown";
 import { geographyVariant } from "../utils/geographyUtils";
 import type { ColumnGeographyOption } from "../utils/comparisonScope";
-import { GEOGRAPHY_AVAILABILITY_TOOLTIP } from "../utils/timeseriesAvailability";
 
 interface ColumnGeographySelectProps {
   /** The pathway this column shows. Names the control for assistive tech. */
   pathwayName: string;
-  /** This pathway's own geographies, from `columnGeographyOptions`. */
+  /**
+   * This pathway's own geographies, from `columnGeographyOptions`. Only the
+   * available ones are offered (#1046).
+   */
   options: ColumnGeographyOption[];
   selected: string | null;
   onSelect: (token: string) => void;
@@ -29,11 +31,11 @@ interface ColumnGeographySelectProps {
  * into a fallback. The column carries the provenance, which is what lets the
  * options be labelled plainly.
  *
- * Options are the same badges the Geographies coverage section shows, outlined
- * where this tool holds no timeseries data for them. That distinction is
- * load-bearing here: 13 of IEA's 15 declared geographies produce no chart, so
- * outlined options are listed but cannot be chosen (#1017). They are not
- * buttons, which also keeps them out of the arrow-key navigation below.
+ * Options are the badges the Geographies coverage section shows, but only those
+ * this tool holds data for (#1046): 13 of IEA's 15 declared geographies produce
+ * no chart, and listing them as options that cannot be chosen (#1017) took up
+ * space for nothing a reader could pick. The coverage section, further down
+ * the page, still lists them all, and the panel's footer says so.
  *
  * Built on `useDropdown` — the same open/close, click-outside and Escape
  * behaviour as the search page's filter dropdowns.
@@ -48,7 +50,8 @@ export const ColumnGeographySelect: React.FC<ColumnGeographySelectProps> = ({
     useDropdown<HTMLButtonElement>();
   const listRef = useRef<HTMLDivElement | null>(null);
 
-  const current = options.find((option) => option.token === selected);
+  const choices = options.filter((option) => option.available);
+  const current = choices.find((option) => option.token === selected);
 
   /*
     Focus the selected option when the panel opens, as a listbox should: with
@@ -109,12 +112,12 @@ export const ColumnGeographySelect: React.FC<ColumnGeographySelectProps> = ({
         // The visible text is a geography, so the control needs to say which
         // column it belongs to. Position alone is not accessible.
         aria-label={`Geography for ${pathwayName}`}
-        disabled={options.length === 0}
+        disabled={choices.length === 0}
         className="inline-flex w-full items-center justify-between gap-2 rounded-md border border-gray-300 bg-white px-2 py-1 text-left text-xs text-rmigray-800 shadow-sm hover:bg-gray-50 disabled:cursor-not-allowed disabled:bg-neutral-50 disabled:text-rmigray-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-1"
       >
         <span className="truncate">
           {current?.label ??
-            (options.length === 0 ? "No geography" : "Select a geography")}
+            (choices.length === 0 ? "No geography" : "Select a geography")}
         </span>
         <ChevronDown
           size={14}
@@ -136,42 +139,29 @@ export const ColumnGeographySelect: React.FC<ColumnGeographySelectProps> = ({
               onKeyDown={onListKeyDown}
               className="max-h-64 overflow-auto p-1"
             >
-              {options.map((option) => {
-                const base = geographyVariant(option.kind);
-                if (!option.available) {
-                  return (
-                    <div
-                      key={option.token}
-                      role="option"
-                      aria-selected={false}
-                      aria-disabled="true"
-                      className="flex w-full items-center px-1 py-0.5"
-                    >
-                      <Badge variant={`${base}-pub`}>{option.label}</Badge>
-                    </div>
-                  );
-                }
-                return (
-                  <button
-                    key={option.token}
-                    type="button"
-                    role="option"
-                    aria-selected={option.token === selected}
-                    onClick={() => {
-                      onSelect(option.token);
-                      close();
-                    }}
-                    className={`flex w-full items-center rounded px-1 py-0.5 text-left hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce ${
-                      option.token === selected ? "bg-neutral-100" : ""
-                    }`}
-                  >
-                    <Badge variant={base}>{option.label}</Badge>
-                  </button>
-                );
-              })}
+              {choices.map((option) => (
+                <button
+                  key={option.token}
+                  type="button"
+                  role="option"
+                  aria-selected={option.token === selected}
+                  onClick={() => {
+                    onSelect(option.token);
+                    close();
+                  }}
+                  className={`flex w-full items-center rounded px-1 py-0.5 text-left hover:bg-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce ${
+                    option.token === selected ? "bg-neutral-100" : ""
+                  }`}
+                >
+                  <Badge variant={geographyVariant(option.kind)}>
+                    {option.label}
+                  </Badge>
+                </button>
+              ))}
             </div>
             <p className="border-t border-gray-200 px-2 py-2 text-xs italic text-rmigray-500">
-              {GEOGRAPHY_AVAILABILITY_TOOLTIP}
+              Only geographies with data in this tool are listed. The
+              Geographies section below shows the pathway&rsquo;s full coverage.
             </p>
           </div>
         </div>

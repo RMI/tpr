@@ -1,7 +1,11 @@
 import React, { useEffect, useId, useRef, useState } from "react";
 import type { PathwayMetadataType, Sector } from "../types";
 import BadgeArray from "./BadgeArray";
-import ScopeAxisRow, { LABEL_CLASS, pinSelected } from "./ScopeAxisRow";
+import ScopeAxisRow, {
+  EMPTY_AXIS_CLASS,
+  LABEL_CLASS,
+  pinSelected,
+} from "./ScopeAxisRow";
 import ColumnGeographySelect from "./ColumnGeographySelect";
 import GeographyDivergenceNotice from "./GeographyDivergenceNotice";
 import { useCondensedOnScroll } from "./PathwayContextRibbon";
@@ -10,7 +14,6 @@ import type {
   ColumnGeographyOption,
 } from "../utils/comparisonScope";
 import { getSectorTooltip } from "../utils/tooltipUtils";
-import { sortByAvailability } from "../utils/timeseriesAvailability";
 
 interface ComparisonScopeHeaderProps {
   /** The compared pathways, in column order. */
@@ -18,8 +21,8 @@ interface ComparisonScopeHeaderProps {
   /** Sector names every compared pathway declares — one shared axis. */
   sectorOptions: string[];
   /**
-   * Whether a sector has something to show in any column. Those that do are
-   * filled and selectable; the rest are outlined and cannot be picked (#1017).
+   * Whether a sector has something to show in any column (#1017). Only those
+   * are listed (#1046); the Sectors section further down shows full coverage.
    */
   isSectorAvailable: (sector: string) => boolean;
   selectedSector: string | null;
@@ -112,7 +115,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
   const baseId = useId();
 
   const sectors = pinSelected(
-    sortByAvailability(sectorOptions, isSectorAvailable),
+    sectorOptions.filter(isSectorAvailable),
     selectedSector,
   );
   const columns = `repeat(${pathways.length}, minmax(0, 1fr))`;
@@ -172,31 +175,34 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
             <ScopeAxisRow
               label="Sector"
               labelId={`${baseId}-sector`}
-              expandable={sectorOverflows}
+              expandable={sectors.length > 0 && sectorOverflows}
               expanded={sectorExpanded}
               onToggleExpand={() => setSectorExpanded((prev) => !prev)}
             >
-              <BadgeArray<string>
-                variant={sectors.map((sector) =>
-                  isSectorAvailable(sector) ? "sector" : "sector-pub",
-                )}
-                // The scope selection is `string` so a stale value degrades
-                // rather than failing to type; the lookup falls back to
-                // "No tooltip available." for anything unrecognised.
-                tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                maxRows={1}
-                expanded={sectorExpanded}
-                onOverflowChange={setSectorOverflows}
-                selected={selectedSector}
-                isSelectable={isSectorAvailable}
-                // BadgeArray reports null when the pressed badge is clicked
-                // again. Ignored: an axis always carries a value.
-                onSelect={(next) =>
-                  next === null ? undefined : onSectorChange(next)
-                }
-              >
-                {sectors}
-              </BadgeArray>
+              {sectors.length === 0 ? (
+                <p className={EMPTY_AXIS_CLASS}>
+                  These pathways share no sector with information to compare.
+                </p>
+              ) : (
+                <BadgeArray<string>
+                  variant="sector"
+                  // The scope selection is `string` so a stale value degrades
+                  // rather than failing to type; the lookup falls back to
+                  // "No tooltip available." for anything unrecognised.
+                  tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
+                  maxRows={1}
+                  expanded={sectorExpanded}
+                  onOverflowChange={setSectorOverflows}
+                  selected={selectedSector}
+                  // BadgeArray reports null when the pressed badge is clicked
+                  // again. Ignored: an axis always carries a value.
+                  onSelect={(next) =>
+                    next === null ? undefined : onSectorChange(next)
+                  }
+                >
+                  {sectors}
+                </BadgeArray>
+              )}
             </ScopeAxisRow>
           </div>
 
