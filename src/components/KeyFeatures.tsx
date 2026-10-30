@@ -285,6 +285,12 @@ export const GROUPS: GroupConfig[] = [
 
 /** The visible text of every absent value, authored or not. */
 const NO_INFORMATION = "No information";
+/**
+ * The visible text where a feature cannot apply to the sector and the pathway
+ * reports nothing broader to show instead. Kept apart from "No information",
+ * which means the pathway could say something here and doesn't.
+ */
+const NOT_APPLICABLE = "Not applicable";
 
 /*
   Tooltip copy for the states the resolver tells apart (#869). Authored and
@@ -295,6 +301,14 @@ const NO_INFORMATION = "No information";
 const AUTHORED_NO_INFORMATION_TOOLTIP = "The pathway does not report this.";
 const UNAVAILABLE_TOOLTIP =
   "Nothing is recorded for this pathway at any scope.";
+
+/** Why a feature has nothing to show for a sector it cannot apply to. */
+function notApplicableTooltip(
+  feature: FeatureConfig,
+  notApplicableSector: string,
+): string {
+  return `${feature.label} does not apply to the ${notApplicableSector} sector.`;
+}
 
 /**
  * Why a value is inherited. A feature that cannot apply to the requested sector
@@ -337,14 +351,21 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   // Only a resolution can say which kind of absence this is, so the
   // widest-value path keeps its untooltipped badge.
-  const absenceTooltip =
+  const notApplicableSector =
     resolution?.status === "unavailable"
+      ? resolution.notApplicableSector
+      : undefined;
+  const absenceTooltip = notApplicableSector
+    ? notApplicableTooltip(feature, notApplicableSector)
+    : resolution?.status === "unavailable"
       ? UNAVAILABLE_TOOLTIP
       : resolution
         ? AUTHORED_NO_INFORMATION_TOOLTIP
         : undefined;
-  const noInformation = (
-    <Badge tooltip={absenceTooltip}>{NO_INFORMATION}</Badge>
+  const absenceBadge = (
+    <Badge tooltip={absenceTooltip}>
+      {notApplicableSector ? NOT_APPLICABLE : NO_INFORMATION}
+    </Badge>
   );
 
   // Names the broader scope an inherited value came from (#859).
@@ -411,7 +432,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
         <div className="flex flex-wrap">
           {selectedOnly
             ? selected === NO_INFORMATION
-              ? noInformation
+              ? absenceBadge
               : pill(selected, true)
             : feature.options.map((opt) => pill(opt, opt === selected))}
         </div>
@@ -432,7 +453,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
         <div className="flex flex-wrap">
           {selectedOnly
             ? validSelected.length === 0
-              ? noInformation
+              ? absenceBadge
               : validSelected.map((opt) => pill(opt, true))
             : feature.options.map((opt) =>
                 pill(opt, selectedArr.includes(opt)),
@@ -455,7 +476,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     );
     const textColor = palette[selectedIndex]?.text ?? "text-rmigray-500";
     const valueDisplay = isNoInfo ? (
-      noInformation
+      absenceBadge
     ) : (
       <span className={`text-xs font-semibold ${textColor}`}>
         {selectedValue}
@@ -505,7 +526,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
       ? "text-rmigray-500"
       : NEUTRAL_SELECTED_COLOR.text;
     const valueDisplay = isNoInfo ? (
-      noInformation
+      absenceBadge
     ) : (
       <span className={`text-xs font-semibold ${textColor}`}>
         {selectedValue}

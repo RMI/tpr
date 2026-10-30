@@ -115,11 +115,6 @@
         "sector": "across sectors",
         "geography": "MY",
         "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "MY",
-        "value": "Not Applicable"
       }
     ],
     "policyTypes": [

@@ -6,8 +6,8 @@ import type { ColumnGeographyOption } from "../utils/comparisonScope";
 
 /**
  * IEA's real shape in miniature: the timeseries carries Global, Southeast Asia
- * and the US; Europe is declared by the publication only. Available first, as
- * `columnGeographyOptions` orders them.
+ * and the US; Europe is declared by the publication only, so it is not offered
+ * (#1046). Available first, as `columnGeographyOptions` orders them.
  */
 const OPTIONS: ColumnGeographyOption[] = [
   { token: "Global", label: "Global", kind: "global", available: true },
@@ -77,6 +77,15 @@ describe("ColumnGeographySelect", () => {
       expect(trigger()).toBeDisabled();
       expect(trigger()).toHaveTextContent("No geography");
     });
+
+    it("is disabled the same way when no declared geography has data", () => {
+      setup({
+        options: OPTIONS.map((o) => ({ ...o, available: false })),
+        selected: null,
+      });
+      expect(trigger()).toBeDisabled();
+      expect(trigger()).toHaveTextContent("No geography");
+    });
   });
 
   describe("opening and closing", () => {
@@ -117,7 +126,7 @@ describe("ColumnGeographySelect", () => {
   });
 
   describe("options", () => {
-    it("offers every declared geography, plainly labelled", async () => {
+    it("offers every geography with data, plainly labelled", async () => {
       const { user } = setup();
       await user.click(trigger());
 
@@ -128,7 +137,6 @@ describe("ColumnGeographySelect", () => {
         "Global",
         "Southeast Asia",
         "United States of America",
-        "Europe",
       ]);
       // No publisher suffix: the column carries the provenance.
       expect(names.join(" ")).not.toContain("(");
@@ -144,27 +152,15 @@ describe("ColumnGeographySelect", () => {
       expect(selected.map((o) => o.textContent?.trim())).toEqual(["Global"]);
     });
 
-    it("shows geographies this tool cannot plot, outlined rather than hidden", async () => {
-      // 13 of IEA's 15 declared geographies produce no chart. Hiding them would
-      // disagree with the coverage section, which lists all 15.
+    it("leaves out geographies this tool cannot plot, and says where they are (#1046)", async () => {
+      // 13 of IEA's 15 declared geographies produce no chart. The coverage
+      // section still lists all 15, and the footer points there.
       const { user } = setup();
       await user.click(trigger());
 
-      const europe = screen.getByRole("option", { name: "Europe" });
-      expect(europe.querySelector(".bg-transparent")).not.toBeNull();
-
-      const global = screen.getByRole("option", { name: "Global" });
-      expect(global.querySelector(".bg-transparent")).toBeNull();
-    });
-
-    it("explains what the outlines mean", async () => {
-      const { user } = setup();
-      await user.click(trigger());
-
+      expect(screen.queryByRole("option", { name: "Europe" })).toBeNull();
       expect(
-        screen.getByText(
-          /Outlined badges indicate the data for this geography/,
-        ),
+        screen.getByText(/Only geographies with data in this tool are listed/),
       ).toBeInTheDocument();
     });
   });
@@ -187,18 +183,6 @@ describe("ColumnGeographySelect", () => {
       await user.click(screen.getByRole("option", { name: "Southeast Asia" }));
 
       expect(screen.queryByRole("listbox")).toBeNull();
-    });
-
-    it("does not let an outlined geography be chosen (#1017)", async () => {
-      // It would only show a fallback note: nothing here plots it.
-      const { onSelect, user } = setup();
-      await user.click(trigger());
-      const europe = screen.getByRole("option", { name: "Europe" });
-      expect(europe).toHaveAttribute("aria-disabled", "true");
-
-      await user.click(europe);
-      expect(onSelect).not.toHaveBeenCalled();
-      expect(screen.getByRole("listbox")).toBeInTheDocument();
     });
   });
 
@@ -227,8 +211,7 @@ describe("ColumnGeographySelect", () => {
     });
 
     it("stops at the ends rather than wrapping", async () => {
-      // With 152 options the ends are a useful landmark. The last end is the
-      // last option that can be chosen: the outlined Europe is skipped.
+      // With 152 options the ends are a useful landmark.
       const { user } = setup();
       await user.click(trigger());
 

@@ -78,13 +78,7 @@
         "value": "No information"
       }
     ],
-    "electrification": [
-      {
-        "sector": "Power",
-        "geography": "TH",
-        "value": "Not Applicable"
-      }
-    ],
+    "electrification": [],
     "policyTypes": [
       {
         "sector": "Power",
