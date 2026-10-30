@@ -405,6 +405,38 @@ describe("ComparisonKeyFeatures", () => {
         within(a).getByText(sourceScopeLabel(resolution.sourceScope)),
       ).toBeInTheDocument();
     });
+
+    it("says Not applicable for Electrification on Power with nothing across sectors", () => {
+      // The JETP-CIPP / SDSN Singapore shape: Power only, so nothing broader
+      // to inherit. The grid must say the feature does not apply rather than
+      // that nothing is recorded (#1045), while a column with an across-sectors
+      // value still inherits it.
+      const powerOnly = {
+        ...scopedPathway("a", SEA, {}),
+        sectors: [{ name: "Power" }],
+      } as PathwayMetadataType;
+      const inherits = scopedPathway("b", SEA, {
+        electrification: [e("across sectors", "Global", "Moderate increase")],
+      });
+      const resolution = resolveKeyFeature(powerOnly, "electrification", {
+        sector: "Power",
+        geography: "Global",
+      });
+      expect(resolution).toMatchObject({
+        status: "unavailable",
+        notApplicableSector: "Power",
+      });
+
+      renderScoped([powerOnly, inherits], "Power", {
+        a: "Global",
+        b: "Global",
+      });
+
+      const [a, b] = cellsOf("Electrification", 2);
+      expect(within(a).getByText("Not applicable")).toBeInTheDocument();
+      expect(within(a).queryByText("No information")).not.toBeInTheDocument();
+      expect(within(b).getByText("Moderate increase")).toBeInTheDocument();
+    });
   });
 
   describe("degenerate input", () => {

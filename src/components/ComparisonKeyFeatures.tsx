@@ -63,20 +63,27 @@ const ComparisonKeyFeatures: React.FC<ComparisonKeyFeaturesProps> = ({
 }) => {
   const n = pathways.length;
 
+  // One resolver per column, shared by every feature in it: the effective scope
+  // and its fallback chains are the same for all of them. Memoized because the
+  // page re-renders for state the grid ignores, and a column's geography chain
+  // builds a country set per declared token (NGFS declares 152). Above the
+  // early return, as a hook must be.
+  const resolvers: ColumnResolver[] = React.useMemo(
+    () =>
+      pathways.map((pathway) =>
+        createKeyFeatureResolver(pathway, {
+          sector,
+          geography: geographies[pathway.id] ?? null,
+        }),
+      ),
+    [pathways, sector, geographies],
+  );
+
   // A group's rows come from the feature config rather than the data, so with
   // no pathways every heading would still render above empty columns. The page
   // guards this (it needs two pathways to render at all), but the component
   // should not depend on that.
   if (n === 0) return null;
-
-  // One resolver per column per render, shared by every feature in it: the
-  // effective scope and its fallback chains are the same for all of them.
-  const resolvers: ColumnResolver[] = pathways.map((pathway) =>
-    createKeyFeatureResolver(pathway, {
-      sector,
-      geography: geographies[pathway.id] ?? null,
-    }),
-  );
 
   const describedBySomeone = (driverKey: CoreDriverKey): boolean =>
     pathways.some((pathway) => pathway.coreDrivers?.[driverKey]);

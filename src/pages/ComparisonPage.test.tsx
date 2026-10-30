@@ -442,7 +442,18 @@ describe("ComparisonPage — shared scope", () => {
     );
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(screen.getByText("Moderate decrease")).toBeInTheDocument();
+    // The grid row: its label, then one cell per column in `ids` order.
+    const label = screen.getByText("Emissions trajectory", { selector: "p" })
+      .parentElement as HTMLElement;
+    const a = label.nextElementSibling as HTMLElement;
+    const b = a.nextElementSibling as HTMLElement;
+
+    // A resolves exactly at Power · Europe; B, asked for Germany, inherits its
+    // across-sectors row there and says so.
+    expect(within(a).getByText("Moderate decrease")).toBeInTheDocument();
+    expect(within(a).queryByText(/ · /)).not.toBeInTheDocument();
+    expect(within(b).queryByText("Moderate decrease")).not.toBeInTheDocument();
+    expect(within(b).getByText("Across sectors · Germany")).toBeInTheDocument();
   });
 
   it("badges a key feature the column inherits from a broader scope", async () => {
