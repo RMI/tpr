@@ -101,7 +101,6 @@ const ComparisonKeyFeatures: React.FC<ComparisonKeyFeaturesProps> = ({
       cell: (pathway, resolve) => (
         <FeatureItem
           feature={feature}
-          keyFeatures={pathway.keyFeatures}
           resolution={resolve(feature.key)}
           showLabel={false}
         />

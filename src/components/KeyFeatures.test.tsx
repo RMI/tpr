@@ -10,7 +10,7 @@ import emissionsScopeSchema from "../schema/common/emissionsScope.v1.json" with 
 /**
  * v2 scopes every keyFeature as {sector, geography, value} entries (#858). These
  * fixtures use a single widest-scope entry per field — what the codemod produces —
- * so the rendering assertions below still describe v1's output.
+ * which the panel's default scope resolves exactly, so nothing below is badged.
  */
 const wide = <T,>(value: T) => [
   { sector: "across sectors", geography: "Global", value },
@@ -30,6 +30,18 @@ const mockKeyFeatures: PathwayMetadataType["keyFeatures"] = {
   investmentNeeds: wide("By technology"),
 } as unknown as PathwayMetadataType["keyFeatures"];
 
+/** A global pathway holding `keyFeatures`, for the panel to resolve against. */
+const pathwayWith = (
+  keyFeatures: PathwayMetadataType["keyFeatures"],
+): PathwayMetadataType =>
+  ({
+    sectors: [{ name: "Power", technologies: [] }],
+    geography: { global: true, regions: {}, country: [] },
+    keyFeatures,
+  }) as unknown as PathwayMetadataType;
+
+const mockPathway = pathwayWith(mockKeyFeatures);
+
 const mockCoreDrivers = {
   policies: "Carbon pricing sustained region-wide.",
   emissionsTargets: null,
@@ -42,7 +54,7 @@ const mockCoreDrivers = {
 
 describe("KeyFeatures", () => {
   it("renders all six group headers in wireframe order", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
     expect(
       screen.getAllByRole("heading", { level: 4 }).map((h) => h.textContent),
     ).toEqual([
@@ -58,7 +70,7 @@ describe("KeyFeatures", () => {
   it("renders only the requested groups", () => {
     render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         groups={["policies"]}
       />,
     );
@@ -71,7 +83,7 @@ describe("KeyFeatures", () => {
   it("renders core drivers above the features of their own group", () => {
     render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         coreDrivers={mockCoreDrivers}
       />,
     );
@@ -93,7 +105,7 @@ describe("KeyFeatures", () => {
   it("renders the featureless Other group from its drivers alone", () => {
     render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         coreDrivers={mockCoreDrivers}
         groups={["other"]}
       />,
@@ -109,7 +121,7 @@ describe("KeyFeatures", () => {
     // Drivers are opt-in: a caller that passes only key features gets only key
     // features. (This used to be what kept the comparison page driver-free;
     // that page now builds its own driver rows from the same group config.)
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
 
     expect(
       screen.queryByText("Carbon pricing sustained region-wide."),
@@ -123,7 +135,7 @@ describe("KeyFeatures", () => {
   it("renders a custom panel title, and none when it is null", () => {
     const { unmount } = render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         title="Assumptions & Trends Overview"
       />,
     );
@@ -135,7 +147,7 @@ describe("KeyFeatures", () => {
 
     render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         title={null}
       />,
     );
@@ -145,7 +157,7 @@ describe("KeyFeatures", () => {
   it("shows a description directly under the heading (#1029)", () => {
     render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         title="Assumptions & Trends"
         description="What this panel is for."
       />,
@@ -159,7 +171,7 @@ describe("KeyFeatures", () => {
   it("renders nothing when the requested group set is empty", () => {
     const { container } = render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         groups={[]}
       />,
     );
@@ -167,7 +179,7 @@ describe("KeyFeatures", () => {
   });
 
   it("single-select: selected pill has blue classes, unselected have neutral classes", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
 
     // "CO2" is selected for emissionsScope
     const selected = screen.getByText("CO2").closest("span") as HTMLElement;
@@ -184,7 +196,7 @@ describe("KeyFeatures", () => {
   });
 
   it("multi-select: all selected pills have blue classes, unselected have neutral classes", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
 
     // "Carbon price" and "Subsidies" are selected for policyTypes
     const carbonPrice = screen
@@ -206,7 +218,7 @@ describe("KeyFeatures", () => {
   });
 
   it("sentiment feature: selected value is bold, uses scale segment color, not a pill", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
 
     // "Moderate decrease" is index 1 in emissionsTrajectory (greenEnd: first, 7 values)
     // → reversed PALETTE_7[1] = text-success-600
@@ -222,7 +234,7 @@ describe("KeyFeatures", () => {
       ...mockKeyFeatures,
       emissionsTrajectory: wide("Significant increase"),
     } as unknown as PathwayMetadataType["keyFeatures"];
-    render(<KeyFeatures keyFeatures={unfavorable} />);
+    render(<KeyFeatures pathway={pathwayWith(unfavorable)} />);
 
     // "Significant increase" is index 6 in emissionsTrajectory (greenEnd: first, 7 values)
     // → reversed PALETTE_7[6] = text-rmired-400
@@ -239,7 +251,7 @@ describe("KeyFeatures", () => {
       // array, not a missing field — the field stays required.
       emissionsTrajectory: [],
     } as unknown as PathwayMetadataType["keyFeatures"];
-    render(<KeyFeatures keyFeatures={noInfo} />);
+    render(<KeyFeatures pathway={pathwayWith(noInfo)} />);
 
     // The Badge text should be present; no span with colored font for that feature
     const badge = screen.getAllByText("No information")[0];
@@ -249,7 +261,7 @@ describe("KeyFeatures", () => {
   });
 
   it("neutral feature: selected value is bold, uses blue scale color, not a pill", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
 
     // "NDCs incl. conditional targets" is the policyAmbition value — NeutralScale color
     const label = screen.getByText("NDCs incl. conditional targets");
@@ -260,7 +272,7 @@ describe("KeyFeatures", () => {
   });
 
   it("renders every group as its own bordered card", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
     const groups = screen
       .getAllByRole("heading", { level: 4 })
       .map((h) => h.parentElement as HTMLElement);
@@ -277,7 +289,7 @@ describe("KeyFeatures", () => {
   });
 
   it("separates the cards with a grid gap rather than derived borders", () => {
-    render(<KeyFeatures keyFeatures={mockKeyFeatures} />);
+    render(<KeyFeatures pathway={mockPathway} />);
     const grid = (
       screen.getAllByRole("heading", { level: 4 })[0]
         .parentElement as HTMLElement
@@ -291,7 +303,7 @@ describe("KeyFeatures", () => {
   it("does not add grid columns when only one group is shown", () => {
     render(
       <KeyFeatures
-        keyFeatures={mockKeyFeatures}
+        pathway={mockPathway}
         groups={["policies"]}
       />,
     );
@@ -309,7 +321,9 @@ describe("KeyFeatures", () => {
       ...mockKeyFeatures,
       emissionsScope: undefined,
     } as unknown as PathwayMetadataType["keyFeatures"];
-    expect(() => render(<KeyFeatures keyFeatures={sparse} />)).not.toThrow();
+    expect(() =>
+      render(<KeyFeatures pathway={pathwayWith(sparse)} />),
+    ).not.toThrow();
   });
 });
 
@@ -358,7 +372,6 @@ function renderResolved(
   return render(
     <FeatureItem
       feature={configFor(key)}
-      keyFeatures={pathway.keyFeatures}
       resolution={resolveKeyFeature(pathway, key, scope)}
       {...props}
     />,
@@ -548,7 +561,6 @@ describe("FeatureItem with a resolution (#869)", () => {
     render(
       <FeatureItem
         feature={configFor("emissionsTrajectory")}
-        keyFeatures={pathway.keyFeatures}
         resolution={resolveKeyFeature(pathway, "emissionsTrajectory", {
           sector: null,
           geography: null,
@@ -579,7 +591,6 @@ describe("KeyFeatures with a pathway", () => {
   it("resolves each feature for the scope it is given", () => {
     const { rerender } = render(
       <KeyFeatures
-        keyFeatures={ace.keyFeatures}
         pathway={ace}
         scope={{ sector: "Buildings", geography: "South East Asia" }}
       />,
@@ -591,7 +602,6 @@ describe("KeyFeatures with a pathway", () => {
 
     rerender(
       <KeyFeatures
-        keyFeatures={ace.keyFeatures}
         pathway={ace}
         scope={{ sector: "Power", geography: "South East Asia" }}
       />,
@@ -604,31 +614,10 @@ describe("KeyFeatures with a pathway", () => {
   });
 
   it("resolves at the widest scope when given no scope", () => {
-    render(
-      <KeyFeatures
-        keyFeatures={ace.keyFeatures}
-        pathway={ace}
-      />,
-    );
+    render(<KeyFeatures pathway={ace} />);
     // across sectors · South East Asia is the widest, so nothing is inherited.
     expect(screen.getByText("Moderate increase")).toBeInTheDocument();
     expect(queryScopeBadge()).not.toBeInTheDocument();
-  });
-
-  it("renders the widest values, unbadged, without a pathway", () => {
-    render(<KeyFeatures keyFeatures={ace.keyFeatures} />);
-
-    expect(screen.getByText("Low or no change")).toBeInTheDocument();
-    expect(queryScopeBadge()).not.toBeInTheDocument();
-    // And its "No information" badges stay untooltipped, as before the
-    // resolver. (The pills of that name always carried a tooltip.)
-    const badges = screen
-      .getAllByText("No information")
-      .filter((el) => el.classList.contains("bg-rmigray-100"));
-    expect(badges.length).toBeGreaterThan(0);
-    for (const badge of badges) {
-      expect(badge.closest("[tabindex]")).toBeNull();
-    }
   });
 });
 
