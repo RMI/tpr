@@ -353,9 +353,8 @@ describe("resolveKeyFeature — edge cases", () => {
     });
   });
 
-  it("skips a Not Applicable cell and inherits across sectors, naming its sector", () => {
+  it("inherits Electrification of Power from across sectors, naming the sector", () => {
     const p = withEntries("electrification", [
-      e("Power", "TH", "Not Applicable"),
       e("across sectors", "TH", "Moderate increase"),
     ]);
     expect(resolveKeyFeature(p, "electrification", at("Power", "TH"))).toEqual({
@@ -368,20 +367,37 @@ describe("resolveKeyFeature — edge cases", () => {
     });
   });
 
-  it("is unavailable when nothing follows the Not Applicable cell", () => {
+  it.each(["Significant increase", "No information", "Not Applicable"])(
+    "never reads an Electrification of Power cell, even one saying %s",
+    (value) => {
+      // The validator rejects any value there; the resolver does not rely on it.
+      const p = withEntries("electrification", [
+        e("Power", "TH", value),
+        e("across sectors", "TH", "Moderate increase"),
+      ]);
+      expect(
+        resolveKeyFeature(p, "electrification", at("Power", "TH")),
+      ).toMatchObject({
+        status: "resolved",
+        value: "Moderate increase",
+        sourceScope: { sector: "across sectors", geography: "TH" },
+        notApplicableSector: "Power",
+      });
+    },
+  );
+
+  it("is unavailable but names the sector when nothing is across sectors", () => {
     // A Power-only pathway: no across sectors row to fall back to, for the
-    // ribbon's Power and for an empty sector alike.
-    const p = withEntries(
-      "electrification",
-      [e("Power", "SG", "Not Applicable")],
-      {
-        sectors: [{ name: "Power", technologies: [] }],
-        geography: { country: ["SG"] },
-      },
-    );
+    // ribbon's Power and for an empty sector alike. The sector is named so the
+    // page says "Not applicable" rather than "No information".
+    const p = withEntries("electrification", [], {
+      sectors: [{ name: "Power", technologies: [] }],
+      geography: { country: ["SG"] },
+    });
     const unavailable = {
       status: "unavailable",
       requestedScope: { sector: "Power", geography: "SG" },
+      notApplicableSector: "Power",
     };
     expect(resolveKeyFeature(p, "electrification", at("Power", "SG"))).toEqual(
       unavailable,
@@ -391,21 +407,16 @@ describe("resolveKeyFeature — edge cases", () => {
     );
   });
 
-  it("knows no forbidden pairs: what Power records is its answer", () => {
-    // Only the data's Not Applicable marks a pair as inapplicable; requiring it
-    // at Electrification × Power is the validator's job (PR 2). Until then an
-    // authored value there is shown, like the six SDSN Singapore files' No
-    // information.
-    const p = withEntries("electrification", [
-      e("Power", "TH", "No information"),
-      e("across sectors", "TH", "Moderate increase"),
-    ]);
-    expect(resolveKeyFeature(p, "electrification", at("Power", "TH"))).toEqual({
-      status: "resolved",
-      value: "No information",
-      sourceScope: { sector: "Power", geography: "TH" },
-      requestedScope: { sector: "Power", geography: "TH" },
-      isFallback: false,
+  it("names no sector when a field that applies there is unavailable", () => {
+    const p = withEntries("emissionsTrajectory", [], {
+      sectors: [{ name: "Power", technologies: [] }],
+      geography: { country: ["SG"] },
+    });
+    expect(
+      resolveKeyFeature(p, "emissionsTrajectory", at("Power", "SG")),
+    ).toEqual({
+      status: "unavailable",
+      requestedScope: { sector: "Power", geography: "SG" },
     });
   });
 

@@ -18,6 +18,13 @@
  * compares whole entries, so two at the same (sector, geography) with different
  * values are "unique" to the schema while being contradictory as data.
  *
+ * It also rejects any entry at a field × sector that cannot apply
+ * (`FORBIDDEN_KEY_FEATURE_SECTORS` in `keyFeatureRules.ts`, today Electrification
+ * × Power). Such a pair carries no value at all. Unlike the rules around it,
+ * this one reads only the entry's own `sector`, so draft-07 could express it per
+ * item; it lives here so that the validator, the importer and the page all read
+ * the one declaration in `keyFeatureRules.ts` rather than a copy in the schema.
+ *
  * It also enforces #461 -- that a technology belongs to the sector it is attached
  * to. #461 suggests mirroring the `if`/`then` sector conditional in
  * `pathwayTimeseries.v1.json`, but that keyword pair defeats
@@ -50,6 +57,10 @@ import {
   technologyBelongsToSector,
   UNSEGMENTED,
 } from "./timeseriesTaxonomy.ts";
+import {
+  isForbiddenKeyFeatureSector,
+  type KeyFeatureKey,
+} from "./keyFeatureRules.ts";
 
 /** `$id` of the schema these checks apply to. */
 export const PATHWAY_METADATA_V2_ID =
@@ -252,6 +263,17 @@ export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
         errors.push(
           `${at}/geography "${entry.geography}" is not a geography this pathway` +
             ` declares (allowed: ${quote(geographies)})`,
+        );
+      }
+
+      // A field that cannot apply to a sector (Electrification × Power) has no
+      // value there at all. Not "Not Applicable" and not "No information": the
+      // resolver never reads the cell, and the page says the feature does not
+      // apply, so any value would be authored and then silently ignored.
+      if (isForbiddenKeyFeatureSector(field as KeyFeatureKey, entry.sector)) {
+        errors.push(
+          `${at} is ${field} for the ${entry.sector} sector, which it cannot` +
+            ` apply to. Leave the entry out: no value, not even "No information".`,
         );
       }
 

@@ -149,11 +149,6 @@
         "sector": "across sectors",
         "geography": "Global",
         "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "Global",
-        "value": "Not Applicable"
       }
     ],
     "policyTypes": [

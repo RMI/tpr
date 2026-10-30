@@ -1,5 +1,11 @@
 import { describe, it, expect, vi, afterEach } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router";
 
@@ -60,6 +66,14 @@ const fixtures = [
       energyDemand: [
         { sector: "Power", geography: "SG", value: "No information" },
       ],
+      // Never recorded for Power, which it cannot apply to: Power inherits it.
+      electrification: [
+        {
+          sector: "across sectors",
+          geography: "Global",
+          value: "Moderate increase",
+        },
+      ],
     },
     coreDrivers: {
       policies: "Carbon pricing sustained across the region.",
@@ -118,6 +132,44 @@ const fixtures = [
           scopeLimitations: "Unspecified",
         },
       ],
+    },
+  },
+  {
+    // Power only, like JETP-CIPP-2023: no across sectors row, so nothing for
+    // Electrification to inherit.
+    id: "detail-power-only",
+    name: { full: "Power-only Pathway", short: "PO" },
+    description: "Pathway blurb",
+    pathwayDescription: "The description prose.",
+    pathwayType: "Normative",
+    modelYearNetzero: 2050,
+    modelTempIncrease: 1.5,
+    publication: {
+      publisher: { full: "Publisher S", short: "PubS" },
+      title: { full: "Publication S", short: "PubTitleS" },
+      year: 2024,
+    },
+    sectors: [{ name: "Power", technologies: [] }],
+    metric: ["Capacity"],
+    geography: { country: ["SG"] },
+    keyFeatures: {
+      emissionsTrajectory: [
+        { sector: "Power", geography: "SG", value: "Significant decrease" },
+      ],
+    },
+    coreDrivers: {
+      policies: null,
+      emissionsTargets: null,
+      technologyCosts: null,
+      investmentChange: null,
+      macroeconomicDrivers: null,
+      behavioralShifts: null,
+      otherDrivers: null,
+    },
+    dependencies: [],
+    dataAvailability: {
+      overall: "Hosted as a single timeseries file.",
+      byMetric: [],
     },
   },
 ] as const;
@@ -180,6 +232,36 @@ const clickTab = (name: string): void => {
 const selectScope = async (name: string): Promise<void> => {
   await userEvent.click(screen.getByRole("button", { name }));
 };
+
+/** The key feature labelled `label`: its item in the group's list. */
+async function findFeature(label: string): Promise<HTMLElement> {
+  let item: HTMLElement = await screen.findByText(
+    label,
+    { selector: "p" },
+    WAIT,
+  );
+  while (
+    item.parentElement &&
+    !item.parentElement.classList.contains("space-y-4")
+  ) {
+    item = item.parentElement;
+  }
+  return item;
+}
+
+/** Open the tooltip on `trigger`'s focusable ancestor, and read it. */
+async function tooltipOf(trigger: HTMLElement): Promise<string | null> {
+  const focusable = trigger.closest("[tabindex]") as HTMLElement;
+  // Re-fired inside waitFor: TextWithTooltip attaches its listeners in an
+  // effect, and a focus that lands before them is dropped without a trace.
+  await waitFor(() => {
+    fireEvent.focus(focusable);
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+  });
+  const content = screen.getByRole("tooltip").textContent;
+  fireEvent.blur(focusable);
+  return content;
+}
 
 describe("PathwayDetailPage — scope ribbon (#872)", () => {
   afterEach(() => {
@@ -426,6 +508,41 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       await selectScope("South East Asia");
       expect(emissions()).toHaveTextContent("Moderate decrease");
       expect(emissions()).toHaveTextContent("Steel · Global");
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "says Electrification does not apply to Power, inheriting where it can",
+    async () => {
+      // Electrification is on the full panel only, not At a glance's subset.
+      await mountDetailPage("/pathway/detail-scope?tab=assumptions");
+      const electrification = await findFeature("Electrification");
+
+      // Opens on Power · Global, which inherits the across sectors value.
+      expect(electrification).toHaveTextContent("Moderate increase");
+      expect(
+        await tooltipOf(
+          within(electrification).getByText("Across sectors · Global"),
+        ),
+      ).toBe(
+        "Electrification does not apply to the Power sector; showing the" +
+          " closest broader scope this pathway reports.",
+      );
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "shows Not applicable, not No information, when Power has nothing to inherit",
+    async () => {
+      await mountDetailPage("/pathway/detail-power-only?tab=assumptions");
+      const electrification = await findFeature("Electrification");
+
+      expect(electrification).not.toHaveTextContent("No information");
+      expect(
+        await tooltipOf(within(electrification).getByText("Not applicable")),
+      ).toBe("Electrification does not apply to the Power sector.");
     },
     TEST_TIMEOUT,
   );

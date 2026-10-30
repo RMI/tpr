@@ -116,9 +116,6 @@ const WIDEST_ON_BOTH_AXES: ReadonlySet<string> = new Set([
  * reason. Listed rather than tolerated, so an unplanned addition still fails.
  */
 const DELIBERATE_ADDITIONS: Readonly<Record<string, readonly string[]>> = {
-  // A property of the sector (meaningless for Power), not of the row's scope,
-  // so it survives at every scope where the sentinel would not.
-  electrification: ["Not Applicable"],
   // Cookbook decision 0020.
   newTechnologiesIncluded: ["SMR"],
 };

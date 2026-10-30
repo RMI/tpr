@@ -462,7 +462,6 @@ describe("FeatureItem with a resolution (#869)", () => {
 
   it("inherits Electrification of Power from across sectors, and says why", async () => {
     renderResolved("electrification", [
-      e("Power", "TH", "Not Applicable"),
       e("across sectors", "South East Asia", "Moderate increase"),
     ]);
 
@@ -474,11 +473,23 @@ describe("FeatureItem with a resolution (#869)", () => {
     );
   });
 
-  it("shows No information for Electrification of Power with nothing across sectors", async () => {
-    renderResolved("electrification", [e("Power", "TH", "Not Applicable")]);
+  it("shows Not applicable for Electrification of Power with nothing across sectors", async () => {
+    renderResolved("electrification", []);
 
-    expect(screen.queryByText(/not applicable/i)).not.toBeInTheDocument();
+    expect(screen.queryByText("No information")).not.toBeInTheDocument();
     expect(queryScopeBadge()).not.toBeInTheDocument();
+    expect(await tooltipOf("Not applicable")).toBe(
+      "Electrification does not apply to the Power sector.",
+    );
+  });
+
+  it("still shows No information for Electrification of another sector", async () => {
+    renderResolved("electrification", [], {
+      sector: "Buildings",
+      geography: "TH",
+    });
+
+    expect(screen.queryByText("Not applicable")).not.toBeInTheDocument();
     expect(await tooltipOf("No information")).toBe(
       "Nothing is recorded for this pathway at any scope.",
     );
@@ -644,9 +655,6 @@ describe("feature config against the schema", () => {
     "No information",
     // Skipped by the resolver, never rendered.
     "Not applicable at this scope level",
-    // Skipped by the resolver like the sentinel above. The validator (PR 2)
-    // limits it to Electrification × Power.
-    "Not Applicable",
   ]);
 
   type ValueSchema = {

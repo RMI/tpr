@@ -1300,11 +1300,6 @@
         "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Power",
-        "geography": "Global",
-        "value": "Not Applicable"
-      },
-      {
         "sector": "Steel",
         "geography": "Global",
         "value": "Not applicable at this scope level"
@@ -1368,66 +1363,6 @@
         "sector": "Aviation",
         "geography": "US",
         "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "Canada / NZ / Australia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "China",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Countries from the Reforming Economies of the Former Soviet Union",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU 28",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Latin America and the Caribbean",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Middle East / North Africa / Central Asia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Non-EU28 Europe",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Other Asia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Sub-saharan Africa",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not Applicable"
       },
       {
         "sector": "Steel",

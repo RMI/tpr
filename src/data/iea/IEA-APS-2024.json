@@ -1624,11 +1624,6 @@
         "value": "Not applicable at this scope level"
       },
       {
-        "sector": "Power",
-        "geography": "Global",
-        "value": "Not Applicable"
-      },
-      {
         "sector": "Steel",
         "geography": "Global",
         "value": "Not applicable at this scope level"
@@ -1687,61 +1682,6 @@
         "sector": "Aviation",
         "geography": "Southeast Asia",
         "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "Advanced economies",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Africa",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Asia Pacific",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Central and South America",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Eurasia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Europe",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "European Union",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Middle East",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "North America",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "OECD",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Southeast Asia",
-        "value": "Not Applicable"
       },
       {
         "sector": "Steel",
@@ -1827,36 +1767,6 @@
         "sector": "Aviation",
         "geography": "US",
         "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "BR",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "CN",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "RU",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not Applicable"
       },
       {
         "sector": "Steel",

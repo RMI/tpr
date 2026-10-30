@@ -90,13 +90,7 @@
         "value": "Significant increase"
       }
     ],
-    "electrification": [
-      {
-        "sector": "Power",
-        "geography": "MM",
-        "value": "Not Applicable"
-      }
-    ],
+    "electrification": [],
     "policyTypes": [
       {
         "sector": "Power",

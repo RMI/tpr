@@ -1062,74 +1062,9 @@
         "value": "Moderate increase"
       },
       {
-        "sector": "Power",
-        "geography": "Global",
-        "value": "Not Applicable"
-      },
-      {
         "sector": "Steel",
         "geography": "Global",
         "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "China",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Eastern Europe",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Former Soviet Union",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Latin America and the Caribbean",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Middle East and North Africa",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "North America",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Other Pacific Asia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Pacific OECD",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Rest Centrally Planned Asia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "South Asia",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Sub-saharan Africa",
-        "value": "Not Applicable"
-      },
-      {
-        "sector": "Power",
-        "geography": "Western Europe",
-        "value": "Not Applicable"
       },
       {
         "sector": "Steel",

@@ -102,11 +102,6 @@
         "sector": "across sectors",
         "geography": "PH",
         "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "PH",
-        "value": "Not Applicable"
       }
     ],
     "policyTypes": [

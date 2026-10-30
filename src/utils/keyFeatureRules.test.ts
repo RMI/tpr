@@ -6,6 +6,7 @@ import {
   containsCodes,
   declaredGeographyTokens,
   declaredTokenCodes,
+  isForbiddenKeyFeatureSector,
   isScopeLevelNotApplicable,
   widestGeography,
   widestSector,
@@ -284,5 +285,26 @@ describe("isScopeLevelNotApplicable", () => {
     expect(isScopeLevelNotApplicable("Not Applicable")).toBe(false);
     expect(isScopeLevelNotApplicable(["Carbon price", "None"])).toBe(false);
     expect(isScopeLevelNotApplicable(undefined)).toBe(false);
+  });
+});
+
+describe("isForbiddenKeyFeatureSector", () => {
+  it("forbids Electrification of Power", () => {
+    expect(isForbiddenKeyFeatureSector("electrification", "Power")).toBe(true);
+  });
+
+  it("allows Electrification of other sectors, including across sectors", () => {
+    expect(isForbiddenKeyFeatureSector("electrification", "Buildings")).toBe(
+      false,
+    );
+    expect(isForbiddenKeyFeatureSector("electrification", ACROSS_SECTORS)).toBe(
+      false,
+    );
+  });
+
+  it("allows every other field for Power", () => {
+    expect(isForbiddenKeyFeatureSector("emissionsTrajectory", "Power")).toBe(
+      false,
+    );
   });
 });

@@ -315,7 +315,7 @@ export interface PathwayMetadataV2 {
         | "Significant increase";
     }[];
     /**
-     * Represents the extent to which energy end-uses transition from fossil fuels to electricity. Scoped: see keyFeatures.
+     * Represents the extent to which energy end-uses transition from fossil fuels to electricity. Scoped: see keyFeatures. Never recorded for the Power sector, which it cannot apply to (validateScopes enforces this).
      */
     electrification: {
       sector: ScopeSector3;
@@ -329,7 +329,6 @@ export interface PathwayMetadataV2 {
         | "Minor increase"
         | "Moderate increase"
         | "Significant increase"
-        | "Not Applicable"
         | "Not applicable at this scope level";
     }[];
     /**
