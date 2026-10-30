@@ -173,9 +173,9 @@ describe("value normalization", () => {
     expect(isAbsent("Not applicable at this scope level")).toBe(false);
   });
 
-  it("does not treat the retired Not Applicable as absent either", () => {
-    // Electrification × Power must now be blank. A leftover Not Applicable is
-    // a value, so it reaches buildKeyFeatures' refusal instead of vanishing.
+  it("does not treat 0023's measure-level Not Applicable as absent either", () => {
+    // It means something only at a forbidden pair, where buildKeyFeatures
+    // drops it; anywhere else it must reach the off-enum report.
     expect(isAbsent("Not Applicable")).toBe(false);
   });
 
@@ -520,7 +520,7 @@ describe("buildKeyFeatures", () => {
     "Electrification": electrification,
   });
 
-  it.each(["Not Applicable", "No information", "Moderate increase"])(
+  it.each(["No information", "Moderate increase"])(
     "refuses an Electrification cell on a Power row holding %s",
     (value) => {
       const report = new Report();
@@ -543,16 +543,34 @@ describe("buildKeyFeatures", () => {
     },
   );
 
-  it("accepts a blank Electrification cell on a Power row", () => {
+  it.each(["", "Not Applicable", " not applicable "])(
+    "accepts and drops an Electrification cell on a Power row holding %j",
+    (value) => {
+      const report = new Report();
+      const kf = buildKeyFeatures(
+        [row("Power", "TH", value)],
+        SECTORS,
+        GEOS,
+        report,
+        "T",
+      );
+      expect(report.errors).toEqual([]);
+      expect(report.lines).toEqual([]);
+      expect(kf.electrification).toEqual([]);
+    },
+  );
+
+  it("still reports Not Applicable off-enum away from a forbidden pair", () => {
     const report = new Report();
     const kf = buildKeyFeatures(
-      [row("Power", "TH", "")],
+      [row("Buildings", "TH", "Not Applicable")],
       SECTORS,
       GEOS,
       report,
       "T",
     );
     expect(report.errors).toEqual([]);
+    expect(report.lines.join("\n")).toContain("off-enum value(s) dropped");
     expect(kf.electrification).toEqual([]);
   });
 

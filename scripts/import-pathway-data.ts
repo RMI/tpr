@@ -768,6 +768,9 @@ async function readWorkbook(path: string, prefix: string): Promise<Sheets> {
 // Value normalization helpers.
 // --------------------------------------------------------------------------
 
+/** 0023's measure-level marker, lower-cased; meaningful only at a forbidden pair. */
+const NOT_APPLICABLE_CELL = "not applicable";
+
 /** Cells that mean "no value at this scope" -- the entry is omitted entirely. */
 /**
  * Whether a cell records nothing at all, as against recording an absence.
@@ -782,10 +785,10 @@ async function readWorkbook(path: string, prefix: string): Promise<Sheets> {
  * express.
  *
  * 0023's other value, `Not Applicable` for a measure that is meaningless for
- * the sector (Electrification × Power), is retired: such a pair now has no
- * value at all, so its cell must be blank. It is deliberately not absent here
- * either, so a leftover one reaches {@link buildKeyFeatures}'s refusal rather
- * than vanishing.
+ * the sector (Electrification × Power), stays in the workbook but not in the
+ * data: such a pair has no entry at all. It is deliberately not absent here,
+ * because it means something only at a forbidden pair; {@link buildKeyFeatures}
+ * drops it there, and anywhere else it is off-enum and reported.
  *
  * A consequence worth keeping: a cell still carrying a pre-0023 spelling now
  * fails `matchEnum` and is reported in `badValues` instead of vanishing, so the
@@ -1057,10 +1060,12 @@ type ScopedEntry = {
  * omitted and reported, so the file still passes validateScopedEntries.
  *
  * A cell at a field × sector that cannot apply (Electrification × Power, see
- * `FORBIDDEN_KEY_FEATURE_SECTORS`) must be blank. Any value there -- including
- * the retired `Not Applicable` and `No information` -- is an authoring error
- * that stops the import, as validateScopedEntries would reject the entry.
- * Refused rather than dropped, so the workbook and the data cannot disagree.
+ * `FORBIDDEN_KEY_FEATURE_SECTORS`) is written as no entry at all. The workbook
+ * may say so with 0023's `Not Applicable` or leave the cell blank; either is
+ * dropped. Any other value there -- `No information` included -- is an
+ * authoring error that stops the import, as validateScopedEntries would reject
+ * the entry. Refused rather than dropped, so the workbook and the data cannot
+ * disagree about what the pathway reports.
  */
 export function buildKeyFeatures(
   rows: Row[],
@@ -1114,6 +1119,7 @@ export function buildKeyFeatures(
       const raw = row[column] ?? "";
       if (isAbsent(raw)) continue;
       if (isForbiddenKeyFeatureSector(field as KeyFeatureKey, sector)) {
+        if (raw.trim().toLowerCase() === NOT_APPLICABLE_CELL) continue;
         const key = `${column}\u0000${sector}`;
         forbidden.set(key, [...(forbidden.get(key) ?? []), geography]);
         continue;
@@ -1170,7 +1176,7 @@ export function buildKeyFeatures(
     report.error(
       `${id}: ${column} cannot apply to the ${sector} sector, but ${geographies.length}` +
         ` ${sector} row(s) give it a value {${geographies.join(", ")}} -- leave` +
-        ` those ${column} cells blank (not "Not Applicable", not "No information")`,
+        ` those ${column} cells blank or "Not Applicable" (not "No information")`,
     );
   }
 
