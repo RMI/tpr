@@ -12,6 +12,13 @@ const HeaderNav: React.FC = () => {
         Contact Us
       </Link>
 
+      <Link
+        to="/case-studies"
+        className="inline-flex items-center gap-2 rounded-md px-3 py-2 text-sm font-semibold text-white/90 transition-colors hover:bg-white/10 hover:text-white"
+      >
+        Case Studies
+      </Link>
+
       <ResourcesDropdown />
     </nav>
   );
