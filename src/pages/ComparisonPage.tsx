@@ -6,6 +6,7 @@ import {
   columnGeographyOptions,
   columnsGeographyDivergence,
   comparisonBlock,
+  comparisonScopeAvailability,
   decodeColumnGeographies,
   defaultGeographyForColumn,
   encodeColumnGeographies,
@@ -46,7 +47,6 @@ import {
   SECTOR_AVAILABILITY_TOOLTIP,
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
-import { scopeAvailability } from "../utils/scopeAvailability";
 import TextWithTooltip from "../components/TextWithTooltip";
 
 // ── Pathway summary card (compact) ──────────────────────────────────────────
@@ -280,16 +280,14 @@ const ComparisonPage: React.FC = () => {
     A scope token is worth selecting when its column has something to show for
     it: benchmark data for the plots, recorded dependencies (sector only), or
     key features, which the grid resolves per column (#1017, #1030, #869). The
-    same rule the detail page's ribbon uses. The coverage sections below keep
-    the timeseries-only `availabilities`, since their outlined badges speak
-    about data in this tool.
+    same rule the detail page's ribbon uses, and the one the compare link seeds
+    by. The coverage sections below keep the timeseries-only `availabilities`,
+    since their outlined badges speak about data in this tool.
   */
   const scopeAvailabilities = useMemo(
     () =>
       pathways.map((p) =>
-        scopeAvailability(p, index.byPathway[p.id] ?? [], {
-          keyFeatures: true,
-        }),
+        comparisonScopeAvailability(p, index.byPathway[p.id] ?? []),
       ),
     [pathways],
   );

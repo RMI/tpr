@@ -13,7 +13,7 @@ import {
 } from "./geographyUtils";
 import { GLOBAL_SCOPE, scopeISOSet } from "./keyFeatureScope";
 import { sortByAvailability } from "./timeseriesAvailability";
-import type { ScopeAvailability } from "./scopeAvailability";
+import { scopeAvailability, type ScopeAvailability } from "./scopeAvailability";
 import {
   DEFAULT_SECTOR,
   collapseSelection,
@@ -122,6 +122,23 @@ export function comparisonBlock(
   return offenders.length > 0 ? { sharedBefore: running, offenders } : null;
 }
 
+/**
+ * What one comparison column can usefully select: tokens with benchmark data,
+ * recorded dependencies (sector only), or key features, which the grid resolves
+ * per column (#1017, #1030, #869).
+ *
+ * The comparison page and the compare link's seed (`ComparisonRibbon`) both
+ * read this, so the link only ever seeds a scope the page will accept. The
+ * coverage sections do not: their outlined badges speak about timeseries data
+ * alone.
+ */
+export function comparisonScopeAvailability(
+  pathway: PathwayMetadataType,
+  datasets: Array<{ summary?: unknown }>,
+): ScopeAvailability {
+  return scopeAvailability(pathway, datasets, { keyFeatures: true });
+}
+
 export interface ColumnGeographyOption {
   /** The publisher's own spelling — the scope value, and what lands in the URL. */
   token: string;
@@ -148,9 +165,10 @@ export interface ColumnGeographyOption {
  *
  * They differ only in what counts as available, which is why it is passed in.
  * The coverage section passes timeseries availability: its outlined badges say
- * what this tool holds data for. The header passes `scopeAvailability` with key
- * features, since the grid resolves them for the column's geography: a token
- * with only key features is still worth selecting there.
+ * what this tool holds data for. The header passes
+ * `comparisonScopeAvailability`, since the grid resolves key features for the
+ * column's geography: a token with only key features is still worth selecting
+ * there.
  *
  * Ordering: global → regions → countries (`sortGeographiesForDetails`), then
  * stable-partitioned available-first, so what the reader can select leads.
