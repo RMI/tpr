@@ -56,6 +56,8 @@ export const ScopeAxisRow: React.FC<{
         <button
           type="button"
           onClick={onToggleExpand}
+          aria-expanded={expanded}
+          aria-controls={`${labelId}-values`}
           className={ROW_CONTROL_CLASS}
         >
           {expanded ? "Show fewer" : "Show all"}
@@ -63,6 +65,7 @@ export const ScopeAxisRow: React.FC<{
       )}
     </div>
     <div
+      id={`${labelId}-values`}
       role="group"
       aria-labelledby={labelId}
       className="min-w-0 py-0.5"
