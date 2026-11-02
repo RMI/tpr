@@ -64,9 +64,8 @@ function keyFeatureScopes(
  * other token available, or nearly every badge would stay clickable.
  *
  * `keyFeatures` is for pages that resolve key features for the selected scope
- * (#869): the detail page. The comparison page leaves it off until it resolves
- * them per column too, since selecting a token for its key features alone would
- * change nothing visible there.
+ * (#869): the detail page, and the comparison page per column. Without it,
+ * selecting a token for its key features alone would change nothing visible.
  */
 export function scopeAvailability(
   pathway: Pick<PathwayMetadataType, "dependencies" | "keyFeatures">,

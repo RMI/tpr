@@ -3,7 +3,6 @@ import clsx from "clsx";
 import { PathwayMetadataType } from "../types";
 import type { PathwayScopeSelection } from "../types";
 import { getKeyFeatureTooltip } from "../utils/tooltipUtils";
-import { widestValue } from "../utils/keyFeatureScope";
 import {
   createKeyFeatureResolver,
   sourceScopeLabel,
@@ -331,13 +330,8 @@ const WIDEST_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
 
 export interface FeatureItemProps {
   feature: FeatureConfig;
-  keyFeatures: PathwayMetadataType["keyFeatures"];
-  /**
-   * The resolver's answer for the reader's scope (#869). Without it the item
-   * renders the field's widest value, exactly as it did before the resolver —
-   * the comparison page's path until it resolves per column (1b).
-   */
-  resolution?: ResolvedKeyFeature;
+  /** The resolver's answer for the reader's scope (#869). */
+  resolution: ResolvedKeyFeature;
   selectedOnly?: boolean;
   labelClassName?: string;
   showLabel?: boolean;
@@ -345,34 +339,27 @@ export interface FeatureItemProps {
 
 export const FeatureItem: React.FC<FeatureItemProps> = ({
   feature,
-  keyFeatures,
   resolution,
   selectedOnly = false,
   labelClassName = "text-xs font-medium text-rmigray-500",
   showLabel = true,
 }) => {
-  // v2 stores each feature as scoped {sector, geography, value} entries (#858).
-  // A resolution carries the value for the reader's scope; without one, the
-  // broadest scope's value reproduces v1's output for codemod-migrated data.
-  const rawValue = resolution
-    ? resolution.status === "resolved"
-      ? resolution.value
-      : undefined
-    : widestValue(keyFeatures[feature.key]);
+  // v2 stores each feature as scoped {sector, geography, value} entries (#858);
+  // the resolution carries the one for the reader's scope.
+  const rawValue =
+    resolution.status === "resolved" ? resolution.value : undefined;
 
-  // Only a resolution can say which kind of absence this is, so the
-  // widest-value path keeps its untooltipped badge.
+  // Which kind of absence this is: a feature that cannot apply to the sector,
+  // nothing recorded at any scope, or the pathway's own "No information".
   const notApplicableSector =
-    resolution?.status === "unavailable"
+    resolution.status === "unavailable"
       ? resolution.notApplicableSector
       : undefined;
   const absenceTooltip = notApplicableSector
     ? notApplicableTooltip(feature, notApplicableSector)
-    : resolution?.status === "unavailable"
+    : resolution.status === "unavailable"
       ? UNAVAILABLE_TOOLTIP
-      : resolution
-        ? AUTHORED_NO_INFORMATION_TOOLTIP
-        : undefined;
+      : AUTHORED_NO_INFORMATION_TOOLTIP;
   const absenceBadge = (
     <Badge tooltip={absenceTooltip}>
       {notApplicableSector ? NOT_APPLICABLE : NO_INFORMATION}
@@ -381,7 +368,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   // Names the broader scope an inherited value came from (#859).
   const scopeBadge =
-    resolution?.status === "resolved" && resolution.isFallback ? (
+    resolution.status === "resolved" && resolution.isFallback ? (
       <Badge
         variant="scope"
         tooltip={fallbackTooltip(
@@ -424,7 +411,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
         </span>
       }
       tooltip={
-        isSelected && opt === NO_INFORMATION && absenceTooltip
+        isSelected && opt === NO_INFORMATION
           ? absenceTooltip
           : getKeyFeatureTooltip(feature.key, opt)
       }
@@ -579,16 +566,14 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 };
 
 interface KeyFeaturesProps {
-  keyFeatures: PathwayMetadataType["keyFeatures"];
   /**
-   * Resolve each feature for `scope` (#869) instead of showing its widest
-   * value, badging any value inherited from a broader scope. Omit for the
-   * widest-value rendering.
+   * The pathway whose key features to show. Each is resolved for `scope`
+   * (#869), badging any value inherited from a broader scope.
    */
-  pathway?: PathwayMetadataType;
+  pathway: PathwayMetadataType;
   /**
-   * The scope to resolve for, read only with `pathway`. An empty axis, or no
-   * scope at all, resolves at the pathway's widest value on that axis.
+   * The scope to resolve for. An empty axis, or no scope at all, resolves at
+   * the pathway's widest value on that axis.
    */
   scope?: PathwayScopeSelection;
   /**
@@ -605,7 +590,6 @@ interface KeyFeaturesProps {
 }
 
 const KeyFeatures: React.FC<KeyFeaturesProps> = ({
-  keyFeatures,
   pathway,
   scope = WIDEST_SCOPE,
   coreDrivers,
@@ -621,9 +605,7 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
 
   // One resolver per render, shared by every feature: the effective scope and
   // its fallback chains are the same for all of them.
-  const resolve = pathway
-    ? createKeyFeatureResolver(pathway, scope)
-    : undefined;
+  const resolve = createKeyFeatureResolver(pathway, scope);
 
   return (
     <div className="bg-neutral-50 border border-neutral-200 rounded-lg p-4 mb-6">
@@ -667,8 +649,7 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
                 <FeatureItem
                   key={feature.key}
                   feature={feature}
-                  keyFeatures={keyFeatures}
-                  resolution={resolve?.(feature.key)}
+                  resolution={resolve(feature.key)}
                 />
               ))}
             </div>

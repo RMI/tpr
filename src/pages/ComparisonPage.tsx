@@ -6,6 +6,7 @@ import {
   columnGeographyOptions,
   columnsGeographyDivergence,
   comparisonBlock,
+  comparisonScopeAvailability,
   decodeColumnGeographies,
   defaultGeographyForColumn,
   encodeColumnGeographies,
@@ -46,7 +47,6 @@ import {
   SECTOR_AVAILABILITY_TOOLTIP,
   METRIC_AVAILABILITY_TOOLTIP,
 } from "../utils/timeseriesAvailability";
-import { scopeAvailability } from "../utils/scopeAvailability";
 import TextWithTooltip from "../components/TextWithTooltip";
 import { editionLabelSuffix } from "../utils/pathwayEditions";
 
@@ -151,7 +151,8 @@ const ComparisonGeographies: React.FC<ComparisonGeographiesProps> = ({
   <>
     {pathways.map((pathway, idx) => {
       // Same helper the scope header's per-column control reads, so this
-      // read-only view and the selectable one cannot drift.
+      // read-only view and the selectable one cannot drift. Flagged by
+      // timeseries alone: outlined here means no data in this tool.
       const options = columnGeographyOptions(pathway, availabilities[idx]);
       return (
         <div
@@ -280,21 +281,25 @@ const ComparisonPage: React.FC = () => {
   const sectorOptions = useMemo(() => sharedSectors(pathways), [pathways]);
 
   /*
-    A shared sector is worth selecting when any column has something to show
-    for it: benchmark data for the plots, or recorded dependencies (#1017,
-    #1030). The same rule the detail page's ribbon uses. The coverage sections
-    below keep the timeseries-only `availabilities`, since their outlined
-    badges speak about data in this tool.
+    A scope token is worth selecting when its column has something to show for
+    it: benchmark data for the plots, recorded dependencies (sector only), or
+    key features, which the grid resolves per column (#1017, #1030, #869). The
+    same rule the detail page's ribbon uses, and the one the compare link seeds
+    by. The coverage sections below keep the timeseries-only `availabilities`,
+    since their outlined badges speak about data in this tool.
   */
-  const sectorAvailabilities = useMemo(
+  const scopeAvailabilities = useMemo(
     () =>
-      pathways.map((p) => scopeAvailability(p, index.byPathway[p.id] ?? [])),
+      pathways.map((p) =>
+        comparisonScopeAvailability(p, index.byPathway[p.id] ?? []),
+      ),
     [pathways],
   );
 
+  // Shared, so selectable when any column has something to show for it.
   const isSectorAvailable = useCallback(
-    (sector: string) => sectorAvailabilities.some((a) => a.hasSector(sector)),
-    [sectorAvailabilities],
+    (sector: string) => scopeAvailabilities.some((a) => a.hasSector(sector)),
+    [scopeAvailabilities],
   );
 
   const [sector, setSector] = useUrlParamState({
@@ -311,17 +316,20 @@ const ComparisonPage: React.FC = () => {
     ),
   });
 
-  /** Each column's own geographies, keyed by pathway id. */
+  /**
+   * Each column's own selectable geographies, keyed by pathway id. Per column,
+   * so only that column's own data makes a token selectable.
+   */
   const geographyOptions = useMemo(() => {
     const byPathway: Record<string, ColumnGeographyOption[]> = {};
     pathways.forEach((pathway, idx) => {
       byPathway[pathway.id] = columnGeographyOptions(
         pathway,
-        availabilities[idx],
+        scopeAvailabilities[idx],
       );
     });
     return byPathway;
-  }, [pathways, availabilities]);
+  }, [pathways, scopeAvailabilities]);
 
   const geographyDefaults = useMemo(() => {
     const byPathway: Record<string, string | null> = {};
@@ -529,7 +537,11 @@ const ComparisonPage: React.FC = () => {
       <>
         {/* ── Key Features ── */}
         <div className="mt-8">
-          <ComparisonKeyFeatures pathways={pathways} />
+          <ComparisonKeyFeatures
+            pathways={pathways}
+            sector={sector}
+            geographies={selectedGeographies}
+          />
         </div>
       </>
     ),

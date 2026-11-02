@@ -12,10 +12,8 @@ import {
   type GeographyKind,
 } from "./geographyUtils";
 import { GLOBAL_SCOPE, scopeISOSet } from "./keyFeatureScope";
-import {
-  sortByAvailability,
-  type PathwayToolAvailability,
-} from "./timeseriesAvailability";
+import { sortByAvailability } from "./timeseriesAvailability";
+import { scopeAvailability, type ScopeAvailability } from "./scopeAvailability";
 import {
   DEFAULT_SECTOR,
   collapseSelection,
@@ -124,34 +122,60 @@ export function comparisonBlock(
   return offenders.length > 0 ? { sharedBefore: running, offenders } : null;
 }
 
+/**
+ * What one comparison column can usefully select: tokens with benchmark data,
+ * recorded dependencies (sector only), or key features, which the grid resolves
+ * per column (#1017, #1030, #869).
+ *
+ * The comparison page and the compare link's seed (`ComparisonRibbon`) both
+ * read this, so the link only ever seeds a scope the page will accept. The
+ * coverage sections do not: their outlined badges speak about timeseries data
+ * alone.
+ */
+export function comparisonScopeAvailability(
+  pathway: PathwayMetadataType,
+  datasets: Array<{ summary?: unknown }>,
+): ScopeAvailability {
+  return scopeAvailability(pathway, datasets, { keyFeatures: true });
+}
+
 export interface ColumnGeographyOption {
   /** The publisher's own spelling — the scope value, and what lands in the URL. */
   token: string;
   /** Badge text: country names for ISO-2 tokens, region labels as written. */
   label: string;
   kind: GeographyKind;
-  /** Whether this tool holds timeseries data for it, or only the publication does. */
+  /**
+   * Whether the caller's availability counts this token: filled where it does,
+   * outlined where only the publication covers it.
+   */
   available: boolean;
 }
 
 /**
- * One pathway's own geographies, ordered and flagged exactly as the comparison
- * page's Geographies coverage section shows them.
+ * One pathway's own geographies, in the order the comparison page shows them,
+ * each flagged by `availability`.
  *
  * Geography is the one axis that cannot be pooled across compared pathways: a
  * token resolves to an ISO set only against its own publication's `regions`
  * mapping, and across the loadable pathways no token is declared by more than
  * one publisher. So each column offers its own list, and this is the single
  * place that list is derived — the header's per-column control and the coverage
- * section both read it, so the two cannot drift.
+ * section both read it, so the two cannot drift on tokens, labels or order.
+ *
+ * They differ only in what counts as available, which is why it is passed in.
+ * The coverage section passes timeseries availability: its outlined badges say
+ * what this tool holds data for. The header passes
+ * `comparisonScopeAvailability`, since the grid resolves key features for the
+ * column's geography: a token with only key features is still worth selecting
+ * there.
  *
  * Ordering: global → regions → countries (`sortGeographiesForDetails`), then
- * stable-partitioned available-first, so what the reader can actually plot
- * leads.
+ * stable-partitioned available-first, so what the reader can select leads.
  */
 export function columnGeographyOptions(
   pathway: PathwayMetadataType,
-  availability: PathwayToolAvailability,
+  availability: Pick<ScopeAvailability, "hasGeography">,
 ): ColumnGeographyOption[] {
   // sortGeographiesForDetails normalizes and drops empty tokens, so these are
   // already clean enough to use as values.

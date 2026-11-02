@@ -48,6 +48,22 @@ vi.mock("../data/pathwayMetadata", () => ({
         country: [],
       },
     },
+    {
+      // Vietnam has key features but no benchmark data.
+      id: "p4",
+      name: { full: "Pathway Four" },
+      publication: { publisher: { short: "Pub4", full: "Publisher Four" } },
+      sectors: [{ name: "Power" }],
+      geography: {
+        regions: { "South East Asia": ["ID", "VN"] },
+        country: ["VN"],
+      },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "Power", geography: "VN", value: "Moderate decrease" },
+        ],
+      },
+    },
   ],
 }));
 
@@ -65,6 +81,7 @@ vi.mock("../data/index.gen", () => {
         p1: dataset(["South East Asia"]),
         p2: dataset(["South East Asia"]),
         p3: dataset(["Latin America: Central, South"]),
+        p4: dataset(["South East Asia"]),
       },
     },
   };
@@ -353,6 +370,18 @@ describe("ComparisonRibbon", () => {
           p1: "South East Asia",
           p2: "South East Asia",
         });
+      });
+
+      it("seeds a geography the page can select for its key features alone", async () => {
+        // The page counts key features toward what a column can select (#869),
+        // so the link seeds by the same rule rather than stepping out to the
+        // region: the grid resolves Vietnam exactly, and the plots fall back
+        // on their own.
+        const { geographies } = await clickCompare({ geography: "VN" }, [
+          "p1",
+          "p4",
+        ]);
+        expect(geographies).toEqual({ p1: "South East Asia", p4: "VN" });
       });
 
       it("prefers a search sector the pathways share", async () => {
