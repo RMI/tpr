@@ -110,6 +110,29 @@ const scrollPast = () =>
     observer?.trigger(sentinel as Element, false, { top: -10 });
   });
 
+/**
+ * Lay out any element whose text includes `label` on a second row, as a
+ * narrow bar would. Stubbed on the prototype so it also holds for badges
+ * BadgeArray mounts afresh when expanding. Returns the restore function.
+ */
+const wrapOntoSecondRow = (label: string) => {
+  const original = Object.getOwnPropertyDescriptor(
+    HTMLElement.prototype,
+    "offsetTop",
+  );
+  Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+    configurable: true,
+    get(this: HTMLElement) {
+      return this.textContent?.includes(label) ? 24 : 0;
+    },
+  });
+  return () => {
+    if (original) {
+      Object.defineProperty(HTMLElement.prototype, "offsetTop", original);
+    }
+  };
+};
+
 const columnTrigger = (name: string) =>
   screen.getByRole("button", { name: `Geography for ${name}` });
 
@@ -159,6 +182,27 @@ describe("ComparisonScopeHeader", () => {
       renderHeader();
 
       expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
+    });
+
+    it("exposes the expand control's state and the badges it controls", async () => {
+      // A narrow bar: the Buildings badge wraps to a second row.
+      const restore = wrapOntoSecondRow("Buildings");
+      try {
+        const { user } = renderHeader();
+
+        const showAll = screen.getByRole("button", { name: "Show all" });
+        expect(showAll).toHaveAttribute("aria-expanded", "false");
+        const sectorGroup = screen.getByRole("group", { name: "Sector" });
+        expect(showAll).toHaveAttribute("aria-controls", sectorGroup.id);
+        expect(sectorGroup.id).not.toBe("");
+
+        await user.click(showAll);
+        expect(
+          screen.getByRole("button", { name: "Show fewer" }),
+        ).toHaveAttribute("aria-expanded", "true");
+      } finally {
+        restore();
+      }
     });
 
     it("stays one shared row rather than one per column", () => {
