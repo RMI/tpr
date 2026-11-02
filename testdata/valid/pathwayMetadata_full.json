@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "pathway-simple-full",
   "name": {
     "full": "Full Enums Pathway",
@@ -48,47 +48,39 @@
   "sectors": [
     {
       "name": "Land Use",
-      "technologies": ["Agroforestry", "Bioenergy Crops"]
+      "technologies": []
     },
     {
       "name": "Agriculture",
-      "technologies": ["Precision Agriculture"]
+      "technologies": []
     },
     {
       "name": "Buildings",
-      "technologies": [
-        "Energy Efficiency",
-        "Smart Grids",
-        "Renewable Heating",
-        "Heat Pumps",
-        "Building Automation",
-        "Smart Appliances",
-        "Insulation"
-      ]
+      "technologies": []
     },
     {
       "name": "Steel",
-      "technologies": ["Process Optimization"]
+      "technologies": []
     },
     {
       "name": "Cement",
-      "technologies": ["Other"]
+      "technologies": []
     },
     {
       "name": "Chemicals",
-      "technologies": ["Hydrogen Use", "Biofuels"]
+      "technologies": []
     },
     {
       "name": "Coal Mining",
-      "technologies": ["Other"]
+      "technologies": []
     },
     {
       "name": "Oil (Upstream)",
-      "technologies": ["Other"]
+      "technologies": []
     },
     {
       "name": "Gas (Upstream)",
-      "technologies": ["Other"]
+      "technologies": []
     },
     {
       "name": "Power",
@@ -104,7 +96,7 @@
     },
     {
       "name": "Automotive",
-      "technologies": ["Electric Vehicles", "Hydrogen Vehicles"]
+      "technologies": []
     },
     {
       "name": "Automotive",
@@ -112,23 +104,22 @@
     },
     {
       "name": "Aviation",
-      "technologies": ["Aviation Efficiency"]
+      "technologies": []
     },
     {
       "name": "Rail",
-      "technologies": ["Other"]
+      "technologies": []
     },
     {
       "name": "Shipping",
-      "technologies": ["Maritime Efficiency"]
+      "technologies": []
     },
     {
       "name": "Other",
-      "technologies": ["Other"]
+      "technologies": []
     }
   ],
-  "pathwayOverview": "Example Overview.",
-  "expertOverview": "Example Expert Recommendation.",
+  "pathwayDescription": null,
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -137,30 +128,106 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "No information",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
     "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Subsidies",
-      "Target technology shares",
-      "Other"
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "Carbon price",
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Other"
+        ]
+      }
     ],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "No information",
-    "policyAmbition": "No information",
-    "technologyCostsDetail": "No information",
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
     "newTechnologiesIncluded": [
-      "No information",
-      "CCUS",
-      "DAC",
-      "Green H2/ammonia",
-      "SAF",
-      "Battery storage",
-      "EGS/AGS"
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "No information",
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "EGS/AGS"
+        ]
+      }
     ],
-    "investmentNeeds": "No information"
-  }
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": null,
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": null,
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": []
 }

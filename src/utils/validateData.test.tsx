@@ -1,8 +1,11 @@
 import { describe, it, expect } from "vitest";
-import { validateDataCollect, FileEntry } from "./validateData";
-import { PathwayMetadataType } from "../types";
-import pathwayMetadata from "../schema/pathwayMetadata.v1.json" with { type: "json" };
-import pathwayMetadataV2 from "../schema/pathwayMetadata.v2.json" with { type: "json" };
+import {
+  validateDataCollect,
+  validateFilesBySchema,
+  FileEntry,
+} from "./validateData";
+import pathwayMetadata from "../schema/pathwayMetadata.v2.json" with { type: "json" };
+import pathwayTimeseries from "../schema/pathwayTimeseries.v2.json" with { type: "json" };
 import { commonSchemas } from "../schema/common";
 
 function ok(entry: FileEntry | FileEntry[]) {
@@ -24,21 +27,6 @@ function fail(entry: FileEntry | FileEntry[], rx?: RegExp | string) {
     commonSchemas,
   );
   const invalid = rawValidation.invalid;
-  expect(invalid.length).toBeGreaterThan(0);
-  if (rx) {
-    const messages = invalid.flatMap((p) => p.errors).join("\n");
-    expect(messages).toMatch(rx);
-  }
-}
-
-/** Same as {@link fail}, but routes the document against v2. */
-function fail2(entry: FileEntry | FileEntry[], rx?: RegExp | string) {
-  const arr = Array.isArray(entry) ? entry : [entry];
-  const { invalid } = validateDataCollect(
-    arr,
-    pathwayMetadataV2,
-    commonSchemas,
-  );
   expect(invalid.length).toBeGreaterThan(0);
   if (rx) {
     const messages = invalid.flatMap((p) => p.errors).join("\n");
@@ -102,24 +90,6 @@ describe("pathway schema enforces expected limits", () => {
       },
     ]);
   });
-
-  const REQ = [
-    "id",
-    "name",
-    "description",
-    "pathwayType",
-    "geography",
-    "sectors",
-    "expertOverview",
-  ];
-
-  for (const key of REQ) {
-    it(`fails when required property '${key}' is missing`, () => {
-      const rest = { ...basePathway };
-      delete (rest as PathwayMetadataType)[key]; // remove the key
-      fail({ name: "missing.json", data: rest }, new RegExp(`${key}`));
-    });
-  }
 
   it("fails on invalid pathwayType enum", () => {
     fail(
@@ -244,15 +214,10 @@ describe("pathway schema enforces expected limits", () => {
   });
 
   it("fails on a one-member region: one country code is a country (#998)", () => {
-    // `Japan: [JP]` is the country JP, and belongs in `country`. Both versions
-    // share the geography schema.
+    // `Japan: [JP]` is the country JP, and belongs in `country`.
     const geography = { regions: { Japan: ["JP"] } };
     fail(
       { name: "geography.json", data: { ...basePathway, geography } },
-      /regions\/Japan must NOT have fewer than 2 items/,
-    );
-    fail2(
-      { name: "geography.json", data: { ...v2Minimal, geography } },
       /regions\/Japan must NOT have fewer than 2 items/,
     );
   });
@@ -330,25 +295,14 @@ describe("pathway schema enforces expected limits", () => {
   });
 });
 
-describe("v1 and v2 documents coexist (#858)", () => {
-  const v1Entry: FileEntry = { name: "v1.json", data: basePathway };
+describe("v2 documents (#858)", () => {
   const v2Entry: FileEntry = { name: "v2.json", data: v2Full };
   const v2MinEntry: FileEntry = { name: "v2-min.json", data: v2Minimal };
 
-  it("validates a v1 document against v1", () => {
-    const { valid, invalid } = validateDataCollect(
-      [v1Entry],
-      pathwayMetadata,
-      commonSchemas,
-    );
-    expect(invalid).toHaveLength(0);
-    expect(valid).toHaveLength(1);
-  });
-
-  it("validates v2 documents against v2, including all-empty keyFeatures", () => {
+  it("validates v2 documents, including all-empty keyFeatures", () => {
     const { valid, invalid } = validateDataCollect(
       [v2Entry, v2MinEntry],
-      pathwayMetadataV2,
+      pathwayMetadata,
       commonSchemas,
     );
     expect(invalid).toHaveLength(0);
@@ -373,64 +327,31 @@ describe("v1 and v2 documents coexist (#858)", () => {
     doc.dataAvailability.byMetric[0].geography.push("SSA");
     const { valid, invalid } = validateDataCollect(
       [{ name: "ssa.json", data: doc }],
-      pathwayMetadataV2,
+      pathwayMetadata,
       commonSchemas,
     );
     expect(invalid.flatMap((p) => p.errors)).toEqual([]);
     expect(valid).toHaveLength(1);
   });
 
-  it("routes by the document's own $schema, so a mixed corpus splits cleanly", () => {
-    const mixed = [v1Entry, v2Entry];
-    expect(
-      validateDataCollect(mixed, pathwayMetadata, commonSchemas).valid.map(
-        (r) => r.name,
-      ),
-    ).toEqual(["v1.json"]);
-    expect(
-      validateDataCollect(mixed, pathwayMetadataV2, commonSchemas).valid.map(
-        (r) => r.name,
-      ),
-    ).toEqual(["v2.json"]);
-  });
-
-  it("SILENTLY DROPS documents of the other version — neither valid nor invalid", () => {
-    // Load-bearing behaviour, not a bug to fix here: validateDataCollect filters
-    // entries to the one $id it was handed. It is what lets v1 and v2 sit in
-    // src/data together, and it is also why pointing the loader at v2 makes every
-    // un-migrated v1 file disappear from the app with no error. Whatever calls
-    // this has to report the count it dropped, or 49 missing pathways look like a
-    // data bug.
-    const { valid, invalid } = validateDataCollect(
-      [v2Entry],
-      pathwayMetadata,
-      commonSchemas,
-    );
-    expect(valid).toHaveLength(0);
-    expect(invalid).toHaveLength(0);
-  });
-
-  it("keeps v2's scoped keyFeatures out of v1 and vice versa", () => {
-    // A v1-shaped scalar is not a legal v2 value...
-    fail2(
-      {
-        name: "scalar-in-v2.json",
-        data: { ...v2Full, keyFeatures: basePathway.keyFeatures },
-      },
-      /keyFeatures/,
-    );
-    // ...and a v2-shaped array is not a legal v1 value.
+  it("rejects an unscoped (v1-style) scalar keyFeatures value", () => {
     fail(
       {
-        name: "array-in-v1.json",
-        data: { ...basePathway, keyFeatures: v2Full.keyFeatures },
+        name: "scalar-keyfeature.json",
+        data: {
+          ...v2Full,
+          keyFeatures: {
+            ...v2Full.keyFeatures,
+            emissionsTrajectory: "Minor decrease",
+          },
+        },
       },
       /keyFeatures/,
     );
   });
 
-  it("rejects a v2 document that still carries the removed overview fields", () => {
-    fail2(
+  it("rejects a document that still carries the removed overview fields", () => {
+    fail(
       {
         name: "expert-overview-in-v2.json",
         data: { ...v2Full, expertOverview: "Should not be here." },
@@ -440,12 +361,33 @@ describe("v1 and v2 documents coexist (#858)", () => {
   });
 });
 
+describe("a retired v1 document (#981)", () => {
+  // The schema set scripts/schema-check-files.ts preloads. With no v1 schema in
+  // it, a v1 `$schema` is a hard failure there rather than a silent skip.
+  const SCHEMA_CHECK_SCHEMAS = [
+    pathwayMetadata,
+    pathwayTimeseries,
+    ...commonSchemas,
+  ];
+
+  it.each([
+    "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+    "http://pathways.rmi.org/schema/pathwayTimeseries.v1.json",
+  ])("is invalid under schema:check: %s", ($schema) => {
+    const { valid, invalid } = validateFilesBySchema(
+      [{ name: "v1.json", data: { ...v2Minimal, $schema } }],
+      SCHEMA_CHECK_SCHEMAS,
+    );
+    expect(valid).toEqual([]);
+    expect(invalid.flatMap((p) => p.errors)).toEqual([
+      `no schema preloaded for $schema "${$schema}"`,
+    ]);
+  });
+});
+
 describe("v2 enforces its own required fields (#858)", () => {
-  // The v1 REQ block above deliberately still lists `expertOverview`: those cases
-  // validate v1 documents against v1, where it remains required. These are the v2
-  // counterparts. `coreDrivers` and `dependencies` matter most — the codemod
-  // scaffolds them to null/[], so they are the fields most likely to be omitted
-  // by hand-authoring or by a partial migration of the remaining files.
+  // `coreDrivers` and `dependencies` matter most: they are new in v2, so they
+  // are the fields most likely to be omitted when authoring by hand.
   const V2_REQ = [
     "id",
     "name",
@@ -465,7 +407,7 @@ describe("v2 enforces its own required fields (#858)", () => {
     it(`fails when required property '${key}' is missing`, () => {
       const rest: Record<string, unknown> = { ...v2Full };
       delete rest[key];
-      fail2({ name: "missing.json", data: rest }, new RegExp(key));
+      fail({ name: "missing.json", data: rest }, new RegExp(key));
     });
   }
 
@@ -479,7 +421,7 @@ describe("v2 enforces its own required fields (#858)", () => {
           data: { ...v2Full, pathwayDescription: null },
         },
       ],
-      pathwayMetadataV2,
+      pathwayMetadata,
       commonSchemas,
     );
     expect(invalid).toHaveLength(0);
@@ -492,7 +434,7 @@ describe("v2 enforces its own required fields (#858)", () => {
     for (const key of Object.keys(coreDrivers)) {
       const partial = { ...coreDrivers };
       delete partial[key];
-      fail2(
+      fail(
         {
           name: `missing-driver-${key}.json`,
           data: { ...v2Full, coreDrivers: partial },
@@ -503,7 +445,7 @@ describe("v2 enforces its own required fields (#858)", () => {
   });
 
   it("rejects an unknown coreDrivers key", () => {
-    fail2(
+    fail(
       {
         name: "extra-driver.json",
         data: {
@@ -519,7 +461,7 @@ describe("v2 enforces its own required fields (#858)", () => {
   });
 
   it("rejects a dependency scoped to an unknown sector", () => {
-    fail2(
+    fail(
       {
         name: "bad-dep-sector.json",
         data: {
@@ -545,7 +487,7 @@ describe("v2 enforces its own required fields (#858)", () => {
       sector: "Power",
       evidence_type: "Qualitative",
     };
-    fail2(
+    fail(
       {
         name: "bad-dep-name.json",
         data: {
@@ -555,7 +497,7 @@ describe("v2 enforces its own required fields (#858)", () => {
       },
       /allowed values/,
     );
-    fail2(
+    fail(
       {
         name: "bad-evidence.json",
         data: {
