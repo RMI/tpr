@@ -84,7 +84,7 @@ describe("PlotGrid", () => {
       });
     });
 
-    it("drops a panel left with a single year once later years are cut", () => {
+    it("keeps the slot of a panel left with a single year once later years are cut", () => {
       render(
         <PlotGrid
           timeseriesdata={{
@@ -97,26 +97,104 @@ describe("PlotGrid", () => {
         />,
       );
 
-      expect(screen.queryByText("Capacity")).toBeNull();
-      expect(screen.getByText("Generation")).toBeInTheDocument();
+      // One year draws no line, so Capacity says so in its slot (#1028).
+      expect(screen.getByText("Capacity").closest("figure")).toHaveTextContent(
+        "This pathway has no data for this metric.",
+      );
+      expect(screen.getAllByTestId("multi-line-chart")).toHaveLength(1);
     });
   });
 
-  it("skips a plot type that has no data at any geography", () => {
-    render(
+  it("renders the panels in the sector's set order (#1028)", () => {
+    const { container } = render(
+      <PlotGrid
+        timeseriesdata={timeseries(
+          { metric: "technologyMix", geography: "Global" },
+          { metric: "capacity", geography: "Global" },
+          { metric: "generation", geography: "Global" },
+          { metric: "absoluteEmissions", geography: "Global" },
+          { metric: "emissionsIntensity", geography: "Global" },
+        )}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    // Two to a row: emissions beside intensity, capacity beside generation.
+    expect(
+      [...container.querySelectorAll("figcaption")].map((c) => c.textContent),
+    ).toEqual([
+      "Absolute Emissions",
+      "Emissions Intensity",
+      "Capacity",
+      "Generation",
+      "Technology Mix",
+    ]);
+  });
+
+  it("keeps the slot of a plot type with no data at any geography, with a note (#1028)", () => {
+    const { container } = render(
       <PlotGrid
         timeseriesdata={timeseries({ metric: "capacity", geography: "Global" })}
         pathwayGeography={SEA}
       />,
     );
 
-    expect(screen.getByText("Capacity")).toBeInTheDocument();
-    // JETP-CIPP-2023 shaped: absent metrics get no panel at all.
-    expect(screen.queryByText("Generation")).not.toBeInTheDocument();
-    expect(screen.queryByText("Technology Mix")).not.toBeInTheDocument();
+    // JETP-CIPP-2023 shaped: the absent metrics keep their place, so the
+    // plots that do render stay where the order puts them.
+    const figures = [...container.querySelectorAll("figure")];
+    expect(
+      figures.map((f) => f.querySelector("figcaption")?.textContent),
+    ).toEqual([
+      "Absolute Emissions",
+      "Emissions Intensity",
+      "Capacity",
+      "Generation",
+      "Technology Mix",
+    ]);
+    expect(
+      screen.getAllByText("This pathway has no data for this metric."),
+    ).toHaveLength(4);
+    expect(figures[2]).not.toHaveTextContent("no data for this metric");
+    expect(screen.getAllByTestId("multi-line-chart")).toHaveLength(1);
   });
 
-  it("honours the plotTypes subset and its order", () => {
+  it("says a metric has no data when its years are split across geographies", () => {
+    // Generation has 2020 at Global and 2030 at VN: no geography can plot it.
+    const generation = rows("generation", "Global");
+    render(
+      <PlotGrid
+        timeseriesdata={{
+          data: [
+            ...rows("capacity", "Global"),
+            generation[0],
+            { ...generation[1], geography: "VN" },
+          ],
+        }}
+        pathwayGeography={SEA}
+      />,
+    );
+
+    expect(screen.getByText("Generation").closest("figure")).toHaveTextContent(
+      "This pathway has no data for this metric.",
+    );
+  });
+
+  it("replaces the grid with one note when none of the requested plots has data", () => {
+    render(
+      <PlotGrid
+        timeseriesdata={timeseries({ metric: "capacity", geography: "Global" })}
+        pathwayGeography={SEA}
+        plotTypes={["absoluteEmissions", "emissionsIntensity"]}
+      />,
+    );
+
+    expect(
+      screen.getByText("No benchmark data can be displayed for this pathway."),
+    ).toBeInTheDocument();
+    expect(document.querySelector("figure")).toBeNull();
+  });
+
+  it("honours the plotTypes subset, in the set order", () => {
     render(
       <PlotGrid
         timeseriesdata={timeseries(
@@ -129,8 +207,9 @@ describe("PlotGrid", () => {
       />,
     );
 
-    expect(screen.getByText("Technology Mix")).toBeInTheDocument();
-    expect(screen.getByText("Capacity")).toBeInTheDocument();
+    expect(
+      [...document.querySelectorAll("figcaption")].map((c) => c.textContent),
+    ).toEqual(["Capacity", "Technology Mix"]);
     expect(screen.queryByText("Generation")).not.toBeInTheDocument();
   });
 
@@ -359,7 +438,7 @@ describe("PlotGrid", () => {
       screen.getByRole("heading", { name: "Benchmark Plots" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByText("No timeseries data available for this pathway."),
+      screen.getByText("No benchmark data can be displayed for this pathway."),
     ).toBeInTheDocument();
   });
 
@@ -372,7 +451,7 @@ describe("PlotGrid", () => {
     );
 
     expect(
-      screen.getByText("No timeseries data available for this pathway."),
+      screen.getByText("No benchmark data can be displayed for this pathway."),
     ).toBeInTheDocument();
   });
 });
@@ -457,7 +536,7 @@ describe("PlotGrid — scope selection (#872)", () => {
     );
 
     expect(
-      screen.getByText("No timeseries data available for this pathway."),
+      screen.getByText("No benchmark data can be displayed for this pathway."),
     ).toBeInTheDocument();
   });
 });

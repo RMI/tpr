@@ -3,34 +3,74 @@ import type { PlotType, TimeSeries, HoveredPoint } from "./PlotSelector";
 import NormalizedStackedAreaChart from "./NormalizedStackedAreaChart";
 import MultiLineChart from "./MultiLineChart";
 
-/**
- * The canonical plot order and labels, shared by every surface that renders
- * benchmark plots (the comparison page's shared selector and the detail page's
- * small multiples). Kept here rather than in `PlotSelector` so the two consumers
- * cannot drift.
- */
-export const PLOT_OPTIONS: { value: PlotType; label: string }[] = [
-  { value: "technologyMix", label: "Technology Mix" },
-  { value: "absoluteEmissions", label: "Absolute Emissions" },
-  { value: "emissionsIntensity", label: "Emissions Intensity" },
-  { value: "capacity", label: "Capacity" },
-  { value: "generation", label: "Generation" },
-];
+/** The sectors the benchmark plots can draw: Power only, as PlotPanel is. */
+type PlottedSectorKey = "power";
 
-/** Just the plot types, in canonical order — for callers taking a subset. */
+/**
+ * The order each plotted sector's benchmark plots appear in (#1028). The detail
+ * page lays them out two to a row, so the order pairs related plots on one row:
+ * emissions with emissions intensity, capacity with generation.
+ *
+ * Keyed by every plotted sector, so extending the plots to a new sector means
+ * adding it to `PlottedSectorKey`, which does not compile until its order is
+ * set here.
+ */
+export const BENCHMARK_PLOT_ORDER: Record<
+  PlottedSectorKey,
+  readonly PlotType[]
+> = {
+  power: [
+    "absoluteEmissions",
+    "emissionsIntensity",
+    "capacity",
+    "generation",
+    "technologyMix",
+  ],
+};
+
+const PLOT_LABELS: Record<PlotType, string> = {
+  technologyMix: "Technology Mix",
+  absoluteEmissions: "Absolute Emissions",
+  emissionsIntensity: "Emissions Intensity",
+  capacity: "Capacity",
+  generation: "Generation",
+};
+
+/**
+ * The plots and their labels in Power's order, shared by every surface that
+ * renders benchmark plots (the comparison page's shared selector and the detail
+ * page's small multiples). Kept here rather than in `PlotSelector` so the two
+ * consumers cannot drift.
+ */
+export const PLOT_OPTIONS: { value: PlotType; label: string }[] =
+  BENCHMARK_PLOT_ORDER.power.map((value) => ({
+    value,
+    label: PLOT_LABELS[value],
+  }));
+
+/** Just the plot types, in order — for callers taking a subset. */
 export const PLOT_ORDER: PlotType[] = PLOT_OPTIONS.map((opt) => opt.value);
 
-/** Does this pathway carry a plottable series for `metric` at any geography? */
+/**
+ * Does this pathway carry a plottable series for `metric` at any geography?
+ *
+ * Years are counted per geography, as `hasDataForMetricAndGeo` counts them: a
+ * 2020 row at Global and a 2030 row at VN plot nothing anywhere.
+ */
 export function hasDataForMetric(
   data: TimeSeries | null,
   metric: string,
 ): boolean {
   if (!data?.data) return false;
-  const filtered = data.data.filter(
-    (d) => d.sector === "power" && d.metric === metric,
-  );
-  if (filtered.length === 0) return false;
-  return new Set(filtered.map((d) => d.year)).size > 1;
+  const yearsByGeo = new Map<string, Set<string>>();
+  for (const d of data.data) {
+    if (d.sector !== "power" || d.metric !== metric) continue;
+    const years = yearsByGeo.get(d.geography) ?? new Set<string>();
+    years.add(d.year);
+    if (years.size > 1) return true;
+    yearsByGeo.set(d.geography, years);
+  }
+  return false;
 }
 
 /** Does this pathway carry a plottable series for `metric` at `geo` specifically? */

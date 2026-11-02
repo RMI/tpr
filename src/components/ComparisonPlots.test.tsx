@@ -83,6 +83,36 @@ describe("ComparisonPlots", () => {
     mockedStackedAreaChart.mockClear();
   });
 
+  it("lists the plot types in the set order, opening on Technology Mix (#1028)", () => {
+    const all = [
+      "technologyMix",
+      "absoluteEmissions",
+      "emissionsIntensity",
+      "capacity",
+      "generation",
+    ];
+    render(
+      <ComparisonPlots
+        entries={[
+          makeEntry("p1", ["Global"], all),
+          makeEntry("p2", ["Global"], all),
+        ]}
+      />,
+    );
+
+    const select = screen.getByRole("combobox");
+    expect(
+      [...(select as HTMLSelectElement).options].map((o) => o.textContent),
+    ).toEqual([
+      "Absolute Emissions",
+      "Emissions Intensity",
+      "Capacity",
+      "Generation",
+      "Technology Mix",
+    ]);
+    expect(select).toHaveValue("technologyMix");
+  });
+
   describe("freeze plots", () => {
     const entries = () => [
       makeEntry("p1", ["Global"]),

@@ -65,12 +65,14 @@ interface PlotGridProps {
  * The benchmark plots as small multiples — one panel per plot type, all at the
  * same geography, rather than one plot behind a dropdown.
  *
- * Two distinct empty cases, deliberately handled differently:
+ * Panels follow `PLOT_OPTIONS`, the sector's set order (#1028), and every
+ * requested panel keeps its slot so related plots stay side by side:
  *  - a metric with no data at ANY geography is structurally absent for this
  *    pathway (JETP-CIPP-2023 carries only capacity and generation), so its
- *    panel is skipped entirely rather than rendered as an empty box;
- *  - a metric that exists but not at the resolved geography keeps its panel and
- *    shows PlotPanel's empty state, because that absence is informative.
+ *    panel says so in place of a chart;
+ *  - a metric that exists but not at the resolved geography shows PlotPanel's
+ *    empty state, because that absence is informative;
+ *  - when none of the requested metrics has data, one note replaces the grid.
  */
 export const PlotGrid: React.FC<PlotGridProps> = ({
   timeseriesdata: fullTimeseriesdata,
@@ -110,7 +112,10 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
     const wanted = plotTypes
       ? PLOT_OPTIONS.filter((opt) => plotTypes.includes(opt.value))
       : PLOT_OPTIONS;
-    return wanted.filter((opt) => hasDataForMetric(timeseriesdata, opt.value));
+    return wanted.map((opt) => ({
+      ...opt,
+      hasData: hasDataForMetric(timeseriesdata, opt.value),
+    }));
   }, [plotTypes, timeseriesdata]);
 
   /**
@@ -134,10 +139,10 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
       <div className={className}>{content}</div>
     );
 
-  if (panels.length === 0 || !resolution.used) {
+  if (!panels.some((opt) => opt.hasData) || !resolution.used) {
     return panel(
       <p className="text-sm text-rmigray-400 italic">
-        No timeseries data available for this pathway.
+        No benchmark data can be displayed for this pathway.
       </p>,
     );
   }
@@ -177,6 +182,22 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
       ) : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {panels.map((opt) => {
+          if (!opt.hasData) {
+            return (
+              <figure
+                key={opt.value}
+                className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
+              >
+                <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
+                  {opt.label}
+                </figcaption>
+                <p className="flex items-center justify-center h-32 text-xs text-rmigray-400 italic text-center px-4">
+                  This pathway has no data for this metric.
+                </p>
+              </figure>
+            );
+          }
+
           // The segments this panel's rows cover, read from the data (#915).
           // A series may span several; none renders no badge at all. Only for
           // a series PlotPanel actually draws: one with a single year shows
