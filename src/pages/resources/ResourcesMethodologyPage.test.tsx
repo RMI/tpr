@@ -8,6 +8,10 @@ import sectorSchema from "../../schema/common/sector.v1.json" with { type: "json
 import metricSchema from "../../schema/common/metric.v1.json" with { type: "json" };
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
 import { GROUPS } from "../../components/KeyFeatures";
+import {
+  CORE_DRIVER_LABELS,
+  NOT_A_CORE_DRIVER_TEXT,
+} from "../../components/CoreDrivers";
 import { MockIntersectionObserver } from "../../test/mockIntersectionObserver";
 
 const renderPage = () =>
@@ -196,6 +200,28 @@ describe("ResourcesMethodologyPage — v2 classifications (#1055)", () => {
     expect(entries.slice(start + 1, start + 1 + GROUPS.length)).toEqual(
       GROUPS.map((group) => group.label),
     );
+  });
+
+  it("explains editions under Pathway overview, not among the key definitions", () => {
+    renderPage();
+
+    const edition = document.getElementById("edition");
+    expect(edition?.tagName).toBe("H3");
+    expect(
+      flatText(document.getElementById("key-definitions")!.closest("section")!),
+    ).not.toContain("Edition");
+  });
+
+  it("marks every core driver as a text field, with what it shows when it does not apply", () => {
+    renderPage();
+
+    const eyebrows = screen.getAllByText("Core driver");
+    expect(eyebrows).toHaveLength(CORE_DRIVER_LABELS.length);
+    for (const eyebrow of eyebrows) {
+      const item = eyebrow.parentElement!;
+      expect(flatText(item)).toContain("This text field describes");
+      expect(flatText(item)).toContain(NOT_A_CORE_DRIVER_TEXT);
+    }
   });
 
   it("lists the dependency categories and evidence types from the schema", () => {

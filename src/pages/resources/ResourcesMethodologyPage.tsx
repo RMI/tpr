@@ -16,6 +16,7 @@ import {
 } from "../../components/KeyFeatures";
 import {
   coreDriverLabel,
+  NOT_A_CORE_DRIVER_TEXT,
   type CoreDriverKey,
 } from "../../components/CoreDrivers";
 import {
@@ -84,8 +85,8 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   policyAmbition: (
     <>
       <p>
-        How ambitious the policies modelled in the pathway are. This is a key
-        differentiator between many pathways.
+        Describes how ambitious the policies modelled in the pathway are. This
+        is a key differentiator between many pathways.
       </p>
       <p>
         From a risk angle, ambition closer to current/legislated policies is
@@ -100,9 +101,9 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   policyTypes: (
     <>
       <p>
-        Which types of policy instrument the pathway models. This only refers to
-        the instrument, not its level of ambition. “None” means the pathway
-        models no policy instruments.
+        Lists which types of policy instrument the pathway models. This only
+        refers to the instrument, not its level of ambition. “None” means that
+        the pathway models no policy instruments.
       </p>
       <p>
         This is particularly relevant when analyzing a company’s exposure to
@@ -112,15 +113,15 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   ),
   emissionsTrajectory: (
     <p>
-      How the pathway’s absolute greenhouse gas emissions change between the
-      start year and the end year of the model.
+      Describes how the pathway’s absolute greenhouse gas emissions change
+      between the start year and the end year of the model.
     </p>
   ),
   emissionsScope: (
     <>
       <p>
-        Which greenhouse gases are counted in the pathway’s emissions results,
-        for both absolute emissions and emissions intensity.
+        Lists which greenhouse gases are counted in the pathway’s emissions
+        results, for both absolute emissions and emissions intensity.
       </p>
       <p>
         Where this differs from the data the pathway is compared with (e.g., the
@@ -132,15 +133,16 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   ),
   technologyCostTrend: (
     <p>
-      The direction of the unit costs assumed for low-carbon technologies in the
-      sectors the pathway covers. This shows whether newer low-carbon
-      technologies are assumed to keep getting cheaper compared to their
-      high-carbon counterparts. Costs held constant count as “Low or no change.”
+      Describes the direction of the unit costs assumed for low-carbon
+      technologies in the sectors the pathway covers. This shows whether newer
+      low-carbon technologies are assumed to keep getting cheaper compared to
+      their high-carbon counterparts. Costs held constant count as “Low or no
+      change.”
     </p>
   ),
   technologyCostsDetail: (
     <>
-      <p>How finely the pathway breaks down technology unit costs.</p>
+      <p>Describes how finely the pathway breaks down technology unit costs.</p>
       <p>
         A more granular breakdown is useful when analyzing a company’s future
         profitability and competitiveness, especially in technologies whose
@@ -151,8 +153,8 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   newTechnologiesIncluded: (
     <>
       <p>
-        The main new technologies the pathway includes that are not yet deployed
-        at scale but are assumed to play a role in the future.
+        Lists the main new technologies that the pathway includes. These are not
+        yet deployed at scale but are assumed to play a role in the future.
       </p>
       <p>
         This can serve as a proxy for how optimistic the pathway is about
@@ -164,7 +166,8 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   investmentNeeds: (
     <>
       <p>
-        Whether the pathway quantifies investment needs, and in how much detail.
+        Describes whether the pathway quantifies investment needs, and in how
+        much detail.
       </p>
       <p>
         This can show whether a company’s investment pipeline keeps pace with
@@ -176,15 +179,15 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   ),
   energyDemand: (
     <p>
-      How total final energy demand changes between the start year and the end
-      year of the model.
+      Describes how total final energy demand changes between the start year and
+      the end year of the model.
     </p>
   ),
   electrification: (
     <>
       <p>
-        How the share of electricity in final energy use changes between the
-        start year and the end year of the model.
+        Describes how the share of electricity in final energy use changes
+        between the start year and the end year of the model.
       </p>
       <p>
         This does not apply to the power sector, which generates the
@@ -194,27 +197,28 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
   ),
   energyEfficiency: (
     <p>
-      How energy use per USD of GDP changes between the start year and the end
-      year of the model. Less energy per unit of output is an improvement.
+      Describes how energy use per USD of GDP changes between the start year and
+      the end year of the model. Less energy per unit of output counts as an
+      improvement.
     </p>
   ),
 };
 
 const CORE_DRIVER_DESCRIPTIONS: Record<CoreDriverKey, React.ReactNode> = {
   policies:
-    "How policies such as performance standards, carbon pricing, or subsidies shape the pathway’s main results.",
+    "This text field describes how policies, such as performance standards, carbon pricing, or subsidies, shape the pathway’s main results.",
   emissionsTargets:
-    "How emissions caps or targets, or a model that minimizes emissions, shape the pathway. Simply reporting emissions as an output does not count.",
+    "This text field describes how emissions caps or targets shape the pathway, or how its model minimizes emissions. Simply reporting emissions as an output does not make this a core driver.",
   technologyCosts:
-    "How assumptions about technology unit costs shape the pathway’s main results.",
+    "This text field describes how assumptions about technology unit costs shape the pathway’s main results.",
   investmentChange:
-    "How a modelled shift in investment towards low-carbon technologies shapes the pathway.",
+    "This text field describes how a modelled shift in investment towards low-carbon technologies shapes the pathway.",
   macroeconomicDrivers:
-    "How macroeconomic or socio-economic assumptions, such as GDP or population growth, drive the pathway’s results.",
+    "This text field describes how macroeconomic or socio-economic assumptions, such as GDP or population growth, drive the pathway’s results.",
   behavioralShifts:
-    "How shifting demand preferences, consumer choices, or behavior within a sector shape the results.",
+    "This text field describes how shifting demand preferences, consumer choices, or behavior within a sector shape the pathway’s results.",
   otherDrivers:
-    "Any other strong assumption that shapes the pathway and is not covered by the drivers above.",
+    "This text field describes any other strong assumption that shapes the pathway and is not covered by the drivers above.",
 };
 
 const DEPENDENCY_DESCRIPTIONS: Record<DependencyName, string> = {
@@ -251,9 +255,9 @@ const EVIDENCE_DESCRIPTIONS: Record<EvidenceType, string> = {
     "The pathway gives no evidence that the dependency matters for its results.",
 };
 
-/** One of the terms the page disambiguates up front. They share a single
- * `InfoCallout` rather than getting one each: they are one aside about
- * terminology, not separate notes, so they carry one ⓘ between them. */
+/** One of the three terms the page disambiguates up front. The three share a
+ * single `InfoCallout` rather than getting one each: they are one aside about
+ * terminology, not three separate notes, so they carry one ⓘ between them. */
 const Definition: React.FC<{
   title: string;
   children: React.ReactNode;
@@ -389,9 +393,16 @@ const Subsection: React.FC<{
 const Item: React.FC<{
   id?: string;
   title: string;
+  /** A small label above the title, saying what kind of item it is. */
+  eyebrow?: string;
   children: React.ReactNode;
-}> = ({ id, title, children }) => (
+}> = ({ id, title, eyebrow, children }) => (
   <div className="mt-8 first:mt-0">
+    {eyebrow ? (
+      <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-rmigray-500">
+        {eyebrow}
+      </p>
+    ) : null}
     <h4
       id={id}
       className="scroll-mt-8 text-base font-semibold text-rmigray-800"
@@ -446,7 +457,7 @@ const ResourcesMethodologyPage: React.FC = () => {
               }
             >
               <InfoCallout>
-                <div className="grid gap-6 md:grid-cols-2 md:gap-8">
+                <div className="grid gap-6 md:grid-cols-3 md:gap-8">
                   <Definition title="Transition pathway">
                     <p>
                       A forward-looking view of how a sector, region, or economy
@@ -470,15 +481,6 @@ const ResourcesMethodologyPage: React.FC = () => {
                       benchmarks.
                     </p>
                   </Definition>
-                  <Definition title="Edition">
-                    <p>
-                      Some pathways are re-published with updated data, for
-                      example in a yearly outlook. Each release is an edition of
-                      the same pathway, with its own classifications and data.
-                      Search shows one card per pathway and lists its other
-                      editions on that card.
-                    </p>
-                  </Definition>
                 </div>
               </InfoCallout>
             </Section>
@@ -489,19 +491,24 @@ const ResourcesMethodologyPage: React.FC = () => {
               intro={
                 <>
                   <p>
-                    Many classifications can differ between the sectors and
-                    geographies a pathway covers. For example, a pathway may
-                    report a different emissions trajectory for one country than
-                    for its wider region. On a pathway’s page, the Sector and
-                    Geography selectors at the top choose which values are
-                    shown.
+                    The classification of some features can differ across the
+                    sectors and geographies a pathway covers. For example, a
+                    pathway may report a different emissions trajectory for one
+                    country than for its wider regional scope. When navigating
+                    to the Detail Page of a pathway or to the Comparison Page,
+                    the Sector and Geography selectors at the top choose which
+                    values are shown.
+                  </p>
+                  <p>
+                    For the features under <b>Assumptions &amp; trends</b>:
                   </p>
                   <ul className="list-disc space-y-2 pl-5">
                     <li>
                       Where the pathway reports no value for the selected sector
                       and geography, the TPR shows the value for the closest
                       broader scope it does report, labeled with that scope, for
-                      example “Across sectors · Global.”
+                      example “Across sectors · Global” if a pathway does not
+                      record a value for “Power · Global.”
                     </li>
                     <li>
                       “No information” means the pathway does not report the
@@ -516,7 +523,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                   <p>
                     <b>Dependencies</b> are filtered by sector only.{" "}
                     <b>Data Availability</b> is filtered by both sector and
-                    geography.
+                    geography. The classifications under <b>Pathway overview</b>{" "}
+                    and <b>Coverage</b> describe the pathway as a whole and do
+                    not change with the selectors.
                   </p>
                 </>
               }
@@ -529,7 +538,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <p>
                   These classifications describe the overarching idea behind a
                   pathway and the broad implications of the modeled changes.
-                  Most of them are shown in the header of each pathway’s page.
+                  Most of them are shown in the header of each pathway’s Detail
+                  Page. They describe the pathway as a whole, so they do not
+                  vary by sector or geography.
                 </p>
               }
             >
@@ -618,9 +629,9 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="space-y-3 text-rmigray-700 leading-7">
                   <p>
-                    The year in which the pathway reaches net-zero emissions.
-                    Not all pathways reach net-zero emissions, so this value
-                    will not always be provided.
+                    This is the year in which the pathway reaches net-zero
+                    emissions. Not all pathways reach net-zero emissions, so
+                    this value will not always be provided.
                   </p>
                   <p>
                     It refers to the widest scope of sectors and geographies the
@@ -636,13 +647,13 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="space-y-3 text-rmigray-700 leading-7">
                   <p>
-                    The last year before any forward-looking modeling: the final
-                    year of the historical baseline used in the calculations of
-                    the pathway.
+                    The start year is the last year before any forward-looking
+                    modeling, that is, the final year of the historical baseline
+                    used in the calculations of the pathway.
                   </p>
                   <p>
-                    It is not shown on a pathway’s page, but it is where the
-                    trends under <b>Assumptions &amp; trends</b> start.
+                    It is not shown on a pathway’s Detail Page, but it is where
+                    the trends under <b>Assumptions &amp; trends</b> start.
                   </p>
                 </div>
               </Subsection>
@@ -654,15 +665,15 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="space-y-3 text-rmigray-700 leading-7">
                   <p>
-                    The final year of the forward-looking output generated by
-                    the model, focusing on the available pathway metrics as a
-                    reference. For example, if the pathway metrics are available
-                    until 2050, but there is a temperature outcome for 2100,
-                    then the end year is 2050.
+                    The end year is the final year of the forward-looking output
+                    generated by the model, with the available pathway metrics
+                    as a reference. For example, if the pathway metrics are
+                    available until 2050, but there is a temperature outcome for
+                    2100, then the end year is 2050.
                   </p>
                   <p>
-                    Like the start year, it is not shown on a pathway’s page,
-                    but it is where the trends under{" "}
+                    Like the start year, it is not shown on a pathway’s Detail
+                    Page, but it is where the trends under{" "}
                     <b>Assumptions &amp; trends</b> end.
                   </p>
                 </div>
@@ -675,10 +686,26 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="space-y-3 text-rmigray-700 leading-7">
                   <p>
-                    A short narrative of the pathway: who developed it, its main
-                    storyline, its main assumptions, and examples of what it can
-                    be used for. It opens the <b>At a glance</b> tab of each
-                    pathway’s page.
+                    This is a short narrative of the pathway. It describes who
+                    developed the pathway, its main storyline and assumptions,
+                    and examples of what it can be used for. It opens the{" "}
+                    <b>At a glance</b> tab of each pathway’s Detail Page.
+                  </p>
+                </div>
+              </Subsection>
+
+              <Subsection
+                id="edition"
+                title="Edition"
+                subtitle="Is this the latest release of the pathway?"
+              >
+                <div className="space-y-3 text-rmigray-700 leading-7">
+                  <p>
+                    Some pathways are re-published with updated data, for
+                    example in a yearly outlook. Each release is an edition of
+                    the same pathway, with its own classifications and data. The
+                    search page shows one card per pathway and lists the
+                    pathway’s other editions on that card.
                   </p>
                 </div>
               </Subsection>
@@ -690,20 +717,32 @@ const ResourcesMethodologyPage: React.FC = () => {
               intro={
                 <>
                   <p>
-                    The key assumptions the pathway makes to drive changes over
-                    time, and the resulting trends in the output variables.
-                    Parameters which are “assumptions” in one pathway may be
-                    “trends” in another, depending on the design of the pathway.
-                    Different types of transition assessment usually work with
-                    different types of narratives, so a good grasp of these is
-                    crucial when selecting pathways for an analysis.
+                    This section covers the key assumptions the pathway makes to
+                    drive changes over time, and the resulting trends in the
+                    output variables. Parameters which are “assumptions” in one
+                    pathway may be “trends” in another, depending on the design
+                    of the pathway. Different types of transition assessment
+                    usually work with different types of narratives, so a good
+                    grasp of these is crucial when selecting pathways for an
+                    analysis.
                   </p>
                   <p>
                     The groups below follow the <b>Assumptions &amp; Trends</b>{" "}
-                    panel of a pathway’s page. Each group opens with its core
-                    drivers: the main inputs that shape the pathway’s results.
-                    Where a driver does not apply, the pathway’s page says “Not
-                    a core driver for this pathway.”
+                    panel of a pathway’s Detail Page. Each group opens with its
+                    core drivers: text fields that describe the main inputs
+                    shaping the pathway’s results. The key features that follow
+                    each take one or more values from a fixed list.
+                  </p>
+                  <p>
+                    Depending on the feature, values can differ by sector, by
+                    geography, or both. See{" "}
+                    <a
+                      href="#values-by-scope"
+                      className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+                    >
+                      Values by sector and geography
+                    </a>{" "}
+                    for how the TPR chooses which value to show.
                   </p>
                   <p>
                     Trends such as emissions trajectory, energy demand,
@@ -727,10 +766,20 @@ const ResourcesMethodologyPage: React.FC = () => {
                     <Item
                       key={driver}
                       title={coreDriverLabel(driver)}
+                      eyebrow="Core driver"
                     >
-                      <p className="max-w-3xl text-rmigray-700 leading-7">
-                        {CORE_DRIVER_DESCRIPTIONS[driver]}
-                      </p>
+                      <DetailWithValues
+                        description={<p>{CORE_DRIVER_DESCRIPTIONS[driver]}</p>}
+                        values={
+                          <>
+                            <p>Each pathway has its own text.</p>
+                            <p className="mt-3">
+                              Where the driver does not apply, it reads “
+                              {NOT_A_CORE_DRIVER_TEXT}”
+                            </p>
+                          </>
+                        }
+                      />
                     </Item>
                   ))}
                   {group.features.map((feature) => (
@@ -760,11 +809,20 @@ const ResourcesMethodologyPage: React.FC = () => {
               intro={
                 <>
                   <p>
-                    The conditions a pathway’s outcomes depend on. They can be
-                    bottlenecks or enabling factors for a sector’s
-                    transformation, so they point to where a company’s plan may
-                    be exposed. Each dependency is recorded for a sector, with a
-                    description and the strength of the evidence in the pathway.
+                    Dependencies are the conditions that a pathway’s outcomes
+                    depend on. They can be bottlenecks or enabling factors for a
+                    sector’s transformation, so they point to where a company’s
+                    plan may be exposed to factors beyond its immediate control.
+                    Each dependency comes with a description and the strength of
+                    the evidence in the pathway.
+                  </p>
+                  <p>
+                    Dependencies vary by sector, but not by geography. Each
+                    sector relies on its own decarbonization levers, such as
+                    building out renewable power and expanding grids in the
+                    power sector, and each lever depends on different
+                    conditions. On a pathway’s Detail Page, the{" "}
+                    <b>Dependencies</b> are filtered by the selected sector.
                   </p>
                 </>
               }
@@ -809,12 +867,20 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <>
                   <p>
                     For each metric, the <b>Data Availability</b> table on a
-                    pathway’s page shows where and how its data can be obtained,
-                    so you can judge what kind of analysis the pathway can
-                    support. Each row covers one metric in one sector, for the
-                    sector segments and geographies it lists. A note above the
-                    table can summarize the full dataset the TPR holds for the
-                    pathway, or anything that does not fit a single row.
+                    pathway’s Detail Page shows where and how its data can be
+                    obtained, so you can judge what kind of analysis the pathway
+                    can support.
+                  </p>
+                  <p>
+                    Data availability varies by sector and geography. Each row
+                    covers one metric in one sector, for the sector segments and
+                    geographies it lists, and the table is filtered by both the
+                    Sector and the Geography selector.
+                  </p>
+                  <p>
+                    Some pathways also have a short note above the table. It
+                    describes the standardized dataset the TPR offers for
+                    download, or caveats that apply to more than one row.
                   </p>
                   <ul className="list-disc space-y-2 pl-5">
                     <li>
@@ -841,9 +907,10 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <DetailWithValues
                   description={
                     <p>
-                      The list is longer than the benchmark metrics: it also
-                      includes data the pathway reports but the TPR does not
-                      plot, such as technology costs or investment requirements.
+                      Names the metric that the row describes. The list is
+                      longer than the benchmark metrics: it also includes data
+                      the pathway reports but the TPR does not plot, such as
+                      technology costs or investment requirements.
                     </p>
                   }
                   values={
@@ -869,8 +936,8 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="max-w-3xl text-rmigray-700 leading-7">
                   <p>
-                    The breakdown the pathway provides for the metric, for
-                    example by technology or by cost component. The possible
+                    Describes the breakdown the pathway provides for the metric,
+                    for example by technology or by cost component. The possible
                     values depend on the metric.
                   </p>
                 </div>
@@ -883,8 +950,8 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="max-w-3xl text-rmigray-700 leading-7">
                   <p>
-                    What the pathway’s model includes and leaves out for the
-                    metric, and how that affects the data.
+                    Describes what the pathway’s model includes and leaves out
+                    for the metric, and how that affects the data.
                   </p>
                 </div>
               </Subsection>
@@ -896,8 +963,8 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="max-w-3xl text-rmigray-700 leading-7">
                   <p>
-                    The geographies the metric is available for, out of all the
-                    geographies the pathway covers.
+                    Lists the geographies the metric is available for, out of
+                    all the geographies the pathway covers.
                   </p>
                 </div>
               </Subsection>
@@ -910,7 +977,8 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <DetailWithValues
                   description={
                     <p>
-                      Where the resolution differs between geographies, the most
+                      Describes how finely the data is resolved over time. Where
+                      the resolution differs between geographies, the most
                       detailed one is shown.
                     </p>
                   }
@@ -931,8 +999,10 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <DetailWithValues
                   description={
                     <p>
-                      Where values appear in more than one form, the easiest to
-                      extract is recorded: tables before text before figures.
+                      Describes in what form the source publication provides the
+                      values. Where values appear in more than one form, the
+                      easiest to extract is recorded: tables before text before
+                      figures.
                     </p>
                   }
                   values={
@@ -959,10 +1029,14 @@ const ResourcesMethodologyPage: React.FC = () => {
                     transparently).
                   </p>
                   <p>
-                    On a pathway’s page, filled badges mark what is available
-                    for visualization and download in the TPR. Outlined badges
-                    mark what the source publication covers but the TPR does not
-                    hold data for yet.
+                    Coverage describes the pathway as a whole, so it does not
+                    vary by sector or geography.
+                  </p>
+                  <p>
+                    In the <b>Coverage</b> section, filled badges mark what is
+                    available for visualization and download in the TPR.
+                    Outlined badges mark what the source publication covers but
+                    the TPR does not hold data for yet.
                   </p>
                 </>
               }
@@ -974,11 +1048,12 @@ const ResourcesMethodologyPage: React.FC = () => {
               >
                 <div className="space-y-4 text-rmigray-700 leading-7">
                   <p>
-                    The regions and countries the pathway covers. Countries
-                    follow ISO 3166 definitions. Regions keep the names used in
-                    the source publication and list the member countries the
-                    publication assigns to them. A region always has at least
-                    two members; a single country is listed as a country.
+                    Lists the regions and countries that the pathway covers.
+                    Countries follow ISO 3166 definitions. Regions keep the
+                    names used in the source publication and list the member
+                    countries the publication assigns to them. A region always
+                    has at least two members; a single country is listed as a
+                    country.
                   </p>
                   {/* Kept as a single italic block: #917 replaced the
                       earlier two-sentence note with the policy wording alone,
@@ -1001,9 +1076,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                   description={
                     <>
                       <p>
-                        The sectors the pathway covers, where coverage means
-                        that the pathway provides at least one relevant output
-                        metric for each of them.
+                        Lists the sectors that the pathway covers, where
+                        coverage means that the pathway provides at least one
+                        relevant output metric for each of them.
                       </p>
                       <p>
                         The TPR currently provides detailed information,
@@ -1030,10 +1105,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                   description={
                     <>
                       <p>
-                        The main parts of a sector’s value chain, such as power
-                        generation or transmission and distribution.
-                        Decarbonization levers tend to differ between segments,
-                        and a metric may cover only some of them.
+                        Sector segments are the main parts of a sector’s value
+                        chain, such as power generation or transmission and
+                        distribution. Decarbonization levers tend to differ
+                        between segments, and a metric may cover only some of
+                        them.
                       </p>
                       <p>
                         Segments are shown in the <b>Data Availability</b> table
@@ -1067,11 +1143,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <DetailWithValues
                   description={
                     <p>
-                      The technologies a pathway provides output for within the
-                      sectors it covers, such as the generation technologies in
-                      the power sector’s technology mix. As the sector coverage
-                      of the TPR expands, the sectors that we show technologies
-                      for will also expand.
+                      Lists the technologies that a pathway provides output for
+                      within the sectors it covers, such as the generation
+                      technologies in the power sector’s technology mix. As the
+                      sector coverage of the TPR expands, the sectors that we
+                      show technologies for will also expand.
                     </p>
                   }
                   values={
@@ -1100,11 +1176,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <DetailWithValues
                   description={
                     <p>
-                      The sector-specific benchmark metrics the pathway reports
-                      outcomes for, which the TPR plots and offers for download.
-                      Currently, these are only defined for the power sector,
-                      but they will be expanded to each additional sector that
-                      we fully cover in the repository.
+                      Lists the sector-specific benchmark metrics that the
+                      pathway reports outcomes for, which the TPR plots and
+                      offers for download. Currently, these are only defined for
+                      the power sector, but they will be expanded to each
+                      additional sector that we fully cover in the repository.
                     </p>
                   }
                   values={
