@@ -824,8 +824,10 @@ const ResourcesMethodologyPage: React.FC = () => {
                       may still be covered in another sector.
                     </li>
                     <li>
-                      “Unspecified” means the metric is covered, but the pathway
-                      does not state that property.
+                      “Unspecified” applies to a single column: the metric is
+                      covered in that sector, but that one detail, such as its
+                      time resolution or geography coverage, cannot be described
+                      from the pathway.
                     </li>
                   </ul>
                 </>
