@@ -355,6 +355,26 @@ describe("PathwayContextRibbon", () => {
     }
   });
 
+  it("exposes the expand control's state and the badges it controls", async () => {
+    const restore = wrapOntoSecondRow("United States of America");
+    try {
+      renderRibbon();
+
+      const showAll = screen.getByRole("button", { name: "Show all" });
+      expect(showAll).toHaveAttribute("aria-expanded", "false");
+      const geographyGroup = screen.getByRole("group", { name: "Geography" });
+      expect(showAll).toHaveAttribute("aria-controls", geographyGroup.id);
+      expect(geographyGroup.id).not.toBe("");
+
+      await userEvent.click(showAll);
+      expect(
+        screen.getByRole("button", { name: "Show fewer" }),
+      ).toHaveAttribute("aria-expanded", "true");
+    } finally {
+      restore();
+    }
+  });
+
   it("offers no 'Show all' when every badge already fits (#1026)", () => {
     // jsdom lays every badge out on one row, as a wide ribbon would.
     renderRibbon();
