@@ -514,8 +514,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                     </li>
                   </ul>
                   <p>
-                    Dependencies are filtered by sector only. Data availability
-                    is filtered by both sector and geography.
+                    <b>Dependencies</b> are filtered by sector only.{" "}
+                    <b>Data Availability</b> is filtered by both sector and
+                    geography.
                   </p>
                 </>
               }
@@ -641,7 +642,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                   </p>
                   <p>
                     It is not shown on a pathway’s page, but it is where the
-                    trends under Assumptions & trends start.
+                    trends under <b>Assumptions &amp; trends</b> start.
                   </p>
                 </div>
               </Subsection>
@@ -661,7 +662,8 @@ const ResourcesMethodologyPage: React.FC = () => {
                   </p>
                   <p>
                     Like the start year, it is not shown on a pathway’s page,
-                    but it is where the trends under Assumptions & trends end.
+                    but it is where the trends under{" "}
+                    <b>Assumptions &amp; trends</b> end.
                   </p>
                 </div>
               </Subsection>
@@ -675,8 +677,8 @@ const ResourcesMethodologyPage: React.FC = () => {
                   <p>
                     A short narrative of the pathway: who developed it, its main
                     storyline, its main assumptions, and examples of what it can
-                    be used for. It opens the At a glance tab of each pathway’s
-                    page.
+                    be used for. It opens the <b>At a glance</b> tab of each
+                    pathway’s page.
                   </p>
                 </div>
               </Subsection>
@@ -697,11 +699,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                     crucial when selecting pathways for an analysis.
                   </p>
                   <p>
-                    The groups below follow the Assumptions & Trends panel of a
-                    pathway’s page. Each group opens with its core drivers: the
-                    main inputs that shape the pathway’s results. Where a driver
-                    does not apply, the pathway’s page says “Not a core driver
-                    for this pathway.”
+                    The groups below follow the <b>Assumptions &amp; Trends</b>{" "}
+                    panel of a pathway’s page. Each group opens with its core
+                    drivers: the main inputs that shape the pathway’s results.
+                    Where a driver does not apply, the pathway’s page says “Not
+                    a core driver for this pathway.”
                   </p>
                   <p>
                     Trends such as emissions trajectory, energy demand,
@@ -806,12 +808,12 @@ const ResourcesMethodologyPage: React.FC = () => {
               intro={
                 <>
                   <p>
-                    For each metric, the Data Availability table on a pathway’s
-                    page shows where and how its data can be obtained, so you
-                    can judge what kind of analysis the pathway can support.
-                    Each row covers one metric in one sector, for the sector
-                    segments and geographies it lists. A note above the table
-                    can summarize the full dataset the TPR holds for the
+                    For each metric, the <b>Data Availability</b> table on a
+                    pathway’s page shows where and how its data can be obtained,
+                    so you can judge what kind of analysis the pathway can
+                    support. Each row covers one metric in one sector, for the
+                    sector segments and geographies it lists. A note above the
+                    table can summarize the full dataset the TPR holds for the
                     pathway, or anything that does not fit a single row.
                   </p>
                   <ul className="list-disc space-y-2 pl-5">
@@ -1032,10 +1034,10 @@ const ResourcesMethodologyPage: React.FC = () => {
                         and a metric may cover only some of them.
                       </p>
                       <p>
-                        Segments are shown in the Data Availability table and
-                        under each benchmark plot. Steel and aviation segments
-                        are listed for data availability, ahead of benchmark
-                        data for those sectors.
+                        Segments are shown in the <b>Data Availability</b> table
+                        and under each chart in the <b>Benchmark Plots</b>{" "}
+                        section. Steel and aviation segments are listed for data
+                        availability, ahead of benchmark data for those sectors.
                       </p>
                     </>
                   }
