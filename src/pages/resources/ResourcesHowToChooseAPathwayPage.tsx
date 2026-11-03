@@ -398,8 +398,8 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                   for more details.
                 </p>
                 <p className="mt-3">
-                  You can find these features in the pathway summary and key
-                  features sections of the TPR.
+                  You can find these features in the Pathway Description and the
+                  Assumptions &amp; Trends section of each pathway in the TPR.
                 </p>
               </Step>
 
@@ -425,8 +425,9 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                   assess policy risk in Indonesia.
                 </p>
                 <p className="mt-3">
-                  This information is available in the expert overview and key
-                  features of each pathway in the TPR.
+                  This information is available in the Data Availability and
+                  Coverage sections on the Scope &amp; Granularity tab of each
+                  pathway in the TPR.
                 </p>
               </Step>
 
@@ -442,9 +443,9 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                   comparison with company data.
                 </p>
                 <p className="mt-3">
-                  You can see what data is available in the pathway expert
-                  overview, as well as the standardized data download in the
-                  TPR.
+                  You can see what data is available in the Data Availability
+                  section of each pathway, as well as the standardized data
+                  download on its Timeseries tab.
                 </p>
               </Step>
             </section>
