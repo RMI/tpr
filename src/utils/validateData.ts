@@ -7,6 +7,12 @@ export type ValidationProblem = {
   name: string;
   errors: string[];
   data?: unknown;
+  /**
+   * True when no preloaded schema could even be chosen: `$schema` is missing,
+   * not a string, or names a schema that was not preloaded. Such a file can
+   * never be loaded, so callers treat it more severely than a schema error.
+   */
+  unroutable?: boolean;
 };
 export type ValidationRecord = {
   name: string;
@@ -70,7 +76,11 @@ export function validateFilesBySchema(
 
   for (const { name, data } of entries) {
     if (!hasSchemaString(data)) {
-      invalid.push({ name, errors: ['missing or non-string "$schema"'] });
+      invalid.push({
+        name,
+        errors: ['missing or non-string "$schema"'],
+        unroutable: true,
+      });
       continue;
     }
     const schemaId = data.$schema;
@@ -80,6 +90,7 @@ export function validateFilesBySchema(
         name,
         errors: [`no schema preloaded for $schema "${schemaId}"`],
         data,
+        unroutable: true,
       });
       continue;
     }
@@ -88,6 +99,23 @@ export function validateFilesBySchema(
     else invalid.push({ name, errors: fmt(validate.errors), data });
   }
   return { valid, invalid };
+}
+
+/**
+ * Names of the entries whose `$schema` is missing, not a string, or not one of
+ * `documentIds`.
+ *
+ * {@link validateDataCollect} skips these without a word -- neither valid nor
+ * invalid -- so a caller that loads one document type from a mixed folder uses
+ * this to notice a file that no document type will ever pick up.
+ */
+export function unroutableEntries(
+  entries: readonly FileEntry[],
+  documentIds: ReadonlySet<string>,
+): string[] {
+  return entries
+    .filter((e) => !hasSchemaString(e.data) || !documentIds.has(e.data.$schema))
+    .map((e) => e.name);
 }
 
 /**

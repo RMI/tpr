@@ -1,6 +1,11 @@
 import { PathwayMetadataType } from "../types";
-import { FileEntry } from "../utils/validateData";
-import { assembleData, decideIncludeInvalid } from "../utils/loadData";
+import { FileEntry, unroutableEntries } from "../utils/validateData";
+import {
+  assembleData,
+  decideIncludeInvalid,
+  isViteDev,
+} from "../utils/loadData";
+import { PATHWAY_TIMESERIES_V2_ID } from "../utils/validateTimeseries";
 import pathwayMetadataSchema from "../schema/pathwayMetadata.v2.json" with { type: "json" };
 import { commonSchemas } from "../schema/common";
 
@@ -20,13 +25,29 @@ const entries: FileEntry[] = Object.entries(modules)
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
-// 2) Validate against the v2 metadata schema. assembleData only looks at
-//    entries whose `$schema` is exactly the v2 `$id` (see validateDataCollect):
-//    timeseries files are meant to be skipped that way, but so is a metadata
-//    file with a retired v1 or mistyped `$schema` -- it is neither valid nor
-//    invalid, so `includeInvalid` does not bring it back, and nothing here logs
-//    it. `npm run schema:check` is what reports such a file (see
-//    src/data/README.md, "Which schema a file follows").
+// 2) Name any file that no document schema accepts. assembleData below only
+//    looks at entries whose `$schema` is exactly the v2 metadata `$id` (see
+//    validateDataCollect): timeseries files are meant to be skipped that way,
+//    but so is a file with a retired v1, mistyped or missing `$schema` -- it is
+//    neither valid nor invalid, so `includeInvalid` does not bring it back.
+//    `npm run schema:check` fails on such a file in every mode; this makes the
+//    dev server say why a pathway is missing too. Dev only, like the rest of
+//    isViteDev's diagnostics: silent in production and under test.
+const DOCUMENT_SCHEMA_IDS: ReadonlySet<string> = new Set([
+  String(pathwayMetadataSchema.$id),
+  PATHWAY_TIMESERIES_V2_ID,
+]);
+
+const unroutable = unroutableEntries(entries, DOCUMENT_SCHEMA_IDS);
+if (unroutable.length > 0 && isViteDev()) {
+  console.warn(
+    `[pathwayMetadata] ${unroutable.length} data file(s) have a $schema no ` +
+      `document schema accepts, so the app does not load them: ` +
+      `${unroutable.join(", ")}. Run \`npm run schema:check\` for details.`,
+  );
+}
+
+// 3) Validate against the v2 metadata schema.
 export const pathwayMetadata: PathwayMetadataType[] = assembleData(
   entries,
   pathwayMetadataSchema,

@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import {
   validateDataCollect,
   validateFilesBySchema,
+  unroutableEntries,
   FileEntry,
 } from "./validateData";
 import pathwayMetadata from "../schema/pathwayMetadata.v2.json" with { type: "json" };
@@ -381,6 +382,51 @@ describe("a retired v1 document (#981)", () => {
     expect(valid).toEqual([]);
     expect(invalid.flatMap((p) => p.errors)).toEqual([
       `no schema preloaded for $schema "${$schema}"`,
+    ]);
+    expect(invalid.map((p) => p.unroutable)).toEqual([true]);
+  });
+});
+
+describe("unroutable files (no schema can be chosen)", () => {
+  const SCHEMAS = [pathwayMetadata, pathwayTimeseries, ...commonSchemas];
+  const V2_IDS = new Set([
+    String(pathwayMetadata.$id),
+    String(pathwayTimeseries.$id),
+  ]);
+
+  it("marks a missing $schema as unroutable", () => {
+    const noSchema: Record<string, unknown> = { ...v2Minimal };
+    delete noSchema.$schema;
+    const { invalid } = validateFilesBySchema(
+      [{ name: "none.json", data: noSchema }],
+      SCHEMAS,
+    );
+    expect(invalid).toHaveLength(1);
+    expect(invalid[0].unroutable).toBe(true);
+  });
+
+  it("does not mark an ordinary schema error as unroutable", () => {
+    const { invalid } = validateFilesBySchema(
+      [{ name: "bad.json", data: { ...v2Minimal, pathwayType: "Nonsense" } }],
+      SCHEMAS,
+    );
+    expect(invalid).toHaveLength(1);
+    expect(invalid[0].unroutable).toBeUndefined();
+  });
+
+  it("unroutableEntries names files no listed document schema accepts", () => {
+    const v1 = "http://pathways.rmi.org/schema/pathwayMetadata.v1.json";
+    const entries: FileEntry[] = [
+      { name: "metadata.json", data: v2Minimal },
+      { name: "timeseries.json", data: { $schema: pathwayTimeseries.$id } },
+      { name: "v1.json", data: { ...v2Minimal, $schema: v1 } },
+      { name: "none.json", data: { id: "x" } },
+      { name: "array.json", data: [] },
+    ];
+    expect(unroutableEntries(entries, V2_IDS)).toEqual([
+      "v1.json",
+      "none.json",
+      "array.json",
     ]);
   });
 });

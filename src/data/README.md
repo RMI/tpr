@@ -26,12 +26,9 @@ If you have changed a schema rather than a data file, run `npm run schema` inste
 
 Every file declares its schema with its own `$schema` key: `pathwayMetadata.v2.json` for a pathway, `pathwayTimeseries.v2.json` for a timeseries file. These are the only two document schemas; the v1 formats are retired, and the site no longer publishes them under `/schema/`.
 
-A file that names any other schema, including a v1 one, is reported by `npm run schema:check` as `no schema preloaded for $schema "…"`. Whether that fails the check depends on `VITE_INCLUDE_INVALID`:
+A file that names any other schema, including a v1 one, or has no `$schema` at all, **always fails `npm run schema:check`**, locally and in CI, with `no schema preloaded for $schema "…"` (or `missing or non-string "$schema"`) as an error annotation on the file. The site never loads such a file: it is not shown as invalid, it is simply missing from the app. When you run `npm run dev`, the browser console lists any such files.
 
-- **Locally** it is unset, so the check fails.
-- **In CI** the JSON validator sets it to `true` for every PR and push except those to `production` and `next`. There the problem is a warning annotation on the file and the job still passes, so read the annotations rather than trusting a green check.
-
-The site itself never loads such a file. It is not shown as invalid either: it is simply missing from the app, with nothing in the console. A pathway that should be there but is not usually means its `$schema` is wrong.
+That is stricter than an ordinary schema error, on purpose. In CI, `VITE_INCLUDE_INVALID` is `true` for every PR and push except those to `production` and `next` (#449), so a file that fails validation is only a warning there, and can still be previewed in the app. A file with the wrong `$schema` cannot be previewed at all, so it gets no such leniency.
 
 The `.v1` in the names under `src/schema/common/` is the version of that shared definition, not of the document format — the v2 schemas use them.
 
