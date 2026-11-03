@@ -393,16 +393,9 @@ const Subsection: React.FC<{
 const Item: React.FC<{
   id?: string;
   title: string;
-  /** A small label above the title, saying what kind of item it is. */
-  eyebrow?: string;
   children: React.ReactNode;
-}> = ({ id, title, eyebrow, children }) => (
+}> = ({ id, title, children }) => (
   <div className="mt-8 first:mt-0">
-    {eyebrow ? (
-      <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-rmigray-500">
-        {eyebrow}
-      </p>
-    ) : null}
     <h4
       id={id}
       className="scroll-mt-8 text-base font-semibold text-rmigray-800"
@@ -766,13 +759,15 @@ const ResourcesMethodologyPage: React.FC = () => {
                     <Item
                       key={driver}
                       title={coreDriverLabel(driver)}
-                      eyebrow="Core driver"
                     >
                       <DetailWithValues
                         description={<p>{CORE_DRIVER_DESCRIPTIONS[driver]}</p>}
                         values={
                           <>
-                            <p>Each pathway has its own text.</p>
+                            <p>
+                              <b>Core driver:</b> Free text description for each
+                              individual pathway.
+                            </p>
                             <p className="mt-3">
                               Where the driver does not apply, it reads “
                               {NOT_A_CORE_DRIVER_TEXT}”

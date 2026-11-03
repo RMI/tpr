@@ -215,11 +215,14 @@ describe("ResourcesMethodologyPage — v2 classifications (#1055)", () => {
   it("marks every core driver as a text field, with what it shows when it does not apply", () => {
     renderPage();
 
-    const eyebrows = screen.getAllByText("Core driver");
-    expect(eyebrows).toHaveLength(CORE_DRIVER_LABELS.length);
-    for (const eyebrow of eyebrows) {
-      const item = eyebrow.parentElement!;
+    const labels = screen.getAllByText("Core driver:");
+    expect(labels).toHaveLength(CORE_DRIVER_LABELS.length);
+    for (const label of labels) {
+      const item = label.closest("h4 + div")!;
       expect(flatText(item)).toContain("This text field describes");
+      expect(flatText(item)).toContain(
+        "Free text description for each individual pathway.",
+      );
       expect(flatText(item)).toContain(NOT_A_CORE_DRIVER_TEXT);
     }
   });
