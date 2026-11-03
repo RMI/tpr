@@ -20,6 +20,13 @@ const entries: FileEntry[] = Object.entries(modules)
   }))
   .sort((a, b) => a.name.localeCompare(b.name));
 
+// 2) Validate against the v2 metadata schema. assembleData only looks at
+//    entries whose `$schema` is exactly the v2 `$id` (see validateDataCollect):
+//    timeseries files are meant to be skipped that way, but so is a metadata
+//    file with a retired v1 or mistyped `$schema` -- it is neither valid nor
+//    invalid, so `includeInvalid` does not bring it back, and nothing here logs
+//    it. `npm run schema:check` is what reports such a file (see
+//    src/data/README.md, "Which schema a file follows").
 export const pathwayMetadata: PathwayMetadataType[] = assembleData(
   entries,
   pathwayMetadataSchema,

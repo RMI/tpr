@@ -37,10 +37,11 @@ function idSuffixYear(id: string): number | null {
 /**
  * The year to SHOW for a pathway. Always the metadata, never the id.
  *
- * An id's year suffix is not guaranteed to match `publication.year` (the
- * AGF Malaysia Phase 2.1 records once ended in `-2024` but carried 2023). Such a
- * mismatch is for the data team to fix, so every display path reads the
- * metadata and agrees with the rest of the card.
+ * An id's year suffix is not guaranteed to match `publication.year`: the id is
+ * fixed when a pathway is first added, while the year comes from the
+ * publication and can be corrected later. A mismatch is for the data team to
+ * fix, so every display path reads the metadata and agrees with the rest of
+ * the card.
  */
 export function editionYear(pathway: PathwayMetadataType): number {
   return pathway.publication.year;

@@ -38,7 +38,7 @@ import {
 export const PATHWAY_TIMESERIES_V2_ID =
   "http://pathways.rmi.org/schema/pathwayTimeseries.v2.json";
 
-/** A pathway's declared geography, keyed by pathway id (v1 and v2 share the shape). */
+/** A pathway's declared geography (from its v2 metadata), keyed by pathway id. */
 export type MetadataGeographyById = ReadonlyMap<
   string,
   PathwayMetadataV2["geography"] | null | undefined

@@ -1916,10 +1916,13 @@ export async function loadTargetFiles(
     return null;
   }
   // Updates build on the file's own v2 fields, so anything else (a retired v1
-  // file, #981) would be rebuilt from the workbook alone and lose them.
+  // file, #981) would be rebuilt from the workbook alone and lose them. The v1
+  // codemods were deleted with v1 itself, so the message says where to get one.
   if (existing.$schema !== V2_ID) {
     report.error(
-      `${key}: target file ${target.file} has $schema ${JSON.stringify(existing.$schema)}, expected ${V2_ID} -- migrate it first`,
+      `${key}: target file ${target.file} has $schema ${JSON.stringify(existing.$schema)}, expected ${V2_ID}. ` +
+        `Convert it to v2 first: a v1 file can go through scripts/codemod-v1-to-v2.ts, ` +
+        `which was deleted when v1 was retired (#981) -- restore it from git history to run it.`,
     );
     return null;
   }
