@@ -809,14 +809,17 @@ const ResourcesMethodologyPage: React.FC = () => {
                     For each metric, the Data Availability table on a pathway’s
                     page shows where and how its data can be obtained, so you
                     can judge what kind of analysis the pathway can support.
-                    Each row covers one metric for one sector segment and set of
-                    geographies.
+                    Each row covers one metric in one sector, for the sector
+                    segments and geographies it lists. A note above the table
+                    can summarize the full dataset the TPR holds for the
+                    pathway, or anything that does not fit a single row.
                   </p>
                   <ul className="list-disc space-y-2 pl-5">
                     <li>
                       “Not covered” means the pathway gives no quantitative
-                      information on the metric. It then applies to the whole
-                      row.
+                      information on the metric for that sector. All of the
+                      row’s details then read “Not covered,” but the same metric
+                      may still be covered in another sector.
                     </li>
                     <li>
                       “Unspecified” means the metric is covered, but the pathway
@@ -1030,8 +1033,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                       </p>
                       <p>
                         Segments are shown in the Data Availability table and
-                        under each benchmark plot. They are defined for the
-                        sectors the TPR describes in detail.
+                        under each benchmark plot. Steel and aviation segments
+                        are listed for data availability, ahead of benchmark
+                        data for those sectors.
                       </p>
                     </>
                   }

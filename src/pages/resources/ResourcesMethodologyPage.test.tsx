@@ -5,6 +5,7 @@ import ResourcesMethodologyPage from "./ResourcesMethodologyPage";
 import pathwayMetadataSchema from "../../schema/pathwayMetadata.v2.json" with { type: "json" };
 import dataAvailabilitySchema from "../../schema/common/dataAvailability.v1.json" with { type: "json" };
 import sectorSchema from "../../schema/common/sector.v1.json" with { type: "json" };
+import metricSchema from "../../schema/common/metric.v1.json" with { type: "json" };
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
 import { GROUPS } from "../../components/KeyFeatures";
 import { MockIntersectionObserver } from "../../test/mockIntersectionObserver";
@@ -208,7 +209,7 @@ describe("ResourcesMethodologyPage — v2 classifications (#1055)", () => {
     expect(termsUnder("evidence-types")).toEqual(dependency.evidence_type.enum);
   });
 
-  it("lists the data availability vocabularies and sectors from the schema", () => {
+  it("lists the data availability vocabularies, sectors and benchmark metrics from the schema", () => {
     renderPage();
 
     expect(listedUnder("time-resolution")).toEqual(
@@ -218,5 +219,6 @@ describe("ResourcesMethodologyPage — v2 classifications (#1055)", () => {
       dataAvailabilitySchema.$defs.dataFormat.enum,
     );
     expect(listedUnder("sectors")).toEqual(sectorSchema.$defs.displayName.enum);
+    expect(listedUnder("metrics")).toEqual(metricSchema.$defs.displayName.enum);
   });
 });
