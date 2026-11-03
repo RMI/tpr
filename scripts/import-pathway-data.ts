@@ -414,8 +414,8 @@ export const TARGETS: Record<string, Target> = {
   // report, which replaces Phase 2.1. EP MY keeps its id and file but is
   // rebuilt as "new" so its name, description and publication come from the
   // workbook rather than the 2.1 file. All three take the publisher block from
-  // EP MY, whose links point at the 2.2 report. MAP MY and MAP1 MY are 2.1
-  // pathways and are removed separately.
+  // EP MY, whose links point at the 2.2 report. The 2.1-only MAP MY and
+  // MAP1 MY pathways have been removed: 2.2 has no counterpart for them.
   "SDSN:EP MY:": {
     mode: "new",
     file: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
