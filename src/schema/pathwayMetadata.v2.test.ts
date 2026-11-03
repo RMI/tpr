@@ -20,7 +20,7 @@ import dataAvailabilityJson from "./common/dataAvailability.v1.json" with { type
  *
  * The cost of that choice is 11 copies of one shape, so these tests enforce what
  * the `$ref` would have: that the copies stay identical, and that each field's
- * `value` keeps its shape.
+ * `value` keeps its shape and its vocabulary.
  */
 
 /** The slice of JSON Schema draft-07 these assertions actually read. */
@@ -105,6 +105,127 @@ const WIDEST_ON_BOTH_AXES: ReadonlySet<string> = new Set([
   "emissionsTrajectory",
   "energyDemand",
 ]);
+
+/**
+ * Each field's allowed values, in schema order, without the scope sentinel
+ * (pinned by its own test below). emissionsScope's are the shared gas
+ * vocabulary it $refs.
+ *
+ * Listed rather than derived, so adding, dropping or renaming a value is a
+ * deliberate edit here too: the UI's scales, tooltips and resolver match these
+ * strings exactly, and existing data was authored against them. Until #981 the
+ * v1 schema played this part.
+ */
+const VOCABULARY: Readonly<
+  Record<(typeof KEY_FEATURE_FIELDS)[number], readonly string[]>
+> = {
+  emissionsTrajectory: [
+    "No information",
+    "Significant increase",
+    "Moderate increase",
+    "Minor increase",
+    "Low or no change",
+    "Minor decrease",
+    "Moderate decrease",
+    "Significant decrease",
+  ],
+  energyEfficiency: [
+    "No information",
+    "Significant deterioration",
+    "Moderate deterioration",
+    "Minor deterioration",
+    "Low or no change",
+    "Minor improvement",
+    "Moderate improvement",
+    "Significant improvement",
+  ],
+  energyDemand: [
+    "No information",
+    "Significant decrease",
+    "Moderate decrease",
+    "Minor decrease",
+    "Low or no change",
+    "Minor increase",
+    "Moderate increase",
+    "Significant increase",
+  ],
+  electrification: [
+    "No information",
+    "Significant decrease",
+    "Moderate decrease",
+    "Minor decrease",
+    "Low or no change",
+    "Minor increase",
+    "Moderate increase",
+    "Significant increase",
+  ],
+  policyTypes: [
+    "No information",
+    "Carbon price",
+    "Feed-in tariffs",
+    "Performance standards",
+    "Phaseout dates",
+    "Subsidies",
+    "Target technology shares",
+    "Other",
+    "None",
+  ],
+  technologyCostTrend: [
+    "No information",
+    "Increase",
+    "Low or no change",
+    "Decrease",
+  ],
+  emissionsScope: [
+    "No information",
+    "CO2",
+    "CO2e (Kyoto)",
+    "CO2e (CO2, Methane)",
+    "CO2e (unspecified GHGs)",
+    "Other emissions scope",
+  ],
+  policyAmbition: [
+    "No information",
+    "No policies included",
+    "Current/legislated policies",
+    "Current and drafted policies",
+    "NDCs, unconditional only",
+    "NDCs incl. conditional targets",
+    "High ambition policies",
+    "Other policy ambition",
+  ],
+  technologyCostsDetail: [
+    "No information",
+    "Total costs",
+    "Capital costs, O&M, etc.",
+    "Other cost breakdown",
+  ],
+  newTechnologiesIncluded: [
+    "No information",
+    "No new technologies",
+    "CCUS",
+    "DAC",
+    "Green H2/ammonia",
+    "SAF",
+    "Battery storage",
+    "EGS/AGS",
+    // Cookbook decision 0020.
+    "SMR",
+    "Other new technologies",
+  ],
+  investmentNeeds: [
+    "No information",
+    "Total investment",
+    "By sector",
+    "By sector, part of value chain",
+    "By technology",
+    "By tech, part of value chain",
+  ],
+};
+
+/** A value list without the scope sentinel, for comparing with VOCABULARY. */
+const withoutSentinel = (members: readonly string[]): string[] =>
+  members.filter((m) => m !== SCOPE_SENTINEL);
 
 const kf2 = prop(v2, "keyFeatures", "v2");
 
@@ -223,34 +344,42 @@ describe("pathwayMetadata.v2 keyFeatures — the wrapper is identical everywhere
 });
 
 describe("pathwayMetadata.v2 keyFeatures — value shapes", () => {
-  it.each(KEY_FEATURE_FIELDS)("%s value is a closed enum", (name) => {
-    const value = entryValue(name);
+  it.each(KEY_FEATURE_FIELDS)(
+    "%s value takes exactly its vocabulary",
+    (name) => {
+      const value = entryValue(name);
 
-    if (name === "emissionsScope") {
-      // Composes the shared gas vocabulary with the scope sentinel, rather
-      // than appending a member to the common schema, which
-      // pathwayTimeseries.v2 also $refs — see the field's own $comment.
-      const branches = value.anyOf ?? [];
-      expect(branches).toHaveLength(2);
-      expect(branches[0].$ref).toBe(emissionsScope.$id);
-      expect(enumOf(branches[1], "emissionsScope sentinel")).toEqual([
-        SCOPE_SENTINEL,
-      ]);
-      return;
-    }
+      if (name === "emissionsScope") {
+        // Composes the shared gas vocabulary with the scope sentinel, rather
+        // than appending a member to the common schema, which
+        // pathwayTimeseries.v2 also $refs — see the field's own $comment.
+        const branches = value.anyOf ?? [];
+        expect(branches).toHaveLength(2);
+        expect(branches[0].$ref).toBe(emissionsScope.$id);
+        expect(enumOf(branches[1], "emissionsScope sentinel")).toEqual([
+          SCOPE_SENTINEL,
+        ]);
+        expect(enumOf(emissionsScope, "emissionsScope.v1")).toEqual(
+          VOCABULARY[name],
+        );
+        return;
+      }
 
-    if (ARRAY_VALUED.has(name)) {
-      // The whole array is one entry's value, not one entry per member.
-      expect(value.type).toBe("array");
-      expect(value.uniqueItems).toBe(true);
-      expect(value.minItems).toBe(1);
-      expect(enumOf(items(value, name), name).length).toBeGreaterThan(0);
-      return;
-    }
+      if (ARRAY_VALUED.has(name)) {
+        // The whole array is one entry's value, not one entry per member.
+        expect(value.type).toBe("array");
+        expect(value.uniqueItems).toBe(true);
+        expect(value.minItems).toBe(1);
+        expect(withoutSentinel(enumOf(items(value, name), name))).toEqual(
+          VOCABULARY[name],
+        );
+        return;
+      }
 
-    expect(value.type).toBe("string");
-    expect(enumOf(value, name).length).toBeGreaterThan(0);
-  });
+      expect(value.type).toBe("string");
+      expect(withoutSentinel(enumOf(value, name))).toEqual(VOCABULARY[name]);
+    },
+  );
 
   it("gives the scope sentinel to every field the cookbook says takes it", () => {
     // The rule is "widest only on either axis", so the two fields that are

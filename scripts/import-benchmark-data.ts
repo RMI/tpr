@@ -44,7 +44,6 @@ import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
 import type { PathwayTimeseriesV2 } from "../src/types/pathwayTimeseries.v2.d.ts";
 
 const DATA_DIR = "src/data";
-const TIMESERIES_ID_PATTERN = /pathwayTimeseries\.v\d+\.json$/;
 const SAFE_FILE_ID = /^[A-Za-z0-9][A-Za-z0-9._-]*$/;
 
 type Json = Record<string, unknown>;
@@ -273,6 +272,9 @@ export async function readCorpus(dir = DATA_DIR): Promise<Corpus> {
     } catch {
       continue; // not a data document; schema:check reports it
     }
+    // Only documents on the current schemas count, for timeseries as for
+    // metadata. A file on any other $schema is not part of the corpus: its path
+    // stays occupied, and schema:check reports it.
     const schema = String(doc.$schema ?? "");
     if (schema === PATHWAY_METADATA_V2_ID) {
       metadataGeographyById.set(
@@ -280,7 +282,7 @@ export async function readCorpus(dir = DATA_DIR): Promise<Corpus> {
         doc.geography as PathwayMetadataV2["geography"],
       );
       metadataPathById.set(String(doc.id), path);
-    } else if (TIMESERIES_ID_PATTERN.test(schema)) {
+    } else if (schema === PATHWAY_TIMESERIES_V2_ID) {
       timeseriesById.set(String(doc.id), { path, doc });
     }
   }
