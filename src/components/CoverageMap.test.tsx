@@ -1,6 +1,13 @@
 import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import CoverageMap, { coverageTiers, PLANNED_COVERAGE } from "./CoverageMap";
+import { geoContains } from "d3-geo";
+import type { Topology } from "topojson-specification";
+import worldAtlas from "world-atlas/countries-110m.json";
+import CoverageMap, {
+  coverageTiers,
+  PLANNED_COVERAGE,
+  toCountryShapes,
+} from "./CoverageMap";
 import { pathwayMetadata } from "../data/pathwayMetadata";
 import type { PathwayMetadataType } from "../types";
 
@@ -51,6 +58,27 @@ describe("coverageTiers", () => {
   });
 });
 
+describe("toCountryShapes", () => {
+  const shapes = toCountryShapes(worldAtlas as unknown as Topology);
+  const shape = (code: string) => {
+    const found = shapes.find((s) => s.code === code);
+    if (!found) throw new Error(`No shape for ${code}`);
+    return found.geometry;
+  };
+
+  it("keeps all of mainland France, including west of Greenwich, in France", () => {
+    expect(geoContains(shape("FR"), [2.35, 48.86])).toBe(true); // Paris
+    expect(geoContains(shape("FR"), [-3.0, 48.2])).toBe(true); // Brittany
+    expect(geoContains(shape("FR"), [9.1, 42.1])).toBe(true); // Corsica
+    expect(geoContains(shape("GF"), [-3.0, 48.2])).toBe(false);
+  });
+
+  it("moves only French Guiana out of France", () => {
+    expect(geoContains(shape("GF"), [-53.0, 4.0])).toBe(true);
+    expect(geoContains(shape("FR"), [-53.0, 4.0])).toBe(false);
+  });
+});
+
 describe("CoverageMap", () => {
   it("draws the map once the shapes load, with a dot for Singapore", async () => {
     const { container } = render(
@@ -69,6 +97,10 @@ describe("CoverageMap", () => {
     expect(
       container.querySelectorAll('path[data-tier="planned"]').length,
     ).toBeGreaterThan(0);
+    // Malta is planned (EU) and, like Singapore, too small for a shape.
+    expect(
+      container.querySelectorAll('circle[data-tier="planned"]'),
+    ).toHaveLength(1);
   });
 
   it("shades France without French Guiana", async () => {

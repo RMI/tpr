@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { geoEqualEarth, geoPath } from "d3-geo";
+import { geoCentroid, geoEqualEarth, geoPath } from "d3-geo";
 import { feature } from "topojson-client";
 import type { GeometryCollection, Topology } from "topojson-specification";
 import type { Feature, Geometry } from "geojson";
@@ -69,13 +69,18 @@ type CountryShape = { code: string | undefined; geometry: Feature<Geometry> };
 
 // The map draws French Guiana as part of France. Shading it with France reads
 // as a mistake on a coverage map, so it becomes its own shape (GF), which no
-// tier lists. Every France polygon west of Greenwich is French Guiana.
+// tier lists. Mainland France reaches about 5°W, so the cutoff sits in the
+// mid-Atlantic and tests each polygon's centre, not one of its vertices.
+const FRENCH_GUIANA_MAX_LONGITUDE = -30;
+
 function splitFrenchGuiana(france: Feature<Geometry>): CountryShape[] {
   if (france.geometry.type !== "MultiPolygon") {
     return [{ code: "FR", geometry: france }];
   }
   const polygons = france.geometry.coordinates;
-  const isGuiana = (polygon: (typeof polygons)[number]) => polygon[0][0][0] < 0;
+  const isGuiana = (polygon: (typeof polygons)[number]) =>
+    geoCentroid({ type: "Polygon", coordinates: polygon })[0] <
+    FRENCH_GUIANA_MAX_LONGITUDE;
   const part = (keep: boolean): Feature<Geometry> => ({
     ...france,
     geometry: {
@@ -89,7 +94,7 @@ function splitFrenchGuiana(france: Feature<Geometry>): CountryShape[] {
   ];
 }
 
-function toCountryShapes(topology: Topology): CountryShape[] {
+export function toCountryShapes(topology: Topology): CountryShape[] {
   const collection = feature(
     topology,
     topology.objects.countries as GeometryCollection,
