@@ -106,7 +106,8 @@ export function planImport(
 ): PlannedWrite[] {
   const { valid, invalid } = validateFilesBySchema(
     [...inputs],
-    [pathwayMetadataV2Schema, pathwayTimeseriesV2Schema, ...commonSchemas],
+    [pathwayMetadataV2Schema, pathwayTimeseriesV2Schema],
+    commonSchemas,
   );
   for (const problem of invalid)
     for (const e of problem.errors) report.error(`${problem.name}: ${e}`);

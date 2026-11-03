@@ -8,9 +8,10 @@ export type ValidationProblem = {
   errors: string[];
   data?: unknown;
   /**
-   * True when no preloaded schema could even be chosen: `$schema` is missing,
-   * not a string, or names a schema that was not preloaded. Such a file can
-   * never be loaded, so callers treat it more severely than a schema error.
+   * True when no document schema could even be chosen: `$schema` is missing,
+   * not a string, names a schema that was not preloaded, or names a shared
+   * fragment. Such a file can never be loaded, so callers treat it more
+   * severely than a schema error.
    */
   unroutable?: boolean;
 };
@@ -61,16 +62,33 @@ function hasSchemaString(x: unknown): x is HasSchemaString {
   );
 }
 
+/** Whether `ref` resolves among the loaded schemas. A bad pointer throws. */
+function isLoaded(ajv: Ajv, ref: string): boolean {
+  try {
+    return ajv.getSchema(ref) !== undefined;
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Generic, schema-routed validator.
  * - Preload *only* the schemas you pass in.
- * - Each entry must include a string `"$schema"` that matches one of those schemas’ `$id`.
+ * - Each entry must include a string `"$schema"` that matches the `$id` of one
+ *   of `documentSchemas`.
+ * - `referencedSchemas` are loaded only so `$ref`s resolve. A file naming one of
+ *   them (a shared fragment such as `common/label.v1.json`) is unroutable, not
+ *   validated against the fragment: it is not a document, and nothing loads it.
  */
 export function validateFilesBySchema(
   entries: FileEntry[],
-  schemas: readonly (object | SchemaObject)[],
+  documentSchemas: readonly (object | SchemaObject)[],
+  referencedSchemas: readonly (object | SchemaObject)[] = [],
 ): ValidationOutcome {
-  const ajv = makeAjv(schemas);
+  const ajv = makeAjv([...documentSchemas, ...referencedSchemas]);
+  const documentIds = new Set(
+    documentSchemas.map((s) => String((s as SchemaObject).$id)),
+  );
   const valid: ValidationRecord[] = [];
   const invalid: ValidationProblem[] = [];
 
@@ -84,16 +102,21 @@ export function validateFilesBySchema(
       continue;
     }
     const schemaId = data.$schema;
-    const validate = ajv.getSchema(schemaId);
-    if (!validate) {
+    if (!documentIds.has(schemaId)) {
       invalid.push({
         name,
-        errors: [`no schema preloaded for $schema "${schemaId}"`],
+        errors: [
+          isLoaded(ajv, schemaId)
+            ? `$schema "${schemaId}" is a shared fragment, not a document schema`
+            : `no schema preloaded for $schema "${schemaId}"`,
+        ],
         data,
         unroutable: true,
       });
       continue;
     }
+    const validate = ajv.getSchema(schemaId);
+    if (!validate) throw new Error(`document schema ${schemaId} did not load`);
     const ok = validate(data);
     if (ok) valid.push({ name, schemaId, data });
     else invalid.push({ name, errors: fmt(validate.errors), data });
@@ -134,5 +157,5 @@ export function validateDataCollect(
   const metaEntries = entries.filter(
     (e) => hasSchemaString(e.data) && e.data.$schema === META_ID,
   );
-  return validateFilesBySchema(metaEntries, [schema, ...referencedSchemas]);
+  return validateFilesBySchema(metaEntries, [schema], referencedSchemas);
 }

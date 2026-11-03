@@ -363,13 +363,9 @@ describe("v2 documents (#858)", () => {
 });
 
 describe("a retired v1 document (#981)", () => {
-  // The schema set scripts/schema-check-files.ts preloads. With no v1 schema in
-  // it, a v1 `$schema` is a hard failure there rather than a silent skip.
-  const SCHEMA_CHECK_SCHEMAS = [
-    pathwayMetadata,
-    pathwayTimeseries,
-    ...commonSchemas,
-  ];
+  // The schema sets scripts/schema-check-files.ts preloads. With no v1 schema in
+  // them, a v1 `$schema` is a hard failure there rather than a silent skip.
+  const DOCUMENT_SCHEMAS = [pathwayMetadata, pathwayTimeseries];
 
   it.each([
     "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
@@ -377,7 +373,8 @@ describe("a retired v1 document (#981)", () => {
   ])("is invalid under schema:check: %s", ($schema) => {
     const { valid, invalid } = validateFilesBySchema(
       [{ name: "v1.json", data: { ...v2Minimal, $schema } }],
-      SCHEMA_CHECK_SCHEMAS,
+      DOCUMENT_SCHEMAS,
+      commonSchemas,
     );
     expect(valid).toEqual([]);
     expect(invalid.flatMap((p) => p.errors)).toEqual([
@@ -388,7 +385,7 @@ describe("a retired v1 document (#981)", () => {
 });
 
 describe("unroutable files (no schema can be chosen)", () => {
-  const SCHEMAS = [pathwayMetadata, pathwayTimeseries, ...commonSchemas];
+  const DOCUMENT_SCHEMAS = [pathwayMetadata, pathwayTimeseries];
   const V2_IDS = new Set([
     String(pathwayMetadata.$id),
     String(pathwayTimeseries.$id),
@@ -399,16 +396,39 @@ describe("unroutable files (no schema can be chosen)", () => {
     delete noSchema.$schema;
     const { invalid } = validateFilesBySchema(
       [{ name: "none.json", data: noSchema }],
-      SCHEMAS,
+      DOCUMENT_SCHEMAS,
+      commonSchemas,
     );
     expect(invalid).toHaveLength(1);
     expect(invalid[0].unroutable).toBe(true);
   });
 
+  it("treats a shared fragment's $id as unroutable, not as a schema to validate against", () => {
+    // The fragments are loaded so $refs resolve. Routing a file to one would
+    // validate it against the fragment -- a label object here -- and report
+    // ordinary schema errors (or none), which lenient CI lets through, while
+    // the app skips the file.
+    const label = "http://pathways.rmi.org/schema/common/label.v1.json";
+    const { valid, invalid } = validateFilesBySchema(
+      [
+        { name: "object.json", data: { ...v2Minimal, $schema: label } },
+        { name: "fragment-ref.json", data: { $schema: `${label}#/$defs/x` } },
+      ],
+      DOCUMENT_SCHEMAS,
+      commonSchemas,
+    );
+    expect(valid).toEqual([]);
+    expect(invalid.map((p) => p.unroutable)).toEqual([true, true]);
+    expect(invalid[0].errors).toEqual([
+      `$schema "${label}" is a shared fragment, not a document schema`,
+    ]);
+  });
+
   it("does not mark an ordinary schema error as unroutable", () => {
     const { invalid } = validateFilesBySchema(
       [{ name: "bad.json", data: { ...v2Minimal, pathwayType: "Nonsense" } }],
-      SCHEMAS,
+      DOCUMENT_SCHEMAS,
+      commonSchemas,
     );
     expect(invalid).toHaveLength(1);
     expect(invalid[0].unroutable).toBeUndefined();

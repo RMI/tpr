@@ -48,6 +48,17 @@ describe("run", () => {
     expect(result.unroutableCount).toBe(1);
   });
 
+  it("counts a file naming a shared fragment as unroutable", async () => {
+    const result = await inTempDir({
+      "fragment.json": {
+        ...v2Minimal,
+        $schema: "http://pathways.rmi.org/schema/common/label.v1.json",
+      },
+    });
+    expect(result.invalid).toHaveLength(1);
+    expect(result.unroutableCount).toBe(1);
+  });
+
   it("does not count a schema-invalid v2 file as unroutable", async () => {
     const result = await inTempDir({
       "bad.json": { ...v2Minimal, pathwayType: "Nonsense" },

@@ -39,7 +39,8 @@ describe("pathwayTimeseries.v2 Power technologies (#977)", () => {
     doc.data = [{ ...doc.data[0], technology }];
     return validateFilesBySchema(
       [{ name: "row.json", data: doc }],
-      [timeseriesJson, ...commonSchemas],
+      [timeseriesJson],
+      commonSchemas,
     );
   };
 
@@ -56,7 +57,8 @@ describe("pathwayTimeseries.v2 Power technologies (#977)", () => {
 const validateWith = (over: Record<string, unknown>) =>
   validateFilesBySchema(
     [{ name: "file.json", data: { ...structuredClone(ieaSteps), ...over } }],
-    [timeseriesJson, ...commonSchemas],
+    [timeseriesJson],
+    commonSchemas,
   );
 
 describe("pathwayTimeseries.v2 pathwayId", () => {

@@ -43,14 +43,15 @@ export async function run(dir: string) {
     entries.push({ name: file, data: JSON.parse(raw) });
   }
 
-  // Only the current document schemas: a file whose $schema names anything else
-  // (including the retired v1 schemas) fails with "no schema preloaded", and is
-  // marked `unroutable` -- see shouldFail for why that is always fatal.
-  const { valid, invalid } = validateFilesBySchema(entries, [
-    pathwayMetadataV2,
-    pathwayTimeseriesV2,
-    ...commonSchemas,
-  ]);
+  // Only the current document schemas route files. A file whose $schema names
+  // anything else -- a retired v1 schema, or a shared fragment, which is loaded
+  // only so $refs resolve -- is marked `unroutable`; see shouldFail for why that
+  // is always fatal.
+  const { valid, invalid } = validateFilesBySchema(
+    entries,
+    [pathwayMetadataV2, pathwayTimeseriesV2],
+    commonSchemas,
+  );
 
   // Second pass over the AJV-valid v2 documents for the cross-field scope
   // constraint draft-07 cannot express — see src/utils/validateScopes.ts. A
