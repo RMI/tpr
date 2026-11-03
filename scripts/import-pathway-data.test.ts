@@ -1,4 +1,7 @@
 import { describe, it, expect } from "vitest";
+import { mkdtemp, rm, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 import {
   Report,
   publisherGroup,
@@ -16,8 +19,6 @@ import {
   parseCoverage,
   parseGranularity,
   buildDataAvailability,
-  descriptionFromV1,
-  keyFeaturesFromV1,
   buildKeyFeatures,
   charCount,
   withinLimit,
@@ -442,71 +443,6 @@ describe("TARGETS", () => {
     for (const t of Object.values(TARGETS))
       if (t.mode === "new")
         await expect(access(t.templateFile)).resolves.toBeUndefined();
-  });
-});
-
-describe("descriptionFromV1", () => {
-  const overview =
-    "#### Pathway Description\n\nA pathway about Laos\n\n#### Core Drivers\n\nPrices.";
-  it("takes the Pathway Description section of a v1 expertOverview", () => {
-    const report = new Report();
-    expect(descriptionFromV1({ expertOverview: overview }, report, "T")).toBe(
-      "A pathway about Laos.",
-    );
-    expect(report.lines.some((l) => l.includes("taken from v1"))).toBe(true);
-  });
-  it("returns null when there is no v1 text to fall back on", () => {
-    expect(descriptionFromV1({}, new Report(), "T")).toBeNull();
-    expect(descriptionFromV1(null, new Report(), "T")).toBeNull();
-  });
-});
-
-describe("keyFeaturesFromV1", () => {
-  const v1 = {
-    $schema: "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
-    sectors: [{ name: "Power" }],
-    geography: { country: ["PH"] },
-    keyFeatures: {
-      emissionsTrajectory: "Moderate increase",
-      policyTypes: ["Carbon price", "Subsidies"],
-    },
-  };
-  it("keeps a v1 file's authored values as widest-scope entries", () => {
-    const report = new Report();
-    const kf = keyFeaturesFromV1(v1, report, "T");
-    expect(kf?.emissionsTrajectory).toEqual([
-      { sector: "Power", geography: "PH", value: "Moderate increase" },
-    ]);
-    expect(kf?.policyTypes).toEqual([
-      {
-        sector: "Power",
-        geography: "PH",
-        value: ["Carbon price", "Subsidies"],
-      },
-    ]);
-    expect(report.lines.some((l) => l.includes("converted from v1"))).toBe(
-      true,
-    );
-  });
-  it("leaves a v2 file to the workbook", () => {
-    const v2 = {
-      ...v1,
-      $schema: "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
-    };
-    expect(keyFeaturesFromV1(v2, new Report(), "T")).toBeNull();
-    expect(keyFeaturesFromV1(null, new Report(), "T")).toBeNull();
-  });
-  it("drops Electrification of a Power-only pathway, which cannot apply", () => {
-    const kf = keyFeaturesFromV1(
-      {
-        ...v1,
-        keyFeatures: { ...v1.keyFeatures, electrification: "Minor increase" },
-      },
-      new Report(),
-      "T",
-    );
-    expect(kf?.electrification).toEqual([]);
-    expect(kf?.emissionsTrajectory).toHaveLength(1);
   });
 });
 
@@ -1053,6 +989,40 @@ describe("rows the import would otherwise lose without a word", () => {
     expect(report.errors.join("\n")).toContain(
       "template does/not/exist.json for T:NEW: not found or unreadable",
     );
+  });
+
+  it("refuses to update a file that is not on the v2 schema", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "import-pathway-"));
+    const file = join(dir, "T.json");
+    const v1 = "http://pathways.rmi.org/schema/pathwayMetadata.v1.json";
+    try {
+      await writeFile(file, JSON.stringify({ $schema: v1, id: "T" }));
+      const report = new Report();
+      const files = await loadTargetFiles(
+        "T:OLD:",
+        { mode: "update", file },
+        report,
+      );
+      expect(files).toBeNull();
+      expect(report.errors.join("\n")).toContain(
+        `T:OLD:: target file ${file} has $schema "${v1}"`,
+      );
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+
+  it("loads a v2 file for update", async () => {
+    const report = new Report();
+    const files = await loadTargetFiles(
+      "T:V2:",
+      { mode: "update", file: "testdata/valid/pathwayMetadata_v2_full.json" },
+      report,
+    );
+    expect(files?.existing?.$schema).toBe(
+      "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+    );
+    expect(report.errors).toEqual([]);
   });
 
   it("never lets a partly unreadable Metric cell remove an update's metrics", () => {

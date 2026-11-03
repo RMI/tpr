@@ -4,9 +4,7 @@ import { join } from "node:path";
 import type { FileEntry } from "../src/utils/validateData.ts";
 import { validateFilesBySchema } from "../src/utils/validateData.ts";
 import { decideIncludeInvalid } from "../src/utils/loadData.ts";
-import pathwayMetadata from "../src/schema/pathwayMetadata.v1.json" with { type: "json" };
 import pathwayMetadataV2 from "../src/schema/pathwayMetadata.v2.json" with { type: "json" };
-import pathwayTimeseries from "../src/schema/pathwayTimeseries.v1.json" with { type: "json" };
 import pathwayTimeseriesV2 from "../src/schema/pathwayTimeseries.v2.json" with { type: "json" };
 import { commonSchemas } from "../src/schema/common/index.ts";
 import type { PathwayMetadataV2 } from "../src/types/pathwayMetadata.v2.d.ts";
@@ -44,10 +42,10 @@ async function run(dir: string) {
     entries.push({ name: file, data: JSON.parse(raw) });
   }
 
+  // Only the current document schemas: a file whose $schema names anything else
+  // (including the retired v1 schemas) fails with "no schema preloaded".
   const { valid, invalid } = validateFilesBySchema(entries, [
-    pathwayMetadata,
     pathwayMetadataV2,
-    pathwayTimeseries,
     pathwayTimeseriesV2,
     ...commonSchemas,
   ]);
@@ -66,15 +64,10 @@ async function run(dir: string) {
 
   // Timeseries rows name a geography and segments that must match the
   // pathway's metadata, which lives in other files -- see
-  // src/utils/validateTimeseries.ts. Metadata of either version counts: the
-  // geography object has the same shape in both.
-  const METADATA_IDS = new Set<string>([
-    String(pathwayMetadata.$id),
-    PATHWAY_METADATA_V2_ID,
-  ]);
+  // src/utils/validateTimeseries.ts.
   const metadataGeographyById = new Map(
     valid
-      .filter((r) => METADATA_IDS.has(r.schemaId))
+      .filter((r) => r.schemaId === PATHWAY_METADATA_V2_ID)
       .map((r) => {
         const doc = r.data as PathwayMetadataV2;
         return [doc.id, doc.geography] as const;

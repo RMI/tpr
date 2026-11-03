@@ -1,6 +1,5 @@
 import type { FacetMode } from "../utils/searchUtils";
 import type { KeyFeatureKey } from "../utils/keyFeatureRules";
-import type { PathwayMetadataV1 } from "./pathwayMetadata.v1";
 import type { PathwayMetadataV2 } from "./pathwayMetadata.v2";
 import type { PublicationV1 } from "./common/publication.v1";
 import type { GeographyV1 } from "./common/geography.v1";
@@ -11,9 +10,7 @@ import type { GeographyV1 } from "./common/geography.v1";
 export type PathwayMetadataType = PathwayMetadataV2;
 export type PublicationType = PublicationV1;
 
-// Both versions are exported for the migration window. v1 and v2 documents
-// coexist in src/data — validateData routes each by its own $schema $id.
-export type { PathwayMetadataV1, PathwayMetadataV2 };
+export type { PathwayMetadataV2 };
 
 /** A single scoped keyFeatures entry: {sector, geography, value} (#858). */
 export type ScopedKeyFeature<K extends KeyFeatureKey> =

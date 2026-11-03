@@ -7,8 +7,8 @@
 //   - TS_INDEX_DEBUG=1  : verbose logs for skipped files & reasons
 //
 // Detection & normalization:
-//   - Identify timeseries by $schema containing "pathwayTimeseries.v1.json" or
-//     "pathwayTimeseries.v2.json" (or the full URL).
+//   - Identify timeseries by $schema containing "pathwayTimeseries.v2.json"
+//     (or the full URL).
 //   - datasetId  := datasetId | id
 //   - pathwayIDs := pathwayID (string|array) | pathwayIds | pathwayId
 //   - label      := label | name
@@ -72,10 +72,7 @@ type TimeseriesIndex = {
 const ROOT = process.cwd();
 const DATA_DIR = path.join(ROOT, "src", "data");
 
-const TS_SCHEMA_MATCHERS = [
-  "pathwayTimeseries.v1.json",
-  "pathwayTimeseries.v2.json",
-];
+const TS_SCHEMA_MATCHERS = ["pathwayTimeseries.v2.json"];
 
 function logDebug(...args: any[]) {
   if (DEBUG) console.log("[timeseries-index][debug]", ...args);

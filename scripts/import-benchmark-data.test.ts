@@ -165,7 +165,7 @@ describe("planImport", () => {
     );
   });
 
-  it("blocks a file still on the v1 schema", () => {
+  it("blocks a file on the retired v1 schema", () => {
     const { report } = plan([
       file({
         $schema: "http://pathways.rmi.org/schema/pathwayTimeseries.v1.json",
