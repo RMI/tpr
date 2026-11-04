@@ -7,6 +7,10 @@ vi.mock("./pages/LandingPage", () => ({
   default: () => <div data-testid="mock-homepage">LandingPage</div>,
 }));
 
+vi.mock("./pages/CaseStudiesPage", () => ({
+  default: () => <div data-testid="mock-case-studies-page">Case Studies</div>,
+}));
+
 vi.mock("./pages/resources", () => ({
   ResourcesFaqPage: () => <div>Faq Page</div>,
   ResourcesHowToChooseAPathwayPage: () => (
@@ -44,5 +48,15 @@ describe("App component", () => {
     expect(screen.getByTestId("location-display")).toHaveTextContent(
       "/resources/how-to-choose-a-pathway",
     );
+  });
+
+  it("renders the case studies route at the top level", () => {
+    render(
+      <MemoryRouter initialEntries={["/case-studies"]}>
+        <AppContent />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId("mock-case-studies-page")).toBeInTheDocument();
   });
 });

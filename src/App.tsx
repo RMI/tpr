@@ -8,6 +8,7 @@ import PathwaySearch from "./pages/PathwaySearch";
 import PathwayDetailPage from "./pages/PathwayDetailPage";
 import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
+import CaseStudiesPage from "./pages/CaseStudiesPage";
 import EnvironmentBanner from "./components/EnvironmentBanner";
 import { FilterProvider } from "./context/FilterContext";
 import { ComparisonProvider } from "./context/ComparisonContext";
@@ -55,6 +56,10 @@ export const AppContent = () => {
           <Route
             path="/contact"
             element={<ContactPage />}
+          />
+          <Route
+            path="/case-studies"
+            element={<CaseStudiesPage />}
           />
 
           <Route
