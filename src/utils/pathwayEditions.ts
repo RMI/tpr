@@ -37,11 +37,11 @@ function idSuffixYear(id: string): number | null {
 /**
  * The year to SHOW for a pathway. Always the metadata, never the id.
  *
- * Three records disagree with their own id: `UNSDSN-CW-EP-MY-2024`,
- * `UNSDSN-CW-MAP-MY-2024` and `UNSDSN-CW-MAP1-MY-2024` all end in `-2024` but
- * carry `publication.year: 2023`. The mismatch is logged for the data team and
- * is not ours to fix, so every display path reads the metadata and agrees with
- * the rest of the card.
+ * An id's year suffix is not guaranteed to match `publication.year`: the id is
+ * fixed when a pathway is first added, while the year comes from the
+ * publication and can be corrected later. A mismatch is for the data team to
+ * fix, so every display path reads the metadata and agrees with the rest of
+ * the card.
  */
 export function editionYear(pathway: PathwayMetadataType): number {
   return pathway.publication.year;

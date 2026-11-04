@@ -9,7 +9,7 @@ import {
 } from "./tooltipUtils";
 import { segmentsForSector, UNSEGMENTED } from "./timeseriesTaxonomy";
 
-import pathwayMetadata from "../schema/pathwayMetadata.v1.json";
+import pathwayMetadata from "../schema/pathwayMetadata.v2.json";
 import sectorSchema from "../schema/common/sector.v1.json" with { type: "json" };
 
 const schema: unknown = pathwayMetadata;

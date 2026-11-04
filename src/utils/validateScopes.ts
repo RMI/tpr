@@ -27,7 +27,7 @@
  *
  * It also enforces #461 -- that a technology belongs to the sector it is attached
  * to. #461 suggests mirroring the `if`/`then` sector conditional in
- * `pathwayTimeseries.v1.json`, but that keyword pair defeats
+ * the timeseries schema, but that keyword pair defeats
  * `json-schema-to-typescript`: the timeseries `data` items use exactly that shape
  * and generate as `{ [k: string]: unknown }[]`. Applying it to `sectors.items`
  * would collapse today's `{ name; technologies }` object type and break every

@@ -1,20 +1,13 @@
 import { defineConfig, Plugin, version as viteVersion } from "vite";
 import type { ViteDevServer } from "vite";
-import type { PluginContext } from "rollup";
 import react from "@vitejs/plugin-react";
 import { simpleGit } from "simple-git";
 import os from "os";
-import { FileEntry } from "./src/utils/validateData";
-import { assembleData, decideIncludeInvalid } from "./src/utils/loadData";
-import { promises as fs } from "node:fs";
-import { join } from "node:path";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
 import type { IncomingMessage, ServerResponse } from "node:http";
 import pkg from "./package.json";
-import pathwayMetadata from "./src/schema/pathwayMetadata.v1.json" with { type: "json" };
-import { commonSchemas } from "./src/schema/common";
 
 // Safe wrapper for OS functions with proper typing
 const getOsInfo = (): {
@@ -130,60 +123,6 @@ function buildInfoPlugin(): Plugin {
   };
 }
 
-function dataValidationPlugin(dir: string = "src/data") {
-  return {
-    name: "data-validation",
-    apply: "build" as const,
-    enforce: "pre" as const,
-    async buildStart(this: PluginContext) {
-      const names = (await fs.readdir(dir)).filter((f) => f.endsWith(".json"));
-      const entries: FileEntry[] = [];
-
-      for (const name of names) {
-        const raw = await fs.readFile(join(dir, name), "utf8");
-        entries.push({
-          name,
-          data: JSON.parse(raw) as unknown[],
-        });
-      }
-
-      // Decide lenient vs strict
-      const includeInvalid = decideIncludeInvalid();
-      const inCI =
-        String(process.env.GITHUB_ACTIONS || "").toLowerCase() === "true";
-
-      // Validate + assemble; surface warnings via Vite's logger
-      assembleData(entries, pathwayMetadata as object, commonSchemas, {
-        includeInvalid,
-        warn: (msg: string): void => {
-          console.warn(msg);
-        },
-        onInvalid: (problems): void => {
-          // Emit per-file annotations for Actions
-          if (inCI) {
-            for (const p of problems) {
-              const file = join(dir, p.name);
-              // one line per error keeps annotations readable; cap to 20
-              const errs = p.errors.slice(0, 20);
-              for (const e of errs) {
-                // GitHub Actions workflow command:
-                // ::warning file=<path>,line=<n>,col=<n>::message
-                // We don't have line/col (JSON), so omit them.
-                console.log(`::warning file=${file}::${e}`);
-              }
-              if (p.errors.length > errs.length) {
-                console.log(
-                  `::notice file=${file}::…and ${p.errors.length - errs.length} more error(s)`,
-                );
-              }
-            }
-          }
-        },
-      });
-    },
-  };
-}
-
 // Create a new plugin for serving schema files
 // Used to access the schema files with the dev server
 function schemaServePlugin(): Plugin {
@@ -228,7 +167,6 @@ export default defineConfig({
   plugins: [
     react(),
     buildInfoPlugin(),
-    dataValidationPlugin("src/data"),
     schemaServePlugin(),
     viteStaticCopy({
       // Copy the entire schema dir to /schema in the built output

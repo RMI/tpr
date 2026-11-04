@@ -2,8 +2,8 @@
  * Generate *.d.ts files from JSON Schemas in src/schema/
  *
  * Example:
- *   src/schema/pathwayMetadata.v1.json → src/types/pathwayMetadata.v1.d.ts
- *   → Root interface name: PathwayMetadataV1
+ *   src/schema/pathwayMetadata.v2.json → src/types/pathwayMetadata.v2.d.ts
+ *   → Root interface name: PathwayMetadataV2
  */
 import path from "node:path";
 import fs from "node:fs";
@@ -39,10 +39,10 @@ async function listSchemaFiles(dir: string): Promise<string[]> {
 
 /**
  * Derive a stable TypeScript type name from a filename (no directory), e.g.:
- *   pathwayMetadata.v1.json -> PathwayMetadataV1
+ *   pathwayMetadata.v2.json -> PathwayMetadataV2
  */
 function typeNameFromFilename(fileName: string): string {
-  const base = fileName.replace(/\.json$/i, ""); // pathwayMetadata.v1
+  const base = fileName.replace(/\.json$/i, ""); // pathwayMetadata.v2
   return base
     .split(".")
     .map((seg) => (seg ? seg.charAt(0).toUpperCase() + seg.slice(1) : seg))

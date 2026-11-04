@@ -5,6 +5,7 @@ import { join } from "node:path";
 import {
   commitWrites,
   planImport,
+  readCorpus,
   type Corpus,
   type WriteFs,
 } from "./import-benchmark-data.ts";
@@ -165,7 +166,7 @@ describe("planImport", () => {
     );
   });
 
-  it("blocks a file still on the v1 schema", () => {
+  it("blocks a file on the retired v1 schema", () => {
     const { report } = plan([
       file({
         $schema: "http://pathways.rmi.org/schema/pathwayTimeseries.v1.json",
@@ -291,6 +292,31 @@ describe("commitWrites", () => {
       ).rejects.toThrow(/EACCES/);
       await chmod(locked, 0o644);
       expect(await readFile(locked, "utf8")).toBe("old");
+    } finally {
+      await rm(dir, { recursive: true, force: true });
+    }
+  });
+});
+
+describe("readCorpus", () => {
+  it("counts only documents on the current schemas, but keeps every path taken", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "import-benchmark-"));
+    const v2 = join(dir, "v2_timeseries.json");
+    const v1 = join(dir, "v1_timeseries.json");
+    try {
+      await writeFile(v2, JSON.stringify(file({ id: "V2_timeseries" })));
+      await writeFile(
+        v1,
+        JSON.stringify(
+          file({
+            $schema: "http://pathways.rmi.org/schema/pathwayTimeseries.v1.json",
+            id: "V1_timeseries",
+          }),
+        ),
+      );
+      const corpus = await readCorpus(dir);
+      expect([...corpus.timeseriesById.keys()]).toEqual(["V2_timeseries"]);
+      expect([...corpus.occupiedPaths].sort()).toEqual([v1, v2].sort());
     } finally {
       await rm(dir, { recursive: true, force: true });
     }

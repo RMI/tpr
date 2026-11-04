@@ -1,10 +1,7 @@
 /**
  * Import pathway metadata from the working Excel workbook into v2 JSON (#860).
- *
- * Supersedes the one-shot `codemod-v1-to-v2.ts`: where the codemod scaffolded
- * `coreDrivers` null, `dependencies` [], and a single widest-scope keyFeatures
- * entry, this reads the real values out of `pathway_data_prepared.xlsx` and
- * writes them onto the metadata files.
+ * Reads the values out of `pathway_data_prepared.xlsx` and writes them onto the
+ * metadata files.
  *
  *   npx ts-node --esm scripts/import-pathway-data.ts --dry-run
  *   npx ts-node --esm scripts/import-pathway-data.ts
@@ -32,12 +29,6 @@
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import ExcelJS from "exceljs";
-import {
-  PATHWAY_DESCRIPTION,
-  splitExpertOverview,
-  upgradeV1ToV2,
-} from "./codemod-v1-to-v2.ts";
-import type { PathwayMetadataV1 } from "../src/types/pathwayMetadata.v1.d.ts";
 import {
   availabilityMetricsForSector,
   technologyBelongsToSector,
@@ -145,7 +136,7 @@ const EVIDENCE_TYPES =
  *  - a `$ref` to a shared enum schema;
  *  - an `anyOf` composing a `$ref` with an inline enum — emissionsScope, which
  *    draws its gas vocabulary from `emissionsScope.v1.json` (shared with
- *    pathwayTimeseries.v1) and adds the scope sentinel locally.
+ *    pathwayTimeseries.v2) and adds the scope sentinel locally.
  *
  * The last shape is why `membersOf` is recursive rather than a branch per case.
  * Returning `[]` for an unrecognised shape is what it used to do for an
@@ -276,7 +267,7 @@ const GEO_ALIASES: Record<string, string> = {
 // --------------------------------------------------------------------------
 
 type Target =
-  | { mode: "update"; file: string; wasV1?: boolean; note?: string }
+  | { mode: "update"; file: string; note?: string }
   | {
       mode: "new";
       file: string;
@@ -336,36 +327,30 @@ export const TARGETS: Record<string, Target> = {
   "SDSN:EXT TH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-EXT-TH-2024.json",
-    wasV1: true,
   },
   "SDSN:MAP TH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-MAP-TH-2024.json",
-    wasV1: true,
   },
   "SDSN:NZE TH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-NZE-TH-2024.json",
-    wasV1: true,
   },
   // Philippines DOE. Excel Year of Publication is 2024 while the repo ids say
   // 2023 (id uses the plan's base year); same single report, so update in place.
   "PHDOE:REF:": {
     mode: "update",
     file: "src/data/philippines-department-of-energy/PHDOE-REFERENCE-2023.json",
-    wasV1: true,
     note: "Excel year 2024 vs repo id year 2023 (same report)",
   },
   "PHDOE:CES1:": {
     mode: "update",
     file: "src/data/philippines-department-of-energy/PHDOE-CES1-2023.json",
-    wasV1: true,
     note: "Excel year 2024 vs repo id year 2023 (same report)",
   },
   "PHDOE:CES2:": {
     mode: "update",
     file: "src/data/philippines-department-of-energy/PHDOE-CES2-2023.json",
-    wasV1: true,
     note: "Excel year 2024 vs repo id year 2023 (same report)",
   },
   // ASEAN Green Future -- stored under un-sdsn-cw. The workbook now publishes
@@ -375,75 +360,62 @@ export const TARGETS: Record<string, Target> = {
   "SDSN:EPP MM:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-EPP-MM-2025.json",
-    wasV1: true,
   },
   "SDSN:OEPP MM:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-OEPP-MM-2025.json",
-    wasV1: true,
   },
   "SDSN:OMAP MM:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-MM-2025.json",
-    wasV1: true,
   },
   "SDSN:EP LA:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-EP-LA-2025.json",
-    wasV1: true,
   },
   "SDSN:OEP LA:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-OEP-LA-2025.json",
-    wasV1: true,
   },
   "SDSN:MAP LA:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-MAP-LA-2025.json",
-    wasV1: true,
   },
   "SDSN:OMAP LA:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-OMAP-LA-2025.json",
-    wasV1: true,
   },
-  // UN SDSN / ClimateWorks -- Singapore. Existing v1 files, migrated in place.
+  // UN SDSN / ClimateWorks -- Singapore. Existing files, updated in place.
   "SDSN:BAS SG:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-BAS-SG-2024.json",
-    wasV1: true,
   },
   "SDSN:BAU SG:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-BAU-SG-2024.json",
-    wasV1: true,
   },
   "SDSN:HA1S SG:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-HA1S-SG-2024.json",
-    wasV1: true,
   },
   "SDSN:HA2S SG:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-HA2S-SG-2024.json",
-    wasV1: true,
   },
   "SDSN:HA1O SG:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-HA1O-SG-2024.json",
-    wasV1: true,
   },
   "SDSN:HA2O SG:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-HA2O-SG-2024.json",
-    wasV1: true,
   },
   // UN SDSN / ClimateWorks -- Malaysia. The workbook carries the Phase 2.2
   // report, which replaces Phase 2.1. EP MY keeps its id and file but is
   // rebuilt as "new" so its name, description and publication come from the
   // workbook rather than the 2.1 file. All three take the publisher block from
-  // EP MY, whose links point at the 2.2 report. MAP MY and MAP1 MY are 2.1
-  // pathways and are removed separately.
+  // EP MY, whose links point at the 2.2 report. The 2.1-only MAP MY and
+  // MAP1 MY pathways have been removed: 2.2 has no counterpart for them.
   "SDSN:EP MY:": {
     mode: "new",
     file: "src/data/un-sdsn-cw/SDSN-CW-EP-MY-2024.json",
@@ -470,22 +442,18 @@ export const TARGETS: Record<string, Target> = {
   "SDSN:SEP PH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
-    wasV1: true,
   },
   "SDSN:OEP PH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-OEP-PH-2024.json",
-    wasV1: true,
   },
   "SDSN:MAP1 PH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-MAP1-PH-2024.json",
-    wasV1: true,
   },
   "SDSN:MAP2 PH:": {
     mode: "update",
     file: "src/data/un-sdsn-cw/SDSN-CW-MAP2-PH-2024.json",
-    wasV1: true,
   },
   "SDSN:MAP3 PH:": {
     mode: "new",
@@ -501,92 +469,76 @@ export const TARGETS: Record<string, Target> = {
     templateFile: "src/data/un-sdsn-cw/SDSN-CW-SEP-PH-2024.json",
     note: "new pathway",
   },
-  // CGS / IESR Indonesia. Existing v1 files, migrated in place.
+  // CGS / IESR Indonesia. Existing files, updated in place.
   "CGS:BaU:": {
     mode: "update",
     file: "src/data/cgs-iesr/CGS-IESR-BAU-2024.json",
-    wasV1: true,
   },
   "CGS:1.5°C:": {
     mode: "update",
     file: "src/data/cgs-iesr/CGS-IESR-1-5-2024.json",
-    wasV1: true,
   },
   // JRC GECO -- repo files already year 2025, same edition; update in place.
   // The workbook now writes the codes "(Reference)" and "(1.5°C)".
   "JRC:Reference:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-REFERENCE-2025.json",
-    wasV1: true,
   },
   "JRC:NDC-LTS:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-NDC-LTS-2025.json",
-    wasV1: true,
   },
   "JRC:1.5°C:": {
     mode: "update",
     file: "src/data/jrc/JRC-GECO-1-5-2025.json",
-    wasV1: true,
   },
-  // UTS-ISF, TransitionZero and Viet Nam EREA/DEA -- existing v1 files,
-  // migrated in place. Viet Nam's baseline is "(BSL)" in the workbook and
+  // UTS-ISF, TransitionZero and Viet Nam EREA/DEA -- existing files,
+  // updated in place. Viet Nam's baseline is "(BSL)" in the workbook and
   // keeps its existing short name, "Baseline".
   "UTS:OECM:": {
     mode: "update",
     file: "src/data/uts-isf/UTS-ISF-OECM-2024.json",
-    wasV1: true,
   },
   "TZ:BAU:": {
     mode: "update",
     file: "src/data/transitionzero/TZ-BAU-2024.json",
-    wasV1: true,
   },
   "TZ:EBAU:": {
     mode: "update",
     file: "src/data/transitionzero/TZ-EBAU-2024.json",
-    wasV1: true,
   },
   "TZ:REGI:": {
     mode: "update",
     file: "src/data/transitionzero/TZ-REGI-2024.json",
-    wasV1: true,
   },
   "TZ:ISG:": {
     mode: "update",
     file: "src/data/transitionzero/TZ-ISG-2024.json",
-    wasV1: true,
   },
   "EREA:BSL:": {
     mode: "update",
     file: "src/data/vn-erea-dea/EREA-DEA-VN-BASELINE-2024.json",
-    wasV1: true,
   },
   "EREA:NZ:": {
     mode: "update",
     file: "src/data/vn-erea-dea/EREA-DEA-NZ-2024.json",
-    wasV1: true,
   },
   "EREA:NZ+:": {
     mode: "update",
     file: "src/data/vn-erea-dea/EREA-DEA-NZPLUS-2024.json",
-    wasV1: true,
   },
   "EREA:GG:": {
     mode: "update",
     file: "src/data/vn-erea-dea/EREA-DEA-GG-2024.json",
-    wasV1: true,
   },
   "EREA:GT:": {
     mode: "update",
     file: "src/data/vn-erea-dea/EREA-DEA-GT-2024.json",
-    wasV1: true,
   },
   // JETP Indonesia.
   "JETP:CIPP:": {
     mode: "update",
     file: "src/data/jetp-id/JETP-CIPP-2023.json",
-    wasV1: true,
   },
   ...ngfsTargets(),
 };
@@ -1721,7 +1673,7 @@ export function buildDoc(
 
   // Sectors are rebuilt from the Excel for every file, not preserved: the
   // workbook's Sectors cell is authoritative (it drives which keyFeatures scopes
-  // are in-bounds), and preserving a v1 file's sectors could carry a technology
+  // are in-bounds), and preserving a file's sectors could carry a technology
   // that violates #461 and fails schema:check. Technologies are filtered to the
   // sector's own vocabulary (technologiesForSector), dropping e.g. "BESS".
   const sectors = buildSectors(
@@ -1778,15 +1730,15 @@ export function buildDoc(
         : fromWorkbook;
 
   const geoAllowed = allowedGeographies(geography ?? undefined);
-  const fromV1 =
-    sub.keyFeatures.length === 0
-      ? keyFeaturesFromV1(existing, report, id)
-      : null;
-  if (sub.keyFeatures.length === 0 && !fromV1)
+  if (sub.keyFeatures.length === 0)
     report.note(`${id}: no key_features rows -- keyFeatures left empty`);
-  const keyFeatures =
-    fromV1 ??
-    buildKeyFeatures(sub.keyFeatures, declaredSectors, geoAllowed, report, id);
+  const keyFeatures = buildKeyFeatures(
+    sub.keyFeatures,
+    declaredSectors,
+    geoAllowed,
+    report,
+    id,
+  );
   const coreDrivers = buildCoreDrivers(sub.coreDrivers, report, id);
   const dependencies = buildDependencies(
     sub.dependencies,
@@ -1814,8 +1766,7 @@ export function buildDoc(
     withinLimit(pathwayDescription, 2500, `${id}/pathwayDescription`, report);
   } else {
     pathwayDescription =
-      (existing?.pathwayDescription as string | null) ??
-      descriptionFromV1(existing, report, id);
+      (existing?.pathwayDescription as string | null | undefined) ?? null;
   }
 
   // Scalars: take from Excel where valid, else keep existing/template.
@@ -1896,59 +1847,6 @@ export function buildDoc(
   return doc;
 }
 
-/**
- * A v1 file's description, for when the workbook has none.
- *
- * The fallback used to be `existing.pathwayDescription` alone. A v1 document has
- * no such field -- its description sits inside `expertOverview` -- so migrating a
- * v1 file whose workbook row had an empty "Pathway Overview" set the description
- * to null and dropped the v1 text. That is how 13 pathways (3 JRC, 3 PHDOE, 7
- * Myanmar/Laos) lost 4-5 KB of description each.
- *
- * Extracts the "Pathway Description" section with the codemod's own parser, so
- * the importer and the codemod cannot disagree about where it is.
- */
-export function descriptionFromV1(
-  existing: Json | null,
-  report: Report,
-  id: string,
-): string | null {
-  const overview = existing?.expertOverview;
-  if (typeof overview !== "string" || overview.trim() === "") return null;
-  const section = splitExpertOverview(overview).get(PATHWAY_DESCRIPTION) ?? "";
-  if (section.trim() === "") return null;
-  const text = ensurePeriod(section);
-  if (text.length > 2500) {
-    report.note(
-      `${id}/pathwayDescription: v1 description is ${text.length} chars > 2500 -- left null`,
-    );
-    return null;
-  }
-  report.note(`${id}/pathwayDescription: taken from v1 expertOverview`);
-  return text;
-}
-
-/**
- * The v1 key features of an existing file, converted to v2 scoped entries.
- *
- * A pathway with no key_features rows used to get 11 empty arrays, which on a
- * v1 file throws away every authored value -- how PHDOE-CES1 and
- * PHDOE-REFERENCE came to show "No information" throughout. Converting with the
- * codemod's own upgradeV1ToV2 keeps the two migrations from disagreeing about
- * how a v1 value is scoped.
- */
-export function keyFeaturesFromV1(
-  existing: Json | null,
-  report: Report,
-  id: string,
-): Record<string, ScopedEntry[]> | null {
-  if (!existing || existing.$schema === V2_ID || !existing.keyFeatures)
-    return null;
-  const { doc } = upgradeV1ToV2(existing as unknown as PathwayMetadataV1);
-  report.note(`${id}/keyFeatures: no key_features rows -- converted from v1`);
-  return doc.keyFeatures as unknown as Record<string, ScopedEntry[]>;
-}
-
 /** Publication block for a new file: template's publisher block + Excel title/year. */
 function buildPublicationForNew(
   template: Json | undefined,
@@ -2015,6 +1913,17 @@ export async function loadTargetFiles(
   const existing = await readJson(target.file);
   if (!existing) {
     report.note(`${key}: target file ${target.file} not found -- skipped`);
+    return null;
+  }
+  // Updates build on the file's own v2 fields, so anything else (a retired v1
+  // file, #981) would be rebuilt from the workbook alone and lose them. The v1
+  // codemods were deleted with v1 itself, so the message says where to get one.
+  if (existing.$schema !== V2_ID) {
+    report.error(
+      `${key}: target file ${target.file} has $schema ${JSON.stringify(existing.$schema)}, expected ${V2_ID}. ` +
+        `Convert it to v2 first: a v1 file can go through scripts/codemod-v1-to-v2.ts, ` +
+        `which was deleted when v1 was retired (#981) -- restore it from git history to run it.`,
+    );
     return null;
   }
   return { existing, template: null };
@@ -2094,7 +2003,6 @@ async function main() {
   const seenKeys = new Set<string>();
   let updated = 0;
   let created = 0;
-  let migratedV1 = 0;
   const unmatched: string[] = [];
   // Written only once every pathway has been built without an error, so a
   // workbook with mistakes leaves src/data untouched rather than half-imported.
@@ -2127,7 +2035,6 @@ async function main() {
     };
 
     const doc = buildDoc(target, meta, sub, existing, template, report);
-    const wasV1 = target.mode === "update" && existing?.$schema !== V2_ID;
 
     pending.push({ file: target.file, doc });
     if (target.mode === "new") {
@@ -2137,9 +2044,8 @@ async function main() {
       );
     } else {
       updated++;
-      if (wasV1) migratedV1++;
       report.note(
-        `UPD  ${target.file}${wasV1 ? " [v1->v2]" : ""}${target.note ? ` (${target.note})` : ""}`,
+        `UPD  ${target.file}${target.note ? ` (${target.note})` : ""}`,
       );
     }
   }
@@ -2152,7 +2058,7 @@ async function main() {
 
   report.section("Summary");
   report.note(
-    `${dryRun ? "Would update" : "Updated"} ${updated} file(s) (${migratedV1} migrated v1->v2), ` +
+    `${dryRun ? "Would update" : "Updated"} ${updated} file(s), ` +
       `${dryRun ? "would create" : "created"} ${created} new file(s).`,
   );
   if (unmatched.length > 0) {

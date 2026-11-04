@@ -22,26 +22,25 @@ That checks every file under `src/data` and `testdata/valid`. You can preview a 
 
 If you have changed a schema rather than a data file, run `npm run schema` instead — it validates and then regenerates the TypeScript types in `src/types/`. Those are checked in, and CI fails if they are out of date.
 
-### Two schema versions
+### Which schema a file follows
 
-Two versions of the metadata schema currently exist:
+Every file declares its schema with its own `$schema` key: `pathwayMetadata.v2.json` for a pathway, `pathwayTimeseries.v2.json` for a timeseries file. These are the only two document schemas; the v1 formats are retired, and the site no longer publishes them under `/schema/`.
 
-- `pathwayMetadata.v2.json` — the current format. **New pathways should use this.**
-- `pathwayMetadata.v1.json` — the previous format, still present so existing files remain valid.
+A file that names any other schema, including a v1 one or a shared fragment under `src/schema/common/`, or has no `$schema` at all, **always fails `npm run schema:check`**, locally and in CI, with `no schema preloaded for $schema "…"` (or `… is a shared fragment, not a document schema`, or `missing or non-string "$schema"`) as an error annotation on the file. The site never loads such a file: it is not shown as invalid, it is simply missing from the app. When you run `npm run dev`, the browser console lists any such files.
 
-Every file declares which one it follows via its own `$schema` key, and the validator routes each file to the matching schema. A file on either version will pass `npm run schema:check`.
+That is stricter than an ordinary schema error, on purpose. In CI, `VITE_INCLUDE_INVALID` is `true` for every PR and push except those to `production` and `next` (#449), so a file that fails validation is only a warning there, and can still be previewed in the app. A file with the wrong `$schema` cannot be previewed at all, so it gets no such leniency.
 
-**Only v2 files are loaded by the site.** A file still on v1 validates but does not appear in the app; the dev server logs how many were skipped. Migration of the remaining v1 files is in progress.
+The `.v1` in the names under `src/schema/common/` is the version of that shared definition, not of the document format — the v2 schemas use them.
 
 ## The v2 format
 
 A complete, valid example lives at [`testdata/valid/pathwayMetadata_v2_full.json`](../../testdata/valid/pathwayMetadata_v2_full.json), and a minimal one at `pathwayMetadata_v2_minimal.json`. Real pathways are in the publisher subdirectories here.
 
-If you are used to the v1 format, these are the differences that matter:
+The sections below cover the fields that take the most care to author.
 
 ### keyFeatures are scoped
 
-In v1 each of the 11 key features held a single value for the whole pathway. In v2 each holds an **array of entries**, so a pathway can record different values for different parts of its coverage:
+Each of the 11 key features holds an **array of entries**, so a pathway can record different values for different parts of its coverage:
 
 ```json
 "keyFeatures": {
@@ -54,7 +53,7 @@ In v1 each of the 11 key features held a single value for the whole pathway. In 
 
 - `sector` is one of the sector names, or `"across sectors"` meaning "all of the sectors this pathway covers".
 - `geography` is `"Global"`, one of the region labels used in this pathway's own `geography.regions`, or one of its country codes.
-- `value` is exactly what v1 held for that field — the same allowed values. For the two fields that were arrays in v1 (`policyTypes`, `newTechnologiesIncluded`), `value` is still an array.
+- `value` is one of that feature's allowed values, listed in the schema. For `policyTypes` and `newTechnologiesIncluded`, `value` is an array of them.
 
 Both `sector` and `geography` must be something the pathway actually declares, or one of the widest sentinels. A region label that does not appear in the pathway's own `geography.regions` is rejected, which is what catches a typo like `"Southeast Asia"` where the pathway says `"South East Asia"`.
 
@@ -62,9 +61,9 @@ If a feature does not vary, give it **one entry at the widest scope that applies
 
 An empty array means nothing is recorded at any scope. That is different from an entry whose `value` is `"No information"`, which is a deliberate statement that this scope has no data.
 
-### sectors carry their segments, and the scope sentinels changed spelling
+### sectors carry their segments, and how the scope sentinels are spelled
 
-`sectors[]` entries gain an optional `segments` list alongside `technologies` — which
+`sectors[]` entries take an optional `segments` list alongside `technologies` — which
 parts of that sector's value chain the pathway covers:
 
 ```json
@@ -80,26 +79,16 @@ parts of that sector's value chain the pathway covers:
 Optional on purpose: only Power, Steel and Aviation have segments defined, and leaving
 it out means "not recorded" where `[]` would claim the pathway covers none of them.
 
-The two widest-scope sentinels are now spelled as the cookbook spells them:
-**`across sectors`** (was `cross-sector`) and **`across regions`** (was `cross-region`,
-a value the cookbook never defined).
+The two widest-scope sentinels are spelled as the cookbook spells them:
+**`across sectors`** and **`across regions`**.
 
-### expertOverview is replaced by pathwayDescription
+### pathwayDescription is the only prose
 
-v1's single `expertOverview` was one markdown document containing three sections. Only
-one survives as prose in v2:
+`pathwayDescription` (required, may be `null`, max 2500 chars) is the pathway's
+narrative description. What drives the pathway goes in the structured
+`coreDrivers` object below, not in this text.
 
-- `pathwayDescription` (required, may be `null`, max 2500 chars) — the narrative description.
-- the "Core Drivers" section becomes the structured `coreDrivers` object below.
-- the "Application to Transition Assessment" section is **retired** — the new UI
-  does not display it, so v2 has no field for it.
-
-v1's separate `pathwayOverview` field is **retired without replacement**. Do not
-carry it into `pathwayDescription`: in practice the two texts restate each other,
-so merging them reads as immediate self-repetition. The field had no readers in
-the app, so nothing is lost by dropping it.
-
-### coreDrivers and dependencies are new
+### coreDrivers and dependencies
 
 `coreDrivers` is an object with seven fields, all required but each allowed to be `null`. `null` means "not a core driver for this pathway", which is deliberately different from a driver that applies but has not been described.
 
@@ -187,7 +176,7 @@ A `*_timeseries.json` file holds the benchmark data series for one or more pathw
 
 **`geography` is the publication's own label, exactly as the pathway's metadata declares it** — `Global` (if the pathway sets `geography.global`), one of its `geography.regions` keys, or an ISO2 code it declares as a country or region member. So an IEA file says `Southeast Asia` and an ACE file `ASEAN`, even where both mean similar places. If the file serves several pathways, every one of them must declare the label.
 
-**`sectorSegment` lists the segments of the row's sector that the value covers**, from the same vocabulary as `dataAvailability` (`src/schema/common/sectorSegment.v1.json`). Unlike there, the sentinels (`Unspecified`, `Not covered`, `No information`) are not allowed: a timeseries row is actual data, so it always covers a known part of the value chain. It replaces v1's per-metric "sector scope", which the taxonomy attached to every row of a metric.
+**`sectorSegment` lists the segments of the row's sector that the value covers**, from the same vocabulary as `dataAvailability` (`src/schema/common/sectorSegment.v1.json`). Unlike there, the sentinels (`Unspecified`, `Not covered`, `No information`) are not allowed: a timeseries row is actual data, so it always covers a known part of the value chain.
 
 `npm run schema:check` enforces both rules against the metadata files, since JSON Schema alone cannot look into another file.
 
@@ -198,20 +187,6 @@ npx ts-node --esm scripts/import-benchmark-data.ts --in <prep-repo-output-dir> -
 ```
 
 Drop `--dry-run` to write. The importer converts nothing: every file must already pass the v2 schema and both rules above, and any error blocks the whole import, listing every problem. A file whose `id` matches an existing timeseries overwrites it in place; a new one is written next to its first pathway's metadata, and never onto a path another file already holds. Writes are all-or-nothing too: if one fails, the files already written are restored. Existing files missing from the input are reported and left alone. Then run `npm run build:timeseries` and `npm run schema:check`. The prep repo can run the same command with `--dry-run` to check its output against this repo before handing it over.
-
-Files still on `pathwayTimeseries.v1.json` can be moved with `scripts/codemod-timeseries-v1-to-v2.ts` (`--dry-run` first). Its `RENAMES` table lists, per pathway, which old label became which declared one; it stops on any label it cannot map rather than guess.
-
-## Migrating an existing v1 file
-
-There is a script for this — don't do it by hand:
-
-```bash
-npx ts-node --esm scripts/codemod-v1-to-v2.ts --dry-run src/data/<publisher>
-```
-
-Drop `--dry-run` to write the changes. It rewrites files in place, skips anything already on v2, and prints the scope it chose for each file.
-
-It does **not** fill in `coreDrivers` — the v1 "Core Drivers" prose does not map onto the seven named fields mechanically, so the script scaffolds them all to `null` and prints the original text for whoever authors them. Run `npx prettier --write` on the files afterwards, then `npm run schema:check`.
 
 ## Creating new pathway files
 
