@@ -109,13 +109,16 @@ const ResourcesFaqPage: React.FC = () => {
         answer: (
           <>
             <p>
-              The TPR currently includes pathways related to the power sector in
-              Southeast Asia. This includes region- and country-specific
-              pathways, as well as global power pathways.
+              The TPR currently includes pathways related to the power sector.
+              Global pathways cover the whole world, and you can explore the
+              results they publish for individual regions and countries.
+              Pathways built for a specific region or country are available for
+              Southeast Asia.
             </p>
             <p>
-              Expansion into other sectors and regions is planned later in 2026,
-              stay tuned!
+              Region- and country-specific pathways for the European Union, the
+              United Kingdom and Canada are coming next, followed by India and
+              China. Expansion into other sectors is also planned.
             </p>
           </>
         ),
