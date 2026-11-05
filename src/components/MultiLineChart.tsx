@@ -6,6 +6,7 @@ import { ascending, extent, groups, leastIndex, range } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
+import { MAX_PLOT_YEAR, plotYearTicks } from "../utils/plotYears";
 import { computeTooltipBoxLayout } from "../utils/chartTooltipLayout";
 import type { HoveredPoint } from "./PlotSelector";
 
@@ -108,12 +109,6 @@ export default function MultiLineChart({
     const parse = utcParse("%Y");
     const years = extent(d3data, (d) => parse(d.year));
     const values = extent(d3data, (d) => d.value);
-    const xticks = Array.from(new Set(d3data.map((d) => d.year)))
-      .map(parse)
-      .filter(
-        (d, i): d is Date =>
-          d !== null && (i === 0 || d.getUTCFullYear() % 10 === 0),
-      );
 
     if (!years[0] || !years[1]) return null;
 
@@ -129,8 +124,14 @@ export default function MultiLineChart({
       return null;
     }
 
+    // Every plot runs to MAX_PLOT_YEAR, however early its data ends (#1065).
+    const xticks = plotYearTicks(
+      years[0].getUTCFullYear(),
+      years[1].getUTCFullYear(),
+    ).map((year) => new Date(Date.UTC(year, 0, 1)));
+
     const x = scaleUtc()
-      .domain(years)
+      .domain([years[0], new Date(Date.UTC(MAX_PLOT_YEAR, 0, 1))])
       .range([marginLeft, width - marginRight]);
 
     const y = scaleLinear()
