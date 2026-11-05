@@ -65,12 +65,11 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
       </div>
 
       {open && (
-        <div className="px-2 pt-2 pb-4">
-          <FormAssemblyEmbed
-            formUrl={NEWSLETTER_FORM_URL}
-            title="Transition Pathways Repository newsletter signup form"
-          />
-          <p className="px-4 pt-2 text-sm text-rmigray-400">
+        <div className="px-2 pt-3 pb-4">
+          {/* Above the form, not below it: when the form is blocked (ad
+              blockers, an http page) the iframe is an empty box at its
+              initial height, and a link under it would be out of sight. */}
+          <p className="px-4 pb-2 text-sm text-rmigray-400">
             Form not loading?{" "}
             <a
               href={NEWSLETTER_FORM_URL}
@@ -82,6 +81,10 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
             </a>
             .
           </p>
+          <FormAssemblyEmbed
+            formUrl={NEWSLETTER_FORM_URL}
+            title="Transition Pathways Repository newsletter signup form"
+          />
         </div>
       )}
     </dialog>

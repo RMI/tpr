@@ -41,6 +41,23 @@ describe("NewsletterCta", () => {
     expect(screen.queryByTitle(FORM_TITLE)).not.toBeInTheDocument();
   });
 
+  it("puts the open-in-new-tab fallback above the form, where it stays visible", async () => {
+    const user = userEvent.setup();
+    render(<NewsletterCta variant="ribbon" />);
+
+    await user.click(
+      screen.getByRole("button", { name: "Sign up for updates" }),
+    );
+
+    const fallback = screen.getByRole("link", { name: "Open it in a new tab" });
+    expect(fallback).toHaveAttribute("href", "https://rmi.tfaforms.net/312");
+    expect(fallback).toHaveAttribute("target", "_blank");
+    expect(
+      fallback.compareDocumentPosition(screen.getByTitle(FORM_TITLE)) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
   it("closes when the dialog fires close (Escape in a browser)", async () => {
     const user = userEvent.setup();
     render(<NewsletterCta variant="landing" />);
