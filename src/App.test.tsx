@@ -7,6 +7,10 @@ vi.mock("./pages/LandingPage", () => ({
   default: () => <div data-testid="mock-homepage">LandingPage</div>,
 }));
 
+vi.mock("./pages/ContactPage", () => ({
+  default: () => <div data-testid="mock-contact-page">Contact Page</div>,
+}));
+
 vi.mock("./pages/resources", () => ({
   ResourcesFaqPage: () => <div>Faq Page</div>,
   ResourcesHowToChooseAPathwayPage: () => (
@@ -44,5 +48,33 @@ describe("App component", () => {
     expect(screen.getByTestId("location-display")).toHaveTextContent(
       "/resources/how-to-choose-a-pathway",
     );
+  });
+
+  it("shows the newsletter ribbon above the footer on inner pages (#995)", () => {
+    render(
+      <MemoryRouter initialEntries={["/contact"]}>
+        <AppContent />
+      </MemoryRouter>,
+    );
+
+    const ribbon = screen.getByRole("region", {
+      name: "Stay up to date with the TPR",
+    });
+    const footer = screen.getByRole("contentinfo");
+    expect(
+      ribbon.compareDocumentPosition(footer) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+  });
+
+  it("leaves the ribbon off the landing page, which has its own CTA", () => {
+    render(
+      <MemoryRouter>
+        <AppContent />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
+    ).not.toBeInTheDocument();
   });
 });

@@ -3,6 +3,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import NewsletterCta from "./components/NewsletterCta";
 import LegalPage from "./pages/LegalPage";
 import PathwaySearch from "./pages/PathwaySearch";
 import PathwayDetailPage from "./pages/PathwayDetailPage";
@@ -79,6 +80,7 @@ export const AppContent = () => {
           />
         </Routes>
       </main>
+      {!isLandingPage && <NewsletterCta variant="ribbon" />}
       {!isLandingPage && <Footer />}
     </div>
   );

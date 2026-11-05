@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
 import HeaderNav from "../components/HeaderNav";
+import NewsletterCta from "../components/NewsletterCta";
 import { HeaderBrand } from "../components/Header";
 
 const WavePattern: React.FC = () => {
@@ -193,6 +194,8 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <NewsletterCta variant="landing" />
 
       {/* Main content */}
       <div className="container mx-auto px-4 py-12">
