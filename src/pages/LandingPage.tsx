@@ -223,16 +223,23 @@ const LandingPage: React.FC = () => {
               Which regions does the TPR cover?
             </h2>
             <p className="text-rmigray-700">
-              Global pathways, such as the IEA World Energy Outlook, JRC GECO
-              and NGFS scenarios, cover the whole world. Many of them also
+              This map shows where the TPR provides pathways for the power
+              sector. We are currently expanding power sector coverage to new
+              regions, and will expand to new sectors after that.
+            </p>
+            <p className="text-rmigray-700 mt-4">
+              Global pathways, such as the IEA World Energy Outlook, model the
+              energy and emissions system for the whole world. Many of them also
               publish results for the regions and countries inside their models,
-              and you can explore all of those here.
+              and those regional breakdowns are provided in the TPR where
+              available.
             </p>
             <p className="text-rmigray-700 mt-4">
               Pathways built for a specific region or country add local detail
               that global models can miss. We are adding them one region at a
-              time, starting with Southeast Asia. Next are the European Union,
-              the United Kingdom and Canada, followed by India and China.
+              time, starting with Southeast Asia which is available now. Next we
+              will be adding the European Union, United Kingdom, and Canada,
+              followed by India and China.
             </p>
             <div className="mt-6">
               <CoverageMap pathways={pathwayMetadata} />
