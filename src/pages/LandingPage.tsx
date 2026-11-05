@@ -2,6 +2,10 @@ import React from "react";
 import { Link } from "react-router";
 import HeaderNav from "../components/HeaderNav";
 import NewsletterCta from "../components/NewsletterCta";
+import {
+  primaryCtaClass,
+  primaryCtaLargeClass,
+} from "../components/buttonStyles";
 import { HeaderBrand } from "../components/Header";
 
 const WavePattern: React.FC = () => {
@@ -180,7 +184,7 @@ const LandingPage: React.FC = () => {
               <div className="mt-10">
                 <Link
                   to="/pathway"
-                  className="inline-block px-8 py-4 bg-energy-700 text-neutral-300 rounded-md hover:bg-energy-800 transition-colors duration-200 text-lg font-semibold"
+                  className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>
@@ -359,7 +363,7 @@ const LandingPage: React.FC = () => {
               <div className="mt-8">
                 <Link
                   to="/pathway"
-                  className="inline-block px-8 py-4 bg-energy-700 text-neutral-300 rounded-md hover:bg-energy-800 transition-colors duration-200 text-lg font-semibold"
+                  className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>

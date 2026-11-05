@@ -1,6 +1,7 @@
 import React, { useId, useState } from "react";
 import clsx from "clsx";
 import NewsletterSignupDialog from "./NewsletterSignupDialog";
+import { primaryCtaClass, primaryCtaLargeClass } from "./buttonStyles";
 
 type NewsletterCtaProps = {
   /**
@@ -55,8 +56,9 @@ const NewsletterCta: React.FC<NewsletterCtaProps> = ({ variant }) => {
             type="button"
             onClick={() => setOpen(true)}
             className={clsx(
-              "inline-block shrink-0 rounded-md bg-energy-700 font-semibold text-neutral-300 transition-colors duration-200 hover:bg-energy-800",
-              isLanding ? "px-8 py-4 text-lg" : "px-6 py-3",
+              primaryCtaClass,
+              "shrink-0",
+              isLanding ? primaryCtaLargeClass : "px-6 py-3",
             )}
           >
             Sign up for updates

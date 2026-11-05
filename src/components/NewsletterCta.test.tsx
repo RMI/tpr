@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import NewsletterCta from "./NewsletterCta";
 
@@ -69,10 +69,13 @@ describe("NewsletterCta", () => {
       name: "Sign up for TPR updates",
     });
 
-    // What the browser does on Escape: close the dialog, firing `close`.
+    // What the browser does on Escape: close the dialog, firing `close`
+    // afterwards.
     act(() => dialog.close());
 
     expect(dialog).not.toHaveAttribute("open");
-    expect(screen.queryByTitle(FORM_TITLE)).not.toBeInTheDocument();
+    await waitFor(() =>
+      expect(screen.queryByTitle(FORM_TITLE)).not.toBeInTheDocument(),
+    );
   });
 });

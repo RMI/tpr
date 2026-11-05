@@ -5,6 +5,18 @@ import FormAssemblyEmbed from "./FormAssemblyEmbed";
 /** The TPR newsletter signup form, hosted on RMI's FormAssembly account. */
 export const NEWSLETTER_FORM_URL = "https://rmi.tfaforms.net/312";
 
+/** Whether a pointer event on the dialog landed outside its box. */
+const isOnBackdrop = (event: React.MouseEvent<HTMLDialogElement>): boolean => {
+  if (event.target !== event.currentTarget) return false;
+  const box = event.currentTarget.getBoundingClientRect();
+  return (
+    event.clientX < box.left ||
+    event.clientX > box.right ||
+    event.clientY < box.top ||
+    event.clientY > box.bottom
+  );
+};
+
 type NewsletterSignupDialogProps = {
   open: boolean;
   onClose: () => void;
@@ -24,6 +36,8 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
   const headingId = useId();
+  // Whether the current press started on the backdrop; see onClick below.
+  const pressStartedOnBackdrop = useRef(false);
 
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -37,12 +51,19 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
       ref={dialogRef}
       aria-labelledby={headingId}
       onClose={onClose}
-      // A click on the dialog element itself, rather than its contents, is a
-      // click on the backdrop.
-      onClick={(event) => {
-        if (event.target === event.currentTarget) onClose();
+      // Close on a click on the backdrop. The backdrop is not an element of
+      // its own: clicks on it, but also on the dialog's scrollbar, or at the
+      // end of a text selection dragged out of the dialog, all target the
+      // dialog. So the press has to both start and end outside the dialog's
+      // box.
+      onPointerDown={(event) => {
+        pressStartedOnBackdrop.current = isOnBackdrop(event);
       }}
-      className="m-auto w-[min(42rem,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto rounded-lg bg-white p-0 shadow-xl backdrop:bg-black/50"
+      onClick={(event) => {
+        if (pressStartedOnBackdrop.current && isOnBackdrop(event)) onClose();
+        pressStartedOnBackdrop.current = false;
+      }}
+      className="m-auto w-[min(42rem,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto overscroll-contain rounded-lg bg-white p-0 shadow-xl backdrop:bg-black/50"
     >
       <div className="flex items-start justify-between gap-4 border-b border-neutral-200 px-6 py-4">
         <h2
@@ -84,6 +105,9 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
           <FormAssemblyEmbed
             formUrl={NEWSLETTER_FORM_URL}
             title="Transition Pathways Repository newsletter signup form"
+            // After submit, show the dialog's top (heading, Close) along with
+            // the confirmation, rather than scrolling them out of view.
+            onFormNavigate={() => dialogRef.current?.scrollTo({ top: 0 })}
           />
         </div>
       )}
