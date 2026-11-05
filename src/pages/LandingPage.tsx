@@ -229,17 +229,16 @@ const LandingPage: React.FC = () => {
             </p>
             <p className="text-rmigray-700 mt-4">
               Global pathways, such as the IEA World Energy Outlook, model the
-              energy and emissions system for the whole world. Many of them also
-              publish results for the regions and countries inside their models,
-              and those regional breakdowns are provided in the TPR where
-              available.
+              energy system for the whole world. Many of them also publish a
+              regional or country-level breakdown of their results, and those
+              regional breakdowns are provided in the TPR where available.
             </p>
             <p className="text-rmigray-700 mt-4">
               Pathways built for a specific region or country add local detail
               that global models can miss. We are adding them one region at a
-              time, starting with Southeast Asia which is available now. Next we
-              will be adding the European Union, United Kingdom, and Canada,
-              followed by India and China.
+              time, starting with Southeast Asia. Next we will be adding the
+              European Union, United Kingdom, and Canada, followed by India and
+              China.
             </p>
             <div className="mt-6">
               <CoverageMap pathways={pathwayMetadata} />
