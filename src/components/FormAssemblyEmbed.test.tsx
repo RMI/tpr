@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { act, render, screen } from "@testing-library/react";
+import { act, fireEvent, render, screen } from "@testing-library/react";
 import FormAssemblyEmbed, { MIN_FORM_HEIGHT } from "./FormAssemblyEmbed";
 
 const FORM_URL = "https://rmi.tfaforms.net/312";
@@ -90,6 +90,19 @@ describe("FormAssemblyEmbed", () => {
       expect(scrollIntoView).not.toHaveBeenCalled();
     },
   );
+
+  it("calls onFormNavigate on every iframe load after the first", () => {
+    // The form's `submitted` post comes from an unload handler, which Chrome
+    // may not run; the iframe's own load event always fires.
+    const onFormNavigate = vi.fn();
+    const { iframe } = renderEmbed(onFormNavigate);
+
+    fireEvent.load(iframe); // the form itself
+    expect(onFormNavigate).not.toHaveBeenCalled();
+
+    fireEvent.load(iframe); // its confirmation page
+    expect(onFormNavigate).toHaveBeenCalledTimes(1);
+  });
 
   it("scrolls the iframe into view on submit when no handler is given", () => {
     const scrollIntoView = vi.spyOn(HTMLElement.prototype, "scrollIntoView");

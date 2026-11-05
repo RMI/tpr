@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 
 /**
  * Floor for heights the form reports. The form's helper measures its own
@@ -35,8 +35,12 @@ type FormAssemblyEmbedProps = {
  * - It adds `faIframeUniqueId` and `hostURL` to the form URL. The form only
  *   posts its height to the parent when both are present.
  * - It listens for those posts, `"<height|command>,<id>,<form url>"`, from the
- *   form's origin only, and applies the height to this iframe. `submitted` and
- *   `pagechange` call `onFormNavigate`.
+ *   form's origin only, and applies the height to this iframe.
+ * - It calls `onFormNavigate` when the form moves to another page. Each
+ *   iframe `load` after the first one means that (the submit's confirmation
+ *   page, say). The form's own `submitted` post can't be relied on for this:
+ *   it is sent from an `unload` handler, which Chrome is phasing out.
+ *   `pagechange` (multi-page forms, no load) is still handled.
  *
  * The form host sends `frame-ancestors 'self' https:`, so the form does not
  * render on an `http://localhost` dev server, only on https deployments.
@@ -74,6 +78,21 @@ const FormAssemblyEmbed: React.FC<FormAssemblyEmbedProps> = ({
     onFormNavigateRef.current = onFormNavigate;
   });
 
+  const handleFormNavigate = useCallback(() => {
+    if (onFormNavigateRef.current) {
+      onFormNavigateRef.current();
+    } else {
+      iframeRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, []);
+
+  // The first load is the form itself; any later one is a new page.
+  const loadCount = useRef(0);
+  const handleLoad = () => {
+    loadCount.current += 1;
+    if (loadCount.current > 1) handleFormNavigate();
+  };
+
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
       if (event.origin !== formOrigin || typeof event.data !== "string") {
@@ -89,17 +108,13 @@ const FormAssemblyEmbed: React.FC<FormAssemblyEmbedProps> = ({
         heightOrCommand === "submitted" ||
         heightOrCommand === "pagechange"
       ) {
-        if (onFormNavigateRef.current) {
-          onFormNavigateRef.current();
-        } else {
-          iframeRef.current?.scrollIntoView({ block: "start" });
-        }
+        handleFormNavigate();
       }
     };
 
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
-  }, [formOrigin, uniqueId]);
+  }, [formOrigin, uniqueId, handleFormNavigate]);
 
   return (
     <iframe
@@ -107,6 +122,7 @@ const FormAssemblyEmbed: React.FC<FormAssemblyEmbedProps> = ({
       title={title}
       src={src}
       height={height}
+      onLoad={handleLoad}
       className="block w-full border-0"
     />
   );

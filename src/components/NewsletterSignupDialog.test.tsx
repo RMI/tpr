@@ -80,6 +80,18 @@ describe("NewsletterSignupDialog backdrop", () => {
 });
 
 describe("NewsletterSignupDialog after submit", () => {
+  it("scrolls back to its own top when the form loads its confirmation page", () => {
+    const { dialog } = renderOpenDialog();
+    const scrollTo = vi.fn();
+    dialog.scrollTo = scrollTo;
+    const iframe = screen.getByTitle(/newsletter signup form/i);
+
+    fireEvent.load(iframe);
+    fireEvent.load(iframe);
+
+    expect(scrollTo).toHaveBeenCalledExactlyOnceWith({ top: 0 });
+  });
+
   it("scrolls back to its own top when the form reports it was submitted", () => {
     const { dialog } = renderOpenDialog();
     const scrollTo = vi.fn();
