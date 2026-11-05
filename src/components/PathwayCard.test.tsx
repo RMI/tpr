@@ -1,9 +1,14 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, afterEach } from "vitest";
+import React from "react";
 import { render, screen, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import PathwayCard from "./PathwayCard";
 import { PathwayMetadataType } from "../types";
-import { ComparisonProvider } from "../context/ComparisonContext";
+import {
+  ComparisonProvider,
+  useComparison,
+} from "../context/ComparisonContext";
+import { pathwayMetadata } from "../data/pathwayMetadata";
 
 // Mock pathway data
 import mockPathway from "../../testdata/valid/pathwayMetadata_standard.json" assert { type: "json" };
@@ -261,7 +266,7 @@ describe("PathwayCard component", () => {
       // Create a pathway with only 2 geographies
       const pathwayWithFewGeography = {
         ...mockPathwayFull,
-        geography: { global: true, regions: { EU: [] } }, // Only 2 geography
+        geography: { global: true, regions: { EU: ["DE", "FR"] } }, // Only 2 geography
       };
 
       const { container } = renderPathwayCard(pathwayWithFewGeography);
@@ -327,7 +332,11 @@ describe("PathwayCard component", () => {
   it("renders mapped country names on badges (not ISO2 codes)", () => {
     const pathway = {
       ...mockPathway,
-      geography: { global: true, regions: { APAC: [] }, country: ["DE"] }, // DE should render as "Germany"
+      geography: {
+        global: true,
+        regions: { APAC: ["AU", "JP"] },
+        country: ["DE"],
+      }, // DE should render as "Germany"
     };
 
     // Make the container wide enough for 3+ badges in JSDOM
@@ -349,7 +358,7 @@ describe("PathwayCard search highlighting", () => {
       ...mockPathwayFull.geography,
       regions: {
         ...mockPathwayFull.geography.regions,
-        "Hidden Match Geography": [],
+        "Hidden Match Geography": ["DE", "FR"],
       },
     },
     sectors: [
@@ -602,5 +611,49 @@ describe("tooltip functionality", () => {
         screen.getByText("United States of America").closest("[tabindex]"),
       ).toBeNull();
     });
+  });
+});
+
+describe("PathwayCard comparison limit", () => {
+  /** The add/remove button only renders while the ribbon is open. */
+  const OpenRibbon: React.FC = () => {
+    const { setRibbonExpanded } = useComparison();
+    React.useEffect(() => setRibbonExpanded(true), [setRibbonExpanded]);
+    return null;
+  };
+
+  afterEach(() => sessionStorage.removeItem("pathway-comparison"));
+
+  it("does not count a stale stored id towards the limit", async () => {
+    // Two real pathways plus one that no longer exists: the ribbon shows two
+    // selected, so a third must still be addable.
+    const [a, b, candidate] = pathwayMetadata.filter((p) =>
+      p.sectors.some((s) => s.name === "Power"),
+    );
+    sessionStorage.setItem(
+      "pathway-comparison",
+      JSON.stringify(["deleted-pathway", a.id, b.id]),
+    );
+
+    render(
+      <MemoryRouter>
+        <ComparisonProvider>
+          <OpenRibbon />
+          <PathwayCard pathway={candidate} />
+        </ComparisonProvider>
+      </MemoryRouter>,
+    );
+
+    const add = await screen.findByRole("button", {
+      name: "Add to comparison",
+    });
+    expect(add).toBeEnabled();
+
+    // And the click must take: an enabled button that adds nothing is worse
+    // than a disabled one.
+    fireEvent.click(add);
+    expect(
+      await screen.findByRole("button", { name: "Remove from comparison" }),
+    ).toBeInTheDocument();
   });
 });

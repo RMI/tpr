@@ -1,17 +1,41 @@
 import React, { createContext, use, useState, useCallback } from "react";
+import { pathwayMetadata } from "../data/pathwayMetadata";
+import { comparisonBlock } from "../utils/comparisonScope";
+import type { PathwayMetadataType } from "../types";
 
 const SESSION_KEY = "pathway-comparison";
 export const MAX_COMPARED = 3;
 
+/**
+ * Restore the tray, dropping a selection that can no longer be compared.
+ *
+ * A comparison needs one sector in common. `PathwayCard` stops the reader
+ * assembling an illegal set, but a set stored before the rule existed — or
+ * before a pathway's sectors were re-published — would otherwise sit in the
+ * tray with Compare enabled, leading straight to the page's block message.
+ * Clearing the whole selection is the honest outcome: there is no way to tell
+ * which of the stored pathways the reader would rather keep.
+ *
+ * Unknown ids — a pathway since removed or renamed — are dropped on their own,
+ * keeping the rest. They cannot prove an incompatibility, so they never clear
+ * the selection; but left in, they would count towards the limit of
+ * `MAX_COMPARED` in `addToComparison` while every view showed fewer pathways,
+ * so "Add" would look available and do nothing.
+ */
 function loadFromSession(): string[] {
   try {
     const raw = sessionStorage.getItem(SESSION_KEY);
     const parsed = raw ? (JSON.parse(raw) as unknown) : [];
-    return Array.isArray(parsed)
-      ? (parsed as string[])
-          .filter((x) => typeof x === "string")
-          .slice(0, MAX_COMPARED)
-      : [];
+    if (!Array.isArray(parsed)) return [];
+
+    // Resolve before truncating, so a stale id cannot push a real one out.
+    const pathways = (parsed as unknown[])
+      .filter((x): x is string => typeof x === "string")
+      .map((id) => pathwayMetadata.find((p) => p.id === id))
+      .filter((p): p is PathwayMetadataType => p !== undefined)
+      .slice(0, MAX_COMPARED);
+
+    return comparisonBlock(pathways) === null ? pathways.map((p) => p.id) : [];
   } catch {
     return [];
   }

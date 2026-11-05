@@ -19,8 +19,4 @@ export type DisplayName =
  */
 export interface MetricV1 {
   displayName: DisplayName;
-  /**
-   * Specifies which parts of the sector value chain the metric applies to.
-   */
-  sectorScope: string;
 }

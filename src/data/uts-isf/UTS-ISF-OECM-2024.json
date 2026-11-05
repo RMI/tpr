@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UTS-ISF-OECM-2024",
   "publication": {
     "title": {
@@ -34,34 +34,73 @@
   "description": "Global 1.5°C pathway driven by massive rapid deployment of existing low-carbon technology.",
   "geography": {
     "global": true,
+    "regions": {
+      "EU27": [
+        "AT",
+        "BE",
+        "BG",
+        "CY",
+        "CZ",
+        "DK",
+        "EE",
+        "FI",
+        "FR",
+        "DE",
+        "GR",
+        "HU",
+        "IE",
+        "IT",
+        "LV",
+        "LT",
+        "LU",
+        "MT",
+        "NL",
+        "PL",
+        "PT",
+        "RO",
+        "SK",
+        "SI",
+        "ES",
+        "SE",
+        "HR"
+      ]
+    },
     "country": [
-      "AR",
-      "AU",
-      "BR",
       "CA",
-      "CN",
-      "FR",
-      "DE",
-      "IN",
-      "ID",
-      "IT",
-      "JP",
+      "US",
       "MX",
+      "BR",
+      "AR",
+      "DE",
+      "FR",
+      "IT",
+      "GB",
+      "TR",
       "RU",
       "SA",
       "ZA",
+      "ID",
+      "IN",
+      "CN",
+      "JP",
       "KR",
-      "TR",
-      "GB",
-      "US"
+      "AU"
     ]
   },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.5,
-  "modelYearStart": 2019,
-  "modelYearEnd": 2100,
+  "modelYearStart": 2020,
+  "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
     {
       "name": "Buildings",
       "technologies": []
@@ -101,6 +140,7 @@
         "Wind",
         "Solar",
         "Biomass",
+        "Geothermal",
         "Other"
       ]
     },
@@ -125,7 +165,7 @@
       "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe One Earth Climate Model (OECM) is a normative pathway targeting 1.5°C warming, developed by the Net Zero Asset Owner Alliance (NZAOA) and the University of Technology Sydney (UTS). The pathway sets a highly ambitious outcome, targeting a total carbon budget of 400 Gt from 2020 to 2050, which corresponds to a 67% probability of limiting warming below 1.5°C. This carbon budget is stricter than the IEA’s Net Zero Emissions by 2050 (NZE) pathway, another prominent normative 1.5°C pathway. \n\nThe OECM aims to limit reliance on novel technologies, instead describing a pathway driven by extremely rapid deployment of existing low-carbon technologies at scale, supported by significant global policy action. The OECM pathway provides information on energy and emissions intensity across multiple scopes for different industries. This information is intended to support financial institutions in calculating potential financed-emissions exposures based on their portfolios. \n\n#### Core Drivers\n\nThe OECM pathway is driven by massive deployment of renewable generation, rapid electrification and demand shifts, and assertive global policy measures. \n\n*Policy:* The OECM pathway highlights significant global policy action to limit total emissions within a 400 Gt budget. The pathway describes coordinated international action, phasing out of fossil fuel subsidies, strong standards across sectors, and enabling frameworks for clean-technology innovation, infrastructure investment, and sector coupling. Highlighted supporting policy measures include a full phaseout of internal combustion engine (ICE) personal vehicles by 2030, phaseout of all coal-fired power generation in developed markets by 2030, and strong efficiency standards across multiple industries. \n\n*Technology deployment:* The OECM pathway limits reliance on less mature technologies such as green hydrogen and carbon capture, compensating through very rapid scale-up of existing low-carbon technologies. The pathway assumes 100% of global energy demands across all industries are met by renewable sources by 2050, with residual fossil consumption for feedstock purposes only. This requires immediate and massive scale-up of renewable generation, with solar generation increasing by a factor of 29 by 2050. \n\n*Investment:* The OECM pathway assumes no further investments in fossil fuel production, with no further investments in fossil fuel power generation from 2030 onward. Investments in clean energy technologies, electrification, low-carbon industry, and grid infrastructure increase rapidly and are sustained at very high levels throughout the scenario. \n\n#### Application to Transition Assessment\n\nThis scenario adopted by the Net Zero Asset Owner Alliance (NZAOA) offers a sectoral pathway intended for use in the finance community. It has a clear sectoral scope breakdown in 12 different sectors, covering total activity with a deep regional focus, and it provides targets for Scope 1, 2, and 3 emissions for any of those sectors. This data can be used to set targets for financed emissions, for example. The scenario can also be used to set a sectoral target as presented in the NZAOA protocol. As a global integrated assessment model, OECM provides a direct global temperature outcome, and it can be used to benchmark transition targets or strategies against a high level of ambition. \n\nAs a highly ambitious normative pathway, OECM models a potential pathway to achieve a target temperature outcome and introduces significant new policies and market shifts as part of the process. As a result, (mis)alignment to the OECM pathway is not clearly connected to regulatory risk or potential shifts in market share, because objectives within the OECM pathway may differ significantly from currently stated jurisdictional goals. Users interested in assessing the policy alignment or technological and commercial feasibility of corporate transition strategies should carefully review the strong assumptions introduced by this pathway across multiple sectors and consider supplementing with additional pathways that model a range of policies and technology developments.  \n\nThe OECM pathway provides emissions, capacity, and generation projections at five-year increments using a highly detailed breakdown by fuel source and/or technology, such as hard and lignite coal, onshore wind, and photovoltaic solar. The pathway provides data at the global level, at the regional level for the European Union (EU) and Group of 20 (G20), and for each country within the EU and G20.",
+  "pathwayDescription": "The One Earth Climate Model (OECM) is a normative pathway targeting 1.5°C warming, developed by the Net Zero Asset Owner Alliance (NZAOA) and the University of Technology Sydney (UTS). The pathway sets a highly ambitious outcome, targeting a total carbon budget of 400 Gt from 2020 to 2050, which corresponds to a 67% probability of limiting warming below 1.5°C. This carbon budget is stricter than the IEA’s Net Zero Emissions by 2050 (NZE) pathway, another prominent normative 1.5°C pathway.\n\nThe OECM aims to limit reliance on novel technologies, instead describing a pathway driven by extremely rapid deployment of existing low-carbon technologies at scale, supported by significant global policy action. The OECM pathway provides information on energy and emissions intensity across multiple scopes for different industries. This information is intended to support financial institutions in calculating potential financed-emissions exposures based on their portfolios.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -134,16 +174,2506 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "No information",
-    "energyDemand": "Low or no change",
-    "electrification": "Significant increase",
-    "policyTypes": ["Phaseout dates"],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (CO2, Methane)",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "No information",
-    "newTechnologiesIncluded": ["SAF", "Green H2/ammonia"],
-    "investmentNeeds": "No information"
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Significant increase"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": ["Phaseout dates"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "CO2e (CO2, Methane)"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "Green H2/ammonia",
+          "Battery storage",
+          "SAF",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Green H2/ammonia", "Battery storage"]
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU27",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "AU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "DE",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "FR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ID",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IT",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "KR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "MX",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "RU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "SA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "TR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "ZA",
+        "value": "Not applicable at this scope level"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": null,
+    "emissionsTargets": "The pathway is constrained by a 1.5°C climate target and a 2020–2050 carbon budget between 400 and 500 GtCO2. Sector pathways are derived to fit that budget: energy-related CO2 across all sectors falls to about zero by 2050 in all 21 geographies, power reaches zero carbon intensity, and all emissions intensities fall to near zero.",
+    "technologyCosts": "not applicable.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "not applicable.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "End-use electrification is a central driver. Electricity replaces fossil fuels in transport and heat, while efficiency constrains total demand, requiring rapid expansion and decarbonization of power supply."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The pathway doesn't model any policy outside of fossil fuel phase out dates but states that the power transition requires a coordinated high-ambition policy package: carbon pricing, subsidy reform, renewable targets, and grid-market reforms to deliver the 1.5°C trajectory.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Integration of variable renewables depends on a different electricity-market framework. The model also relies on grid interconnection capacity and legislation enabling demand-side management.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Variable-renewable integration requires market rules that allow dispatchable generation, storage, and other system services to operate economically and be refinanced. Solar and wind projects also require substantial capital investment.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Not material: The scenario phased out nuclear capacities.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "UTS flagged the 1.5°C scenario pathway can't be implemented without behavioural changes. For example, in the transport sector, users need to exchange vehicle technologies, but also to reduce transport demand by reducing kilometers travelled. In the power sector, higher shares of distributed PV and storage, and responsive demand-side management is required to help integrate variable renewable generation and manage grid loads.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The grid is a core enabling condition. Transmission and distribution must carry at least three times more electricity by 2050, while stronger networks, interconnections and storage integration are required for electrification and distributed variable generation. The scenario also consider the addition of decentralized storage systems.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "The pathway relies on energy storage, virtual-power-plant capabilities, and hydrogen-based flexibility to integrate high variable-renewable shares. These technologies still require further development and lower costs to continue scaling, especially hydrogen.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Offshore wind expansion changes skill needs, but the source finds substantial occupational overlap with offshore oil and gas, so workforce transition is presented more as an enabling opportunity than a binding shortage.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "CA",
+          "US",
+          "MX",
+          "BR",
+          "AR",
+          "DE",
+          "FR",
+          "IT",
+          "GB",
+          "TR",
+          "RU",
+          "SA",
+          "ZA",
+          "ID",
+          "IN",
+          "CN",
+          "JP",
+          "KR",
+          "AU",
+          "EU27"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Electricity carbon intensity is reported for power supply. It represents generation-related CO2 intensity, no lifecycle emissions are included."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "CA",
+          "US",
+          "MX",
+          "BR",
+          "AR",
+          "DE",
+          "FR",
+          "IT",
+          "GB",
+          "TR",
+          "RU",
+          "SA",
+          "ZA",
+          "ID",
+          "IN",
+          "CN",
+          "JP",
+          "KR",
+          "AU",
+          "EU27"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1, 2 & 3"],
+        "scopeLimitations": "Power Utilities Scope 1, 2, and 3 are reported under both OECM and production-centric accounting, in CO2 and CO2e. Downstream/upstream allocation differs between the two methods and should not be harmonized."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "CA",
+          "US",
+          "MX",
+          "BR",
+          "AR",
+          "DE",
+          "FR",
+          "IT",
+          "GB",
+          "TR",
+          "RU",
+          "SA",
+          "ZA",
+          "ID",
+          "IN",
+          "CN",
+          "JP",
+          "KR",
+          "AU",
+          "EU27"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Solar PV includes rooftop + utility scale. Captive producers are not disaggregable by technology."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "CA",
+          "US",
+          "MX",
+          "BR",
+          "AR",
+          "DE",
+          "FR",
+          "IT",
+          "GB",
+          "TR",
+          "RU",
+          "SA",
+          "ZA",
+          "ID",
+          "IN",
+          "CN",
+          "JP",
+          "KR",
+          "AU",
+          "EU27"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Solar PV includes rooftop and utility scale. Captive producers are not disaggregable by technology."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": [
+          "Global",
+          "CA",
+          "US",
+          "MX",
+          "BR",
+          "AR",
+          "DE",
+          "FR",
+          "IT",
+          "GB",
+          "TR",
+          "RU",
+          "SA",
+          "ZA",
+          "ID",
+          "IN",
+          "CN",
+          "JP",
+          "KR",
+          "AU",
+          "EU27"
+        ],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Technology mix is directly available through renewable/variable-renewable shares and is mathematically derivable from technology-level generation or capacity. No storage-technology mix is reported."
+      }
+    ]
   }
 }

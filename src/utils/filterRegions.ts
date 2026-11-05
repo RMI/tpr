@@ -3,10 +3,12 @@
  * can pick in the search dropdown, each mapped to its ISO-3166-1 alpha-2 members.
  *
  * This is the "query side" of best-effort geography search: #783 matches a
- * selected filter region against each pathway's coverage by ISO overlap, and the
- * #869 resolver uses the same sets to compute geography containment. Kept here as
- * a plain, UI-independent map/util (per #797) so the dropdown and the resolver can
- * share one source of truth rather than duplicating region logic in the component.
+ * selected filter region against each pathway's coverage by ISO overlap. Kept
+ * here as a plain, UI-independent map/util (per #797) so the dropdown and the
+ * matcher share one source of truth rather than duplicating region logic in the
+ * component. The detail page's key-feature resolver (#869) does not use these
+ * sets: its selection is one of the pathway's own tokens, so it reads the
+ * pathway's own region membership (keyFeatureRules' `declaredTokenCodes`).
  *
  * Source of truth: the "Transition Pathways Repository — Filter Regions"
  * definition doc, confirmed with the product owner (#798). It defines five
@@ -594,8 +596,9 @@ export type SelectedGeography =
 /**
  * Classify one selected dropdown value into its match descriptor. This is the
  * query-side counterpart of {@link filterRegionToISO}: the search matcher (#783)
- * and the #869 resolver both interpret a user selection through here so they
- * share one vocabulary. Checked in order so the categories can't collide
+ * interprets a user selection through here, as does the detail page's scope seed
+ * when it maps a search selection onto a pathway's own tokens. Checked in order so
+ * the categories can't collide
  * (region labels are multi-word, never two letters).
  */
 export function selectedGeographyToISO(value: string): SelectedGeography {

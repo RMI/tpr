@@ -1,31 +1,32 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-EP-MY-2024",
   "publication": {
     "title": {
-      "full": "ASEAN Green Future Project Phase 2.1 Report, Simulating Malaysia’s Electrifying Future"
+      "full": "ASEAN Green Future Project Phase 2.2 Report, Optimising Malaysia's Electrifying Future"
     },
     "publisher": {
       "full": "Sustainable Development Solutions Network and ClimateWorks Centre",
       "short": "UN SDSN, CW"
     },
-    "year": 2023,
+    "year": 2024,
+    "month": 12,
     "links": [
       {
-        "url": "https://files.unsdsn.org/Final%20AGF-MY%202.1%20report%20(2023).pdf",
+        "url": "https://files.unsdsn.org/AGF%20-%20Malaysia%202.2%20Report%20-%20FINAL.pdf",
         "description": "Report"
       }
     ]
   },
   "name": {
-    "full": "Existing Policy Scenario MY",
+    "full": "Existing Policy",
     "short": "EP MY"
   },
-  "description": "Extrapolation of current policy and market conditions for Malaysia’s energy system.",
+  "description": "Exploratory MY power pathway simulating NETR/MyRER targets as inputs; no emissions constraint.",
   "geography": {
     "country": ["MY"]
   },
-  "pathwayType": "Predictive",
+  "pathwayType": "Exploratory",
   "modelYearStart": 2019,
   "modelYearEnd": 2050,
   "sectors": [
@@ -33,38 +34,370 @@
       "name": "Power",
       "technologies": [
         "Coal",
+        "Oil",
         "Gas",
         "Hydro",
-        "Solar",
         "Wind",
+        "Solar",
         "Biomass",
+        "Energy storage",
         "Other"
       ]
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Existing Policy Pathway models Malaysia’s power and energy systems using the Low Emissions Analysis Platform (LEAP) under the ASEAN Green Future (AGF) project. It reflects current development trends prior to the National Energy Transition Roadmap (NETR), showing continued fossil fuel reliance and moderate renewable energy growth to 2050.\n\nThe Existing Policy Pathway represents a “business-as-usual” policy trajectory, with incremental renewable additions and no new mitigation mechanisms. The scenario applies a Shared Socioeconomic Pathway 2 (SSP2) baseline, reflecting moderate GDP, population, and technology growth. Fossil generation, particularly natural gas and coal, remains dominant. Renewable capacity grows slowly, mainly from hydropower and solar, with limited wind and biomass deployment. No coal phaseout or carbon pricing is assumed.\n\nWithout new measures, power generation emissions rise to 230 MtCO₂e in 2050. The power sector’s emissions intensity does not decline significantly, indicating sustained dependence on coal and gas. Investment is concentrated in maintaining existing infrastructure, with limited capital for storage, flexibility, or carbon capture. \n\n#### Core Drivers\n\nThe Existing Policy Pathway is driven primarily by current power development policies, increasing electricity demand, and steady renewable energy deployment.\n\n*Policy:* The Existing Policy Pathway captures the trajectory of policies in place before July 2023, including the Malaysia Renewable Energy Roadmap (MyRER 2021), the Peninsular Malaysia Generation Development Plan (2021–2039), and the National Energy Efficiency Action Plan (NEEAP 2016–2025). It excludes the potential impact of the 2023 NETR. The Malaysia Renewable Energy Roadmap and the Generation Development Plan drive modest renewable energy expansion.\n\n*Technology deployment:* Renewable capacity grows slowly, mainly from hydropower and solar, with limited wind and biomass deployment. No coal phaseout or carbon pricing is assumed. By 2050, renewables reach 36% of installed capacity and 30% of generation, while fossil fuels still provide about 70% of electricity.\n\n*Energy efficiency and demand shifts:* Although no quantitative information on energy efficiency trends is available for this pathway, the report provides some qualitative information on efficiency measures. Efficiency standards (e.g., minimum energy performance standards, or MEPS) slow residential demand growth, while EV adoption remains limited (<15% of cars by 2050). Energy intensity improves by roughly 55% relative to 2019 but is offset by economic growth.\n\n#### Application to Transition Assessment\n\nThe Existing Policy Pathway is a business-as-usual predictive pathway suitable for assessing Malaysia’s short-term regulatory alignment and identifying ambition gaps. As a country-level pathway, the Existing Policy Pathway does not model a global temperature rise and should not be used to directly set or measure temperature alignment targets.\n\nDue to its strong focus on modeling existing policy and market trends, the Existing Policy Pathway is well-suited to assessing the alignment of corporate targets, plans, and investment pipelines against a conservative forecast of country-specific market shifts. Misalignment with the pathway indicates that a company or plan may already be lagging behind forecast rates of change, potentially exposing it to regulatory risks or declining market share as other segments of the energy sector are encouraged to grow. Because the pathway does not include aspirational targets or potential future policies, it can be viewed as a conservative projection of potential market dynamics, and plans that exceed the rate of transition that is forecast in the Existing Policy Pathway may still be exposed to future risks if new policies are introduced or technology shifts occur.\n\nThe Existing Policy Pathway models Malaysia’s national power and energy systems to 2050, providing country-level projections for generation and capacity at 10-year intervals, with a high-level breakdown by energy source such as coal, gas, and renewables. Due to its country-specific nature, the Existing Policy Pathway has limited applicability to companies with operations across multiple geographies, but it offers greater detail and specificity for companies in Malaysia, as compared to global or regional pathways.",
+  "pathwayDescription": "Exploratory Malaysian pathway (2019–2050) that feeds NETR/MyRER targets into a LEAP simulation with no emissions cap: RE shares of 31%/40%/70% for 2025/2035/2050, no new coal or diesel, coal out by 2050, efficiency standards and 80% xEV fleet share. Demand rises 152% to 393 TWh. A fixed merit order produces a 72 GW solar build, yet power emissions grow from 85 to 108 MtCO2e and investment tops USD 250bn, over USD 100bn in fossil.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
   "metric": [
     "Absolute Emissions",
-    "Emissions Intensity",
     "Capacity",
     "Generation",
-    "Technology Mix"
+    "Technology Mix",
+    "Emissions Intensity"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Low or no change",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "Moderate increase",
-    "policyTypes": [
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Moderate increase"
+      }
     ],
-    "technologyCostTrend": "Low or no change",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "Total costs",
-    "newTechnologiesIncluded": ["Battery storage", "Other new technologies"],
-    "investmentNeeds": "No information"
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": [
+          "Phaseout dates",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Current and drafted policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": ["Battery storage", "Other new technologies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "MY",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "MY",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Target shares: NETR/MyRER capacity mix and RE targets (31% in 2025, 40% in 2035, 70% in 2050), incl. MyRER’s 2.5x higher bioenergy targets, are exogenous inputs. Phase-out: no new coal or diesel; coal out by 2050, diesel by 2045 via natural retirement. Efficiency: NETR’s 23% energy-intensity gain for industry and commercial (EECA) and NEEAP household appliance targets. Transport: 80% xEV share of 4- and 2-wheelers, 60% public-transport share, 5% hydrogen heavy vehicles, B30 biodiesel.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "not applicable.",
+    "investmentChange": "Cumulative power generation investment exceeds USD 250 bn, with more than USD 100 bn in fossil fuel.",
+    "macroeconomicDrivers": "GDP, population, urbanisation (76% in 2018 to 90% by 2060) and sectoral value added drive electricity demand to 393 TWh in 2050 (+152% vs 2019), with services and industry making up 79% of the increase. Services are capped at 65% of GDP and agriculture floored at 5% from 2031, leaving industry at 30% (calibrated on Australia and Singapore). Sources: government projections, UN World Urbanization Prospects, World Bank data, LEAP defaults; assumptions are shared by all three pathways.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Simulation-mode dispatch and reserve rules: the modeller fixes the merit order (1: solar+BESS and wind; 2: coal, gas, hydro, geothermal, MSW, biomass, biogas; 3: diesel), and LEAP adds any capacity needed to hold the planning reserve margin in the modeller's addition order. This configuration produces EP's larger fleet (137.8 GW vs 125.2 GW in OEP) and a 72 GW solar build that exceeds NETR's 56 GW. It is a model-configuration assumption, not a policy, cost or macroeconomic driver."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "EP is built on the NETR, MyRER, NBAP, HETR and EECA policy set, which supplies its renewable capacity targets, coal moratorium and efficiency targets and so enables grid decarbonisation up to a 66% RE capacity share in 2050. The report judges this set insufficient for near-zero power: EP still emits 108 MtCO2e from generation in 2050 with gas at 55% of output, and NETR's positioning of gas as a bridge fuel needs re-evaluation.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "The report records regulatory weaknesses that limit EP's demand-side efficiency: weak enforcement of building rules, limited financing for energy performance contracts and an EECA covering only 21% of commercial consumption and under 1% of users. On supply, biogas grid connection is unattractive because the FiT (RM0.28–0.32/kWh) sits below base tariffs. These are described rather than modelled as constraints on EP's power mix.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "EP relies on gas for 55% of 2050 generation, exposing it to gas prices and Malaysia's growing import dependence (about 25% of gas needs in 2023); the report flags stranded-asset risk for new gas plants. EP has the highest cost of the two existing-policy cases: USD 257bn real cumulative investment and 8.8 US cents/kWh in 2050, against regulated tariffs of 4.2–12.0 US cents/kWh and RM2bn of consumer subsidies in H1 2024.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "The report notes that hydropower can disrupt ecosystems and displace indigenous communities and needs long planning. EP expands hydro to 15.1 GW in 2050, above NETR's 11 GW, so the concern applies, but the report does not treat acceptance as constraining EP.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "EP imposes demand-side adoption exogenously — 80% xEV share, 60% public-transport modal share, efficient lighting at 55% by 2025 and electric cooking reaching 60% (urban) and 40% (rural) by 2060 — which raises transport electricity from 1 to 33 TWh. These raise power demand but do not constrain power decarbonisation in EP.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Integrating EP's 72 GW of solar needs grid modernisation, storage and interconnection, yet EP holds only 0.50 GW of batteries. The report identifies Sabah's single 275 kV backbone as a bottleneck, lists existing interconnections (MY–TH 380 MW, MY–SG 1,000 MW, Sarawak–West Kalimantan 80–110 MW) and cites EV-charging needs (10,000 public chargers by 2025). No hourly dispatch or curtailment output is reported.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Battery storage is the only not-yet-scaled technology in EP (0.50 GW in 2050), supported by pilots such as TNB's 400 MWh and Sarawak's 60 MW systems; the report notes batteries currently suit seconds-to-hours storage only, limiting their role in this gas-backed system.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "EP depends on natural gas for 55% of 2050 generation while Malaysia already imports about a quarter of its gas, so supply security is a real dependency. Domestic renewable resources are ample for EP's build: solar potential 269 GW, hydro 16.1 GW (EP uses 15.1 GW), and EP's 1.8 GW biomass is within SEDA's 2.3 GW estimate.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Hydropower supplies about 20% of EP's 2050 generation and is exposed to drought and rainfall variability; the report cites the recent global fall in hydro output from droughts and recommends diversification, water management and demand-side management. Climate impacts and resilience were not modelled.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived, not reported: power-generation GHG / total generation, 2050 = 108 / 441.23 TWh = 0.245 tCO2e/MWh. National grid only; no captive or rooftop split. CO2e basket not listed (Kyoto inferred from LEAP)."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Power-generation GHG, MtCO2e; 2050 = 108 Mt (Table 5). Annual series only as line charts (Figs 22, 27). No upstream fuel-supply or T&D-loss emissions; no captive or rooftop split. Gases not listed (Kyoto inferred, LEAP)."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other",
+          "Energy storage"
+        ],
+        "scopeLimitations": "Installed GW by technology, Malaysia national grid; no captive or rooftop split. Storage: batteries only, 0.50 GW (pumped hydro row blank). Biomass includes biogas; diesel shown as Oil; geothermal not broken out."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Annual TWh by technology, national grid; no captive or rooftop split. Biomass includes biogas; Other includes MSW and 'All others'."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Other"
+        ],
+        "scopeLimitations": "Generation shares by technology, national grid; derived from TWh by technology where not charted."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Table 9 capex (USD/kW), fixed O&M (USD/kW-yr), variable (USD/MWh) by technology from NREL ATB 2023 (US-based, not localised); fuel costs Table 10 (ACE 2022). Same table in all pathways. Used only to cost EP's simulated build ex post."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), USD. Excludes transmission and distribution; storage not shown separately in the investment figures."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["MY"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Retirement treatment of coal, gas and diesel plants as stated in the scenario assumptions; no plant-level lifetimes or retirement schedule published."
+      }
+    ]
   }
 }

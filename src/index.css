@@ -66,6 +66,15 @@
   --color-rmired-200: #df897b;
   --color-rmired-400: #c4151c;
   --color-rmired-800: #790000;
+  /* Rose: sits between rmired and rmipurple in hue, so it reads as distinct
+     from both while keeping the palette's saturation. Added for the sector
+     segment badges, which needed a family none of the existing ones was free
+     to supply. Same four-step structure as the families above: 100 tint,
+     200 border, 400 mid, 800 text. */
+  --color-rmipink-100: #f0c9de;
+  --color-rmipink-200: #e39bc4;
+  --color-rmipink-400: #ba5292;
+  --color-rmipink-800: #7f0053;
   --color-rmigray-100: #e6e7e8;
   --color-rmigray-200: #a7a9ac;
   --color-rmigray-300: #808284;
@@ -86,4 +95,46 @@
 }
 html {
   scroll-padding-top: var(--env-banner-height);
+}
+
+/* The editions modal. A native <dialog>, so the backdrop is ::backdrop rather
+   than an element: Tailwind cannot reach it from a class on the dialog, and
+   the animations have to name the element they run on. 200ms ease-out matches
+   the transitions the rest of the app already uses. Closing is instant. */
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes modal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.editions-modal {
+  /* The browser centres a modal <dialog> with `margin: auto` against its
+     `inset: 0`. Tailwind's preflight resets margin to 0 on every element,
+     which lands the dialog in the top-left corner instead. Restore it. */
+  margin: auto;
+}
+.editions-modal[open] {
+  animation: modal-in 200ms ease-out;
+}
+.editions-modal::backdrop {
+  background: rgb(29 35 40 / 0.55); /* --color-neutral-900 at 55% */
+  animation: modal-fade 200ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .editions-modal[open],
+  .editions-modal::backdrop {
+    animation: none;
+  }
 }

@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "IEA-NZE-2024",
   "publication": {
     "title": {
@@ -35,7 +35,7 @@
   "pathwayType": "Normative",
   "modelTempIncrease": 1.5,
   "modelYearStart": 2023,
-  "modelYearEnd": 2100,
+  "modelYearEnd": 2050,
   "modelYearNetzero": 2050,
   "sectors": [
     {
@@ -77,7 +77,8 @@
         "Wind",
         "Solar",
         "Biomass",
-        "Renewables",
+        "Geothermal",
+        "Energy storage",
         "Other"
       ]
     },
@@ -98,7 +99,7 @@
       "technologies": []
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe IEA Net Zero Emissions by 2050 (NZE) Scenario is a normative 1.5 aligned pathway, outlining how the global energy sector can reach net zero CO2 emissions by 2050. It assumes that advanced economies achieve net zero earlier (by mid 2040s), with emerging markets following by 2050. As a normative scenario, the NZE provides a detailed description of one pathway to reach a targeted future state, but it does not attempt to predict which policies or outcomes are most probable. The NZE pathway corresponds to a 50% probability of 1.5°C of warming by 2100. This is a more ambitious outcome than the IEA’s Announced Pledges Scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), indicating a significant gap remains between announced governmental pledges and the trajectory described by the NZE pathway.\n\n#### Core Drivers\n\nThe NZE pathway is driven through a combination of wide-reaching policy, significant cost declines for existing green technologies, significant efficiency improvement and demand shifts, and the introduction of significant new technologies.\n\n*Policy:* The NZE pathway expands upon the policies considered in the APS pathway, most notably by introducing a more significant global carbon price for power, industry, and transport. A carbon price is introduced in all regions by 2030, with prices rising to USD$250/tCO2 in advanced economies, and USD$200/tCO2 in major emerging markets by 2050. Additionally, while the IEA NZE makes note of how the phase-out of fossil fuel subsidies need to be carefully designed to limit impacts on household budgets, they are largely removed in the NZE by 2030.\n\n*Technology costs:* The IEA NZE pathway assumes an S-curve trajectory of cost decline, with rapid early reductions as deployment scales up, followed by gradual flattening. This pattern applies across most renewables and transition technologies, including solar PV, offshore wind, battery EVs, and hydrogen fuel cells.\n\n*Technology shifts:* The NZE pathway is primarily driven by the rapid deployment of clean technology. Renewable energy capacity, led by solar PV and wind, approximately triples between 2023 and 2030, and reaches nearly 90% of global electricity by 2050. EVs account for approximately 60% of new car sales by 2030, and dominate the global fleet by 2050. Additionally, CCUS scales from 40Mt in 2023 to over 1Gt in 2030, and over 6Gt in 2050. This rapid expansion of clean technologies enables the peak of unabated fossil-fuel demand before 2030 and its subsequent decline by about 80% by 2050, marking the global phase down of coal, oil, and gas. \n\n*Falling energy demand:* The NZE pathway models significant energy efficiency improvements, alongside meaningful shifts in individual consumption patterns, which significantly reduce potential energy demand. Total energy consumption in the NZE pathway falls from well over 400 EJ in 2023 to under 350 EJ in 2050, a much larger decline than is observed in most similar pathways.\n\n#### Application to Transition Assessment\n\nIEA NZE is a global, temperature constrained normative scenario. As such, the NZE provides a direct connection between the described pathway and a global temperature outcome. It is well-suited for science-based target setting and net zero strategy alignment and is one of the most widely-used pathways to benchmark strategies against a projected 1.5°C temperature rise.\n\nAs a normative pathway, NZE models a potential pathway to achieve a target temperature outcome and introduces significant new policies and market shifts as part of the process. As a result, (mis)alignment to the NZE pathway is less directly connected to regulatory risk or potential shifts in market share, as objectives within the NZE pathway may differ significantly from currently stated jurisdictional goals. Users interested in assessing the policy alignment or technological and commercial feasibility of corporate transition strategies should review where underlying NZE assumptions diverge from current trends, and consider supplementing NZE with additional pathways that model a range of different policies and technology developments.\n\nThe NZE provides benchmark data on 5- and 10-year intervals and uses a moderately detailed breakdown of specific generation technologies such as coal, onshore wind, offshore wind, solar PV, and geothermal. This level of detail makes it well-suited to assessing specific decarbonization levers. However, NZE provides data only at the global level. This limits its suitability for assessing region- or jurisdiction-specific implications for company transition strategies.",
+  "pathwayDescription": "The IEA Net Zero Emissions by 2050 (NZE) Scenario is a normative 1.5 aligned pathway, outlining how the global energy sector can reach net zero CO2 emissions by 2050. It assumes that advanced economies achieve net zero earlier (by mid 2040s), with emerging markets following by 2050. As a normative scenario, the NZE provides a detailed description of one pathway to reach a targeted future state, but it does not attempt to predict which policies or outcomes are most probable. The NZE pathway corresponds to a 50% probability of 1.5°C of warming by 2100. This is a more ambitious outcome than the IEA’s Announced Pledges Scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), indicating a significant gap remains between announced governmental pledges and the trajectory described by the NZE pathway.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -107,29 +108,469 @@
     "Absolute Emissions"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Significant decrease",
-    "energyEfficiency": "Significant improvement",
-    "energyDemand": "Significant decrease",
-    "electrification": "Significant increase",
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Significant decrease"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      }
+    ],
     "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Subsidies",
-      "Target technology shares",
-      "Performance standards",
-      "Other"
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "Carbon price",
+          "Subsidies",
+          "Performance standards",
+          "Target technology shares",
+          "Phaseout dates",
+          "Other"
+        ]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["Not applicable at this scope level"]
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2",
-    "policyAmbition": "High ambition policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "CO2"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "Total costs"
+      }
+    ],
     "newTechnologiesIncluded": [
-      "CCUS",
-      "DAC",
-      "Green H2/ammonia",
-      "SAF",
-      "Battery storage"
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": [
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": ["SAF", "Green H2/ammonia"]
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": ["CCUS", "Green H2/ammonia"]
+      }
     ],
-    "investmentNeeds": "By tech, part of value chain"
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "Global",
+        "value": "By sector"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "Global",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "Global",
+        "value": "By technology"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The NZE pathway expands on currently stated policies and NDC targets. Carbon prices are introduced in all regions and cover most sectors, rising to USD 250/t CO2 by 2050 in advanced economies and USD 200/t CO2 in emerging markets, phase-out dates are explicit and binding as unabated coal-fired generation falls 85% by 2035 and is completely phased out by 2040.",
+    "emissionsTargets": "This pathway is defined by reaching net zero energy-related CO2 emissions by 2050. The target is also expressed as a temperature outcome, consistent with limiting warming to 1.5 C with limited overshoot at a 50% probability. Advanced economies are constrained to reach net zero by mid 2040s with emerging market and developing economies following by 2050.",
+    "technologyCosts": "Unit technology costs are endogenous and deployment-linked: future cost evolution is tied to deployment levels, following a non-linear learning curve.",
+    "investmentChange": "Low-carbon investment rises sharply as a share of total energy investment. Oil and gas supply investment falls to USD 250 billion in 2035, around 70% below today, while clean energy spending grows in all sectors with the largest increases in grids and storage, buildings and transport.",
+    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from USD 175,981 billion to USD 357,510 billion (2023, PPP).",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "An international co-operation and burden-sharing assumption shapes the regional distribution of the pathway: achieving net zero energy sector CO2 by 2050 \"depends on fair and effective global co-operation, with advanced economies taking the lead and reaching net zero emissions earlier in the NZE Scenario than emerging market and developing economies\". Advanced economies reach -583 Mt CO2 in 2050 while the world total is exactly zero."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "The pathway outcome is not feasible without policy that goes well beyond anything pledged. Carbon prices are introduced in all regions covering most sectors, unabated coal generation is phased out completely by 2040, and universal energy access is delivered by 2030. Failure to resolve constraints would jeopardize the 2050 target.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Grid line length has to grow about 20% by 2030, and delivery at that rate is not feasible under permitting and planning processes that currently take over a decade per grid project. The publication states that significant grid enhancements are required and that expansion calls for regulatory and planning change.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The pathway requires both rapid scale-up of clean energy finance and contraction of fossil finance. Oil and gas supply investment falls to USD 250 billion by 2035, around 70% below today, so many new projects face major commercial risks and some may fail to recover their upfront costs. On the other side, clean energy spending has to grow in every sector with the largest increases in grids and storage, buildings and transport, much of it in economies where capital costs are highest.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "The physical exposure is clear (grid length, nuclear/hydro capacity rising) but the evidence base is a passing remark, and the pathway contains no acceptance analysis, no polling and no mitigation proposal.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "The pathway requires the electricity share of final consumption to reach 54.5% by 2050, from 20.4% in 2023, at the same time as total final consumption falls from 444.7 to 344.1 EJ - so households and firms must both electrify and consume less.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "The pathways infrastructure must outpace anything built historically. Grid line length has to grow about 20% by 2030 and storage capacity to 5 512 GW by 2050, and with unabated coal fully phased out by 2040 the system loses the firm capacity that currently provides adequacy and storage, interconnection and flexibility have to substitute for it rather than supplement it. Hydrogen adds a second handling, storage and transport infrastructure requirement.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "The pathway is not feasible on the current technology set. Captured CO2 reaches 5 924 Mt by 2050 and DAC 780 Mt, emissions hydrogen production 38.1 EJ, BECCS 731 TWh, and hydrogen and ammonia 443 GW of power capacity, all from bases at or near zero today. Because costs are endogenous and deployment-linked, the cost assumptions and the deployment assumptions are mutually dependent, so a readiness shortfall in any one of these propagates.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Critical mineral extraction appears as a distinct workforce category in the employment analysis, which is evidence that the supply chain is treated as a scaling constraint. The pathway also closes off the usual escape route: it reaches net zero \"without offsets from land-use measures\", so biomass and CDR must come from within the energy system, with modern solid bioenergy supply at 75.7 EJ and DAC at 780 Mt CO2.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "The water finding is quantified specifically for this pathway as the pathway depends more heavily on water-exposed generation, with hydro at 2 419 GW by 2050 and essentially all unabated fossil generation gone by then, so system adequacy rests more on hydrology and weather-dependent output. Physical climate impacts are still not modelled as a constraint on any lever, no adaptation requirement is quantified.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "15 million new energy workers are needed worldwide by 2030, into an industry the publication says is already short of the specific trades involved.  EV and battery employment alone has to reach 10.5 million by 2030 from 2.7 million today. Given that the grid and storage build-out on which the pathway depends is already delayed partly by a shortage of qualified staff, this is a condition on the outcome rather than a cost of it.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Heat is bundled with electricity and cannot be separated. Negative values occur where BECCS and CCUS exceed combustion emissions."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Heat is bundled with electricity and cannot be separated. Negative values occur where BECCS and CCUS exceed combustion emissions."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop capacity cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["Global"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["Transmission and distribution"],
+        "scopeLimitations": "Covers combined transmission and distribution networks. Reported as investment spending and as an economy-wide percentage growth in grid line length."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Unit costs for nuclear, coal, gas CCGT, solar PV, onshore wind and offshore wind only - no cost data for hydro, bioenergy, geothermal, marine, CCUS-equipped plant or storage."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": ["Global"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Covers generation, networks and battery storage across the power value chain. Figures are multi-year averages and cumulative totals, not annual series, and include maintenance and infrastructure spend, so they are not derivable from capacity growth and unit costs."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["Global"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Retirements and additions are cumulative over 2024-2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
+      }
+    ]
   }
 }

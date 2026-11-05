@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router";
 import HeaderNav from "../components/HeaderNav";
 import { HeaderBrand } from "../components/Header";
+import CoverageMap from "../components/CoverageMap";
+import { pathwayMetadata } from "../data/pathwayMetadata";
 
 const WavePattern: React.FC = () => {
   return (
@@ -171,9 +173,10 @@ const LandingPage: React.FC = () => {
               </p>
 
               <p className="mt-8 text-sm md:text-base text-white/85 max-w-3xl mx-auto">
-                Note that this version of the TPR is a pilot covering only
-                pathways related to the power sector in Southeast Asia. Stay
-                tuned for more pathways being added in 2026!
+                The TPR currently focuses on the power sector. Global pathways
+                cover every region they model, and pathways built for specific
+                regions and countries are being added step by step, starting
+                with Southeast Asia.
               </p>
 
               <div className="mt-10">
@@ -186,8 +189,7 @@ const LandingPage: React.FC = () => {
               </div>
 
               <p className="mt-6 text-sm italic text-white/80">
-                See what pathways are available for the Southeast Asia power
-                sector.
+                See what pathways are available for the power sector.
               </p>
             </div>
           </div>
@@ -214,6 +216,33 @@ const LandingPage: React.FC = () => {
               into transition assessments, risk analysis, client engagement, and
               capital allocation.
             </p>
+          </section>
+
+          <section className="py-10 border-b border-neutral-200">
+            <h2 className="text-xl font-semibold text-rmiblue-800 mb-3">
+              Which regions does the TPR cover?
+            </h2>
+            <p className="text-rmigray-700">
+              This map shows where the TPR provides pathways for the power
+              sector. We are currently expanding power sector coverage to new
+              regions, and will expand to new sectors after that.
+            </p>
+            <p className="text-rmigray-700 mt-4">
+              Global pathways, such as the IEA World Energy Outlook, model the
+              energy system for the whole world. Many of them also publish a
+              regional or country-level breakdown of their results, and those
+              regional breakdowns are provided in the TPR where available.
+            </p>
+            <p className="text-rmigray-700 mt-4">
+              Pathways built for a specific region or country add local detail
+              that global models can miss. We are adding them one region at a
+              time, starting with Southeast Asia. Next we will be adding the
+              European Union, United Kingdom, and Canada, followed by India and
+              China.
+            </p>
+            <div className="mt-6">
+              <CoverageMap pathways={pathwayMetadata} />
+            </div>
           </section>
 
           <section className="py-10 border-b border-neutral-200">
@@ -350,8 +379,7 @@ const LandingPage: React.FC = () => {
                 Ready to explore?
               </h2>
               <p className="mt-3 text-rmigray-700 max-w-2xl mx-auto">
-                See what pathways are available for the Southeast Asia power
-                sector.
+                See what pathways are available for the power sector.
               </p>
               <div className="mt-8">
                 <Link

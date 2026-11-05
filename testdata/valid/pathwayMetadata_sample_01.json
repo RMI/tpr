@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "sample-01",
   "name": {
     "full": "Sample Pathway 01"
@@ -26,35 +26,104 @@
   "sectors": [
     {
       "name": "Land Use",
-      "technologies": ["Precision Agriculture"]
+      "technologies": []
     }
   ],
-  "pathwayOverview": "QWERTY Overview.",
-  "expertOverview": "Example Expert Recommendation.",
+  "pathwayDescription": null,
   "keyFeatures": {
-    "emissionsTrajectory": "Minor decrease",
-    "energyEfficiency": "Moderate improvement",
-    "energyDemand": "Minor increase",
-    "electrification": "Moderate increase",
+    "emissionsTrajectory": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Minor decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Moderate improvement"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Minor increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Moderate increase"
+      }
+    ],
     "policyTypes": [
-      "Carbon price",
-      "Phaseout dates",
-      "Subsidies",
-      "Target technology shares",
-      "Other"
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": [
+          "Carbon price",
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Other"
+        ]
+      }
     ],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
+    "technologyCostTrend": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "CO2"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
     "newTechnologiesIncluded": [
-      "CCUS",
-      "DAC",
-      "Green H2/ammonia",
-      "SAF",
-      "Battery storage"
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": ["CCUS", "DAC", "Green H2/ammonia", "SAF", "Battery storage"]
+      }
     ],
-    "investmentNeeds": "By sector, part of value chain"
+    "investmentNeeds": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "By sector, part of value chain"
+      }
+    ]
   },
+  "coreDrivers": {
+    "policies": null,
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": null,
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": [],
   "metric": ["Emissions Intensity", "Capacity"]
 }

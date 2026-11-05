@@ -1,9 +1,6 @@
-import type {
-  Metric,
-  PathwayMetadataType,
-  PathwayType,
-  Sector,
-} from "../types";
+import type { Metric, PathwayType, Sector } from "../types";
+import type { KeyFeatureKey } from "./keyFeatureRules";
+import { segmentDefinitionFor } from "./timeseriesTaxonomy";
 
 export const unknownTooltip = "No tooltip available.";
 
@@ -61,19 +58,41 @@ export const getMetricTooltip = (metric: Metric): string => {
   return metricTooltips[metric] || unknownTooltip;
 };
 
-export type KeyFeatureSection = keyof PathwayMetadataType["keyFeatures"];
+/**
+ * Sector-segment tooltips, sourced from the timeseries taxonomy rather than a
+ * record in this file.
+ *
+ * The other tooltip maps here are hand-written because their schema enums carry
+ * no prose. Segments are different: `SECTORS_BY_KEY` already defines each one,
+ * and the strings the data carries are exactly those segments' display names, so
+ * a record here would be a second copy to drift out of sync.
+ *
+ * Segments are sector-specific (#870) — "Energy storage" means something under
+ * Power and nothing under Land Use — hence the sector parameter. A missing
+ * segment (a sector whose segments nobody has written down, or an unrecognised
+ * name) falls back to {@link unknownTooltip}.
+ */
+export const getSectorSegmentTooltip = (
+  sectorDisplayName: string,
+  segmentDisplayName: string,
+): string => {
+  return (
+    segmentDefinitionFor(sectorDisplayName, segmentDisplayName)?.definition ??
+    unknownTooltip
+  );
+};
 
 /**
  * Subsection-aware tooltip resolver for Key Features.
  * Collisions are resolved by looking up [sectionKey][value].
  */
 export function getKeyFeatureTooltip(
-  sectionKey: KeyFeatureSection,
+  sectionKey: KeyFeatureKey,
   value: string,
 ): string {
   // NOTE: Fill in real copy later — these are just placeholders.
   // Use the exact enum strings from your schema/data as the nested keys.
-  const MAP: Partial<Record<KeyFeatureSection, Record<string, string>>> = {
+  const MAP: Partial<Record<KeyFeatureKey, Record<string, string>>> = {
     emissionsTrajectory: {
       "No information":
         "There is no quantitative information available on the trend of emissions.",
@@ -225,6 +244,8 @@ export function getKeyFeatureTooltip(
         "This pathway assumes deployment of grid-scale battery electricity storage.",
       "EGS/AGS":
         "This pathway assumes deployment of Enhanced and/or Advanced Geothermal Systems.",
+      "SMR":
+        "This pathway assumes deployment of small modular nuclear reactors (SMR).",
       "Other new technologies":
         "This pathway assumes deployment of other new technologies.",
     },

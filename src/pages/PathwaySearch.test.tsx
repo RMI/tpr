@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import PathwaySearch from "./PathwaySearch";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import { groupEditions } from "../utils/pathwayEditions";
 import { PathwayMetadataType } from "../types";
 import userEvent from "@testing-library/user-event";
 import { FilterProvider } from "../context/FilterContext";
@@ -37,13 +38,36 @@ describe("PathwaySearch component", () => {
     );
   };
 
-  it("renders a PathwayCard for each pathway in the data", () => {
+  it("renders one PathwayCard per edition series, not per record", () => {
     renderPathwaySearch();
-    // Check that the correct number of pathway cards are rendered.
-    // queryAll (not getAll) so an empty dataset yields [] rather than throwing —
-    // src/data may be fully excluded by validation until it is migrated.
+    /*
+      Replaces "a card for each pathway in the data". The grid now shows one
+      card per series: a pathway re-published under a new year is one pathway
+      with two editions, not two pathways, and showing both put two
+      near-identical cards side by side.
+
+      queryAll (not getAll) so an empty dataset yields [] rather than throwing —
+      src/data may be fully excluded by validation until it is migrated.
+    */
+    const expectedCards = groupEditions(pathwayMetadata).length;
     const pathwayCards = screen.queryAllByTestId("pathway-card");
-    expect(pathwayCards).toHaveLength(pathwayMetadata.length);
+    expect(pathwayCards).toHaveLength(expectedCards);
+  });
+
+  /*
+    The agreed deviation on the result total ("Found N pathways" counts records,
+    not cards) needed no code change: `pathwaysNumber` was already
+    `filteredPathways.length`. There is nothing new to assert, and the real
+    total only renders once a filter is applied, so no test is added for it.
+    The gap it creates is the difference asserted below.
+  */
+  it("collapses a multi-edition series into a single card", () => {
+    // The behaviour the count above is really asserting, stated directly so a
+    // corpus with no multi-edition series cannot make that test vacuous.
+    const groups = groupEditions(pathwayMetadata);
+    const multi = groups.filter((g) => g.editions.length > 1);
+    expect(multi.length).toBeGreaterThan(0);
+    expect(groups.length).toBeLessThan(pathwayMetadata.length);
   });
 });
 
@@ -65,7 +89,17 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: [],
-      keyFeatures: { emissionsTrajectory: "foo" },
+      keyFeatures: {
+        // "across regions", not a country: a pathway declaring no geography can
+        // name no place, so the sentinel is the only token it could carry.
+        emissionsTrajectory: [
+          {
+            sector: "across sectors",
+            geography: "across regions",
+            value: "foo",
+          },
+        ],
+      },
     },
     {
       id: "B",
@@ -78,7 +112,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Capacity"],
-      keyFeatures: { emissionsTrajectory: "foo" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "across sectors", geography: "DE", value: "foo" },
+        ],
+      },
     },
     {
       id: "C",
@@ -89,7 +127,9 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "NZi2050",
       modelYearNetzero: 2040,
       metric: [],
-      keyFeatures: { emissionsTrajectory: "foo" },
+      keyFeatures: {
+        emissionsTrajectory: [], // no geography declared -> no scope to attach a value to
+      },
     },
     {
       id: "D",
@@ -100,7 +140,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "BAU",
       modelYearNetzero: 2030,
       metric: ["Capacity", "Generation"],
-      keyFeatures: { emissionsTrajectory: "bar" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "across sectors", geography: "JP", value: "bar" },
+        ],
+      },
     },
     {
       id: "E",
@@ -111,7 +155,11 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
       metric: ["Generation"],
-      keyFeatures: { emissionsTrajectory: "bar" },
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "across sectors", geography: "DE", value: "bar" },
+        ],
+      },
     },
   ] as const;
 

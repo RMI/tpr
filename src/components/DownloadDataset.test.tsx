@@ -41,4 +41,27 @@ describe("<DownloadDataset />", () => {
       screen.getByText(/Minor deviations from the source data may occur/),
     ).toBeInTheDocument();
   });
+
+  it("says the download is complete only when it runs past the plots", () => {
+    const { rerender } = render(
+      <DownloadDataset
+        label="Dataset"
+        href="/data/ds.csv"
+      />,
+    );
+    expect(screen.queryByText(/show years up to 2050/)).toBeNull();
+
+    rerender(
+      <DownloadDataset
+        label="Dataset"
+        href="/data/ds.csv"
+        extendsPastPlots
+      />,
+    );
+    expect(
+      screen.getByText(
+        "The plots on this page show years up to 2050. This download contains every year.",
+      ),
+    ).toBeInTheDocument();
+  });
 });

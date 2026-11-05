@@ -14,6 +14,8 @@ import { prioritizeGeographies } from "../utils/sortUtils";
  */
 export const REGION_TOOLTIP_MAX_MEMBERS = 12;
 
+// Every declared region has two or more members (#998), so this is only reached
+// for a label the geography does not declare, or no geography at all.
 export const NO_REGION_MAPPING_TEXT =
   "No country mapping available for this region.";
 
@@ -50,7 +52,7 @@ const RegionMembersTooltip: React.FC<RegionMembersTooltipProps> = ({
   return (
     <span>
       <span className="block font-medium text-rmigray-800">
-        {ordered.length} {ordered.length === 1 ? "country" : "countries"}
+        {ordered.length} countries
       </span>
       <span className="block">
         {shown.map((code, idx) => (

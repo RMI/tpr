@@ -14,7 +14,7 @@ export type CountryCode = import("./countryCode.v1").CountryCodeV1;
 export type CountryCode1 = import("./countryCode.v1").CountryCodeV1;
 
 /**
- * Geographical coverage of a pathway. 'global' marks whole-world coverage (a literal flag, not a list of every country); 'regions' maps an author-defined region label, kept as named in the source publication, to the ISO-3166-1 alpha-2 country codes it contains (member arrays may be empty when the publication provides no mapping); 'country' lists standalone ISO-3166-1 alpha-2 country codes.
+ * Geographical coverage of a pathway. 'global' marks whole-world coverage (a literal flag, not a list of every country); 'regions' maps an author-defined region label, kept as named in the source publication, to the two or more ISO-3166-1 alpha-2 country codes it contains; 'country' lists standalone ISO-3166-1 alpha-2 country codes. One country code is always a country: a place the publication names for a single country (e.g. 'Japan') is that country's code in 'country', never a one-member region.
  */
 export interface GeographyV1 {
   /**
@@ -22,10 +22,13 @@ export interface GeographyV1 {
    */
   global?: boolean;
   /**
-   * Map from an author-defined region label (as named in the publication) to the ISO-3166-1 alpha-2 country codes in that region. Member arrays may be empty when the publication does not provide a mapping.
+   * Map from an author-defined region label (as named in the publication) to the ISO-3166-1 alpha-2 country codes in that region. Every region has at least two members: a single country belongs in 'country', and a region with no members matches nothing.
    */
   regions?: {
-    [k: string]: CountryCode[];
+    /**
+     * @minItems 2
+     */
+    [k: string]: [CountryCode, CountryCode, ...CountryCode[]];
   };
   /**
    * Standalone ISO-3166-1 alpha-2 country codes covered by the pathway.

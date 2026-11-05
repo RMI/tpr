@@ -40,3 +40,22 @@ describe("LandingPage navigation", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("LandingPage coverage", () => {
+  it("shows which regions the TPR covers, with a map", async () => {
+    render(
+      <MemoryRouter>
+        <LandingPage />
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Which regions does the TPR cover?",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole("img", { name: /world map/i }),
+    ).toBeInTheDocument();
+  });
+});

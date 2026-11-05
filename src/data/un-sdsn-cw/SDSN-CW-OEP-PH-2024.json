@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "UNSDSN-CW-OEP-PH-2024",
   "publication": {
     "title": {
@@ -34,8 +34,8 @@
   "geography": {
     "country": ["PH"]
   },
-  "pathwayType": "Exploratory",
-  "modelYearStart": 2019,
+  "pathwayType": "Normative",
+  "modelYearStart": 2022,
   "modelYearEnd": 2060,
   "sectors": [
     {
@@ -49,12 +49,11 @@
         "Wind",
         "Solar",
         "Biomass",
-        "Renewables",
-        "Other"
+        "Energy storage"
       ]
     }
   ],
-  "expertOverview": "#### Pathway Description\n\nThe Optimized Existing Policy (OEP) scenario models the Philippine power system under the same policy environment and structural constraints defined in the Philippine Energy Plan (PEP) but applies a least-cost optimization to determine the most economically efficient mix of technologies over time. Using the Low Emission Analysis Platform (LEAP) model’s optimization module, it determines the most cost-efficient configuration of generation and dispatch that satisfies national demand growth, existing renewable energy targets, and current policy constraints. \n\nUnlike scenarios that rely on fixed capacity additions, the OEP pathway allows the model to autonomously select and dispatch technologies based on their cost, availability, and policy compliance, revealing how the system could evolve if investment and operational decisions were made purely on the basis of economic efficiency. \n\nAlthough OEP shares the same policy assumptions as the Simulated Existing Policy (SEP) pathway from the same developers, it differs fundamentally in its method of determining the future system composition. While SEP reflects policy-driven and market-informed build-out patterns, OEP illustrates the cost-optimal evolution of the power sector within those same policy boundaries. This makes OEP a valuable lens for understanding the cost savings of accelerated renewable energy uptake, identifying cost-efficient transition opportunities, and assessing how current Philippine policies might interact with least-cost pathways over time.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.\n\n#### Core Drivers\n\nOEP is shaped by the same policy environment as SEP but allows the model to select the lowest-cost generation mix, accelerating renewable deployment and reducing emissions. Cost-optimized dispatch and technology choices drive overall efficiency and lower system costs, while still operating within current institutional constraints.\n\n*Policies:* The scenario assumes full implementation of existing renewable energy policies in the Philippines, but no new fiscal or regulatory interventions beyond the Philippine PEP. \n\n*Technology deployment:* Greater reliance on onshore and offshore wind supported by limited gas-fired balancing capacity enables lower-cost decarbonization. By 2060, total capacity reaches 293 GW, driven by accelerated deployment of wind and solar, which together account for 70% of generation. \n\n*Technology cost:* The scenario uses a least-cost approach to the selection of technologies, which steers investment toward lower-cost renewable generation and away from more expensive fossil assets. This optimization results in faster renewable deployment, reduced reliance on aging coal plants, and a lower overall system cost compared to a policy-driven build-out.\n\n#### Application to Transition Assessment\n\nThe OEP scenario provides a cost-optimized baseline for transition analysis in the Philippine power sector, modeling how the system could evolve under existing policies if investment and dispatch decisions follow least-cost pathways rather than predetermined build-out plans. OEP offers a benchmark for assessing how corporate targets, investment plans, and technology choices align with both existing regulations and the most economically efficient pathway implied by those regulations.\n\nThis pathway can inform financial institutions by highlighting the potential cost advantages of accelerated renewable energy deployment even without new policy incentives. This makes it particularly relevant for assessing capital efficiency in new generation investments.\n\nCompanies that do not keep pace with the modelled retirement of older fossil units and the addition of new renewable capacity in OEP may be exposed to growing competitiveness risks as lower-cost renewable technologies expand. Conversely, companies moving more aggressively than OEP may face uncertainty, as the enabling policy and infrastructure environment may not yet support accelerated deployment. \n\nThe OEP scenario provides annual projections for power capacity, electricity generation, and emissions using a moderately detailed technology breakdown, including coal, natural gas (OCGT and CCGT), solar PV, onshore and offshore wind, geothermal, hydro (run-of-river and dam), biomass, battery storage, and pumped storage. These outputs allow users to benchmark corporate plans against modeled trends in technology deployment, fossil phaseout, renewable penetration, and system-level emissions trajectories.",
+  "pathwayDescription": "Least-cost Philippine power pathway (2022–2060) built in LEAP under the same existing-policy constraints as SEP: coal moratorium, 40-year coal retirement, planned offshore wind and nuclear. Treating RE-share goals as binding, it meets the 35%/50%/55% targets for 2030/2040/2050 exactly. Falling solar and wind costs shape the mix, and power emissions dip slightly from 71.1 to 67.2 MtCO2e (2025–2050) despite strong demand growth.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -63,20 +62,332 @@
     "Technology Mix"
   ],
   "keyFeatures": {
-    "emissionsTrajectory": "Low or no change",
-    "energyEfficiency": "No information",
-    "energyDemand": "No information",
-    "electrification": "No information",
-    "policyTypes": [
-      "Target technology shares",
-      "Phaseout dates",
-      "Performance standards"
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Minor decrease"
+      }
     ],
-    "technologyCostTrend": "Decrease",
-    "emissionsScope": "CO2e (Kyoto)",
-    "policyAmbition": "Current and drafted policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["Battery storage"],
-    "investmentNeeds": "By technology"
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": [
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Performance standards",
+          "Other"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Current and drafted policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": ["Battery storage"]
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": ["Battery storage"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "PH",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "PH",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Existing-policy constraints (coal moratorium, 40-year coal retirement, RE-share targets and planned offshore-wind/nuclear additions) bound the least-cost optimization, which exactly meets the RE-share targets.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Technology capital, O&M and fuel costs are central to this pathway because LEAP minimizes net present system cost. Falling solar/wind costs and relative gas/RE economics drive the optimized build and dispatch.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Electricity demand is driven by common macro assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Technical feasibility constraints—RE resource bounds, storage, RPS/minimum utilization and plant availability—shape OEP's optimized capacity beyond pure cost ranking."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "High (Explicit): Existing-policy constraints are in effect but the optimisation treats the RE share goals as binding and meets them exactly. OEP exactly reaches the 35%/50%/55% RE generation targets in 2030/2040/2050 while retaining the same policy envelope.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Moderate (Explicit): OEP can optimize within current rules, but private ownership and Power Supply Agreements and coal retirement still constrain how quickly fossil capacity can be removed despite higher RE deployment.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Moderate (Quantitative proxy): OEP has the lowest long-run generation cost among the modeled systems (9.40 US¢/kWh in 2060) and lower cumulative investment, reducing the market/affordability constraint.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Moderate (Explicit): Planned nuclear additions under the existing-policy pathways depend on public acceptance. There are enduring safety/perception concerns around nuclear power in the Philippines.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Low (Quantitative proxy): OEP minimizes generation cost and therefore faces the least consumer-price pressure among the modeled pathways, although Philippine tariffs are already high.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "High (Quantitative proxy): OEP's larger variable-RE build (177 GW solar+wind versus 100 GW in SEP by 2060) and 34.8 TWh surplus increase grid, storage and flexibility requirements.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "Moderate (Quantitative proxy): OEP has locally nascent offshore-wind rollout but optimizes a much larger variable-RE system, increasing execution dependence on scalable wind/solar/storage technologies.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Moderate (Quantitative proxy): OEP expands solar/onshore wind substantially and explicitly respects CREZ potential bounds, making resource availability relevant but not visibly exhausted by 2050.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived from reported power-generation GHG / electricity generation; direct plant boundary. Gas basket is not exhaustively specified. No T&D or demand-side emissions."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Power-generation GHG only; excludes demand-side sector emissions. Reported in MtCO2e; exact exhaustive gas basket is not stated."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage"
+        ],
+        "scopeLimitations": "National modeled generation/storage capacity. Report does not separately identify on-grid vs captive industrial vs residential-rooftop power; T&D capacity is outside these tables."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "National electricity generation. On-grid/captive/rooftop generation is not separately identified; surplus generation is reported for some optimized pathways."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass"
+        ],
+        "scopeLimitations": "Generation-mix share for the national power system; storage technologies are not generation-share categories. On-grid/captive/rooftop not separated."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Figure",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Model input costs for generation/storage technologies; does not include all grid investment, stranded/salvage costs or auxiliary fuels."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["PH"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Generation/storage investment only; excludes quantified transmission/distribution modernization and some omitted cost items. Monetary values are real 2019 US$."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["PH"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Text",
+        "granularity": ["High-carbon assets lifetime assumed constant"],
+        "scopeLimitations": "Covers modeled retirement rules for high-carbon generation; does not provide a complete lifetime table for every technology/asset."
+      }
+    ]
   }
 }
