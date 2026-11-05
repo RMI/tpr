@@ -41,6 +41,8 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
   onClose,
 }) => {
   const dialogRef = useRef<HTMLDialogElement>(null);
+  // The scrolling part: everything under the header.
+  const bodyRef = useRef<HTMLDivElement>(null);
   const headingId = useId();
   // Whether the current press started on the backdrop; see onClick below.
   const pressStartedOnBackdrop = useRef(false);
@@ -58,7 +60,7 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
       aria-labelledby={headingId}
       onClose={onClose}
       // Close on a click on the backdrop. The backdrop is not an element of
-      // its own: clicks on it, but also on the dialog's scrollbar, or at the
+      // its own: clicks on it, but also on the dialog's own edge, or at the
       // end of a text selection dragged out of the dialog, all target the
       // dialog. So the press has to both start and end outside the dialog's
       // box.
@@ -71,54 +73,67 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
         }
         pressStartedOnBackdrop.current = false;
       }}
-      className="m-auto w-[min(42rem,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto overscroll-contain rounded-lg bg-white p-0 shadow-xl backdrop:bg-black/50"
+      // Box, sizes and header match the editions modal on `epic/v2`; the
+      // backdrop and animations come from `.signup-modal` in index.css.
+      // Only the body scrolls, never the dialog: the column inside is sized
+      // to the dialog's max height less its two 1px borders (hence 50px, not
+      // 48px), and overflow-hidden guards against sub-pixel rounding.
+      className="signup-modal p-0 rounded-lg border border-neutral-200 bg-gray-50 shadow-xl w-[calc(100%-32px)] max-w-2xl max-h-[calc(100%-48px)] overflow-hidden text-left"
     >
-      <div className="flex items-start justify-between gap-4 border-b border-neutral-200 px-6 py-4">
-        <h2
-          id={headingId}
-          className="text-xl font-semibold text-rmigray-800"
-        >
-          Sign up for TPR updates
-        </h2>
-        <button
-          type="button"
-          onClick={() => dialogRef.current?.close()}
-          aria-label="Close"
-          className="rounded-md p-1 text-rmigray-400 transition-colors hover:bg-neutral-100 hover:text-rmigray-800"
-        >
-          <X
-            size={20}
-            aria-hidden="true"
-          />
-        </button>
-      </div>
-
-      {open && (
-        <div className="px-2 pt-3 pb-4">
-          {/* Above the form, not below it: when the form is blocked (ad
-              blockers, an http page) the iframe is an empty box at its
-              initial height, and a link under it would be out of sight. */}
-          <p className="px-4 pb-2 text-sm text-rmigray-400">
-            Form not loading?{" "}
-            <a
-              href={NEWSLETTER_FORM_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-energy-800 underline underline-offset-2 hover:text-rmigray-800"
-            >
-              Open it in a new tab
-            </a>
-            .
-          </p>
-          <FormAssemblyEmbed
-            formUrl={NEWSLETTER_FORM_URL}
-            title="Transition Pathways Repository newsletter signup form"
-            // After submit, show the dialog's top (heading, Close) along with
-            // the confirmation, rather than scrolling them out of view.
-            onFormNavigate={() => dialogRef.current?.scrollTo({ top: 0 })}
-          />
+      {/* The header stays put and only the body scrolls, so the title and
+          Close are always in reach however tall the form gets. */}
+      <div className="flex flex-col max-h-[calc(100vh-50px)]">
+        <div className="flex items-start justify-between gap-4 px-5 md:px-6 pt-5 pb-3 bg-white border-b border-neutral-200">
+          <h2
+            id={headingId}
+            className="text-xl font-semibold text-bluespruce"
+          >
+            Sign up for TPR updates
+          </h2>
+          <button
+            type="button"
+            onClick={() => dialogRef.current?.close()}
+            aria-label="Close"
+            className="p-1.5 rounded-md text-rmigray-500 hover:bg-neutral-100 hover:text-rmigray-800 flex-shrink-0"
+          >
+            <X
+              size={20}
+              aria-hidden="true"
+            />
+          </button>
         </div>
-      )}
+
+        {open && (
+          <div
+            ref={bodyRef}
+            className="px-5 md:px-6 py-5 overflow-y-auto overscroll-contain"
+          >
+            {/* Above the form, not below it: when the form is blocked (ad
+                blockers, an http page) the iframe is an empty box at its
+                initial height, and a link under it would be out of sight. */}
+            <p className="mb-3 text-sm text-rmigray-600">
+              Form not loading?{" "}
+              <a
+                href={NEWSLETTER_FORM_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-energy-800 underline underline-offset-2 hover:text-rmigray-800"
+              >
+                Open it in a new tab
+              </a>
+              .
+            </p>
+            <FormAssemblyEmbed
+              formUrl={NEWSLETTER_FORM_URL}
+              title="Transition Pathways Repository newsletter signup form"
+              // After submit, scroll the body back to its top so the
+              // confirmation shows, rather than the empty space where the
+              // submit button was.
+              onFormNavigate={() => bodyRef.current?.scrollTo({ top: 0 })}
+            />
+          </div>
+        )}
+      </div>
     </dialog>
   );
 };

@@ -137,11 +137,18 @@ describe("NewsletterSignupDialog onClose", () => {
 });
 
 describe("NewsletterSignupDialog after submit", () => {
-  it("scrolls back to its own top when the form loads its confirmation page", () => {
-    const { dialog } = renderOpenDialog();
-    const scrollTo = vi.fn();
-    dialog.scrollTo = scrollTo;
+  // Only the body under the header scrolls, so that is what returns to top.
+  const spyOnBodyScroll = () => {
     const iframe = screen.getByTitle(/newsletter signup form/i);
+    const body = iframe.parentElement as HTMLElement;
+    const scrollTo = vi.fn();
+    body.scrollTo = scrollTo;
+    return { iframe, scrollTo };
+  };
+
+  it("scrolls its body back to the top when the form loads its confirmation page", () => {
+    renderOpenDialog();
+    const { iframe, scrollTo } = spyOnBodyScroll();
 
     fireEvent.load(iframe);
     fireEvent.load(iframe);
@@ -149,13 +156,10 @@ describe("NewsletterSignupDialog after submit", () => {
     expect(scrollTo).toHaveBeenCalledExactlyOnceWith({ top: 0 });
   });
 
-  it("scrolls back to its own top when the form reports it was submitted", () => {
-    const { dialog } = renderOpenDialog();
-    const scrollTo = vi.fn();
-    dialog.scrollTo = scrollTo;
-    const src = new URL(
-      screen.getByTitle(/newsletter signup form/i).getAttribute("src") ?? "",
-    );
+  it("scrolls its body back to the top when the form reports it was submitted", () => {
+    renderOpenDialog();
+    const { iframe, scrollTo } = spyOnBodyScroll();
+    const src = new URL(iframe.getAttribute("src") ?? "");
     const id = src.searchParams.get("faIframeUniqueId");
 
     act(() => {
