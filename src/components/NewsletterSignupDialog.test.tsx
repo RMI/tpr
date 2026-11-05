@@ -1,4 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
+import { useState } from "react";
 import { act, fireEvent, render, screen } from "@testing-library/react";
 import NewsletterSignupDialog from "./NewsletterSignupDialog";
 
@@ -31,6 +32,9 @@ const renderOpenDialog = () => {
   return { dialog, onClose };
 };
 
+// Let the dialog's `close` event, which browsers fire in a later task, run.
+const settle = () => act(() => new Promise((r) => setTimeout(r, 0)));
+
 const press = (
   target: Element,
   down: { clientX: number; clientY: number },
@@ -41,41 +45,94 @@ const press = (
 };
 
 describe("NewsletterSignupDialog backdrop", () => {
-  it("closes on a click on the backdrop", () => {
+  it("closes on a click on the backdrop", async () => {
     const { dialog, onClose } = renderOpenDialog();
 
     press(dialog, OUTSIDE);
+    await settle();
 
+    expect(dialog.open).toBe(false);
     expect(onClose).toHaveBeenCalledTimes(1);
   });
 
-  it("stays open for a click on its own scrollbar", () => {
+  it("stays open for a click on its own scrollbar", async () => {
     const { dialog, onClose } = renderOpenDialog();
 
     press(dialog, SCROLLBAR);
+    await settle();
 
+    expect(dialog.open).toBe(true);
     expect(onClose).not.toHaveBeenCalled();
   });
 
-  it("stays open when a press starts inside and ends on the backdrop", () => {
+  it("stays open when a press starts inside and ends on the backdrop", async () => {
     const { dialog, onClose } = renderOpenDialog();
 
     // A text selection dragged out of the dialog: the click targets the
     // dialog, at a point outside its box.
     press(dialog, INSIDE, OUTSIDE);
+    await settle();
 
+    expect(dialog.open).toBe(true);
     expect(onClose).not.toHaveBeenCalled();
   });
 
-  it("stays open for clicks on its contents", () => {
-    const { onClose } = renderOpenDialog();
+  it("stays open for clicks on its contents", async () => {
+    const { dialog, onClose } = renderOpenDialog();
 
     press(screen.getByRole("heading", { name: "Sign up for TPR updates" }), {
       clientX: 20,
       clientY: 20,
     });
+    await settle();
 
+    expect(dialog.open).toBe(true);
     expect(onClose).not.toHaveBeenCalled();
+  });
+});
+
+describe("NewsletterSignupDialog onClose", () => {
+  // A parent that, like NewsletterCta, sets `open` false in onClose: that
+  // makes the dialog call close() again, which must not report a second close.
+  const StatefulParent = ({ onClose }: { onClose: () => void }) => {
+    const [open, setOpen] = useState(true);
+    return (
+      <NewsletterSignupDialog
+        open={open}
+        onClose={() => {
+          onClose();
+          setOpen(false);
+        }}
+      />
+    );
+  };
+
+  it("reports a Close-button close exactly once", async () => {
+    const onClose = vi.fn();
+    render(<StatefulParent onClose={onClose} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    await settle();
+    await settle();
+
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports a backdrop close exactly once", async () => {
+    const onClose = vi.fn();
+    render(<StatefulParent onClose={onClose} />);
+    const dialog = screen.getByRole<HTMLDialogElement>("dialog", {
+      name: "Sign up for TPR updates",
+    });
+    vi.spyOn(dialog, "getBoundingClientRect").mockReturnValue(
+      DOMRect.fromRect({ x: 100, y: 100, width: 400, height: 500 }),
+    );
+
+    press(dialog, OUTSIDE);
+    await settle();
+    await settle();
+
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
 

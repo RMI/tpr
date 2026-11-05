@@ -29,6 +29,12 @@ type NewsletterSignupDialogProps = {
  * containment, Escape to close and a backdrop without extra code. The form
  * iframe only mounts while the dialog is open, so the form (and the scripts it
  * loads) is fetched only when someone asks for it, and starts fresh each time.
+ *
+ * However the dialog closes (Close button, backdrop, Escape, or `open` turning
+ * false), it is through the native `close()`, so its `close` event is the one
+ * place that calls `onClose`: once per close. Calling `onClose` directly as
+ * well would report a close twice, once from the click and again from the
+ * event when the parent's `open={false}` makes the effect call `close()`.
  */
 const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
   open,
@@ -60,7 +66,9 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
         pressStartedOnBackdrop.current = isOnBackdrop(event);
       }}
       onClick={(event) => {
-        if (pressStartedOnBackdrop.current && isOnBackdrop(event)) onClose();
+        if (pressStartedOnBackdrop.current && isOnBackdrop(event)) {
+          event.currentTarget.close();
+        }
         pressStartedOnBackdrop.current = false;
       }}
       className="m-auto w-[min(42rem,calc(100vw-2rem))] max-h-[90vh] overflow-y-auto overscroll-contain rounded-lg bg-white p-0 shadow-xl backdrop:bg-black/50"
@@ -74,7 +82,7 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
         </h2>
         <button
           type="button"
-          onClick={onClose}
+          onClick={() => dialogRef.current?.close()}
           aria-label="Close"
           className="rounded-md p-1 text-rmigray-400 transition-colors hover:bg-neutral-100 hover:text-rmigray-800"
         >
