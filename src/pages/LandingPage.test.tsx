@@ -3,12 +3,15 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import LandingPage from "./LandingPage";
+import { NewsletterSignupProvider } from "../context/NewsletterSignupContext";
 
 describe("LandingPage navigation", () => {
   it("uses the shared header nav resources menu", async () => {
     render(
       <MemoryRouter>
-        <LandingPage />
+        <NewsletterSignupProvider>
+          <LandingPage />
+        </NewsletterSignupProvider>
       </MemoryRouter>,
     );
 

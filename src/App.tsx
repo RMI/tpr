@@ -12,6 +12,7 @@ import ContactPage from "./pages/ContactPage";
 import EnvironmentBanner from "./components/EnvironmentBanner";
 import { FilterProvider } from "./context/FilterContext";
 import { ComparisonProvider } from "./context/ComparisonContext";
+import { NewsletterSignupProvider } from "./context/NewsletterSignupContext";
 import ComparisonPage from "./pages/ComparisonPage";
 import {
   ResourcesFaqPage,
@@ -26,63 +27,68 @@ export const AppContent = () => {
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
 
+  // The signup provider renders the one signup dialog, around the routes so it
+  // stays open (form and all) when navigation swaps the landing page's CTA for
+  // the inner pages' ribbon or back.
   return (
-    <div className="flex flex-col min-h-screen bg-gray-50">
-      <EnvironmentBanner />
-      {!isLandingPage && <Header />}
-      <main className="flex-grow">
-        <Routes>
-          <Route
-            path="/"
-            element={<LandingPage />}
-          />
-          <Route
-            path="/pathway"
-            element={<PathwaySearch />}
-          />
-          <Route
-            path="/pathway/:id"
-            element={<PathwayDetailPage />}
-          />
-          <Route
-            path="/compare"
-            element={<ComparisonPage />}
-          />
-          <Route
-            path="/legal"
-            element={<LegalPage />}
-          />
+    <NewsletterSignupProvider>
+      <div className="flex flex-col min-h-screen bg-gray-50">
+        <EnvironmentBanner />
+        {!isLandingPage && <Header />}
+        <main className="flex-grow">
+          <Routes>
+            <Route
+              path="/"
+              element={<LandingPage />}
+            />
+            <Route
+              path="/pathway"
+              element={<PathwaySearch />}
+            />
+            <Route
+              path="/pathway/:id"
+              element={<PathwayDetailPage />}
+            />
+            <Route
+              path="/compare"
+              element={<ComparisonPage />}
+            />
+            <Route
+              path="/legal"
+              element={<LegalPage />}
+            />
 
-          <Route
-            path="/contact"
-            element={<ContactPage />}
-          />
+            <Route
+              path="/contact"
+              element={<ContactPage />}
+            />
 
-          <Route
-            path="/resources/methodology"
-            element={<ResourcesMethodologyPage />}
-          />
-          <Route
-            path="/resources/how-to-choose-a-pathway"
-            element={<ResourcesHowToChooseAPathwayPage />}
-          />
-          <Route
-            path="/resources/faq"
-            element={<ResourcesFaqPage />}
-          />
-          <Route
-            path="/resources/use-cases"
-            element={<ResourcesUseCasesPage />}
-          />
-          <Route
-            path="/resources/updates"
-            element={<ResourcesUpdatesPage />}
-          />
-        </Routes>
-      </main>
-      {!isLandingPage && <NewsletterCta variant="ribbon" />}
-      {!isLandingPage && <Footer />}
-    </div>
+            <Route
+              path="/resources/methodology"
+              element={<ResourcesMethodologyPage />}
+            />
+            <Route
+              path="/resources/how-to-choose-a-pathway"
+              element={<ResourcesHowToChooseAPathwayPage />}
+            />
+            <Route
+              path="/resources/faq"
+              element={<ResourcesFaqPage />}
+            />
+            <Route
+              path="/resources/use-cases"
+              element={<ResourcesUseCasesPage />}
+            />
+            <Route
+              path="/resources/updates"
+              element={<ResourcesUpdatesPage />}
+            />
+          </Routes>
+        </main>
+        {!isLandingPage && <NewsletterCta variant="ribbon" />}
+        {!isLandingPage && <Footer />}
+      </div>
+    </NewsletterSignupProvider>
   );
 };
 

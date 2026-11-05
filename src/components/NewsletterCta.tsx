@@ -1,6 +1,6 @@
-import React, { useId, useState } from "react";
+import React, { useId } from "react";
 import clsx from "clsx";
-import NewsletterSignupDialog from "./NewsletterSignupDialog";
+import { useNewsletterSignup } from "../context/NewsletterSignupContext";
 import { primaryCtaClass, primaryCtaLargeClass } from "./buttonStyles";
 
 type NewsletterCtaProps = {
@@ -13,10 +13,12 @@ type NewsletterCtaProps = {
 
 /**
  * Call to action for the TPR newsletter (#995). The button opens the signup
- * form in a dialog rather than embedding the (tall) form in the page.
+ * form in a dialog rather than embedding the (tall) form in the page. The
+ * dialog itself belongs to `NewsletterSignupProvider`, not to this CTA, so it
+ * outlives route changes that swap one CTA for the other.
  */
 const NewsletterCta: React.FC<NewsletterCtaProps> = ({ variant }) => {
-  const [open, setOpen] = useState(false);
+  const { openSignup } = useNewsletterSignup();
   const headingId = useId();
   const isLanding = variant === "landing";
 
@@ -54,7 +56,7 @@ const NewsletterCta: React.FC<NewsletterCtaProps> = ({ variant }) => {
         <div className={clsx(isLanding && "mt-8")}>
           <button
             type="button"
-            onClick={() => setOpen(true)}
+            onClick={openSignup}
             className={clsx(
               primaryCtaClass,
               "shrink-0",
@@ -65,11 +67,6 @@ const NewsletterCta: React.FC<NewsletterCtaProps> = ({ variant }) => {
           </button>
         </div>
       </div>
-
-      <NewsletterSignupDialog
-        open={open}
-        onClose={() => setOpen(false)}
-      />
     </section>
   );
 };

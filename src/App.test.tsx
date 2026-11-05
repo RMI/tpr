@@ -1,6 +1,12 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { MemoryRouter, useLocation } from "react-router";
+import { act, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import {
+  MemoryRouter,
+  type NavigateFunction,
+  useLocation,
+  useNavigate,
+} from "react-router";
 import { AppContent } from "./App";
 
 vi.mock("./pages/LandingPage", () => ({
@@ -76,5 +82,37 @@ describe("App component", () => {
     expect(
       screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
     ).not.toBeInTheDocument();
+  });
+
+  it("keeps the open signup form when navigation swaps the CTA (Back to /)", async () => {
+    let navigate: NavigateFunction = () => {};
+    const CaptureNavigate = () => {
+      navigate = useNavigate();
+      return null;
+    };
+    const user = userEvent.setup();
+    render(
+      <MemoryRouter initialEntries={["/contact"]}>
+        <AppContent />
+        <CaptureNavigate />
+      </MemoryRouter>,
+    );
+
+    await user.click(
+      screen.getByRole("button", { name: "Sign up for updates" }),
+    );
+    const form = screen.getByTitle(/newsletter signup form/i);
+
+    // Leaving the inner pages unmounts the ribbon that opened the dialog.
+    await act(() => navigate("/"));
+
+    expect(
+      screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByRole("dialog", { name: "Sign up for TPR updates" }),
+    ).toHaveAttribute("open");
+    // The same iframe, not a reloaded one: whatever was typed survives.
+    expect(screen.getByTitle(/newsletter signup form/i)).toBe(form);
   });
 });
