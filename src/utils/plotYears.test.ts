@@ -3,6 +3,7 @@ import {
   MAX_PLOT_YEAR,
   capToPlotYears,
   extendsPastPlotYears,
+  plotYearTicks,
 } from "./plotYears";
 
 const rows = (...years: (string | number)[]) => ({
@@ -36,5 +37,27 @@ describe("extendsPastPlotYears", () => {
     expect(extendsPastPlotYears(rows(2020, 2050))).toBe(false);
     expect(extendsPastPlotYears(rows(2020, "2055"))).toBe(true);
     expect(extendsPastPlotYears(null)).toBe(false);
+  });
+});
+
+describe("plotYearTicks", () => {
+  it("labels the first year, each decade and 2050", () => {
+    expect(plotYearTicks(2022, 2050)).toEqual([2022, 2030, 2040, 2050]);
+  });
+
+  it("labels a last year before 2050 as well as 2050", () => {
+    expect(plotYearTicks(2023, 2035)).toEqual([2023, 2030, 2035, 2040, 2050]);
+  });
+
+  it("labels a first year on a decade once", () => {
+    expect(plotYearTicks(2020, 2050)).toEqual([2020, 2030, 2040, 2050]);
+  });
+
+  it("leaves out a decade too close to the first or last year", () => {
+    expect(plotYearTicks(2028, 2041)).toEqual([2028, 2041, 2050]);
+  });
+
+  it("ends at 2050 when the data runs past it", () => {
+    expect(plotYearTicks(2020, 2100)).toEqual([2020, 2030, 2040, 2050]);
   });
 });
