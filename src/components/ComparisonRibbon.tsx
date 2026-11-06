@@ -112,7 +112,10 @@ const ComparisonRibbon: React.FC = () => {
 
   return (
     <div className="border-t border-neutral-300 py-4 px-3 bg-neutral-100">
-      <div className="flex items-start gap-3">
+      {/* Below sm the actions go under the slots and wrap: in one row they
+          are wider than a phone, and in the editions modal, which does not
+          scroll sideways, the last of them would be cut off. */}
+      <div className="flex flex-col sm:flex-row sm:items-start gap-3">
         {/* Pathway slots */}
         <div className="flex gap-3 flex-1 min-w-0">
           {SLOTS.map((slotIdx) => {
@@ -164,7 +167,7 @@ const ComparisonRibbon: React.FC = () => {
         </div>
 
         {/* Actions */}
-        <div className="flex items-center gap-2 flex-shrink-0">
+        <div className="flex flex-wrap items-center gap-2 flex-shrink-0">
           <button
             onClick={handleCompare}
             disabled={!canCompare}

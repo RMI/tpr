@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import React from "react";
-import { render, screen, within } from "@testing-library/react";
+import React, { useState } from "react";
+import { act, fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import EditionsModal from "./EditionsModal";
@@ -131,6 +131,150 @@ describe("EditionsModal", () => {
       </MemoryRouter>,
     );
     expect(container.querySelector("dialog")).toBeNull();
+  });
+});
+
+// The dialog's box on screen. jsdom does no layout, so pin it here.
+const BOX = { left: 100, right: 500, top: 100, bottom: 600 };
+const OUTSIDE = { clientX: 20, clientY: 20 };
+const INSIDE = { clientX: 300, clientY: 300 };
+// On the dialog element but just inside its box: its own edge.
+const EDGE = { clientX: 498, clientY: 300 };
+
+const mockBox = (element: HTMLDialogElement) =>
+  vi.spyOn(element, "getBoundingClientRect").mockReturnValue(
+    DOMRect.fromRect({
+      x: BOX.left,
+      y: BOX.top,
+      width: BOX.right - BOX.left,
+      height: BOX.bottom - BOX.top,
+    }),
+  );
+
+// Let a `close` event fired in a later task, as browsers do, run.
+const settle = () => act(() => new Promise((r) => setTimeout(r, 0)));
+
+const press = (
+  target: Element,
+  down: { clientX: number; clientY: number },
+  up = down,
+) => {
+  fireEvent.pointerDown(target, down);
+  fireEvent.click(target, up);
+};
+
+describe("EditionsModal backdrop", () => {
+  it("closes on a press that starts and ends on the backdrop", async () => {
+    const onClose = vi.fn();
+    renderModal({ onClose });
+    mockBox(dialog());
+
+    press(dialog(), OUTSIDE);
+    await settle();
+
+    expect(dialog().open).toBe(false);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("stays open when a press starts inside and ends on the backdrop", async () => {
+    const onClose = vi.fn();
+    renderModal({ onClose });
+    mockBox(dialog());
+
+    // A text selection dragged out of the dialog: the click targets the
+    // dialog, at a point outside its box.
+    press(dialog(), INSIDE, OUTSIDE);
+    await settle();
+
+    expect(dialog().open).toBe(true);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("stays open for a click on the dialog itself inside its box", async () => {
+    const onClose = vi.fn();
+    renderModal({ onClose });
+    mockBox(dialog());
+
+    press(dialog(), EDGE);
+    await settle();
+
+    expect(dialog().open).toBe(true);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+
+  it("stays open for clicks on its contents", async () => {
+    const onClose = vi.fn();
+    renderModal({ onClose });
+    mockBox(dialog());
+
+    press(screen.getByText("2 editions of this pathway"), OUTSIDE);
+    await settle();
+
+    expect(dialog().open).toBe(true);
+    expect(onClose).not.toHaveBeenCalled();
+  });
+});
+
+describe("EditionsModal onClose", () => {
+  // A parent that, like PathwaySearch, sets `open` false in onClose: that
+  // makes the dialog call close() again, which must not report a second close.
+  const StatefulParent = ({ onClose }: { onClose: () => void }) => {
+    const [open, setOpen] = useState(true);
+    return (
+      <MemoryRouter>
+        <FilterProvider>
+          <ComparisonProvider>
+            <EditionsModal
+              editions={editions}
+              open={open}
+              onClose={() => {
+                onClose();
+                setOpen(false);
+              }}
+            />
+          </ComparisonProvider>
+        </FilterProvider>
+      </MemoryRouter>
+    );
+  };
+
+  it("reports a Close-button close exactly once", async () => {
+    const onClose = vi.fn();
+    render(<StatefulParent onClose={onClose} />);
+
+    fireEvent.click(screen.getByRole("button", { name: "Close" }));
+    await settle();
+    await settle();
+
+    expect(dialog().open).toBe(false);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports an Esc close exactly once", async () => {
+    const onClose = vi.fn();
+    render(<StatefulParent onClose={onClose} />);
+
+    // Esc is handled by the browser, not the component: it closes the dialog
+    // itself. The test shim has no key handling, so close it the same way.
+    act(() => dialog().close());
+    await settle();
+    await settle();
+
+    expect(dialog().open).toBe(false);
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("reports a backdrop close exactly once", async () => {
+    const onClose = vi.fn();
+    render(<StatefulParent onClose={onClose} />);
+    mockBox(dialog());
+
+    press(dialog(), OUTSIDE);
+    await settle();
+    await settle();
+
+    expect(dialog().open).toBe(false);
+    expect(onClose).toHaveBeenCalledTimes(1);
   });
 });
 
