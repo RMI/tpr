@@ -1,8 +1,20 @@
-import React, { useCallback, useEffect, useId, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import { Layers, X } from "lucide-react";
 import PathwayCard from "./PathwayCard";
 import ComparisonRibbon from "./ComparisonRibbon";
 import type { PathwayMetadataType } from "../types";
+
+/** Whether a pointer event on the dialog landed outside its box. */
+const isOnBackdrop = (event: React.MouseEvent<HTMLDialogElement>): boolean => {
+  if (event.target !== event.currentTarget) return false;
+  const box = event.currentTarget.getBoundingClientRect();
+  return (
+    event.clientX < box.left ||
+    event.clientX > box.right ||
+    event.clientY < box.top ||
+    event.clientY > box.bottom
+  );
+};
 
 interface EditionsModalProps {
   /** Every edition in the series, oldest first. Rendered newest first. */
@@ -26,6 +38,12 @@ interface EditionsModalProps {
   dialog rather than relied on from the page: everything outside the top layer
   stops responding while a modal dialog is open. It shares ComparisonContext,
   so it is the same selection the page shows, not a second one.
+
+  However the dialog closes (Close button, backdrop, Esc, or `open` turning
+  false), it is through the native close(), so its `close` event is the one
+  place that calls `onClose`: once per close. Calling `onClose` directly as
+  well would report a close twice, once from the click and again from the
+  event when the parent's `open={false}` makes the effect call close().
 */
 const EditionsModal: React.FC<EditionsModalProps> = ({
   editions,
@@ -37,6 +55,8 @@ const EditionsModal: React.FC<EditionsModalProps> = ({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const titleId = useId();
   const noteId = useId();
+  // Whether the current press started on the backdrop; see onClick below.
+  const pressStartedOnBackdrop = useRef(false);
 
   const newestFirst = [...editions].reverse();
   const excluded = new Set(excludedIds);
@@ -64,14 +84,6 @@ const EditionsModal: React.FC<EditionsModalProps> = ({
     };
   }, [open]);
 
-  // A backdrop click lands on the dialog itself, never on its contents.
-  const handleClick = useCallback(
-    (event: React.MouseEvent<HTMLDialogElement>) => {
-      if (event.target === dialogRef.current) onClose();
-    },
-    [onClose],
-  );
-
   if (!first) return null;
 
   const publisher =
@@ -82,11 +94,30 @@ const EditionsModal: React.FC<EditionsModalProps> = ({
       ref={dialogRef}
       aria-labelledby={titleId}
       onClose={onClose}
-      onClick={handleClick}
-      className="editions-modal p-0 rounded-lg border border-neutral-200 bg-gray-50 shadow-xl w-[calc(100%-32px)] max-w-5xl max-h-[calc(100%-48px)] text-left"
+      // Close on a click on the backdrop. The backdrop is not an element of
+      // its own: clicks on it, but also on the dialog's own edge, or at the
+      // end of a text selection dragged out of the dialog, all target the
+      // dialog. So the press has to both start and end outside the dialog's
+      // box.
+      onPointerDown={(event) => {
+        pressStartedOnBackdrop.current = isOnBackdrop(event);
+      }}
+      onClick={(event) => {
+        if (pressStartedOnBackdrop.current && isOnBackdrop(event)) {
+          event.currentTarget.close();
+        }
+        pressStartedOnBackdrop.current = false;
+      }}
+      // overflow-hidden: the inner column does the scrolling. A modal dialog
+      // is `overflow: auto` by default, so any overshoot would give it a
+      // scroll of its own beside the column's.
+      className="editions-modal p-0 rounded-lg border border-neutral-200 bg-gray-50 shadow-xl w-[calc(100%-32px)] max-w-5xl max-h-[calc(100%-48px)] overflow-hidden text-left"
     >
       {open && (
-        <div className="flex flex-col max-h-[calc(100vh-48px)]">
+        // 50px, not 48px: the dialog is at most the viewport less 48px, and
+        // its 1px top and bottom borders take 2px more of that. So this is
+        // the height of the dialog's content box, which the column must fit.
+        <div className="flex flex-col max-h-[calc(100vh-50px)]">
           <div className="flex items-start justify-between gap-4 px-5 md:px-6 pt-5 pb-3 bg-white border-b border-neutral-200">
             <div className="min-w-0">
               <p className="text-xs font-medium text-rmigray-500 flex items-center gap-1.5">
@@ -105,7 +136,7 @@ const EditionsModal: React.FC<EditionsModalProps> = ({
             </div>
             <button
               type="button"
-              onClick={onClose}
+              onClick={() => dialogRef.current?.close()}
               aria-label="Close"
               className="p-1.5 rounded-md text-rmigray-500 hover:bg-neutral-100 hover:text-rmigray-800 flex-shrink-0"
             >
