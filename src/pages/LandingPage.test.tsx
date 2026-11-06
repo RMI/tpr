@@ -43,3 +43,31 @@ describe("LandingPage navigation", () => {
     ).toBeInTheDocument();
   });
 });
+
+describe("LandingPage newsletter signup (#995)", () => {
+  it("offers signup from a hero button beside Explore Pathways, not a separate band", async () => {
+    render(
+      <MemoryRouter>
+        <NewsletterSignupProvider>
+          <LandingPage />
+        </NewsletterSignupProvider>
+      </MemoryRouter>,
+    );
+    const user = userEvent.setup();
+
+    const explore = screen.getAllByRole("link", {
+      name: "Explore Pathways",
+    })[0];
+    const signup = screen.getByRole("button", { name: "Sign up for updates" });
+    expect(signup.parentElement).toBe(explore.parentElement);
+    expect(
+      screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
+    ).not.toBeInTheDocument();
+
+    await user.click(signup);
+
+    expect(
+      screen.getByRole("dialog", { name: "Sign up for TPR updates" }),
+    ).toHaveAttribute("open");
+  });
+});

@@ -72,7 +72,7 @@ describe("App component", () => {
     ).toBeTruthy();
   });
 
-  it("leaves the ribbon off the landing page, which has its own CTA", () => {
+  it("leaves the ribbon off the landing page, which has a signup button in its hero", () => {
     render(
       <MemoryRouter>
         <AppContent />
@@ -84,7 +84,7 @@ describe("App component", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("keeps the open signup form when navigation swaps the CTA (Back to /)", async () => {
+  it("keeps the open signup form when navigation unmounts the ribbon (Back to /)", async () => {
     let navigate: NavigateFunction = () => {};
     const CaptureNavigate = () => {
       navigate = useNavigate();

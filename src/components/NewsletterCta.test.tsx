@@ -6,28 +6,25 @@ import { NewsletterSignupProvider } from "../context/NewsletterSignupContext";
 
 const FORM_TITLE = /newsletter signup form/i;
 
-const renderCta = (variant: "ribbon" | "landing") =>
+const renderCta = () =>
   render(
     <NewsletterSignupProvider>
-      <NewsletterCta variant={variant} />
+      <NewsletterCta />
     </NewsletterSignupProvider>,
   );
 
 describe("NewsletterCta", () => {
-  it.each(["ribbon", "landing"] as const)(
-    "renders the %s variant as a labelled section",
-    (variant) => {
-      renderCta(variant);
+  it("renders as a labelled section", () => {
+    renderCta();
 
-      expect(
-        screen.getByRole("region", { name: "Stay up to date with the TPR" }),
-      ).toBeInTheDocument();
-    },
-  );
+    expect(
+      screen.getByRole("region", { name: "Stay up to date with the TPR" }),
+    ).toBeInTheDocument();
+  });
 
   it("loads the form only once the dialog is opened, and drops it on close", async () => {
     const user = userEvent.setup();
-    renderCta("ribbon");
+    renderCta();
 
     expect(screen.queryByTitle(FORM_TITLE)).not.toBeInTheDocument();
 
@@ -53,7 +50,7 @@ describe("NewsletterCta", () => {
 
   it("puts the open-in-new-tab fallback above the form, where it stays visible", async () => {
     const user = userEvent.setup();
-    renderCta("ribbon");
+    renderCta();
 
     await user.click(
       screen.getByRole("button", { name: "Sign up for updates" }),
@@ -70,7 +67,7 @@ describe("NewsletterCta", () => {
 
   it("closes when the dialog fires close (Escape in a browser)", async () => {
     const user = userEvent.setup();
-    renderCta("landing");
+    renderCta();
 
     await user.click(
       screen.getByRole("button", { name: "Sign up for updates" }),

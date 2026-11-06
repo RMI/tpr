@@ -20,11 +20,12 @@ NewsletterSignupContext.displayName = "NewsletterSignupContext";
  * Owns the site's one newsletter signup dialog; each call to action only asks
  * it to open.
  *
- * Render it above the routes. The landing page and the inner pages show
- * different CTAs, so a dialog owned by a CTA would unmount, taking the form
- * and whatever had been typed into it, when navigation crossed between them
- * while it was open (browser Back from the landing page, say). Up here the
- * dialog stays mounted across every route.
+ * Render it above the routes. The landing page (a button in its hero) and the
+ * inner pages (the ribbon above the footer) open it from different places, so
+ * a dialog owned by either would unmount, taking the form and whatever had
+ * been typed into it, when navigation crossed between them while it was open
+ * (browser Back from the landing page, say). Up here the dialog stays mounted
+ * across every route.
  */
 export const NewsletterSignupProvider: React.FC<{
   children: React.ReactNode;

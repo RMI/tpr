@@ -1,67 +1,43 @@
 import React, { useId } from "react";
-import clsx from "clsx";
 import { useNewsletterSignup } from "../context/NewsletterSignupContext";
-import { primaryCtaClass, primaryCtaLargeClass } from "./buttonStyles";
-
-type NewsletterCtaProps = {
-  /**
-   * `ribbon`: the compact band above the footer on every page but the landing
-   * page. `landing`: the larger band just below the landing page hero.
-   */
-  variant: "ribbon" | "landing";
-};
+import { primaryCtaClass } from "./buttonStyles";
 
 /**
- * Call to action for the TPR newsletter (#995). The button opens the signup
- * form in a dialog rather than embedding the (tall) form in the page. The
- * dialog itself belongs to `NewsletterSignupProvider`, not to this CTA, so it
- * outlives route changes that swap one CTA for the other.
+ * Call to action for the TPR newsletter (#995): the band above the footer on
+ * the inner pages. (The landing page has a signup button in its hero
+ * instead.) The button opens the signup form in a dialog rather than
+ * embedding the (tall) form in the page. The dialog itself belongs to
+ * `NewsletterSignupProvider`, not to this CTA, so it outlives route changes
+ * that unmount the band.
  */
-const NewsletterCta: React.FC<NewsletterCtaProps> = ({ variant }) => {
+const NewsletterCta: React.FC = () => {
   const { openSignup } = useNewsletterSignup();
   const headingId = useId();
-  const isLanding = variant === "landing";
 
   return (
     <section
       aria-labelledby={headingId}
       className="bg-rmiblue-100"
     >
-      <div
-        className={clsx(
-          "container mx-auto px-4",
-          isLanding
-            ? "py-12 text-center"
-            : "py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between",
-        )}
-      >
-        <div className={clsx(isLanding && "max-w-3xl mx-auto")}>
+      <div className="container mx-auto px-4 py-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
           <h2
             id={headingId}
-            className={clsx(
-              "font-semibold text-rmigray-800",
-              isLanding ? "text-2xl md:text-3xl" : "text-xl",
-            )}
+            className="text-xl font-semibold text-rmigray-800"
           >
             Stay up to date with the TPR
           </h2>
-          <p
-            className={clsx("mt-2 text-rmigray-700", isLanding && "md:text-lg")}
-          >
+          <p className="mt-2 text-rmigray-700">
             Sign up for news on new pathways, sectors and features in the
             Transition Pathways Repository.
           </p>
         </div>
 
-        <div className={clsx(isLanding && "mt-8")}>
+        <div>
           <button
             type="button"
             onClick={openSignup}
-            className={clsx(
-              primaryCtaClass,
-              "shrink-0",
-              isLanding ? primaryCtaLargeClass : "px-6 py-3",
-            )}
+            className={`${primaryCtaClass} shrink-0 px-6 py-3`}
           >
             Sign up for updates
           </button>

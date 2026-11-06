@@ -28,8 +28,8 @@ export const AppContent = () => {
   const isLandingPage = location.pathname === "/";
 
   // The signup provider renders the one signup dialog, around the routes so it
-  // stays open (form and all) when navigation swaps the landing page's CTA for
-  // the inner pages' ribbon or back.
+  // stays open (form and all) when navigation between the landing page and an
+  // inner page unmounts the button that opened it.
   return (
     <NewsletterSignupProvider>
       <div className="flex flex-col min-h-screen bg-gray-50">
@@ -85,7 +85,7 @@ export const AppContent = () => {
             />
           </Routes>
         </main>
-        {!isLandingPage && <NewsletterCta variant="ribbon" />}
+        {!isLandingPage && <NewsletterCta />}
         {!isLandingPage && <Footer />}
       </div>
     </NewsletterSignupProvider>

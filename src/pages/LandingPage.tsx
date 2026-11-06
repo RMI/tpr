@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router";
 import HeaderNav from "../components/HeaderNav";
-import NewsletterCta from "../components/NewsletterCta";
 import {
   primaryCtaClass,
   primaryCtaLargeClass,
+  secondaryCtaOnDarkClass,
 } from "../components/buttonStyles";
 import { HeaderBrand } from "../components/Header";
+import { useNewsletterSignup } from "../context/NewsletterSignupContext";
 
 const WavePattern: React.FC = () => {
   return (
@@ -141,6 +142,8 @@ const InfoCard: React.FC<{
 );
 
 const LandingPage: React.FC = () => {
+  const { openSignup } = useNewsletterSignup();
+
   return (
     <div className="bg-gray-50">
       {/* Hero */}
@@ -181,13 +184,20 @@ const LandingPage: React.FC = () => {
                 tuned for more pathways being added in 2026!
               </p>
 
-              <div className="mt-10">
+              <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <Link
                   to="/pathway"
                   className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>
+                <button
+                  type="button"
+                  onClick={openSignup}
+                  className={`${secondaryCtaOnDarkClass} ${primaryCtaLargeClass}`}
+                >
+                  Sign up for updates
+                </button>
               </div>
 
               <p className="mt-6 text-sm italic text-white/80">
@@ -198,8 +208,6 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       </div>
-
-      <NewsletterCta variant="landing" />
 
       {/* Main content */}
       <div className="container mx-auto px-4 py-12">
