@@ -39,7 +39,7 @@ interface EditionsModalProps {
   stops responding while a modal dialog is open. It shares ComparisonContext,
   so it is the same selection the page shows, not a second one.
 
-  However the dialog closes (Close button, backdrop, Esc, or `open` turning
+  Whichever way the dialog closes (Close button, backdrop, Esc, or `open` turning
   false), it is through the native close(), so its `close` event is the one
   place that calls `onClose`: once per close. Calling `onClose` directly as
   well would report a close twice, once from the click and again from the
@@ -117,7 +117,12 @@ const EditionsModal: React.FC<EditionsModalProps> = ({
         // 50px, not 48px: the dialog is at most the viewport less 48px, and
         // its 1px top and bottom borders take 2px more of that. So this is
         // the height of the dialog's content box, which the column must fit.
-        <div className="flex flex-col max-h-[calc(100vh-50px)]">
+        //
+        // The cards' area is the one that scrolls. But when the header and
+        // ribbon leave it too little room (a short viewport, or high zoom),
+        // its min-height makes the column overflow, and the column scrolls
+        // too, so the cards are never cut off with no way to reach them.
+        <div className="flex flex-col max-h-[calc(100vh-50px)] overflow-y-auto">
           <div className="flex items-start justify-between gap-4 px-5 md:px-6 pt-5 pb-3 bg-white border-b border-neutral-200">
             <div className="min-w-0">
               <p className="text-xs font-medium text-rmigray-500 flex items-center gap-1.5">
@@ -151,7 +156,7 @@ const EditionsModal: React.FC<EditionsModalProps> = ({
             <ComparisonRibbon />
           </div>
 
-          <div className="px-5 md:px-6 py-5 overflow-y-auto">
+          <div className="px-5 md:px-6 py-5 overflow-y-auto min-h-32">
             {hasExcluded && (
               <p
                 id={noteId}
