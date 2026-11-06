@@ -84,6 +84,20 @@ describe("App component", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("serves the signup page at /get-updates, with no ribbon to open a second copy of the form", () => {
+    render(
+      <MemoryRouter initialEntries={["/get-updates"]}>
+        <AppContent />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTitle(/newsletter signup form/i)).toBeInTheDocument();
+    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+    expect(
+      screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("keeps the open signup form when navigation unmounts the ribbon (Back to /)", async () => {
     let navigate: NavigateFunction = () => {};
     const CaptureNavigate = () => {

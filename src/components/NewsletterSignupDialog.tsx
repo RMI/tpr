@@ -1,9 +1,6 @@
 import React, { useEffect, useId, useRef } from "react";
 import { X } from "lucide-react";
-import FormAssemblyEmbed from "./FormAssemblyEmbed";
-
-/** The TPR newsletter signup form, hosted on RMI's FormAssembly account. */
-export const NEWSLETTER_FORM_URL = "https://rmi.tfaforms.net/312";
+import NewsletterSignupForm from "./NewsletterSignupForm";
 
 /** Whether a pointer event on the dialog landed outside its box. */
 const isOnBackdrop = (event: React.MouseEvent<HTMLDialogElement>): boolean => {
@@ -108,24 +105,7 @@ const NewsletterSignupDialog: React.FC<NewsletterSignupDialogProps> = ({
             ref={bodyRef}
             className="px-5 md:px-6 py-5 overflow-y-auto overscroll-contain"
           >
-            {/* Above the form, not below it: when the form is blocked (ad
-                blockers, an http page) the iframe is an empty box at its
-                initial height, and a link under it would be out of sight. */}
-            <p className="mb-3 text-sm text-rmigray-600">
-              Form not loading?{" "}
-              <a
-                href={NEWSLETTER_FORM_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-energy-800 underline underline-offset-2 hover:text-rmigray-800"
-              >
-                Open it in a new tab
-              </a>
-              .
-            </p>
-            <FormAssemblyEmbed
-              formUrl={NEWSLETTER_FORM_URL}
-              title="Transition Pathways Repository newsletter signup form"
+            <NewsletterSignupForm
               // After submit, scroll the body back to its top so the
               // confirmation shows, rather than the empty space where the
               // submit button was.

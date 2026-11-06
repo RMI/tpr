@@ -9,6 +9,7 @@ import PathwaySearch from "./pages/PathwaySearch";
 import PathwayDetailPage from "./pages/PathwayDetailPage";
 import LandingPage from "./pages/LandingPage";
 import ContactPage from "./pages/ContactPage";
+import GetUpdatesPage from "./pages/GetUpdatesPage";
 import EnvironmentBanner from "./components/EnvironmentBanner";
 import { FilterProvider } from "./context/FilterContext";
 import { ComparisonProvider } from "./context/ComparisonContext";
@@ -26,6 +27,10 @@ import {
 export const AppContent = () => {
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
+  // The signup page already shows the form, so it needs no ribbon opening
+  // another copy of it in a dialog.
+  const showNewsletterRibbon =
+    !isLandingPage && location.pathname !== "/get-updates";
 
   // The signup provider renders the one signup dialog, around the routes so it
   // stays open (form and all) when navigation between the landing page and an
@@ -59,6 +64,10 @@ export const AppContent = () => {
             />
 
             <Route
+              path="/get-updates"
+              element={<GetUpdatesPage />}
+            />
+            <Route
               path="/contact"
               element={<ContactPage />}
             />
@@ -85,7 +94,7 @@ export const AppContent = () => {
             />
           </Routes>
         </main>
-        {!isLandingPage && <NewsletterCta />}
+        {showNewsletterRibbon && <NewsletterCta />}
         {!isLandingPage && <Footer />}
       </div>
     </NewsletterSignupProvider>
