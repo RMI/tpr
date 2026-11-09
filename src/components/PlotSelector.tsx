@@ -24,9 +24,11 @@ interface TimeSeries {
  * and broadcast to every chart panel so sibling pathways can show a matching
  * tooltip. `technology` is null for chart types (e.g. the technology-mix
  * stacked area chart) whose tooltip isn't anchored to one specific series.
+ * `year` is null when a whole series is hovered through its line label, which
+ * highlights the series without a tooltip.
  */
 export interface HoveredPoint {
-  year: string;
+  year: string | null;
   technology: string | null;
 }
 

@@ -381,12 +381,19 @@ export default function MultiLineChart({
     tooltipApiRef.current = { renderTooltip, hideTooltip };
 
     function pointermoved(event: PointerEvent) {
+      // A line label stands for its whole series, not one year, so hovering
+      // it highlights the line without a tooltip.
+      const labelled = labelTechnology(event);
+      if (labelled !== null) {
+        reportHover({ technology: labelled, year: null });
+        highlightLine(labelled);
+        hideTooltip();
+        return;
+      }
+
       const [xm, ym] = pointer(event);
       if (isPastPlottedYears(xm, yearXs)) {
-        if (lastHoveredPoint.current !== null) {
-          lastHoveredPoint.current = null;
-          onHoverPointRef.current?.(null);
-        }
+        reportHover(null);
         showSelected();
         return;
       }
@@ -395,22 +402,31 @@ export default function MultiLineChart({
       const point = points[i];
       const [, , k, year] = point;
 
-      if (
-        lastHoveredPoint.current?.technology !== k ||
-        lastHoveredPoint.current?.year !== year
-      ) {
-        lastHoveredPoint.current = { technology: k, year };
-        onHoverPointRef.current?.({ technology: k, year });
-      }
+      reportHover({ technology: k, year });
+      highlightLine(k);
+      renderTooltip(point, false);
+    }
 
+    // Tells sibling charts what is hovered, once per change.
+    function reportHover(hovered: HoveredPoint | null) {
+      const last = lastHoveredPoint.current;
+      if (
+        last?.technology === hovered?.technology &&
+        last?.year === hovered?.year
+      ) {
+        return;
+      }
+      lastHoveredPoint.current = hovered;
+      onHoverPointRef.current?.(hovered);
+    }
+
+    function highlightLine(k: string) {
       path
         .attr("stroke", (d) => (d[0] === k ? "var(--color-donate)" : "#ddd"))
         .attr("stroke-width", (d) => (d[0] === k ? 3 : 1))
         .filter((d) => d[0] === k)
         .raise();
       highlightLabel(linesGroup, k);
-
-      renderTooltip(point, false);
     }
 
     function pointerentered() {
@@ -422,8 +438,7 @@ export default function MultiLineChart({
 
     function pointerleft() {
       isPointerOver.current = false;
-      lastHoveredPoint.current = null;
-      onHoverPointRef.current?.(null);
+      reportHover(null);
       showSelected();
     }
 
@@ -443,7 +458,20 @@ export default function MultiLineChart({
       hideTooltip();
     }
 
+    // The technology of the line label under the pointer, if any.
+    function labelTechnology(event: Event): string | null {
+      const label = (event.target as Element).closest(".label");
+      return label
+        ? select<Element, LabelData>(label).datum().technology
+        : null;
+    }
+
     function pointerclicked(event: PointerEvent) {
+      const labelled = labelTechnology(event);
+      if (labelled !== null) {
+        setSelectRef(labelled);
+        return;
+      }
       const [xm, ym] = pointer(event);
       const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
       if (i === undefined || i < 0) return;

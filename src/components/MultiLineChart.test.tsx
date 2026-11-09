@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 // The chart's axes transition; in the app NormalizedStackedAreaChart loads this.
 import "d3-transition";
 import MultiLineChart from "./MultiLineChart";
@@ -81,5 +81,56 @@ describe("MultiLineChart", () => {
       />,
     );
     expect(fills()).toEqual(["var(--color-donate)", null]);
+  });
+
+  it("highlights a line and its label, without a tooltip, while its label is hovered", () => {
+    const onHoverPoint = vi.fn();
+    const { container } = render(
+      <MultiLineChart
+        data={data}
+        onHoverPoint={onHoverPoint}
+      />,
+    );
+    const solarLabel = labels(container)[1];
+
+    fireEvent.pointerEnter(container.querySelector("svg")!);
+    fireEvent.pointerMove(solarLabel);
+
+    const strokes = Array.from(container.querySelectorAll(".line")).map(
+      (line) => [
+        line.getAttribute("data-technology"),
+        line.getAttribute("stroke"),
+      ],
+    );
+    expect(strokes).toEqual(
+      expect.arrayContaining([
+        ["solar", "var(--color-donate)"],
+        ["coal", "#ddd"],
+      ]),
+    );
+    expect(solarLabel.getAttribute("fill")).toBe("var(--color-donate)");
+    expect(container.querySelector(".tooltip")).toHaveAttribute(
+      "display",
+      "none",
+    );
+    // Sibling charts highlight the series too, with no year to show.
+    expect(onHoverPoint).toHaveBeenLastCalledWith({
+      technology: "solar",
+      year: null,
+    });
+  });
+
+  it("selects the line whose label is clicked", () => {
+    const { container } = render(<MultiLineChart data={data} />);
+    const solarLabel = labels(container)[1];
+
+    fireEvent.click(solarLabel);
+
+    expect(solarLabel.getAttribute("fill")).toBe("var(--color-donate)");
+    expect(
+      container
+        .querySelector('.line[data-technology="solar"]')
+        ?.getAttribute("stroke"),
+    ).toBe("var(--color-donate)");
   });
 });
