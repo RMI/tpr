@@ -120,17 +120,13 @@ describe("MultiLineChart", () => {
     });
   });
 
-  it("selects the line whose label is clicked", () => {
+  it("ignores a click on a label", () => {
     const { container } = render(<MultiLineChart data={data} />);
-    const solarLabel = labels(container)[1];
+    const fills = () => labels(container).map((l) => l.getAttribute("fill"));
 
-    fireEvent.click(solarLabel);
+    fireEvent.click(labels(container)[1]);
 
-    expect(solarLabel.getAttribute("fill")).toBe("var(--color-donate)");
-    expect(
-      container
-        .querySelector('.line[data-technology="solar"]')
-        ?.getAttribute("stroke"),
-    ).toBe("var(--color-donate)");
+    // Coal, the first technology, stays selected.
+    expect(fills()).toEqual(["var(--color-donate)", null]);
   });
 });

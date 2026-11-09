@@ -467,11 +467,8 @@ export default function MultiLineChart({
     }
 
     function pointerclicked(event: PointerEvent) {
-      const labelled = labelTechnology(event);
-      if (labelled !== null) {
-        setSelectRef(labelled);
-        return;
-      }
+      // A click on a label selects nothing: only hovering it does anything.
+      if (labelTechnology(event) !== null) return;
       const [xm, ym] = pointer(event);
       const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
       if (i === undefined || i < 0) return;
