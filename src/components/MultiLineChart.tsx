@@ -6,7 +6,11 @@ import { ascending, extent, groups, leastIndex, range } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
-import { MAX_PLOT_YEAR, plotYearTicks } from "../utils/plotYears";
+import {
+  MAX_PLOT_YEAR,
+  isPastPlottedYears,
+  plotXAxis,
+} from "../utils/plotYears";
 import { computeTooltipBoxLayout } from "../utils/chartTooltipLayout";
 import type { HoveredPoint } from "./PlotSelector";
 
@@ -75,8 +79,13 @@ export default function MultiLineChart({
   onHoverPoint,
 }: MultiLineChartProps) {
   const d3data = useMemo(() => {
+    // Rows past MAX_PLOT_YEAR are dropped here too, so the chart is right even
+    // for a caller that skipped capToPlotYears.
     let filtered = data.data.filter(
-      (d) => d.sector === sector && d.metric === metric,
+      (d) =>
+        d.sector === sector &&
+        d.metric === metric &&
+        Number(d.year) <= MAX_PLOT_YEAR,
     );
     if (metric === "emissionsIntensity" || metric === "absoluteEmissions") {
       filtered = filtered.map((d) => ({ ...d, technology: d.metric }));
@@ -136,14 +145,10 @@ export default function MultiLineChart({
       return null;
     }
 
-    // Every plot runs to MAX_PLOT_YEAR, however early its data ends (#1065).
-    const xticks = plotYearTicks(
-      years[0].getUTCFullYear(),
-      years[1].getUTCFullYear(),
-    ).map((year) => new Date(Date.UTC(year, 0, 1)));
+    const { domain, ticks: xticks } = plotXAxis(years[0], years[1]);
 
     const x = scaleUtc()
-      .domain([years[0], new Date(Date.UTC(MAX_PLOT_YEAR, 0, 1))])
+      .domain(domain)
       .range([marginLeft, width - marginRight]);
 
     const y = scaleLinear()
@@ -310,6 +315,7 @@ export default function MultiLineChart({
       d.unit,
     ]);
     pointsRef.current = points;
+    const yearXs = points.map(([x]) => x);
 
     const dot = select(tooltip_grp.current);
 
@@ -376,6 +382,14 @@ export default function MultiLineChart({
 
     function pointermoved(event: PointerEvent) {
       const [xm, ym] = pointer(event);
+      if (isPastPlottedYears(xm, yearXs)) {
+        if (lastHoveredPoint.current !== null) {
+          lastHoveredPoint.current = null;
+          onHoverPointRef.current?.(null);
+        }
+        showSelected();
+        return;
+      }
       const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
       if (i === undefined || i < 0) return;
       const point = points[i];
@@ -410,6 +424,12 @@ export default function MultiLineChart({
       isPointerOver.current = false;
       lastHoveredPoint.current = null;
       onHoverPointRef.current?.(null);
+      showSelected();
+    }
+
+    // Back to the resting look: the selected line and its label highlighted,
+    // no tooltip.
+    function showSelected() {
       const selectedTech = selectRef;
       path
         .style("mix-blend-mode", "multiply")

@@ -9,7 +9,11 @@ import { stackOffsetExpand } from "d3-shape";
 import "d3-transition";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
-import { MAX_PLOT_YEAR, plotYearTicks } from "../utils/plotYears";
+import {
+  MAX_PLOT_YEAR,
+  isPastPlottedYears,
+  plotXAxis,
+} from "../utils/plotYears";
 import type { HoveredPoint } from "./PlotSelector";
 
 interface DataPoint {
@@ -69,8 +73,15 @@ export default function NormalizedStackedAreaChart({
   externalHoveredPoint,
   onHoverPoint,
 }: NormalizedStackedAreaChartProps) {
+  // Rows past MAX_PLOT_YEAR are dropped here too, so the chart is right even
+  // for a caller that skipped capToPlotYears.
   const [d3data] = useState<DataPoint[]>(() =>
-    data.data.filter((d) => d.sector === sector && d.metric === metric),
+    data.data.filter(
+      (d) =>
+        d.sector === sector &&
+        d.metric === metric &&
+        Number(d.year) <= MAX_PLOT_YEAR,
+    ),
   );
 
   const chartTitle = useMemo(() => {
@@ -112,14 +123,10 @@ export default function NormalizedStackedAreaChart({
       return null;
     }
 
-    // Every plot runs to MAX_PLOT_YEAR, however early its data ends (#1065).
-    const xticks = plotYearTicks(
-      years[0].getUTCFullYear(),
-      years[1].getUTCFullYear(),
-    ).map((year) => new Date(Date.UTC(year, 0, 1)));
+    const { domain, ticks: xticks } = plotXAxis(years[0], years[1]);
 
     const x = scaleUtc()
-      .domain([years[0], new Date(Date.UTC(MAX_PLOT_YEAR, 0, 1))])
+      .domain(domain)
       .range([marginLeft, width - marginRight]);
 
     const y = scaleLinear()
@@ -279,6 +286,7 @@ export default function NormalizedStackedAreaChart({
       x: x(parse(d.data.year as string) ?? new Date()),
     }));
     yearPositionsRef.current = yearPositions;
+    const yearXs = yearPositions.map((d) => d.x);
 
     svg
       .on("pointerenter", pointerentered)
@@ -333,6 +341,14 @@ export default function NormalizedStackedAreaChart({
 
     function pointermoved(event: PointerEvent) {
       const [xm] = pointer(event);
+      if (isPastPlottedYears(xm, yearXs)) {
+        if (lastHoveredYear.current !== null) {
+          lastHoveredYear.current = null;
+          onHoverPointRef.current?.(null);
+        }
+        hideTooltip();
+        return;
+      }
       const i = leastIndex(yearPositions, (d) => Math.abs(d.x - xm));
       if (i === undefined || i < 0) return;
       const { x: xPixel, year } = yearPositions[i];
