@@ -42,7 +42,19 @@ interface MultiLineChartProps {
 
 type GroupedData = [string, DataPoint[]];
 
-type LabelData = { label: string; x: number; y: number };
+type LabelData = { technology: string; label: string; y: number };
+
+/**
+ * Colours the label of `technology`'s line like the highlighted line, and
+ * resets every other label.
+ */
+function highlightLabel(linesGroup: SVGGElement, technology: string | null) {
+  select(linesGroup)
+    .selectAll<SVGTextElement, LabelData>(".label")
+    .attr("fill", (d) =>
+      d.technology === technology ? "var(--color-donate)" : null,
+    );
+}
 
 // [xPixel, yPixel, technology, year, value, unit] for a single data point.
 type LinePoint = [number, number, string, string, number, string];
@@ -260,12 +272,15 @@ export default function MultiLineChart({
         groupedData.map((d) => y(d[1][d[1].length - 1].value)),
       );
       labelData = groupedData.map((d, i) => ({
+        technology: d[0],
         label: capitalizeWords(d[0]),
-        x: x(parse(d[1][d[1].length - 1].year) as Date),
         y: dodged[i],
       }));
     }
 
+    // Labels sit right of the plot area even when a line ends before
+    // MAX_PLOT_YEAR (#1065), so highlightLabel colours a label like its line
+    // to tie the two together across the gap.
     (
       select(lines.current)
         .selectAll<SVGTextElement, LabelData>(".label")
@@ -274,11 +289,13 @@ export default function MultiLineChart({
     )
       .text((d) => d.label as string)
       .attr("class", "label")
-      .attr("x", (d) => d.x as number)
+      .attr("x", width - marginRight)
       .attr("y", (d) => d.y as number)
       .attr("dx", "18")
       .attr("dy", "5")
       .attr("font-size", "12px");
+    const linesGroup = lines.current;
+    highlightLabel(linesGroup, selectedTech);
 
     // Add an invisible layer for the interactive tip.
     const svg = select(ref.current);
@@ -377,6 +394,7 @@ export default function MultiLineChart({
         .attr("stroke-width", (d) => (d[0] === k ? 3 : 1))
         .filter((d) => d[0] === k)
         .raise();
+      highlightLabel(linesGroup, k);
 
       renderTooltip(point, false);
     }
@@ -384,6 +402,7 @@ export default function MultiLineChart({
     function pointerentered() {
       isPointerOver.current = true;
       path.style("mix-blend-mode", null).attr("stroke", "#ddd");
+      highlightLabel(linesGroup, null);
       dot.attr("display", null).attr("opacity", 1);
     }
 
@@ -400,6 +419,7 @@ export default function MultiLineChart({
         .attr("stroke-width", (d: GroupedData) =>
           d[0] === selectedTech ? 3 : 1,
         );
+      highlightLabel(linesGroup, selectedTech);
       hideTooltip();
     }
 
@@ -487,6 +507,7 @@ export default function MultiLineChart({
           d[0] === selectRef ? "var(--color-donate)" : "var(--color-coal)",
         )
         .attr("stroke-width", (d) => (d[0] === selectRef ? 3 : 1));
+      highlightLabel(lines.current, selectRef);
       api?.hideTooltip();
       return;
     }
@@ -498,6 +519,7 @@ export default function MultiLineChart({
         d[0] === technology ? "var(--color-donate)" : "#ddd",
       )
       .attr("stroke-width", (d) => (d[0] === technology ? 3 : 1));
+    highlightLabel(lines.current, technology);
 
     const match =
       technology == null
