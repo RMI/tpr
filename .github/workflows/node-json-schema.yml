@@ -42,42 +42,6 @@ jobs:
           VITE_INCLUDE_INVALID: ${{ steps.set-include.outputs.vite-include-invalid }}
         run: npm run schema:check
 
-  schema-docs:
-    name: "Check Schema Docs"
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .nvmrc
-          cache: "npm"
-          cache-dependency-path: package-lock.json
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Run JSON schema render
-        run: npm run schema:generate:docs
-
-      - name: Compare Results
-        run: |
-          git add --all
-          changes=$(git diff-index HEAD --name-only -- $OUTPUTS)
-          if [ -n "$changes" ]; then
-            echo "Changes found after documenting."
-            echo "$changes"
-            echo "Please update documentation."
-            git --no-pager diff HEAD
-            exit 1
-          else
-            echo "No changes found after documenting."
-            exit 0
-          fi
-
   types-check:
     name: "Check generated types"
     runs-on: ubuntu-latest

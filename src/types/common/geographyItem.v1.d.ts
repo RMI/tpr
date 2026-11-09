@@ -7,9 +7,7 @@
 /**
  * A single geography identifier used across schemas. Accepts 'Global', ISO-3166-1 alpha-2 country codes (e.g., 'US', 'DE'), or a set of region names (e.g., 'East Asia and Pacific', 'North America'). Any 2-letter items in the array will be treated as an ISO code. Any 2-letter entries that do not map to a country will throw errors (EU). Do not use full country names, only ISO alpha-2 codes. To avoid typographical errors, items may not be 3 letters long (USA)
  */
-export type GeographyItemV1 = {
-  [k: string]: unknown;
-} & (
+export type GeographyItemV1 =
   | "Global"
   | "East Asia and Pacific"
   | "Europe and Central Asia"
@@ -267,5 +265,4 @@ export type GeographyItemV1 = {
   | "YT"
   | "ZA"
   | "ZM"
-  | "ZW"
-);
+  | "ZW";

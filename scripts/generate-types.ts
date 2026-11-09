@@ -1,8 +1,8 @@
 /**
- * Generate *.d.ts files from JSON Schemas in public/schema/
+ * Generate *.d.ts files from JSON Schemas in src/schema/
  *
  * Example:
- *   public/schema/pathwayMetadata.v1.json → src/types/pathwayMetadata.v1.d.ts
+ *   src/schema/pathwayMetadata.v1.json → src/types/pathwayMetadata.v1.d.ts
  *   → Root interface name: PathwayMetadataV1
  */
 import path from "node:path";

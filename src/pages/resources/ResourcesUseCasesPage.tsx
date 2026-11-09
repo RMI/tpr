@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import OnPageIndex from "../../components/OnPageIndex";
+import PageHeader from "../../components/PageHeader";
 
 const financialInstitutionRoles = [
   {
@@ -89,27 +90,27 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({
   bullets,
 }) => {
   return (
-    <article className="overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-      <div className="border-b border-neutral-200 bg-gradient-to-r from-rmiblue-50 via-white to-white p-6 md:p-7">
+    <article className="overflow-hidden rounded-lg border border-rmiblue-200 bg-white shadow-sm">
+      <div className="border-b border-rmiblue-200 p-6">
         <div className="flex items-start gap-4">
           <span className="mt-1 h-12 w-1.5 flex-none rounded-full bg-energy-700" />
           <div>
-            <h3 className="text-xl font-semibold text-rmigray-800">{title}</h3>
-            <p className="mt-4 max-w-2xl text-sm leading-7 text-rmigray-600">
+            <h3 className="text-lg font-semibold text-rmigray-800">{title}</h3>
+            <p className="mt-3 max-w-2xl text-sm leading-7 text-rmigray-600">
               {subtitle}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="p-6 md:p-7">
+      <div className="p-6">
         <ul className="space-y-3 text-rmigray-700">
           {bullets.map((bullet) => (
             <li
               key={bullet}
-              className="flex gap-3 rounded-xl border border-neutral-200 bg-neutral-50 px-4 py-4"
+              className="flex gap-3"
             >
-              <span className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-energy-700" />
+              <span className="mt-2.5 h-2 w-2 flex-none rounded-full bg-energy-700" />
               <span className="leading-7">{bullet}</span>
             </li>
           ))}
@@ -124,7 +125,7 @@ const AudienceCard: React.FC<{
   children: React.ReactNode;
 }> = ({ title, children }) => {
   return (
-    <article className="rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm">
+    <article className="rounded-lg border border-rmiblue-200 bg-white p-6 shadow-sm">
       <h3 className="text-lg font-semibold text-rmiblue-800">{title}</h3>
       <div className="mt-4 text-rmigray-700 leading-7">{children}</div>
     </article>
@@ -136,47 +137,32 @@ const ResourcesUseCasesPage: React.FC = () => {
 
   return (
     <div className="bg-gray-50">
-      <div className="container mx-auto px-4 py-8 md:py-10">
-        <section className="relative overflow-hidden rounded-[1.75rem] bg-rmiblue-800 px-6 py-8 text-white shadow-lg md:px-10 md:py-11">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-energy-700/10" />
-          <div className="absolute -right-10 top-0 h-32 w-32 rounded-full bg-white/7 blur-2xl" />
-          <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-energy-500/8 blur-2xl" />
+      <PageHeader
+        title="Use cases of RMI’s Transition Pathways Repository"
+        subtitle="Transition pathways are critical to understanding how the energy transition might unfold"
+      >
+        <p>
+          The energy transition is a technological revolution with dramatic
+          implications for global markets, international development, and
+          geopolitics. It presents one of the greatest economic and industrial
+          opportunities in history, and creates risks for those that fail to
+          adapt and plan accordingly. Transition pathways provide one valuable
+          tool for navigating this uncertainty. It does this by modeling what
+          the future might hold across different regions and sectors under
+          different assumption sets.
+        </p>
+      </PageHeader>
 
-          <div className="relative">
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Use cases of RMI’s Transition Pathways Repository
-            </h1>
-
-            <h2 className="mt-6 text-xl font-semibold leading-8 text-white/95 md:text-2xl">
-              Transition pathways are critical to understanding how the energy
-              transition might unfold
-            </h2>
-
-            <div className="mt-8 space-y-4 text-sm leading-7 text-white/85 md:text-base">
-              <p>
-                The energy transition is a technological revolution with
-                dramatic implications for global markets, international
-                development, and geopolitics. It presents one of the greatest
-                economic and industrial opportunities in history, and creates
-                risks for those that fail to adapt and plan accordingly.
-                Transition pathways provide one valuable tool for navigating
-                this uncertainty. It does this by modeling what the future might
-                hold across different regions and sectors under different
-                assumption sets.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <div className="mt-12 xl:mt-14 grid gap-8 xl:grid-cols-[16rem_1fr]">
+      <div className="container mx-auto px-4 pt-6 pb-12">
+        <div className="grid gap-8 xl:grid-cols-[16rem_1fr]">
           <OnPageIndex containerRef={contentRef} />
 
           <div
             ref={contentRef}
-            className="min-w-0"
+            className="min-w-0 max-w-5xl"
           >
-            <section className="mx-auto max-w-5xl">
-              <div className="max-w-5xl">
+            <section className="border-b border-neutral-300 py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="how-pathways-inform-users"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
@@ -200,13 +186,13 @@ const ResourcesUseCasesPage: React.FC = () => {
                 </p>
               </div>
 
-              <div className="mt-8 grid gap-6 xl:grid-cols-[1.35fr,0.95fr]">
+              <div className="mt-8 grid gap-6 xl:grid-cols-[1.35fr_0.95fr]">
                 <AudienceCard title="Financial Institutions">
                   <div className="grid gap-4 sm:grid-cols-2">
                     {financialInstitutionRoles.map((role) => (
                       <div
                         key={role.title}
-                        className="rounded-xl border border-neutral-200 bg-neutral-50 p-4"
+                        className="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
                       >
                         <h4 className="text-sm font-semibold uppercase tracking-[0.12em] text-rmiblue-800">
                           {role.title}
@@ -232,8 +218,8 @@ const ResourcesUseCasesPage: React.FC = () => {
               </div>
             </section>
 
-            <section className="mx-auto mt-14 max-w-5xl">
-              <div className="max-w-5xl">
+            <section className="border-b border-neutral-300 py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="pathway-use-cases"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
@@ -275,8 +261,8 @@ const ResourcesUseCasesPage: React.FC = () => {
               </div>
             </section>
 
-            <section className="mx-auto mt-14 max-w-5xl">
-              <div className="grid gap-8 xl:grid-cols-[1.2fr,0.8fr]">
+            <section className="border-b border-neutral-300 py-10">
+              <div className="grid gap-8 xl:grid-cols-[1.2fr_0.8fr]">
                 <div>
                   <h2
                     id="transition-intelligence"
@@ -319,15 +305,15 @@ const ResourcesUseCasesPage: React.FC = () => {
               </div>
             </section>
 
-            <section className="mx-auto mt-14 max-w-5xl rounded-[2rem] border border-neutral-200 bg-neutral-100/80 px-6 py-8 shadow-sm md:px-8 md:py-10">
-              <div className="max-w-5xl rounded-2xl border border-neutral-200 bg-white p-7 shadow-sm">
+            <section className="py-10">
+              <div className="max-w-3xl">
                 <h2
                   id="looking-for-more-information"
                   className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
                 >
                   Looking for more information?
                 </h2>
-                <p className="mt-4 text-rmigray-700 leading-7">
+                <p className="mt-4 max-w-3xl text-rmigray-700 leading-7">
                   Find RMI’s thought leadership related to transition
                   intelligence, pathway selection, and other transition finance
                   topics at RMI’s{" "}

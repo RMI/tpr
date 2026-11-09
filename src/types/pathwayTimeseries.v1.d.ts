@@ -13,6 +13,10 @@ export type Publication = import("./common/publication.v1").PublicationV1;
  */
 export type EmissionsScope =
   import("./common/emissionsScope.v1").EmissionsScopeV1;
+/**
+ * Geographical area that the data covers. This should be a single string value: either 'Global', a country ISO-3166-1 alpha-2 code (e.g., 'US', 'DE'), or a free-text region name (e.g., 'North America', 'South East Asia'). Only 2-letter codes are accepted for countries; do not use full country names or 3-letter codes (e.g., 'USA' is not allowed). If a 2-letter code does not map to a country (e.g., 'EU'), it will result in an error.
+ */
+export type GeographyItem = import("./common/geographyItem.v1").GeographyItemV1;
 
 /**
  * A schema for the pathway timeseries dataset in TPR.
@@ -48,6 +52,85 @@ export interface PathwayTimeseriesV1 {
    * Array of yearly data points for each sector, technology, and metric defined in this timeseries.
    */
   data: {
-    [k: string]: unknown;
+    /**
+     * Calendar year of the data point.
+     */
+    year: number;
+    geography: GeographyItem;
+    /**
+     * Sector to which this data point belongs (must match one of the defined sectors).
+     */
+    sector:
+      | "landUse"
+      | "agriculture"
+      | "buildings"
+      | "industry"
+      | "steel"
+      | "cement"
+      | "chemicals"
+      | "coalMining"
+      | "oilUpstream"
+      | "gasUpstream"
+      | "power"
+      | "automotive"
+      | "transport"
+      | "roadtransport"
+      | "aviation"
+      | "rail"
+      | "shipping"
+      | "other";
+    /**
+     * Technology represented in this record (e.g., Solar, Wind, or null if sector-level only).
+     */
+    technology:
+      | "precisionAgriculture"
+      | "agroforestry"
+      | "bioenergyCrops"
+      | "energyEfficiency"
+      | "smartGrids"
+      | "renewableHeating"
+      | "heatPumps"
+      | "buildingAutomation"
+      | "smartAppliances"
+      | "insulation"
+      | "carbonCaptureandStorage"
+      | "electrification"
+      | "processOptimization"
+      | "hydrogenUse"
+      | "coal"
+      | "oil"
+      | "gas"
+      | "wind"
+      | "solar"
+      | "nuclear"
+      | "biomass"
+      | "hydro"
+      | "renewables"
+      | "electricVehicles"
+      | "hydrogenVehicles"
+      | "biofuels"
+      | "publicTransport"
+      | "activeMobility"
+      | "aviationEfficiency"
+      | "maritimeEfficiency"
+      | "other"
+      | null;
+    /**
+     * Metric reported for this record (e.g., Capacity, Generation, Emissions Intensity).
+     */
+    metric:
+      | "emissionsIntensity"
+      | "capacity"
+      | "generation"
+      | "technologyMix"
+      | "absoluteEmissions";
+    /**
+     * Numeric value of the metric for the given year, sector, and technology.
+     */
+    value: number;
+    /**
+     * Measurement unit associated with the metric value (e.g., GW, TWh, tCO2e).
+     */
+    unit: "tCO2e/MWh" | "MtCO2e" | "GW" | "TWh" | "%";
   }[];
 }

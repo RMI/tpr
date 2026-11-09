@@ -1,31 +1,39 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useRef } from "react";
 import { Link } from "react-router";
-import AccordionItem from "../../components/AccordionItem";
+import OnPageIndex from "../../components/OnPageIndex";
+import PageHeader from "../../components/PageHeader";
 
 type FaqItem = {
+  /** Slug used for the heading's `id`, so the on-page index can list the
+   * question and deep links to it stay stable if the wording is edited. */
+  id: string;
   question: string;
   answer: React.ReactNode;
 };
 
-const FaqItemBlock: React.FC<FaqItem> = ({ question, answer }) => (
-  <AccordionItem
-    header={
-      <span className="text-lg font-semibold text-rmigray-800 transition-colors group-hover:text-rmiblue-800">
-        {question}
-      </span>
-    }
-    panelClassName="mt-5 border-t border-neutral-200 pt-5 text-rmigray-700"
-  >
-    <div className="space-y-3 leading-7 [&>ul]:list-disc [&>ul]:space-y-1 [&>ul]:pl-5">
+/** Each question is a top-level section of the page: always expanded, and
+ * listed in the on-page index. */
+const FaqItemBlock: React.FC<FaqItem> = ({ id, question, answer }) => (
+  <section className="border-b border-neutral-300 py-8 last:border-b-0">
+    <h2
+      id={id}
+      className="scroll-mt-8 text-2xl font-semibold text-rmigray-800"
+    >
+      {question}
+    </h2>
+    <div className="mt-4 max-w-3xl space-y-3 leading-7 text-rmigray-700 [&>ul]:list-disc [&>ul]:space-y-1 [&>ul]:pl-5">
       {answer}
     </div>
-  </AccordionItem>
+  </section>
 );
 
 const ResourcesFaqPage: React.FC = () => {
+  const contentRef = useRef<HTMLDivElement>(null);
+
   const faqItems = useMemo<FaqItem[]>(
     () => [
       {
+        id: "what-is-the-tpr-for",
         question: "What is the Transition Pathways Repository (TPR) for?",
         answer: (
           <>
@@ -62,6 +70,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "who-is-the-tpr-built-for",
         question: "Who is the TPR built for?",
         answer: (
           <>
@@ -95,6 +104,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "what-pathways-can-i-find-in-the-tpr",
         question: "What pathways can I find in the TPR?",
         answer: (
           <>
@@ -111,6 +121,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "how-do-i-use-the-tpr",
         question: "How do I use the TPR?",
         answer: (
           <>
@@ -129,6 +140,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "does-the-tpr-tell-me-which-pathway-is-best",
         question: "Does the TPR tell me which pathway is best?",
         answer: (
           <>
@@ -144,6 +156,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "why-cant-i-use-one-scenario-for-everything",
         question: "Why can’t I use one scenario for everything?",
         answer: (
           <>
@@ -159,6 +172,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "why-do-some-pathways-have-more-benchmark-data",
         question:
           "Why do some pathways have more or different benchmark data than others?",
         answer: (
@@ -173,6 +187,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "what-is-a-corporate-transition-assessment",
         question: "What is a corporate transition assessment (CTA)?",
         answer: (
           <>
@@ -196,6 +211,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "how-does-the-tpr-relate-to-ctas",
         question: "How does the TPR relate to CTAs?",
         answer: (
           <>
@@ -233,6 +249,7 @@ const ResourcesFaqPage: React.FC = () => {
         ),
       },
       {
+        id: "what-else-is-the-tpr-useful-for",
         question: "What else is the TPR useful for?",
         answer: (
           <>
@@ -252,50 +269,45 @@ const ResourcesFaqPage: React.FC = () => {
 
   return (
     <div className="bg-gray-50">
-      <div className="container mx-auto px-4 py-8 md:py-10">
-        <section className="relative overflow-hidden rounded-[1.75rem] bg-rmiblue-800 px-6 py-8 text-white shadow-lg md:px-10 md:py-11">
-          <div className="absolute inset-0 bg-gradient-to-br from-white/8 via-transparent to-energy-700/10" />
-          <div className="absolute -right-10 top-0 h-32 w-32 rounded-full bg-white/7 blur-2xl" />
-          <div className="absolute bottom-0 left-0 h-40 w-40 rounded-full bg-energy-500/8 blur-2xl" />
+      <PageHeader title="Frequently Asked Questions">
+        <p>
+          If you can’t find an answer to your question here, we would love to
+          hear from you. Reach out to{" "}
+          <a
+            href="mailto:tomwhite+tpr@rmi.org"
+            className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+          >
+            Tom White
+          </a>{" "}
+          or{" "}
+          <a
+            href="mailto:jkastl+tpr@rmi.org"
+            className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+          >
+            Jacob Kastl
+          </a>
+          .
+        </p>
+      </PageHeader>
 
-          <div className="relative">
-            <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-              Frequently Asked Questions
-            </h1>
-            <div className="mt-8 space-y-4 text-sm leading-7 text-white/85 md:text-base">
-              <p>
-                If you can’t find an answer to your question here, we would love
-                to hear from you. Reach out to{" "}
-                <a
-                  href="mailto:tomwhite+tpr@rmi.org"
-                  className="text-white underline underline-offset-2 transition-colors hover:text-white/80"
-                >
-                  Tom White
-                </a>{" "}
-                or{" "}
-                <a
-                  href="mailto:jkastl+tpr@rmi.org"
-                  className="text-white underline underline-offset-2 transition-colors hover:text-white/80"
-                >
-                  Jacob Kastl
-                </a>
-                .
-              </p>
-            </div>
-          </div>
-        </section>
+      <div className="container mx-auto px-4 pt-6 pb-12">
+        <div className="grid gap-8 xl:grid-cols-[16rem_1fr]">
+          <OnPageIndex containerRef={contentRef} />
 
-        <section className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm">
-          <div className="divide-y divide-neutral-200/80">
+          <div
+            ref={contentRef}
+            className="min-w-0 max-w-5xl"
+          >
             {faqItems.map((item) => (
               <FaqItemBlock
-                key={item.question}
+                key={item.id}
+                id={item.id}
                 question={item.question}
                 answer={item.answer}
               />
             ))}
           </div>
-        </section>
+        </div>
       </div>
     </div>
   );

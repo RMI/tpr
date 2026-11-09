@@ -3,12 +3,15 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 import LandingPage from "./LandingPage";
+import { NewsletterSignupProvider } from "../context/NewsletterSignupContext";
 
 describe("LandingPage navigation", () => {
   it("uses the shared header nav resources menu", async () => {
     render(
       <MemoryRouter>
-        <LandingPage />
+        <NewsletterSignupProvider>
+          <LandingPage />
+        </NewsletterSignupProvider>
       </MemoryRouter>,
     );
 
@@ -38,5 +41,33 @@ describe("LandingPage navigation", () => {
     expect(
       within(resourcesNav).getByRole("link", { name: "FAQs" }),
     ).toBeInTheDocument();
+  });
+});
+
+describe("LandingPage newsletter signup (#995)", () => {
+  it("offers signup from a hero button beside Explore Pathways, not a separate band", async () => {
+    render(
+      <MemoryRouter>
+        <NewsletterSignupProvider>
+          <LandingPage />
+        </NewsletterSignupProvider>
+      </MemoryRouter>,
+    );
+    const user = userEvent.setup();
+
+    const explore = screen.getAllByRole("link", {
+      name: "Explore Pathways",
+    })[0];
+    const signup = screen.getByRole("button", { name: "Sign up for updates" });
+    expect(signup.parentElement).toBe(explore.parentElement);
+    expect(
+      screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
+    ).not.toBeInTheDocument();
+
+    await user.click(signup);
+
+    expect(
+      screen.getByRole("dialog", { name: "Sign up for TPR updates" }),
+    ).toHaveAttribute("open");
   });
 });

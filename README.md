@@ -111,14 +111,6 @@ npm run lint:fix
 npm run format
 ```
 
-## Documentation
-
-### JSON Schema
-
-To render JSON Schema documentation (available in-app at `/schema.html` route), run `npm run docs:json:schema`, which invokes the `scripts/generate-schema-docs.sh`. This script creates and activates a python virtual environment, and renders the `public/schema.html` file, which will be picked up by the build process.
-
-There is a GitHub workflow (`schema-docs` in `.github/workflows/node-json-schema.yml`) to check that the documentation and the schema do not diverge.
-
 ## Releases
 
 This project uses [`semantic-release`](https://semantic-release.gitbook.io/semantic-release) to manage release versions.
