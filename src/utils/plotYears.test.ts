@@ -57,6 +57,10 @@ describe("plotYearTicks", () => {
     expect(plotYearTicks(2028, 2041)).toEqual([2028, 2041, 2050]);
   });
 
+  it("keeps a decade exactly 3 years from the first or last year", () => {
+    expect(plotYearTicks(2027, 2043)).toEqual([2027, 2030, 2040, 2043, 2050]);
+  });
+
   it("ends at 2050 when the data runs past it", () => {
     expect(plotYearTicks(2020, 2100)).toEqual([2020, 2030, 2040, 2050]);
   });

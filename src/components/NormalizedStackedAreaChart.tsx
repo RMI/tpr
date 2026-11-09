@@ -106,7 +106,8 @@ export default function NormalizedStackedAreaChart({
   // Memoize scales and data transformations
   const chartSetup = useMemo(() => {
     const parse = utcParse("%Y");
-    const years = extent(d3data, (d) => parse(d.year) ?? new Date());
+    // extent skips years that fail to parse, as MultiLineChart does.
+    const years = extent(d3data, (d) => parse(d.year));
     if (!years[0] || !years[1]) {
       return null;
     }
