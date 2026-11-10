@@ -469,6 +469,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Moderate decrease"
       },
@@ -506,11 +511,6 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
-        "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
@@ -569,6 +569,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -624,6 +629,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Moderate decrease"
       },
@@ -679,6 +689,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -719,11 +734,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "No information"
       },
@@ -745,11 +755,6 @@
       {
         "sector": "Power",
         "geography": "BR",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "China",
         "value": "Significant decrease"
       },
       {
@@ -775,11 +780,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "No information"
       },
       {
@@ -831,6 +831,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Significant improvement"
       },
@@ -871,11 +876,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
         "geography": "IN",
         "value": "Significant improvement"
       },
@@ -927,6 +927,11 @@
       {
         "sector": "Aviation",
         "geography": "Central and South America",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -986,6 +991,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1041,6 +1051,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1081,11 +1096,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -1111,11 +1121,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -1137,11 +1142,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1193,6 +1193,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Minor decrease"
       },
@@ -1233,11 +1238,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "IN",
         "value": "Moderate increase"
       },
@@ -1293,6 +1293,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -1348,6 +1353,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -1403,6 +1413,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -1443,11 +1458,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "No information"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "No information"
       },
@@ -1473,11 +1483,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "No information"
       },
@@ -1499,11 +1504,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "No information"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "No information"
       },
       {
@@ -1555,6 +1555,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Moderate increase"
       },
@@ -1591,11 +1596,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": "Moderate increase"
       },
       {
@@ -1650,6 +1650,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1705,6 +1710,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1745,11 +1755,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -1771,11 +1776,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1834,6 +1834,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1870,11 +1875,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1934,6 +1934,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1989,6 +1994,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -2044,6 +2054,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -2084,11 +2099,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
@@ -2114,11 +2124,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
@@ -2140,11 +2145,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2196,6 +2196,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2232,11 +2237,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2296,6 +2296,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2351,6 +2356,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2406,6 +2416,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2446,11 +2461,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -2476,11 +2486,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -2502,11 +2507,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2558,6 +2558,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2594,11 +2599,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2658,6 +2658,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2713,6 +2718,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2768,6 +2778,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2808,11 +2823,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -2838,11 +2848,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -2864,11 +2869,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2920,6 +2920,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2956,11 +2961,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3020,6 +3020,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3075,6 +3080,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3130,6 +3140,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3170,11 +3185,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -3200,11 +3210,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -3226,11 +3231,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3282,6 +3282,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3318,11 +3323,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3382,6 +3382,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3437,6 +3442,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3492,6 +3502,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -3532,11 +3547,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -3562,11 +3572,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -3588,11 +3593,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3652,6 +3652,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -3688,11 +3693,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3758,6 +3758,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -3813,6 +3818,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -3868,6 +3878,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -3908,11 +3923,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
@@ -3938,11 +3948,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": ["Not applicable at this scope level"]
       },
@@ -3964,11 +3969,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -4020,6 +4020,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -4056,11 +4061,6 @@
       {
         "sector": "across sectors",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4120,6 +4120,11 @@
       },
       {
         "sector": "Aviation",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -4175,6 +4180,11 @@
       },
       {
         "sector": "Power",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -4230,6 +4240,11 @@
       },
       {
         "sector": "Steel",
+        "geography": "China",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -4270,11 +4285,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -4300,11 +4310,6 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -4326,11 +4331,6 @@
       {
         "sector": "Steel",
         "geography": "BR",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "China",
         "value": "Not applicable at this scope level"
       },
       {

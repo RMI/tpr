@@ -43,6 +43,8 @@ describe("publisherGroup", () => {
     expect(publisherGroup("International Energy Agency (IEA)")).toBe("IEA");
     expect(publisherGroup("ASEAN Centre for Energy (ACE)")).toBe("ACE");
     expect(publisherGroup("ACE")).toBe("ACE");
+    expect(publisherGroup("Canada Energy Regulator (CER)")).toBe("CER");
+    expect(publisherGroup("CER")).toBe("CER");
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
@@ -109,6 +111,12 @@ describe("canonicalKey", () => {
         "ASEAN Member States Targets Scenario (ATS)",
       ),
     ).toBe("ACE:ATS:");
+    expect(
+      canonicalKey("Canada Energy Regulator (CER)", "Current Measures (CM)"),
+    ).toBe("CER:CM:");
+    expect(TARGETS["CER:CM:"]).toMatchObject({
+      file: "src/data/canada-energy-regulator/CER-EF2026-CM.json",
+    });
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
       canonicalKey(
@@ -536,6 +544,9 @@ describe("data-availability cell parsing", () => {
     expect(
       parseSegments("power generation; Energy Storage", "Power", bad),
     ).toEqual(["Power generation", "Energy storage"]);
+    expect(
+      parseSegments("Power generation / Energy storage", "Power", bad),
+    ).toEqual(["Power generation", "Energy storage"]);
     expect(bad.size).toBe(0);
   });
   it("takes the label of `Label: [members]` coverage and normalises sentinel case", () => {
@@ -650,6 +661,14 @@ describe("buildDataAvailability", () => {
         "Data Format": nc,
       }),
     ]);
+    expect(out?.byMetric).toHaveLength(1);
+    expect(errors).toBe("");
+  });
+  it("accepts the workbook's lowercase Data format header", () => {
+    const lowerCaseHeaderRow = row();
+    delete lowerCaseHeaderRow["Data Format"];
+    lowerCaseHeaderRow["Data format"] = "Tabular";
+    const { out, errors } = build([lowerCaseHeaderRow]);
     expect(out?.byMetric).toHaveLength(1);
     expect(errors).toBe("");
   });
