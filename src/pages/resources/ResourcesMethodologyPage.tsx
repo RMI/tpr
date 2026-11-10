@@ -1030,10 +1030,14 @@ const ResourcesMethodologyPage: React.FC = () => {
                     vary by sector or geography.
                   </p>
                   <p>
-                    In the <b>Coverage</b> section, filled badges mark what is
-                    available for visualization and download in the TPR.
-                    Outlined badges mark what the source publication covers but
-                    the TPR does not hold data for yet.
+                    In the <b>Coverage</b> section, values covered by the
+                    pathway are shown as badges, for variables such as regions,
+                    sectors, metrics, etc. Filled badges mark values for which
+                    the TPR provides visualizations and a data download.
+                    Outlined badges mark values that are covered in the source
+                    publication but where the TPR does not hold data, either
+                    because the data is not provided in a format we could
+                    process or because the license is unclear.
                   </p>
                 </>
               }
