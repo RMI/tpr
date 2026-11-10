@@ -490,7 +490,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                     trajectory for one country than for its wider regional
                     scope. When navigating to the Detail Page of a pathway or to
                     the Comparison Page, the Sector and Geography selectors at
-                    the top choose which values are shown.
+                    the top choose which values are shown. The Sector and
+                    Geography selectors affect the{" "}
+                    <b>Assumptions &amp; Trends</b>, <b>Dependencies</b>,{" "}
+                    <b>Benchmark Plots</b>, and <b>Data Availability</b>{" "}
+                    components in the Detail Page.
                   </p>
                   <p>
                     For the features under <b>Assumptions &amp; trends</b>:
