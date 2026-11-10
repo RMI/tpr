@@ -614,7 +614,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                     can be linked to a carbon budget. Region- or sector-specific
                     pathways usually do not have a clear temperature outcome
                     because a global economy-wide model is required to calculate
-                    it.
+                    the impact on the climate system.
                   </p>
                 </div>
               </Subsection>
