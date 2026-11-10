@@ -484,13 +484,13 @@ const ResourcesMethodologyPage: React.FC = () => {
               intro={
                 <>
                   <p>
-                    The classification of some features can differ across the
-                    sectors and geographies a pathway covers. For example, a
-                    pathway may report a different emissions trajectory for one
-                    country than for its wider regional scope. When navigating
-                    to the Detail Page of a pathway or to the Comparison Page,
-                    the Sector and Geography selectors at the top choose which
-                    values are shown.
+                    The classification of some pathway features can differ
+                    across the sectors and geographies a pathway covers. For
+                    example, a pathway may report a different emissions
+                    trajectory for one country than for its wider regional
+                    scope. When navigating to the Detail Page of a pathway or to
+                    the Comparison Page, the Sector and Geography selectors at
+                    the top choose which values are shown.
                   </p>
                   <p>
                     For the features under <b>Assumptions &amp; trends</b>:
