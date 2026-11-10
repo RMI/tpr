@@ -340,6 +340,19 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/canada-energy-regulator/CER-EF2026-CNZ.json",
   },
+  // Institut de l'energie Trottier -- Canadian Energy Outlook, 3rd edition (2024).
+  "IET:REF:": {
+    mode: "update",
+    file: "src/data/institut-energie-trottier/IET-REF-2024.json",
+  },
+  "IET:NZ50:": {
+    mode: "update",
+    file: "src/data/institut-energie-trottier/IET-NZ50-2024.json",
+  },
+  "IET:NZ50PS:": {
+    mode: "update",
+    file: "src/data/institut-energie-trottier/IET-NZ50PS-2024.json",
+  },
   // UN SDSN / ClimateWorks -- Thailand.
   "SDSN:EXT TH:": {
     mode: "update",
@@ -595,6 +608,7 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("iea") || l.includes("international energy")) return "IEA";
   if (l.includes("asean centre") || l === "ace") return "ACE";
   if (l.includes("canada energy regulator") || l === "cer") return "CER";
+  if (l.includes("trottier") || l === "iet") return "IET";
   if (l.includes("philippines") || l.includes("department of energy"))
     return "PHDOE";
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";

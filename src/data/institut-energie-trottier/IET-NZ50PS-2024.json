@@ -1,0 +1,679 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "IET-NZ50PS-2024",
+  "publication": {
+    "title": {
+      "full": "Canadian Energy Outlook, 3rd edition – Pathways for a net-zero Canada: Horizon 2060"
+    },
+    "publisher": {
+      "full": "Institut de l'énergie Trottier, Polytechnique Montréal",
+      "short": "IET"
+    },
+    "year": 2024,
+    "city": "Montréal",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://iet.polymtl.ca/download/842/CEO3_2_PNZC_20240628.pdf"
+      },
+      {
+        "description": "Dataset",
+        "url": "https://2024.pathways-trajectoires.ca/"
+      },
+      {
+        "description": "Data license",
+        "url": "https://open.canada.ca/en/open-government-licence-canada"
+      }
+    ]
+  },
+  "name": {
+    "full": "Net-zero by 2050, pessimistic SMR costs",
+    "short": "NZ50PS"
+  },
+  "description": "Normative Canadian net-zero 2050 pathway; as NZ50 but with higher SMR cost projections.",
+  "geography": {
+    "country": ["CA"]
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2021,
+  "modelYearEnd": 2060,
+  "modelYearNetzero": 2050,
+  "sectors": [
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Coal Mining",
+      "technologies": []
+    },
+    {
+      "name": "Oil (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Power",
+      "technologies": [
+        "Coal",
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Geothermal",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "Published in 2024 by the Institut de l’énergie Trottier (Polytechnique Montréal) as part of the third Canadian Energy Outlook, Pathways for a net-zero Canada – Horizon 2060, the study explores, province by province, the least-cost pathways for transforming Canada’s energy system and reaching net-zero emissions. The NZ50PS scenario is a normative variant of NZ50 with the same targets and policies, but higher cost projections for small modular reactors, which have yet to reach commercial scale anywhere. With costlier SMRs, the least-cost mix builds about 21 GW of them by 2050 instead of 35 GW. It makes up the difference with more wind, solar and storage. It leans slightly more on direct air capture (about 36 Mt in 2050), but otherwise follows essentially the same economy-wide path to net zero as NZ50.",
+  "metric": [
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix",
+    "Emissions Intensity"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Significant decrease"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": [
+          "Carbon price",
+          "Phaseout dates",
+          "Subsidies",
+          "Target technology shares",
+          "Performance standards"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "Capital costs, O&M, etc."
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": [
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "SMR",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": ["CCUS", "Battery storage", "SMR"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": ["No information"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "CA",
+        "value": "By sector"
+      },
+      {
+        "sector": "Power",
+        "geography": "CA",
+        "value": "By sector"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CA",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Policy set identical to NZ50 and REF by construction (carbon price to $170/t, draft Clean Electricity and Clean Fuel Regulations, ZEV mandate, clean-technology/hydrogen/CCUS tax credits). As in NZ50, the emissions constraint rather than these instruments is binding; NZ50PS differs from NZ50 only in SMR cost assumptions, not in policy.",
+    "emissionsTargets": "Same constraint as NZ50 by construction: national net-zero constraint on total CO2e in 2050 plus a 40% cut vs 2005 by 2030, mirroring the two legislated federal targets; reductions are allocated across provinces at least cost, so some provinces go net-negative while others stay positive.",
+    "technologyCosts": "This pathway exists to test SMR unit costs: with pessimistic SMR cost projections, SMR capacity in 2050 falls to 21.2 GW (vs 34.6 GW in NZ50) and SMR output to 615 PJ (vs 1,004 PJ), compensated mainly by wind (113 GW vs 97 GW), solar and storage (22.6 GW vs 18.8 GW). Other technology costs and least-cost logic are as in NZ50.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Same GDP and Statistics Canada medium population growth as REF drive service demand, but NZ50 uses CER Global Net-Zero export prices, lowering export demand: crude oil production falls 93% by 2050 versus growth in REF. This export-price assumption is a key differentiator from REF alongside the emissions constraint. Not differenciated from NZ2050.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "A finite biomass resource caps bioenergy at about 1,000 PJ and, as net zero approaches, diverts it from combustion to negative-emission uses (BECCS power and hydrogen, biochar from syngas). With fewer SMRs, NZ50PS relies slightly more on DAC to close the balance, so the biomass ceiling binds at least as tightly as in NZ50."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "As in NZ50, power must double output (4,406 PJ by 2050) and reach -17.2 Mt via BECCS, but with fewer SMRs the strategy must favour wind (113 GW), solar and storage. The companion Infrastructure report advises against locking in technology choices too early , citing Ontario nuclear focus.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Building capacity a decade ahead of demand and doubling generation require regulators and utilities to proceed early investment and smart two-way grids; current readiness varies widely, permitting and investment barriers raise costs above European levels. Peak-capacity limits already block electrification in Quebec. The more variable mix increases the importance of interconnection and storage permitting and of utility planning readiness, which currently varies widely across provinces.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "This pathway tests SMR cost risk directly: with pessimistic SMR costs, reliance on wind and solar grows because of cost, requiring a much larger buildout given their lower capacity factors. Capital mobilisation for a bigger variable fleet and storage, uncertain baseload costs, and fair tariff design to share system savings remain the key economic conditions.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Lower SMR reliance (21.2 GW vs 34.6 GW) reduces nuclear acceptance risk, but more wind (113 GW) raises siting exposure; the report flags social acceptance generally rather than for wind specifically.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Near-total electrification of heating (electricity 82.9% of building energy by 2050) and transport so winter-peak management through consumer demand-response remains relevant. The more variable supply mix slightly increases the value of flexible demand.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Storage rises to 22.6 GW (10.7 GW centralized batteries, 8.9 GW pumped hydro) - more than NZ50 - with wider wind and solar integration needs, transmission, distribution upgrades and winter-peak capacity built ahead of demand; no hourly dispatch is modelled.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "SMRs still provide 615 PJ (14% of 2050 generation) plus BECCS power and 10.7 GW of grid batteries; reliance on unproven SMRs is lower than in NZ50, but long-duration storage and battery performance matter more for the larger variable share.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "BECCS power competes for a finite biomass supply (bioenergy capped near 1,000 PJ). The larger wind, solar and battery fleet increases exposure to equipment supply chains.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "A build-out 'equivalent or larger than' 1960-1990 needs workers for construction and operation of grids, competing with hundreds of thousands needed for retrofits and heat pumps; the report says ambitious objectives are unlikely at this pace without aggressive workforce strategies. A shift from nuclear to wind and storage changes the skills needed but not the overall shortage risk the report describes.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Steel results are essentially identical to NZ50 (1.8 Mt in 2050) because the SMR cost change barely affects industry; the same need for steel decarbonisation roadmaps and process-emission strategies applies.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "As in NZ50, CCS-versus-zero-carbon choices for steel hinge on carbon-price certainty and CCS infrastructure financing; slightly higher industrial CCS (45.3 Mt economy-wide) leaves this unchanged in kind.",
+      "sector": "Steel",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Depends on shared CO2 and hydrogen networks as in NZ50; industrial CCS 45.3 Mt and industrial hydrogen 424 PJ economy-wide in 2050, with no steel attribution.",
+      "sector": "Steel",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "not applicable.",
+      "sector": "Steel",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "National power-generation emissions in MtCO2e, Scope 1, including negative emissions from BECCS power. Fuel extraction for power sits in 'Oil, gas and coal production' and is not separable. 2021 baseline differs slightly across Explorer scenario files (75.1-77.1 Mt)."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Retirement is regulation-driven via the CER, which excludes Nunavut, Northwest Territories, Yukon and remote communities; existing units are modelled individually. No asset-lifetime table is published."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "Installed capacity, GW. Storage figure covers centralized batteries, decentralized batteries, pumped hydro, flywheel and hydrogen storage; one combined series in the report figure, broken down by type in the Explorer export - 2050 total 22.6 GW (10.7 centralized battery, 3.1 decentralized battery, 8.9 pumped hydro). Decentralized (rooftop) PV and batteries reported separately in Explorer. No captive industrial series."
+      },
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived: 'Electricity production' emissions ('Figure 4.8') / generation excl. storage ('Figure 2.5'). Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Electricity generation in PJ. Figure lists a small 'Storage' output line (1-35 PJ), excluded here. Explorer separates centralized and decentralized (rooftop) PV. On-grid and distributed generation are both included; no captive industrial series. Provincial generation by source also exists for all 13 jurisdictions in the Chapter 5 dataset."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["By sector"],
+        "scopeLimitations": "LIMITATION - period totals: values are 10-year period totals, each covering the decade ending in its label year (2040 = 2031-2040); divide by 10 for an annual average (e.g. NZ50 2041-2050 $509bn -> ~$51bn/yr). Reviewer interpretation, not documented in the export; discounting basis unknown. Aggregate electricity-sector investment in $ (Power10=3), plus 'Fix operation cost'. No technology split, no 2021 value."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Investment cost for 2022, 2030, 2050 and one fixed O&M value per technology; no variable O&M or fuel costs shown. Two SMR rows: optimistic (REF, NZ50) and pessimistic (NZ50PS). Storage split into 4h/8h utility batteries, decentralized batteries, pumped hydro and compressed air (peak and seasonal). No transmission costs."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Coal",
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Derived: technology generation / total generation excl. storage. Not reported directly as shares. Provincial generation technology mix also exists for all 13 jurisdictions in the Chapter 5 dataset."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Absolute emissions",
+        "sector": "Steel",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Iron and steel = combustion ('Figure 4.6') + process ('Figure 4.7') emissions, MtCO2e, Scope 1. Ironmaking and steelmaking not separated; no power-related (Scope 2) emissions; any steel CCS is not attributed (industrial CCS reported only economy-wide, 'Figure 4.9')."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (primary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (secondary)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Emissions intensity (total)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Scrap share",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Steel production by technology (production route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Steel",
+        "sectorSegment": ["Unspecified"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Only two steel options are costed: hydrogen direct iron reduction and CCS capture (as a capex multiplier); no costs for conventional BF-BOF, EAF or scrap routes. Values constant 2022-2050."
+      },
+      {
+        "metricName": "Technology mix (production by route)",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
+}
