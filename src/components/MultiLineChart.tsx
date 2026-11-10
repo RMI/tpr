@@ -6,6 +6,11 @@ import { ascending, extent, groups, leastIndex, range } from "d3-array";
 import { axisBottom, axisLeft } from "d3-axis";
 import { useRef, useEffect, useMemo, useState } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
+import {
+  MAX_PLOT_YEAR,
+  isPastPlottedYears,
+  plotXAxis,
+} from "../utils/plotYears";
 import { computeTooltipBoxLayout } from "../utils/chartTooltipLayout";
 import type { HoveredPoint } from "./PlotSelector";
 
@@ -41,7 +46,19 @@ interface MultiLineChartProps {
 
 type GroupedData = [string, DataPoint[]];
 
-type LabelData = { label: string; x: number; y: number };
+type LabelData = { technology: string; label: string; y: number };
+
+/**
+ * Colours the label of `technology`'s line like the highlighted line, and
+ * resets every other label.
+ */
+function highlightLabel(linesGroup: SVGGElement, technology: string | null) {
+  select(linesGroup)
+    .selectAll<SVGTextElement, LabelData>(".label")
+    .attr("fill", (d) =>
+      d.technology === technology ? "var(--color-donate)" : null,
+    );
+}
 
 // [xPixel, yPixel, technology, year, value, unit] for a single data point.
 type LinePoint = [number, number, string, string, number, string];
@@ -62,8 +79,13 @@ export default function MultiLineChart({
   onHoverPoint,
 }: MultiLineChartProps) {
   const d3data = useMemo(() => {
+    // Rows past MAX_PLOT_YEAR are dropped here too, so the chart is right even
+    // for a caller that skipped capToPlotYears.
     let filtered = data.data.filter(
-      (d) => d.sector === sector && d.metric === metric,
+      (d) =>
+        d.sector === sector &&
+        d.metric === metric &&
+        Number(d.year) <= MAX_PLOT_YEAR,
     );
     if (metric === "emissionsIntensity" || metric === "absoluteEmissions") {
       filtered = filtered.map((d) => ({ ...d, technology: d.metric }));
@@ -108,12 +130,6 @@ export default function MultiLineChart({
     const parse = utcParse("%Y");
     const years = extent(d3data, (d) => parse(d.year));
     const values = extent(d3data, (d) => d.value);
-    const xticks = Array.from(new Set(d3data.map((d) => d.year)))
-      .map(parse)
-      .filter(
-        (d, i): d is Date =>
-          d !== null && (i === 0 || d.getUTCFullYear() % 10 === 0),
-      );
 
     if (!years[0] || !years[1]) return null;
 
@@ -129,8 +145,10 @@ export default function MultiLineChart({
       return null;
     }
 
+    const { domain, ticks: xticks } = plotXAxis(years[0], years[1]);
+
     const x = scaleUtc()
-      .domain(years)
+      .domain(domain)
       .range([marginLeft, width - marginRight]);
 
     const y = scaleLinear()
@@ -259,12 +277,15 @@ export default function MultiLineChart({
         groupedData.map((d) => y(d[1][d[1].length - 1].value)),
       );
       labelData = groupedData.map((d, i) => ({
+        technology: d[0],
         label: capitalizeWords(d[0]),
-        x: x(parse(d[1][d[1].length - 1].year) as Date),
         y: dodged[i],
       }));
     }
 
+    // Labels sit right of the plot area even when a line ends before
+    // MAX_PLOT_YEAR (#1065), so highlightLabel colours a label like its line
+    // to tie the two together across the gap.
     (
       select(lines.current)
         .selectAll<SVGTextElement, LabelData>(".label")
@@ -273,11 +294,13 @@ export default function MultiLineChart({
     )
       .text((d) => d.label as string)
       .attr("class", "label")
-      .attr("x", (d) => d.x as number)
+      .attr("x", width - marginRight)
       .attr("y", (d) => d.y as number)
       .attr("dx", "18")
       .attr("dy", "5")
       .attr("font-size", "12px");
+    const linesGroup = lines.current;
+    highlightLabel(linesGroup, selectedTech);
 
     // Add an invisible layer for the interactive tip.
     const svg = select(ref.current);
@@ -292,6 +315,7 @@ export default function MultiLineChart({
       d.unit,
     ]);
     pointsRef.current = points;
+    const yearXs = points.map(([x]) => x);
 
     const dot = select(tooltip_grp.current);
 
@@ -357,39 +381,70 @@ export default function MultiLineChart({
     tooltipApiRef.current = { renderTooltip, hideTooltip };
 
     function pointermoved(event: PointerEvent) {
+      // A line label stands for its whole series, not one year, so hovering
+      // it highlights the line without a tooltip.
+      const labelled = labelTechnology(event);
+      if (labelled !== null) {
+        reportHover({ technology: labelled, year: null });
+        highlightLine(labelled);
+        hideTooltip();
+        return;
+      }
+
       const [xm, ym] = pointer(event);
+      if (isPastPlottedYears(xm, yearXs)) {
+        reportHover(null);
+        showSelected();
+        return;
+      }
       const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
       if (i === undefined || i < 0) return;
       const point = points[i];
       const [, , k, year] = point;
 
-      if (
-        lastHoveredPoint.current?.technology !== k ||
-        lastHoveredPoint.current?.year !== year
-      ) {
-        lastHoveredPoint.current = { technology: k, year };
-        onHoverPointRef.current?.({ technology: k, year });
-      }
+      reportHover({ technology: k, year });
+      highlightLine(k);
+      renderTooltip(point, false);
+    }
 
+    // Tells sibling charts what is hovered, once per change.
+    function reportHover(hovered: HoveredPoint | null) {
+      const last = lastHoveredPoint.current;
+      if (
+        last?.technology === hovered?.technology &&
+        last?.year === hovered?.year
+      ) {
+        return;
+      }
+      lastHoveredPoint.current = hovered;
+      onHoverPointRef.current?.(hovered);
+    }
+
+    function highlightLine(k: string) {
       path
         .attr("stroke", (d) => (d[0] === k ? "var(--color-donate)" : "#ddd"))
         .attr("stroke-width", (d) => (d[0] === k ? 3 : 1))
         .filter((d) => d[0] === k)
         .raise();
-
-      renderTooltip(point, false);
+      highlightLabel(linesGroup, k);
     }
 
     function pointerentered() {
       isPointerOver.current = true;
       path.style("mix-blend-mode", null).attr("stroke", "#ddd");
+      highlightLabel(linesGroup, null);
       dot.attr("display", null).attr("opacity", 1);
     }
 
     function pointerleft() {
       isPointerOver.current = false;
-      lastHoveredPoint.current = null;
-      onHoverPointRef.current?.(null);
+      reportHover(null);
+      showSelected();
+    }
+
+    // Back to the resting look: the selected line and its label highlighted,
+    // no tooltip.
+    function showSelected() {
       const selectedTech = selectRef;
       path
         .style("mix-blend-mode", "multiply")
@@ -399,10 +454,21 @@ export default function MultiLineChart({
         .attr("stroke-width", (d: GroupedData) =>
           d[0] === selectedTech ? 3 : 1,
         );
+      highlightLabel(linesGroup, selectedTech);
       hideTooltip();
     }
 
+    // The technology of the line label under the pointer, if any.
+    function labelTechnology(event: Event): string | null {
+      const label = (event.target as Element).closest(".label");
+      return label
+        ? select<Element, LabelData>(label).datum().technology
+        : null;
+    }
+
     function pointerclicked(event: PointerEvent) {
+      // A click on a label selects nothing: only hovering it does anything.
+      if (labelTechnology(event) !== null) return;
       const [xm, ym] = pointer(event);
       const i = leastIndex(points, ([x, y]) => Math.hypot(x - xm, y - ym));
       if (i === undefined || i < 0) return;
@@ -486,6 +552,7 @@ export default function MultiLineChart({
           d[0] === selectRef ? "var(--color-donate)" : "var(--color-coal)",
         )
         .attr("stroke-width", (d) => (d[0] === selectRef ? 3 : 1));
+      highlightLabel(lines.current, selectRef);
       api?.hideTooltip();
       return;
     }
@@ -497,6 +564,7 @@ export default function MultiLineChart({
         d[0] === technology ? "var(--color-donate)" : "#ddd",
       )
       .attr("stroke-width", (d) => (d[0] === technology ? 3 : 1));
+    highlightLabel(lines.current, technology);
 
     const match =
       technology == null
