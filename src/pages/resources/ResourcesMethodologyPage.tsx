@@ -720,11 +720,13 @@ const ResourcesMethodologyPage: React.FC = () => {
                     analysis.
                   </p>
                   <p>
-                    The groups below follow the <b>Assumptions &amp; Trends</b>{" "}
-                    panel of a pathway’s Detail Page. Each group opens with its
-                    core drivers: text fields that describe the main inputs
-                    shaping the pathway’s results. The key features that follow
-                    each take one or more values from a fixed list.
+                    The groups of variables (Policies, Emissions, etc.) listed
+                    below can all be found in the{" "}
+                    <b>Assumptions &amp; Trends</b> component of a pathway’s
+                    Detail Page. Each group opens with its core drivers: text
+                    fields that describe the main inputs shaping the pathway’s
+                    results. The key features that follow each take one or more
+                    values from a fixed list.
                   </p>
                   <p>
                     Depending on the feature, values can differ by sector, by
