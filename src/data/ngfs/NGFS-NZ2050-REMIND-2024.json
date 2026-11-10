@@ -470,6 +470,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Significant decrease"
       },
@@ -492,16 +502,6 @@
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
         "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
-        "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
@@ -542,6 +542,16 @@
         "sector": "Aviation",
         "geography": "EU 28",
         "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Moderate decrease"
       },
       {
         "sector": "Aviation",
@@ -569,6 +579,11 @@
         "value": "Significant increase"
       },
       {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Moderate decrease"
+      },
+      {
         "sector": "Power",
         "geography": "Canada / NZ / Australia",
         "value": "Significant decrease"
@@ -586,6 +601,16 @@
       {
         "sector": "Power",
         "geography": "EU 28",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -614,6 +639,11 @@
         "value": "Significant decrease"
       },
       {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
         "sector": "Steel",
         "geography": "Canada / NZ / Australia",
         "value": "Significant decrease"
@@ -631,6 +661,16 @@
       {
         "sector": "Steel",
         "geography": "EU 28",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -656,46 +696,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -732,6 +732,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Moderate improvement"
       },
@@ -757,16 +767,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "IN",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
         "geography": "US",
         "value": "Significant improvement"
       },
@@ -807,6 +807,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -828,6 +838,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -852,6 +867,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -873,6 +898,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -897,6 +927,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -918,46 +958,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -994,6 +994,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Moderate increase"
       },
@@ -1019,16 +1029,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "IN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "US",
         "value": "Significant decrease"
       },
@@ -1065,6 +1065,16 @@
       {
         "sector": "Aviation",
         "geography": "EU 28",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1093,6 +1103,11 @@
         "value": "Significant increase"
       },
       {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
         "sector": "Power",
         "geography": "Canada / NZ / Australia",
         "value": "No information"
@@ -1110,6 +1125,16 @@
       {
         "sector": "Power",
         "geography": "EU 28",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
         "value": "No information"
       },
       {
@@ -1138,6 +1163,11 @@
         "value": "No information"
       },
       {
+        "sector": "Power",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
         "sector": "Steel",
         "geography": "Canada / NZ / Australia",
         "value": "Significant decrease"
@@ -1156,61 +1186,6 @@
         "sector": "Steel",
         "geography": "EU 28",
         "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Latin America and the Caribbean",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Middle East / North Africa / Central Asia",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Non-EU28 Europe",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Other Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Sub-saharan Africa",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "No information"
       },
       {
         "sector": "Steel",
@@ -1221,6 +1196,31 @@
         "sector": "Steel",
         "geography": "JP",
         "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East / North Africa / Central Asia",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Non-EU28 Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Significant increase"
       },
       {
         "sector": "Steel",
@@ -1256,6 +1256,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Significant increase"
       },
@@ -1281,16 +1291,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "US",
         "value": "Significant increase"
       },
@@ -1326,6 +1326,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1347,6 +1357,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1371,6 +1386,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1392,31 +1417,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1453,6 +1453,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -1474,16 +1484,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1528,6 +1528,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -1549,6 +1559,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1573,6 +1588,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -1594,6 +1619,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1618,6 +1648,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -1639,46 +1679,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1715,6 +1715,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1736,16 +1746,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1790,6 +1790,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1811,6 +1821,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1835,6 +1850,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1856,6 +1881,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1880,6 +1910,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1901,46 +1941,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1977,6 +1977,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -1998,16 +2008,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2052,6 +2052,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2073,6 +2083,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2097,6 +2112,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2118,6 +2143,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2142,6 +2172,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2163,46 +2203,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2239,6 +2239,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2260,16 +2270,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2314,6 +2314,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2335,6 +2345,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2359,6 +2374,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2380,6 +2405,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2404,6 +2434,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2425,46 +2465,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2501,6 +2501,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2522,16 +2532,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2576,6 +2576,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2597,6 +2607,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2621,6 +2636,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2642,6 +2667,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2666,6 +2696,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -2687,46 +2727,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2763,6 +2763,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -2784,16 +2794,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2838,6 +2838,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -2859,6 +2869,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2883,6 +2898,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -2904,6 +2929,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2928,6 +2958,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": ["Not applicable at this scope level"]
       },
@@ -2949,46 +2989,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3025,6 +3025,16 @@
       },
       {
         "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -3046,16 +3056,6 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3100,6 +3100,16 @@
       },
       {
         "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -3121,6 +3131,11 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3145,6 +3160,16 @@
       },
       {
         "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -3166,6 +3191,11 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3190,6 +3220,16 @@
       },
       {
         "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
         "geography": "Latin America and the Caribbean",
         "value": "Not applicable at this scope level"
       },
@@ -3211,46 +3251,6 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
