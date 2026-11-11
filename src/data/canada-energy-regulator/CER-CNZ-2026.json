@@ -1,6 +1,6 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
-  "id": "CER-EF2026-CNZ",
+  "id": "CER-CNZ-2026",
   "publication": {
     "title": {
       "full": "Canada’s Energy Future 2026: Energy Supply and Demand Projections to 2050"
@@ -80,7 +80,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "Canada Net-zero assumes net-zero GHG emissions in Canada by 2050 and explores one possible pathway to reach this. THE CRE raises policy stringency orderly: an aggregate carbon cost reaching $550/t, tighter clean fuel rules, a freight ZEV standard, net-zero buildings and offsets for negative emissions. It also assumes faster rest-of-world climate action (outcomes closer to 2°C), which lowers oil and gas prices, and clean-technology cost declines 20–60% larger than in Current Measures. Electricity demand more than doubles, electricity reaches about 35% of end-use energy demand, and residual emissions are offset by BECCS, direct air capture and land-based removals.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One if its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
+  "pathwayDescription": "Canada Net-zero assumes net-zero GHG emissions in Canada by 2050 and explores one possible pathway to reach this. THE CRE raises policy stringency orderly: an aggregate carbon cost reaching $550/t, tighter clean fuel rules, a freight ZEV standard, net-zero buildings and offsets for negative emissions. It also assumes faster rest-of-world climate action (outcomes closer to 2°C), which lowers oil and gas prices, and clean-technology cost declines 20–60% larger than in Current Measures. Electricity demand more than doubles, electricity reaches about 35% of end-use energy demand, and residual emissions are offset by BECCS, direct air capture and land-based removals.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One of its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",

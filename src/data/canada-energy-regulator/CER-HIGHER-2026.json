@@ -1,6 +1,6 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
-  "id": "CER-EF2026-LOWER",
+  "id": "CER-HIGHER-2026",
   "publication": {
     "title": {
       "full": "Canada’s Energy Future 2026: Energy Supply and Demand Projections to 2050"
@@ -32,10 +32,10 @@
     ]
   },
   "name": {
-    "full": "Lower Scenario",
-    "short": "Lower"
+    "full": "Higher Scenario",
+    "short": "Higher"
   },
-  "description": "Exploratory case with lower GDP growth, LNG exports, data-centre load and prices.",
+  "description": "Exploratory case with higher GDP growth, LNG exports, data-centre load and prices.",
   "geography": {
     "country": ["CA"]
   },
@@ -79,7 +79,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Lower scenario is one of two scenarios new in EF2026 that bracket Current Measures to explore economic and energy uncertainty. Keeping the same climate policies and technology costs, it assumes lowter growth in four key drivers: real GDP growth (~1.2%/yr), one additional LNG project (4.25 Bcf/d), 1.5 GW of data-centre load by 2050 and lower global oil and gas prices (Brent ~US$55/bbl). End-use demand is about 10% below Current Measures and broadly flat versus 2023, oil output declines to about 5.2 MMb/d, gas reaches around 21–22 Bcf/d, electricity demand grows about 30%, and emissions end 9% below Current Measures (35% below 2005).\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One if its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
+  "pathwayDescription": "The Higher scenario is one of two scenarios new in EF2026 that bracket Current Measures to explore economic and energy uncertainty. Keeping the same climate policies and technology costs, it assumes faster growth in four key drivers: real GDP (~2.0%/yr), LNG exports (three hypothetical projects, 8 Bcf/d by 2045), data-centre load (12 GW by 2050) and global oil and gas prices (Brent ~US$95/bbl). End-use demand is 12% above Current Measures in 2050, oil output peaks near 6.7 MMb/d, gas reaches 32 Bcf/d, electricity demand grows about 80%, and emissions end 9% above Current Measures (22% below 2005), gradually rising late in the period.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One of its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -116,7 +116,7 @@
       {
         "sector": "across sectors",
         "geography": "CA",
-        "value": "Low or no change"
+        "value": "Moderate increase"
       },
       {
         "sector": "Power",
@@ -229,66 +229,66 @@
     ]
   },
   "coreDrivers": {
-    "policies": "As in Current Measures, policies in place by Nov 2025 shape the baseline. Industrial carbon price rises to $170/t by 2030, then flat. Clean Electricity Regulations push non-emitting generation above 96% by 2050 with clean fuel, vehicle, efficiency, methane and HFC rules on top. Passenger ZEV represents 60% of sales by 2030, and 100% by 2035. Investment Tax Credits lower CCUS, hydrogen and clean power costs. With lower activity the same policies leave emissions 9% below Current Measures in 2050.",
+    "policies": "As in Current Measures, includes policies in place by Nov 2025. Carbon price covers industry and rises to $170/t by 2030, then flat. Clean Electricity Regulations push non-emitting generation above 96% by 2050 with clean Fuel, vehicle, efficiency, methane and HFC rules on top. Passenger ZEV represents 60% of sales by 2030, and 100% by 2035. Clean economy Investment Tax Credits lower CCUS, hydrogen and clean power costs.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Electricity capacity is chosen by a least-cost model, so unit capital costs steer the build. Baseline cost views from NREL ATB 2024, EIA and IEA decline from 2024 to 2050: onshore wind by 23%, solar by 38%, NG with CCUS by 24%, and SMR  by 37%; with only ~30% demand growth the least-cost build adds ~55 GW onshore wind, 3.0 GW SMR and 5.75 GW NG with CCUS by 2050, the smallest additions of any scenario, with wind at 23% of generation.",
+    "technologyCosts": "Electricity capacity is chosen by a least-cost model, so unit capital costs steer the build. Baseline cost views from NREL ATB 2024, EIA and IEA decline from 2024 to 2050: onshore wind by 23%, solar by 38%, NG with CCUS by 24%, and SMR by 37%. Least-cost expansion under 80% higher electricity demand leans hardest on low-cost options: ~97 GW onshore wind added and 17.3 GW of SMRs by 2050, the largest SMR build of any scenario, plus 8.4 GW NG with CCUS.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Differentiating driver to Current Measure: weaker export demand cuts ~0.4 pp/yr from GDP growth versus Current Measures (1.2%/yr; population 0.5%/yr to 47 M; CPI 2.0%). GDP is ~10% (> $450 bn) below Current Measures in 2050, so end-use demand is ~10% lower and broadly flat versus 2023.",
+    "macroeconomicDrivers": "Differentiating driver to Current Measures: stronger export demand is set to add ~0.4 pp/yr to real GDP growth versus Current Measures (2.0%/yr; population 0.9%/yr, reaching 52 M; CPI 2.3%). GDP is 11% above Current Measures in 2050, lifting end-use demand 12% and emissions 9%.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Lower market drivers: Brent ~US$55/bbl from 2030, Henry Hub dipping to ~$2.75 by 2030. 1 LNG project and 1.5GW of data center loads are needed by 2050."
+    "otherDrivers": "Higher market drivers: Brent ~US$95/bbl from 2030, Henry Hub to ~$6.75 by 2050. 3 LNG projects and 12GW of data center loads are needed by 2050."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The same Clean Electricity Regulations and ITCs apply, but with only ~30% demand growth less new clean capacity is needed; the grid still exceeds 96% non-emitting and power emissions fall 73% vs 2025. Policy shapes the electricity mix more than the pace of expansion.",
+      "dependency_description": "Identical policies (Clean Electricity Regulations, clean economy ITCs) must hold while generation grows ~80% and 12 GW of data-centre load is added; they still keep the grid over 96% non-emitting (power emissions −67% vs 2025). Policy strategy is shared only by the three current-policy scenarios: Current Measures, Higher and Lower but this pathways has more build out as it needs to meet higher demand. Hence, it relies more heavily on policy support.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Regulatory exposure as in Current Measures (Clean Electricity Regulations flexibility, possible Alberta MOU changes, rate-based cost recovery) but with the smallest build and gas fleet (32.7 GW unabated), so rule changes would shift outcomes least.",
+      "dependency_description": "The Clean Electricity Regulations’ compliance flexibility, including offsets, lets unabated gas run limited hours after 2050, but the largest gas fleet of any scenario (37.5 GW unabated in 2050) leans most on Clean Electricity Regulations compliance flexibility, so any MOU-driven change in Alberta would matter most here. Approval pace for ~200 GW of additions is not assessed.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Spending averages  around $30 bn/year, below the 2006–2023 average of $32 bn/yr and dipping to $24 bn/yr in 2036–45; the financing burden on ratepayers is the lightest of any scenario.",
+      "dependency_description": "Spending is the highest of the current-policy cases,  around $46 bn/year in avearge, peaking at $56 bn/year in 2041–45, about 75% above the 2006–2023 average. Prices still rise faster than inflation and financing that build at regulated rates is a major condition for the pathway.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "The report does not model opposition. Indigenous engagement found communities favour renewables and some SMRs but want cultural sites preserved.",
+      "dependency_description": "The report does not model opposition. Indigenous engagement found communities favour renewables and some SMRs but want cultural sites preserved. The pathway experience more renewables construction but land is not a binding constraint neither.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "As in Current Measures, behaviour is exogenous: lower load growth (~30%, near the historical 1%/yr) comes from slower GDP and light data-centre growth. No consumer-behaviour constraint is described beyond the general exclusion of demand-side management.",
+      "dependency_description": "As in Current Measures, behaviour is exogenous: the extra load comes from 12 GW of data centres and higher floorspace, not from consumer choice. Excluded demand-side management would matter more here given the highest variable-renewable share among current-policy cases.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "The same ~70% Interprovincial transfer  expansion applies, but with 23% wind share in the generation technology mix and 15.8 GW of batteries the flexibility requirement is the lowest of the scenarios. As in other scenario, Canada–US interconnection capacity is held constant.",
+      "dependency_description": "The ~70% interprovincial transfer  expansion and 25.7 GW of batteries must handle 31% wind generation technology mix and 12 GW of data-centre load. The report states flexibility needs are ‘especially evident’ in the Higher scenario. US transfer capacity is fixed, distribution excluded.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Emerging technologies play a smaller role: 3.0 GW SMR (half of Current Measure build-out), 5.75 GW gas-CCUS (75% of Current Measure build out), 1.8 GW hydrogen-fired (half of Current Measure build-out), 15.8 GW batteries by 2050 (2/3 of Current Measure build-out), with mature hydro and wind doing most of the work. Lower demand mostly diminish pathway dependecy to hydroigen market-readiness.",
+      "dependency_description": "The largest SMR fleet (17.3 GW, nearly three times more than in Current Measure scenario) plus 8.4 GW gas-CCUS, 6.5 GW hydrogen-fired and 25.7 GW of batteries (10% more than in Current Measure scenario). The firm-capacity build depends heavily on SMR cost reductions assumed equal to Current Measures.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Clean-power components depend on concentrated global supply chains (China provide more than 80% of solar modules, 70–80% of wind blades; graphite and lithium processing). The report doesn't provide any quantitative data for raw input needs for the Lower Scenario.",
+      "dependency_description": "Clean-power components depend on concentrated global supply chains (China provide more than 80% of solar modules, 70–80% of wind blades; graphite and lithium processing). The report doesn't provide any quantitative data for raw input needs for the Higher Scenario.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "No hourly infrastructure is modelled for this variant, but with lower wind deployment, the system is less dependent on wind availability, and gas would fill demand during no-wind period. Hydro output would also vary with precipitation but the models do not otherwise include climate-change impacts.",
+      "dependency_description": "No hourly infrastructure is modelled for this variant, but with higher wind deployment, the system is obviously more dependent on wind availability, and gas would also fill demand during no-wind period. Hydro output would also vary with precipitation but the models do not otherwise include climate-change impacts.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },

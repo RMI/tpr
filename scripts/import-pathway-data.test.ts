@@ -115,7 +115,7 @@ describe("canonicalKey", () => {
       canonicalKey("Canada Energy Regulator (CER)", "Current Measures (CM)"),
     ).toBe("CER:CM:");
     expect(TARGETS["CER:CM:"]).toMatchObject({
-      file: "src/data/canada-energy-regulator/CER-EF2026-CM.json",
+      file: "src/data/canada-energy-regulator/CER-CM-2026.json",
     });
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
