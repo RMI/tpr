@@ -1,6 +1,6 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
-  "id": "CER-EF2026-CM",
+  "id": "CER-CM-2026",
   "publication": {
     "title": {
       "full": "Canada’s Energy Future 2026: Energy Supply and Demand Projections to 2050"
@@ -79,7 +79,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "Current Measures is EF2026’s central baseline, described by the CER as its version of a traditional reference case comparable to ECCC’s “With Measures” and the EIA’s “Reference Case”. It assumes moderate economic growth (real GDP +1.6%/yr), moderate global oil and gas prices (Brent ~US$75/bbl), two additional hypothetical LNG projects, 3.5 GW of data-centre load by 2050, policies in place by November 2025 and moderate technological progress. End-use demand grows 11% to 2050, electricity demand rises nearly 50%, generation becomes over 96% non-emitting, and net GHG emissions fall to about 546 Mt CO2e in 2050, 28% below 2005, with reductions plateauing after the mid-2030s. It is intended mainly as a point of comparison for the other scenarios.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One if its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
+  "pathwayDescription": "Current Measures is EF2026’s central baseline, described by the CER as its version of a traditional reference case comparable to ECCC’s “With Measures” and the EIA’s “Reference Case”. It assumes moderate economic growth (real GDP +1.6%/yr), moderate global oil and gas prices (Brent ~US$75/bbl), two additional hypothetical LNG projects, 3.5 GW of data-centre load by 2050, policies in place by November 2025 and moderate technological progress. End-use demand grows 11% to 2050, electricity demand rises nearly 50%, generation becomes over 96% non-emitting, and net GHG emissions fall to about 546 Mt CO2e in 2050, 28% below 2005, with reductions plateauing after the mid-2030s. It is intended mainly as a point of comparison for the other scenarios.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One of its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",

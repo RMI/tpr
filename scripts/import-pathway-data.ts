@@ -326,19 +326,19 @@ export const TARGETS: Record<string, Target> = {
   // Canada Energy Regulator -- Canada's Energy Future 2026.
   "CER:CM:": {
     mode: "update",
-    file: "src/data/canada-energy-regulator/CER-EF2026-CM.json",
+    file: "src/data/canada-energy-regulator/CER-CM-2026.json",
   },
   "CER:Higher:": {
     mode: "update",
-    file: "src/data/canada-energy-regulator/CER-EF2026-HIGHER.json",
+    file: "src/data/canada-energy-regulator/CER-HIGHER-2026.json",
   },
   "CER:Lower:": {
     mode: "update",
-    file: "src/data/canada-energy-regulator/CER-EF2026-LOWER.json",
+    file: "src/data/canada-energy-regulator/CER-LOWER-2026.json",
   },
   "CER:CNZ:": {
     mode: "update",
-    file: "src/data/canada-energy-regulator/CER-EF2026-CNZ.json",
+    file: "src/data/canada-energy-regulator/CER-CNZ-2026.json",
   },
   // UN SDSN / ClimateWorks -- Thailand.
   "SDSN:EXT TH:": {
