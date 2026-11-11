@@ -9,6 +9,7 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
 } from "../utils/geographyUtils";
 import { scopeSelectionLabel } from "../utils/scopeLabel";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
@@ -139,7 +140,7 @@ const GeographyCell: React.FC<{
       // Country codes become country names, as on every geography badge.
       toLabel={(geo) => geographyLabel(geo ?? "")}
       tooltipGetter={(geo) =>
-        geographyKind(geo) === "region" ? (
+        hasMemberList(pathwayGeography, geo) ? (
           <RegionMembersTooltip
             geography={pathwayGeography}
             label={geo}

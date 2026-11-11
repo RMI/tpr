@@ -343,8 +343,11 @@ const columnLabel = (pathway: PathwayMetadataType): string =>
  * A column whose scope resolves to no countries is treated as *unknown
  * membership* and skipped rather than counted as different — the rule the
  * sector restriction already follows, where a data gap must not look like a
- * rule. Every declared region has two or more members (#998), so only malformed
- * data reaches this.
+ * rule. Every declared region has two or more members (#998) and every country
+ * at least its own code (#1071), so only malformed data reaches this.
+ *
+ * A country is compared by all of its codes, so IEA's `CN` {CN, HK} and JRC's
+ * `CN` {CN} warn that their members differ — they are not the same figure.
  *
  * There is no "does not declare it" case any more: each column only offers
  * what its own pathway declares.

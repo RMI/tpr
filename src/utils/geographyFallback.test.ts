@@ -200,3 +200,57 @@ describe("geographyFallbackNote", () => {
     ).toBeNull();
   });
 });
+
+describe("resolveGeography — a country that includes territories (#1071)", () => {
+  const geo: Geography = {
+    global: true,
+    regions: {
+      "Asia Pacific": ["CN", "HK", "JP", "MO"],
+      // Holds CN but not HK, so it cannot stand in for the country CN.
+      "Mainland Asia": ["CN", "IN"],
+    },
+    country: { CN: ["CN", "HK", "MO"] },
+  };
+
+  it("falls back from a territory to the country that includes it", () => {
+    const result = resolveGeography(
+      ["Global", "Asia Pacific", "CN"],
+      "HK",
+      geo,
+    );
+    expect(result.used).toBe("CN");
+    expect(result.reason).toBe("containingRegion");
+  });
+
+  it("falls back from the country only to a region that holds all its codes", () => {
+    expect(
+      resolveGeography(["Global", "Mainland Asia", "Asia Pacific"], "CN", geo)
+        .used,
+    ).toBe("Asia Pacific");
+    expect(resolveGeography(["Global", "Mainland Asia"], "CN", geo).used).toBe(
+      "Global",
+    );
+  });
+
+  it("picks the smallest containing geography, whatever the data's order", () => {
+    const nested: Geography = {
+      regions: {
+        "Asia Pacific": ["ID", "JP", "TH", "VN"],
+        "Southeast Asia": ["ID", "TH", "VN"],
+      },
+    };
+    expect(
+      resolveGeography(["Asia Pacific", "Southeast Asia"], "TH", nested).used,
+    ).toBe("Southeast Asia");
+  });
+
+  it("does not walk a two-letter region request up to a wider region", () => {
+    const jrc: Geography = {
+      global: true,
+      regions: { EU: ["DE", "FR"], Europe: ["DE", "FR", "NO"] },
+    };
+    expect(resolveGeography(["Global", "Europe"], "EU", jrc).used).toBe(
+      "Global",
+    );
+  });
+});

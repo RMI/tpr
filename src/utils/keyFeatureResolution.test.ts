@@ -542,3 +542,34 @@ describe("sourceScopeLabel", () => {
     );
   });
 });
+
+describe("geographyChain — a country that includes territories (#1071)", () => {
+  const geo: Geography = {
+    global: true,
+    regions: {
+      "Asia Pacific": ["CN", "HK", "JP", "MO"],
+      // Holds CN but not HK or MO, so it does not contain the country CN.
+      "Mainland Asia": ["CN", "IN"],
+    },
+    country: { CN: ["CN", "HK", "MO"] },
+  };
+
+  it("walks a territory out to the country that includes it", () => {
+    expect(geographyChain("HK", geo)).toEqual([
+      "HK",
+      "CN",
+      "Asia Pacific",
+      "across regions",
+      "Global",
+    ]);
+  });
+
+  it("walks the country only to regions that hold all of its codes", () => {
+    expect(geographyChain("CN", geo)).toEqual([
+      "CN",
+      "Asia Pacific",
+      "across regions",
+      "Global",
+    ]);
+  });
+});

@@ -60,41 +60,62 @@ export function pathwayISOCoverage(
   return codes;
 }
 
-// The ISO-3166-1 alpha-2 codes a pathway's OWN `regions[label]` entry declares —
-// the publication's mapping, never the filter-region vocabulary in
-// `filterRegions.ts`. `flattenGeography` carries region labels only, so this is how
-// display code gets the membership behind a region badge back (#799). Returns an
-// empty array when `label` is not one of the pathway's regions; every declared
-// region has two or more members (#998). `geographyKind` cannot tell an undeclared
-// label apart either — it answers "region" for any non-Global, non-country token —
-// so a caller that needs to know has to look for the label in `geo.regions`
-// itself. Unrecognised codes are
-// dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the order
-// comes from `sortGeographiesForDetails` so members read A→Z by ISO2 exactly like
-// country badges elsewhere.
-export function regionMemberCodes(
+// The ISO-3166-1 alpha-2 codes one of a pathway's OWN tokens declares: a
+// `regions[label]` entry's members, or a `country[code]` entry's codes (a
+// country can include territories, e.g. CN with HK and MO, #1071). Always the
+// publication's mapping, never the filter-region vocabulary in
+// `filterRegions.ts`. `flattenGeography` carries keys only, so this is how
+// display code gets the membership behind a badge back (#799). Returns an empty
+// array for a token the pathway does not declare; every declared region has two
+// or more members and every country at least its own code. `geographyKind`
+// cannot tell an undeclared label apart — it answers "region" for any
+// non-Global, non-country token — so a caller that needs to know has to look
+// for the token in `geo` itself. Regions are looked up first, so a two-letter
+// region label such as JRC's "EU" reads as the region it is. Unrecognised codes
+// are dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the
+// order comes from `sortGeographiesForDetails` so members read A→Z by ISO2
+// exactly like country badges elsewhere.
+export function geographyMemberCodes(
   geo: Geography | null | undefined,
-  label: string,
+  token: string,
 ): GeographyCode[] {
-  if (!geo || typeof geo !== "object" || !geo.regions) return [];
-  const wanted = normalizeGeography(label);
+  if (!geo || typeof geo !== "object") return [];
+  const wanted = normalizeGeography(token);
   if (!wanted) return [];
   // Match on the normalized form so the lookup accepts the same token
   // `flattenGeography` emitted, even if the raw key carries stray whitespace.
   // Exact otherwise: timeseries labels are the metadata's own (#945, enforced
   // by validateTimeseries), so no spelling fold is needed.
-  const key = Object.keys(geo.regions).find(
+  const regionKey = Object.keys(geo.regions ?? {}).find(
     (k) => normalizeGeography(k) === wanted,
   );
-  if (key === undefined) return [];
-  const members = geo.regions[key];
+  const members: unknown =
+    regionKey !== undefined
+      ? geo.regions?.[regionKey]
+      : geo.country?.[toISO2(wanted) ?? ""];
   if (!Array.isArray(members)) return [];
   const codes = new Set<string>();
   for (const raw of members) {
-    const iso = toISO2(raw);
+    const iso = toISO2(String(raw));
     if (iso && countryNameFromISO2(iso)) codes.add(iso);
   }
   return sortGeographiesForDetails([...codes]) as GeographyCode[];
+}
+
+// Whether a geography badge lists members in a tooltip: every region does (an
+// undeclared one says it has no mapping), and so does a country that includes
+// more than its own code — NGFS's US with Puerto Rico and the US Virgin Islands.
+// A plain country, and Global, have nothing to list, and a tooltip-less badge
+// stays a plain span with no focus trigger.
+export function hasMemberList(
+  geo: Geography | null | undefined,
+  token: string,
+): boolean {
+  const kind = geographyKind(token);
+  if (kind === "region") return true;
+  if (kind === "global") return false;
+  const self = toISO2(token);
+  return geographyMemberCodes(geo, token).some((code) => code !== self);
 }
 
 // A pathway has "absent" geography when flattening yields no tokens — i.e. an
