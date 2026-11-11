@@ -26,6 +26,12 @@ type RegionMembersTooltipProps = {
   label: string;
   /** When set, matching members are floated to the front (same rule as the badges). */
   searchTerm?: string;
+  /**
+   * How many members to name before "+N more". Defaults to
+   * REGION_TOOLTIP_MAX_MEMBERS. The scope ribbon's preview pane passes Infinity:
+   * it scrolls, so it can afford the full list a tooltip cannot.
+   */
+  maxMembers?: number;
 };
 
 /**
@@ -37,6 +43,7 @@ const RegionMembersTooltip: React.FC<RegionMembersTooltipProps> = ({
   geography,
   label,
   searchTerm,
+  maxMembers = REGION_TOOLTIP_MAX_MEMBERS,
 }) => {
   const codes = regionMemberCodes(geography, label);
   if (codes.length === 0) {
@@ -46,7 +53,7 @@ const RegionMembersTooltip: React.FC<RegionMembersTooltipProps> = ({
   // Prioritization lives here rather than in regionMemberCodes: sortUtils already
   // imports geographyUtils, so the reverse import would be a module cycle.
   const ordered = searchTerm ? prioritizeGeographies(codes, searchTerm) : codes;
-  const shown = ordered.slice(0, REGION_TOOLTIP_MAX_MEMBERS);
+  const shown = ordered.slice(0, maxMembers);
   const hidden = ordered.length - shown.length;
 
   return (

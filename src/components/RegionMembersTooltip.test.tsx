@@ -122,4 +122,22 @@ describe("RegionMembersTooltip", () => {
     );
     expect(screen.getByText(NO_REGION_MAPPING_TEXT)).toBeInTheDocument();
   });
+
+  it("names every member when given no cap, as the ribbon's preview pane does", () => {
+    // The pane scrolls, so it shows the full membership a tooltip cannot. The
+    // default cap above still applies to every caller that passes nothing.
+    const geography = {
+      regions: { Europe: [...FIFTEEN] },
+    } as unknown as Geography;
+    render(
+      <RegionMembersTooltip
+        geography={geography}
+        label="Europe"
+        maxMembers={Infinity}
+      />,
+    );
+    expect(screen.getByText("15 countries")).toBeInTheDocument();
+    expect(screen.getByText("Italy")).toBeInTheDocument();
+    expect(screen.queryByText(/more$/)).toBeNull();
+  });
 });
