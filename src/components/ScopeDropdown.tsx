@@ -1,4 +1,11 @@
-import React, { useEffect, useId, useMemo, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Check, ChevronDown, Search } from "lucide-react";
 import TextWithTooltip from "./TextWithTooltip";
 import { LABEL_CLASS } from "./ScopeAxisRow";
@@ -108,6 +115,34 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
     }
     wasOpen.current = open;
   }, [open, searchable, selected, withData]);
+
+  /*
+    Keep the open panel on screen. It is anchored to its trigger's left edge,
+    and the spec caps its WIDTH at the viewport minus 32px, but not its
+    POSITION: on a phone, a dropdown at the right of the row opened partly
+    off-screen. Measured once it opens, then nudged sideways to leave the same
+    16px gutter at both edges. jsdom has no layout, so this is a no-op there.
+  */
+  const [shift, setShift] = useState(0);
+  useLayoutEffect(() => {
+    if (!open) {
+      setShift(0);
+      return;
+    }
+    const panel = menuRef.current;
+    if (!panel) return;
+    const rect = panel.getBoundingClientRect();
+    if (rect.width === 0) return;
+    const gutter = 16;
+    // The visible width, not window.innerWidth: on a phone an overflowing
+    // panel widens the layout viewport itself, so innerWidth grows to fit the
+    // very panel being measured (461px on a 375px screen, measured).
+    const visible = document.documentElement.clientWidth;
+    let dx = 0;
+    if (rect.right > visible - gutter) dx = visible - gutter - rect.right;
+    if (rect.left + dx < gutter) dx = gutter - rect.left;
+    setShift(dx);
+  }, [open, menuRef]);
 
   // Keep the highlighted option in view as it moves.
   useEffect(() => {
@@ -277,6 +312,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
         <div
           ref={menuRef}
           onKeyDown={onPanelKeyDown}
+          style={shift ? { transform: `translateX(${shift}px)` } : undefined}
           className={`absolute left-0 top-full mt-1 z-40 max-w-[calc(100vw-32px)] rounded-md border border-neutral-200 bg-white shadow-lg ${
             hasPane ? "w-72 sm:w-[34rem]" : "w-72"
           }`}

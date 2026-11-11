@@ -122,7 +122,11 @@ export const InactiveSlot: React.FC<{
     as="button"
     position="bottom"
     tooltip={tooltip}
-    className={`${CONTROL_CLASS} ${IDLE_STATIC_CLASS} ${FOCUS_CLASS} opacity-50 cursor-not-allowed`}
+    // `!` because TextWithTooltip's button carries its own cursor-pointer, and
+    // Tailwind settles two classes for one property by its own stylesheet
+    // order, not by the order they are written in. Measured in the browser:
+    // without it the inactive slot showed a pointer.
+    className={`${CONTROL_CLASS} ${IDLE_STATIC_CLASS} ${FOCUS_CLASS} opacity-50 cursor-not-allowed!`}
     buttonProps={{
       "aria-disabled": true,
       "onClick": (event) => event.preventDefault(),
