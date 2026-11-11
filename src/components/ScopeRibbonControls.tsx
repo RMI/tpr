@@ -35,6 +35,13 @@ export const IDLE_CLASS =
 /** As IDLE, without the hover change: an inactive slot should not invite a click. */
 const IDLE_STATIC_CLASS = "border-neutral-300 text-rmigray-600 bg-white";
 
+/**
+ * A control a reader can click. Set explicitly because a plain <button> shows
+ * the default arrow, while TextWithTooltip's button adds a pointer itself, and
+ * the ribbon would otherwise mix the two.
+ */
+export const CLICKABLE_CLASS = "cursor-pointer";
+
 /** The tabs' focus ring, so the whole sticky bar focuses the same way. */
 export const FOCUS_CLASS =
   "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-energy focus-visible:ring-offset-1";
@@ -143,7 +150,7 @@ export const ChoiceButton: React.FC<{
   onSelect: (token: string) => void;
   geography: Geography | null | undefined;
 }> = ({ level, option, selected, onSelect, geography }) => {
-  const className = `${CONTROL_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  const className = `${CONTROL_CLASS} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
   const content = (
     <>
       <LevelIcon level={level} />

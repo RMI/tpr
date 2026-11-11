@@ -229,9 +229,59 @@ const clickTab = (name: string): void => {
   fireEvent.click(screen.getByRole("tab", { name }));
 };
 
+/**
+ * Select `name` through whichever ribbon control offers it: a one-option
+ * button directly, otherwise the dropdown that lists it. Since the ribbon moved
+ * from pills to dropdowns, a sector with company is chosen from a list.
+ */
+/**
+ * Wait for the page's own scope seed to land. It arrives in an effect after the
+ * pathway loads, so it can follow the content a test waited for by a render.
+ * Assert on the opening scope, or act on the ribbon, only after this: acting
+ * first means the seed overwrites the choice.
+ */
+const waitForSeed = (): Promise<void> =>
+  waitFor(() => {
+    // The ribbon must exist first: before it renders, "not selected" is
+    // absent too, and the wait would pass having waited for nothing.
+    expect(screen.getByRole("group", { name: "Sector" })).toBeInTheDocument();
+    expect(
+      screen.queryByRole("button", { name: "Sector: not selected" }),
+    ).toBeNull();
+  }, WAIT);
+
 const selectScope = async (name: string): Promise<void> => {
-  await userEvent.click(screen.getByRole("button", { name }));
+  await waitForSeed();
+  const button = screen.queryByRole("button", { name });
+  if (button) {
+    await userEvent.click(button);
+    return;
+  }
+  const triggers = screen
+    .getAllByRole("button")
+    .filter((b) => b.getAttribute("aria-haspopup") === "listbox");
+  for (const trigger of triggers) {
+    await userEvent.click(trigger);
+    const option = screen.queryByRole("option", { name });
+    if (option) {
+      await userEvent.click(option);
+      return;
+    }
+    await userEvent.keyboard("{Escape}");
+  }
+  throw new Error(`No ribbon control offers "${name}"`);
 };
+
+/**
+ * The sector the ribbon holds, read from its dropdown's accessible name.
+ *
+ * Awaited, not read synchronously: the page seeds the scope in an effect once
+ * the pathway arrives, so the seeded value can land a render after the content
+ * the test waited for. The old pill rows happened to hide that, because their
+ * overflow measurement forced an extra render first.
+ */
+const findSectorControl = (name: string): Promise<HTMLElement> =>
+  screen.findByRole("button", { name: `Sector: ${name}` }, WAIT);
 
 /** The key feature labelled `label`: its item in the group's list. */
 async function findFeature(label: string): Promise<HTMLElement> {
@@ -251,7 +301,9 @@ async function findFeature(label: string): Promise<HTMLElement> {
 
 /** Open the tooltip on `trigger`'s focusable ancestor, and read it. */
 async function tooltipOf(trigger: HTMLElement): Promise<string | null> {
-  const focusable = trigger.closest("[tabindex]") as HTMLElement;
+  // A <button> is focusable without a tabindex attribute: the ribbon's
+  // inactive slots are buttons, the older triggers are tabindex spans.
+  const focusable = trigger.closest("button, [tabindex]") as HTMLElement;
   // Re-fired inside waitFor: TextWithTooltip attaches its listeners in an
   // effect, and a focus that lands before them is dropped without a trace.
   await waitFor(() => {
@@ -277,18 +329,14 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       await screen.findByText("The description prose.", undefined, WAIT);
 
       // Widest declared token first: this fixture is global, so Global.
-      expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      );
+      expect(await findSectorControl("Power")).toBeInTheDocument();
       expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
         "aria-pressed",
         "true",
       );
-      expect(screen.getByRole("button", { name: "Steel" })).toHaveAttribute(
-        "aria-pressed",
-        "false",
-      );
+      expect(
+        screen.queryByRole("button", { name: "Sector: Steel" }),
+      ).toBeNull();
       expect(
         screen.getByRole("button", { name: "South East Asia" }),
       ).toHaveAttribute("aria-pressed", "false");
@@ -302,16 +350,23 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
   );
 
   it(
-    "leaves a token with nothing to show out of the ribbon, but not out of Coverage (#1046)",
+    "lists a token with nothing to show as an inactive slot that says why (reverses #1046)",
     async () => {
+      // Replaces "leaves a token with nothing to show out of the ribbon, but
+      // not out of Coverage (#1046)". The ribbon now lists every declared
+      // token (Sebastian, 2026-11-05). SG has no benchmark data, and its only
+      // key feature says "No information", so nothing can be shown for it
+      // (#1017): it is the pathway's only country, so its slot is inactive and
+      // keeps its own name (spec §4.4) -- the edge state no real pathway
+      // reaches today.
       await mountDetailPage("/pathway/detail-scope?tab=scope");
       await screen.findByRole("region", { name: "Geographies" }, WAIT);
 
-      // SG has no benchmark data, and its only key feature says "No
-      // information", so there is nothing to show for it (#1017).
-      expect(
-        screen.getByRole("group", { name: "Geography" }),
-      ).not.toHaveTextContent("Singapore");
+      const singapore = screen.getByRole("button", { name: "Singapore" });
+      expect(singapore).toHaveAttribute("aria-disabled", "true");
+      expect(await tooltipOf(singapore)).toBe(
+        "No data for Singapore in TPR yet.",
+      );
       // The Coverage panel still lists the pathway's full coverage.
       expect(
         screen.getByRole("region", { name: "Geographies" }),
@@ -330,10 +385,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
 
       // Buildings has no benchmark data or dependency, only a key feature.
       await selectScope("Buildings");
-      expect(screen.getByRole("button", { name: "Buildings" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      );
+      expect(await findSectorControl("Buildings")).toBeInTheDocument();
       expect(
         screen.getByRole("heading", { level: 4, name: "Emissions" })
           .parentElement,
@@ -447,6 +499,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
 
       await mountDetailPage();
       await screen.findByText("The description prose.", undefined, WAIT);
+      await waitForSeed();
 
       expect(
         screen.getByRole("button", { name: "South East Asia" }),
@@ -455,10 +508,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
         "aria-pressed",
         "false",
       );
-      expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
-        "aria-pressed",
-        "true",
-      );
+      expect(await findSectorControl("Power")).toBeInTheDocument();
     },
     TEST_TIMEOUT,
   );
@@ -492,6 +542,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       // Wait for the Emissions group, not the panel title: the title differs
       // per tab and has been renamed before (#1041).
       await screen.findByRole("heading", { level: 4, name: "Emissions" }, WAIT);
+      await waitForSeed();
       const emissions = (): HTMLElement =>
         screen.getByRole("heading", { level: 4, name: "Emissions" })
           .parentElement as HTMLElement;
@@ -519,6 +570,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     async () => {
       // Electrification is on the full panel only, not At a glance's subset.
       await mountDetailPage("/pathway/detail-scope?tab=assumptions");
+      await waitForSeed();
       const electrification = await findFeature("Electrification");
 
       // Opens on Power · Global, which inherits the across sectors value.

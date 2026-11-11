@@ -25,6 +25,42 @@ const pathway = {
 
 const NO_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
 
+// Several options per axis, so the dropdowns are exercised. Buildings and
+// Germany have no data; everything else does.
+const multi = {
+  ...pathway,
+  sectors: [
+    { name: "Steel", technologies: [] },
+    { name: "Power", technologies: [] },
+    { name: "Buildings", technologies: [] },
+  ],
+  geography: {
+    global: true,
+    regions: { "South East Asia": ["VN", "TH"], "Europe": ["DE", "FR"] },
+    country: ["VN", "US", "DE"],
+  },
+} as unknown as PathwayMetadataType;
+const MULTI_DATA: ScopeAvailability = {
+  hasSector: (s) => s !== "Buildings",
+  hasGeography: (g) => g !== "DE",
+};
+const renderMulti = (
+  scope: PathwayScopeSelection = { sector: "Power", geography: "Global" },
+  onScopeChange: (next: PathwayScopeSelection) => void = () => {},
+) =>
+  render(
+    <PathwayContextRibbon
+      pathway={multi}
+      scope={scope}
+      onScopeChange={onScopeChange}
+      availability={MULTI_DATA}
+    >
+      <div role="tablist">
+        <button role="tab">At a glance</button>
+      </div>
+    </PathwayContextRibbon>,
+  );
+
 const renderRibbon = (
   scope: PathwayScopeSelection = NO_SCOPE,
   onScopeChange: (next: PathwayScopeSelection) => void = () => {},
@@ -42,29 +78,6 @@ const renderRibbon = (
       </div>
     </PathwayContextRibbon>,
   );
-
-/**
- * Lay out any element whose text includes `label` on a second row, as a
- * narrow ribbon would. Stubbed on the prototype so it also holds for badges
- * BadgeArray mounts afresh when expanding. Returns the restore function.
- */
-const wrapOntoSecondRow = (label: string) => {
-  const original = Object.getOwnPropertyDescriptor(
-    HTMLElement.prototype,
-    "offsetTop",
-  );
-  Object.defineProperty(HTMLElement.prototype, "offsetTop", {
-    configurable: true,
-    get(this: HTMLElement) {
-      return this.textContent?.includes(label) ? 24 : 0;
-    },
-  });
-  return () => {
-    if (original) {
-      Object.defineProperty(HTMLElement.prototype, "offsetTop", original);
-    }
-  };
-};
 
 /** Drive the sentinel past the top of the viewport. */
 const scrollPast = () =>
@@ -235,13 +248,29 @@ describe("PathwayContextRibbon", () => {
     ).toBeInTheDocument();
   });
 
-  it("presses the badge matching the active scope, and only that one", () => {
+  it("marks the control holding the selection, and only that one", () => {
+    // Replaces "presses the badge matching the active scope". The selection now
+    // shows on the control of the slot that holds it; the other slots stay idle.
+    renderMulti({ sector: "Steel", geography: "VN" });
+
+    expect(
+      screen.getByRole("button", { name: "Sector: Steel" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Country: Vietnam" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Region: not selected" }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Global/ })).toHaveAttribute(
+      "aria-pressed",
+      "false",
+    );
+  });
+
+  it("presses a one-option geography button when it holds the selection", () => {
     renderRibbon({ sector: "Power", geography: "Global" });
 
-    expect(screen.getByRole("button", { name: "Power" })).toHaveAttribute(
-      "aria-pressed",
-      "true",
-    );
     expect(screen.getByRole("button", { name: "Global" })).toHaveAttribute(
       "aria-pressed",
       "true",
@@ -266,52 +295,61 @@ describe("PathwayContextRibbon", () => {
     });
   });
 
-  it("ignores a click on the already-selected badge", async () => {
+  it("ignores a click on the already-selected option", async () => {
     // Both axes always carry a value, so there is no "no selection" state to
-    // toggle back to; re-clicking is a no-op rather than a clear.
+    // toggle back to; re-picking is a no-op rather than a clear.
     const onScopeChange = vi.fn();
-    renderRibbon({ sector: "Power", geography: "Global" }, onScopeChange);
+    renderMulti({ sector: "Power", geography: "Global" }, onScopeChange);
 
-    await userEvent.click(screen.getByRole("button", { name: "Power" }));
-    await userEvent.click(screen.getByRole("button", { name: "Global" }));
+    await userEvent.click(screen.getByRole("button", { name: /Global/ }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Sector: Power" }),
+    );
+    await userEvent.click(screen.getByRole("option", { name: "Power" }));
 
     expect(onScopeChange).not.toHaveBeenCalled();
   });
 
-  describe("availability (#1017, #1046)", () => {
-    // Power and South East Asia have something to show; Global and US do not.
-    const SEA_POWER: ScopeAvailability = {
-      hasSector: (s) => s === "Power",
-      hasGeography: (g) => g === "South East Asia",
-    };
+  describe("availability (#1017; #1046 reversed for this ribbon)", () => {
+    it("lists every declared token, those without data last and unpickable", async () => {
+      // Replaces "lists only the tokens with something to show". This ribbon
+      // deliberately reverses #1046 (Sebastian, 2026-11-05): a token the
+      // pathway declares is listed even with nothing to show, greyed and last.
+      const onScopeChange = vi.fn();
+      renderMulti({ sector: "Power", geography: "Global" }, onScopeChange);
 
-    it("lists only the tokens with something to show", () => {
-      renderRibbon(NO_SCOPE, () => {}, SEA_POWER);
-
-      const geographyGroup = screen.getByRole("group", { name: "Geography" });
-      expect(
-        screen.getByRole("button", { name: "South East Asia" }),
-      ).not.toHaveClass("bg-transparent");
-      // Not outlined: not there at all. Coverage is the Scope tab's job.
-      expect(geographyGroup).not.toHaveTextContent("Global");
-      expect(geographyGroup).not.toHaveTextContent("United States of America");
+      await userEvent.click(
+        screen.getByRole("button", { name: "Country: not selected" }),
+      );
+      const names = screen.getAllByRole("option").map((o) => o.textContent);
+      expect(names).toEqual(["United States of America", "Vietnam", "Germany"]);
+      const germany = screen.getByRole("option", { name: "Germany" });
+      expect(germany).toHaveAttribute("aria-disabled", "true");
+      await userEvent.click(germany);
+      expect(onScopeChange).not.toHaveBeenCalled();
     });
 
-    it("says so, in place of the badges, when nothing on an axis can be selected", () => {
+    it("shows inactive slots that explain themselves when nothing can be selected", async () => {
+      // Replaces the empty-axis note. Nothing is hidden: each slot is greyed,
+      // still reachable by keyboard, and says why in its tooltip.
       renderRibbon(NO_SCOPE, () => {}, {
         hasSector: () => false,
         hasGeography: () => false,
       });
 
-      expect(screen.getByRole("group", { name: "Sector" })).toHaveTextContent(
-        "No sector-specific information for this pathway.",
-      );
+      const unavailable = screen
+        .getAllByRole("button")
+        .filter((b) => b.getAttribute("aria-disabled") === "true");
+      // Sector, Global, Region and Country.
+      expect(unavailable).toHaveLength(4);
       expect(
-        screen.getByRole("group", { name: "Geography" }),
-      ).toHaveTextContent(
-        "No geography-specific information for this pathway.",
+        screen.queryByText(/specific information for this pathway/),
+      ).toBeNull();
+
+      fireEvent.focus(screen.getByRole("button", { name: /United States/ }));
+      expect(await screen.findByRole("tooltip")).toHaveTextContent(
+        "No data for United States of America in TPR yet.",
       );
-      expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
     });
   });
 
@@ -323,61 +361,64 @@ describe("PathwayContextRibbon", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("keeps the selected token visible rather than hidden behind '+N more'", () => {
-    // The ribbon pins the selection first, so a single-row collapse can never
-    // swallow the badge that says what the reader is looking at.
-    // The scope holds the raw token ("US"); the badge renders its label.
-    renderRibbon({ sector: null, geography: "US" });
+  it("shows the selection on its slot's control, however long the list", () => {
+    // Replaces "keeps the selected token visible rather than hidden behind
+    // '+N more'". There is no overflow now: the selection always names the
+    // control of the slot that holds it. The scope holds the raw token ("US");
+    // the control shows its label.
+    renderMulti({ sector: "Power", geography: "US" });
 
-    const geographyGroup = screen.getByRole("group", { name: "Geography" });
-    const first = geographyGroup.querySelector("button");
-    expect(first).toHaveTextContent("United States of America");
+    expect(
+      screen.getByRole("button", { name: "Country: United States of America" }),
+    ).toHaveTextContent("United States of America");
   });
 
-  it("reveals the remaining options on request", async () => {
-    // A narrow ribbon: the US badge wraps to a second row, so it is cut off.
-    const restore = wrapOntoSecondRow("United States of America");
-    try {
-      renderRibbon();
+  it("reaches every option by opening its dropdown", async () => {
+    // Replaces "reveals the remaining options on request" ("Show all").
+    renderMulti();
 
-      expect(
-        screen.queryByRole("button", { name: "United States of America" }),
-      ).toBeNull();
-      await userEvent.click(screen.getByRole("button", { name: "Show all" }));
-      expect(
-        screen.getByRole("button", { name: "United States of America" }),
-      ).toBeInTheDocument();
-      expect(
-        screen.getByRole("button", { name: "Show fewer" }),
-      ).toBeInTheDocument();
-    } finally {
-      restore();
-    }
+    await userEvent.click(
+      screen.getByRole("button", { name: "Region: not selected" }),
+    );
+    expect(screen.getAllByRole("option").map((o) => o.textContent)).toEqual([
+      "Europe",
+      "South East Asia",
+    ]);
   });
 
-  it("exposes the expand control's state and the badges it controls", async () => {
-    const restore = wrapOntoSecondRow("United States of America");
-    try {
-      renderRibbon();
+  it("exposes each dropdown's state and the list it opens", async () => {
+    // Replaces "exposes the expand control's state and the badges it controls".
+    renderMulti();
 
-      const showAll = screen.getByRole("button", { name: "Show all" });
-      expect(showAll).toHaveAttribute("aria-expanded", "false");
-      const geographyGroup = screen.getByRole("group", { name: "Geography" });
-      expect(showAll).toHaveAttribute("aria-controls", geographyGroup.id);
-      expect(geographyGroup.id).not.toBe("");
-
-      await userEvent.click(showAll);
-      expect(
-        screen.getByRole("button", { name: "Show fewer" }),
-      ).toHaveAttribute("aria-expanded", "true");
-    } finally {
-      restore();
-    }
+    const trigger = screen.getByRole("button", {
+      name: "Region: not selected",
+    });
+    expect(trigger).toHaveAttribute("aria-haspopup", "listbox");
+    expect(trigger).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(trigger);
+    expect(trigger).toHaveAttribute("aria-expanded", "true");
+    expect(screen.getByRole("listbox", { name: "Region" })).toBeInTheDocument();
   });
 
-  it("offers no 'Show all' when every badge already fits (#1026)", () => {
-    // jsdom lays every badge out on one row, as a wide ribbon would.
-    renderRibbon();
+  it("always joins the three geography slots with 'or', even when some are inactive", () => {
+    // The word states that Global, Region and Country are one choice (spec
+    // §4.6). The slots are always rendered, so the separators always are too.
+    renderRibbon(NO_SCOPE, () => {}, {
+      hasSector: () => true,
+      hasGeography: () => false,
+    });
+    const geography = screen.getByRole("group", { name: "Geography" });
+    expect(
+      Array.from(geography.querySelectorAll("span")).filter(
+        (el) => el.textContent === "or",
+      ),
+    ).toHaveLength(2);
+  });
+
+  it("offers no 'Show all' control: long lists live in the dropdowns", () => {
+    // Was "offers no 'Show all' when every badge already fits (#1026)". With
+    // dropdowns there is no overflow to reveal, on any pathway.
+    renderMulti();
 
     expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
     expect(screen.queryByRole("button", { name: "Show fewer" })).toBeNull();

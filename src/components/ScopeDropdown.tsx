@@ -12,6 +12,7 @@ import {
 } from "../utils/scopeRibbon";
 import {
   ACTIVE_CLASS,
+  CLICKABLE_CLASS,
   CONTROL_CLASS,
   FOCUS_CLASS,
   IDLE_CLASS,
@@ -83,6 +84,9 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   const selected = withData.find((o) => o.token === selectedToken) ?? null;
   const searchable = needsSearch(all.length);
   const hasPane = levelHasInfo(level);
+  // The closed trigger describes its selection only when there is one, and
+  // only for levels that carry information (sector, region).
+  const showsInfo = hasPane && selected !== null;
   const name = LEVEL_NAME[level];
 
   const visibleData = filterOptions(withData, query);
@@ -184,7 +188,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
       />
     </>
   );
-  const triggerClass = `${CONTROL_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  const triggerClass = `${CONTROL_CLASS} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
   const triggerLabel = `${name}: ${selected?.label ?? "not selected"}`;
   const triggerAttrs = {
     "onClick": toggle,
@@ -240,16 +244,22 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
 
   return (
     <div className="relative inline-block">
-      {hasPane && selected ? (
-        <TextWithTooltip
-          as="button"
-          position="bottom"
-          triggerRef={triggerRef}
-          suppressed={open || quiet}
-          ariaLabel={triggerLabel}
-          className={triggerClass}
-          text={triggerContent}
-          tooltip={
+      {/*
+        Always the same component, whatever the selection: only the tooltip
+        switches off when there is nothing to show. Rendering a plain <button>
+        when idle and a TextWithTooltip once selected swapped the element on
+        the first pick, and focus returned to the old one was lost with it.
+      */}
+      <TextWithTooltip
+        as="button"
+        position="bottom"
+        triggerRef={triggerRef}
+        suppressed={!showsInfo || open || quiet}
+        ariaLabel={triggerLabel}
+        className={triggerClass}
+        text={triggerContent}
+        tooltip={
+          showsInfo && selected ? (
             <InfoTooltipBody name={selected.label}>
               <OptionInfo
                 level={level}
@@ -258,20 +268,10 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
                 capped
               />
             </InfoTooltipBody>
-          }
-          buttonProps={triggerAttrs}
-        />
-      ) : (
-        <button
-          ref={triggerRef}
-          type="button"
-          aria-label={triggerLabel}
-          className={triggerClass}
-          {...triggerAttrs}
-        >
-          {triggerContent}
-        </button>
-      )}
+          ) : null
+        }
+        buttonProps={triggerAttrs}
+      />
 
       {open && (
         <div

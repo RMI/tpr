@@ -116,6 +116,38 @@ describe("ScopeDropdown list", () => {
     expect(trigger).toHaveFocus();
   });
 
+  it("keeps focus on the trigger when the first pick gives this slot its selection", async () => {
+    // An idle Region slot gains a selection on its first pick, so its trigger
+    // starts showing a tooltip. If that swapped the trigger element, focus
+    // returned to the old one would be lost with it.
+    const onSelect = vi.fn();
+    const { rerender } = render(
+      <ScopeDropdown
+        level="region"
+        withData={[opt("Asia"), opt("Europe")]}
+        withoutData={[]}
+        selectedToken="FR"
+        onSelect={onSelect}
+        geography={geography}
+      />,
+    );
+    await userEvent.click(
+      screen.getByRole("button", { name: "Region: not selected" }),
+    );
+    await userEvent.click(screen.getByRole("option", { name: "Asia" }));
+    rerender(
+      <ScopeDropdown
+        level="region"
+        withData={[opt("Asia"), opt("Europe")]}
+        withoutData={[]}
+        selectedToken="Asia"
+        onSelect={onSelect}
+        geography={geography}
+      />,
+    );
+    expect(screen.getByRole("button", { name: "Region: Asia" })).toHaveFocus();
+  });
+
   it("ignores a click on an option without data", async () => {
     const { trigger, onSelect } = renderDropdown();
     await userEvent.click(trigger);

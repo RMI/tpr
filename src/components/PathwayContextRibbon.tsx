@@ -1,17 +1,20 @@
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
-import { PathwayMetadataType, PathwayScopeSelection, Sector } from "../types";
-import BadgeArray from "./BadgeArray";
-import ScopeAxisRow, { EMPTY_AXIS_CLASS, pinSelected } from "./ScopeAxisRow";
-import RegionMembersTooltip from "./RegionMembersTooltip";
+import React, { useEffect, useId, useRef, useState } from "react";
+import { PathwayMetadataType, PathwayScopeSelection } from "../types";
+import { LABEL_CLASS } from "./ScopeAxisRow";
+import ScopeDropdown from "./ScopeDropdown";
 import {
-  flattenGeography,
-  geographyKind,
-  geographyLabel,
-  geographyVariant,
-  normalizeGeography,
-  sortGeographiesForDetails,
-} from "../utils/geographyUtils";
-import { getSectorTooltip } from "../utils/tooltipUtils";
+  ChoiceButton,
+  InactiveSlot,
+  OrSeparator,
+  ReadOnlySector,
+} from "./ScopeRibbonControls";
+import {
+  GEOGRAPHY_LEVELS,
+  geographyLevels,
+  geographyOptions,
+  sectorOptions,
+  slotState,
+} from "../utils/scopeRibbon";
 import type { ScopeAvailability } from "../utils/scopeAvailability";
 import { getPathwayTypeTooltip } from "../utils/tooltipUtils";
 import getTemperatureColor from "../utils/getTemperatureColor";
@@ -74,8 +77,8 @@ interface PathwayContextRibbonProps {
   scope: PathwayScopeSelection;
   onScopeChange: (next: PathwayScopeSelection) => void;
   /**
-   * Which tokens have something to show (#1017). Only those are listed (#1046):
-   * the Coverage panels on the Scope tab show the pathway's full coverage.
+   * Which tokens have something to show (#1017). Everything the pathway declares
+   * is listed; this decides which of those can be selected.
    */
   availability: ScopeAvailability;
   /** The tab list, rendered at the bottom of the sticky stack. */
@@ -83,23 +86,27 @@ interface PathwayContextRibbonProps {
 }
 
 /**
- * The sticky context bar under the title header: which sectors and geographies
- * this pathway covers, plus the tab list, plus a condensed restatement of the
- * title that appears once the full header scrolls away.
+ * The sticky context bar under the title header: the Sector control and the
+ * Global / Region / Country slots, plus the tab list, plus a condensed
+ * restatement of the title that appears once the full header scrolls away.
  *
- * The condensed bar, the ribbon rows and the tab list share ONE sticky wrapper
- * (pinned at the top, below the environment banner when there is one), with the
- * bar as its first in-flow child. That is what removes the need for a
+ * The condensed bar, the scope controls and the tab list share ONE sticky
+ * wrapper (pinned at the top, below the environment banner when there is one),
+ * with the bar as its first in-flow child. That is what removes the need for a
  * `top-[Npx]` offset on the rows below: the bar pushes them down by exactly its
  * own height, measured by the browser rather than by us, so the layout survives
- * the ribbon wrapping to two lines and the bar losing a pill.
+ * the controls wrapping onto a second line.
  *
- * The badges list only tokens with something to show, so every one can be
- * selected (#1046). Those without data took up a row's worth of space for
- * nothing a reader could pick, and showing full coverage is the Coverage
- * panels' job on the Scope tab. The caller computes availability from the
- * bundled timeseries index (`getTimeseriesIndex`), which is there on the first
- * render, so the badges never change after mount.
+ * Dropdowns rather than the pill rows they replaced: the pills could not hold
+ * long lists (JRC-GECO-1.5C-2025 declares 14 sectors and 42 geographies), and
+ * told the reader nothing about whether a value was Global, a region or a
+ * country beyond a shade of green.
+ *
+ * Every option the pathway declares is listed, with those lacking data last and
+ * unpickable. That deliberately reverses #1046 for this ribbon (Sebastian,
+ * 2026-11-05). Which options can be picked is unchanged: `scopeAvailability`,
+ * computed by the caller from the bundled timeseries index, so the controls
+ * never change after mount. The rules for each control are in `scopeRibbon`.
  */
 export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   pathway,
@@ -109,36 +116,30 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
   children,
 }) => {
   const [condensed, sentinelRef] = useCondensedOnScroll();
-  const [expanded, setExpanded] = useState({ sector: false, geography: false });
-  // Whether each axis has more badges than fit on one row, as BadgeArray
-  // measures it. Only then is there anything for "Show all" to reveal (#1026).
-  const [overflows, setOverflows] = useState({
-    sector: false,
-    geography: false,
-  });
   const baseId = useId();
 
-  const geographies = pinSelected(
-    sortGeographiesForDetails(flattenGeography(pathway.geography)).filter(
-      availability.hasGeography,
+  const sectorSlot = slotState(
+    "sector",
+    sectorOptions(
+      (pathway.sectors ?? []).map((s) => s.name),
+      availability,
     ),
-    scope.geography,
   );
-  const sectors = pinSelected(
-    pathway.sectors.map((s) => s.name).filter(availability.hasSector),
-    scope.sector,
-  );
+  const levels = geographyLevels(pathway.geography);
+  const geographySlots = GEOGRAPHY_LEVELS.map((level) => ({
+    level,
+    state: slotState(level, geographyOptions(levels[level], availability)),
+  }));
 
-  const tooltipForGeography = useCallback(
-    (geo: string) =>
-      geographyKind(geo) === "region" ? (
-        <RegionMembersTooltip
-          geography={pathway.geography}
-          label={geo}
-        />
-      ) : undefined,
-    [pathway.geography],
-  );
+  // Re-picking the current value is a no-op, not a clear: both axes always
+  // carry a value (spec §5.4), and an identical update would only re-render.
+  const selectSector = (sector: string) => {
+    if (sector !== scope.sector) onScopeChange({ ...scope, sector });
+  };
+  // One geography across all three slots: picking in one replaces the others.
+  const selectGeography = (geography: string) => {
+    if (geography !== scope.geography) onScopeChange({ ...scope, geography });
+  };
 
   const hasNetzero = Boolean(pathway.modelYearNetzero);
   const hasTemp = typeof pathway.modelTempIncrease === "number";
@@ -198,83 +199,79 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
         </div>
 
         <div className="bg-white/95 backdrop-blur border-b border-neutral-200">
-          <div className="px-6 pt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 items-start">
-            <ScopeAxisRow
-              label="Sector"
-              labelId={`${baseId}-sector`}
-              expandable={sectors.length > 0 && overflows.sector}
-              expanded={expanded.sector}
-              onToggleExpand={() =>
-                setExpanded((prev) => ({ ...prev, sector: !prev.sector }))
-              }
+          <div className="px-6 pt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+            <div
+              role="group"
+              aria-labelledby={`${baseId}-sector`}
+              className="flex items-center gap-2 min-w-0"
             >
-              {sectors.length === 0 ? (
-                <p className={EMPTY_AXIS_CLASS}>
-                  No sector-specific information for this pathway.
-                </p>
+              <span
+                id={`${baseId}-sector`}
+                className={LABEL_CLASS}
+              >
+                Sector
+              </span>
+              {sectorSlot.kind === "inactive" ? (
+                <InactiveSlot
+                  level="sector"
+                  label={sectorSlot.label}
+                  tooltip={sectorSlot.tooltip}
+                />
+              ) : sectorSlot.kind === "single" ? (
+                <ReadOnlySector option={sectorSlot.option} />
               ) : (
-                <BadgeArray<string>
-                  variant="sector"
-                  // The scope selection is `string` so a stale value degrades
-                  // rather than failing to type; the lookup falls back to
-                  // "No tooltip available." for anything unrecognised.
-                  tooltipGetter={(sector) => getSectorTooltip(sector as Sector)}
-                  maxRows={1}
-                  expanded={expanded.sector}
-                  onOverflowChange={(sector) =>
-                    setOverflows((prev) => ({ ...prev, sector }))
-                  }
-                  selected={scope.sector}
-                  // BadgeArray reports null when the pressed badge is clicked
-                  // again. Ignored: an axis always carries a value.
-                  onSelect={(next) =>
-                    next === null
-                      ? undefined
-                      : onScopeChange({ ...scope, sector: next })
-                  }
-                >
-                  {sectors}
-                </BadgeArray>
+                <ScopeDropdown
+                  level="sector"
+                  withData={sectorSlot.withData}
+                  withoutData={sectorSlot.withoutData}
+                  selectedToken={scope.sector}
+                  onSelect={selectSector}
+                  geography={pathway.geography}
+                />
               )}
-            </ScopeAxisRow>
+            </div>
 
-            <ScopeAxisRow
-              label="Geography"
-              labelId={`${baseId}-geography`}
-              expandable={geographies.length > 0 && overflows.geography}
-              expanded={expanded.geography}
-              onToggleExpand={() =>
-                setExpanded((prev) => ({ ...prev, geography: !prev.geography }))
-              }
+            <div
+              role="group"
+              aria-labelledby={`${baseId}-geography`}
+              className="flex flex-wrap items-center gap-x-1.5 gap-y-2 min-w-0"
             >
-              {geographies.length === 0 ? (
-                <p className={EMPTY_AXIS_CLASS}>
-                  No geography-specific information for this pathway.
-                </p>
-              ) : (
-                <BadgeArray<string>
-                  variant={geographies.map((geo) =>
-                    geographyVariant(geographyKind(geo)),
+              <span
+                id={`${baseId}-geography`}
+                className={`${LABEL_CLASS} mr-0.5`}
+              >
+                Geography
+              </span>
+              {geographySlots.map(({ level, state }, index) => (
+                <React.Fragment key={level}>
+                  {index > 0 && <OrSeparator />}
+                  {state.kind === "inactive" ? (
+                    <InactiveSlot
+                      level={level}
+                      label={state.label}
+                      tooltip={state.tooltip}
+                    />
+                  ) : state.kind === "single" ? (
+                    <ChoiceButton
+                      level={level}
+                      option={state.option}
+                      selected={scope.geography === state.option.token}
+                      onSelect={selectGeography}
+                      geography={pathway.geography}
+                    />
+                  ) : (
+                    <ScopeDropdown
+                      level={level}
+                      withData={state.withData}
+                      withoutData={state.withoutData}
+                      selectedToken={scope.geography}
+                      onSelect={selectGeography}
+                      geography={pathway.geography}
+                    />
                   )}
-                  toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
-                  tooltipGetter={tooltipForGeography}
-                  maxRows={1}
-                  expanded={expanded.geography}
-                  onOverflowChange={(geography) =>
-                    setOverflows((prev) => ({ ...prev, geography }))
-                  }
-                  selected={scope.geography}
-                  // Ignored on null, as for sector above.
-                  onSelect={(next) =>
-                    next === null
-                      ? undefined
-                      : onScopeChange({ ...scope, geography: next })
-                  }
-                >
-                  {geographies}
-                </BadgeArray>
-              )}
-            </ScopeAxisRow>
+                </React.Fragment>
+              ))}
+            </div>
           </div>
           {children}
         </div>
