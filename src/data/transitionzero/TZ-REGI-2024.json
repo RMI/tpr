@@ -44,7 +44,18 @@
     "regions": {
       "ASEAN": ["BN", "KH", "ID", "LA", "MM", "MY", "PH", "SG", "TH", "VN"]
     },
-    "country": ["BN", "KH", "ID", "LA", "MM", "MY", "PH", "SG", "TH", "VN"]
+    "country": {
+      "BN": ["BN"],
+      "KH": ["KH"],
+      "ID": ["ID"],
+      "LA": ["LA"],
+      "MM": ["MM"],
+      "MY": ["MY"],
+      "PH": ["PH"],
+      "SG": ["SG"],
+      "TH": ["TH"],
+      "VN": ["VN"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,

@@ -23,7 +23,9 @@
   },
   "description": "Net-zero pathway with economic shifts toward low-emissions-intensity sectors.",
   "geography": {
-    "country": ["VN"]
+    "country": {
+      "VN": ["VN"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

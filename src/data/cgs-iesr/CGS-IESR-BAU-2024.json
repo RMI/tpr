@@ -43,7 +43,9 @@
   },
   "description": "Indonesia-specific power pathway built on the Comprehensive Investment and Policy Plan (CIPP).",
   "geography": {
-    "country": ["ID"]
+    "country": {
+      "ID": ["ID"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2022,

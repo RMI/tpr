@@ -30,7 +30,9 @@
   },
   "description": "Business-as-usual pathway with significant hydropower and coal use.",
   "geography": {
-    "country": ["LA"]
+    "country": {
+      "LA": ["LA"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2018,

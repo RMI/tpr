@@ -28,7 +28,9 @@
   },
   "description": "Thailand-specific pathway reflecting current energy policy and continued ambition.",
   "geography": {
-    "country": ["TH"]
+    "country": {
+      "TH": ["TH"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2018,
