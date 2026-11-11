@@ -191,7 +191,8 @@ const FEATURE_DESCRIPTIONS: Record<KeyFeatureKey, React.ReactNode> = {
       </p>
       <p>
         This does not apply to the power sector, which generates the
-        electricity, so a power-sector selection shows “Not applicable.”
+        electricity, so it does not represent final energy use. Selecting the
+        power sector therefore shows “Not applicable.”
       </p>
     </>
   ),
