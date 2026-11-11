@@ -1012,9 +1012,9 @@ const ResourcesMethodologyPage: React.FC = () => {
                   description={
                     <p>
                       Describes in what form the source publication provides the
-                      values. Where values appear in more than one form, the
-                      easiest to extract is recorded: tables before text before
-                      figures.
+                      data values. Where values appear in more than one form,
+                      the easiest to extract is recorded: tables before text
+                      before figures.
                     </p>
                   }
                   values={
