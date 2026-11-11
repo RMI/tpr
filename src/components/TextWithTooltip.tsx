@@ -18,6 +18,20 @@ interface TextWithTooltipProps {
   as?: "span" | "button";
   /** Forwarded to the trigger when `as="button"` (e.g. `aria-pressed`, `onClick`). */
   buttonProps?: React.ButtonHTMLAttributes<HTMLButtonElement>;
+  /**
+   * A ref the caller also needs on the trigger, merged with this component's
+   * own. A dropdown whose trigger carries a tooltip needs this: `useDropdown`
+   * reads its `triggerRef` to ignore clicks on the trigger and to return focus
+   * there on close, and the trigger is this component's element.
+   */
+  triggerRef?: React.Ref<HTMLElement>;
+  /**
+   * Keep the tooltip hidden. Hides it immediately if it is showing, and it only
+   * returns on a fresh hover or focus after this goes back to false, rather
+   * than popping back the moment the flag clears. Used while a dropdown's list
+   * is open, so the tooltip does not cover the list it describes.
+   */
+  suppressed?: boolean;
 }
 
 // Arrow component that uses Tailwind classes
@@ -64,6 +78,8 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
   position = "right",
   as = "span",
   buttonProps,
+  triggerRef: externalRef,
+  suppressed = false,
 }) => {
   // Generate a unique ID for this tooltip instance
   const tooltipId = useId();
@@ -72,12 +88,22 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
   const triggerRef = useRef<HTMLElement | null>(null);
   const setTriggerRef = (el: HTMLElement | null): void => {
     triggerRef.current = el;
+    if (typeof externalRef === "function") externalRef(el);
+    else if (externalRef) externalRef.current = el;
   };
   const [tooltipPosition, setTooltipPosition] = useState<{
     top: number;
     left: number;
   } | null>(null);
   const [isVisible, setIsVisible] = useState(false);
+
+  // Suppressing clears the visible state rather than masking it, so the
+  // tooltip waits for a new hover or focus instead of reappearing when the
+  // flag drops.
+  useEffect(() => {
+    if (suppressed) setIsVisible(false);
+  }, [suppressed]);
+  const showing = isVisible && !suppressed;
 
   // Handle click to blur (remove focus) from tooltip trigger
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -220,8 +246,8 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
       top: tooltipPosition.top,
       left: tooltipPosition.left,
       zIndex: 9999,
-      opacity: isVisible ? 1 : 0,
-      visibility: isVisible ? "visible" : "hidden",
+      opacity: showing ? 1 : 0,
+      visibility: showing ? "visible" : "hidden",
       transition: "opacity 200ms ease-in-out, visibility 200ms ease-in-out",
       pointerEvents: "none",
     } as React.CSSProperties;
@@ -237,7 +263,7 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
           aria-label={ariaLabel}
           // No blur-on-click here: the click is the control's actual action, and
           // blurring would also dismiss the tooltip the reader just opened.
-          aria-describedby={isVisible ? tooltipId : undefined}
+          aria-describedby={showing ? tooltipId : undefined}
           {...buttonPropsRest}
           // After the spread, and composed rather than replaced: a caller's own
           // onKeyDown used to override this one and take Escape-to-dismiss with
@@ -257,13 +283,13 @@ const TextWithTooltip: React.FC<TextWithTooltipProps> = ({
           aria-label={ariaLabel}
           onClick={handleClick}
           onKeyDown={handleKeyDown}
-          aria-describedby={isVisible ? tooltipId : undefined}
+          aria-describedby={showing ? tooltipId : undefined}
         >
           {text}
         </span>
       )}
 
-      {isVisible &&
+      {showing &&
         tooltipPosition &&
         createPortal(
           <div

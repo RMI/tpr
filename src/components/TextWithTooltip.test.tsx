@@ -1,6 +1,7 @@
 // src/components/TextWithTooltip.test.tsx
 import { describe, it, expect, vi } from "vitest";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
+import { createRef } from "react";
 import userEvent from "@testing-library/user-event";
 import TextWithTooltip from "./TextWithTooltip";
 
@@ -150,5 +151,127 @@ describe("TextWithTooltip as a button trigger", () => {
     const button = screen.getByRole("button");
     await userEvent.click(button);
     expect(button).toHaveFocus();
+  });
+});
+
+/*
+ * The two optional props added for the scope ribbon's dropdown triggers. Both
+ * default off, and the tests above exercise every existing caller's path with
+ * neither set, so those callers are unaffected.
+ */
+describe("TextWithTooltip external trigger ref", () => {
+  it("hands the trigger element to an object ref", () => {
+    const ref = createRef<HTMLElement>();
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+        triggerRef={ref}
+      />,
+    );
+    expect(ref.current).toBe(screen.getByRole("button"));
+  });
+
+  it("calls a callback ref with the trigger element", () => {
+    const ref = vi.fn();
+    render(
+      <TextWithTooltip
+        text="Sector"
+        tooltip="Info"
+        triggerRef={ref}
+      />,
+    );
+    expect(ref).toHaveBeenCalledWith(screen.getByText("Sector"));
+  });
+
+  it("keeps its own hover behaviour while sharing the element", () => {
+    // The merge must not replace the internal ref: positioning and the hover
+    // listeners read it.
+    const ref = createRef<HTMLElement>();
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+        triggerRef={ref}
+      />,
+    );
+    fireEvent.mouseEnter(screen.getByRole("button"));
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Info");
+  });
+});
+
+describe("TextWithTooltip suppressed", () => {
+  it("does not show while suppressed", () => {
+    render(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+        suppressed
+      />,
+    );
+    const button = screen.getByRole("button");
+    fireEvent.mouseEnter(button);
+    expect(screen.queryByRole("tooltip")).toBeNull();
+    expect(button).not.toHaveAttribute("aria-describedby");
+  });
+
+  it("hides a showing tooltip the moment it is suppressed", () => {
+    const { rerender } = render(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+      />,
+    );
+    fireEvent.mouseEnter(screen.getByRole("button"));
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+
+    rerender(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+        suppressed
+      />,
+    );
+    expect(screen.queryByRole("tooltip")).toBeNull();
+  });
+
+  it("waits for a fresh hover after suppression ends, rather than popping back", () => {
+    // A dropdown suppresses while its list is open. When the list closes the
+    // tooltip should not reappear over the page on its own.
+    const { rerender } = render(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+      />,
+    );
+    const button = screen.getByRole("button");
+    fireEvent.mouseEnter(button);
+    rerender(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+        suppressed
+      />,
+    );
+    rerender(
+      <TextWithTooltip
+        as="button"
+        text="Sector"
+        tooltip="Info"
+      />,
+    );
+    expect(screen.queryByRole("tooltip")).toBeNull();
+
+    act(() => {
+      fireEvent.mouseEnter(button);
+    });
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
   });
 });
