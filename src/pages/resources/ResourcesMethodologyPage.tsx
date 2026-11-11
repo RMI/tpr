@@ -1065,12 +1065,25 @@ const ResourcesMethodologyPage: React.FC = () => {
                 <div className="space-y-4 text-rmigray-700 leading-7">
                   <p>
                     Lists the regions and countries that the pathway covers.
-                    Countries follow ISO 3166 definitions. Regions keep the
-                    names used in the source publication and list the member
-                    countries the publication assigns to them. A region always
-                    has at least two members; a single country is listed as a
-                    country.
                   </p>
+                  <ul className="list-disc space-y-2 pl-5">
+                    <li>
+                      <b>Countries:</b> a geography is a country when the
+                      publication names a single country. It is shown with its
+                      ISO 3166 name. Some publications count territories with
+                      their country, for example Hong Kong and Macao with China.
+                      The TPR follows each publication, so the same country can
+                      include different territories in different pathways. Where
+                      it does, hovering over the country’s badge lists the
+                      territories it also includes.
+                    </li>
+                    <li>
+                      <b>Regions:</b> any other geography is a region, for
+                      example ASEAN or the EU. Regions keep the names used in
+                      the source publication, and hovering over a region’s badge
+                      lists the member countries the publication assigns to it.
+                    </li>
+                  </ul>
                   {/* Kept as a single italic block: #917 replaced the
                       earlier two-sentence note with the policy wording alone,
                       and the test suite asserts exactly one italic run carries
