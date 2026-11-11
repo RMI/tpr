@@ -323,6 +323,23 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/asean-centre-for-energy/ACE-CNS-2024.json",
   },
+  // Canada Energy Regulator -- Canada's Energy Future 2026.
+  "CER:CM:": {
+    mode: "update",
+    file: "src/data/canada-energy-regulator/CER-EF2026-CM.json",
+  },
+  "CER:Higher:": {
+    mode: "update",
+    file: "src/data/canada-energy-regulator/CER-EF2026-HIGHER.json",
+  },
+  "CER:Lower:": {
+    mode: "update",
+    file: "src/data/canada-energy-regulator/CER-EF2026-LOWER.json",
+  },
+  "CER:CNZ:": {
+    mode: "update",
+    file: "src/data/canada-energy-regulator/CER-EF2026-CNZ.json",
+  },
   // UN SDSN / ClimateWorks -- Thailand.
   "SDSN:EXT TH:": {
     mode: "update",
@@ -577,6 +594,7 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("green future") || l.includes("agf")) return "AGF";
   if (l.includes("iea") || l.includes("international energy")) return "IEA";
   if (l.includes("asean centre") || l === "ace") return "ACE";
+  if (l.includes("canada energy regulator") || l === "cer") return "CER";
   if (l.includes("philippines") || l.includes("department of energy"))
     return "PHDOE";
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";
@@ -1247,7 +1265,7 @@ export function parseSegments(
   bad: Set<string>,
 ): string[] {
   const out: string[] = [];
-  for (const tok of unwrapSectorGroup(cell, sector).split(/[;,]/)) {
+  for (const tok of unwrapSectorGroup(cell, sector).split(/[;,/]/)) {
     const t = tok.trim();
     if (!t) continue;
     const hit = matchEnum(t, SEGMENTS);
@@ -1353,7 +1371,10 @@ export function buildDataAvailability(
       row["Time resolution"] ?? "",
       TIME_RESOLUTIONS,
     );
-    const dataFormat = matchEnum(row["Data Format"] ?? "", DATA_FORMATS);
+    const dataFormat = matchEnum(
+      row["Data Format"] ?? row["Data format"] ?? "",
+      DATA_FORMATS,
+    );
     const scopeLimitations = (row["Scope limitations"] ?? "").trim();
     const sectorSegment = parseSegments(
       row["Sector segment"] ?? "",
