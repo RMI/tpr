@@ -10,6 +10,7 @@
       "type": "string",
       "enum": [
         "ASEAN Centre for Energy",
+        "Canada Energy Regulator",
         "Indonesia Just Energy Transition Partnership Secretariat",
         "Center for Global Sustainability and Institute for Essential Services Reform",
         "Electricity and Renewable Energy Authority in Viet Nam, Danish Energy Agency",
@@ -27,6 +28,7 @@
       "type": "string",
       "enum": [
         "ACE",
+        "CER",
         "IEA",
         "CGS, IESR",
         "JETP ID",
@@ -64,6 +66,13 @@
                   "const": "Indonesia Just Energy Transition Partnership Secretariat"
                 },
                 "short": { "const": "JETP ID" }
+              },
+              "required": ["full", "short"]
+            },
+            {
+              "properties": {
+                "full": { "const": "Canada Energy Regulator" },
+                "short": { "const": "CER" }
               },
               "required": ["full", "short"]
             },
