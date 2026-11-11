@@ -1,7 +1,8 @@
 import { describe, it, expect } from "vitest";
-import { render, screen, within, act } from "@testing-library/react";
+import { cleanup, render, screen, within, act } from "@testing-library/react";
 import { MemoryRouter } from "react-router";
 import ResourcesHowToChooseAPathwayPage from "./ResourcesHowToChooseAPathwayPage";
+import ResourcesMethodologyPage from "./ResourcesMethodologyPage";
 import { MockIntersectionObserver } from "../../test/mockIntersectionObserver";
 
 const renderPage = () =>
@@ -106,5 +107,42 @@ describe("ResourcesHowToChooseAPathwayPage — no collapsed content (#955)", () 
         name: /Credible does not mean suitable/,
       }),
     ).not.toBeInTheDocument();
+  });
+});
+
+describe("ResourcesHowToChooseAPathwayPage — links to the methodology", () => {
+  it("links each named pathway section to the methodology section explaining it", () => {
+    renderPage();
+
+    const sectionLinks = screen
+      .getAllByRole("link")
+      .filter((link) =>
+        link.getAttribute("href")?.startsWith("/resources/methodology#"),
+      );
+    const targets = sectionLinks.map((link) => ({
+      text: link.textContent,
+      id: link.getAttribute("href")!.split("#")[1],
+    }));
+    expect(targets).toEqual([
+      { text: "Pathway Description", id: "pathway-description" },
+      { text: "Assumptions & Trends", id: "assumptions-and-trends" },
+      { text: "Data Availability", id: "data-availability" },
+      { text: "Coverage", id: "coverage" },
+      { text: "Data Availability", id: "data-availability" },
+    ]);
+    // Section names are bold, like every tab or section name on these pages.
+    for (const link of sectionLinks) {
+      expect(link.querySelector("b")).toHaveTextContent(link.textContent);
+    }
+
+    cleanup();
+    render(
+      <MemoryRouter>
+        <ResourcesMethodologyPage />
+      </MemoryRouter>,
+    );
+    for (const { id } of targets) {
+      expect(document.getElementById(id), id).not.toBeNull();
+    }
   });
 });

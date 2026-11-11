@@ -4,6 +4,23 @@ import InfoCallout from "../../components/InfoCallout";
 import OnPageIndex from "../../components/OnPageIndex";
 import PageHeader from "../../components/PageHeader";
 
+/**
+ * A tab or section of a pathway's page, named in the text, linked to where
+ * the Methodology page explains it. Bold, like every tab or section name on
+ * the resource pages, so it stands out from the surrounding text.
+ */
+const MethodologyLink: React.FC<{
+  section: string;
+  children: React.ReactNode;
+}> = ({ section, children }) => (
+  <Link
+    to={`/resources/methodology#${section}`}
+    className="text-energy-700 underline underline-offset-2 hover:text-energy-800"
+  >
+    <b>{children}</b>
+  </Link>
+);
+
 const quickStartCards = [
   {
     title: "If your use case is about target ambition",
@@ -398,8 +415,15 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                   for more details.
                 </p>
                 <p className="mt-3">
-                  You can find these features in the pathway summary and key
-                  features sections of the TPR.
+                  You can find these features in the{" "}
+                  <MethodologyLink section="pathway-description">
+                    Pathway Description
+                  </MethodologyLink>{" "}
+                  and the{" "}
+                  <MethodologyLink section="assumptions-and-trends">
+                    Assumptions &amp; Trends
+                  </MethodologyLink>{" "}
+                  section of each pathway in the TPR.
                 </p>
               </Step>
 
@@ -425,8 +449,14 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                   assess policy risk in Indonesia.
                 </p>
                 <p className="mt-3">
-                  This information is available in the expert overview and key
-                  features of each pathway in the TPR.
+                  This information is available in the{" "}
+                  <MethodologyLink section="data-availability">
+                    Data Availability
+                  </MethodologyLink>{" "}
+                  and{" "}
+                  <MethodologyLink section="coverage">Coverage</MethodologyLink>{" "}
+                  sections on the <b>Scope &amp; Granularity</b> tab of each
+                  pathway in the TPR.
                 </p>
               </Step>
 
@@ -442,9 +472,12 @@ const ResourcesHowToChooseAPathwayPage: React.FC = () => {
                   comparison with company data.
                 </p>
                 <p className="mt-3">
-                  You can see what data is available in the pathway expert
-                  overview, as well as the standardized data download in the
-                  TPR.
+                  You can see what data is available in the{" "}
+                  <MethodologyLink section="data-availability">
+                    Data Availability
+                  </MethodologyLink>{" "}
+                  section of each pathway, as well as the standardized data
+                  download on its <b>Timeseries</b> tab.
                 </p>
               </Step>
             </section>
