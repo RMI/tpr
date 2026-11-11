@@ -54,9 +54,10 @@ const REGION_NAMES = new Intl.DisplayNames(["en"], { type: "region" });
 
 /**
  * The countries a pathway declares, keyed by lower-cased English name, so a
- * rejected label like "Japan" can say which code to write instead (#998: one
- * country code is always a country). Countries inside regions count, as they do
- * for `declaredGeographies`.
+ * rejected label like "Japan" or "China" can say which code to write instead
+ * (#1071: a country is always its code, even when it includes territories).
+ * Codes inside countries and regions count, as they do for
+ * `declaredGeographies`.
  *
  * Uses Intl's short names ("United States", "China") rather than
  * geographyUtils' i18n-iso-countries names: that module imports its locale JSON
@@ -68,7 +69,8 @@ function declaredCountriesByName(
   geo: PathwayMetadataV2["geography"] | null | undefined,
 ): Map<string, string> {
   const codes = [
-    ...(geo?.country ?? []),
+    ...Object.keys(geo?.country ?? {}),
+    ...Object.values(geo?.country ?? {}).flat(),
     ...Object.values(geo?.regions ?? {}).flat(),
   ];
   const byName = new Map<string, string>();

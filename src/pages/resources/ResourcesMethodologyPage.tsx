@@ -353,8 +353,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                       The list of regions and countries covered by the pathway.
                       This will only list countries or regions that the pathway
                       provides benchmark metrics for. All individual countries
-                      are allowed, based on ISO2 (3166) definitions. Regions are
-                      provided as defined in the pathway.
+                      are allowed, based on ISO2 (3166) definitions. Where a
+                      publication counts territories with their country, such as
+                      Hong Kong with China, the country includes them as the
+                      publication defines it. Regions are provided as defined in
+                      the pathway.
                     </p>
                     {/* Kept as a single italic block: #917 replaced the
                         earlier two-sentence note with the policy wording alone,

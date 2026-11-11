@@ -27,13 +27,14 @@ export function flattenGeography(geo: Geography | null | undefined): string[] {
   const tokens: string[] = [];
   if (geo.global) tokens.push("Global");
   if (geo.regions) tokens.push(...Object.keys(geo.regions));
-  if (geo.country) tokens.push(...geo.country);
+  if (geo.country) tokens.push(...Object.keys(geo.country));
   return tokens;
 }
 
-// The ISO-3166-1 alpha-2 codes a pathway actually covers: the union of its
-// standalone `country` list and the member codes of every `regions` entry.
-// Unlike `flattenGeography` (which carries region LABELS, not members), this is
+// The ISO-3166-1 alpha-2 codes a pathway actually covers: the codes of every
+// `country` entry (a country can include territories, e.g. CN with HK, #1071)
+// and of every `regions` entry.
+// Unlike `flattenGeography` (which carries keys and labels, not members), this is
 // the country-level expansion used for ISO-overlap geography matching. The
 // `global` flag is intentionally NOT expanded here — it is a separate boolean,
 // so a global-only pathway yields an empty coverage set (which is what makes
@@ -50,11 +51,11 @@ export function pathwayISOCoverage(
     const iso = toISO2(raw);
     if (iso && countryNameFromISO2(iso)) codes.add(iso as GeographyCode);
   };
-  if (geo.country) geo.country.forEach(add);
-  if (geo.regions) {
-    for (const members of Object.values(geo.regions)) {
-      if (Array.isArray(members)) members.forEach(add);
-    }
+  for (const members of [
+    ...Object.values(geo.country ?? {}),
+    ...Object.values(geo.regions ?? {}),
+  ]) {
+    if (Array.isArray(members)) members.forEach(add);
   }
   return codes;
 }

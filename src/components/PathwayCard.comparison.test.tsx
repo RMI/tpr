@@ -40,7 +40,7 @@ const card = (id: string, sectors: string[]): PathwayMetadataType =>
     },
     pathwayType: "Normative",
     sectors: sectors.map((name) => ({ name, technologies: [] })),
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     metric: [],
     keyFeatures: {},
   }) as unknown as PathwayMetadataType;

@@ -39,7 +39,7 @@ const fixtures = [
     geography: {
       global: true,
       regions: { "South East Asia": ["ID", "TH", "VN"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     },
     // `across sectors`, not the retired `cross-sector`: the resolver looks
     // scopes up exactly, so the old spelling would match nothing. The Steel row
@@ -151,7 +151,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power", technologies: [] }],
     metric: ["Capacity"],
-    geography: { country: ["SG"] },
+    geography: { country: { SG: ["SG"] } },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "Power", geography: "SG", value: "Significant decrease" },

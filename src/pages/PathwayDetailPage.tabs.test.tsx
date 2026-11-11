@@ -22,7 +22,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power", technologies: [] }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     // Scoped v2 entries, not v1 bare values: the resolver reads only entry
     // arrays, so a v1-shaped fixture renders every feature as "No information"
     // and can never prove a value reached a pill.

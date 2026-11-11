@@ -5,6 +5,6 @@
  */
 
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeographyV2 = string;

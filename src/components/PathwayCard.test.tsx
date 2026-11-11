@@ -335,7 +335,7 @@ describe("PathwayCard component", () => {
       geography: {
         global: true,
         regions: { APAC: ["AU", "JP"] },
-        country: ["DE"],
+        country: { DE: ["DE"] },
       }, // DE should render as "Germany"
     };
 

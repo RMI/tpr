@@ -107,7 +107,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       sectors: [{ name: "Power" }],
       // Geography matches by ISO overlap now, so coverage carries real codes.
       // "Europe" here is represented by Germany (DE), "Asia" by Japan (JP).
-      geography: { country: ["DE"] },
+      geography: { country: { DE: ["DE"] } },
       modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,
@@ -135,7 +135,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "D",
       name: { full: "Pathway D", short: "Steel, Asia, no temp" },
       sectors: [{ name: "Steel" }],
-      geography: { country: ["JP"] },
+      geography: { country: { JP: ["JP"] } },
       modelTempIncrease: undefined, // -> Temperature "None"
       pathwayType: "BAU",
       modelYearNetzero: 2030,
@@ -150,7 +150,7 @@ describe("PathwaySearch integration: dropdowns render and filter with 'None'", (
       id: "E",
       name: { full: "Pathway E", short: "Power, Europe+Asia, 2°C" },
       sectors: [{ name: "Power" }],
-      geography: { country: ["DE", "JP"] },
+      geography: { country: { DE: ["DE"], JP: ["JP"] } },
       modelTempIncrease: 2,
       pathwayType: "Net Zero",
       modelYearNetzero: 2050,

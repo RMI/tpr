@@ -23,7 +23,7 @@ function pathway(over: Record<string, unknown> = {}): PathwayMetadataType {
     ],
     geography: {
       regions: { "South East Asia": ["ID", "TH", "VN"] },
-      country: ["TH", "VN"],
+      country: { TH: ["TH"], VN: ["VN"] },
     },
     keyFeatures: {},
     ...over,
@@ -60,7 +60,7 @@ describe("geographyChain", () => {
         // Overlaps Japan and Korea without containing JP, so never on the chain.
         "East Asia": ["CN", "KR"],
       },
-      country: ["JP"],
+      country: { JP: ["JP"] },
     };
     expect(geographyChain("JP", geo)).toEqual([
       "JP",
@@ -78,7 +78,7 @@ describe("geographyChain", () => {
         "Asia Pacific": ["JP", "TH", "VN"],
         "Southeast Asia": ["TH", "VN"],
       },
-      country: ["JP"],
+      country: { JP: ["JP"] },
     };
     expect(geographyChain("Southeast Asia", geo)).toEqual([
       "Southeast Asia",
@@ -99,7 +99,7 @@ describe("geographyChain", () => {
       "OPECplus": ["SA", "AE"],
       "Middle East": ["AE", "SA"],
     };
-    expect(geographyChain("SA", { regions, country: ["SA"] })).toEqual([
+    expect(geographyChain("SA", { regions, country: { SA: ["SA"] } })).toEqual([
       "SA",
       "OPECplus",
       "Middle East",
@@ -112,7 +112,7 @@ describe("geographyChain", () => {
       "OPECplus": ["SA", "AE"],
     };
     expect(
-      geographyChain("SA", { regions: reversed, country: ["SA"] }),
+      geographyChain("SA", { regions: reversed, country: { SA: ["SA"] } }),
     ).toEqual(["SA", "Middle East", "OPECplus", "across regions", "Global"]);
   });
 
@@ -124,7 +124,7 @@ describe("geographyChain", () => {
         // Shares members with South East Asia but not TH itself.
         "Rest South East Asia": ["ID", "VN"],
       },
-      country: ["TH"],
+      country: { TH: ["TH"] },
     };
     expect(geographyChain("TH", geo)).toEqual([
       "TH",
@@ -392,7 +392,7 @@ describe("resolveKeyFeature — edge cases", () => {
     // page says "Not applicable" rather than "No information".
     const p = withEntries("electrification", [], {
       sectors: [{ name: "Power", technologies: [] }],
-      geography: { country: ["SG"] },
+      geography: { country: { SG: ["SG"] } },
     });
     const unavailable = {
       status: "unavailable",
@@ -410,7 +410,7 @@ describe("resolveKeyFeature — edge cases", () => {
   it("names no sector when a field that applies there is unavailable", () => {
     const p = withEntries("emissionsTrajectory", [], {
       sectors: [{ name: "Power", technologies: [] }],
-      geography: { country: ["SG"] },
+      geography: { country: { SG: ["SG"] } },
     });
     expect(
       resolveKeyFeature(p, "emissionsTrajectory", at("Power", "SG")),

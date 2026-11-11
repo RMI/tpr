@@ -36,7 +36,7 @@ const pathwayWith = (
 ): PathwayMetadataType =>
   ({
     sectors: [{ name: "Power", technologies: [] }],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures,
   }) as unknown as PathwayMetadataType;
 
@@ -350,7 +350,7 @@ function scopedPathway(
     ],
     geography: {
       regions: { "South East Asia": ["ID", "TH", "VN"] },
-      country: ["TH"],
+      country: { TH: ["TH"] },
     },
     keyFeatures,
   } as unknown as PathwayMetadataType;
@@ -561,7 +561,7 @@ describe("FeatureItem with a resolution (#869)", () => {
       geography: {
         global: false,
         regions: { Europe: ["DE", "FR"] },
-        country: ["US"],
+        country: { US: ["US"] },
       },
       keyFeatures: {
         emissionsTrajectory: [

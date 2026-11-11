@@ -18,7 +18,7 @@ function pathway(over: Partial<PathwayMetadataV2>): PathwayMetadataV2 {
     ],
     geography: {
       regions: { "South East Asia": ["TH", "VN"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     },
     keyFeatures: {},
     dependencies: [],
@@ -194,6 +194,60 @@ describe("validateScopedEntries — geography axis", () => {
   });
 });
 
+describe("validateScopedEntries — countries with several codes (#1071)", () => {
+  const china = (country: Record<string, string[]>) =>
+    pathway({
+      geography: { country } as unknown as PathwayMetadataV2["geography"],
+    });
+
+  it("accepts a country that includes territories", () => {
+    expect(validateScopedEntries(china({ CN: ["CN", "HK", "MO"] }))).toEqual(
+      [],
+    );
+  });
+
+  it.each(["CN", "HK"])(
+    "accepts %s, the key or a code inside it, as a scope",
+    (geography) => {
+      const errors = validateScopedEntries({
+        ...china({ CN: ["CN", "HK"] }),
+        keyFeatures: {
+          emissionsTrajectory: [entry("Power", geography)],
+        } as unknown as PathwayMetadataV2["keyFeatures"],
+      });
+      expect(errors).toEqual([]);
+    },
+  );
+
+  it("rejects a country that does not list its own code", () => {
+    const errors = validateScopedEntries(china({ CN: ["HK", "MO"] }));
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain("/geography/country/CN does not list CN");
+  });
+
+  it("rejects a code that two countries list", () => {
+    const errors = validateScopedEntries(
+      china({ CN: ["CN", "HK"], HK: ["HK"] }),
+    );
+    expect(errors).toHaveLength(1);
+    expect(errors[0]).toContain(
+      "/geography/country/HK lists HK, which country CN already lists",
+    );
+  });
+
+  it("allows a code in a country and in a region", () => {
+    const errors = validateScopedEntries(
+      pathway({
+        geography: {
+          regions: { "Asia Pacific": ["CN", "HK", "JP"] },
+          country: { CN: ["CN", "HK"] },
+        } as unknown as PathwayMetadataV2["geography"],
+      }),
+    );
+    expect(errors).toEqual([]);
+  });
+});
+
 describe("validateScopedEntries — reporting", () => {
   it("reports both axes of a single bad entry, and indexes each entry", () => {
     const errors = validateScopedEntries(
@@ -364,7 +418,10 @@ describe("validateScopedEntries — one value per scope", () => {
     const errors = validateScopedEntries(
       pathway({
         sectors: [{ name: "Power", technologies: [] }],
-        geography: { regions: { "Power SG": ["SG", "MY"] }, country: ["SG"] },
+        geography: {
+          regions: { "Power SG": ["SG", "MY"] },
+          country: { SG: ["SG"] },
+        },
         keyFeatures: {
           emissionsTrajectory: [
             { sector: "Power", geography: "SG", value: "Minor increase" },
@@ -663,7 +720,7 @@ describe("validateScopedEntries — dataAvailability rows (#870)", () => {
         geography: {
           global: true,
           regions: { "South East Asia": ["ID", "TH", "VN"] },
-          country: ["SG"],
+          country: { SG: ["SG"] },
         },
       }),
     ).toEqual([]);

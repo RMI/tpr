@@ -19,7 +19,7 @@ const pathway = {
   geography: {
     global: true,
     regions: { "South East Asia": ["VN", "TH"] },
-    country: ["US"],
+    country: { US: ["US"] },
   },
 } as unknown as PathwayMetadataType;
 

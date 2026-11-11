@@ -30,7 +30,7 @@ describe("RegionMembersTooltip", () => {
   it("names the member countries instead of showing raw ISO codes", () => {
     const geography: Geography = {
       regions: { "South East Asia": ["TH", "ID"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
     render(
       <RegionMembersTooltip
