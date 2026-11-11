@@ -984,14 +984,14 @@ const ResourcesMethodologyPage: React.FC = () => {
               <Subsection
                 id="time-resolution"
                 title="Time resolution"
-                subtitle="How finely is the data resolved over time?"
+                subtitle="How granular is the temporal resolution of the data?"
               >
                 <DetailWithValues
                   description={
                     <p>
-                      Describes how finely the data is resolved over time. Where
-                      the resolution differs between geographies, the most
-                      detailed one is shown.
+                      Describes the temporal granularity of a metric’s data
+                      points. Where the resolution differs between geographies,
+                      the most detailed one is shown.
                     </p>
                   }
                   values={
