@@ -819,12 +819,22 @@ const ResourcesMethodologyPage: React.FC = () => {
                     the evidence in the pathway.
                   </p>
                   <p>
-                    Dependencies vary by sector, but not by geography. Each
-                    sector relies on its own decarbonization levers, such as
-                    building out renewable power and expanding grids in the
-                    power sector, and each lever depends on different
-                    conditions. On a pathway’s Detail Page, the{" "}
-                    <b>Dependencies</b> are filtered by the selected sector.
+                    The TPR shows how dependencies vary by sector for a pathway.
+                    But they are only provided at the widest geographic scope of
+                    a publication. For geographically granular descriptions of
+                    dependencies, please use publications that specifically
+                    focus on your region of interest. On a pathway’s Detail
+                    Page, the <b>Dependencies</b> are filtered by the selected
+                    sector.
+                  </p>
+                  <p>
+                    There are some common decarbonization levers across sectors,
+                    such as decarbonized grids, green hydrogen, CCUS, biomass as
+                    an input fuel, and secondary materials as inputs. How they
+                    impact a sector can vary, and whether or not a condition
+                    binds for any of these decarbonization levers in the
+                    transition of a sector is a key piece of context information
+                    of a pathway.
                   </p>
                 </>
               }
