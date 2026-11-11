@@ -7,7 +7,10 @@ import {
   sectorSchema,
 } from "../../schema/common";
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
-import { SECTORS_BY_KEY } from "../../utils/timeseriesTaxonomy";
+import {
+  POWER_SECTOR_DEFINITION,
+  SECTORS_BY_KEY,
+} from "../../utils/timeseriesTaxonomy";
 import type { KeyFeatureKey } from "../../utils/keyFeatureRules";
 import {
   GROUPS,
@@ -1213,8 +1216,11 @@ const ResourcesMethodologyPage: React.FC = () => {
                     </p>
                   }
                   values={
+                    // Benchmark metrics are only defined for the power sector
+                    // so far, so they are listed under it, in the same shape
+                    // as the sector segments and technologies above.
                     <ValueList
-                      intro="One or more of:"
+                      intro={`${POWER_SECTOR_DEFINITION.displayName}:`}
                       values={BENCHMARK_METRICS}
                     />
                   }

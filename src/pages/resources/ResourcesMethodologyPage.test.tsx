@@ -218,7 +218,7 @@ describe("ResourcesMethodologyPage — v2 classifications (#1055)", () => {
     const labels = screen.getAllByText("Core driver:");
     expect(labels).toHaveLength(CORE_DRIVER_LABELS.length);
     for (const label of labels) {
-      const item = label.closest("h4 + div")!;
+      const item = label.closest<HTMLElement>("h4 + div")!;
       expect(flatText(item)).toContain("This text field describes");
       expect(flatText(item)).toContain(
         "Free text description for each individual pathway.",
