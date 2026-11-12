@@ -13,6 +13,7 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
   normalizeGeography,
 } from "../utils/geographyUtils";
 import {
@@ -394,7 +395,7 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
                 <Badge
                   variant={geographyVariant(usedKind)}
                   tooltip={
-                    usedKind === "region" ? (
+                    hasMemberList(entry.pathwayGeography, used) ? (
                       <RegionMembersTooltip
                         geography={entry.pathwayGeography}
                         label={used}

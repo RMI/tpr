@@ -10,7 +10,7 @@ import {
   valuesInScope,
 } from "./keyFeatureScope";
 import { ABSENT_FILTER_TOKEN } from "./absent";
-import type { PathwayMetadataType } from "../types";
+import type { Geography, PathwayMetadataType } from "../types";
 
 /**
  * A pathway covering Power and Steel, with one region and one standalone country.
@@ -369,5 +369,23 @@ describe("pathwayScopeOverlaps", () => {
     expect(pathwayScopeOverlaps("South East Asia", "Atlantis", geo)).toBe(
       false,
     );
+  });
+});
+
+describe("scopeISOSet — a country that includes territories (#1071)", () => {
+  const geo: Geography = { country: { CN: ["CN", "HK", "MO"] } };
+
+  it("covers every code of the country", () => {
+    expect([...(scopeISOSet("CN", geo) ?? [])].sort()).toEqual([
+      "CN",
+      "HK",
+      "MO",
+    ]);
+  });
+
+  it("lets a selected territory overlap the country's rows", () => {
+    expect(pathwayScopeOverlaps("CN", "HK", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("HK", "CN", geo)).toBe(true);
+    expect(pathwayScopeOverlaps("CN", "JP", geo)).toBe(false);
   });
 });

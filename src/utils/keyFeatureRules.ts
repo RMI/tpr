@@ -100,8 +100,9 @@ export function declaredGeographyTokens(
  *   - a region label → its members. Checked before countries, so a two-letter
  *     region label such as JRC's `"EU"` resolves through its member list rather
  *     than being read as a country code.
- *   - a declared country → itself. "Declared" as `validateScopes` means it: a
- *     country key or a code inside a declared country or region.
+ *   - a country key → its codes: NGFS's `CN` is {CN, HK, MO} (#1071).
+ *   - any other declared code → itself. "Declared" as `validateScopes` means
+ *     it: a code inside a declared country or region, such as `HK` above.
  *   - anything else → the empty set, meaning "unknown", not "nothing": see
  *     {@link containsCodes}.
  *
@@ -126,6 +127,9 @@ export function declaredTokenCodes(
 
   const members = regions[token];
   if (Array.isArray(members)) return new Set(members);
+
+  const countryCodes = geo.country?.[token];
+  if (Array.isArray(countryCodes)) return new Set(countryCodes);
 
   const code = token as CountryCode;
   const declared = [

@@ -311,3 +311,40 @@ describe("isForbiddenKeyFeatureSector", () => {
     );
   });
 });
+
+describe("a country that includes territories (#1071)", () => {
+  const geo: Geography = {
+    regions: {
+      "Asia Pacific": ["CN", "HK", "JP"],
+      // Holds CN but not HK, so it does not contain the country CN.
+      "Mainland Asia": ["CN", "IN"],
+    },
+    country: { CN: ["CN", "HK"] },
+  };
+
+  it("a country key resolves to all of its codes", () => {
+    expect(sorted(declaredTokenCodes("CN", geo))).toEqual(["CN", "HK"]);
+  });
+
+  it("a code inside the country resolves to itself", () => {
+    expect(sorted(declaredTokenCodes("HK", geo))).toEqual(["HK"]);
+  });
+
+  it("a region contains the country only if it holds every code", () => {
+    const cn = declaredTokenCodes("CN", geo) ?? new Set<string>();
+    expect(containsCodes(declaredTokenCodes("Asia Pacific", geo), cn)).toBe(
+      true,
+    );
+    expect(containsCodes(declaredTokenCodes("Mainland Asia", geo), cn)).toBe(
+      false,
+    );
+  });
+
+  it("is the widest geography of a pathway that declares only it", () => {
+    expect(
+      widestGeography(
+        pathway({ geography: { country: { US: ["PR", "US", "VI"] } } }),
+      ),
+    ).toBe("US");
+  });
+});

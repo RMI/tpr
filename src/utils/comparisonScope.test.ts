@@ -652,3 +652,31 @@ describe("columnsGeographyDivergence", () => {
     ).toEqual({ kind: "none" });
   });
 });
+
+describe("columnsGeographyDivergence — countries with territories (#1071)", () => {
+  it("warns that one country's codes differ between publications", () => {
+    const ieaChina = pathway({
+      id: "iea-cn",
+      publisher: "IEA",
+      sectors: ["Power"],
+      global: true,
+      country: { CN: ["CN", "HK"] },
+    });
+    const jrcChina = pathway({
+      id: "jrc-cn",
+      publisher: "JRC",
+      sectors: ["Power"],
+      global: true,
+      country: { CN: ["CN"] },
+    });
+    const result = columnsGeographyDivergence(
+      { [ieaChina.id]: "CN", [jrcChina.id]: "CN" },
+      [ieaChina, jrcChina],
+    );
+    expect(result).toEqual({
+      kind: "membersDiffer",
+      token: "CN",
+      exclusives: [{ column: ieaChina.name.short, countries: ["HK"] }],
+    });
+  });
+});

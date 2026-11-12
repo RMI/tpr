@@ -14,6 +14,7 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
   normalizeGeography,
 } from "../utils/geographyUtils";
 import {
@@ -238,7 +239,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
                 <Badge
                   variant={geographyVariant(usedKind)}
                   tooltip={
-                    usedKind === "region" ? (
+                    hasMemberList(pathwayGeography, used) ? (
                       <RegionMembersTooltip
                         geography={pathwayGeography}
                         label={used}

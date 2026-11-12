@@ -611,6 +611,32 @@ describe("tooltip functionality", () => {
         screen.getByText("United States of America").closest("[tabindex]"),
       ).toBeNull();
     });
+
+    it("lists a country's territories, and leaves a plain country alone (#1071)", async () => {
+      render(
+        <MemoryRouter>
+          <ComparisonProvider>
+            <PathwayCard
+              pathway={
+                {
+                  ...mockPathwayFull,
+                  geography: {
+                    global: true,
+                    country: { US: ["PR", "US", "VI"], JP: ["JP"] },
+                  },
+                } as unknown as PathwayMetadataType
+              }
+            />
+          </ComparisonProvider>
+        </MemoryRouter>,
+      );
+
+      const tooltip = await openTooltipFor("United States of America");
+      expect(tooltip).toHaveTextContent("Also includes");
+      expect(tooltip).toHaveTextContent("Puerto Rico");
+      expect(tooltip).toHaveTextContent("Virgin Islands, U.S.");
+      expect(screen.getByText("Japan").closest("[tabindex]")).toBeNull();
+    });
   });
 });
 
