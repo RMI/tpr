@@ -327,3 +327,75 @@ describe("ScopeDropdown trigger tooltip", () => {
     expect(screen.queryByRole("tooltip")).toBeNull();
   });
 });
+
+/*
+ * Countries with member codes get the same treatment as regions (Sebastian,
+ * 2026-11-12). Since #1080/#1082 a country can include other codes: China
+ * with Hong Kong, the USA with Puerto Rico and the US Virgin Islands.
+ */
+describe("ScopeDropdown countries with member codes", () => {
+  const withMembers = {
+    country: { CN: ["CN", "HK"], FR: ["FR"] },
+  } as unknown as Geography;
+  const countries = [
+    opt("France", true, "FR"),
+    opt("People's Republic of China", true, "CN"),
+  ];
+
+  it("gets a preview pane when the list holds such a country", async () => {
+    const { trigger } = renderDropdown({
+      level: "country",
+      withData: countries,
+      withoutData: [],
+      selectedToken: "CN",
+      geography: withMembers,
+    });
+    await userEvent.click(trigger);
+    const pane = document.getElementById(
+      screen.getByRole("listbox").getAttribute("aria-describedby") ?? "",
+    );
+    expect(pane).toHaveTextContent("Also includes");
+    expect(pane).toHaveTextContent("Hong Kong");
+  });
+
+  it("says a plain country has nothing more to show", async () => {
+    const { trigger } = renderDropdown({
+      level: "country",
+      withData: countries,
+      withoutData: [],
+      selectedToken: "CN",
+      geography: withMembers,
+    });
+    await userEvent.click(trigger);
+    fireEvent.mouseEnter(screen.getByRole("option", { name: "France" }));
+    const pane = document.getElementById(
+      screen.getByRole("listbox").getAttribute("aria-describedby") ?? "",
+    );
+    expect(pane).toHaveTextContent("France");
+    expect(pane).toHaveTextContent("Nothing more to show.");
+  });
+
+  it("shows the selected country's members on the closed trigger", () => {
+    const { trigger } = renderDropdown({
+      level: "country",
+      withData: countries,
+      withoutData: [],
+      selectedToken: "CN",
+      geography: withMembers,
+    });
+    fireEvent.mouseEnter(trigger);
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Hong Kong");
+  });
+
+  it("shows no tooltip when the selected country has no members", () => {
+    const { trigger } = renderDropdown({
+      level: "country",
+      withData: countries,
+      withoutData: [],
+      selectedToken: "FR",
+      geography: withMembers,
+    });
+    fireEvent.mouseEnter(trigger);
+    expect(screen.queryByRole("tooltip")).toBeNull();
+  });
+});

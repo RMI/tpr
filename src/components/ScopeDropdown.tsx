@@ -26,7 +26,7 @@ import {
   InfoTooltipBody,
   LevelIcon,
   OptionInfo,
-  levelHasInfo,
+  optionHasInfo,
   type RibbonLevel,
 } from "./ScopeRibbonControls";
 import type { Geography } from "../types";
@@ -90,10 +90,15 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
 
   const selected = withData.find((o) => o.token === selectedToken) ?? null;
   const searchable = needsSearch(all.length);
-  const hasPane = levelHasInfo(level);
+  // A pane when any option in this list has something to show. Always for
+  // sectors and regions; for countries, only when the list holds a country
+  // with member codes (China with Hong Kong, say), so most country lists
+  // stay a plain list.
+  const hasPane = all.some((o) => optionHasInfo(level, o.token, geography));
   // The closed trigger describes its selection only when there is one, and
   // only for levels that carry information (sector, region).
-  const showsInfo = hasPane && selected !== null;
+  const showsInfo =
+    selected !== null && optionHasInfo(level, selected.token, geography);
   const name = LEVEL_NAME[level];
 
   const visibleData = filterOptions(withData, query);
@@ -394,12 +399,19 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
                         {NO_DATA_GROUP_LABEL}
                       </p>
                     )}
-                    <OptionInfo
-                      level={level}
-                      token={look.token}
-                      geography={geography}
-                      capped={false}
-                    />
+                    {optionHasInfo(level, look.token, geography) ? (
+                      <OptionInfo
+                        level={level}
+                        token={look.token}
+                        geography={geography}
+                        capped={false}
+                      />
+                    ) : (
+                      // A plain country in a list that also holds one with
+                      // members. The prototype's wording for an option with
+                      // nothing to add.
+                      <p className="text-rmigray-300">Nothing more to show.</p>
+                    )}
                   </>
                 ) : (
                   <p className="text-rmigray-300">

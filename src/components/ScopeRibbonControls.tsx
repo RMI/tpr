@@ -3,6 +3,7 @@ import { Factory, Flag, Globe, Map as MapIcon } from "lucide-react";
 import TextWithTooltip from "./TextWithTooltip";
 import RegionMembersTooltip from "./RegionMembersTooltip";
 import { getSectorTooltip } from "../utils/tooltipUtils";
+import { hasMemberList } from "../utils/geographyUtils";
 import {
   onlySectorText,
   type GeographyLevel,
@@ -65,9 +66,30 @@ export const LevelIcon: React.FC<{ level: RibbonLevel }> = ({ level }) => {
   );
 };
 
-/** Only sectors and regions carry extra information; Global and countries do not. */
+/**
+ * Whether a level can carry information at all: sectors, regions and
+ * countries can; Global never does.
+ */
 export function levelHasInfo(level: RibbonLevel): boolean {
-  return level === "sector" || level === "region";
+  return level !== "global";
+}
+
+/**
+ * Whether one option has information to show.
+ *
+ * Every sector has a description and every region a member list. A country
+ * has one only when the publication counts other codes with it -- China with
+ * Hong Kong, the USA with Puerto Rico and the US Virgin Islands -- since #1080
+ * keyed countries by code and #1082 gave them member lists. Sebastian,
+ * 2026-11-12: such countries get the same treatment as regions.
+ */
+export function optionHasInfo(
+  level: RibbonLevel,
+  token: string,
+  geography: Geography | null | undefined,
+): boolean {
+  if (level === "country") return hasMemberList(geography, token);
+  return levelHasInfo(level);
 }
 
 /**
@@ -84,7 +106,9 @@ export const OptionInfo: React.FC<{
   if (level === "sector") {
     return <span className="block">{getSectorTooltip(token as Sector)}</span>;
   }
-  if (level === "region") {
+  // A country's list reads "Also includes …"; RegionMembersTooltip handles
+  // both, so the wording stays Jacob's (#1082).
+  if (level === "region" || level === "country") {
     return (
       <RegionMembersTooltip
         geography={geography}
@@ -145,7 +169,8 @@ export const InactiveSlot: React.FC<{
  *
  * A button rather than a one-item dropdown, and it stays clickable when it is
  * the only option, so a reader who picked a country can return to the region.
- * A region carries its members in a tooltip, having no list to show them in.
+ * A region, or a country with member codes, carries them in a tooltip, having
+ * no list to show them in.
  */
 export const ChoiceButton: React.FC<{
   level: GeographyLevel;
@@ -162,7 +187,7 @@ export const ChoiceButton: React.FC<{
     </>
   );
 
-  if (!levelHasInfo(level)) {
+  if (!optionHasInfo(level, option.token, geography)) {
     return (
       <button
         type="button"

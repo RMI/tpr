@@ -108,6 +108,46 @@ describe("ChoiceButton", () => {
   });
 });
 
+describe("ChoiceButton for a country", () => {
+  const geo = {
+    country: { CN: ["CN", "HK"], JP: ["JP"] },
+  } as unknown as Geography;
+
+  it("shows a one-option country's member codes in a tooltip", () => {
+    // NGFS-NZ2050-MESSAGE-2024's only country is China, including Hong Kong.
+    render(
+      <ChoiceButton
+        level="country"
+        option={{
+          token: "CN",
+          label: "People's Republic of China",
+          hasData: true,
+        }}
+        selected
+        onSelect={() => {}}
+        geography={geo}
+      />,
+    );
+    fireEvent.mouseEnter(screen.getByRole("button", { name: /China/ }));
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Also includes");
+    expect(screen.getByRole("tooltip")).toHaveTextContent("Hong Kong");
+  });
+
+  it("has no tooltip for a country that is just itself", () => {
+    render(
+      <ChoiceButton
+        level="country"
+        option={{ token: "JP", label: "Japan", hasData: true }}
+        selected
+        onSelect={() => {}}
+        geography={geo}
+      />,
+    );
+    fireEvent.mouseEnter(screen.getByRole("button", { name: /Japan/ }));
+    expect(screen.queryByRole("tooltip")).toBeNull();
+  });
+});
+
 describe("ReadOnlySector", () => {
   it("is focusable but not a control, and explains itself", async () => {
     render(
