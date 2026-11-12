@@ -298,6 +298,50 @@ describe("ScopeDropdown preview pane", () => {
   });
 });
 
+describe("ScopeDropdown held preview", () => {
+  // Moving from an option into the pane to scroll a long member list must not
+  // revert the pane to the selection (Sebastian, 2026-11-12).
+  it("keeps the pointed-at option in the pane after the pointer leaves the list", async () => {
+    const { trigger } = renderDropdown({
+      level: "region",
+      withData: [opt("Asia"), opt("Europe")],
+      withoutData: [],
+      selectedToken: "Asia",
+    });
+    await userEvent.click(trigger);
+    const listbox = screen.getByRole("listbox");
+    const europe = screen.getByRole("option", { name: "Europe" });
+    fireEvent.mouseEnter(europe);
+    fireEvent.mouseLeave(listbox);
+    const pane = document.getElementById(
+      listbox.getAttribute("aria-describedby") ?? "",
+    );
+    expect(pane).toHaveTextContent("Europe");
+    // The held row is the one lit, not the selection's.
+    expect(europe.className).toContain("bg-neutral-100");
+    expect(
+      screen.getByRole("option", { name: "Asia" }).className,
+    ).not.toContain("bg-neutral-100");
+  });
+
+  it("lets the keyboard take the pane back", async () => {
+    const { trigger } = renderDropdown({
+      level: "region",
+      withData: [opt("Asia"), opt("Europe")],
+      withoutData: [],
+      selectedToken: "Asia",
+    });
+    await userEvent.click(trigger);
+    fireEvent.mouseEnter(screen.getByRole("option", { name: "Europe" }));
+    await userEvent.keyboard("{ArrowUp}");
+    const listbox = screen.getByRole("listbox");
+    const pane = document.getElementById(
+      listbox.getAttribute("aria-describedby") ?? "",
+    );
+    expect(pane).toHaveTextContent("Asia");
+  });
+});
+
 describe("ScopeDropdown trigger tooltip", () => {
   it("shows the selected option's information on hover, capped", () => {
     const { trigger } = renderDropdown({

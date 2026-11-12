@@ -246,6 +246,10 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   const row = (option: RibbonOption, available: boolean) => {
     const isSelected = option.token === selected?.token;
     const isCursor = available && option.token === cursor;
+    // One lit row, the one the pane describes: the held pointer when there
+    // is one, else the keyboard cursor. The pointer can rest on a no-data
+    // row too, since those have a pane worth reading.
+    const isLit = hover !== null ? option.token === hover : isCursor;
     return (
       <li
         key={option.token}
@@ -260,10 +264,8 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
           if (available) pick(option.token);
         }}
         className={`flex items-start gap-2 px-3 py-1.5 text-sm text-rmigray-800 ${
-          available
-            ? "cursor-pointer hover:bg-neutral-100"
-            : "cursor-not-allowed opacity-50"
-        } ${isCursor ? "bg-neutral-100" : ""}`}
+          available ? "cursor-pointer" : "cursor-not-allowed opacity-50"
+        } ${isLit ? "bg-neutral-100" : ""}`}
       >
         <span className="w-3.5 flex-shrink-0 pt-0.5">
           {isSelected && (
@@ -356,7 +358,11 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
               aria-label={name}
               aria-activedescendant={searchable ? undefined : activeId}
               aria-describedby={hasPane ? paneId : undefined}
-              onMouseLeave={() => setHover(null)}
+              // No onMouseLeave reset: the pointed-at option holds the pane
+              // until another option is pointed at or the list closes, so a
+              // reader can move into the pane and scroll a long member list
+              // (Sebastian, 2026-11-12). Clearing on leave reverted the pane to
+              // the selection the moment the pointer crossed into it.
               className={`max-h-72 overflow-y-auto py-1 focus:outline-none ${
                 anyInfo ? "sm:w-60 sm:shrink-0" : ""
               }`}
