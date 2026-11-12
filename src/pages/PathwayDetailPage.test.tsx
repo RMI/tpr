@@ -32,7 +32,7 @@ const fixtures = [
       regions: {
         "South East Asia": ["VN", "ID", "TH"],
       },
-      country: ["US"],
+      country: { US: ["US"] },
     },
     keyFeatures: { emissionsTrajectory: "Significant decrease" },
   },

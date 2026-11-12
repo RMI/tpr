@@ -99,7 +99,6 @@
     "global": true,
     "regions": {
       "Canada / NZ / Australia": ["AU", "CA", "HM", "NZ", "PM"],
-      "China": ["CN", "HK", "MO", "TW"],
       "Countries from the Reforming Economies of the Former Soviet Union": [
         "AM",
         "AZ",
@@ -352,7 +351,12 @@
         "ZW"
       ]
     },
-    "country": ["IN", "JP", "US"]
+    "country": {
+      "IN": ["IN"],
+      "JP": ["JP"],
+      "US": ["US"],
+      "CN": ["CN", "HK", "MO", "TW"]
+    }
   },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.4,
@@ -455,7 +459,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -530,7 +534,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -590,7 +594,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -650,7 +654,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -717,7 +721,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant improvement"
       },
       {
@@ -792,7 +796,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -852,7 +856,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -912,7 +916,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -979,7 +983,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -1054,7 +1058,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Minor increase"
       },
       {
@@ -1114,7 +1118,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "No information"
       },
       {
@@ -1174,7 +1178,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -1241,7 +1245,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant increase"
       },
       {
@@ -1311,7 +1315,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1371,7 +1375,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1438,7 +1442,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1513,7 +1517,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1573,7 +1577,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1633,7 +1637,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1700,7 +1704,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1775,7 +1779,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1835,7 +1839,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1895,7 +1899,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1962,7 +1966,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2037,7 +2041,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2097,7 +2101,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2157,7 +2161,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2224,7 +2228,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2299,7 +2303,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2359,7 +2363,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2419,7 +2423,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2486,7 +2490,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2561,7 +2565,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2621,7 +2625,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2681,7 +2685,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2748,7 +2752,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2823,7 +2827,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2883,7 +2887,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2943,7 +2947,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3010,7 +3014,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3085,7 +3089,7 @@
       },
       {
         "sector": "Aviation",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3145,7 +3149,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3205,7 +3209,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3461,7 +3465,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3485,7 +3489,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3509,7 +3513,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3545,7 +3549,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3580,7 +3584,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3625,7 +3629,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3653,7 +3657,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3689,7 +3693,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3733,7 +3737,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3817,7 +3821,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3851,7 +3855,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",
@@ -3885,7 +3889,7 @@
         "geography": [
           "Global",
           "Canada / NZ / Australia",
-          "China",
+          "CN",
           "Countries from the Reforming Economies of the Former Soviet Union",
           "EU 28",
           "IN",

@@ -20,7 +20,7 @@ function pathway(
 describe("coverageTiers", () => {
   it("marks every country a non-global pathway covers as dedicated", () => {
     const tiers = coverageTiers([
-      pathway({ regions: { ASEAN: ["TH", "VN"] }, country: ["PH"] }),
+      pathway({ regions: { ASEAN: ["TH", "VN"] }, country: { PH: ["PH"] } }),
     ]);
 
     expect(tiers.get("TH")).toBe("dedicated");
@@ -42,7 +42,7 @@ describe("coverageTiers", () => {
       expect.arrayContaining(["DE", "GB", "CA", "IN", "CN"]),
     );
 
-    const tiers = coverageTiers([pathway({ country: ["GB"] })]);
+    const tiers = coverageTiers([pathway({ country: { GB: ["GB"] } })]);
 
     expect(tiers.get("DE")).toBe("planned");
     expect(tiers.get("GB")).toBe("dedicated");
@@ -82,7 +82,9 @@ describe("toCountryShapes", () => {
 describe("CoverageMap", () => {
   it("draws the map once the shapes load, with a dot for Singapore", async () => {
     const { container } = render(
-      <CoverageMap pathways={[pathway({ country: ["SG", "TH"] })]} />,
+      <CoverageMap
+        pathways={[pathway({ country: { SG: ["SG"], TH: ["TH"] } })]}
+      />,
     );
 
     expect(
@@ -105,7 +107,7 @@ describe("CoverageMap", () => {
 
   it("shades France without French Guiana", async () => {
     const { container } = render(
-      <CoverageMap pathways={[pathway({ country: ["FR"] })]} />,
+      <CoverageMap pathways={[pathway({ country: { FR: ["FR"] } })]} />,
     );
     await screen.findByRole("img", { name: /world map/i });
 

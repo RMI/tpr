@@ -32,7 +32,9 @@
   },
   "description": "Philippines-specific least-cost pathway to achieve current policy targets.",
   "geography": {
-    "country": ["PH"]
+    "country": {
+      "PH": ["PH"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

@@ -3,7 +3,7 @@ import {
   geographyKind,
   geographyLabel,
   normalizeGeography,
-  regionMemberCodes,
+  geographyMemberCodes,
   sortGeographiesForDetails,
   toISO2,
 } from "./geographyUtils";
@@ -31,8 +31,11 @@ export type GeographyResolution = {
 /**
  * Pick the best available geography for a plot.
  *
- * Order: the exact request → a region in the data that contains the requested
- * country → `Global` → the broadest geography present. `requested === null`
+ * Order: the exact request → the smallest geography in the data that contains
+ * every code of the requested country → `Global` → the broadest geography
+ * present. "Contains" reads the pathway's own mapping, so a request for `HK`
+ * falls back to a `CN` that includes it (#1071), and one for that `CN`
+ * {CN, HK} only to a region holding both. `requested === null`
  * means "no preference", so it goes straight to the broadest and is NOT
  * reported as a fallback.
  *
@@ -42,8 +45,8 @@ export type GeographyResolution = {
  * @param available  Geographies present in the timeseries data.
  * @param requested  The reader's choice, or null for no preference.
  * @param pathwayGeography  The pathway's own metadata, used to resolve which
- *   region contains a requested country. Region membership is the publication's
- *   mapping, never a shared region vocabulary.
+ *   region or country contains a requested country. Membership is the
+ *   publication's mapping, never a shared region vocabulary.
  */
 export function resolveGeography(
   available: string[],
@@ -78,16 +81,28 @@ export function resolveGeography(
     return { used: exact, requested: wanted, fellBack: false, reason: "exact" };
   }
 
-  // A requested country may be covered by a region the data does carry.
+  // A requested country may be covered by a broader geography the data does
+  // carry: a region, or a country that includes it. Smallest first, so the
+  // fallback stays as close to the request as the data allows.
+  // Countries only: a region request (even a two-letter one like JRC's "EU")
+  // goes on to Global, as it always has.
   const wantedISO = toISO2(wanted);
-  if (wantedISO) {
-    const containing = ranked.find(
-      (geo) =>
-        geographyKind(geo) === "region" &&
-        regionMemberCodes(pathwayGeography, geo).some(
-          (code) => code === wantedISO,
-        ),
-    );
+  if (wantedISO && geographyKind(wanted) === "country") {
+    const declared = geographyMemberCodes(pathwayGeography, wanted);
+    const wantedCodes: string[] = declared.length > 0 ? declared : [wantedISO];
+    const containing = ranked
+      .filter((geo) => geographyKind(geo) !== "global")
+      .map((geo) => ({
+        geo,
+        codes: new Set<string>(geographyMemberCodes(pathwayGeography, geo)),
+      }))
+      .filter(
+        ({ geo, codes }) =>
+          normalizeGeography(geo) !== wanted &&
+          wantedCodes.every((code) => codes.has(code)),
+      )
+      // Array#sort is stable, so equal sizes keep the ranked order.
+      .sort((a, b) => a.codes.size - b.codes.size)[0]?.geo;
     if (containing !== undefined) {
       return {
         used: containing,

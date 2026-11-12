@@ -30,7 +30,9 @@
   },
   "description": "Pathway balancing high renewables uptake with minimal coal use and reduced hydropower investment.",
   "geography": {
-    "country": ["LA"]
+    "country": {
+      "LA": ["LA"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2018,

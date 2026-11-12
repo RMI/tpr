@@ -80,9 +80,11 @@ export function sectorScopeContains(
 /**
  * The ISO codes an entry's geography scope covers, or `null` for "everything".
  *
- * A region label resolves through the pathway's own `geography.regions` mapping.
- * A token that is neither declared nor an ISO code resolves to the empty set and
- * therefore matches nothing rather than matching everything.
+ * A region label resolves through the pathway's own `geography.regions` mapping,
+ * and a country key through `geography.country`, so NGFS's `CN` covers HK and
+ * MO too (#1071). Any other ISO code stands for itself. A token that is neither
+ * declared nor an ISO code resolves to the empty set and therefore matches
+ * nothing rather than matching everything.
  */
 export function entryISOSet(
   entryGeography: string,
@@ -106,6 +108,9 @@ export function scopeISOSet(
 
   const members = geo?.regions?.[token];
   if (Array.isArray(members)) return new Set(members);
+
+  const countryCodes = geo?.country?.[token];
+  if (Array.isArray(countryCodes)) return new Set(countryCodes);
 
   const iso = toISO2(token);
   if (iso) return new Set([iso as GeographyCode]);

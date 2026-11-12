@@ -15,9 +15,10 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
   normalizeGeography,
-  sortGeographiesForDetails,
   REGION_MAPPING_DISCLAIMER,
+  sortGeographiesForDetails,
 } from "../utils/geographyUtils";
 import { ArrowLeft, Info } from "lucide-react";
 import {
@@ -278,7 +279,7 @@ const PathwayDetailPage: React.FC = () => {
           })}
           toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
           tooltipGetter={(geo) =>
-            geographyKind(geo) === "region" ? (
+            hasMemberList(pathway.geography, geo) ? (
               <RegionMembersTooltip
                 geography={pathway.geography}
                 label={geo}

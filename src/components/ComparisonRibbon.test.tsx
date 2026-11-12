@@ -28,14 +28,14 @@ vi.mock("../data/pathwayMetadata", () => ({
       name: { full: "Pathway One" },
       publication: { publisher: { short: "Pub1", full: "Publisher One" } },
       sectors: [{ name: "Power" }, { name: "Steel" }],
-      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: [] },
+      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: {} },
     },
     {
       id: "p2",
       name: { full: "Pathway Two" },
       publication: { publisher: { short: null, full: "Publisher Two" } },
       sectors: [{ name: "Steel" }, { name: "Power" }],
-      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: [] },
+      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: {} },
     },
     {
       // A region label carrying both codec delimiters.
@@ -45,7 +45,7 @@ vi.mock("../data/pathwayMetadata", () => ({
       sectors: [{ name: "Power" }],
       geography: {
         regions: { "Latin America: Central, South": ["AR", "BR"] },
-        country: [],
+        country: {},
       },
     },
     {
@@ -56,7 +56,7 @@ vi.mock("../data/pathwayMetadata", () => ({
       sectors: [{ name: "Power" }],
       geography: {
         regions: { "South East Asia": ["ID", "VN"] },
-        country: ["VN"],
+        country: { VN: ["VN"] },
       },
       keyFeatures: {
         emissionsTrajectory: [

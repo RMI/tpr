@@ -208,7 +208,6 @@
         "TH",
         "VN"
       ],
-      "China": ["CN", "HK"],
       "Southeast Asia": [
         "BN",
         "KH",
@@ -222,7 +221,14 @@
         "VN"
       ]
     },
-    "country": ["US", "BR", "RU", "IN", "JP"]
+    "country": {
+      "US": ["US"],
+      "BR": ["BR"],
+      "RU": ["RU"],
+      "IN": ["IN"],
+      "JP": ["JP"],
+      "CN": ["CN", "HK"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelTempIncrease": 2.5,
@@ -322,7 +328,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -402,7 +408,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -484,7 +490,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate improvement"
       },
       {
@@ -564,7 +570,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -646,7 +652,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Minor increase"
       },
       {
@@ -726,7 +732,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "No information"
       },
       {
@@ -808,7 +814,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate increase"
       },
       {
@@ -897,7 +903,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -977,7 +983,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1059,7 +1065,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1139,7 +1145,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1221,7 +1227,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1301,7 +1307,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1383,7 +1389,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1463,7 +1469,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1545,7 +1551,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1625,7 +1631,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1714,7 +1720,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1801,7 +1807,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1883,7 +1889,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1963,7 +1969,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2114,7 +2120,7 @@
           "Eurasia",
           "RU",
           "Asia Pacific",
-          "China",
+          "CN",
           "IN",
           "JP",
           "Southeast Asia"
@@ -2141,7 +2147,7 @@
           "Eurasia",
           "RU",
           "Asia Pacific",
-          "China",
+          "CN",
           "IN",
           "JP",
           "Southeast Asia"
@@ -2168,7 +2174,7 @@
           "Eurasia",
           "RU",
           "Asia Pacific",
-          "China",
+          "CN",
           "IN",
           "JP",
           "Southeast Asia"
@@ -2207,7 +2213,7 @@
           "Eurasia",
           "RU",
           "Asia Pacific",
-          "China",
+          "CN",
           "IN",
           "JP",
           "Southeast Asia"
@@ -2245,7 +2251,7 @@
           "Eurasia",
           "RU",
           "Asia Pacific",
-          "China",
+          "CN",
           "IN",
           "JP",
           "Southeast Asia"
@@ -2280,7 +2286,7 @@
         "metricName": "Technology cost",
         "sector": "Power",
         "sectorSegment": ["Unspecified"],
-        "geography": ["US", "European Union", "China", "IN"],
+        "geography": ["US", "European Union", "CN", "IN"],
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],

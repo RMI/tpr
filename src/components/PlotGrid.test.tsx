@@ -15,7 +15,7 @@ const mockedMultiLineChart = vi.mocked(MultiLineChart);
 const SEA: Geography = {
   global: false,
   regions: { "South East Asia": ["VN", "TH", "ID"] },
-  country: [],
+  country: {},
 };
 
 /** Two years of one metric at one geography — the minimum that plots. */

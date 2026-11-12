@@ -30,7 +30,9 @@
   },
   "description": "Myanmar-specific high ambition near-zero emissions pathway.",
   "geography": {
-    "country": ["MM"]
+    "country": {
+      "MM": ["MM"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2020,

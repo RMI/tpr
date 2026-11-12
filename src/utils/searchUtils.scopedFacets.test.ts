@@ -39,7 +39,7 @@ function pathway(
     })),
     geography: {
       regions: { "South East Asia": ["ID", "TH", "VN"] },
-      country: ["US"],
+      country: { US: ["US"] },
     },
     metric: [],
     keyFeatures: {

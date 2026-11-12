@@ -30,7 +30,9 @@
   },
   "description": "Singapore pathway to achieve near net-zero power emissions through fuel substitution and renewables.",
   "geography": {
-    "country": ["SG"]
+    "country": {
+      "SG": ["SG"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2022,

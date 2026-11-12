@@ -32,7 +32,9 @@
   },
   "description": "Philippines pathway reflecting existing energy policies and gradual renewable adoption through 2060.",
   "geography": {
-    "country": ["PH"]
+    "country": {
+      "PH": ["PH"]
+    }
   },
   "pathwayType": "Predictive",
   "modelYearStart": 2022,

@@ -99,7 +99,7 @@ const scopedPathway = (
     id,
     name: { full: `Pathway ${id}`, short: id },
     sectors: [{ name: "Power" }, { name: "Buildings" }],
-    geography: { global: true, regions, country: ["TH", "VN"] },
+    geography: { global: true, regions, country: { TH: ["TH"], VN: ["VN"] } },
     keyFeatures,
     coreDrivers: NO_DRIVERS,
   }) as unknown as PathwayMetadataType;

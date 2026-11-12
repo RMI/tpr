@@ -6,7 +6,8 @@ import {
   assertKnownCountryISO2,
   pathwayISOCoverage,
   isGeographyAbsent,
-  regionMemberCodes,
+  geographyMemberCodes,
+  hasMemberList,
 } from "./geographyUtils";
 import { makeGeographyOptions } from "./searchUtils";
 import type { Geography, PathwayMetadataType } from "../types";
@@ -100,7 +101,7 @@ describe("sortGeographiesForDetails", () => {
     const structuredGeography = {
       global: true,
       regions: { Europe: ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
     expect(() =>
       sortGeographiesForDetails(structuredGeography as unknown as unknown[]),
@@ -137,12 +138,12 @@ const toGeographyObject = (tokens: string[]) => {
   const geo: {
     global?: boolean;
     regions?: Record<string, string[]>;
-    country?: string[];
+    country?: Record<string, string[]>;
   } = {};
   for (const t of tokens) {
     const kind = geographyKind(t);
     if (kind === "global") geo.global = true;
-    else if (kind === "country") (geo.country ??= []).push(t);
+    else if (kind === "country") (geo.country ??= {})[t] = [t];
     else (geo.regions ??= {})[t] = [];
   }
   return geo;
@@ -210,9 +211,16 @@ describe("pathwayISOCoverage", () => {
   it("unions country[] and all region members", () => {
     const cov = pathwayISOCoverage({
       regions: { "South East Asia": ["ID", "TH"], "Europe": ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     });
     expect([...cov].sort()).toEqual(["DE", "FR", "ID", "TH", "US"]);
+  });
+
+  it("includes every code a country lists, not just its key (#1071)", () => {
+    const cov = pathwayISOCoverage({
+      country: { CN: ["CN", "HK", "MO"], JP: ["JP"] },
+    });
+    expect([...cov].sort()).toEqual(["CN", "HK", "JP", "MO"]);
   });
 
   it("does NOT expand the global flag (global-only → empty set)", () => {
@@ -222,24 +230,26 @@ describe("pathwayISOCoverage", () => {
   it("drops invalid / non-ISO entries and handles missing/empty geography", () => {
     // "USA" (3 letters) and "" fail toISO2; "ZZ" is two letters but not a real
     // country, so it must be dropped too (result is only recognised codes).
-    expect([
-      ...pathwayISOCoverage({ country: ["US", "USA", "", "ZZ"] }),
-    ]).toEqual(["US"]);
+    // Malformed on purpose, so the schema's types have to be sidestepped.
+    const malformed = {
+      country: { US: ["US", "USA", "", "ZZ"] },
+    } as unknown as Geography;
+    expect([...pathwayISOCoverage(malformed)]).toEqual(["US"]);
     expect(pathwayISOCoverage(undefined).size).toBe(0);
     expect(pathwayISOCoverage({}).size).toBe(0);
   });
 });
 
-describe("regionMemberCodes", () => {
+describe("geographyMemberCodes", () => {
   it("returns the pathway's own members for a region, A→Z by ISO2", () => {
     expect(
-      regionMemberCodes(
+      geographyMemberCodes(
         {
           regions: {
             "South East Asia": ["VN", "ID", "TH"],
             "Europe": ["DE", "FR"],
           },
-          country: ["US"],
+          country: { US: ["US"] },
         },
         "South East Asia",
       ),
@@ -250,36 +260,54 @@ describe("regionMemberCodes", () => {
     // The badge token comes from flattenGeography, so the lookup has to survive
     // stray whitespace / zero-width characters on either side.
     const geo = { regions: { " South East Asia ": ["ID", "TH"] } } as Geography;
-    expect(regionMemberCodes(geo, "South East Asia")).toEqual(["ID", "TH"]);
+    expect(geographyMemberCodes(geo, "South East Asia")).toEqual(["ID", "TH"]);
     expect(
-      regionMemberCodes({ regions: { Europe: ["DE", "FR"] } }, "\u200BEurope"),
+      geographyMemberCodes(
+        { regions: { Europe: ["DE", "FR"] } },
+        "\u200BEurope",
+      ),
     ).toEqual(["DE", "FR"]);
   });
 
   it("matches the declared label only, not another spelling of it (#945)", () => {
     // Timeseries now carry the metadata's own label, so no fold is needed.
     const geo = { regions: { "Southeast Asia": ["TH", "VN"] } } as Geography;
-    expect(regionMemberCodes(geo, "Southeast Asia")).toEqual(["TH", "VN"]);
-    expect(regionMemberCodes(geo, "South East Asia")).toEqual([]);
+    expect(geographyMemberCodes(geo, "Southeast Asia")).toEqual(["TH", "VN"]);
+    expect(geographyMemberCodes(geo, "South East Asia")).toEqual([]);
   });
 
-  it("returns [] for labels that are not one of the pathway's regions", () => {
+  it("returns [] for tokens the pathway does not declare", () => {
     const geo: Geography = {
       regions: { Europe: ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
-    expect(regionMemberCodes(geo, "Africa")).toEqual([]);
-    expect(regionMemberCodes(geo, "US")).toEqual([]); // a country, not a region
-    expect(regionMemberCodes(geo, "Global")).toEqual([]);
-    expect(regionMemberCodes(geo, "")).toEqual([]);
+    expect(geographyMemberCodes(geo, "Africa")).toEqual([]);
+    expect(geographyMemberCodes(geo, "JP")).toEqual([]);
+    expect(geographyMemberCodes(geo, "Global")).toEqual([]);
+    expect(geographyMemberCodes(geo, "")).toEqual([]);
+  });
+
+  it("returns a country's codes, A→Z by ISO2 (#1071)", () => {
+    const geo: Geography = {
+      regions: { "Asia Pacific": ["CN", "HK", "JP"] },
+      country: { US: ["US", "PR", "VI"], JP: ["JP"] },
+    };
+    expect(geographyMemberCodes(geo, "US")).toEqual(["PR", "US", "VI"]);
+    expect(geographyMemberCodes(geo, "us")).toEqual(["PR", "US", "VI"]);
+    expect(geographyMemberCodes(geo, "JP")).toEqual(["JP"]);
+  });
+
+  it("reads a two-letter region label as the region (JRC's EU)", () => {
+    const geo: Geography = { regions: { EU: ["DE", "FR"] } };
+    expect(geographyMemberCodes(geo, "EU")).toEqual(["DE", "FR"]);
   });
 
   it("returns [] when there is no geography or no regions at all", () => {
-    expect(regionMemberCodes(undefined, "Europe")).toEqual([]);
-    expect(regionMemberCodes(null, "Europe")).toEqual([]);
-    expect(regionMemberCodes({}, "Europe")).toEqual([]);
+    expect(geographyMemberCodes(undefined, "Europe")).toEqual([]);
+    expect(geographyMemberCodes(null, "Europe")).toEqual([]);
+    expect(geographyMemberCodes({}, "Europe")).toEqual([]);
     expect(
-      regionMemberCodes({ global: true, country: ["US"] }, "Europe"),
+      geographyMemberCodes({ global: true, country: { US: ["US"] } }, "Europe"),
     ).toEqual([]);
   });
 
@@ -289,14 +317,37 @@ describe("regionMemberCodes", () => {
     const geo = {
       regions: { Mixed: ["US", "USA", "", "ZZ", "de"] },
     } as unknown as Geography;
-    expect(regionMemberCodes(geo, "Mixed")).toEqual(["DE", "US"]);
+    expect(geographyMemberCodes(geo, "Mixed")).toEqual(["DE", "US"]);
   });
 
   it("collapses duplicate codes", () => {
     const geo = {
       regions: { Doubled: ["TH", "th", "TH", "ID"] },
     } as unknown as Geography;
-    expect(regionMemberCodes(geo, "Doubled")).toEqual(["ID", "TH"]);
+    expect(geographyMemberCodes(geo, "Doubled")).toEqual(["ID", "TH"]);
+  });
+});
+
+describe("hasMemberList", () => {
+  const geo: Geography = {
+    global: true,
+    regions: { Europe: ["DE", "FR"] },
+    country: { US: ["PR", "US", "VI"], JP: ["JP"] },
+  };
+
+  it("is true for every region, declared or not", () => {
+    expect(hasMemberList(geo, "Europe")).toBe(true);
+    expect(hasMemberList(geo, "Atlantis")).toBe(true);
+  });
+
+  it("is true for a country that includes territories (#1071)", () => {
+    expect(hasMemberList(geo, "US")).toBe(true);
+  });
+
+  it("is false for a plain country, an undeclared one, and Global", () => {
+    expect(hasMemberList(geo, "JP")).toBe(false);
+    expect(hasMemberList(geo, "DE")).toBe(false);
+    expect(hasMemberList(geo, "Global")).toBe(false);
   });
 });
 
@@ -306,6 +357,6 @@ describe("isGeographyAbsent", () => {
     expect(isGeographyAbsent({})).toBe(true);
     expect(isGeographyAbsent({ regions: { X: ["DE", "FR"] } })).toBe(false);
     expect(isGeographyAbsent({ global: true })).toBe(false);
-    expect(isGeographyAbsent({ country: ["US"] })).toBe(false);
+    expect(isGeographyAbsent({ country: { US: ["US"] } })).toBe(false);
   });
 });

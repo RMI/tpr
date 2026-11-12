@@ -37,7 +37,9 @@
   },
   "description": "Exploratory case with higher GDP growth, LNG exports, data-centre load and prices.",
   "geography": {
-    "country": ["CA"]
+    "country": {
+      "CA": ["CA"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2023,

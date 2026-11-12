@@ -39,7 +39,9 @@
       "South East Asia": ["ID", "TH", "VN"],
       "North America": ["CA", "MX", "US"]
     },
-    "country": ["SG"]
+    "country": {
+      "SG": ["SG"]
+    }
   },
   "sectors": [
     {

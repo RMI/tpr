@@ -37,7 +37,9 @@
   },
   "description": "Normative pathway to economy-wide net-zero GHG in Canada by 2050.",
   "geography": {
-    "country": ["CA"]
+    "country": {
+      "CA": ["CA"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2023,

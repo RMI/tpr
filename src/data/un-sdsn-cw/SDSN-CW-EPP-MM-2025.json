@@ -30,7 +30,9 @@
   },
   "description": "Myanmar-specific pathway following current energy policies and NDCs.",
   "geography": {
-    "country": ["MM"]
+    "country": {
+      "MM": ["MM"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2020,

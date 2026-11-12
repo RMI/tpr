@@ -31,7 +31,7 @@ const metadata = new Map<string, PathwayMetadataV2["geography"]>([
     {
       global: true,
       regions: { "Southeast Asia": ["TH", "VN"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     },
   ],
   ["P2", { regions: { ASEAN: ["TH", "VN"] } }],
@@ -81,7 +81,7 @@ describe("validateTimeseries — geography", () => {
     ).toEqual(['/pathwayId/1 "GONE" is not the id of any pathway']);
   });
 
-  describe("a country written by name (#998)", () => {
+  describe("a country written by name (#998, #1071)", () => {
     it("says which code to use for a declared country", () => {
       expect(
         validateTimeseries(
@@ -105,6 +105,27 @@ describe("validateTimeseries — geography", () => {
       ]);
     });
 
+    it("says which code to use for a country that includes territories (#1071)", () => {
+      const china = new Map([
+        ["P4", { country: { CN: ["CN", "HK", "MO"] } }],
+      ]) as typeof metadata;
+      expect(
+        validateTimeseries(
+          timeseries([row({ geography: "China" })], ["P4"]),
+          china,
+        ),
+      ).toEqual([
+        '/data/0/geography "China" is not a geography pathway P4 declares -- use "CN"',
+      ]);
+      // A code inside the country is declared, like a region's member.
+      expect(
+        validateTimeseries(
+          timeseries([row({ geography: "HK" })], ["P4"]),
+          china,
+        ),
+      ).toEqual([]);
+    });
+
     it("gives no hint for a country the pathway does not declare", () => {
       expect(
         validateTimeseries(timeseries([row({ geography: "Japan" })]), metadata),
@@ -115,7 +136,9 @@ describe("validateTimeseries — geography", () => {
 
     it("gives no hint for a name Intl spells differently", () => {
       // Intl's English name is "United States"; the hint is an exact match.
-      const usa = new Map([["P3", { country: ["US"] }]]) as typeof metadata;
+      const usa = new Map([
+        ["P3", { country: { US: ["US"] } }],
+      ]) as typeof metadata;
       expect(
         validateTimeseries(
           timeseries([row({ geography: "United States of America" })], ["P3"]),

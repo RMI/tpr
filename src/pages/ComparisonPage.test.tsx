@@ -33,7 +33,7 @@ const fixtures = [
     geography: {
       global: true,
       regions: { Europe: ["DE", "FR", "IT"] },
-      country: ["US"],
+      country: { US: ["US"] },
     },
     keyFeatures: {
       emissionsTrajectory: [
@@ -63,7 +63,7 @@ const fixtures = [
     // and these tests are about geography, not the sector restriction.
     sectors: [{ name: "Steel" }, { name: "Power" }],
     metric: ["Generation"],
-    geography: { country: ["DE", "FR"] },
+    geography: { country: { DE: ["DE"], FR: ["FR"] } },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "across sectors", geography: "DE", value: "bar" },
@@ -85,7 +85,7 @@ const fixtures = [
     },
     sectors: [{ name: "Cement" }],
     metric: ["Generation"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {},
   },
   {
@@ -103,7 +103,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {},
   },
   {
@@ -120,7 +120,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }, { name: "Steel" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {},
     dependencies: [
       {
@@ -151,7 +151,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }, { name: "Steel" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "Steel", geography: "Global", value: "Minor decrease" },

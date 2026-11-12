@@ -164,36 +164,74 @@ describe("pathway schema enforces expected limits", () => {
     );
   });
 
-  it("fails when geography country has duplicates (uniqueItems)", () => {
+  it("fails when a country lists a code twice (uniqueItems)", () => {
     fail(
       {
         name: "geography.json",
-        data: { ...basePathway, geography: { country: ["CN", "CN"] } },
+        data: { ...basePathway, geography: { country: { CN: ["CN", "CN"] } } },
       },
       /must NOT have duplicate items/,
     );
   });
 
-  it("fails on a non-ISO-3166 country code", () => {
+  it("fails on a non-ISO-3166 country key", () => {
     // "EU" is a valid 2-letter string but not a country → not in the enum.
     fail(
       {
         name: "geography.json",
-        data: { ...basePathway, geography: { country: ["EU"] } },
+        data: { ...basePathway, geography: { country: { EU: ["DE", "FR"] } } },
       },
       /allowed values/,
     );
   });
 
-  it("fails on a 3-letter country code", () => {
+  it("fails on a 3-letter country key", () => {
     // ISO-3166 alpha-3 (e.g. "USA") must be rejected; only alpha-2 is accepted.
     fail(
       {
         name: "geography.json",
-        data: { ...basePathway, geography: { country: ["USA"] } },
+        data: { ...basePathway, geography: { country: { USA: ["US"] } } },
       },
       /allowed values/,
     );
+  });
+
+  it("fails on a non-ISO-3166 code inside a country", () => {
+    fail(
+      {
+        name: "geography.json",
+        data: { ...basePathway, geography: { country: { US: ["US", "USA"] } } },
+      },
+      /allowed values/,
+    );
+  });
+
+  it("fails on a country with no codes", () => {
+    fail(
+      {
+        name: "geography.json",
+        data: { ...basePathway, geography: { country: { JP: [] } } },
+      },
+      /country\/JP must NOT have fewer than 1 items/,
+    );
+  });
+
+  it("accepts a country that includes territories (#1071)", () => {
+    const geography = { country: { CN: ["CN", "HK", "MO"], JP: ["JP"] } };
+    ok({ name: "geography.json", data: { ...basePathway, geography } });
+  });
+
+  it("fails on a region keyed by a country code: a country is in `country` (#1071)", () => {
+    const geography = { regions: { CN: ["CN", "HK"] } };
+    fail(
+      { name: "geography.json", data: { ...basePathway, geography } },
+      /property name must be valid/,
+    );
+  });
+
+  it("accepts a region labelled with an unassigned two-letter code (JRC's EU)", () => {
+    const geography = { regions: { EU: ["DE", "FR"] } };
+    ok({ name: "geography.json", data: { ...basePathway, geography } });
   });
 
   it("fails on unknown geography keys (additionalProperties: false)", () => {
@@ -214,8 +252,8 @@ describe("pathway schema enforces expected limits", () => {
     });
   });
 
-  it("fails on a one-member region: one country code is a country (#998)", () => {
-    // `Japan: [JP]` is the country JP, and belongs in `country`.
+  it("fails on a one-member region: a country belongs in `country` (#998, #1071)", () => {
+    // `Japan: [JP]` is the country JP, and belongs in `country` as `JP: [JP]`.
     const geography = { regions: { Japan: ["JP"] } };
     fail(
       { name: "geography.json", data: { ...basePathway, geography } },

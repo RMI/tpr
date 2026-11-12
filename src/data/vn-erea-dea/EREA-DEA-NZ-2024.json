@@ -23,7 +23,9 @@
   },
   "description": "Cost-optimized pathway to achieve net-zero emissions in 2050 with rapid renewables growth.",
   "geography": {
-    "country": ["VN"]
+    "country": {
+      "VN": ["VN"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

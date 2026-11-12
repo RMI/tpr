@@ -38,6 +38,22 @@ A complete, valid example lives at [`testdata/valid/pathwayMetadata_v2_full.json
 
 The sections below cover the fields that take the most care to author.
 
+### geography: countries are keyed by their code
+
+```json
+"geography": {
+  "global": true,
+  "regions": { "Southeast Asia": ["ID", "MY", "PH", "SG", "TH", "VN"] },
+  "country": { "CN": ["CN", "HK"], "JP": ["JP"] }
+}
+```
+
+- **A country** is anything the publication names as a single country. Its key is that country's ISO2 code, and it lists the codes the publication includes in it, the key among them. Usually that is just the key (`"JP": ["JP"]`). When a publication counts territories with their country, list them too: IEA's China is `"CN": ["CN", "HK"]`, NGFS GCAM's USA is `"US": ["PR", "US", "VI"]`. Membership follows the source, whatever it is.
+- **A region** is everything else, under the publication's own label, with two or more codes. A region label is never an assigned ISO2 code — `"China": ["CN", "HK"]` is rejected, because China is a country. (JRC's `"EU"` is fine: EU is not an assigned code.)
+- A code belongs to at most one country, but may sit in any number of regions.
+
+Everything else that names a geography — `keyFeatures`, `dataAvailability` and timeseries rows — uses these keys exactly: `CN`, never `China`. See #1071 for why.
+
 ### keyFeatures are scoped
 
 Each of the 11 key features holds an **array of entries**, so a pathway can record different values for different parts of its coverage:
@@ -52,7 +68,7 @@ Each of the 11 key features holds an **array of entries**, so a pathway can reco
 ```
 
 - `sector` is one of the sector names, or `"across sectors"` meaning "all of the sectors this pathway covers".
-- `geography` is `"Global"`, one of the region labels used in this pathway's own `geography.regions`, or one of its country codes.
+- `geography` is `"Global"`, one of the region labels used in this pathway's own `geography.regions`, or one of its country codes (a key of `geography.country`, or a code inside one of its countries or regions).
 - `value` is one of that feature's allowed values, listed in the schema. For `policyTypes` and `newTechnologiesIncluded`, `value` is an array of them.
 
 Both `sector` and `geography` must be something the pathway actually declares, or one of the widest sentinels. A region label that does not appear in the pathway's own `geography.regions` is rejected, which is what catches a typo like `"Southeast Asia"` where the pathway says `"South East Asia"`.
@@ -174,7 +190,7 @@ A `*_timeseries.json` file holds the benchmark data series for one or more pathw
 
 `sector`, `technology` and `metric` use the camelCase keys from `src/utils/timeseriesTaxonomy.ts`, not display names.
 
-**`geography` is the publication's own label, exactly as the pathway's metadata declares it** — `Global` (if the pathway sets `geography.global`), one of its `geography.regions` keys, or an ISO2 code it declares as a country or region member. So an IEA file says `Southeast Asia` and an ACE file `ASEAN`, even where both mean similar places. If the file serves several pathways, every one of them must declare the label.
+**`geography` is the publication's own label, exactly as the pathway's metadata declares it** — `Global` (if the pathway sets `geography.global`), one of its `geography.regions` keys, or an ISO2 code it declares: a `geography.country` key, or a code inside one of its countries or regions. A country is always its code, so NGFS's China is `CN` even though it includes Hong Kong and Macao. So an IEA file says `Southeast Asia` and an ACE file `ASEAN`, even where both mean similar places. If the file serves several pathways, every one of them must declare the label.
 
 **`sectorSegment` lists the segments of the row's sector that the value covers**, from the same vocabulary as `dataAvailability` (`src/schema/common/sectorSegment.v1.json`). Unlike there, the sentinels (`Unspecified`, `Not covered`, `No information`) are not allowed: a timeseries row is actual data, so it always covers a known part of the value chain.
 
@@ -237,7 +253,7 @@ new_pathway_metadata <-
     modelTempIncrease = 1.5,
     geography = list(
       regions = list(`South East Asia` = I(c("VN", "TH"))),
-      country = I(c("VN"))
+      country = list(VN = I(c("VN")))
     ),
     sectors = list(
       list(name = "Power", technologies = I(c("Coal", "Wind")))
