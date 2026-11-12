@@ -216,6 +216,13 @@ describe("pathwayISOCoverage", () => {
     expect([...cov].sort()).toEqual(["DE", "FR", "ID", "TH", "US"]);
   });
 
+  it("includes every code a country lists, not just its key (#1071)", () => {
+    const cov = pathwayISOCoverage({
+      country: { CN: ["CN", "HK", "MO"], JP: ["JP"] },
+    });
+    expect([...cov].sort()).toEqual(["CN", "HK", "JP", "MO"]);
+  });
+
   it("does NOT expand the global flag (global-only → empty set)", () => {
     expect(pathwayISOCoverage({ global: true }).size).toBe(0);
   });
