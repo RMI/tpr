@@ -90,11 +90,17 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
 
   const selected = withData.find((o) => o.token === selectedToken) ?? null;
   const searchable = needsSearch(all.length);
-  // A pane when any option in this list has something to show. Always for
-  // sectors and regions; for countries, only when the list holds a country
-  // with member codes (China with Hong Kong, say), so most country lists
-  // stay a plain list.
-  const hasPane = all.some((o) => optionHasInfo(level, o.token, geography));
+  const lookToken = hover ?? cursor ?? selected?.token ?? null;
+  const look = all.find((o) => o.token === lookToken) ?? null;
+  // The pane shows only while the option being looked at has something to
+  // show (Sebastian, 2026-11-12: no "Nothing more to show." placeholder).
+  // Always for sectors and regions; for a country, only one with member codes
+  // (China with Hong Kong, say), so pointing at Japan folds the pane away.
+  const hasPane = look !== null && optionHasInfo(level, look.token, geography);
+  // Whether any option could open the pane. Such a list keeps the narrower
+  // column even while the pane is folded away, so its rows don't re-wrap as
+  // the pointer moves between China and Japan.
+  const anyInfo = all.some((o) => optionHasInfo(level, o.token, geography));
   // The closed trigger describes its selection only when there is one, and
   // only for levels that carry information (sector, region).
   const showsInfo =
@@ -147,7 +153,8 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
     if (rect.right > visible - gutter) dx = visible - gutter - rect.right;
     if (rect.left + dx < gutter) dx = gutter - rect.left;
     setShift(dx);
-  }, [open, menuRef]);
+    // Re-measured when the pane comes or goes, since that changes the width.
+  }, [open, menuRef, hasPane]);
 
   // Keep the highlighted option in view as it moves.
   useEffect(() => {
@@ -210,8 +217,6 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   // Escape is handled by useDropdown, which closes and returns focus.
 
   const activeId = cursor ? optionId.get(cursor) : undefined;
-  const lookToken = hover ?? cursor ?? selected?.token ?? null;
-  const look = all.find((o) => o.token === lookToken) ?? null;
 
   const triggerContent = (
     <>
@@ -319,7 +324,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
           onKeyDown={onPanelKeyDown}
           style={shift ? { transform: `translateX(${shift}px)` } : undefined}
           className={`absolute left-0 top-full mt-1 z-40 max-w-[calc(100vw-32px)] rounded-md border border-neutral-200 bg-white shadow-lg ${
-            hasPane ? "w-72 sm:w-[34rem]" : "w-72"
+            hasPane ? "w-72 sm:w-[34rem]" : anyInfo ? "w-72 sm:w-60" : "w-72"
           }`}
         >
           {searchable && (
@@ -342,7 +347,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
             </div>
           )}
 
-          <div className={hasPane ? "flex flex-col sm:flex-row" : ""}>
+          <div className={anyInfo ? "flex flex-col sm:flex-row" : ""}>
             <ul
               ref={listRef}
               id={listId}
@@ -353,7 +358,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
               aria-describedby={hasPane ? paneId : undefined}
               onMouseLeave={() => setHover(null)}
               className={`max-h-72 overflow-y-auto py-1 focus:outline-none ${
-                hasPane ? "sm:w-60 sm:shrink-0" : ""
+                anyInfo ? "sm:w-60 sm:shrink-0" : ""
               }`}
             >
               {visibleData.length === 0 && visibleNoData.length === 0 && (
@@ -383,41 +388,24 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
               )}
             </ul>
 
-            {hasPane && (
+            {hasPane && look && (
               <div
                 id={paneId}
                 aria-live="polite"
                 className="border-t sm:border-t-0 sm:border-l border-neutral-200 p-3 text-xs text-rmigray-500 sm:w-[17rem] max-h-72 overflow-y-auto"
               >
-                {look ? (
-                  <>
-                    <p className="font-semibold text-rmigray-800 text-[13px] mb-1">
-                      {look.label}
-                    </p>
-                    {!look.hasData && (
-                      <p className="mb-1 text-rmigray-300">
-                        {NO_DATA_GROUP_LABEL}
-                      </p>
-                    )}
-                    {optionHasInfo(level, look.token, geography) ? (
-                      <OptionInfo
-                        level={level}
-                        token={look.token}
-                        geography={geography}
-                        capped={false}
-                      />
-                    ) : (
-                      // A plain country in a list that also holds one with
-                      // members. The prototype's wording for an option with
-                      // nothing to add.
-                      <p className="text-rmigray-300">Nothing more to show.</p>
-                    )}
-                  </>
-                ) : (
-                  <p className="text-rmigray-300">
-                    Point at an option to see what it covers.
-                  </p>
+                <p className="font-semibold text-rmigray-800 text-[13px] mb-1">
+                  {look.label}
+                </p>
+                {!look.hasData && (
+                  <p className="mb-1 text-rmigray-300">{NO_DATA_GROUP_LABEL}</p>
                 )}
+                <OptionInfo
+                  level={level}
+                  token={look.token}
+                  geography={geography}
+                  capped={false}
+                />
               </div>
             )}
           </div>

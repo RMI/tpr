@@ -358,7 +358,7 @@ describe("ScopeDropdown countries with member codes", () => {
     expect(pane).toHaveTextContent("Hong Kong");
   });
 
-  it("says a plain country has nothing more to show", async () => {
+  it("folds the pane away for a plain country, and back for China", async () => {
     const { trigger } = renderDropdown({
       level: "country",
       withData: countries,
@@ -367,12 +367,19 @@ describe("ScopeDropdown countries with member codes", () => {
       geography: withMembers,
     });
     await userEvent.click(trigger);
+    const listbox = screen.getByRole("listbox");
+    // Nothing to show for France, so no pane at all (Sebastian, 2026-11-12),
+    // rather than a pane saying so.
     fireEvent.mouseEnter(screen.getByRole("option", { name: "France" }));
-    const pane = document.getElementById(
-      screen.getByRole("listbox").getAttribute("aria-describedby") ?? "",
+    expect(listbox).not.toHaveAttribute("aria-describedby");
+    expect(screen.queryByText("Nothing more to show.")).toBeNull();
+    fireEvent.mouseEnter(
+      screen.getByRole("option", { name: "People's Republic of China" }),
     );
-    expect(pane).toHaveTextContent("France");
-    expect(pane).toHaveTextContent("Nothing more to show.");
+    const pane = document.getElementById(
+      listbox.getAttribute("aria-describedby") ?? "",
+    );
+    expect(pane).toHaveTextContent("Hong Kong");
   });
 
   it("shows the selected country's members on the closed trigger", () => {
