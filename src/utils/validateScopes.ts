@@ -40,6 +40,11 @@
  * member, and `Not covered` describes the whole row rather than one variable.
  * None of that is expressible in draft-07.
  *
+ * It also checks the two rules of `geography.country` the schema cannot (#1071):
+ * a country's key is one of its own codes, and a code belongs to at most one
+ * country. `geography.v2.json` already makes every country key an ISO2 code and
+ * no region key one.
+ *
  * Run from `scripts/schema-check-files.ts`, so `npm run schema:check` gates all
  * of it.
  *
@@ -140,11 +145,11 @@ function notCoveredByVariable(row: {
 type ScopedEntry = { sector: string; geography: string; value: unknown };
 
 /**
- * Every geography a pathway declares: each region label, every country inside
- * those regions, every standalone country, and `Global` when the pathway sets
- * `geography.global`. Region members count because a pathway that covers
- * "South East Asia" does cover Thailand — naming `TH` is more specific than the
- * pathway's own declaration, not outside it.
+ * Every geography a pathway declares: each region label, each country key, the
+ * codes inside either, and `Global` when the pathway sets `geography.global`.
+ * Members count because a pathway that covers "South East Asia" does cover
+ * Thailand, and one whose `CN` includes Hong Kong does cover `HK` — naming it is
+ * more specific than the pathway's own declaration, not outside it.
  *
  * `Global` is allowed only when the pathway actually sets `geography.global`.
  * #858 phrases the rule as "declared by the pathway, or the widest sentinel",
@@ -167,8 +172,52 @@ export function declaredGeographies(
       if (Array.isArray(members)) members.forEach((m) => declared.add(m));
     }
   }
-  if (Array.isArray(geo.country)) geo.country.forEach((c) => declared.add(c));
+  if (geo.country) {
+    for (const [code, members] of Object.entries(geo.country)) {
+      declared.add(code);
+      if (Array.isArray(members)) members.forEach((m) => declared.add(m));
+    }
+  }
   return declared;
+}
+
+/**
+ * The rules of `geography.country` that draft-07 cannot express (#1071).
+ *
+ * A country is keyed by its own code, so the key has to be among the codes it
+ * lists: `CN: [HK, MO]` would name China and cover only its territories. And a
+ * code belongs to one country at most, or `HK` inside both `CN` and a separate
+ * `HK` would be counted twice by every overlap check. A code may still sit in
+ * any number of regions, which overlap by nature.
+ */
+export function validateGeography(
+  geo: PathwayMetadataV2["geography"] | null | undefined,
+): string[] {
+  const errors: string[] = [];
+  if (!geo || typeof geo !== "object" || !geo.country) return errors;
+  const ownerOf = new Map<string, string>();
+  for (const [code, codes] of Object.entries(geo.country)) {
+    if (!Array.isArray(codes)) continue;
+    const members: readonly string[] = codes;
+    const at = `/geography/country/${code}`;
+    if (!members.includes(code)) {
+      errors.push(
+        `${at} does not list ${code} itself. A country is keyed by its own` +
+          ` code, so add ${code} to its codes, or key it by the country it is.`,
+      );
+    }
+    for (const member of members) {
+      const owner = ownerOf.get(member);
+      if (owner === undefined) ownerOf.set(member, code);
+      else if (owner !== code) {
+        errors.push(
+          `${at} lists ${member}, which country ${owner} already lists.` +
+            ` A code belongs to at most one country.`,
+        );
+      }
+    }
+  }
+  return errors;
 }
 
 /**
@@ -237,7 +286,7 @@ function quote(values: Iterable<string>): string {
  * `pathwayMetadata.v2.json`, so shapes are trusted and only references are tested.
  */
 export function validateScopedEntries(pathway: PathwayMetadataV2): string[] {
-  const errors: string[] = [];
+  const errors: string[] = [...validateGeography(pathway.geography)];
   const declared = declaredSectors(pathway);
   const entrySectors = new Set<string>([ACROSS_SECTORS, ...declared]);
   const geographies = allowedGeographies(pathway);

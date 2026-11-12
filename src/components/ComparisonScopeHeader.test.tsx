@@ -24,7 +24,7 @@ const iea = {
   geography: {
     global: true,
     regions: { "Southeast Asia": ["ID", "TH", "VN", "TL"] },
-    country: ["US"],
+    country: { US: ["US"] },
   },
 } as unknown as PathwayMetadataType;
 
@@ -35,7 +35,7 @@ const ace = {
   sectors: [{ name: "Power" }, { name: "Buildings" }],
   geography: {
     regions: { "South East Asia": ["ID", "TH", "VN"] },
-    country: [],
+    country: {},
   },
 } as unknown as PathwayMetadataType;
 
@@ -301,7 +301,7 @@ describe("ComparisonScopeHeader", () => {
         ...ace,
         id: "bare",
         name: { full: "Bare", short: "BARE" },
-        geography: { regions: {}, country: [] },
+        geography: { regions: {}, country: {} },
       } as unknown as PathwayMetadataType;
 
       renderHeader({

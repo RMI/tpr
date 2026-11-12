@@ -20,7 +20,7 @@ interface Shape {
   sectors: string[];
   global?: boolean;
   regions?: Record<string, string[]>;
-  country?: string[];
+  country?: Record<string, string[]>;
 }
 
 const pathway = ({
@@ -29,7 +29,7 @@ const pathway = ({
   sectors,
   global = false,
   regions = {},
-  country = [],
+  country = {},
 }: Shape): PathwayMetadataType =>
   ({
     id,
@@ -181,7 +181,7 @@ describe("columnGeographyOptions", () => {
       id: "wc",
       publisher: "Z",
       sectors: ["Power"],
-      country: ["US"],
+      country: { US: ["US"] },
     });
     const option = columnGeographyOptions(withCountry, nothing)[0];
 
@@ -196,7 +196,7 @@ describe("columnGeographyOptions", () => {
       sectors: ["Power"],
       global: true,
       regions: { "North America": ["US", "CA"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     });
     expect(columnGeographyOptions(mixed, nothing).map((o) => o.kind)).toEqual([
       "global",
@@ -222,7 +222,7 @@ describe("columnGeographyOptions", () => {
       sectors: ["Power"],
       global: true,
       regions: { "North America": ["US", "CA"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     });
     // Only the country is plottable, so it leads; the rest keep global→region.
     expect(
@@ -500,7 +500,7 @@ describe("defaultGeographyForColumn", () => {
       geography: {
         global: true,
         regions: { "South East Asia": ["TH", "VN"] },
-        country: ["TH"],
+        country: { TH: ["TH"] },
       },
     } as unknown as PathwayMetadataType;
     const mixed = [

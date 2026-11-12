@@ -24,7 +24,9 @@
   },
   "description": "Exploratory MY least-cost power optimisation within Existing Policy targets; no emissions cap.",
   "geography": {
-    "country": ["MY"]
+    "country": {
+      "MY": ["MY"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,

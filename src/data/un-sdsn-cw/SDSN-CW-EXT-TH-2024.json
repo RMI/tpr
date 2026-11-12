@@ -28,7 +28,9 @@
   },
   "description": "Thailand-specific pathway reflecting current energy policy. Stable renewables share after 2037.",
   "geography": {
-    "country": ["TH"]
+    "country": {
+      "TH": ["TH"]
+    }
   },
   "pathwayType": "Predictive",
   "modelYearStart": 2018,

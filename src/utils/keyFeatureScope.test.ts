@@ -25,7 +25,7 @@ function pathway(over: Partial<PathwayMetadataType> = {}): PathwayMetadataType {
       regions: {
         "South East Asia": ["ID", "TH", "VN"],
       },
-      country: ["US"],
+      country: { US: ["US"] },
     },
     ...over,
   } as unknown as PathwayMetadataType;

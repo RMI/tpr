@@ -100,7 +100,7 @@ describe("sortGeographiesForDetails", () => {
     const structuredGeography = {
       global: true,
       regions: { Europe: ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
     expect(() =>
       sortGeographiesForDetails(structuredGeography as unknown as unknown[]),
@@ -137,12 +137,12 @@ const toGeographyObject = (tokens: string[]) => {
   const geo: {
     global?: boolean;
     regions?: Record<string, string[]>;
-    country?: string[];
+    country?: Record<string, string[]>;
   } = {};
   for (const t of tokens) {
     const kind = geographyKind(t);
     if (kind === "global") geo.global = true;
-    else if (kind === "country") (geo.country ??= []).push(t);
+    else if (kind === "country") (geo.country ??= {})[t] = [t];
     else (geo.regions ??= {})[t] = [];
   }
   return geo;
@@ -210,9 +210,16 @@ describe("pathwayISOCoverage", () => {
   it("unions country[] and all region members", () => {
     const cov = pathwayISOCoverage({
       regions: { "South East Asia": ["ID", "TH"], "Europe": ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     });
     expect([...cov].sort()).toEqual(["DE", "FR", "ID", "TH", "US"]);
+  });
+
+  it("includes every code a country lists, not just its key (#1071)", () => {
+    const cov = pathwayISOCoverage({
+      country: { CN: ["CN", "HK", "MO"], JP: ["JP"] },
+    });
+    expect([...cov].sort()).toEqual(["CN", "HK", "JP", "MO"]);
   });
 
   it("does NOT expand the global flag (global-only → empty set)", () => {
@@ -222,9 +229,11 @@ describe("pathwayISOCoverage", () => {
   it("drops invalid / non-ISO entries and handles missing/empty geography", () => {
     // "USA" (3 letters) and "" fail toISO2; "ZZ" is two letters but not a real
     // country, so it must be dropped too (result is only recognised codes).
-    expect([
-      ...pathwayISOCoverage({ country: ["US", "USA", "", "ZZ"] }),
-    ]).toEqual(["US"]);
+    // Malformed on purpose, so the schema's types have to be sidestepped.
+    const malformed = {
+      country: { US: ["US", "USA", "", "ZZ"] },
+    } as unknown as Geography;
+    expect([...pathwayISOCoverage(malformed)]).toEqual(["US"]);
     expect(pathwayISOCoverage(undefined).size).toBe(0);
     expect(pathwayISOCoverage({}).size).toBe(0);
   });
@@ -239,7 +248,7 @@ describe("regionMemberCodes", () => {
             "South East Asia": ["VN", "ID", "TH"],
             "Europe": ["DE", "FR"],
           },
-          country: ["US"],
+          country: { US: ["US"] },
         },
         "South East Asia",
       ),
@@ -266,7 +275,7 @@ describe("regionMemberCodes", () => {
   it("returns [] for labels that are not one of the pathway's regions", () => {
     const geo: Geography = {
       regions: { Europe: ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
     expect(regionMemberCodes(geo, "Africa")).toEqual([]);
     expect(regionMemberCodes(geo, "US")).toEqual([]); // a country, not a region
@@ -279,7 +288,7 @@ describe("regionMemberCodes", () => {
     expect(regionMemberCodes(null, "Europe")).toEqual([]);
     expect(regionMemberCodes({}, "Europe")).toEqual([]);
     expect(
-      regionMemberCodes({ global: true, country: ["US"] }, "Europe"),
+      regionMemberCodes({ global: true, country: { US: ["US"] } }, "Europe"),
     ).toEqual([]);
   });
 
@@ -306,6 +315,6 @@ describe("isGeographyAbsent", () => {
     expect(isGeographyAbsent({})).toBe(true);
     expect(isGeographyAbsent({ regions: { X: ["DE", "FR"] } })).toBe(false);
     expect(isGeographyAbsent({ global: true })).toBe(false);
-    expect(isGeographyAbsent({ country: ["US"] })).toBe(false);
+    expect(isGeographyAbsent({ country: { US: ["US"] } })).toBe(false);
   });
 });

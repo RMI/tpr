@@ -23,7 +23,9 @@
   },
   "description": "Ambitious pathway to absolute zero emissions, with significant new technology.",
   "geography": {
-    "country": ["VN"]
+    "country": {
+      "VN": ["VN"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

@@ -15,7 +15,7 @@
 import type { PathwayMetadataV2 } from "../types/pathwayMetadata.v2";
 
 type Geography = PathwayMetadataV2["geography"];
-type CountryCode = NonNullable<Geography["country"]>[number];
+type CountryCode = NonNullable<Geography["country"]>[string][number];
 
 /**
  * The eleven scoped fields of `keyFeatures`. The one name for them: the feature
@@ -79,15 +79,15 @@ export function isScopeLevelNotApplicable(value: unknown): boolean {
 
 /**
  * The pathway's own geography tokens, in declaration order: region labels, then
- * standalone countries. `Global` is left out — it is a flag, not a token with
- * members — and so are region member codes, which are reachable through their
- * region but are not something the ribbon offers.
+ * country keys. `Global` is left out — it is a flag, not a token with members —
+ * and so are the codes inside a region or country, which are reachable through
+ * it but are not something the ribbon offers.
  */
 export function declaredGeographyTokens(
   geo: Geography | null | undefined,
 ): string[] {
   if (!geo || typeof geo !== "object") return [];
-  return [...Object.keys(geo.regions ?? {}), ...(geo.country ?? [])];
+  return [...Object.keys(geo.regions ?? {}), ...Object.keys(geo.country ?? {})];
 }
 
 /**
@@ -101,7 +101,7 @@ export function declaredGeographyTokens(
  *     region label such as JRC's `"EU"` resolves through its member list rather
  *     than being read as a country code.
  *   - a declared country → itself. "Declared" as `validateScopes` means it: a
- *     standalone country or a member of a declared region.
+ *     country key or a code inside a declared country or region.
  *   - anything else → the empty set, meaning "unknown", not "nothing": see
  *     {@link containsCodes}.
  *
@@ -118,16 +118,20 @@ export function declaredTokenCodes(
 
   const regions = geo.regions ?? {};
   if (token === ACROSS_REGIONS) {
-    return new Set([...Object.values(regions).flat(), ...(geo.country ?? [])]);
+    return new Set([
+      ...Object.values(regions).flat(),
+      ...Object.values(geo.country ?? {}).flat(),
+    ]);
   }
 
   const members = regions[token];
   if (Array.isArray(members)) return new Set(members);
 
   const code = token as CountryCode;
-  const declared =
-    (geo.country ?? []).includes(code) ||
-    Object.values(regions).some((m) => Array.isArray(m) && m.includes(code));
+  const declared = [
+    ...Object.values(geo.country ?? {}),
+    ...Object.values(regions),
+  ].some((m) => Array.isArray(m) && m.includes(code));
   return declared ? new Set([code]) : new Set();
 }
 

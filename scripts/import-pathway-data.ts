@@ -29,6 +29,7 @@
 import { promises as fs } from "node:fs";
 import { fileURLToPath } from "node:url";
 import ExcelJS from "exceljs";
+import isoCountries from "i18n-iso-countries";
 import {
   availabilityMetricsForSector,
   technologyBelongsToSector,
@@ -864,7 +865,7 @@ export function withinLimit(
 interface Geography {
   global?: boolean;
   regions?: Record<string, string[]>;
-  country?: string[];
+  country?: Record<string, string[]>;
 }
 
 /**
@@ -883,17 +884,39 @@ function memberless(id: string, label: string, dropped: string[]): string {
   );
 }
 
+const REGION_NAMES = new Intl.DisplayNames(["en"], { type: "region" });
+
+/**
+ * The member a free-text label names as a country, if it plainly does: its
+ * English short name ("China", "Japan") or its ISO alpha-3 code ("USA"). A hint
+ * for the error message, not a classifier: "United States of America" names a
+ * country too and is not caught, so the cookbook's rule stays the authority.
+ */
+function countryNamedBy(label: string, members: string[]): string | null {
+  const wanted = label.trim().toLowerCase();
+  const alpha3 = isoCountries.alpha3ToAlpha2(label.trim().toUpperCase());
+  for (const code of members) {
+    if (code === alpha3) return code;
+    if (REGION_NAMES.of(code)?.toLowerCase() === wanted) return code;
+  }
+  return null;
+}
+
 /**
  * Parse the metadata `Regions` cell into a v2 geography object. Format:
- *   Global; Africa: [DZ, EG]; BR: [BR]; PH
- * A bare token (`Global`) sets the flag or, if a 2-letter code, becomes a
- * standalone country. `Label: [..]` is a region and its ISO members.
+ *   Global; Africa: [DZ, EG]; CN: [CN, HK]; BR: [BR]; PH
  *
- * One country code is always a country (#998): a region with a single member
- * is that country, and the sheet has to say so. `BR: [BR]` (or a bare `BR`) is
- * the country; `Brazil: [BR]` is an error, because importing it under either
- * name leaves key-feature and data-availability cells that say "Brazil" or
- * "BR" pointing at a scope the other does not reach.
+ * The key's shape says what an entry is (#1071):
+ *   - `Global` sets the flag.
+ *   - An ISO2 code is a country: bare (`PH`, meaning `PH: [PH]`) or with the
+ *     codes the publication includes in it (`CN: [CN, HK]`). The key must be
+ *     one of them, and a code belongs to one country at most.
+ *   - Any other label is a region of two or more codes.
+ *
+ * A free-text label for one country -- `Japan: [JP]`, `China: [CN, HK]`,
+ * `USA: [US, PR, VI]` -- is an error, not renamed: importing it under either
+ * name leaves key-feature and data-availability cells that say "China" or "CN"
+ * pointing at a scope the other does not reach.
  */
 export function buildGeography(
   cell: string,
@@ -904,7 +927,28 @@ export function buildGeography(
   if (!raw) return null;
   const geo: Geography = {};
   const regions: Record<string, string[]> = {};
-  const countries: string[] = [];
+  const countries: Record<string, string[]> = {};
+  const repeated = new Set<string>();
+
+  const addCountry = (code: string, members: string[]) => {
+    const existing = countries[code];
+    if (!existing) {
+      countries[code] = members;
+      return;
+    }
+    const same =
+      existing.length === members.length &&
+      members.every((m) => existing.includes(m));
+    // `JP; JP: [JP]` names one country twice. It is one scope, so it is
+    // listed once. Two different code lists for one country cannot both hold.
+    if (same) repeated.add(code);
+    else
+      report.error(
+        `${id}: country ${code} is listed twice, as [${existing.join(", ")}] and ` +
+          `[${members.join(", ")}] -- list it once, with every code it includes`,
+      );
+  };
+
   // Split top-level entries on `;` (member lists inside [..] use commas only).
   for (const part of raw
     .split(";")
@@ -917,7 +961,7 @@ export function buildGeography(
         .split(",")
         .map((s) => s.trim().toUpperCase())
         .filter((s) => /^[A-Z]{2}$/.test(s));
-      const members = all.filter((c) => VALID_COUNTRIES.has(c));
+      const members = [...new Set(all.filter((c) => VALID_COUNTRIES.has(c)))];
       const dropped = all.filter((c) => !VALID_COUNTRIES.has(c));
       if (dropped.length) {
         report.note(
@@ -928,20 +972,29 @@ export function buildGeography(
         report.error(memberless(id, label, dropped));
         continue;
       }
-      // `LA: [LA]` is how the cookbook writes an individually projected country
-      // (validator rule R4.3 flags the bare `LA` form as non-standard). IEA's
-      // `Japan: [JP]` is the same country under its publication's name, and is
-      // refused rather than renamed.
-      if (members.length === 1) {
-        const code = members[0];
-        if (label.toUpperCase() !== code) {
+      // `LA: [LA]` is how the cookbook writes an individually projected
+      // country; `CN: [CN, HK]` one that includes territories.
+      const key = label.toUpperCase();
+      if (VALID_COUNTRIES.has(key)) {
+        if (!members.includes(key)) {
           report.error(
-            `${id}: region "${label}" has one member, ${code} -- one country code is ` +
-              `a country, so write ${code} in the Regions cell and in every scope that says "${label}"`,
+            `${id}: country ${key} lists [${members.join(", ")}] but not ${key} itself -- ` +
+              `a country is keyed by its own code, so add ${key}, or key it by the country it is`,
           );
           continue;
         }
-        countries.push(code);
+        addCountry(key, members);
+        continue;
+      }
+      const named =
+        countryNamedBy(label, members) ??
+        (members.length === 1 ? members[0] : null);
+      if (named) {
+        report.error(
+          `${id}: "${label}" is the country ${named} -- a country is keyed by its code, ` +
+            `so write ${named}: [${members.join(", ")}] in the Regions cell and ${named} ` +
+            `in every scope that says "${label}"`,
+        );
         continue;
       }
       regions[label] = members;
@@ -949,23 +1002,33 @@ export function buildGeography(
       geo.global = true;
     } else if (/^[A-Z]{2}$/.test(part.toUpperCase()) && part.length === 2) {
       const c = part.toUpperCase();
-      if (VALID_COUNTRIES.has(c)) countries.push(c);
+      if (VALID_COUNTRIES.has(c)) addCountry(c, [c]);
       else report.note(`${id}: geography dropped non-ISO country "${part}"`);
     } else {
       // A region label with no bracketed member list.
       report.error(memberless(id, part, []));
     }
   }
+
+  const ownerOf = new Map<string, string>();
+  for (const [code, members] of Object.entries(countries)) {
+    for (const member of members) {
+      const owner = ownerOf.get(member);
+      if (owner === undefined) ownerOf.set(member, code);
+      else
+        report.error(
+          `${id}: ${member} is in both country ${owner} and country ${code} -- ` +
+            "a code belongs to at most one country",
+        );
+    }
+  }
+
   if (Object.keys(regions).length > 0) geo.regions = regions;
-  // `JP; JP: [JP]` names one country twice. It is one scope, so it is listed once.
-  const repeated = [
-    ...new Set(countries.filter((c, i) => countries.indexOf(c) !== i)),
-  ];
-  if (repeated.length)
+  if (repeated.size)
     report.note(
-      `${id}: geography lists {${repeated.join(", ")}} more than once; kept once`,
+      `${id}: geography lists {${[...repeated].join(", ")}} more than once; kept once`,
     );
-  if (countries.length > 0) geo.country = [...new Set(countries)];
+  if (Object.keys(countries).length > 0) geo.country = countries;
   return geo;
 }
 
@@ -974,11 +1037,12 @@ export function allowedGeographies(geo: Geography | undefined): Set<string> {
   const allowed = new Set<string>([ACROSS_REGIONS]);
   if (!geo) return allowed;
   if (geo.global === true) allowed.add(GLOBAL_SCOPE);
-  for (const [label, members] of Object.entries(geo.regions ?? {})) {
-    allowed.add(label);
-    members.forEach((m) => allowed.add(m));
+  for (const entries of [geo.regions ?? {}, geo.country ?? {}]) {
+    for (const [key, members] of Object.entries(entries)) {
+      allowed.add(key);
+      members.forEach((m) => allowed.add(m));
+    }
   }
-  (geo.country ?? []).forEach((c) => allowed.add(c));
   return allowed;
 }
 
@@ -1014,7 +1078,8 @@ function sectorBreadth(s: string): number {
 function geographyBreadth(g: string): number {
   if (g === GLOBAL_SCOPE) return 0;
   if (g === ACROSS_REGIONS) return 1;
-  return /^[A-Z]{2}$/.test(g) ? 3 : 2;
+  // An assigned code, not any two letters: JRC's region "EU" is a region.
+  return VALID_COUNTRIES.has(g) ? 3 : 2;
 }
 
 type ScopedEntry = {
@@ -1685,9 +1750,9 @@ export function buildDoc(
     if (before !== after) {
       report.note(
         `${id}: geography rebuilt. before regions=[${Object.keys((existing.geography as Geography).regions ?? {}).join(", ")}]` +
-          ` country=[${((existing.geography as Geography).country ?? []).join(", ")}] global=${(existing.geography as Geography).global}` +
+          ` country=[${Object.keys((existing.geography as Geography).country ?? {}).join(", ")}] global=${(existing.geography as Geography).global}` +
           ` -> after regions=[${Object.keys(geography.regions ?? {}).join(", ")}]` +
-          ` country=[${(geography.country ?? []).join(", ")}] global=${geography.global}`,
+          ` country=[${Object.keys(geography.country ?? {}).join(", ")}] global=${geography.global}`,
       );
     }
   }

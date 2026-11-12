@@ -39,7 +39,7 @@ describe("declaredTokenCodes", () => {
   const geo: Geography = {
     global: true,
     regions: { "South East Asia": ["ID", "TH", "VN"] },
-    country: ["US"],
+    country: { US: ["US"] },
   };
 
   it("Global covers everything", () => {
@@ -89,7 +89,7 @@ describe("declaredTokenCodes", () => {
         // members differ, which is what makes the order observable.
         CN: ["CN", "HK"],
       },
-      country: ["TH"],
+      country: { TH: ["TH"] },
     };
     expect(sorted(declaredTokenCodes("EU", jrc))).toEqual(["AT", "BE", "DE"]);
     expect(sorted(declaredTokenCodes("CN", jrc))).toEqual(["CN", "HK"]);
@@ -111,7 +111,7 @@ describe("declaredGeographyTokens", () => {
           "Asia Pacific": ["JP", "TH", "VN"],
           "Southeast Asia": ["TH", "VN"],
         },
-        country: ["JP"],
+        country: { JP: ["JP"] },
       }),
     ).toEqual(["Asia Pacific", "Southeast Asia", "JP"]);
   });
@@ -220,9 +220,9 @@ describe("widestGeography", () => {
   });
 
   it("is the single country of a one-country pathway (SDSN)", () => {
-    expect(widestGeography(pathway({ geography: { country: ["SG"] } }))).toBe(
-      "SG",
-    );
+    expect(
+      widestGeography(pathway({ geography: { country: { SG: ["SG"] } } })),
+    ).toBe("SG");
   });
 
   it("is a region listed alongside its own members", () => {
@@ -231,7 +231,7 @@ describe("widestGeography", () => {
         pathway({
           geography: {
             regions: { "South East Asia": ["ID", "TH", "VN"] },
-            country: ["ID", "TH", "VN"],
+            country: { ID: ["ID"], TH: ["TH"], VN: ["VN"] },
           },
         }),
       ),
@@ -257,7 +257,10 @@ describe("widestGeography", () => {
     expect(
       widestGeography(
         pathway({
-          geography: { regions: { Europe: ["DE", "FR"] }, country: ["US"] },
+          geography: {
+            regions: { Europe: ["DE", "FR"] },
+            country: { US: ["US"] },
+          },
         }),
       ),
     ).toBe(ACROSS_REGIONS);

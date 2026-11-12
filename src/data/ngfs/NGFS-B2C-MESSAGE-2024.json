@@ -98,7 +98,6 @@
   "geography": {
     "global": true,
     "regions": {
-      "China": ["CN", "HK"],
       "Eastern Europe": [
         "AL",
         "BA",
@@ -332,6 +331,9 @@
         "WF",
         "YT"
       ]
+    },
+    "country": {
+      "CN": ["CN", "HK"]
     }
   },
   "pathwayType": "Normative",
@@ -412,7 +414,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -482,7 +484,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -542,7 +544,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -609,7 +611,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant improvement"
       },
       {
@@ -679,7 +681,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -739,7 +741,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -806,7 +808,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Minor decrease"
       },
       {
@@ -876,7 +878,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "No information"
       },
       {
@@ -936,7 +938,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -1003,7 +1005,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Moderate increase"
       },
       {
@@ -1068,7 +1070,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1135,7 +1137,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1205,7 +1207,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1265,7 +1267,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1332,7 +1334,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1402,7 +1404,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1462,7 +1464,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1529,7 +1531,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1599,7 +1601,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1659,7 +1661,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1726,7 +1728,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1796,7 +1798,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1856,7 +1858,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1923,7 +1925,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1993,7 +1995,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2053,7 +2055,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2120,7 +2122,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2190,7 +2192,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2250,7 +2252,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2317,7 +2319,7 @@
       },
       {
         "sector": "across sectors",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2387,7 +2389,7 @@
       },
       {
         "sector": "Power",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2447,7 +2449,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "China",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2647,7 +2649,7 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2671,7 +2673,7 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2695,7 +2697,7 @@
         "sectorSegment": ["Power generation", "Energy storage"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2730,7 +2732,7 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2764,7 +2766,7 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2808,7 +2810,7 @@
         "sectorSegment": ["Power generation"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2836,7 +2838,7 @@
         ],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2872,7 +2874,7 @@
         "sectorSegment": ["Ironmaking", "Steelmaking"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",
@@ -2916,7 +2918,7 @@
         "sectorSegment": ["Ironmaking", "Steelmaking"],
         "geography": [
           "Global",
-          "China",
+          "CN",
           "Eastern Europe",
           "Former Soviet Union",
           "Latin America and the Caribbean",

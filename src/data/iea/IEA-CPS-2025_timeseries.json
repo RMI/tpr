@@ -2112,7 +2112,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": null,
@@ -2122,7 +2122,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": null,
@@ -2132,7 +2132,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": null,
@@ -2142,7 +2142,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": null,
@@ -2152,7 +2152,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2162,7 +2162,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2172,7 +2172,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2182,7 +2182,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2192,7 +2192,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2202,7 +2202,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2212,7 +2212,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2222,7 +2222,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2232,7 +2232,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2242,7 +2242,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2252,7 +2252,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2262,7 +2262,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2272,7 +2272,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2282,7 +2282,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2292,7 +2292,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2302,7 +2302,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2312,7 +2312,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2322,7 +2322,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2332,7 +2332,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2342,7 +2342,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2352,7 +2352,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2362,7 +2362,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2372,7 +2372,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2382,7 +2382,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2392,7 +2392,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2402,7 +2402,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2412,7 +2412,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2422,7 +2422,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "coal",
@@ -2432,7 +2432,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2442,7 +2442,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2452,7 +2452,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2462,7 +2462,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "gas",
@@ -2472,7 +2472,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2482,7 +2482,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2492,7 +2492,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2502,7 +2502,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "nuclear",
@@ -2512,7 +2512,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2522,7 +2522,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2532,7 +2532,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2542,7 +2542,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "other",
@@ -2552,7 +2552,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2562,7 +2562,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2572,7 +2572,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2582,7 +2582,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "solar",
@@ -2592,7 +2592,7 @@
     },
     {
       "year": 2023,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2602,7 +2602,7 @@
     },
     {
       "year": 2024,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2612,7 +2612,7 @@
     },
     {
       "year": 2035,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",
@@ -2622,7 +2622,7 @@
     },
     {
       "year": 2050,
-      "geography": "China",
+      "geography": "CN",
       "sector": "power",
       "sectorSegment": ["Power generation"],
       "technology": "wind",

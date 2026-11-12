@@ -65,7 +65,7 @@
             "maximum": 2100
           },
           "geography": {
-            "description": "Geography this data point covers, written exactly as the pathway's metadata declares it: 'Global' (when the pathway is global), one of its region labels (a key of `geography.regions`, in the publication's own wording, e.g. 'ASEAN' or 'Southeast Asia'), or an ISO-3166-1 alpha-2 country code the pathway declares (a standalone country or a member of one of its regions). Every pathway in `pathwayId` must declare it; enforced by scripts/schema-check-files.ts.",
+            "description": "Geography this data point covers, written exactly as the pathway's metadata declares it: 'Global' (when the pathway is global), one of its region labels (a key of `geography.regions`, in the publication's own wording, e.g. 'ASEAN' or 'Southeast Asia'), or an ISO-3166-1 alpha-2 country code the pathway declares (a key of `geography.country`, or a member of one of its countries or regions). A country is always its code: a publication's 'China' is 'CN', even where it includes Hong Kong (#1071). Every pathway in `pathwayId` must declare it; enforced by scripts/schema-check-files.ts.",
             "$comment": "An open string, not geographyItem.v1's closed enum: region labels are the publication's own (decision for v2, #915), so no fixed list can hold them -- the v1 enum rejected 'ASEAN' and 'Southeast Asia', which is why files carried a label their metadata did not declare. Same shape as common/scopeGeography.v2.json but not a $ref to it, because 'across regions' is a keyFeatures scope sentinel and never a geography a data point is measured for. The real constraint lives in src/utils/validateTimeseries.ts.",
             "type": "string",
             "minLength": 1,

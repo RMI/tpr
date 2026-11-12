@@ -22,7 +22,7 @@ export const geographyItemSchema: SchemaObject = geographyItemSchemaJson;
 import countryCodeSchemaJson from "./countryCode.v1.json" with { type: "json" };
 export const countryCodeSchema: SchemaObject = countryCodeSchemaJson;
 
-import geographySchemaJson from "./geography.v1.json" with { type: "json" };
+import geographySchemaJson from "./geography.v2.json" with { type: "json" };
 export const geographySchema: SchemaObject = geographySchemaJson;
 
 import emissionsScopeSchemaJson from "./emissionsScope.v1.json" with { type: "json" };

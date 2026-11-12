@@ -28,7 +28,9 @@
   },
   "description": "Thailand-specific pathway with a least-cost approach to minimizing power sector emissions by 2060.",
   "geography": {
-    "country": ["TH"]
+    "country": {
+      "TH": ["TH"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2018,

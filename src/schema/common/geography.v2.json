@@ -1,0 +1,51 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "http://pathways.rmi.org/schema/common/geography.v2.json",
+  "title": "Geography",
+  "description": "Geographical coverage of a pathway. 'global' marks whole-world coverage (a literal flag, not a list of every country). 'country' maps each country the publication names to the ISO-3166-1 alpha-2 codes the publication includes in it, keyed by that country's own code: 'CN': ['CN', 'HK', 'MO'], or 'JP': ['JP']. 'regions' maps every other area, under the publication's own label, to the two or more codes it contains. A key's shape says what it is: a country is keyed by an assigned ISO2 code, a region never is (#1071).",
+  "type": "object",
+  "properties": {
+    "global": {
+      "description": "True if the pathway covers the entire world.",
+      "type": "boolean"
+    },
+    "regions": {
+      "description": "Map from a region label, as named in the publication, to the ISO-3166-1 alpha-2 country codes in that region. A label is never an assigned ISO2 code: an area the publication names as one country belongs in 'country', even when it includes several codes. Every region has at least two members.",
+      "type": "object",
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^(?!\\s*$).+",
+        "not": {
+          "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json"
+        }
+      },
+      "additionalProperties": {
+        "type": "array",
+        "uniqueItems": true,
+        "minItems": 2,
+        "items": {
+          "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json",
+          "tsType": "import('./countryCode.v1').CountryCodeV1"
+        }
+      }
+    },
+    "country": {
+      "description": "Map from a country's ISO-3166-1 alpha-2 code to the codes the publication includes in it, the key among them. Usually just the key ('JP': ['JP']); a publication that counts territories with their country lists them too ('US': ['US', 'PR', 'VI']). Membership follows the source. That the key is one of its own members, and that a code belongs to at most one country, are checked by validateScopedEntries in src/utils/validateScopes.ts.",
+      "type": "object",
+      "propertyNames": {
+        "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json"
+      },
+      "additionalProperties": {
+        "type": "array",
+        "uniqueItems": true,
+        "minItems": 1,
+        "items": {
+          "$ref": "http://pathways.rmi.org/schema/common/countryCode.v1.json",
+          "tsType": "import('./countryCode.v1').CountryCodeV1"
+        }
+      }
+    }
+  },
+  "additionalProperties": false
+}

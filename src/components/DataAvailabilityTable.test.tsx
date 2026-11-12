@@ -286,7 +286,7 @@ const scopedRows = [capacityRow, seaRow, sgRow, steelRow];
 const pathwayGeography = {
   global: true,
   regions: { "South East Asia": ["ID", "TH", "VN"] },
-  country: ["SG"],
+  country: { SG: ["SG"] },
 } as unknown as NonNullable<PathwayMetadataType["geography"]>;
 
 const renderScoped = (

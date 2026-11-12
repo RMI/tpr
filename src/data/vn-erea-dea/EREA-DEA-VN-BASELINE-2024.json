@@ -23,7 +23,9 @@
   },
   "description": "Business-as-usual baseline pathway for Vietnam's energy sector.",
   "geography": {
-    "country": ["VN"]
+    "country": {
+      "VN": ["VN"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2022,

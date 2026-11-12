@@ -2,7 +2,8 @@ import type { FacetMode } from "../utils/searchUtils";
 import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import type { PathwayMetadataV2 } from "./pathwayMetadata.v2";
 import type { PublicationV1 } from "./common/publication.v1";
-import type { GeographyV1 } from "./common/geography.v1";
+import type { GeographyV2 } from "./common/geography.v2";
+import type { CountryCodeV1 } from "./common/countryCode.v1";
 
 // Re-export the (current) versioned pathway metadata type as generic.
 // v2 as of #858: src/data/pathwayMetadata.ts validates against v2, so only v2
@@ -21,12 +22,14 @@ export type PathwayType = PathwayMetadataType["pathwayType"];
 export type Sector = PathwayMetadataType["sectors"][number]["name"];
 export type Metric = PathwayMetadataType["metric"][number];
 
-// Geography is now an object ({ global, regions, country }), not a flat array.
-export type Geography = GeographyV1;
-export type GeographyRegions = NonNullable<GeographyV1["regions"]>;
-export type GeographyCountry = NonNullable<GeographyV1["country"]>;
+// Geography is an object ({ global, regions, country }). Both `regions` and
+// `country` map a key to the ISO2 codes it covers; a country's key is its own
+// code (#1071).
+export type Geography = GeographyV2;
+export type GeographyRegions = NonNullable<GeographyV2["regions"]>;
+export type GeographyCountry = NonNullable<GeographyV2["country"]>;
 // A single ISO-3166-1 alpha-2 country code.
-export type GeographyCode = GeographyCountry[number];
+export type GeographyCode = CountryCodeV1;
 
 /**
  * The detail page's scope selection (#872): one sector and one geography, each

@@ -7,7 +7,7 @@ const SEA: Geography = {
   regions: {
     "South East Asia": ["VN", "TH", "ID", "MY", "PH", "SG", "BN", "KH", "LA"],
   },
-  country: [],
+  country: {},
 };
 
 describe("resolveGeography", () => {

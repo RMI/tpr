@@ -223,7 +223,7 @@ describe("buildGeography", () => {
     );
     expect(geo?.global).toBe(true);
     expect(geo?.regions?.Africa).toEqual(["DZ", "EG"]); // XK dropped
-    expect(geo?.country).toEqual(["PH"]);
+    expect(geo?.country).toEqual({ PH: ["PH"] });
     expect(report.lines.some((l) => l.includes("XK"))).toBe(true);
   });
   it("resolves geography tokens against declared coverage, ignoring punctuation", () => {
@@ -236,13 +236,11 @@ describe("buildGeography", () => {
   });
   it("reads `LA: [LA]` as the country it is, not a region named after it", () => {
     // The cookbook's mandated notation for an individually projected country.
-    // Read as a region, every single-country pathway became a pseudo-region --
-    // except Thailand, whose cell is written bare.
     const geo = buildGeography("LA: [LA]", new Report(), "TEST");
-    expect(geo?.country).toEqual(["LA"]);
+    expect(geo?.country).toEqual({ LA: ["LA"] });
     expect(geo?.regions).toBeUndefined();
-    // A real region, and a region whose label is a code but has several
-    // members, stay regions.
+    // A real region stays a region, and so does one labelled with a
+    // two-letter string that is not an assigned code (JRC's EU).
     const multi = buildGeography(
       "ASEAN: [TH, VN]; EU: [FR, DE]",
       new Report(),
@@ -253,36 +251,87 @@ describe("buildGeography", () => {
   });
 });
 
-describe("one country code is always a country (#998)", () => {
-  const JAPAN =
-    'T: region "Japan" has one member, JP -- one country code is a country, ' +
-    'so write JP in the Regions cell and in every scope that says "Japan"';
+describe("a country is keyed by its code (#998, #1071)", () => {
+  const parse = (cell: string) => {
+    const report = new Report();
+    const geo = buildGeography(cell, report, "T");
+    return { geo, errors: report.errors, report };
+  };
+
+  it("reads a code with several members as a country that includes them", () => {
+    const { geo, errors } = parse("Global; CN: [CN, HK, MO]; US: [PR, US, VI]");
+    expect(errors).toEqual([]);
+    expect(geo).toEqual({
+      global: true,
+      country: { CN: ["CN", "HK", "MO"], US: ["PR", "US", "VI"] },
+    });
+  });
 
   it("refuses a one-member region named for its country, telling the sheet to write the code", () => {
-    const report = new Report();
-    const geo = buildGeography(
+    const { geo, errors } = parse(
       "Global; Japan: [JP]; TH: [TH]; Asia: [CN, JP]",
-      report,
-      "T",
     );
-    expect(report.errors).toEqual([JAPAN]);
+    expect(errors).toEqual([
+      'T: "Japan" is the country JP -- a country is keyed by its code, so write ' +
+        'JP: [JP] in the Regions cell and JP in every scope that says "Japan"',
+    ]);
     // The rest of the cell still parses, so every other problem is reported
     // in the same run; the error alone keeps anything from being written.
-    expect(geo?.country).toEqual(["TH"]);
+    expect(geo?.country).toEqual({ TH: ["TH"] });
     expect(Object.keys(geo?.regions ?? {})).toEqual(["Asia"]);
   });
 
+  it("refuses a country with territories written under its name", () => {
+    expect(parse("China: [CN, HK]").errors).toEqual([
+      'T: "China" is the country CN -- a country is keyed by its code, so write ' +
+        'CN: [CN, HK] in the Regions cell and CN in every scope that says "China"',
+    ]);
+  });
+
+  it("refuses a country written as its alpha-3 code", () => {
+    expect(parse("USA: [PR, US, VI]").errors).toEqual([
+      'T: "USA" is the country US -- a country is keyed by its code, so write ' +
+        'US: [PR, US, VI] in the Regions cell and US in every scope that says "USA"',
+    ]);
+  });
+
   it("counts members after non-ISO codes are dropped", () => {
-    const report = new Report();
-    buildGeography("Japan: [JP, XK]", report, "T");
-    expect(report.errors).toEqual([JAPAN]);
+    expect(parse("Japan: [JP, XK]").errors).toEqual([
+      'T: "Japan" is the country JP -- a country is keyed by its code, so write ' +
+        'JP: [JP] in the Regions cell and JP in every scope that says "Japan"',
+    ]);
+  });
+
+  it("refuses a country that does not list its own code", () => {
+    expect(parse("CN: [HK, MO]").errors).toEqual([
+      "T: country CN lists [HK, MO] but not CN itself -- a country is keyed by " +
+        "its own code, so add CN, or key it by the country it is",
+    ]);
+  });
+
+  it("refuses one country listed twice with different codes", () => {
+    expect(parse("CN; CN: [CN, HK]").errors).toEqual([
+      "T: country CN is listed twice, as [CN] and [CN, HK] -- list it once, " +
+        "with every code it includes",
+    ]);
+  });
+
+  it("refuses a code that two countries include", () => {
+    expect(parse("CN: [CN, HK]; HK").errors).toEqual([
+      "T: HK is in both country CN and country HK -- a code belongs to at most one country",
+    ]);
+  });
+
+  it("allows a code in a country and in a region", () => {
+    const { geo, errors } = parse("CN: [CN, HK]; Asia: [CN, HK, JP]");
+    expect(errors).toEqual([]);
+    expect(geo?.regions).toEqual({ Asia: ["CN", "HK", "JP"] });
   });
 
   it("lists a country once when it is written bare and as `JP: [JP]`", () => {
-    const report = new Report();
-    const geo = buildGeography("JP; JP: [JP]; jp: [JP]", report, "T");
-    expect(report.errors).toEqual([]);
-    expect(geo?.country).toEqual(["JP"]);
+    const { geo, errors, report } = parse("JP; JP: [JP]; jp: [JP]");
+    expect(errors).toEqual([]);
+    expect(geo?.country).toEqual({ JP: ["JP"] });
     expect(report.lines).toContain(
       "  - T: geography lists {JP} more than once; kept once",
     );
@@ -319,7 +368,7 @@ describe("one country code is always a country (#998)", () => {
       expect(geo).toEqual({
         global: true,
         regions: { ASEAN: ["TH", "VN"] },
-        country: ["JP", "PH"],
+        country: { JP: ["JP"], PH: ["PH"] },
       });
     });
   });

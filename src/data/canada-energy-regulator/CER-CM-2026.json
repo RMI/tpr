@@ -37,7 +37,9 @@
   },
   "description": "Baseline with policies in place by Nov 2025, moderate growth, prices and technology assumptions.",
   "geography": {
-    "country": ["CA"]
+    "country": {
+      "CA": ["CA"]
+    }
   },
   "pathwayType": "Predictive",
   "modelYearStart": 2023,
