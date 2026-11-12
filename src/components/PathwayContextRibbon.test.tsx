@@ -37,7 +37,7 @@ const multi = {
   geography: {
     global: true,
     regions: { "South East Asia": ["VN", "TH"], "Europe": ["DE", "FR"] },
-    country: ["VN", "US", "DE"],
+    country: { VN: ["VN"], US: ["US"], DE: ["DE"] },
   },
 } as unknown as PathwayMetadataType;
 const MULTI_DATA: ScopeAvailability = {

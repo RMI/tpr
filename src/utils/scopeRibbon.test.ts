@@ -27,7 +27,7 @@ describe("geographyLevels", () => {
     const geo = {
       global: true,
       regions: { ASEAN: ["ID", "TH"], EU: ["DE", "FR"] },
-      country: ["ID", "VN"],
+      country: { ID: ["ID"], VN: ["VN"] },
     } as unknown as Geography;
     expect(geographyLevels(geo)).toEqual({
       global: ["Global"],
@@ -57,7 +57,7 @@ describe("levelOf", () => {
   const geo = {
     global: true,
     regions: { ASEAN: ["ID"] },
-    country: ["ID"],
+    country: { ID: ["ID"] },
   } as unknown as Geography;
 
   it("names the slot a selected token lives in", () => {
@@ -246,12 +246,15 @@ describe("spec fixtures against the real corpus", () => {
     });
   });
 
-  it("NGFS-NZ2050-MESSAGE-2024: regions only, Country inactive", () => {
+  it("NGFS-NZ2050-MESSAGE-2024: regions, and China as its one country", () => {
+    // Was "regions only, Country inactive" (spec §11). Jacob's 053c14b
+    // (2026-11-11) made China a country here, keyed CN and including HK, so
+    // the Country slot now holds one option. The spec's fixture is stale.
     const s = states("NGFS-NZ2050-MESSAGE-2024");
     expect(s.region.kind).toBe("dropdown");
     expect(s.country).toMatchObject({
-      kind: "inactive",
-      tooltip: "This pathway doesn't include any countries.",
+      kind: "single",
+      option: { token: "CN" },
     });
   });
 

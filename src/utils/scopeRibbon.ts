@@ -66,7 +66,8 @@ export function geographyLevels(
   return {
     global: geography.global ? ["Global"] : [],
     region: Object.keys(geography.regions ?? {}),
-    country: [...(geography.country ?? [])],
+    // Keyed by ISO2 since #1080: each country maps to the codes it includes.
+    country: Object.keys(geography.country ?? {}),
   };
 }
 
