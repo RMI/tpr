@@ -231,8 +231,15 @@ export default defineConfig({
     dataValidationPlugin("src/data"),
     schemaServePlugin(),
     viteStaticCopy({
-      // Copy the entire schema dir to /schema in the built output
-      targets: [{ src: "src/schema/**/*", dest: "schema" }],
+      // Publish the schema JSON at /schema/..., the URLs their $id names.
+      // Since v4 the plugin keeps the source path, so strip "src/schema/".
+      targets: [
+        {
+          src: "src/schema/**/*.json",
+          dest: "schema",
+          rename: { stripBase: 2 },
+        },
+      ],
     }),
   ],
   server: {
