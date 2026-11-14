@@ -45,6 +45,12 @@ describe("publisherGroup", () => {
     expect(publisherGroup("ACE")).toBe("ACE");
     expect(publisherGroup("Canada Energy Regulator (CER)")).toBe("CER");
     expect(publisherGroup("CER")).toBe("CER");
+    expect(
+      publisherGroup(
+        "Institut de l'énergie Trottier (IET), Polytechnique Montréal",
+      ),
+    ).toBe("IET");
+    expect(publisherGroup("IET")).toBe("IET");
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
@@ -116,6 +122,15 @@ describe("canonicalKey", () => {
     ).toBe("CER:CM:");
     expect(TARGETS["CER:CM:"]).toMatchObject({
       file: "src/data/canada-energy-regulator/CER-CM-2026.json",
+    });
+    expect(
+      canonicalKey(
+        "Institut de l'énergie Trottier (IET), Polytechnique Montréal",
+        "Net-zero by 2050, pessimistic SMR costs (NZ50PS)",
+      ),
+    ).toBe("IET:NZ50PS:");
+    expect(TARGETS["IET:NZ50PS:"]).toMatchObject({
+      file: "src/data/institut-energie-trottier/IET-NZ50PS-2024.json",
     });
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
