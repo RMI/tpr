@@ -1,6 +1,12 @@
 /// <reference types="vite/client" />
 // App.tsx
-import { BrowserRouter, Routes, Route, useLocation } from "react-router";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  useMatch,
+} from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import NewsletterCta from "./components/NewsletterCta";
@@ -28,9 +34,10 @@ export const AppContent = () => {
   const location = useLocation();
   const isLandingPage = location.pathname === "/";
   // The signup page already shows the form, so it needs no ribbon opening
-  // another copy of it in a dialog.
-  const showNewsletterRibbon =
-    !isLandingPage && location.pathname !== "/get-updates";
+  // another copy of it in a dialog. Matched the way the router matches its
+  // route, so `/get-updates/` and other casings count as the signup page too.
+  const isGetUpdatesPage = useMatch("/get-updates") !== null;
+  const showNewsletterRibbon = !isLandingPage && !isGetUpdatesPage;
 
   // The signup provider renders the one signup dialog, around the routes so it
   // stays open (form and all) when navigation between the landing page and an
