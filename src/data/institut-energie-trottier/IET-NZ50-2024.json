@@ -32,7 +32,9 @@
   },
   "description": "Normative least-cost Canadian pathway to net zero by 2050, with -40% vs 2005 by 2030 (NATEM).",
   "geography": {
-    "country": ["CA"]
+    "country": {
+      "CA": ["CA"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2021,
@@ -449,6 +451,16 @@
     "overall": null,
     "byMetric": [
       {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived: 'Electricity production' emissions ('Figure 4.8') / generation excl. storage ('Figure 2.5'). Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
+      },
+      {
         "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
@@ -457,18 +469,6 @@
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
         "scopeLimitations": "National power-generation emissions in MtCO2e, Scope 1, including negative emissions from BECCS power. Fuel extraction for power sits in 'Oil, gas and coal production' and is not separable. 2021 baseline differs slightly across Explorer scenario files (75.1-77.1 Mt)."
-      },
-      {
-        "metricName": "Asset lifetime",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["CA"],
-        "timeResolution": "10-year steps",
-        "dataFormat": "Text",
-        "granularity": [
-          "High-carbon assets lifetime face early retirement policy"
-        ],
-        "scopeLimitations": "Retirement is regulation-driven via the CER, which excludes Nunavut, Northwest Territories, Yukon and remote communities; existing units are modelled individually. No asset-lifetime table is published."
       },
       {
         "metricName": "Capacity",
@@ -493,16 +493,6 @@
         "scopeLimitations": "Installed capacity, GW. Storage figure covers centralized batteries, decentralized batteries, pumped hydro, flywheel and hydrogen storage; one combined series in the report figure, broken down by type in the Explorer export - 2050 total 18.8 GW (9.0 centralized battery, 2.3 decentralized battery, 7.6 pumped hydro). Decentralized (rooftop) PV and batteries reported separately in Explorer. No captive industrial series."
       },
       {
-        "metricName": "Emissions intensity",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["CA"],
-        "timeResolution": "10-year steps",
-        "dataFormat": "Tabular",
-        "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived: 'Electricity production' emissions ('Figure 4.8') / generation excl. storage ('Figure 2.5'). Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
-      },
-      {
         "metricName": "Generation",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
@@ -522,26 +512,6 @@
           "Other"
         ],
         "scopeLimitations": "Electricity generation in PJ. Figure lists a small 'Storage' output line (1-35 PJ), excluded here. Explorer separates centralized and decentralized (rooftop) PV. On-grid and distributed generation are both included; no captive industrial series. Provincial generation by source exists for all 13 jurisdictions in the Chapter 5 dataset."
-      },
-      {
-        "metricName": "Investment requirement",
-        "sector": "Power",
-        "sectorSegment": ["Unspecified"],
-        "geography": ["CA"],
-        "timeResolution": "10-year steps",
-        "dataFormat": "Tabular",
-        "granularity": ["By sector"],
-        "scopeLimitations": "LIMITATION - period totals: values are 10-year period totals, each covering the decade ending in its label year (2040 = 2031-2040); divide by 10 for an annual average (e.g. NZ50 2041-2050 $509bn -> ~$51bn/yr). Reviewer interpretation, not documented in the export; discounting basis unknown. Aggregate electricity-sector investment in $ (Power10=3), plus 'Fix operation cost'. No technology split, no 2021 value."
-      },
-      {
-        "metricName": "Technology cost",
-        "sector": "Power",
-        "sectorSegment": ["Power generation", "Energy storage"],
-        "geography": ["CA"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Investment cost for 2022, 2030, 2050 and one fixed O&M value per technology; no variable O&M or fuel costs shown. Two SMR rows: optimistic (REF, NZ50) and pessimistic (NZ50PS). Storage split into 4h/8h utility batteries, decentralized batteries, pumped hydro and compressed air (peak and seasonal). No transmission costs."
       },
       {
         "metricName": "Technology mix",
@@ -575,17 +545,39 @@
         "scopeLimitations": "Not covered"
       },
       {
-        "metricName": "Absolute emissions",
-        "sector": "Steel",
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Capital costs, O&M, etc."],
+        "scopeLimitations": "Investment cost for 2022, 2030, 2050 and one fixed O&M value per technology; no variable O&M or fuel costs shown. Two SMR rows: optimistic (REF, NZ50) and pessimistic (NZ50PS). Storage split into 4h/8h utility batteries, decentralized batteries, pumped hydro and compressed air (peak and seasonal). No transmission costs."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
         "sectorSegment": ["Unspecified"],
         "geography": ["CA"],
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
-        "granularity": ["Scope 1"],
-        "scopeLimitations": "Iron and steel = combustion ('Figure 4.6') + process ('Figure 4.7') emissions, MtCO2e, Scope 1. Ironmaking and steelmaking not separated; no power-related (Scope 2) emissions; any steel CCS is not attributed (industrial CCS reported only economy-wide, 'Figure 4.9')."
+        "granularity": ["By sector"],
+        "scopeLimitations": "LIMITATION - period totals: values are 10-year period totals, each covering the decade ending in its label year (2040 = 2031-2040); divide by 10 for an annual average (e.g. NZ50 2041-2050 $509bn -> ~$51bn/yr). Reviewer interpretation, not documented in the export; discounting basis unknown. Aggregate electricity-sector investment in $ (Power10=3), plus 'Fix operation cost'. No technology split, no 2021 value."
       },
       {
         "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Retirement is regulation-driven via the CER, which excludes Nunavut, Northwest Territories, Yukon and remote communities; existing units are modelled individually. No asset-lifetime table is published."
+      },
+      {
+        "metricName": "Emissions intensity (total)",
         "sector": "Steel",
         "sectorSegment": ["Not covered"],
         "geography": ["Not covered"],
@@ -615,27 +607,17 @@
         "scopeLimitations": "Not covered"
       },
       {
-        "metricName": "Emissions intensity (total)",
+        "metricName": "Absolute emissions",
         "sector": "Steel",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
+        "sectorSegment": ["Unspecified"],
+        "geography": ["CA"],
+        "timeResolution": "10-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Iron and steel = combustion ('Figure 4.6') + process ('Figure 4.7') emissions, MtCO2e, Scope 1. Ironmaking and steelmaking not separated; no power-related (Scope 2) emissions; any steel CCS is not attributed (industrial CCS reported only economy-wide, 'Figure 4.9')."
       },
       {
-        "metricName": "Investment requirement",
-        "sector": "Steel",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
-      },
-      {
-        "metricName": "Scrap share",
+        "metricName": "Technology mix (production by route)",
         "sector": "Steel",
         "sectorSegment": ["Not covered"],
         "geography": ["Not covered"],
@@ -655,6 +637,16 @@
         "scopeLimitations": "Not covered"
       },
       {
+        "metricName": "Scrap share",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
         "metricName": "Technology cost",
         "sector": "Steel",
         "sectorSegment": ["Unspecified"],
@@ -665,7 +657,17 @@
         "scopeLimitations": "Only two steel options are costed: hydrogen direct iron reduction and CCS capture (as a capex multiplier); no costs for conventional BF-BOF, EAF or scrap routes. Values constant 2022-2050."
       },
       {
-        "metricName": "Technology mix (production by route)",
+        "metricName": "Investment requirement",
+        "sector": "Steel",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
         "sector": "Steel",
         "sectorSegment": ["Not covered"],
         "geography": ["Not covered"],
