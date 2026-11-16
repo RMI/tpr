@@ -319,20 +319,20 @@
     "emissionsTargets": "Same constraint as NZ50 by construction: national net-zero constraint on total CO2e in 2050 plus a 40% cut vs 2005 by 2030, mirroring the two legislated federal targets; reductions are allocated across provinces at least cost, so some provinces go net-negative while others stay positive.",
     "technologyCosts": "This pathway exists to test SMR unit costs: with pessimistic SMR cost projections, SMR capacity in 2050 falls to 21.2 GW (vs 34.6 GW in NZ50) and SMR output to 615 PJ (vs 1,004 PJ), compensated mainly by wind (113 GW vs 97 GW), solar and storage (22.6 GW vs 18.8 GW). Other technology costs and least-cost logic are as in NZ50.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Same GDP and Statistics Canada medium population growth as REF drive service demand, but NZ50 uses CER Global Net-Zero export prices, lowering export demand: crude oil production falls 93% by 2050 versus growth in REF. This export-price assumption is a key differentiator from REF alongside the emissions constraint. Not differenciated from NZ2050.",
+    "macroeconomicDrivers": "Same GDP and Statistics Canada medium population growth as REF drive service demand, but NZ50 uses CER Global Net-Zero export prices, lowering export demand: crude oil production falls 93% by 2050 versus growth in REF. This export-price assumption is a key differentiator from REF alongside the emissions constraint. Not differenciated from NZ50.",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "A finite biomass resource caps bioenergy at about 1,000 PJ and, as net zero approaches, diverts it from combustion to negative-emission uses (BECCS power and hydrogen, biochar from syngas). With fewer SMRs, NZ50PS relies slightly more on DAC to close the balance, so the biomass ceiling binds at least as tightly as in NZ50."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "As in NZ50, power must double output (4,406 PJ by 2050) and reach -17.2 Mt via BECCS, but with fewer SMRs the strategy must favour wind (113 GW), solar and storage. The companion Infrastructure report advises against locking in technology choices too early , citing Ontario nuclear focus.",
+      "dependency_description": "As in NZ50, power must double output (4,406 PJ by 2050) and reach -17.2 Mt via BECCS, but with fewer SMRs the strategy must favour wind (113 GW), solar and storage. The companion Infrastructure report advises against locking in technology choices too early, citing Ontario nuclear focus.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Building capacity a decade ahead of demand and doubling generation require regulators and utilities to proceed early investment and smart two-way grids; current readiness varies widely, permitting and investment barriers raise costs above European levels. Peak-capacity limits already block electrification in Quebec. The more variable mix increases the importance of interconnection and storage permitting and of utility planning readiness, which currently varies widely across provinces.",
+      "dependency_description": "Building capacity a decade ahead of demand and doubling generation require regulators and utilities to proceed with early investment and smart two-way grids. Current readiness varies widely, permitting and investment barriers raise costs above European levels. Peak-capacity limits already block electrification in Quebec. The more variable mix increases the importance of interconnection and storage permitting and of utility planning readiness, which currently varies widely across provinces.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -356,7 +356,7 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Storage rises to 22.6 GW (10.7 GW centralized batteries, 8.9 GW pumped hydro) - more than NZ50 - with wider wind and solar integration needs, transmission, distribution upgrades and winter-peak capacity built ahead of demand; no hourly dispatch is modelled.",
+      "dependency_description": "Storage rises to 22.6 GW (10.7 GW centralized batteries, 8.9 GW pumped hydro) - more than NZ50 - with wider wind and solar integration needs, transmission, distribution upgrades and winter-peak capacity built ahead of demand. No hourly dispatch is modelled.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -380,7 +380,7 @@
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "A build-out 'equivalent or larger than' 1960-1990 needs workers for construction and operation of grids, competing with hundreds of thousands needed for retrofits and heat pumps; the report says ambitious objectives are unlikely at this pace without aggressive workforce strategies. A shift from nuclear to wind and storage changes the skills needed but not the overall shortage risk the report describes.",
+      "dependency_description": "A build-out 'equivalent or larger than' 1960-1990 needs workers for construction and operation of grids, competing with hundreds of thousands needed for retrofits and heat pumps. The report says ambitious objectives are unlikely at this pace without aggressive workforce strategies. A shift from nuclear to wind and storage changes the skills needed but not the overall shortage risk the report describes.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },

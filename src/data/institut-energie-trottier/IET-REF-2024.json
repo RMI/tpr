@@ -306,7 +306,7 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Carbon price rise to $170/t CO2e in 2030, then is indexed to inflation. Draft Clean Electricity Regulations version from November 2023 is included and pushes gas and coal out of power. Clean Fuel Regulations double transport biofuel use by 2030. ZEV sales represnets 60% in 2030, and 100% in 2035, electrifies 95.4% of road passenger demand by 2050. Investment Tax Credits supports Clean-technology, hydrogen and CCUS expandion and ZEV incentives.",
+    "policies": "Carbon price rise to $170/t CO2e in 2030, then is indexed to inflation. Draft Clean Electricity Regulations version from November 2023 is included and pushes gas and coal out of power. Clean Fuel Regulations double transport biofuel use by 2030. ZEV sales represent 60% in 2030, and 100% in 2035, electrifies 95.4% of road passenger demand by 2050. Investment Tax Credits supports Clean-technology, hydrogen and CCUS expandion and ZEV incentives.",
     "emissionsTargets": "not applicable.",
     "technologyCosts": "North American TIMES Energy Model minimises total energy-system cost to 2060, so technology unit costs decide build-out within the policy constraints. Falling costs drive electrification beyond the mandates: hydrogen trucks penetrate after 2040 'as costs decrease', and more cost-effective generation pushes electricity demand to ~3,000 PJ by 2050 even without a GHG cap. Gas keeps a large share of industry and buildings because it remains cheapest absent a constraint.",
     "investmentChange": "not applicable.",

@@ -340,7 +340,7 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/canada-energy-regulator/CER-EF2026-CNZ.json",
   },
-  // Institut de l'energie Trottier -- Canadian Energy Outlook, 3rd edition (2024).
+  // Institut de l'énergie Trottier -- Canadian Energy Outlook, 3rd edition (2024).
   "IET:REF:": {
     mode: "update",
     file: "src/data/institut-energie-trottier/IET-REF-2024.json",
