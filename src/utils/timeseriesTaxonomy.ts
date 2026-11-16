@@ -570,6 +570,25 @@ export function metricBelongsToSector(
 }
 
 /**
+ * Does the TPR cover this sector in detail (#1081)? Only then do its
+ * assumptions, dependencies, data availability and documentation lists appear.
+ *
+ * The test is whether the taxonomy defines the sector's benchmark `metrics`,
+ * which today is Power only. Steel and Aviation define segments and
+ * availability metrics ahead of their data, so they stay hidden until their
+ * metrics are added, with no list to update. Takes a display name, as pathway
+ * metadata names sectors; `across sectors` is not a sector and answers false.
+ */
+export function isDetailedSector(sectorDisplayName: string): boolean {
+  return metricsForSector(sectorDisplayName) !== undefined;
+}
+
+/** The sector definitions {@link isDetailedSector} accepts, in taxonomy order. */
+export const DETAILED_SECTORS: readonly SectorDefinition[] = Object.values(
+  SECTORS_BY_KEY,
+).filter((sector) => isDetailedSector(sector.displayName));
+
+/**
  * The segment every sector accepts, whatever its definition says (#870).
  *
  * Without this, closed-by-default would make `dataAvailability` unauthorable for

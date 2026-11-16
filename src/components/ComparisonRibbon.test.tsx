@@ -9,6 +9,13 @@ import { EMPTY_FILTERS } from "../context/FilterContext";
 import type { SearchFilters } from "../types";
 import { decodeColumnGeographies } from "../utils/comparisonScope";
 
+// Steel stands in for a second sector covered in detail, as it will be once
+// released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel"]);
+});
+
 // ── Module mocks ────────────────────────────────────────────────────────────
 
 vi.mock("../context/ComparisonContext", () => ({

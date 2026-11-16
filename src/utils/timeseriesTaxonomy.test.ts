@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   availabilityMetricBelongsToSector,
   availabilityMetricsForSector,
+  DETAILED_SECTORS,
+  isDetailedSector,
   metricBelongsToSector,
   metricsForSector,
   POWER_SECTOR_DEFINITION,
@@ -180,6 +182,36 @@ describe("metricsForSector / metricBelongsToSector (#870)", () => {
         expect(METRIC_NAMES).toContain(metric.displayName);
       }
     }
+  });
+});
+
+describe("isDetailedSector / DETAILED_SECTORS (#1081)", () => {
+  it("covers Power in detail", () => {
+    expect(isDetailedSector("Power")).toBe(true);
+  });
+
+  it("does not cover sectors defined only for data availability", () => {
+    expect(isDetailedSector("Steel")).toBe(false);
+    expect(isDetailedSector("Aviation")).toBe(false);
+  });
+
+  it("does not cover sectors the taxonomy does not define, or across sectors", () => {
+    expect(isDetailedSector("Cement")).toBe(false);
+    expect(isDetailedSector("across sectors")).toBe(false);
+  });
+
+  it("follows the taxonomy: a sector is detailed exactly when it defines metrics", () => {
+    for (const sector of Object.values(SECTORS_BY_KEY)) {
+      expect(isDetailedSector(sector.displayName)).toBe(
+        sector.metrics !== undefined,
+      );
+    }
+  });
+
+  it("lists exactly the detailed sectors", () => {
+    expect(DETAILED_SECTORS.map((sector) => sector.displayName)).toEqual([
+      "Power",
+    ]);
   });
 });
 

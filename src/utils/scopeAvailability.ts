@@ -1,11 +1,12 @@
 import type { PathwayMetadataType } from "../types";
-import { asEntries } from "./keyFeatureScope";
+import { ACROSS_SECTORS, asEntries } from "./keyFeatureScope";
 import {
   isForbiddenKeyFeatureSector,
   isScopeLevelNotApplicable,
   type KeyFeatureKey,
 } from "./keyFeatureRules";
 import { pathwayToolAvailability } from "./timeseriesAvailability";
+import { isDetailedSector } from "./timeseriesTaxonomy";
 
 /**
  * Which sector and geography tokens the scope ribbon can usefully select: those
@@ -45,6 +46,11 @@ function keyFeatureScopes(
       // The resolver never reads a forbidden sector, whatever it holds.
       if (isForbiddenKeyFeatureSector(field as KeyFeatureKey, entry.sector))
         continue;
+      // A sector the TPR does not cover in detail is never shown (#1081), so
+      // its values cannot vouch for a geography either. Across-sectors values
+      // still count: they show under the detailed sectors.
+      if (entry.sector !== ACROSS_SECTORS && !isDetailedSector(entry.sector))
+        continue;
       if (!isInformative(entry.value)) continue;
       sectors.add(entry.sector);
       geographies.add(entry.geography);
@@ -54,11 +60,12 @@ function keyFeatureScopes(
 }
 
 /**
- * A sector is available when the pathway has benchmark data for it, records a
- * dependency for exactly that sector, or (with `keyFeatures`) records an
- * informative key-feature value at exactly that sector. A geography needs
- * benchmark data or, with `keyFeatures`, a key-feature value there:
- * dependencies are not scoped by geography.
+ * A sector is available when the TPR covers it in detail (`isDetailedSector`,
+ * #1081) and the pathway has benchmark data for it, records a dependency for
+ * exactly that sector, or (with `keyFeatures`) records an informative
+ * key-feature value at exactly that sector. A geography needs benchmark data
+ * or, with `keyFeatures`, a key-feature value there at a detailed sector or
+ * across sectors: dependencies are not scoped by geography.
  *
  * Exact matches only: an "across sectors" or Global entry does not make every
  * other token available, or nearly every badge would stay clickable.
@@ -82,9 +89,10 @@ export function scopeAvailability(
 
   return {
     hasSector: (sector) =>
-      timeseries.hasSector(sector) ||
-      dependencySectors.has(sector) ||
-      recorded.sectors.has(sector),
+      isDetailedSector(sector) &&
+      (timeseries.hasSector(sector) ||
+        dependencySectors.has(sector) ||
+        recorded.sectors.has(sector)),
     hasGeography: (geography) =>
       timeseries.hasGeography(geography) || recorded.geographies.has(geography),
   };

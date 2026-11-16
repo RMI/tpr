@@ -7,6 +7,7 @@ import dataAvailabilitySchema from "../../schema/common/dataAvailability.v1.json
 import sectorSchema from "../../schema/common/sector.v1.json" with { type: "json" };
 import metricSchema from "../../schema/common/metric.v1.json" with { type: "json" };
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
+import { POWER_SECTOR_DEFINITION } from "../../utils/timeseriesTaxonomy";
 import { GROUPS } from "../../components/KeyFeatures";
 import {
   CORE_DRIVER_LABELS,
@@ -249,5 +250,37 @@ describe("ResourcesMethodologyPage — v2 classifications (#1055)", () => {
     );
     expect(listedUnder("sectors")).toEqual(sectorSchema.$defs.displayName.enum);
     expect(listedUnder("metrics")).toEqual(metricSchema.$defs.displayName.enum);
+  });
+});
+
+describe("ResourcesMethodologyPage — sectors covered in detail (#1058, #1081)", () => {
+  const displayNames = (
+    definitions: Record<string, { displayName: string }> | undefined,
+  ): string[] =>
+    Object.values(definitions ?? {}).map((entry) => entry.displayName);
+
+  it("lists metrics, segments and technologies for Power only", () => {
+    renderPage();
+
+    expect(listedUnder("data-availability-metric")).toEqual(
+      displayNames(POWER_SECTOR_DEFINITION.availabilityMetrics),
+    );
+    expect(listedUnder("sector-segments")).toEqual(
+      displayNames(POWER_SECTOR_DEFINITION.segments),
+    );
+    expect(listedUnder("technologies")).toEqual(
+      displayNames(POWER_SECTOR_DEFINITION.technologies),
+    );
+    expect(
+      screen.queryByText(/steel and aviation segments/i),
+    ).not.toBeInTheDocument();
+  });
+
+  it("still lists Steel and Aviation among the sectors a pathway can cover", () => {
+    renderPage();
+
+    expect(listedUnder("sectors")).toEqual(
+      expect.arrayContaining(["Steel", "Aviation"]),
+    );
   });
 });
