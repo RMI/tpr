@@ -84,19 +84,24 @@ describe("App component", () => {
     ).not.toBeInTheDocument();
   });
 
-  it("serves the signup page at /get-updates, with no ribbon to open a second copy of the form", () => {
-    render(
-      <MemoryRouter initialEntries={["/get-updates"]}>
-        <AppContent />
-      </MemoryRouter>,
-    );
+  // The router serves the page with a trailing slash or in any casing, so the
+  // ribbon has to stay off for each of those too.
+  it.each(["/get-updates", "/get-updates/", "/Get-Updates"])(
+    "serves the signup page at %s, with no ribbon to open a second copy of the form",
+    (path) => {
+      render(
+        <MemoryRouter initialEntries={[path]}>
+          <AppContent />
+        </MemoryRouter>,
+      );
 
-    expect(screen.getByTitle(/newsletter signup form/i)).toBeInTheDocument();
-    expect(screen.getByRole("contentinfo")).toBeInTheDocument();
-    expect(
-      screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
-    ).not.toBeInTheDocument();
-  });
+      expect(screen.getByTitle(/newsletter signup form/i)).toBeInTheDocument();
+      expect(screen.getByRole("contentinfo")).toBeInTheDocument();
+      expect(
+        screen.queryByRole("region", { name: "Stay up to date with the TPR" }),
+      ).not.toBeInTheDocument();
+    },
+  );
 
   it("keeps the open signup form when navigation unmounts the ribbon (Back to /)", async () => {
     let navigate: NavigateFunction = () => {};
