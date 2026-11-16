@@ -1,9 +1,15 @@
 import React from "react";
 import { Link } from "react-router";
 import HeaderNav from "../components/HeaderNav";
+import {
+  primaryCtaClass,
+  primaryCtaLargeClass,
+  secondaryCtaOnDarkClass,
+} from "../components/buttonStyles";
 import { HeaderBrand } from "../components/Header";
 import CoverageMap from "../components/CoverageMap";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import { useNewsletterSignup } from "../context/NewsletterSignupContext";
 
 const WavePattern: React.FC = () => {
   return (
@@ -138,6 +144,8 @@ const InfoCard: React.FC<{
 );
 
 const LandingPage: React.FC = () => {
+  const { openSignup } = useNewsletterSignup();
+
   return (
     <div className="bg-gray-50">
       {/* Hero */}
@@ -179,13 +187,20 @@ const LandingPage: React.FC = () => {
                 with Southeast Asia.
               </p>
 
-              <div className="mt-10">
+              <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <Link
                   to="/pathway"
-                  className="inline-block px-8 py-4 bg-energy-700 text-neutral-300 rounded-md hover:bg-energy-800 transition-colors duration-200 text-lg font-semibold"
+                  className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>
+                <button
+                  type="button"
+                  onClick={openSignup}
+                  className={`${secondaryCtaOnDarkClass} ${primaryCtaLargeClass}`}
+                >
+                  Sign up for updates
+                </button>
               </div>
 
               <p className="mt-6 text-sm italic text-white/80">
@@ -384,7 +399,7 @@ const LandingPage: React.FC = () => {
               <div className="mt-8">
                 <Link
                   to="/pathway"
-                  className="inline-block px-8 py-4 bg-energy-700 text-neutral-300 rounded-md hover:bg-energy-800 transition-colors duration-200 text-lg font-semibold"
+                  className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>
