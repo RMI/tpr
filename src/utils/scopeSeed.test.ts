@@ -23,7 +23,7 @@ function pathway(over: Partial<PathwayMetadataType> = {}): PathwayMetadataType {
       regions: {
         "South East Asia": ["ID", "TH", "VN"],
       },
-      country: ["US", "SG"],
+      country: { US: ["US"], SG: ["SG"] },
     },
     ...over,
   } as unknown as PathwayMetadataType;
@@ -51,7 +51,7 @@ const ace = pathway({
         "VN",
       ],
     },
-    country: [],
+    country: {},
   },
 } as unknown as Partial<PathwayMetadataType>);
 
@@ -110,7 +110,7 @@ describe("seedGeographyFromFilters", () => {
       geography: {
         global: true,
         regions: { "South East Asia": ["ID", "TH", "VN"] },
-        country: [],
+        country: {},
       },
     } as unknown as Partial<PathwayMetadataType>);
 
@@ -122,7 +122,7 @@ describe("seedGeographyFromFilters", () => {
       geography: {
         global: true,
         regions: { "South East Asia": ["ID", "TH", "VN"] },
-        country: ["TH"],
+        country: { TH: ["TH"] },
       },
     } as unknown as Partial<PathwayMetadataType>);
 
@@ -230,7 +230,7 @@ describe("defaultScopeFor", () => {
   it("leaves an axis null when the pathway declares nothing for it", () => {
     const p = pathway({
       sectors: [],
-      geography: { global: false, regions: {}, country: [] },
+      geography: { global: false, regions: {}, country: {} },
     });
 
     expect(defaultScopeFor(p)).toEqual({ sector: null, geography: null });
@@ -252,7 +252,7 @@ describe("resolveInitialScope", () => {
           geography: {
             global: true,
             regions: { "South East Asia": ["ID", "TH", "VN"] },
-            country: [],
+            country: {},
           },
         } as unknown as Partial<PathwayMetadataType>),
       ),

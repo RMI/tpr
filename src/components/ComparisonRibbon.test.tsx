@@ -9,6 +9,13 @@ import { EMPTY_FILTERS } from "../context/FilterContext";
 import type { SearchFilters } from "../types";
 import { decodeColumnGeographies } from "../utils/comparisonScope";
 
+// Steel stands in for a second sector covered in detail, as it will be once
+// released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel"]);
+});
+
 // ── Module mocks ────────────────────────────────────────────────────────────
 
 vi.mock("../context/ComparisonContext", () => ({
@@ -28,14 +35,14 @@ vi.mock("../data/pathwayMetadata", () => ({
       name: { full: "Pathway One" },
       publication: { publisher: { short: "Pub1", full: "Publisher One" } },
       sectors: [{ name: "Power" }, { name: "Steel" }],
-      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: [] },
+      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: {} },
     },
     {
       id: "p2",
       name: { full: "Pathway Two" },
       publication: { publisher: { short: null, full: "Publisher Two" } },
       sectors: [{ name: "Steel" }, { name: "Power" }],
-      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: [] },
+      geography: { regions: { "South East Asia": ["ID", "VN"] }, country: {} },
     },
     {
       // A region label carrying both codec delimiters.
@@ -45,7 +52,7 @@ vi.mock("../data/pathwayMetadata", () => ({
       sectors: [{ name: "Power" }],
       geography: {
         regions: { "Latin America: Central, South": ["AR", "BR"] },
-        country: [],
+        country: {},
       },
     },
     {
@@ -56,7 +63,7 @@ vi.mock("../data/pathwayMetadata", () => ({
       sectors: [{ name: "Power" }],
       geography: {
         regions: { "South East Asia": ["ID", "VN"] },
-        country: ["VN"],
+        country: { VN: ["VN"] },
       },
       keyFeatures: {
         emissionsTrajectory: [

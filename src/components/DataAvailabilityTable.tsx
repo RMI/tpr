@@ -9,8 +9,10 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
 } from "../utils/geographyUtils";
 import { scopeSelectionLabel } from "../utils/scopeLabel";
+import { isDetailedSector } from "../utils/timeseriesTaxonomy";
 import { getSectorSegmentTooltip } from "../utils/tooltipUtils";
 import BadgeArray from "./BadgeArray";
 import RegionMembersTooltip from "./RegionMembersTooltip";
@@ -139,7 +141,7 @@ const GeographyCell: React.FC<{
       // Country codes become country names, as on every geography badge.
       toLabel={(geo) => geographyLabel(geo ?? "")}
       tooltipGetter={(geo) =>
-        geographyKind(geo) === "region" ? (
+        hasMemberList(pathwayGeography, geo) ? (
           <RegionMembersTooltip
             geography={pathwayGeography}
             label={geo}
@@ -183,7 +185,11 @@ const DataAvailabilityTable: React.FC<DataAvailabilityTableProps> = ({
   scope,
   pathwayGeography,
 }) => {
-  const allRows = dataAvailability?.byMetric ?? [];
+  // Rows for sectors the TPR does not cover in detail are never listed
+  // (#1081), so they count as unrecorded in the empty states below too.
+  const allRows = (dataAvailability?.byMetric ?? []).filter((row) =>
+    isDetailedSector(row.sector),
+  );
   const overall = dataAvailability?.overall ?? null;
 
   const sector = scope?.sector ?? null;

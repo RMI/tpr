@@ -3,6 +3,13 @@ import { render, screen, within, fireEvent } from "@testing-library/react";
 import DataAvailabilityTable from "./DataAvailabilityTable";
 import { PathwayMetadataType } from "../types";
 
+// Steel stands in for a second sector covered in detail, as it will be once
+// released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel"]);
+});
+
 type DataAvailability = NonNullable<PathwayMetadataType["dataAvailability"]>;
 type ByMetricRow = DataAvailability["byMetric"][number];
 
@@ -286,7 +293,7 @@ const scopedRows = [capacityRow, seaRow, sgRow, steelRow];
 const pathwayGeography = {
   global: true,
   regions: { "South East Asia": ["ID", "TH", "VN"] },
-  country: ["SG"],
+  country: { SG: ["SG"] },
 } as unknown as NonNullable<PathwayMetadataType["geography"]>;
 
 const renderScoped = (
@@ -439,6 +446,45 @@ describe("DataAvailabilityTable — scope filtering (#872)", () => {
     );
 
     expect(screen.getByText("Hosted as one file.")).toBeInTheDocument();
+  });
+});
+
+describe("DataAvailabilityTable — sectors not covered in detail (#1081)", () => {
+  const aviationRow: ByMetricRow = {
+    ...unspecifiedRow,
+    metricName: "Total demand (passenger)",
+    sector: "Aviation",
+    sectorSegment: ["Passenger transport"],
+  };
+
+  it("lists none of their rows with no sector selected", () => {
+    renderScoped({ sector: null, geography: null }, [
+      ...scopedRows,
+      aviationRow,
+    ]);
+
+    expect(rowHeaders()).toHaveLength(4);
+    expect(rowHeaders()).not.toContain("Total demand (passenger)");
+  });
+
+  it("does not count their rows as hidden by the selection", () => {
+    renderScoped({ sector: "Power", geography: "Global" }, [
+      capacityRow,
+      aviationRow,
+    ]);
+
+    // Only the Power row is recorded as far as the reader can tell, so the
+    // selection hides nothing.
+    expect(rowHeaders()).toEqual(["Capacity"]);
+    expect(screen.queryByText(/^Showing /)).not.toBeInTheDocument();
+  });
+
+  it("shows the nothing-recorded state when they hold the only rows", () => {
+    renderScoped({ sector: null, geography: null }, [aviationRow]);
+
+    expect(
+      screen.getByText(/has been recorded for this pathway yet/),
+    ).toBeInTheDocument();
   });
 });
 

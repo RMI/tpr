@@ -55,7 +55,7 @@ export interface PathwayTimeseriesV2 {
      */
     year: number;
     /**
-     * Geography this data point covers, written exactly as the pathway's metadata declares it: 'Global' (when the pathway is global), one of its region labels (a key of `geography.regions`, in the publication's own wording, e.g. 'ASEAN' or 'Southeast Asia'), or an ISO-3166-1 alpha-2 country code the pathway declares (a standalone country or a member of one of its regions). Every pathway in `pathwayId` must declare it; enforced by scripts/schema-check-files.ts.
+     * Geography this data point covers, written exactly as the pathway's metadata declares it: 'Global' (when the pathway is global), one of its region labels (a key of `geography.regions`, in the publication's own wording, e.g. 'ASEAN' or 'Southeast Asia'), or an ISO-3166-1 alpha-2 country code the pathway declares (a key of `geography.country`, or a member of one of its countries or regions). A country is always its code: a publication's 'China' is 'CN', even where it includes Hong Kong (#1071). Every pathway in `pathwayId` must declare it; enforced by scripts/schema-check-files.ts.
      */
     geography: string;
     /**

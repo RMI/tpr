@@ -4957,7 +4957,9 @@
                 <h4>Dependencies table + evidence pills</h4>
                 <p class="src">
                   DependenciesTable.tsx (Assumptions &amp; Dependencies tab) —
-                  EvidenceBadge, strongest → weakest
+                  EvidenceBadge, strongest → weakest. Also used by
+                  ComparisonDependencies.tsx and by the Methodology page's
+                  Evidence types list.
                 </p>
                 <div class="tags">
                   <span class="tag"
@@ -4971,7 +4973,9 @@
                 <p class="note">
                   Pill colors listed as fill / text / border. The pill shape
                   matches Badge exactly but is its own component. Row content
-                  above is sample text.
+                  above is sample text. Evidence type is the only classification
+                  the Methodology page shows as pills rather than as a plain
+                  list of values, so it reuses this component unchanged.
                 </p>
               </div>
             </div>

@@ -20,7 +20,7 @@ interface Shape {
   sectors: string[];
   global?: boolean;
   regions?: Record<string, string[]>;
-  country?: string[];
+  country?: Record<string, string[]>;
 }
 
 const pathway = ({
@@ -29,7 +29,7 @@ const pathway = ({
   sectors,
   global = false,
   regions = {},
-  country = [],
+  country = {},
 }: Shape): PathwayMetadataType =>
   ({
     id,
@@ -181,7 +181,7 @@ describe("columnGeographyOptions", () => {
       id: "wc",
       publisher: "Z",
       sectors: ["Power"],
-      country: ["US"],
+      country: { US: ["US"] },
     });
     const option = columnGeographyOptions(withCountry, nothing)[0];
 
@@ -196,7 +196,7 @@ describe("columnGeographyOptions", () => {
       sectors: ["Power"],
       global: true,
       regions: { "North America": ["US", "CA"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     });
     expect(columnGeographyOptions(mixed, nothing).map((o) => o.kind)).toEqual([
       "global",
@@ -222,7 +222,7 @@ describe("columnGeographyOptions", () => {
       sectors: ["Power"],
       global: true,
       regions: { "North America": ["US", "CA"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     });
     // Only the country is plottable, so it leads; the rest keep global→region.
     expect(
@@ -280,9 +280,11 @@ describe("columnGeographyOptions", () => {
 describe("comparisonScopeAvailability", () => {
   it("counts key features and dependencies, not only timeseries", () => {
     // What the header and the compare link select by (#1017, #1030, #869).
+    // No timeseries: Power comes from the dependency, and VN, which
+    // dependencies cannot vouch for, from the key feature.
     const scoped = {
-      ...pathway({ id: "s", publisher: "S", sectors: ["Power", "Steel"] }),
-      dependencies: [{ sector: "Steel" }],
+      ...pathway({ id: "s", publisher: "S", sectors: ["Power"] }),
+      dependencies: [{ sector: "Power" }],
       keyFeatures: {
         emissionsTrajectory: [
           { sector: "Power", geography: "VN", value: "Moderate decrease" },
@@ -292,10 +294,25 @@ describe("comparisonScopeAvailability", () => {
 
     const availability = comparisonScopeAvailability(scoped, []);
     expect(availability.hasSector("Power")).toBe(true);
-    expect(availability.hasSector("Steel")).toBe(true);
     expect(availability.hasGeography("VN")).toBe(true);
     expect(availability.hasSector("Cement")).toBe(false);
     expect(availability.hasGeography("TH")).toBe(false);
+  });
+
+  it("never offers a sector the TPR does not cover in detail (#1081)", () => {
+    const scoped = {
+      ...pathway({ id: "a", publisher: "A", sectors: ["Power", "Aviation"] }),
+      dependencies: [{ sector: "Aviation" }],
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "Aviation", geography: "VN", value: "Moderate decrease" },
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+
+    const availability = comparisonScopeAvailability(scoped, []);
+    expect(availability.hasSector("Aviation")).toBe(false);
+    expect(availability.hasGeography("VN")).toBe(false);
   });
 });
 
@@ -500,7 +517,7 @@ describe("defaultGeographyForColumn", () => {
       geography: {
         global: true,
         regions: { "South East Asia": ["TH", "VN"] },
-        country: ["TH"],
+        country: { TH: ["TH"] },
       },
     } as unknown as PathwayMetadataType;
     const mixed = [
@@ -650,5 +667,33 @@ describe("columnsGeographyDivergence", () => {
         [unmapped, ace],
       ),
     ).toEqual({ kind: "none" });
+  });
+});
+
+describe("columnsGeographyDivergence — countries with territories (#1071)", () => {
+  it("warns that one country's codes differ between publications", () => {
+    const ieaChina = pathway({
+      id: "iea-cn",
+      publisher: "IEA",
+      sectors: ["Power"],
+      global: true,
+      country: { CN: ["CN", "HK"] },
+    });
+    const jrcChina = pathway({
+      id: "jrc-cn",
+      publisher: "JRC",
+      sectors: ["Power"],
+      global: true,
+      country: { CN: ["CN"] },
+    });
+    const result = columnsGeographyDivergence(
+      { [ieaChina.id]: "CN", [jrcChina.id]: "CN" },
+      [ieaChina, jrcChina],
+    );
+    expect(result).toEqual({
+      kind: "membersDiffer",
+      token: "CN",
+      exclusives: [{ column: ieaChina.name.short, countries: ["HK"] }],
+    });
   });
 });

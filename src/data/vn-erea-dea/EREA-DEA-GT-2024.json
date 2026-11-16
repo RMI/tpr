@@ -23,7 +23,9 @@
   },
   "description": "Net-zero pathway with full implementation of Vietnam's Green Transport Strategy.",
   "geography": {
-    "country": ["VN"]
+    "country": {
+      "VN": ["VN"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

@@ -65,27 +65,27 @@
         "HR"
       ]
     },
-    "country": [
-      "CA",
-      "US",
-      "MX",
-      "BR",
-      "AR",
-      "DE",
-      "FR",
-      "IT",
-      "GB",
-      "TR",
-      "RU",
-      "SA",
-      "ZA",
-      "ID",
-      "IN",
-      "CN",
-      "JP",
-      "KR",
-      "AU"
-    ]
+    "country": {
+      "CA": ["CA"],
+      "US": ["US"],
+      "MX": ["MX"],
+      "BR": ["BR"],
+      "AR": ["AR"],
+      "DE": ["DE"],
+      "FR": ["FR"],
+      "IT": ["IT"],
+      "GB": ["GB"],
+      "TR": ["TR"],
+      "RU": ["RU"],
+      "SA": ["SA"],
+      "ZA": ["ZA"],
+      "ID": ["ID"],
+      "IN": ["IN"],
+      "CN": ["CN"],
+      "JP": ["JP"],
+      "KR": ["KR"],
+      "AU": ["AU"]
+    }
   },
   "pathwayType": "Normative",
   "modelTempIncrease": 1.5,

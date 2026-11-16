@@ -1,7 +1,14 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, within } from "@testing-library/react";
 import DependenciesTable from "./DependenciesTable";
 import { PathwayMetadataType } from "../types";
+
+// Steel stands in for a second sector covered in detail, as it will be once
+// released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel"]);
+});
 
 type DependencyRow = PathwayMetadataType["dependencies"][number];
 
@@ -71,14 +78,14 @@ describe("DependenciesTable", () => {
       <DependenciesTable
         dependencies={[
           row({ sector: "Power" }),
-          row({ dependency_name: "Technology", sector: "Buildings" }),
+          row({ dependency_name: "Technology", sector: "Steel" }),
         ]}
       />,
     );
     expect(
       screen.getByRole("columnheader", { name: "Sector" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("cell", { name: "Buildings" })).toBeInTheDocument();
+    expect(screen.getByRole("cell", { name: "Steel" })).toBeInTheDocument();
   });
 
   it("renders each evidence type as a labeled badge", () => {
@@ -203,6 +210,51 @@ describe("DependenciesTable — sector scoping (#872)", () => {
     );
     expect(
       screen.getByText(/records one dependency in another sector/),
+    ).toBeInTheDocument();
+  });
+});
+
+describe("DependenciesTable — sectors not covered in detail (#1081)", () => {
+  const withAviation = [
+    row({ dependency_name: "Policy strategy", sector: "Power" }),
+    row({
+      dependency_name: "Infrastructure and logistics",
+      sector: "Aviation",
+    }),
+  ];
+
+  const names = () =>
+    screen.getAllByRole("rowheader").map((th) => th.textContent);
+
+  it("lists none of their dependencies with no sector selected", () => {
+    render(<DependenciesTable dependencies={withAviation} />);
+
+    expect(names()).toEqual(["Policy strategy"]);
+    // One visible sector, so no Sector column either.
+    expect(
+      screen.queryByRole("columnheader", { name: "Sector" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("does not count their dependencies as hidden by the selection", () => {
+    render(
+      <DependenciesTable
+        dependencies={withAviation}
+        sector="Power"
+      />,
+    );
+    expect(screen.queryByText(/^Showing /)).not.toBeInTheDocument();
+  });
+
+  it("shows the nothing-recorded state when they hold the only dependencies", () => {
+    render(
+      <DependenciesTable
+        dependencies={[row({ sector: "Aviation" })]}
+        sector="Power"
+      />,
+    );
+    expect(
+      screen.getByText(/have been recorded for this pathway yet/),
     ).toBeInTheDocument();
   });
 });

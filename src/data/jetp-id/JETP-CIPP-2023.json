@@ -23,7 +23,9 @@
   },
   "description": "Power transition strategy driven by managed coal phasedown and renewables scale-up.",
   "geography": {
-    "country": ["ID"]
+    "country": {
+      "ID": ["ID"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

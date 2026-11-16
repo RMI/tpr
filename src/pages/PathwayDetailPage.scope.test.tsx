@@ -9,6 +9,13 @@ import {
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes } from "react-router";
 
+// Steel and Buildings stand in for further sectors covered in detail, as Steel
+// will be once released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel", "Buildings"]);
+});
+
 // End-to-end coverage for the scope ribbon (#872): that a selection reaches the
 // plots and both tables. Its own file, per the one-file-per-concern convention
 // the sibling detail tests state, so it stays independently mergeable.
@@ -34,12 +41,16 @@ const fixtures = [
       { name: "Steel", technologies: [] },
       // Nothing but a key feature, which is enough to make it selectable.
       { name: "Buildings", technologies: [] },
+      // Not covered in detail (#1081): a key feature, a dependency and an
+      // availability row, none of which may show. The row and dependency
+      // counts asserted below would each be one higher if they did.
+      { name: "Aviation", technologies: [] },
     ],
     metric: ["Capacity"],
     geography: {
       global: true,
       regions: { "South East Asia": ["ID", "TH", "VN"] },
-      country: ["SG"],
+      country: { SG: ["SG"] },
     },
     // `across sectors`, not the retired `cross-sector`: the resolver looks
     // scopes up exactly, so the old spelling would match nothing. The Steel row
@@ -59,6 +70,12 @@ const fixtures = [
         {
           sector: "Buildings",
           geography: "Global",
+          value: "Minor decrease",
+        },
+        // The only informative value at SG: it must not make SG selectable.
+        {
+          sector: "Aviation",
+          geography: "SG",
           value: "Minor decrease",
         },
       ],
@@ -97,6 +114,12 @@ const fixtures = [
         sector: "Steel",
         evidence_type: "Qualitative",
       },
+      {
+        dependency_name: "Infrastructure and logistics",
+        dependency_description: "Assumes sustainable aviation fuel supply.",
+        sector: "Aviation",
+        evidence_type: "Anecdotal",
+      },
     ],
     dataAvailability: {
       overall: "Hosted as a single timeseries file.",
@@ -131,6 +154,16 @@ const fixtures = [
           granularity: ["Unspecified"],
           scopeLimitations: "Unspecified",
         },
+        {
+          metricName: "Total demand (passenger)",
+          sector: "Aviation",
+          sectorSegment: ["Passenger transport"],
+          geography: ["Global"],
+          timeResolution: "5-year steps",
+          dataFormat: "Tabular",
+          granularity: ["Unspecified"],
+          scopeLimitations: "Unspecified",
+        },
       ],
     },
   },
@@ -151,7 +184,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power", technologies: [] }],
     metric: ["Capacity"],
-    geography: { country: ["SG"] },
+    geography: { country: { SG: ["SG"] } },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "Power", geography: "SG", value: "Significant decrease" },
@@ -316,6 +349,35 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       expect(
         screen.getByRole("region", { name: "Geographies" }),
       ).toHaveTextContent("Singapore");
+    },
+    TEST_TIMEOUT,
+  );
+
+  it(
+    "leaves a sector the TPR does not cover in detail out of the ribbon and both tables, but not out of Coverage (#1081)",
+    async () => {
+      await mountDetailPage("/pathway/detail-scope?tab=scope");
+      await screen.findByRole("region", { name: "Sectors" }, WAIT);
+
+      // Aviation records a key feature, a dependency and an availability row,
+      // any one of which would make a detailed sector selectable.
+      expect(
+        screen.getByRole("group", { name: "Sector" }),
+      ).not.toHaveTextContent("Aviation");
+      expect(screen.getByRole("region", { name: "Sectors" })).toHaveTextContent(
+        "Aviation",
+      );
+      expect(
+        screen.queryByRole("rowheader", { name: "Total demand (passenger)" }),
+      ).not.toBeInTheDocument();
+
+      clickTab("Assumptions & Dependencies");
+      await screen.findByRole("rowheader", { name: "Policy strategy" }, WAIT);
+      expect(
+        screen.queryByRole("rowheader", {
+          name: "Infrastructure and logistics",
+        }),
+      ).not.toBeInTheDocument();
     },
     TEST_TIMEOUT,
   );

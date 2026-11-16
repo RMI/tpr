@@ -30,7 +30,9 @@
   },
   "description": "Singapore pathway to achieve near net-zero power sector emissions with a diversified power mix.",
   "geography": {
-    "country": ["SG"]
+    "country": {
+      "SG": ["SG"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2022,

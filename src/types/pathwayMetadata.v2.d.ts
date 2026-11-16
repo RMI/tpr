@@ -15,13 +15,13 @@ export type Publication = import("./common/publication.v1").PublicationV1;
 /**
  * Geographical areas that the pathway covers.
  */
-export type Geography = import("./common/geography.v1").GeographyV1;
+export type Geography = import("./common/geography.v2").GeographyV2;
 /**
  * The sector axis of a scoped keyFeatures entry: one of the sector display names, or the widest sentinel 'across sectors'.
  */
 export type ScopeSector = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -30,7 +30,7 @@ export type ScopeGeography =
  */
 export type ScopeSector1 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography1 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -39,7 +39,7 @@ export type ScopeGeography1 =
  */
 export type ScopeSector2 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography2 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -48,7 +48,7 @@ export type ScopeGeography2 =
  */
 export type ScopeSector3 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography3 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -57,7 +57,7 @@ export type ScopeGeography3 =
  */
 export type ScopeSector4 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography4 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -66,7 +66,7 @@ export type ScopeGeography4 =
  */
 export type ScopeSector5 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography5 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -75,7 +75,7 @@ export type ScopeGeography5 =
  */
 export type ScopeSector6 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography6 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -89,7 +89,7 @@ export type EmissionsScope =
  */
 export type ScopeSector7 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography7 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -98,7 +98,7 @@ export type ScopeGeography7 =
  */
 export type ScopeSector8 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography8 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -107,7 +107,7 @@ export type ScopeGeography8 =
  */
 export type ScopeSector9 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography9 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
@@ -116,12 +116,12 @@ export type ScopeGeography9 =
  */
 export type ScopeSector10 = import("./common/scopeSector.v2").ScopeSectorV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography10 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;
 /**
- * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', an ISO-3166-1 alpha-2 country code, or an author-defined region label.
+ * The geography axis of a scoped keyFeatures entry: 'Global', 'across regions', a country the pathway declares (its ISO-3166-1 alpha-2 key), or a region label, which is never an ISO2 code.
  */
 export type ScopeGeography11 =
   import("./common/scopeGeography.v2").ScopeGeographyV2;

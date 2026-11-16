@@ -24,7 +24,9 @@
   },
   "description": "Normative MY least-cost power pathway to 100% renewables by 2050 with full fossil phase-out.",
   "geography": {
-    "country": ["MY"]
+    "country": {
+      "MY": ["MY"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2019,

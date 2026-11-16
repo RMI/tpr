@@ -32,7 +32,9 @@
   },
   "description": "Normative PH all-RE pathway minimizing cost excl. externalities; near-zero power by 2060.",
   "geography": {
-    "country": ["PH"]
+    "country": {
+      "PH": ["PH"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

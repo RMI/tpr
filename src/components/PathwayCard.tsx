@@ -6,6 +6,7 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
   normalizeGeography,
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
@@ -283,7 +284,7 @@ const PathwayCard: React.FC<PathwayCardProps> = ({
               toLabel={(geo) => geographyLabel(normalizeGeography(geo))}
               renderLabel={(label) => highlightTextIfSearchMatch(label)}
               tooltipGetter={(geo) =>
-                geographyKind(geo) === "region" ? (
+                hasMemberList(pathway.geography, geo) ? (
                   <RegionMembersTooltip
                     geography={pathway.geography}
                     label={geo}

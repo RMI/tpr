@@ -9,6 +9,13 @@ import {
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 
+// Steel stands in for a second sector covered in detail, as it will be once
+// released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel"]);
+});
+
 // Structured-geography fixtures (the post-migration `{ global, regions, country }`
 // shape). Two pathways so ComparisonPage clears its `ids.length < 2` guard, and
 // between them they exercise every flattenGeography token kind: "Global",
@@ -33,7 +40,7 @@ const fixtures = [
     geography: {
       global: true,
       regions: { Europe: ["DE", "FR", "IT"] },
-      country: ["US"],
+      country: { US: ["US"] },
     },
     keyFeatures: {
       emissionsTrajectory: [
@@ -63,7 +70,7 @@ const fixtures = [
     // and these tests are about geography, not the sector restriction.
     sectors: [{ name: "Steel" }, { name: "Power" }],
     metric: ["Generation"],
-    geography: { country: ["DE", "FR"] },
+    geography: { country: { DE: ["DE"], FR: ["FR"] } },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "across sectors", geography: "DE", value: "bar" },
@@ -85,7 +92,7 @@ const fixtures = [
     },
     sectors: [{ name: "Cement" }],
     metric: ["Generation"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {},
   },
   {
@@ -103,7 +110,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {},
   },
   {
@@ -120,7 +127,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }, { name: "Steel" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {},
     dependencies: [
       {
@@ -151,7 +158,7 @@ const fixtures = [
     },
     sectors: [{ name: "Power" }, { name: "Steel" }],
     metric: ["Capacity"],
-    geography: { global: true, regions: {}, country: [] },
+    geography: { global: true, regions: {}, country: {} },
     keyFeatures: {
       emissionsTrajectory: [
         { sector: "Steel", geography: "Global", value: "Minor decrease" },

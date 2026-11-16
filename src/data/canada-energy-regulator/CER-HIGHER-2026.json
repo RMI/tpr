@@ -1,6 +1,6 @@
 {
   "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
-  "id": "CER-EF2026-CNZ",
+  "id": "CER-HIGHER-2026",
   "publication": {
     "title": {
       "full": "Canada’s Energy Future 2026: Energy Supply and Demand Projections to 2050"
@@ -32,17 +32,18 @@
     ]
   },
   "name": {
-    "full": "Canada Net-zero",
-    "short": "CNZ"
+    "full": "Higher Scenario",
+    "short": "Higher"
   },
-  "description": "Normative pathway to economy-wide net-zero GHG in Canada by 2050.",
+  "description": "Exploratory case with higher GDP growth, LNG exports, data-centre load and prices.",
   "geography": {
-    "country": ["CA"]
+    "country": {
+      "CA": ["CA"]
+    }
   },
-  "pathwayType": "Normative",
+  "pathwayType": "Exploratory",
   "modelYearStart": 2023,
   "modelYearEnd": 2050,
-  "modelYearNetzero": 2050,
   "sectors": [
     {
       "name": "Agriculture",
@@ -80,7 +81,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "Canada Net-zero assumes net-zero GHG emissions in Canada by 2050 and explores one possible pathway to reach this. THE CRE raises policy stringency orderly: an aggregate carbon cost reaching $550/t, tighter clean fuel rules, a freight ZEV standard, net-zero buildings and offsets for negative emissions. It also assumes faster rest-of-world climate action (outcomes closer to 2°C), which lowers oil and gas prices, and clean-technology cost declines 20–60% larger than in Current Measures. Electricity demand more than doubles, electricity reaches about 35% of end-use energy demand, and residual emissions are offset by BECCS, direct air capture and land-based removals.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One if its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
+  "pathwayDescription": "The Higher scenario is one of two scenarios new in EF2026 that bracket Current Measures to explore economic and energy uncertainty. Keeping the same climate policies and technology costs, it assumes faster growth in four key drivers: real GDP (~2.0%/yr), LNG exports (three hypothetical projects, 8 Bcf/d by 2045), data-centre load (12 GW by 2050) and global oil and gas prices (Brent ~US$95/bbl). End-use demand is 12% above Current Measures in 2050, oil output peaks near 6.7 MMb/d, gas reaches 32 Bcf/d, electricity demand grows about 80%, and emissions end 9% above Current Measures (22% below 2005), gradually rising late in the period.\n\nThe CER is in charge of regulating construction and operation of energy assets and transport, export and trade of energy, exploration and siting activities. One of its responsibilities is to provide fact-based information on energy markets and supply as part of the Energy Information Program.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -93,7 +94,7 @@
       {
         "sector": "across sectors",
         "geography": "CA",
-        "value": "Significant decrease"
+        "value": "Minor decrease"
       },
       {
         "sector": "Power",
@@ -117,7 +118,7 @@
       {
         "sector": "across sectors",
         "geography": "CA",
-        "value": "Low or no change"
+        "value": "Moderate increase"
       },
       {
         "sector": "Power",
@@ -129,7 +130,7 @@
       {
         "sector": "across sectors",
         "geography": "CA",
-        "value": "Moderate increase"
+        "value": "Minor increase"
       }
     ],
     "policyTypes": [
@@ -138,7 +139,6 @@
         "geography": "CA",
         "value": [
           "Carbon price",
-          "Phaseout dates",
           "Subsidies",
           "Performance standards",
           "Target technology shares"
@@ -178,7 +178,7 @@
       {
         "sector": "across sectors",
         "geography": "CA",
-        "value": "High ambition policies"
+        "value": "Current/legislated policies"
       },
       {
         "sector": "Power",
@@ -204,7 +204,6 @@
         "geography": "CA",
         "value": [
           "CCUS",
-          "DAC",
           "Green H2/ammonia",
           "SAF",
           "Battery storage",
@@ -232,72 +231,72 @@
     ]
   },
   "coreDrivers": {
-    "policies": "More stringent measures are adopted than in Current Measures: carbon tax continues to rise and reaches $450/t in 2050. Freight ZEV standard targets MDV and HDV sales to be 100% ZEV by 2040; 40–45% clean fuels in marine and aviation; no new oil heating from 2030 or gas heating from 2035; enhanced methane rules (−75% by 2030); and paid offsets for negative emissions.",
-    "emissionsTargets": "Net-zero GHG emissions for Canada in 2050 is a predetermined constraint: policy stringency is raised iteratively until modelled net emissions reach zero (−0.01 Mt CO2e in 2050), with residual emissions offset by BECCS, DAC, land-use and nature-based removals.",
-    "technologyCosts": "Clean-technology costs fall 20–60% further than in Current Measures (faster global deployment): 2024–2050 onshore wind  decrease by 40%, utility solar by 54%, SMR by 50%, and electrolysis  by 62%. Lower costs keep electricity prices the lowest of all scenarios despite the highest demand and support much higher deplyoment of onshore wind, SMR, and BECCS than Current Measures. Cost sensitivity of CCUS could cut oil sands output further.",
+    "policies": "As in Current Measures, includes policies in place by Nov 2025. Carbon price covers industry and rises to $170/t by 2030, then flat. Clean Electricity Regulations push non-emitting generation above 96% by 2050 with clean Fuel, vehicle, efficiency, methane and HFC rules on top. Passenger ZEV represents 60% of sales by 2030, and 100% by 2035. Clean economy Investment Tax Credits lower CCUS, hydrogen and clean power costs.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Electricity capacity is chosen by a least-cost model, so unit capital costs steer the build. Baseline cost views from NREL ATB 2024, EIA and IEA decline from 2024 to 2050: onshore wind by 23%, solar by 38%, NG with CCUS by 24%, and SMR by 37%. Least-cost expansion under 80% higher electricity demand leans hardest on low-cost options: ~97 GW onshore wind added and 17.3 GW of SMRs by 2050, the largest SMR build of any scenario, plus 8.4 GW NG with CCUS.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "GDP grows 1.5%/yr, marginally below Current Measures because lower upstream oil and gas activity is partly offset by stronger clean-technology investment; population growth (0.7%/yr) matches Current Measures. Macro trends are secondary here to the net-zero constraint and policy.",
+    "macroeconomicDrivers": "Differentiating driver to Current Measures: stronger export demand is set to add ~0.4 pp/yr to real GDP growth versus Current Measures (2.0%/yr; population 0.9%/yr, reaching 52 M; CPI 2.3%). GDP is 11% above Current Measures in 2050, lifting end-use demand 12% and emissions 9%.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Assumed faster rest-of-world climate action (closer to 2°C) lowers global oil and gas demand: Brent falls to ~US$65/bbl by 2050 and Henry Hub stays at $4.00. One additional LNG project and 3.5GW of data center load are needed by 2050."
+    "otherDrivers": "Higher market drivers: Brent ~US$95/bbl from 2030, Henry Hub to ~$6.75 by 2050. 3 LNG projects and 12GW of data center loads are needed by 2050."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Net-negative power emissions (−37 Mt in 2050) depend on policy beyond current law: an aggregate cost of carbon reaching $450/t and an assumed offset system paying negative-emission providers (BECCS, DAC) at that rate. Without that compensation BECCS, which delivers the negative emissions, has no revenue basis. Current Clean Electricity Regulations and ITCs also apply.",
+      "dependency_description": "Identical policies (Clean Electricity Regulations, clean economy ITCs) must hold while generation grows ~80% and 12 GW of data-centre load is added; they still keep the grid over 96% non-emitting (power emissions −67% vs 2025). Policy strategy is shared only by the three current-policy scenarios: Current Measures, Higher and Lower but this pathways has more build out as it needs to meet higher demand. Hence, it relies more heavily on policy support.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Beyond the Clean Electricity Regulations, the pathway needs a new regulatory market for negative-emission offsets (crediting BECCS and DAC removals) and approvals for CO2 transport and storage serving 8.9 GW gas-CCUS and 5.5 GW BECCS. The report assumes this ‘robust system exists’ rather than modelling how it is created.",
+      "dependency_description": "The Clean Electricity Regulations’ compliance flexibility, including offsets, lets unabated gas run limited hours after 2050, but the largest gas fleet of any scenario (37.5 GW unabated in 2050) leans most on Clean Electricity Regulations compliance flexibility, so any MOU-driven change in Alberta would matter most here. Approval pace for ~200 GW of additions is not assessed.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Around $46 bn/year of investment is needed, but lower clean-technology capital costs make Canada Net-zero’s electricity prices the lowest of all scenarios, rising slower than inflation. The economics hinge on the aggregate carbon cost and paid offsets that reward BECCS. 2024–2050 capex assumptions are 20–60% below Current Measures.",
+      "dependency_description": "Spending is the highest of the current-policy cases,  around $46 bn/year in avearge, peaking at $56 bn/year in 2041–45, about 75% above the 2006–2023 average. Prices still rise faster than inflation and financing that build at regulated rates is a major condition for the pathway.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "The report does not model opposition. 149 GW of new onshore wind, 11.3 GW of SMRs and BECCS with CO2 storage imply the greatest siting footprint; the report’s Indigenous engagement stresses ownership, FPIC and minimising ecosystem and cultural impacts as conditions for community support.",
+      "dependency_description": "The report does not model opposition. Indigenous engagement found communities favour renewables and some SMRs but want cultural sites preserved. The pathway experience more renewables construction but land is not a binding constraint neither.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Electrification of heating (heat pumps) and freight is driven by mandates and costs, not modelled preferences; power demand more than doubles. Excluded demand-side management is flagged as a potential way to reduce peak load in the high-renewable Canada Net-zero system.",
+      "dependency_description": "As in Current Measures, behaviour is exogenous: the extra load comes from 12 GW of data centres and higher floorspace, not from consumer choice. Excluded demand-side management would matter more here given the highest variable-renewable share among current-policy cases.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "With 40% wind in generation technology mix, generation more than doubling and 29 GW of batteries, interties (~70% more capacity, flows to ~140 TWh) and storage are essential to reliability; BECCS and gas-CCUS also need CO2 transport and storage networks. The report highlights flexibility as most important in Canada Net-zero. Canada–US transfer capacity is held constant.",
+      "dependency_description": "The ~70% interprovincial transfer  expansion and 25.7 GW of batteries must handle 31% wind generation technology mix and 12 GW of data-centre load. The report states flexibility needs are ‘especially evident’ in the Higher scenario. US transfer capacity is fixed, distribution excluded.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Net-negative power requires BECCS (5.5 GW, 40 TWh) not yet deployed in Canada, alongside 11.3 GW SMR (twice the capacity built in Current Measure, but less than in Higher Demand), 8.9 GW gas-CCUS and 29 GW batteries (23% more than in Current Measure), with capex assumed 20–60% below Current Measures (SMR $6,187/kW by 2050). The High CCUS Cost sensitivity shows CCUS cost uncertainty is material to the pathway.",
+      "dependency_description": "The largest SMR fleet (17.3 GW, nearly three times more than in Current Measure scenario) plus 8.4 GW gas-CCUS, 6.5 GW hydrogen-fired and 25.7 GW of batteries (10% more than in Current Measure scenario). The firm-capacity build depends heavily on SMR cost reductions assumed equal to Current Measures.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "The largest build needs 565 kt copper, 126 kt graphite, 12 kt lithium and 1.0 kt dysprosium (2025–2050) from concentrated supply chains, and BECCS draws on domestic biomass residues and crops plus imported biofuels competing with transport fuels.",
+      "dependency_description": "Clean-power components depend on concentrated global supply chains (China provide more than 80% of solar modules, 70–80% of wind blades; graphite and lithium processing). The report doesn't provide any quantitative data for raw input needs for the Higher Scenario.",
       "sector": "Power",
-      "evidence_type": "Quantitative"
+      "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "With wind representing 40% of generation technology mix and electrified heating, rare cold, low-wind events drive the flexibility need, which the report flags as greatest in Canada Net-zero. Hydro output would also vary with precipitation but the models do not otherwise include climate-change impacts.",
+      "dependency_description": "No hourly infrastructure is modelled for this variant, but with higher wind deployment, the system is obviously more dependent on wind availability, and gas would also fill demand during no-wind period. Hydro output would also vary with precipitation but the models do not otherwise include climate-change impacts.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "Around $46 bn/yr of spending and the most novel technologies (BECCS, SMRs, CCUS) raise demand for specialised skills. The report warns shortages could affect timelines and costs, but doesn't quantify it.",
+      "dependency_description": "Accelerating electricity installations could face skilled-labour shortages. Electricity Human Resources Canada projects 17,000–28,000 sector job openings in 2023–2028 against 110,600 jobs, and acute shortages could delay new generation and raise costs.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     }
@@ -306,6 +305,16 @@
     "overall": null,
     "byMetric": [
       {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived: electricity-sector Mt CO2e (national inventory basis, direct, CO2e) ÷ total generation incl. distributed solar and wind dedicated to hydrogen; captive industrial generation not separately identified, so numerator and denominator may not align."
+      },
+      {
         "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
@@ -313,17 +322,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Electricity economic-sector GHG, Mt CO2e, national only (no provincial split). Residual unabated gas runs under Clean Electricity Regulations compliance flexibility (p.51). Includes BECCS negative emissions (−37.4 Mt in 2050)."
-      },
-      {
-        "metricName": "Asset lifetime",
-        "sector": "Power",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
+        "scopeLimitations": "Electricity economic-sector GHG, Mt CO2e, national only (no provincial split). Residual unabated gas runs under Clean Electricity Regulations compliance flexibility (p.51)."
       },
       {
         "metricName": "Capacity",
@@ -347,16 +346,6 @@
         "scopeLimitations": "Installed capacity MW, Canada and provinces. Storage is battery only (‘Battery Storage’); pumped hydro is not separated and appears to sit within Hydro. No info on if captive or rooftop capacities are included in analysis. Includes wind dedicated to hydrogen production."
       },
       {
-        "metricName": "Emissions intensity",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["CA"],
-        "timeResolution": "1-year steps",
-        "dataFormat": "Tabular",
-        "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived: electricity-sector Mt CO2e (national inventory basis, direct, CO2e) ÷ total generation incl. distributed solar and wind dedicated to hydrogen; captive industrial generation not separately identified, so numerator and denominator may not align. Negative from ~2050 as BECCS outweighs residual gas emissions."
-      },
-      {
         "metricName": "Generation",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
@@ -375,26 +364,6 @@
           "Other"
         ],
         "scopeLimitations": "Generation GWh, Canada and provinces; includes distributed solar and wind dedicated to electrolysis. No info on if captive or rooftop capacities are included in analysis."
-      },
-      {
-        "metricName": "Investment requirement",
-        "sector": "Power",
-        "sectorSegment": ["Power generation", "Transmission and distribution"],
-        "geography": ["CA"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["By sector"],
-        "scopeLimitations": "Capital and repair expenditure, C$2025, bulk power system only; excludes distribution and transmission other than generation connections and interties (p.88)."
-      },
-      {
-        "metricName": "Technology cost",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["CA"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["Total costs"],
-        "scopeLimitations": "Overnight capital costs for onshore wind, utility solar, NG with CCUS and SMR; no storage, hydro or O&M costs disclosed; no cost file in the Open Government dataset."
       },
       {
         "metricName": "Technology mix",
@@ -425,6 +394,36 @@
         "dataFormat": "Text",
         "granularity": ["International and national transmission lines"],
         "scopeLimitations": "Transfer capacity only stated in prose (~70% more interprovincial capacity by 2050 in all scenarios). Annual flows (not lines) are in electricity-interchange-2026.csv. Canada–US capacity fixed; distribution excluded."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Overnight capital costs for onshore wind, utility solar, NG with CCUS and SMR; no storage, hydro or O&M costs disclosed; no cost file in the Open Government dataset."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Transmission and distribution"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By sector"],
+        "scopeLimitations": "Capital and repair expenditure, C$2025, bulk power system only; excludes distribution and transmission other than generation connections and interties (p.88)."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       }
     ]
   }

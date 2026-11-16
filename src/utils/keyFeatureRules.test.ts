@@ -39,7 +39,7 @@ describe("declaredTokenCodes", () => {
   const geo: Geography = {
     global: true,
     regions: { "South East Asia": ["ID", "TH", "VN"] },
-    country: ["US"],
+    country: { US: ["US"] },
   };
 
   it("Global covers everything", () => {
@@ -89,7 +89,7 @@ describe("declaredTokenCodes", () => {
         // members differ, which is what makes the order observable.
         CN: ["CN", "HK"],
       },
-      country: ["TH"],
+      country: { TH: ["TH"] },
     };
     expect(sorted(declaredTokenCodes("EU", jrc))).toEqual(["AT", "BE", "DE"]);
     expect(sorted(declaredTokenCodes("CN", jrc))).toEqual(["CN", "HK"]);
@@ -111,7 +111,7 @@ describe("declaredGeographyTokens", () => {
           "Asia Pacific": ["JP", "TH", "VN"],
           "Southeast Asia": ["TH", "VN"],
         },
-        country: ["JP"],
+        country: { JP: ["JP"] },
       }),
     ).toEqual(["Asia Pacific", "Southeast Asia", "JP"]);
   });
@@ -220,9 +220,9 @@ describe("widestGeography", () => {
   });
 
   it("is the single country of a one-country pathway (SDSN)", () => {
-    expect(widestGeography(pathway({ geography: { country: ["SG"] } }))).toBe(
-      "SG",
-    );
+    expect(
+      widestGeography(pathway({ geography: { country: { SG: ["SG"] } } })),
+    ).toBe("SG");
   });
 
   it("is a region listed alongside its own members", () => {
@@ -231,7 +231,7 @@ describe("widestGeography", () => {
         pathway({
           geography: {
             regions: { "South East Asia": ["ID", "TH", "VN"] },
-            country: ["ID", "TH", "VN"],
+            country: { ID: ["ID"], TH: ["TH"], VN: ["VN"] },
           },
         }),
       ),
@@ -257,7 +257,10 @@ describe("widestGeography", () => {
     expect(
       widestGeography(
         pathway({
-          geography: { regions: { Europe: ["DE", "FR"] }, country: ["US"] },
+          geography: {
+            regions: { Europe: ["DE", "FR"] },
+            country: { US: ["US"] },
+          },
         }),
       ),
     ).toBe(ACROSS_REGIONS);
@@ -306,5 +309,42 @@ describe("isForbiddenKeyFeatureSector", () => {
     expect(isForbiddenKeyFeatureSector("emissionsTrajectory", "Power")).toBe(
       false,
     );
+  });
+});
+
+describe("a country that includes territories (#1071)", () => {
+  const geo: Geography = {
+    regions: {
+      "Asia Pacific": ["CN", "HK", "JP"],
+      // Holds CN but not HK, so it does not contain the country CN.
+      "Mainland Asia": ["CN", "IN"],
+    },
+    country: { CN: ["CN", "HK"] },
+  };
+
+  it("a country key resolves to all of its codes", () => {
+    expect(sorted(declaredTokenCodes("CN", geo))).toEqual(["CN", "HK"]);
+  });
+
+  it("a code inside the country resolves to itself", () => {
+    expect(sorted(declaredTokenCodes("HK", geo))).toEqual(["HK"]);
+  });
+
+  it("a region contains the country only if it holds every code", () => {
+    const cn = declaredTokenCodes("CN", geo) ?? new Set<string>();
+    expect(containsCodes(declaredTokenCodes("Asia Pacific", geo), cn)).toBe(
+      true,
+    );
+    expect(containsCodes(declaredTokenCodes("Mainland Asia", geo), cn)).toBe(
+      false,
+    );
+  });
+
+  it("is the widest geography of a pathway that declares only it", () => {
+    expect(
+      widestGeography(
+        pathway({ geography: { country: { US: ["PR", "US", "VI"] } } }),
+      ),
+    ).toBe("US");
   });
 });

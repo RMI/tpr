@@ -20,7 +20,9 @@
   "modelYearStart": 2020,
   "modelYearEnd": 2050,
   "geography": {
-    "country": ["CN"]
+    "country": {
+      "CN": ["CN"]
+    }
   },
   "sectors": [
     {

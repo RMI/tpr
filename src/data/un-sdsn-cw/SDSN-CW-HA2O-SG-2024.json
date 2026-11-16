@@ -30,7 +30,9 @@
   },
   "description": "Singapore cost-optimized high-ambition pathway to achieve near-zero power sector emissions by 2050.",
   "geography": {
-    "country": ["SG"]
+    "country": {
+      "SG": ["SG"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

@@ -30,7 +30,9 @@
   },
   "description": "Singapore-specific cost-optimized high-ambition pathway with limited fossil generation investment.",
   "geography": {
-    "country": ["SG"]
+    "country": {
+      "SG": ["SG"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

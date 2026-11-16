@@ -24,7 +24,9 @@
   },
   "description": "Exploratory MY power pathway simulating NETR/MyRER targets as inputs; no emissions constraint.",
   "geography": {
-    "country": ["MY"]
+    "country": {
+      "MY": ["MY"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2019,

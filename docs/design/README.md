@@ -38,7 +38,7 @@ These parts are maintained by hand, so they can fall behind the code. When the a
 | **The "Last checked" line below**                                 | It records when someone last compared the UI kit against the real app.                                                              | Every time the UI kit is updated.                                                                                                                         |
 | **Your Figma file**                                               | Figma lives outside this repository.                                                                                                | After any change to either file here.                                                                                                                     |
 
-**Last checked:** October 2026, against the v2 redesign in [RMI/tpr#937](https://github.com/RMI/tpr/pull/937).
+**Last checked:** November 2026, against the v2 redesign in [RMI/tpr#937](https://github.com/RMI/tpr/pull/937) (evidence pills checked against the Methodology page in #1057).
 
 > **Note on v2:** items in the UI kit tagged **v2** come from #937, the v2 redesign on the `epic/v2` branch, which had not been merged into `main` when this was written. Once it merges, remove the "not yet live" note at the top of the UI kit and update the line above.
 

@@ -8,6 +8,7 @@ import {
   geographyKind,
   geographyLabel,
   geographyVariant,
+  hasMemberList,
   normalizeGeography,
   sortGeographiesForDetails,
 } from "../utils/geographyUtils";
@@ -131,7 +132,7 @@ export const PathwayContextRibbon: React.FC<PathwayContextRibbonProps> = ({
 
   const tooltipForGeography = useCallback(
     (geo: string) =>
-      geographyKind(geo) === "region" ? (
+      hasMemberList(pathway.geography, geo) ? (
         <RegionMembersTooltip
           geography={pathway.geography}
           label={geo}

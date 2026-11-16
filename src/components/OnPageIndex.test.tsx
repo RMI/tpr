@@ -17,6 +17,7 @@ const Harness: React.FC = () => {
         <h2 id="second">Second section</h2>
         <h3 id="second-a">Second A</h3>
         <h3 id="second-b">Second B</h3>
+        <h4 id="second-b-detail">Second B detail</h4>
         <h2 id="third">Third section</h2>
       </div>
     </>
@@ -288,5 +289,19 @@ describe("OnPageIndex — nested sub-headings (#955)", () => {
     expect(getActiveLink()?.textContent).toBe("Second A");
     expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
     expect(linkTexts()).toContain("Second B");
+  });
+
+  it("deep link: a URL pointing below the index lands there and activates the heading above it (#1055)", () => {
+    window.history.replaceState(null, "", "#second-b-detail");
+    const scrollIntoView = vi.spyOn(HTMLElement.prototype, "scrollIntoView");
+
+    render(<Harness />);
+
+    expect(linkTexts()).not.toContain("Second B detail");
+    expect(getActiveLink()?.textContent).toBe("Second B");
+    expect(scrollIntoView).toHaveBeenCalledWith({ block: "start" });
+    expect(scrollIntoView.mock.contexts).toContain(
+      document.getElementById("second-b-detail"),
+    );
   });
 });

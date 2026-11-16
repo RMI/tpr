@@ -306,13 +306,23 @@ describe("filterPathways (array-backed facets)", () => {
     // Matching is by ISO overlap, so use country codes: B covers DE, C covers
     // JP, and B2 covers both.
     const many: PathwayMetadataType[] = [
-      { ...pathways[1], id: "B", name: "B", geography: { country: ["DE"] } },
-      { ...pathways[2], id: "C", name: "C", geography: { country: ["JP"] } },
+      {
+        ...pathways[1],
+        id: "B",
+        name: "B",
+        geography: { country: { DE: ["DE"] } },
+      },
+      {
+        ...pathways[2],
+        id: "C",
+        name: "C",
+        geography: { country: { JP: ["JP"] } },
+      },
       {
         ...pathways[1],
         id: "B2",
         name: "B2",
-        geography: { country: ["DE", "JP"] },
+        geography: { country: { DE: ["DE"], JP: ["JP"] } },
       },
     ];
     // ANY (default): DE OR JP → B, C, B2
@@ -531,16 +541,16 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
   const pathways: PathwayMetadataType[] = [
     p("g", { global: true }),
     p("sea", { regions: { "South East Asia": ["ID", "TH", "VN"] } }),
-    p("cn", { country: ["CN"] }),
+    p("cn", { country: { CN: ["CN"] } }),
     p("mix", {
       global: true,
       regions: { "Europe and Central Asia": ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     }),
     p("mix2", {
       global: true,
       regions: { "South East Asia": ["TH", "VN"] },
-      country: ["US"],
+      country: { US: ["US"] },
     }),
     p("empty", {}),
   ];

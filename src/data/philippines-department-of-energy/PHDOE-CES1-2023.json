@@ -26,7 +26,9 @@
   },
   "description": "Philippines pathway following National Renewable Energy Plan with some offshore wind development.",
   "geography": {
-    "country": ["PH"]
+    "country": {
+      "PH": ["PH"]
+    }
   },
   "pathwayType": "Exploratory",
   "modelYearStart": 2022,

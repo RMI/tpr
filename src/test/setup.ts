@@ -43,7 +43,8 @@ if (typeof window !== "undefined") {
     built on a native dialog throws the moment it opens.
 
     This shim is deliberately thin. It tracks the `open` attribute and fires
-    the `close` event, which is what the editions modal and its tests rely on.
+    the `close` event, which is what the editions modal, the newsletter signup
+    dialog and their tests rely on.
     It does NOT reproduce the top layer, the ::backdrop box, focus trapping or
     inertness, so none of those can be asserted here -- they are real browser
     behaviour and are verified in the browser instead.
@@ -66,7 +67,9 @@ if (typeof window !== "undefined") {
       if (!this.hasAttribute("open")) return;
       this.removeAttribute("open");
       if (returnValue !== undefined) this.returnValue = returnValue;
-      this.dispatchEvent(new window.Event("close"));
+      // A browser fires `close` in a later task, not synchronously, so tests
+      // can't come to rely on onClose having run by the time close() returns.
+      setTimeout(() => this.dispatchEvent(new window.Event("close")), 0);
     };
   }
 }

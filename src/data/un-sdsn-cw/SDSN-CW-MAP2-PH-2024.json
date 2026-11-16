@@ -32,7 +32,9 @@
   },
   "description": "Philippines-specific renewable energy pathway achieving near-zero power sector emissions by 2060.",
   "geography": {
-    "country": ["PH"]
+    "country": {
+      "PH": ["PH"]
+    }
   },
   "pathwayType": "Normative",
   "modelYearStart": 2022,

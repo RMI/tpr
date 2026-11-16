@@ -41,7 +41,7 @@ const fixtures = [
     // and these tests are about geography, not the sector restriction.
     sectors: [{ name: "Steel" }, { name: "Power" }],
     metric: ["Generation"],
-    geography: { country: ["DE"] },
+    geography: { country: { DE: ["DE"] } },
     keyFeatures: { emissionsTrajectory: "bar" },
   },
 ] as const;

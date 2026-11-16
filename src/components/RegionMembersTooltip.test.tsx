@@ -30,7 +30,7 @@ describe("RegionMembersTooltip", () => {
   it("names the member countries instead of showing raw ISO codes", () => {
     const geography: Geography = {
       regions: { "South East Asia": ["TH", "ID"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
     render(
       <RegionMembersTooltip
@@ -44,6 +44,21 @@ describe("RegionMembersTooltip", () => {
     // The raw codes must not leak into the copy.
     expect(screen.queryByText("TH")).toBeNull();
     expect(screen.queryByText("ID")).toBeNull();
+  });
+
+  it("names only a country's other codes, under 'Also includes' (#1071)", () => {
+    render(
+      <RegionMembersTooltip
+        geography={{ country: { CN: ["CN", "HK", "MO"] } }}
+        label="CN"
+      />,
+    );
+    expect(screen.getByText("Also includes")).toBeInTheDocument();
+    expect(screen.getByText("Hong Kong")).toBeInTheDocument();
+    expect(screen.getByText("Macao")).toBeInTheDocument();
+    // The badge already names the country, so the tooltip does not repeat it.
+    expect(screen.queryByText("People's Republic of China")).toBeNull();
+    expect(screen.queryByText(/countries/)).toBeNull();
   });
 
   it("heads the list with a count", () => {
