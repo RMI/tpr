@@ -1369,6 +1369,105 @@
         margin: 0;
       }
 
+      /* HelpButton.tsx: floating button (fixed bottom-4 right-4 z-40) and its panel */
+      .help-trigger {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--color-bluespruce);
+        color: #fff;
+        border: none;
+        border-radius: 9999px;
+        padding: 8px 16px;
+        font-size: 14px;
+        line-height: 20px;
+        font-weight: 600;
+        box-shadow:
+          0 0 0 2px #fff,
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        cursor: pointer;
+        font-family: inherit;
+      }
+      .help-trigger:hover {
+        background: var(--color-energy);
+      }
+      .help-panel {
+        width: 352px;
+        max-width: 100%;
+        background: #fff;
+        border: 1px solid var(--color-neutral-200);
+        border-radius: 6px;
+        box-shadow:
+          0 10px 15px -3px rgb(0 0 0 / 0.1),
+          0 4px 6px -4px rgb(0 0 0 / 0.1);
+        font-size: 14px;
+      }
+      .help-panel-head {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--color-neutral-200);
+      }
+      .help-panel-head h5 {
+        flex: 1;
+        margin: 0;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-rmigray-800);
+      }
+      .help-panel-head .icon-btn {
+        display: inline-flex;
+        padding: 6px;
+        border-radius: 6px;
+        color: var(--color-rmigray-500);
+      }
+      .help-panel-body {
+        padding: 12px;
+        color: var(--color-rmigray-700);
+        line-height: 24px;
+      }
+      .help-panel-body p {
+        margin: 0;
+      }
+      .help-group-label {
+        padding: 0 8px;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
+        color: var(--color-rmigray-500);
+      }
+      .help-question {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        padding: 8px;
+        border-radius: 6px;
+        color: var(--color-rmigray-800);
+        line-height: 20px;
+      }
+      .help-question:hover {
+        background: var(--color-neutral-100);
+      }
+      .help-question svg {
+        flex: none;
+        color: var(--color-rmigray-500);
+      }
+      .help-link {
+        color: var(--color-energy-700);
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+      .help-panel-foot {
+        padding: 8px 12px;
+        border-top: 1px solid var(--color-neutral-200);
+        font-size: 12px;
+        color: var(--color-rmigray-600);
+      }
+
       .section-panel {
         width: 100%;
         background: var(--color-neutral-50);
@@ -1677,6 +1776,7 @@
             >Notices &amp; empty states<span class="new-dot"></span
           ></a>
           <a href="#editions">Pathway editions<span class="new-dot"></span></a>
+          <a href="#help">On-page help<span class="new-dot"></span></a>
         </div>
         <div class="toc-group">
           <h6>Handoff</h6>
@@ -5383,6 +5483,205 @@
                 <p class="note">
                   Kept distinct from "nothing recorded" so the page never says a
                   pathway has no data when it's only hidden by a selection.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ V2: ON-PAGE HELP ============ -->
+        <section
+          class="block"
+          id="help"
+        >
+          <h2>On-page help <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            A Help button fixed to the bottom-right corner of the pathway list,
+            pathway details and comparison pages. It opens a small panel of
+            questions for the page (and, on pathway details, the open tab). Each
+            question opens a short answer with a link to the docs. Back returns
+            to the questions, and the X always closes the panel.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="stage tight">
+                <button
+                  class="help-trigger"
+                  type="button"
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" />
+                    <path d="M12 17h.01" /></svg
+                  >Help
+                </button>
+              </div>
+              <div class="info">
+                <h4>Help button</h4>
+                <p class="src">HelpButton.tsx</p>
+                <div class="tags">
+                  <span class="tag">fixed bottom-4 right-4 z-40</span
+                  ><span class="tag"
+                    >rounded-full bg-bluespruce shadow-lg ring-2
+                    ring-white</span
+                  ><span class="tag">hover:bg-energy</span>
+                </div>
+                <p class="note">
+                  z-40 keeps it above the sticky bars (z-10 to z-30) and below
+                  the header and its menus (z-50 and up). The white ring keeps
+                  it visible over the dark-blue footer.
+                </p>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage tight align-start">
+                <div class="help-panel">
+                  <div class="help-panel-head">
+                    <h5>How can we help?</h5>
+                    <span class="icon-btn"
+                      ><svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" /></svg
+                    ></span>
+                  </div>
+                  <div class="help-panel-body">
+                    <div class="help-group-label">Filters</div>
+                    <div class="help-question">
+                      <span>How do I choose the right pathway?</span
+                      ><svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
+                    </div>
+                    <div class="help-question">
+                      <span>What does coverage mean?</span
+                      ><svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="m9 18 6-6-6-6" />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="help-panel-foot">
+                    More help:
+                    <span class="help-link">Methodology</span> ·
+                    <span class="help-link">How to choose a pathway</span> ·
+                    <span class="help-link">FAQ</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Help panel: questions</h4>
+                <p class="src">HelpButton.tsx · content in helpContent.ts</p>
+                <div class="tags">
+                  <span class="tag">w-[min(22rem,calc(100vw-2rem))]</span
+                  ><span class="tag">max-h-[70vh]</span
+                  ><span class="tag"
+                    >rounded-md border-gray-200 bg-white shadow-lg</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage tight align-start">
+                <div class="help-panel">
+                  <div class="help-panel-head">
+                    <span class="icon-btn"
+                      ><svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="m12 19-7-7 7-7" />
+                        <path d="M19 12H5" /></svg
+                    ></span>
+                    <h5>What does coverage mean?</h5>
+                    <span class="icon-btn"
+                      ><svg
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" /></svg
+                    ></span>
+                  </div>
+                  <div class="help-panel-body">
+                    <p>
+                      Coverage lists the regions, sectors and metrics a pathway
+                      includes.
+                    </p>
+                    <p style="margin-top: 12px; font-weight: 600">
+                      <span class="help-link">Read more: Coverage</span>
+                    </p>
+                  </div>
+                  <div class="help-panel-foot">
+                    More help:
+                    <span class="help-link">Methodology</span> ·
+                    <span class="help-link">How to choose a pathway</span> ·
+                    <span class="help-link">FAQ</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Help panel: answer</h4>
+                <p class="src">HelpButton.tsx</p>
+                <p class="note">
+                  Answers for docs that aren't written yet say "coming soon" and
+                  have no Read more link.
                 </p>
               </div>
             </div>

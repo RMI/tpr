@@ -1,0 +1,128 @@
+import React from "react";
+import { describe, it, expect } from "vitest";
+import { render, cleanup } from "@testing-library/react";
+import { MemoryRouter } from "react-router";
+import {
+  COMING_SOON_ANSWER,
+  GENERAL_HELP_LINKS,
+  getHelpGroups,
+  type HelpGroup,
+} from "./helpContent";
+import { DETAIL_TABS } from "../pages/PathwayDetailPage";
+import ResourcesMethodologyPage from "../pages/resources/ResourcesMethodologyPage";
+import ResourcesHowToChooseAPathwayPage from "../pages/resources/ResourcesHowToChooseAPathwayPage";
+import ResourcesFaqPage from "../pages/resources/ResourcesFaqPage";
+
+const labels = (groups: HelpGroup[] | null) => groups?.map((g) => g.label);
+
+const ALL_CONTEXTS: HelpGroup[][] = [
+  getHelpGroups("/pathway", null)!,
+  getHelpGroups("/compare", null)!,
+  ...DETAIL_TABS.map((t) => getHelpGroups("/pathway/some-id", t.id)!),
+];
+
+describe("getHelpGroups", () => {
+  it("returns null on pages without on-page help", () => {
+    for (const path of [
+      "/",
+      "/contact",
+      "/legal",
+      "/resources/methodology",
+      "/pathway/a/b",
+    ]) {
+      expect(getHelpGroups(path, null)).toBeNull();
+    }
+  });
+
+  it("returns the Card and Comparison view groups", () => {
+    expect(labels(getHelpGroups("/pathway", null))).toEqual([
+      "Getting started",
+      "Filters",
+      "Pathway cards",
+    ]);
+    expect(labels(getHelpGroups("/pathway/", null))).toEqual(
+      labels(getHelpGroups("/pathway", null)),
+    );
+    expect(labels(getHelpGroups("/compare", null))).toEqual([
+      "Getting started",
+      "Header and selectors",
+      "Time series",
+      "Coverage",
+    ]);
+  });
+
+  it("puts the active Detail tab first, then the header group", () => {
+    expect(labels(getHelpGroups("/pathway/x", "scope"))).toEqual([
+      "Scope & Granularity",
+      "Header and selectors",
+    ]);
+    expect(labels(getHelpGroups("/pathway/x", "assumptions"))).toEqual([
+      "Assumptions & Dependencies",
+      "Header and selectors",
+    ]);
+  });
+
+  it("falls back to the first Detail tab for a missing or unknown tab", () => {
+    const atAGlance = labels(getHelpGroups("/pathway/x", "at-a-glance"));
+    expect(labels(getHelpGroups("/pathway/x", null))).toEqual(atAGlance);
+    expect(labels(getHelpGroups("/pathway/x", "nope"))).toEqual(atAGlance);
+    // Not a prototype property lookup.
+    expect(labels(getHelpGroups("/pathway/x", "constructor"))).toEqual(
+      atAGlance,
+    );
+  });
+
+  it("has a group for every Detail tab", () => {
+    for (const tab of DETAIL_TABS) {
+      expect(getHelpGroups("/pathway/x", tab.id)![0].label).toBe(tab.label);
+    }
+  });
+
+  it("uses unique topic ids within each view", () => {
+    for (const groups of ALL_CONTEXTS) {
+      const topics = groups.flatMap((g) => g.topics);
+      const distinct = new Map(topics.map((t) => [t.id, t]));
+      // A topic may appear in two groups, but only as the same object.
+      for (const t of topics) expect(distinct.get(t.id)).toBe(t);
+    }
+  });
+
+  it("only leaves out Read more for coming-soon answers", () => {
+    for (const groups of ALL_CONTEXTS) {
+      for (const topic of groups.flatMap((g) => g.topics)) {
+        expect(topic.readMore === undefined).toBe(
+          topic.answer === COMING_SOON_ANSWER,
+        );
+      }
+    }
+  });
+});
+
+describe("help links", () => {
+  const PAGES: Record<string, React.FC> = {
+    "/resources/methodology": ResourcesMethodologyPage,
+    "/resources/how-to-choose-a-pathway": ResourcesHowToChooseAPathwayPage,
+    "/resources/faq": ResourcesFaqPage,
+  };
+
+  const targets = new Set([
+    ...GENERAL_HELP_LINKS.map((l) => l.to),
+    ...ALL_CONTEXTS.flatMap((groups) =>
+      groups.flatMap((g) => g.topics.flatMap((t) => t.readMore?.to ?? [])),
+    ),
+  ]);
+
+  it.each([...targets])("%s points to an existing page and section", (to) => {
+    const [path, hash] = to.split("#");
+    const Page = PAGES[path];
+    expect(Page, `no page registered for ${path}`).toBeDefined();
+
+    render(
+      <MemoryRouter>
+        <Page />
+      </MemoryRouter>,
+    );
+    if (hash) expect(document.getElementById(hash)).not.toBeNull();
+    cleanup();
+  });
+});

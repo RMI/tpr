@@ -53,7 +53,7 @@ import {
 } from "../utils/timeseriesAvailability";
 
 // The four tabs from Jacob's wireframe. The first is the default (see useActiveTab).
-const DETAIL_TABS: TabDef[] = [
+export const DETAIL_TABS: TabDef[] = [
   { id: "at-a-glance", label: "At a glance" },
   { id: "assumptions", label: "Assumptions & Dependencies" },
   { id: "timeseries", label: "Timeseries" },

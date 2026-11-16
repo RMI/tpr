@@ -3,6 +3,7 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import HelpButton from "./components/HelpButton";
 import LegalPage from "./pages/LegalPage";
 import PathwaySearch from "./pages/PathwaySearch";
 import PathwayDetailPage from "./pages/PathwayDetailPage";
@@ -80,6 +81,7 @@ export const AppContent = () => {
         </Routes>
       </main>
       {!isLandingPage && <Footer />}
+      <HelpButton />
     </div>
   );
 };
