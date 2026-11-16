@@ -32,6 +32,7 @@ import ExcelJS from "exceljs";
 import isoCountries from "i18n-iso-countries";
 import {
   availabilityMetricsForSector,
+  SECTORS_BY_KEY,
   technologyBelongsToSector,
 } from "../src/utils/timeseriesTaxonomy.ts";
 import {
@@ -1529,6 +1530,24 @@ export function buildDataAvailability(
       scopeLimitations,
     });
   }
+
+  // Emit in the cookbook's order rather than the workbook's, so the Data
+  // Availability table reads the same for every pathway however the sheet was
+  // sorted: sectors in SECTORS_BY_KEY order, then each sector's metrics in its
+  // availabilityMetrics order. The sort is stable, so rows for the same metric
+  // keep their sheet order. Anything the taxonomy does not list sorts last;
+  // validation reports it.
+  const rank = (list: readonly string[], value: string) => {
+    const i = list.indexOf(value);
+    return i === -1 ? list.length : i;
+  };
+  const sectorOrder = Object.values(SECTORS_BY_KEY).map((s) => s.displayName);
+  byMetric.sort(
+    (a, b) =>
+      rank(sectorOrder, a.sector) - rank(sectorOrder, b.sector) ||
+      rank(availabilityMetricsForSector(a.sector) ?? [], a.metricName) -
+        rank(availabilityMetricsForSector(b.sector) ?? [], b.metricName),
+  );
 
   const parts = [`${byMetric.length} availability row(s) emitted`];
   if (skipped.length)

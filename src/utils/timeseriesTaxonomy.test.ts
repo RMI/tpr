@@ -199,6 +199,22 @@ describe("availabilityMetricsForSector / availabilityMetricBelongsToSector (#870
     expect(avail).toHaveLength(9);
   });
 
+  it("lists Power's metrics in the cookbook's order", () => {
+    // The order is load-bearing: the importer sorts Data Availability rows by
+    // it, so an alphabetical tidy-up would reorder every pathway's table.
+    expect(availabilityMetricsForSector("Power")).toEqual([
+      "Emissions intensity",
+      "Absolute Emissions",
+      "Capacity",
+      "Generation",
+      "Technology mix",
+      "Transmission lines",
+      "Technology cost",
+      "Investment requirement",
+      "Asset lifetime",
+    ]);
+  });
+
   it("does not carry Storage capacity, which D16 dropped", () => {
     expect(availabilityMetricsForSector("Power")).not.toContain(
       "Storage capacity",
