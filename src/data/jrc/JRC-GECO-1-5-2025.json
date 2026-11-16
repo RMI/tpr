@@ -4463,7 +4463,7 @@
     "overall": null,
     "byMetric": [
       {
-        "metricName": "Absolute Emissions",
+        "metricName": "Emissions intensity",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": [
@@ -4516,7 +4516,7 @@
         "scopeLimitations": "CO2 from fuel combustion in power generation and district heating are combined, the heat share is not separable. Non-CO2 gases are not included. There is no on-grid/captive/rooftop split stated."
       },
       {
-        "metricName": "Emissions intensity",
+        "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": [

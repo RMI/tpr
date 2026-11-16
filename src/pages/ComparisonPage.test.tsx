@@ -9,6 +9,13 @@ import {
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router";
 
+// Steel stands in for a second sector covered in detail, as it will be once
+// released (#1081); Aviation keeps the real rule and stays hidden.
+vi.mock("../utils/timeseriesTaxonomy", async (importOriginal) => {
+  const { withSectorsInDetail } = await import("../test/sectorsInDetail");
+  return withSectorsInDetail(await importOriginal(), ["Steel"]);
+});
+
 // Structured-geography fixtures (the post-migration `{ global, regions, country }`
 // shape). Two pathways so ComparisonPage clears its `ids.length < 2` guard, and
 // between them they exercise every flattenGeography token kind: "Global",

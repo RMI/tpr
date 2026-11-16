@@ -8,8 +8,8 @@ import {
 } from "../../schema/common";
 import { REGION_MAPPING_DISCLAIMER } from "../../utils/geographyUtils";
 import {
+  DETAILED_SECTORS,
   POWER_SECTOR_DEFINITION,
-  SECTORS_BY_KEY,
 } from "../../utils/timeseriesTaxonomy";
 import type { KeyFeatureKey } from "../../utils/keyFeatureRules";
 import {
@@ -66,9 +66,6 @@ const TIME_RESOLUTIONS = definedValues(
   "timeResolution",
 );
 const DATA_FORMATS = definedValues(dataAvailabilitySchema, "dataFormat");
-
-/** Sectors the taxonomy describes in detail, in the order sectors are listed. */
-const DETAILED_SECTORS = Object.values(SECTORS_BY_KEY);
 
 /** A key feature's id on this page: the old v1 subsection ids, kept stable. */
 const featureAnchor = (key: KeyFeatureKey): string =>
@@ -1146,8 +1143,7 @@ const ResourcesMethodologyPage: React.FC = () => {
                       <p>
                         Segments are shown in the <b>Data Availability</b> table
                         and under each chart in the <b>Benchmark Plots</b>{" "}
-                        section. Steel and aviation segments are listed for data
-                        availability, ahead of benchmark data for those sectors.
+                        section.
                       </p>
                     </>
                   }

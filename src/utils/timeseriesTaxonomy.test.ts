@@ -2,6 +2,8 @@ import { describe, it, expect } from "vitest";
 import {
   availabilityMetricBelongsToSector,
   availabilityMetricsForSector,
+  DETAILED_SECTORS,
+  isDetailedSector,
   metricBelongsToSector,
   metricsForSector,
   POWER_SECTOR_DEFINITION,
@@ -183,6 +185,36 @@ describe("metricsForSector / metricBelongsToSector (#870)", () => {
   });
 });
 
+describe("isDetailedSector / DETAILED_SECTORS (#1081)", () => {
+  it("covers Power in detail", () => {
+    expect(isDetailedSector("Power")).toBe(true);
+  });
+
+  it("does not cover sectors defined only for data availability", () => {
+    expect(isDetailedSector("Steel")).toBe(false);
+    expect(isDetailedSector("Aviation")).toBe(false);
+  });
+
+  it("does not cover sectors the taxonomy does not define, or across sectors", () => {
+    expect(isDetailedSector("Cement")).toBe(false);
+    expect(isDetailedSector("across sectors")).toBe(false);
+  });
+
+  it("follows the taxonomy: a sector is detailed exactly when it defines metrics", () => {
+    for (const sector of Object.values(SECTORS_BY_KEY)) {
+      expect(isDetailedSector(sector.displayName)).toBe(
+        sector.metrics !== undefined,
+      );
+    }
+  });
+
+  it("lists exactly the detailed sectors", () => {
+    expect(DETAILED_SECTORS.map((sector) => sector.displayName)).toEqual([
+      "Power",
+    ]);
+  });
+});
+
 describe("availabilityMetricsForSector / availabilityMetricBelongsToSector (#870)", () => {
   it("is a superset of the metadata metric list for Power", () => {
     // The whole point of the second axis (register item D16): the availability
@@ -197,6 +229,22 @@ describe("availabilityMetricsForSector / availabilityMetricBelongsToSector (#870
       expect(avail).toContain(extra);
     }
     expect(avail).toHaveLength(9);
+  });
+
+  it("lists Power's metrics in the cookbook's order", () => {
+    // The order is load-bearing: the importer sorts Data Availability rows by
+    // it, so an alphabetical tidy-up would reorder every pathway's table.
+    expect(availabilityMetricsForSector("Power")).toEqual([
+      "Emissions intensity",
+      "Absolute Emissions",
+      "Capacity",
+      "Generation",
+      "Technology mix",
+      "Transmission lines",
+      "Technology cost",
+      "Investment requirement",
+      "Asset lifetime",
+    ]);
   });
 
   it("does not carry Storage capacity, which D16 dropped", () => {
