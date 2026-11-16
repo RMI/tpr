@@ -123,15 +123,21 @@ describe("canonicalKey", () => {
     expect(TARGETS["CER:CM:"]).toMatchObject({
       file: "src/data/canada-energy-regulator/CER-CM-2026.json",
     });
-    expect(
-      canonicalKey(
+    // Every IET workbook row reaches its own file.
+    for (const [name, code] of [
+      ["Reference scenario (REF)", "REF"],
+      ["Net-zero by 2050 scenario (NZ50)", "NZ50"],
+      ["Net-zero by 2050, pessimistic SMR costs (NZ50PS)", "NZ50PS"],
+    ]) {
+      const key = canonicalKey(
         "Institut de l'énergie Trottier (IET), Polytechnique Montréal",
-        "Net-zero by 2050, pessimistic SMR costs (NZ50PS)",
-      ),
-    ).toBe("IET:NZ50PS:");
-    expect(TARGETS["IET:NZ50PS:"]).toMatchObject({
-      file: "src/data/institut-energie-trottier/IET-NZ50PS-2024.json",
-    });
+        name,
+      );
+      expect(key, name).toBe(`IET:${code}:`);
+      expect(TARGETS[`IET:${code}:`], name).toMatchObject({
+        file: `src/data/institut-energie-trottier/IET-${code}-2024.json`,
+      });
+    }
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
       canonicalKey(
