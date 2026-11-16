@@ -93,6 +93,9 @@ export function scopeAvailability(
       (timeseries.hasSector(sector) ||
         dependencySectors.has(sector) ||
         recorded.sectors.has(sector)),
+    // Benchmark data needs no isDetailedSector check: every timeseries row
+    // names a metric, and build-timeseries-files.ts fails on a metric its
+    // sector's taxonomy does not define, so only detailed sectors have data.
     hasGeography: (geography) =>
       timeseries.hasGeography(geography) || recorded.geographies.has(geography),
   };
