@@ -22,10 +22,16 @@ describe("scopeAvailability", () => {
   });
 
   it("makes a sector available through its dependencies alone", () => {
-    const av = scopeAvailability(withDependencies("Steel"), []);
+    const av = scopeAvailability(withDependencies("Power"), []);
 
-    expect(av.hasSector("Steel")).toBe(true);
-    expect(av.hasSector("Power")).toBe(false);
+    expect(av.hasSector("Power")).toBe(true);
+  });
+
+  it("never makes a sector the TPR does not cover in detail available (#1081)", () => {
+    const av = scopeAvailability(withDependencies("Steel", "Aviation"), []);
+
+    expect(av.hasSector("Steel")).toBe(false);
+    expect(av.hasSector("Aviation")).toBe(false);
   });
 
   it("never makes a geography available through dependencies", () => {
@@ -58,22 +64,52 @@ describe("scopeAvailability", () => {
 
     it("are ignored unless asked for (the comparison page, until it resolves them)", () => {
       const av = scopeAvailability(
-        withKeyFeatures(entry("Steel", "TH", "Minor decrease")),
+        withKeyFeatures(entry("Power", "TH", "Minor decrease")),
         [],
       );
 
-      expect(av.hasSector("Steel")).toBe(false);
+      expect(av.hasSector("Power")).toBe(false);
       expect(av.hasGeography("TH")).toBe(false);
     });
 
     it("make their exact sector and geography available when counted", () => {
       const av = scopeAvailability(
-        withKeyFeatures(entry("Steel", "TH", "Minor decrease")),
+        withKeyFeatures(entry("Power", "TH", "Minor decrease")),
         [],
         { keyFeatures: true },
       );
 
-      expect(av.hasSector("Steel")).toBe(true);
+      expect(av.hasSector("Power")).toBe(true);
+      expect(av.hasGeography("TH")).toBe(true);
+    });
+
+    it("count nothing at a sector the TPR does not cover in detail (#1081)", () => {
+      // Steel values stay hidden, so they can vouch for neither their sector
+      // nor a geography only they are recorded at.
+      const av = scopeAvailability(
+        withKeyFeatures(
+          entry("Steel", "TH", "Minor decrease"),
+          entry("Aviation", "VN", "Minor decrease"),
+        ),
+        [],
+        { keyFeatures: true },
+      );
+
+      expect(av.hasSector("Steel")).toBe(false);
+      expect(av.hasSector("Aviation")).toBe(false);
+      expect(av.hasGeography("TH")).toBe(false);
+      expect(av.hasGeography("VN")).toBe(false);
+    });
+
+    it("still count an across sectors value's geography", () => {
+      // Across-sectors values show under Power, so their geography stays
+      // selectable.
+      const av = scopeAvailability(
+        withKeyFeatures(entry("across sectors", "TH", "Minor decrease")),
+        [],
+        { keyFeatures: true },
+      );
+
       expect(av.hasGeography("TH")).toBe(true);
     });
 
@@ -92,18 +128,16 @@ describe("scopeAvailability", () => {
     it("count only values that say something", () => {
       const av = scopeAvailability(
         withKeyFeatures(
-          entry("Steel", "TH", "Not applicable at this scope level"),
-          entry("Cement", "ID", "No information"),
-          entry("Rail", "MY", ["No information"]),
-          entry("Aviation", "PH", ["Not applicable at this scope level"]),
+          entry("Power", "TH", "Not applicable at this scope level"),
+          entry("Power", "ID", "No information"),
+          entry("Power", "MY", ["No information"]),
+          entry("Power", "PH", ["Not applicable at this scope level"]),
         ),
         [],
         { keyFeatures: true },
       );
 
-      for (const sector of ["Steel", "Cement", "Rail", "Aviation"]) {
-        expect(av.hasSector(sector)).toBe(false);
-      }
+      expect(av.hasSector("Power")).toBe(false);
       for (const geography of ["TH", "ID", "MY", "PH"]) {
         expect(av.hasGeography(geography)).toBe(false);
       }
@@ -129,12 +163,12 @@ describe("scopeAvailability", () => {
 
     it("count an array value with anything besides No information", () => {
       const av = scopeAvailability(
-        withKeyFeatures(entry("Steel", "TH", ["No information", "CCUS"])),
+        withKeyFeatures(entry("Power", "TH", ["No information", "CCUS"])),
         [],
         { keyFeatures: true },
       );
 
-      expect(av.hasSector("Steel")).toBe(true);
+      expect(av.hasSector("Power")).toBe(true);
     });
   });
 
