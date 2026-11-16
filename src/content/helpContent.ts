@@ -59,11 +59,24 @@ const coverage: HelpTopic = {
   readMore: methodology("coverage", "Coverage"),
 };
 
-const valuesByScope: HelpTopic = {
+// The Detail and Comparison views show different sections, so each gets its
+// own answer to the same question.
+const VALUES_BY_SCOPE_QUESTION =
+  "What does choosing a sector and geography change?";
+
+const detailValuesByScope: HelpTopic = {
   id: "values-by-scope",
-  question: "What does choosing a sector and geography change?",
+  question: VALUES_BY_SCOPE_QUESTION,
   answer:
     "Some values differ by sector and geography, so the selectors at the top choose which ones you see. They change Assumptions & Trends, Dependencies (by sector only), the benchmark plots and Data Availability. Pathway overview and Coverage describe the whole pathway and stay the same.",
+  readMore: methodology("values-by-scope", "Values by sector and geography"),
+};
+
+const comparisonValuesByScope: HelpTopic = {
+  id: "values-by-scope",
+  question: VALUES_BY_SCOPE_QUESTION,
+  answer:
+    "Some values differ by sector and geography. The sector at the top applies to every pathway, and each pathway has its own geography selector. Together they change the plots, the assumptions & trends rows and Dependencies (by sector only). Pathway overview and Coverage describe each pathway as a whole and stay the same.",
   readMore: methodology("values-by-scope", "Values by sector and geography"),
 };
 
@@ -119,9 +132,14 @@ const CARD_VIEW: HelpGroup[] = [
   },
 ];
 
-const CONTEXT_RIBBON: HelpGroup = {
+const DETAIL_HEADER: HelpGroup = {
   label: "Header and selectors",
-  topics: [pathwayOverview, valuesByScope],
+  topics: [pathwayOverview, detailValuesByScope],
+};
+
+const COMPARISON_HEADER: HelpGroup = {
+  label: "Header and selectors",
+  topics: [pathwayOverview, comparisonValuesByScope],
 };
 
 /** Keyed by Detail view tab id; the active tab's group shows first. */
@@ -198,7 +216,7 @@ const COMPARISON_VIEW: HelpGroup[] = [
       },
     ],
   },
-  CONTEXT_RIBBON,
+  COMPARISON_HEADER,
   {
     label: "Time series",
     topics: [
@@ -236,7 +254,7 @@ export function getHelpGroups(
       tab !== null && Object.hasOwn(DETAIL_VIEW_BY_TAB, tab)
         ? tab
         : DETAIL_TABS[0].id;
-    return [DETAIL_VIEW_BY_TAB[tabId], CONTEXT_RIBBON];
+    return [DETAIL_VIEW_BY_TAB[tabId], DETAIL_HEADER];
   }
 
   return null;

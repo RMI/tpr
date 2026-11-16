@@ -72,6 +72,18 @@ describe("getHelpGroups", () => {
     );
   });
 
+  it("only mentions Data Availability where the page has it", () => {
+    const scopeAnswer = (groups: HelpGroup[] | null) =>
+      groups!.flatMap((g) => g.topics).find((t) => t.id === "values-by-scope")!
+        .answer;
+    expect(scopeAnswer(getHelpGroups("/pathway/x", null))).toMatch(
+      /Data Availability/,
+    );
+    expect(scopeAnswer(getHelpGroups("/compare", null))).not.toMatch(
+      /Data Availability/,
+    );
+  });
+
   it("has a group for every Detail tab", () => {
     for (const tab of DETAIL_TABS) {
       expect(getHelpGroups("/pathway/x", tab.id)![0].label).toBe(tab.label);
