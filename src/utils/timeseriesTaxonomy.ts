@@ -48,6 +48,11 @@ export interface SectorDefinition {
    * plot (transmission lines, technology cost, investment requirement, asset
    * lifetime). Folding them into `metrics` would make the timeseries taxonomy
    * claim series it has no data for.
+   *
+   * Entry order is meaningful here, unlike the other axes: it is the
+   * cookbook's order, and the importer sorts a pathway's Data Availability
+   * rows by it, so the table reads the same for every pathway however the
+   * workbook happened to be sorted. Do not alphabetise.
    */
   availabilityMetrics?: Record<string, MetricDefinition>;
 }
@@ -172,36 +177,22 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
     inconsistency for now.
   */
   availabilityMetrics: {
+    emissionsIntensity: {
+      displayName: "Emissions intensity",
+      definition: "Greenhouse gases emitted per unit of physical output.",
+    },
     absoluteEmissions: {
       displayName: "Absolute Emissions",
       definition:
         "Total greenhouse gas emissions produced, regardless of output.",
     },
-    assetLifetime: {
-      displayName: "Asset lifetime",
-      definition:
-        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
-    },
     capacity: {
       displayName: "Capacity",
       definition: "Maximum output under ideal conditions, measured in GW.",
     },
-    emissionsIntensity: {
-      displayName: "Emissions intensity",
-      definition: "Greenhouse gases emitted per unit of physical output.",
-    },
     generation: {
       displayName: "Generation",
       definition: "Electricity produced over a period, typically in TWh.",
-    },
-    investmentRequirement: {
-      displayName: "Investment requirement",
-      definition: "Capital the pathway implies, and how it is broken down.",
-    },
-    technologyCost: {
-      displayName: "Technology cost",
-      definition:
-        "Cost assumptions per technology, and how they are broken down.",
     },
     technologyMix: {
       displayName: "Technology mix",
@@ -211,6 +202,20 @@ export const POWER_SECTOR_DEFINITION: SectorDefinition = {
       displayName: "Transmission lines",
       definition:
         "Transmission and distribution infrastructure, and which connections are in scope.",
+    },
+    technologyCost: {
+      displayName: "Technology cost",
+      definition:
+        "Cost assumptions per technology, and how they are broken down.",
+    },
+    investmentRequirement: {
+      displayName: "Investment requirement",
+      definition: "Capital the pathway implies, and how it is broken down.",
+    },
+    assetLifetime: {
+      displayName: "Asset lifetime",
+      definition:
+        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
     },
   },
 };
@@ -250,15 +255,9 @@ export const STEEL_SECTOR_DEFINITION: SectorDefinition = {
     },
   },
   availabilityMetrics: {
-    absoluteEmissions: {
-      displayName: "Absolute emissions",
-      definition:
-        "Total greenhouse gas emissions produced, regardless of output.",
-    },
-    assetLifetime: {
-      displayName: "Asset lifetime",
-      definition:
-        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
+    emissionsIntensityTotal: {
+      displayName: "Emissions intensity (total)",
+      definition: "Emissions per tonne of steel across both routes.",
     },
     emissionsIntensityPrimary: {
       displayName: "Emissions intensity (primary)",
@@ -270,31 +269,37 @@ export const STEEL_SECTOR_DEFINITION: SectorDefinition = {
       definition:
         "Emissions per tonne of steel from the secondary (scrap-based) route.",
     },
-    emissionsIntensityTotal: {
-      displayName: "Emissions intensity (total)",
-      definition: "Emissions per tonne of steel across both routes.",
+    absoluteEmissions: {
+      displayName: "Absolute emissions",
+      definition:
+        "Total greenhouse gas emissions produced, regardless of output.",
     },
-    investmentRequirement: {
-      displayName: "Investment requirement",
-      definition: "Capital the pathway implies, and how it is broken down.",
+    technologyMix: {
+      displayName: "Technology mix (production by route)",
+      definition: "Share of production by route.",
+    },
+    steelProductionByTechnology: {
+      displayName: "Steel production by technology (production route)",
+      definition: "Absolute production split by production route.",
     },
     scrapShare: {
       displayName: "Scrap share",
       definition:
         "Share of scrap in the input mix, however the pathway defines the base.",
     },
-    steelProductionByTechnology: {
-      displayName: "Steel production by technology (production route)",
-      definition: "Absolute production split by production route.",
-    },
     technologyCost: {
       displayName: "Technology cost",
       definition:
         "Cost assumptions per technology, and how they are broken down.",
     },
-    technologyMix: {
-      displayName: "Technology mix (production by route)",
-      definition: "Share of production by route.",
+    investmentRequirement: {
+      displayName: "Investment requirement",
+      definition: "Capital the pathway implies, and how it is broken down.",
+    },
+    assetLifetime: {
+      displayName: "Asset lifetime",
+      definition:
+        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
     },
   },
 };
@@ -319,59 +324,59 @@ export const AVIATION_SECTOR_DEFINITION: SectorDefinition = {
     },
   },
   availabilityMetrics: {
-    absoluteEmissionsWtwFreight: {
-      displayName: "Absolute emissions Well-to-Wheel (freight)",
-      definition: "Well-to-wheel emissions attributed to freight.",
-    },
-    absoluteEmissionsWtwPassenger: {
-      displayName: "Absolute emissions Well-to-Wheel (passenger)",
-      definition: "Well-to-wheel emissions attributed to passengers.",
-    },
-    assetLifetime: {
-      displayName: "Asset lifetime",
-      definition:
-        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
-    },
-    demandByPropulsionFreight: {
-      displayName: "Demand by propulsion technology (freight)",
-      definition: "Absolute freight demand split by propulsion technology.",
-    },
-    demandByPropulsionPassenger: {
-      displayName: "Demand by propulsion technology (passenger)",
-      definition: "Absolute passenger demand split by propulsion technology.",
-    },
-    demandShareByPropulsionFreight: {
-      displayName: "Demand share by propulsion technology (freight)",
-      definition: "Share of freight demand by propulsion technology.",
-    },
-    demandShareByPropulsionPassenger: {
-      displayName: "Demand share by propulsion technology (passenger)",
-      definition: "Share of passenger demand by propulsion technology.",
+    emissionsIntensityPassenger: {
+      displayName: "Emissions intensity (passenger)",
+      definition: "Emissions per unit of passenger activity.",
     },
     emissionsIntensityFreight: {
       displayName: "Emissions intensity (freight)",
       definition: "Emissions per unit of freight activity.",
     },
-    emissionsIntensityPassenger: {
-      displayName: "Emissions intensity (passenger)",
-      definition: "Emissions per unit of passenger activity.",
+    absoluteEmissionsWtwPassenger: {
+      displayName: "Absolute emissions Well-to-Wheel (passenger)",
+      definition: "Well-to-wheel emissions attributed to passengers.",
     },
-    investmentRequirement: {
-      displayName: "Investment requirement",
-      definition: "Capital the pathway implies, and how it is broken down.",
+    absoluteEmissionsWtwFreight: {
+      displayName: "Absolute emissions Well-to-Wheel (freight)",
+      definition: "Well-to-wheel emissions attributed to freight.",
+    },
+    totalDemandPassenger: {
+      displayName: "Total demand (passenger)",
+      definition: "Total passenger activity.",
+    },
+    totalDemandFreight: {
+      displayName: "Total demand (freight)",
+      definition: "Total freight activity.",
+    },
+    demandByPropulsionPassenger: {
+      displayName: "Demand by propulsion technology (passenger)",
+      definition: "Absolute passenger demand split by propulsion technology.",
+    },
+    demandByPropulsionFreight: {
+      displayName: "Demand by propulsion technology (freight)",
+      definition: "Absolute freight demand split by propulsion technology.",
+    },
+    demandShareByPropulsionPassenger: {
+      displayName: "Demand share by propulsion technology (passenger)",
+      definition: "Share of passenger demand by propulsion technology.",
+    },
+    demandShareByPropulsionFreight: {
+      displayName: "Demand share by propulsion technology (freight)",
+      definition: "Share of freight demand by propulsion technology.",
     },
     technologyCost: {
       displayName: "Technology cost",
       definition:
         "Cost assumptions per technology, and how they are broken down.",
     },
-    totalDemandFreight: {
-      displayName: "Total demand (freight)",
-      definition: "Total freight activity.",
+    investmentRequirement: {
+      displayName: "Investment requirement",
+      definition: "Capital the pathway implies, and how it is broken down.",
     },
-    totalDemandPassenger: {
-      displayName: "Total demand (passenger)",
-      definition: "Total passenger activity.",
+    assetLifetime: {
+      displayName: "Asset lifetime",
+      definition:
+        "Assumptions about how long high-carbon assets stay in service, and whether they retire early.",
     },
   },
 };

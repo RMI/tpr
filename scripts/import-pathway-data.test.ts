@@ -724,6 +724,59 @@ describe("buildDataAvailability", () => {
   it("returns null when the sheet has no rows for the pathway", () => {
     expect(build([]).out).toBeNull();
   });
+  it("emits rows in the cookbook's metric order, not the sheet's", () => {
+    // An alphabetised sheet (as CER's arrived) must not alphabetise the table.
+    const { out } = build(
+      [
+        "Absolute Emissions",
+        "Capacity",
+        "Emissions intensity",
+        "Generation",
+      ].map((Metric) => row({ Metric })),
+    );
+    expect(out?.byMetric.map((r) => r.metricName)).toEqual([
+      "Emissions intensity",
+      "Absolute Emissions",
+      "Capacity",
+      "Generation",
+    ]);
+  });
+  it("groups rows by sector in taxonomy order", () => {
+    const steel = (Metric: string) =>
+      row({ "Sector": "Steel", Metric, "Sector segment": "Steelmaking" });
+    const { out } = build(
+      [
+        steel("Asset lifetime"),
+        row({ Metric: "Capacity" }),
+        steel("Emissions intensity (total)"),
+        row({ Metric: "Emissions intensity" }),
+      ],
+      ["Power", "Steel"],
+    );
+    expect(out?.byMetric.map((r) => `${r.sector} ${r.metricName}`)).toEqual([
+      "Power Emissions intensity",
+      "Power Capacity",
+      "Steel Emissions intensity (total)",
+      "Steel Asset lifetime",
+    ]);
+  });
+  it("keeps the sheet order of rows for the same metric", () => {
+    const { out } = build([
+      row({
+        "Metric": "Capacity",
+        "Sector segment": "Transmission and distribution",
+      }),
+      row({ Metric: "Emissions intensity" }),
+      row({ "Metric": "Capacity", "Sector segment": "Power generation" }),
+    ]);
+    expect(
+      out?.byMetric.map((r) => `${r.metricName} ${r.sectorSegment.join()}`),
+    ).toEqual([
+      "Emissions intensity Power generation",
+      "Capacity Transmission and distribution",
+      "Capacity Power generation",
+    ]);
+  });
 });
 
 describe("character limits (tpr-tpc decision 0028)", () => {

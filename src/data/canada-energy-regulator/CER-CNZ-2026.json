@@ -308,6 +308,16 @@
     "overall": null,
     "byMetric": [
       {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Derived: electricity-sector Mt CO2e (national inventory basis, direct, CO2e) ÷ total generation incl. distributed solar and wind dedicated to hydrogen; captive industrial generation not separately identified, so numerator and denominator may not align. Negative from ~2050 as BECCS outweighs residual gas emissions."
+      },
+      {
         "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
@@ -316,16 +326,6 @@
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
         "scopeLimitations": "Electricity economic-sector GHG, Mt CO2e, national only (no provincial split). Residual unabated gas runs under Clean Electricity Regulations compliance flexibility (p.51). Includes BECCS negative emissions (−37.4 Mt in 2050)."
-      },
-      {
-        "metricName": "Asset lifetime",
-        "sector": "Power",
-        "sectorSegment": ["Not covered"],
-        "geography": ["Not covered"],
-        "timeResolution": "Not covered",
-        "dataFormat": "Not covered",
-        "granularity": ["Not covered"],
-        "scopeLimitations": "Not covered"
       },
       {
         "metricName": "Capacity",
@@ -349,16 +349,6 @@
         "scopeLimitations": "Installed capacity MW, Canada and provinces. Storage is battery only (‘Battery Storage’); pumped hydro is not separated and appears to sit within Hydro. No info on if captive or rooftop capacities are included in analysis. Includes wind dedicated to hydrogen production."
       },
       {
-        "metricName": "Emissions intensity",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["CA"],
-        "timeResolution": "1-year steps",
-        "dataFormat": "Tabular",
-        "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived: electricity-sector Mt CO2e (national inventory basis, direct, CO2e) ÷ total generation incl. distributed solar and wind dedicated to hydrogen; captive industrial generation not separately identified, so numerator and denominator may not align. Negative from ~2050 as BECCS outweighs residual gas emissions."
-      },
-      {
         "metricName": "Generation",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
@@ -377,26 +367,6 @@
           "Other"
         ],
         "scopeLimitations": "Generation GWh, Canada and provinces; includes distributed solar and wind dedicated to electrolysis. No info on if captive or rooftop capacities are included in analysis."
-      },
-      {
-        "metricName": "Investment requirement",
-        "sector": "Power",
-        "sectorSegment": ["Power generation", "Transmission and distribution"],
-        "geography": ["CA"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["By sector"],
-        "scopeLimitations": "Capital and repair expenditure, C$2025, bulk power system only; excludes distribution and transmission other than generation connections and interties (p.88)."
-      },
-      {
-        "metricName": "Technology cost",
-        "sector": "Power",
-        "sectorSegment": ["Power generation"],
-        "geography": ["CA"],
-        "timeResolution": "Other time resolution",
-        "dataFormat": "Tabular",
-        "granularity": ["Total costs"],
-        "scopeLimitations": "Overnight capital costs for onshore wind, utility solar, NG with CCUS and SMR; no storage, hydro or O&M costs disclosed; no cost file in the Open Government dataset."
       },
       {
         "metricName": "Technology mix",
@@ -427,6 +397,36 @@
         "dataFormat": "Text",
         "granularity": ["International and national transmission lines"],
         "scopeLimitations": "Transfer capacity only stated in prose (~70% more interprovincial capacity by 2050 in all scenarios). Annual flows (not lines) are in electricity-interchange-2026.csv. Canada–US capacity fixed; distribution excluded."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Overnight capital costs for onshore wind, utility solar, NG with CCUS and SMR; no storage, hydro or O&M costs disclosed; no cost file in the Open Government dataset."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Transmission and distribution"],
+        "geography": ["CA"],
+        "timeResolution": "Other time resolution",
+        "dataFormat": "Tabular",
+        "granularity": ["By sector"],
+        "scopeLimitations": "Capital and repair expenditure, C$2025, bulk power system only; excludes distribution and transmission other than generation connections and interties (p.88)."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
       }
     ]
   }

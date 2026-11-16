@@ -2095,7 +2095,7 @@
     "overall": null,
     "byMetric": [
       {
-        "metricName": "Absolute Emissions",
+        "metricName": "Emissions intensity",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": [
@@ -2122,7 +2122,7 @@
         "scopeLimitations": "Combustion emissions from the electricity and heat sectors are combined. Upstream (fuel extraction/processing) emissions are not included. This includes global aggregate power-system output, there is no separate captive or residential-rooftop generation series."
       },
       {
-        "metricName": "Emissions intensity",
+        "metricName": "Absolute Emissions",
         "sector": "Power",
         "sectorSegment": ["Power generation"],
         "geography": [
