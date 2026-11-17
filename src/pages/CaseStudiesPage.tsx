@@ -463,16 +463,17 @@ const CaseStudiesPage: React.FC = () => {
     <div className="bg-gray-50">
       <PageHeader
         title="Case Studies"
-        subtitle="Worked examples of how to use the Transition Pathways Repository (TPR) to answer common transition-assessment questions."
+        subtitle="Worked examples of how to use the Transition Pathways Repository (TPR) to answer common questions related to corporate transition assessments."
       >
         <p>
           Each case study walks through a question a financial institution might
           ask, how to find pathways that fit it, and how to compare a company
-          against those pathways.
+          against those pathways. These are steps in creating transition
+          intelligence.
         </p>
         <p>
           The companies in these case studies are hypothetical examples. The
-          pathways and their data are real and taken from the repository.
+          pathways and their data are real and taken from the TPR.
         </p>
       </PageHeader>
 
