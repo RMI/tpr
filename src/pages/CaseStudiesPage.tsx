@@ -119,13 +119,12 @@ export const caseStudies: CaseStudy[] = [
               The Transition Pathways Repository makes it easy to find and
               interpret region-specific pathways for this application. You can
               filter by power sector pathways in Indonesia and Southeast Asia,
-              high ambition policies, and data available for download. This
-              yields five available pathways. One of the results is the
-              Association of Southeast Asian Nations Centre for Energy’s Carbon
-              Neutrality Scenario (ACE CNS). This scenario does not have a
-              temperature alignment but sets net zero by 2050 as an explicit
-              target, is built specifically to assess the Southeast Asian power
-              system, and has emissions intensity data available.
+              high ambition policies, and data available for download. One of
+              the results is the Association of Southeast Asian Nations Centre
+              for Energy’s Carbon Neutrality Scenario (ACE CNS). This scenario
+              does not have a temperature alignment but sets net zero by 2050 as
+              an explicit target, is built specifically to assess the Southeast
+              Asian power system, and has emissions intensity data available.
             </p>
             <img
               src="/case-studies/company-target-setting-filters.png"
