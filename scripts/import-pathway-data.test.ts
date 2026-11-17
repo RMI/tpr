@@ -51,6 +51,8 @@ describe("publisherGroup", () => {
       ),
     ).toBe("IET");
     expect(publisherGroup("IET")).toBe("IET");
+    expect(publisherGroup("Climate Change Committee (CCC)")).toBe("CCC");
+    expect(publisherGroup("CCC")).toBe("CCC");
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
@@ -138,6 +140,12 @@ describe("canonicalKey", () => {
         file: `src/data/institut-energie-trottier/IET-${code}-2024.json`,
       });
     }
+    expect(
+      canonicalKey("Climate Change Committee (CCC)", "Balanced Pathway (BP)"),
+    ).toBe("CCC:BP:");
+    expect(TARGETS["CCC:BP:"]).toMatchObject({
+      file: "src/data/climate-change-committee/CCC-BP-2025.json",
+    });
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
       canonicalKey(

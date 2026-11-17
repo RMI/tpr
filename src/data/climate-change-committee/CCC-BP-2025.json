@@ -1,0 +1,537 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "CCC-BP-2025",
+  "publication": {
+    "title": {
+      "full": "The Seventh Carbon Budget: Advice for the UK Government"
+    },
+    "publisher": {
+      "full": "Climate Change Committee",
+      "short": "CCC"
+    },
+    "year": 2025,
+    "month": 2,
+    "day": 26,
+    "city": "London",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.theccc.org.uk/publication/the-seventh-carbon-budget/"
+      },
+      {
+        "description": "Report (PDF)",
+        "url": "https://www.theccc.org.uk/wp-content/uploads/2025/02/The-Seventh-Carbon-Budget.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Balanced Pathway",
+    "short": "BP"
+  },
+  "description": "Normative UK pathway to net zero GHG by 2050, including international aviation and shipping.",
+  "geography": {
+    "country": {
+      "GB": ["GB"]
+    }
+  },
+  "pathwayType": "Normative",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "modelYearNetzero": 2050,
+  "sectors": [
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Power",
+      "technologies": [
+        "Gas",
+        "Nuclear",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "The Balanced Pathway (BP) is the Climate Change Committee’s normative pathway for the UK to reach net zero greenhouse gas emissions by 2050, covering all sectors including international aviation and shipping. It underpins the CCC’s advice to set the Seventh Carbon Budget (2038–2042) at 535 MtCO2e and is designed to meet the UK’s 2030 and 2035 NDCs and existing carbon budgets. CO2 emissions reach net zero by 2045, and removals then balance residual methane and nitrous oxide by 2050. The CCC states that net zero by 2050 is consistent with IPCC scenarios that limit warming to 1.5°C, but it does not model a global temperature outcome. Electrification drives the pathway: electricity’s share of final energy demand rises from 17% in 2025 to 69% in 2050, while total final energy demand falls by about 40%. Offshore wind grows from 15 GW to 125 GW and solar from 16 GW to 106 GW, supported by 42 GW of grid storage, 28 GW of interconnection and 38 GW of gas CCS and hydrogen plants, with unabated gas phased out by 2050. Lower demand for high-carbon activities, such as managed growth in flying and dietary change, cuts emissions further, and engineered removals offset what remains. The CCC only includes technologies it expects to reach large-scale use before 2050. Investment averages about £26 billion a year (around 0.9% of GDP), peaking in 2029, and the pathway becomes a net cost saving around 2041. In contrast, emissions in the CCC’s Baseline rise to about 16% above 2023 levels by 2050.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "No information"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["Carbon price", "Phaseout dates"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "High ambition policies"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Total costs"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Total costs"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Total costs"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": [
+          "CCUS",
+          "DAC",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": ["SAF", "Other new technologies"]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "By sector"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "By sector"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "By technology"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Phase-out dates for new fossil fuel cars, vans and boilers are key determinants of EV and heat pump roll-out. The Government's high carbon value is built into the cost of flying used to forecast aviation demand, and carbon values set the cost-effectiveness threshold for including measures. Unabated gas generation is phased out by 2050.",
+    "emissionsTargets": "Net Zero GHG by 2050 is the binding target. The pathway is built to also meet the 2030 and 2035 NDCs and the Sixth Carbon Budget, and sets the recommended Seventh Carbon Budget (2038-2042) at 535 MtCO2e including international aviation and shipping.",
+    "technologyCosts": "Unit technology costs shape which options enter and when. Measures are included once their abatement cost is below Government carbon values, falling costs from learning rates are projected, and EV uptake depends on purchase price parity, reached for cars and vans in 2026-2028. Where options compete (e.g. DACCS vs synthetic fuel), the cheaper is favoured, though feasibility constraints often bind.",
+    "investmentChange": "Low-carbon investment rises sharply then falls. Additional capex averages ~GBP 26bn/yr (~0.9% of GDP), equal to 0.73% of GDP in 2025, peaking at 1.84% in 2029, 0.91% in 2040 and -0.06% in 2050 as technology costs fall. Including energy-system expansion (financing requirement) the share is 1.94% at peak and 0.47% in 2050.",
+    "macroeconomicDrivers": "Population and GDP growth drive demand for transport and aviation in this pathway. In this pathway they are not the main driver; they matter most for aviation, where demand grows faster in the 2040s as GDP rises.",
+    "behavioralShifts": "Reduced demand for high-carbon activities is a core lever. Managing aviation demand delivers 54% of aviation abatement in 2040, and lower car travel, modal shift and lower meat and dairy consumption reduce emissions alongside consumer preferences supporting EV uptake. Demand measures are counted before technology measures in the modelling.",
+    "otherDrivers": "not applicable."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Rapid grid decarbonisation depends on sustained support.CfD auction funding sufficient to secure required renewables, contracts for new nuclear (6 and BECCS, and CCS and hydrogen business models for low-carbon dispatchable plant.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Planning, consenting and regulatory funding rules limit how fast grids, renewables and CCS can be built. The CCC calls for reform of these processes to enable rapid infrastructure expansion, and flags grid connections as a barrier; Table 2.1 lists planning and regulatory timescales as a key roll-out factor for renewables, grid storage and CCS.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "The power transition is capital-heavy and front-loaded. Electricity supply capex peaks at GBP 25bn in 2029 (2023 prices) before turning to savings after 2043. Recent supply-chain inflation raised offshore wind auction prices, though LCOE is still projected to fall to GBP 31/MWh by 2050. Investor confidence depends on market design clarity.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Building transmission and onshore generation raises local acceptance issues. The CCC asks for clear, consistent resolution of tensions between low infrastructure cost and sensitivity to local conditions, favouring overhead lines over undergrounding in most cases. Onshore wind and solar would use about 2% and 1% of UK land.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Moderate: Consumers must voluntarily offer flexibility: smart demand flexibility grows from 7 GW (2023) to 33 GW (2050) and time-shifted demand to 32 TWh, through EV charging and heat pump operation. This lowers generation and storage needs; less participation would raise system costs.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Critical: A decarbonised system relies on networks and flexibility: average transmission boundary capability rises from 5.5 GW to 20.3 GW, interconnection from 10 GW to 28 GW and grid storage from 6 GW to 42 GW by 2050. Low-carbon dispatchable plant needs CCS and hydrogen pipelines and storage. The system is tested hourly against a 1-in-20 weather year.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "High: Firm low-carbon supply relies on technologies not yet at scale: gas CCS and hydrogen turbines (0 to 38 GW by 2050), BECCS power, and medium-duration storage such as compressed/liquid air and flow batteries (7 GW). Battery storage grows tenfold. Technologies below TRL 6 are excluded.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Moderate: Renewable build needs seabed and land: 81 GW of seabed has been leased, while 2050 solar and onshore wind need about 1% and 2% of UK land. BECCS depends on limited sustainable biomass, with less reliance on imports than in earlier advice.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Moderate: A weather-dependent system must stay secure through low-wind years and wind droughts, so it is sized to a 1-in-20 adverse weather year. Generation and network assets must be resilient to flooding, storms, extreme heat and reduced water availability, and the CCC asks that resilience be designed in from the outset.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "Moderate: A skilled workforce and supply chain are needed to sustain the renewables pipeline (Table 2.1). Renewables and nuclear could create over 50,000 direct jobs by 2030; no binding shortage is quantified.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Aviation's pathway depends on policy that puts decarbonisation costs into ticket prices, through stronger UK ETS limits or the SAF mandate, and on demand management. Options include a frequent flyer levy and limits on airport expansion. Government may need more demand policy if technology lags, and should push ICAO and CORSIA for higher ambition.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Not applicable.",
+      "sector": "Aviation",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Managing demand relies on decarbonisation costs reaching ticket prices: with full pass-through, a return London-Alicante ticket rises substantially by 2050. SAF and synthetic fuels cost more than DACCS, and feedstock markets will be highly competitive in the late 2020s and 2030s as US, EU and China SAF targets compete.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "The CCC's citizens' panel mostly accepted policy-driven ticket price rises, favoured a frequent flyer levy and limits on airport expansion, and wanted annual family holidays protected. This suggests demand management is publicly acceptable if designed fairly.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "High: Demand growth is held to 28% above 2025 passenger numbers by 2050 (402 million), versus 53% per-capita growth by 2040 in the Baseline. This depends on passengers responding to higher prices, with business flight demand growing more slowly and some modal shift to rail.",
+      "sector": "Aviation",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Moderate: UK synthetic fuel production from the mid-2030s needs low-carbon hydrogen, captured carbon and CO2 transport and storage. Residual aviation emissions are offset by engineered removals equal to about 60% of UK engineered removals in 2050.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "High: Abatement relies on SAF (38% of liquid fuel by 2050, including synthetic fuel), hybrid-electric and battery-electric aircraft entering from 2040, and efficiency gains of 1.3%/yr. Hydrogen aircraft are excluded as insufficiently developed; the balance between options is uncertain, so all must be pursued.",
+      "sector": "Aviation",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "High: SAF supply is limited by sustainable biomass and feedstock availability, with strong international competition for feedstock in the late 2020s and 2030s; this is why the SAF trajectory sits below the Government's SAF mandate.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Low: Aviation's non-CO2 effects (mainly contrail cirrus) likely have a large but uncertain warming effect and rise 19% above 2025 by 2050; the CCC asks that they be addressed, but they do not constrain the pathway's measures.",
+      "sector": "Aviation",
+      "evidence_type": "Qualitative"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "gCO2e/kWh of UK electricity supply, direct emissions only; EfW and CHP excluded from the sector boundary; based on an average weather year. National system figure; no separate captive or rooftop series."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "UK electricity supply sector, direct (scope 1) emissions in MtCO2e; EfW counted in Waste and CHP in Industry/Fuel supply; average weather year. No separate captive or rooftop series."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["GB"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Gas",
+          "Nuclear",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "GW by technology; offshore and onshore wind separate. Grid storage is one figure; battery (35 GW) and medium-duration storage (7 GW) are split in Figure 7.5.4 but pumped hydro is inside medium-duration; hydrogen storage is in Section 7.7. Low-carbon dispatchable combines gas CCS and hydrogen. Interconnection and demand flexibility shown separately. No captive or rooftop split."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Gas", "Nuclear", "Wind", "Solar", "Biomass", "Other"],
+        "scopeLimitations": "TWh by technology before transmission, distribution and storage losses; includes surplus electricity used for electrolytic hydrogen; imports and exports shown separately; average weather year. 'Other' bundles unabated biomass, EfW, hydro and CHP. No captive or rooftop split."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "5-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Gas", "Nuclear", "Wind", "Solar", "Biomass", "Other"],
+        "scopeLimitations": "Derived as each technology's share of total generation (rows 26-33, before losses, excluding imports). Same boundary as Generation; 'Other' and low-carbon dispatchable remain bundled."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["International and national transmission lines"],
+        "scopeLimitations": "Average transmission network boundary capability (GW) on the boundaries analysed and interconnection capacity (10 -> 28 GW). Distribution network needs are described qualitatively; network reinforcement capex combines both."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Total costs"],
+        "scopeLimitations": "Levelised cost of electricity for offshore wind and solar (GBP/MWh, 2023 prices) annually; a cost range for low-carbon dispatchable in Table 7.5.1. Other technologies have no published unit cost."
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": [
+          "Power generation",
+          "Energy storage",
+          "Transmission and distribution"
+        ],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["By technology"],
+        "scopeLimitations": "Additional capex and opex relative to the Baseline (2023 prices), by technology and network reinforcement, for decarbonising and expanding supply. Not total investment; excludes costs already in end-use sectors."
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "Unspecified",
+        "dataFormat": "Text",
+        "granularity": [
+          "High-carbon assets lifetime face early retirement policy"
+        ],
+        "scopeLimitations": "Unabated gas generation is phased out by 2050 while some capacity is retained into the 2040s as backup; elsewhere the CCC generally assumes replacement at end of life."
+      }
+    ]
+  }
+}

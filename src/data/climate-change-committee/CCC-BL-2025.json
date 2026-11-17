@@ -1,0 +1,236 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "CCC-BL-2025",
+  "publication": {
+    "title": {
+      "full": "The Seventh Carbon Budget: Advice for the UK Government"
+    },
+    "publisher": {
+      "full": "Climate Change Committee",
+      "short": "CCC"
+    },
+    "year": 2025,
+    "month": 2,
+    "day": 26,
+    "city": "London",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.theccc.org.uk/publication/the-seventh-carbon-budget/"
+      },
+      {
+        "description": "Report (PDF)",
+        "url": "https://www.theccc.org.uk/wp-content/uploads/2025/02/The-Seventh-Carbon-Budget.pdf"
+      }
+    ]
+  },
+  "name": {
+    "full": "Baseline",
+    "short": "BL"
+  },
+  "description": "Exploratory UK counterfactual: low-carbon tech frozen at today's levels, no further climate action.",
+  "geography": {
+    "country": {
+      "GB": ["GB"]
+    }
+  },
+  "pathwayType": "Exploratory",
+  "modelYearStart": 2023,
+  "modelYearEnd": 2050,
+  "sectors": [
+    {
+      "name": "Land Use",
+      "technologies": []
+    },
+    {
+      "name": "Agriculture",
+      "technologies": []
+    },
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Steel",
+      "technologies": []
+    },
+    {
+      "name": "Cement",
+      "technologies": []
+    },
+    {
+      "name": "Chemicals",
+      "technologies": []
+    },
+    {
+      "name": "Power",
+      "technologies": []
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "The Baseline (BL) is the Climate Change Committee’s hypothetical counterfactual for the UK, in which no further climate action is taken. It is a reference point, not a forecast: the CCC uses it to measure the abatement, investment and costs of its Balanced Pathway and does not present it as a projection of current trends. Low-carbon technologies stay at today’s stock shares and efficiencies: the vehicle fleet keeps its current mix, new homes are heated with gas, and new low-carbon power plants only replace retiring ones. Emissions then follow projected population, GDP, climate and fuel prices, rising to about 16% above 2023 levels by 2050 (around 490 MtCO2e), so the pathway never reaches net zero. Final energy demand grows from about 1,710 TWh in 2025 to 1,990 TWh in 2050, roughly double the Balanced Pathway’s level for a similar level of energy services, and electricity’s share of final demand stays between 16% and 18%. Aviation emissions rise from 37 to 54 MtCO2e as flying per person grows about 53% by 2040. The Baseline includes no engineered removals or new technologies and models no policy instruments. It is classified as exploratory rather than predictive because freezing technology at today’s levels breaks current trends, such as rising uptake of electric vehicles and heat pumps.",
+  "metric": ["Absolute Emissions"],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Significant increase"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Low or no change"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["None"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No policies included"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "No information"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": ["No new technologies"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": ["No new technologies"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "GB",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "The Baseline models no further climate policy. Low-carbon technologies stay at today's stock shares and efficiencies, and sector baselines exclude savings from any policy beyond what is already being realised today. As a consecuence, the vehicle fleet keeps today's powertrain split, new homes use gas heating, and new low-carbon power only replaces retiring low-carbon plants.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "not applicable.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "Projected population, GDP, a warming climate and fuel prices push emissions up about 16% above 2023 by 2050, mainly via surface transport and aviation demand rising with population and GDP.",
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "not applicable."
+  },
+  "dependencies": []
+}

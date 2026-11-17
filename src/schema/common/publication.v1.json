@@ -14,6 +14,7 @@
         "Indonesia Just Energy Transition Partnership Secretariat",
         "Institut de l'énergie Trottier, Polytechnique Montréal",
         "Center for Global Sustainability and Institute for Essential Services Reform",
+        "Climate Change Committee",
         "Electricity and Renewable Energy Authority in Viet Nam, Danish Energy Agency",
         "European Commission, Joint Research Centre",
         "Institute for Sustainable Futures, University of Technology Sydney",
@@ -30,6 +31,7 @@
       "enum": [
         "ACE",
         "CER",
+        "CCC",
         "IEA",
         "IET",
         "CGS, IESR",
@@ -75,6 +77,13 @@
               "properties": {
                 "full": { "const": "Canada Energy Regulator" },
                 "short": { "const": "CER" }
+              },
+              "required": ["full", "short"]
+            },
+            {
+              "properties": {
+                "full": { "const": "Climate Change Committee" },
+                "short": { "const": "CCC" }
               },
               "required": ["full", "short"]
             },
