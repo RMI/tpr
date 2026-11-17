@@ -62,7 +62,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "Optimized Existing Policy Pathway (OEPP) is a cost-optimized scenario reflecting Myanmar’s current and announced policies while allowing the model to select the least-cost technology mix to meet rising electricity demand. It uses the same socio-economic and policy foundations as EPP but adds a system-level optimization module to find the most economical mix of generation and storage assets. Existing policy ambitions, including incremental renewable expansion and sectoral efficiency improvements, are maintained, but no emissions constraint is imposed. Demand rises steadily with economic growth, electrification, and progress toward universal access. Compared with EPP, optimization accelerates cost-effective renewable deployment, particularly solar PV and small hydro, while limiting uneconomic fossil-fuel expansion. Coal is gradually phased out, but gas retains a material role through 2050 to maintain system adequacy, enabling Myanmar to meet 100% of power demand domestically.",
+  "pathwayDescription": "The Optimized Existing Policy Pathway (OEPP) is a cost-optimized scenario reflecting Myanmar’s current and announced policies while allowing the model to select the least-cost technology mix to meet rising electricity demand. It uses the same socio-economic and policy foundations as EPP but adds a system-level optimization module to find the most economical mix of generation and storage assets. Existing policy ambitions, including incremental renewable expansion and sectoral efficiency improvements, are maintained, but no emissions constraint is imposed. Demand rises steadily with economic growth, electrification, and progress toward universal access. Compared with EPP, optimization accelerates cost-effective renewable deployment, particularly solar PV and small hydro, while limiting uneconomic fossil-fuel expansion. Coal is gradually phased out, but gas retains a material role through 2050 to maintain system adequacy, enabling Myanmar to meet 100% of power demand domestically.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -148,11 +148,11 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Demand side sector energy demand follows Myanmar official targets. To fulfil this demand, the optimisation tool NEMO was utilised to determine the least-cost generation mix while ensuring a reserve margin above 30% at all times.",
+    "policies": "The pathway reflects Myanmar’s current official commitments, including energy-efficiency targets and the goal of achieving 39% renewable electricity generation by 2030. Policies are centered on incremental renewable expansion, moderate grid investment, and the continued use of natural gas as a flexible, stabilizing resource in the power mix.",
     "emissionsTargets": null,
-    "technologyCosts": "Technology capital, O&M and fuel costs affect least-cost capacity choices; falling solar and battery costs support deployment.",
+    "technologyCosts": "OEPP applies the same internationally recognized cost inputs as the broader AGF scenario suite. However, low-cost renewables are deployed much more quickly in this scenario than in the EPP pathway due to OEPP’s least-cost optimization.",
     "investmentChange": null,
-    "macroeconomicDrivers": "Follows SSP2. GDP and medium population growth extracted from World Bank data, sectoral value-added trends are modeled based on historic World Bank data. These all drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2.",
     "behavioralShifts": null,
     "otherDrivers": "A >30% reserve-margin constraint is a key design driver."
   },

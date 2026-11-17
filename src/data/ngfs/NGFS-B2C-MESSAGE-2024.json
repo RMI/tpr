@@ -397,7 +397,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Network for Greening the Financial System (NGFS) develops reference climate scenarios to help central banks, regulators, and financial institutions assess transition and physical risks associated with climate change. The Below 2°C, MESSAGEix-GLOBIOM 2.0-M-R12 (B2C MESSAGE) is a normative global pathway in which the world limits global warming to below 2°C by 2100 in line with the Paris Agreement objective, projecting approximately 1.7°C temperature rise by 2100. It assumes strong, coordinated climate action beginning this decade, but with slightly slower decarbonization than in the Net Zero 2050 (NZ2050) 1.5°C scenario.\n\nThe B2C MESSAGE pathway achieves deep reductions in energy- and process-related CO₂ emissions, while allowing for limited continued use of fossil fuels offset by carbon capture and storage (CCS) and other carbon removal measures. Non-CO₂ emissions, particularly methane, fall significantly but not completely, requiring partial offsetting through bioenergy with carbon capture and sequestration (BECCS) and direct air capture (DAC).\n\nThis scenario is one of seven scenarios published by NGFS. Note that all NGFS scenarios are produced using three different Integrated Assessment Models (IAMs): REMIND-MAgPIE, MESSAGEix-GLOBIOM, and GCAM. These IAMs share the common assumptions that define each scenario, but may offer different projections based on underlying model structure. Technical users may wish to consult NGFS documentation to determine if a specific IAM best fits their applications.",
+  "pathwayDescription": "The Network for Greening the Financial System (NGFS) develops reference climate scenarios to help central banks, regulators, and financial institutions assess transition and physical risks associated with climate change. The Below 2°C MESSAGEix-GLOBIOM 2.0-M-R12 (B2C MESSAGE) is a normative global pathway in which the world limits global warming to below 2°C by 2100 in line with the Paris Agreement objective, projecting approximately 1.7°C temperature rise by 2100. It assumes strong, coordinated climate action beginning this decade, but with slightly slower decarbonization than in the Net Zero 2050 (NZ2050) 1.5°C scenario.\n\nThe B2C MESSAGE pathway achieves deep reductions in energy- and process-related CO₂ emissions, while allowing for limited continued use of fossil fuels offset by carbon capture and storage (CCS) and other carbon removal measures. Non-CO₂ emissions, particularly methane, fall significantly but not completely, requiring partial offsetting through bioenergy with carbon capture and sequestration (BECCS) and direct air capture (DAC).\n\nThis scenario is one of seven scenarios published by NGFS. Note that all NGFS scenarios are produced using three different Integrated Assessment Models (IAMs): REMIND-MAgPIE, MESSAGEix-GLOBIOM, and GCAM. These IAMs share the common assumptions that define each scenario, but may offer different projections based on underlying model structure. Technical users may wish to consult NGFS documentation to determine if a specific IAM best fits their applications.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -414,11 +414,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Moderate decrease"
       },
@@ -470,6 +465,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -484,11 +484,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Significant decrease"
       },
@@ -540,11 +535,6 @@
       {
         "sector": "Power",
         "geography": "Western Europe",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -601,6 +591,16 @@
         "sector": "Steel",
         "geography": "Western Europe",
         "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Moderate decrease"
       }
     ],
     "energyEfficiency": [
@@ -611,11 +611,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Significant improvement"
       },
@@ -667,6 +662,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Significant improvement"
       },
       {
@@ -681,11 +681,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -741,11 +736,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -797,6 +787,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -808,11 +808,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Significant decrease"
       },
@@ -867,6 +862,11 @@
         "value": "Significant decrease"
       },
       {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Minor decrease"
+      },
+      {
         "sector": "Power",
         "geography": "Global",
         "value": "No information"
@@ -875,11 +875,6 @@
         "sector": "Steel",
         "geography": "Global",
         "value": "Minor decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "CN",
-        "value": "No information"
       },
       {
         "sector": "Power",
@@ -935,11 +930,6 @@
         "sector": "Power",
         "geography": "Western Europe",
         "value": "No information"
-      },
-      {
-        "sector": "Steel",
-        "geography": "CN",
-        "value": "Significant decrease"
       },
       {
         "sector": "Steel",
@@ -995,6 +985,16 @@
         "sector": "Steel",
         "geography": "Western Europe",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Significant decrease"
       }
     ],
     "electrification": [
@@ -1005,11 +1005,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Moderate increase"
       },
@@ -1061,6 +1056,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Moderate increase"
       },
       {
@@ -1070,11 +1070,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1126,6 +1121,11 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -1137,11 +1137,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": ["Not applicable at this scope level"]
       },
@@ -1193,6 +1188,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1207,11 +1207,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": ["Not applicable at this scope level"]
       },
@@ -1267,11 +1262,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": ["Not applicable at this scope level"]
       },
@@ -1323,6 +1313,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       }
     ],
@@ -1334,11 +1334,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1390,6 +1385,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1404,11 +1404,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1464,11 +1459,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1520,6 +1510,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -1531,11 +1531,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1587,6 +1582,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1601,11 +1601,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1661,11 +1656,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1717,6 +1707,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -1728,11 +1728,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1784,6 +1779,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1798,11 +1798,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1858,11 +1853,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1914,6 +1904,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -1925,11 +1925,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -1981,6 +1976,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1995,11 +1995,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -2055,11 +2050,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -2111,6 +2101,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ],
@@ -2122,11 +2122,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": ["Not applicable at this scope level"]
       },
@@ -2178,6 +2173,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2192,11 +2192,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": ["Not applicable at this scope level"]
       },
@@ -2252,11 +2247,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": ["Not applicable at this scope level"]
       },
@@ -2308,6 +2298,16 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       }
     ],
@@ -2319,11 +2319,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -2375,6 +2370,11 @@
       {
         "sector": "across sectors",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2389,11 +2389,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -2449,11 +2444,6 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Eastern Europe",
         "value": "Not applicable at this scope level"
       },
@@ -2505,23 +2495,33 @@
       {
         "sector": "Steel",
         "geography": "Western Europe",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       }
     ]
   },
   "coreDrivers": {
-    "policies": "Carbon price: the shadow carbon price reaches 50 US$2010/tCO2 in 2030 and 112 in 2050, the main lever moving investment and dispatch away from fossil fuels.",
-    "emissionsTargets": "End-of-century 2°C target (67% chance), with countries holding net-zero targets meeting 80% of them. MESSAGE applies net-zero GHG constraints by its 12 regions and approximates CO2-only targets with a 10-year-lagged GHG target.",
-    "technologyCosts": "MESSAGE minimises total system cost from investment, O&M and fuel costs. Exogenous declines (North America solar PV 853 to 374 US$2010/kW, 2020-2050) favour renewables, while cheap CCS keeps gas in the mix: wind and solar reach 75% of 2050 generation (Current Policies 31%). With carbon at 112 US$2010/tCO2 in 2050, the cost ranking tilts further to low-carbon options.",
+    "policies": "Shadow carbon price reaches US$50/tCO2 (2010 $) in 2030 and US$112 in 2050, the main lever moving investment and dispatch away from fossil fuels.",
+    "emissionsTargets": "End-of-century 2°C target (67% chance), with countries holding net-zero targets meeting 80% of them.",
+    "technologyCosts": "MESSAGE minimizes total system cost from investment, O&M, and fuel costs. Exogenous declines (North America solar PV US$853 to US374/kW, 2020–2050 [2010 $]) favor renewables, while cheap CCS keeps gas in the mix: wind and solar reach 75% of 2050 generation (Current Policies 31%). With carbon at US$112/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
     "investmentChange": "Low-carbon power investment moves from 1.11% of GDP (MER) in 2020 to 0.71% in 2050, a decrease of 36%. MESSAGE's GDP grows faster than its power investment, so the share falls even where low-carbon investment rises in absolute terms.",
-    "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.59 billion people in 2050 and GDP (MER) growing 3.85%/yr over 2020-2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-0.54% in 2050).",
+    "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.59 billion people in 2050 and GDP (MER) growing 3.85%/y over 2020–2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-0.54% in 2050).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Limited carbon dioxide removal: MESSAGE constrains BECCS availability by 2050, forcing deeper gross cuts and higher carbon prices (112 US$2010/tCO2 in 2050; total CCS 3694 Mt CO2/yr). It is a technology-availability limit, not a cost, policy or target, so no other driver fits."
+    "otherDrivers": "BECCS is constrained, forcing deeper gross cuts and higher carbon prices (US$112/tCO2 in 2050 [2010 $]; total CCS 3,694 Mt CO2/y)."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Grid decarbonisation in Below 2°C (MESSAGE) rests on the carbon price (50 US$2010/tCO2 in 2030, 112 in 2050). It lifts wind and solar from 9% of generation in 2020 to 75% in 2050 and cuts coal capacity to 53% of its 2020 level by 2040.",
+      "dependency_description": "Grid decarbonization in Below 2°C (MESSAGE) rests on the carbon price (US$50/tCO2 in 2030 [2010 $], US$112 in 2050). It lifts wind and solar from 9% of generation in 2020 to 75% in 2050 and cuts coal capacity to 53% of its 2020 level by 2040.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -2533,7 +2533,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Power investment averages 1196 bn US$2010/yr over 2025-2050 (1.53x Current Policies), including 534 bn/yr for grids, and must be financed. A 2050 carbon price of 112 US$2010/tCO2 erodes unabated fossil plant profitability.",
+      "dependency_description": "Power investment averages US$1,196B/y over 2025–2050 (1.53x Current Policies), including US$534B/y for grids, and must be financed. A 2050 carbon price of US$112/tCO2 erodes unabated fossil plant profitability. (2010 $).",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -2551,19 +2551,19 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "With wind and solar at 75% of 2050 generation, grids, storage and flexibility must absorb variable output. MESSAGE uses reliability coefficients and reaches 5130 GW of storage by 2050. Grid investment averages 534 bn US$2010/yr (2025-2050). No hourly dispatch is reported, so curtailment cannot be checked.",
+      "dependency_description": "With wind and solar at 75% of 2050 generation, grids, storage and flexibility must absorb variable output. MESSAGE uses reliability coefficients and reaches 5,130 GW of storage by 2050. Grid investment averages US$534B/y (2025–2050) (2010 $). No hourly dispatch is reported, so curtailment cannot be checked.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Power CCS captures 741 Mt CO2/yr in 2050 (0 Mt from bioenergy), so the pathway needs CCS at commercial scale; CCS cost differences between models drive large gaps in fossil generation. Storage of 5130 GW in 2050 relies on continued storage cost declines.",
+      "dependency_description": "Power CCS captures 741 Mt CO2/y in 2050 (0 Mt from bioenergy), so the pathway needs CCS at commercial scale; CCS cost differences between models drive large gaps in fossil generation. Storage of 5130 GW in 2050 relies on continued storage cost declines.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "MESSAGE uses regional renewable potentials by quality and GLOBIOM biomass limited by food land. Power BECCS reaches 0 Mt CO2/yr and primary biomass 52 EJ in 2050, so land limits the negative-emission part of the power transition. Wind and solar at 75% of 209 EJ draw on the regional potentials.",
+      "dependency_description": "MESSAGE uses regional renewable potentials by quality and GLOBIOM biomass limited by food land. Power BECCS reaches 0 Mt CO2/y and primary biomass 52 EJ in 2050, so land limits the negative-emission part of the power transition. Wind and solar at 75% of 209 EJ draw on the regional potentials.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -2665,7 +2665,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Derived Mt CO2 per EJ generated (1 EJ = 277.8 TWh). Scope 1 CO2 only; denominator is gross generation incl. CCS and bioenergy plants."
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Derived MtCO2 per EJ generated (1 EJ = 277.8 TWh). Scope 1 CO2 only; denominator is gross generation incl. CCS and bioenergy plants."
       },
       {
         "metricName": "Absolute Emissions",
@@ -2758,7 +2758,7 @@
           "Biomass",
           "Geothermal"
         ],
-        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Gross secondary electricity (EJ/yr) by technology incl. CHP electricity; CCS and non-CCS variants reported. MESSAGE also reports transmission losses."
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Gross secondary electricity (EJ/y) by technology incl. CHP electricity; CCS and non-CCS variants reported. MESSAGE also reports transmission losses."
       },
       {
         "metricName": "Technology mix",
@@ -2854,7 +2854,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["By tech, part of value chain"],
-        "scopeLimitations": "Annual investment, billion US$2010/yr. Post-processed variants may contain multi-model-average infill (NGFS Climate Scenarios Technical Documentation V5.0 (Nov 2024), p.82); native series used."
+        "scopeLimitations": "Annual investment, billion US$2010/y. Post-processed variants may contain multi-model-average infill (NGFS Climate Scenarios Technical Documentation V5.0 [Nov 2024], p.82); native series used."
       },
       {
         "metricName": "Asset lifetime",
@@ -2890,7 +2890,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived t CO2(e) per t crude steel (sector emissions / Production|Steel, Mt/yr); primary and secondary routes combined; Scope 1 only."
+        "scopeLimitations": "Derived t CO2(e) per t crude steel (sector emissions / Production|Steel, Mt/y); primary and secondary routes combined; Scope 1 only."
       },
       {
         "metricName": "Emissions intensity (primary)",
@@ -2934,7 +2934,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Iron and steel modelled as one sector; ironmaking and steelmaking not separable. Energy-related CO2 only; Scope 1, excludes purchased electricity. Process-emission treatment not stated."
+        "scopeLimitations": "Iron and steel modeled as one sector; ironmaking and steelmaking not separable. Energy-related CO2 only; Scope 1, excludes purchased electricity. Process-emission treatment not stated."
       },
       {
         "metricName": "Technology mix (production by route)",

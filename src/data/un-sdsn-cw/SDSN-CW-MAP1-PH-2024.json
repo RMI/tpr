@@ -56,7 +56,7 @@
       ]
     }
   ],
-  "pathwayDescription": "Normative RE-nuclear pathway for the Philippine power sector aiming at near-zero emissions by 2060. Ambitious policy accelerates fossil retirement, bans new coal and gas beyond committed projects, targets 50 GW offshore wind by 2050 and adds nuclear. Social costs of CO2, CH4 and N2O are priced into the least-cost objective, cutting power emissions from 30.2 to 3.2 MtCO2e (2025–2050) with about USD 434bn cumulative investment by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "Normative RE-nuclear pathway for the Philippine power sector aiming at near-zero emissions by 2060. Ambitious policy accelerates fossil retirement, bans new coal and gas beyond committed projects, targets 50 GW offshore wind by 2050 and adds nuclear. Social costs of CO2, CH4 and N2O are priced into the least-cost objective, cutting power emissions from 30.2 to 3.2 MtCO2e (2025–2050) with about US$434B cumulative investment by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -200,60 +200,60 @@
     ]
   },
   "coreDrivers": {
-    "policies": "This pathway imposes accelerated fossil retirement, no new coal/gas beyond committed projects, higher offshore-wind deployment and RE-share targets. The pathway also adds nuclear capacity.",
-    "emissionsTargets": "Normative pathway designed for near-zero power-sector emissions by 2060, with no explicit annual cap. The RE-nuclear system reaches it under the ambitious-policy constraints, with GHG social costs priced into the least-cost objective.",
+    "policies": "This pathway imposes accelerated fossil retirement, no new coal/gas beyond committed projects, higher offshore wind deployment and renewable energy share targets. The pathway also adds nuclear capacity.",
+    "emissionsTargets": "Normative pathway designed for near-zero power-sector emissions by 2060, with no explicit annual cap. The system reaches near-zero emissions under the ambitious-policy constraints, with GHG social costs priced into the least-cost objective.",
     "technologyCosts": "Least-cost optimization makes technology capital/O&M/fuel costs a core driver. MAP1 also internalizes monetized GHG externalities in the objective, shifting dispatch/build away from coal.",
-    "investmentChange": "Total cumulative investment in the power sector reaches USD 434bn by 2050, but no low carbon breakdown is provided. MAP2, with the same scenario ambition, forecast twice more investments in the power sector.",
-    "macroeconomicDrivers": "Electricity demand is driven by common macro assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
+    "investmentChange": "Total cumulative investment in the power sector reaches US$434B by 2050, but no low-carbon breakdown is provided. MAP2, with the same scenario ambition, forecast twice more investments in the power sector.",
+    "macroeconomicDrivers": "Electricity demand is driven by common macroeconomic assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "Environmental externality valuation is a distinctive scenario-design driver: EPA social costs for CO2/CH4/N2O are added to the optimization objective, changing generation and lowering emissions relative to the paired no-externality pathway."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Critical (Explicit): The ambitious-policy package is a necessary design condition for the RE-nuclear outcome which includes accelerated fossil retirement, no new coal/gas beyond commitments, RE-share floors and 50 GW offshore wind by 2050, plus scheduled nuclear additions.",
+      "dependency_description": "The ambitious-policy package is a necessary design condition for the RE-nuclear outcome which includes accelerated fossil retirement, no new coal/gas beyond commitments, RE-share floors and 50 GW offshore wind by 2050, plus scheduled nuclear additions.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "High (Explicit): The RE-nuclear pathway requires accelerated private fossil-asset retirement plus a nuclear legal/safety framework that the report says is still pending, making regulation a major feasibility condition.",
+      "dependency_description": "The RE-nuclear pathway requires accelerated private fossil-asset retirement plus a nuclear legal/safety framework that the report says is still pending, making regulation a major feasibility condition.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "High (Quantitative proxy): MAP1 reaches near-zero power emissions but requires US$654.9bn cumulative generation investment and 17.13 US¢/kWh generation cost in 2060. The report flags affordability as a major impediment.",
+      "dependency_description": "MAP1 reaches near-zero power emissions but requires US$654.9B cumulative generation investment and 17.13 US¢/kWh generation cost in 2060. The report flags affordability as a major impediment.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "High (Explicit): The RE-nuclear pathway relies heavily on nuclear by mid-century, so unresolved public concerns about accidents, spent fuel and the Bataan legacy are a major enabling condition.",
+      "dependency_description": "The RE-nuclear pathway relies heavily on nuclear by mid-century, so unresolved public concerns about accidents, spent fuel and the Bataan legacy are a major enabling condition.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "High (Quantitative proxy): MAP1 delivers lower power emissions but at a large tariff premium. The report explicitly warns that consumers may reject the RE-nuclear transition if higher bills are not managed.",
+      "dependency_description": "MAP1 delivers lower power emissions but at a large tariff premium. The report explicitly warns that consumers may reject the RE-nuclear transition if higher bills are not managed.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "High (Quantitative proxy): MAP1 front-loads low-carbon capacity because externalities are internalized (98.5 GW in 2040), so grid/storage expansion must occur early though nuclear limits the ultimate scale.",
+      "dependency_description": "MAP1 front-loads low-carbon capacity because externalities are internalized (98.5 GW in 2040), so grid/storage expansion must occur early though nuclear limits the ultimate scale.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Moderate (Quantitative proxy): MAP1 internalizes externalities and therefore brings forward more low-carbon capacity, increasing near-term dependence on scalable offshore wind, storage and nuclear delivery.",
+      "dependency_description": "MAP1 internalizes externalities and therefore brings forward more low-carbon capacity, increasing near-term dependence on scalable offshore wind, storage and nuclear delivery.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Moderate (Quantitative proxy): MAP1's externality-inclusive run builds more low-carbon capacity early, increasing near-term use of bounded domestic wind/solar resources, although nuclear baseload prevents the extreme resource pressure of all-RE.",
+      "dependency_description": "MAP1's externality-inclusive run builds more low-carbon capacity early, increasing near-term use of bounded domestic wind/solar resources, although nuclear baseload prevents the extreme resource pressure of all-RE.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

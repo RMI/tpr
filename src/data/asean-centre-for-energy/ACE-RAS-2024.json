@@ -57,7 +57,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Regional Aspiration Scenario (RAS) is an exploratory pathway which assumes that every ASEAN member state fully achieves both its unconditional and conditional transition targets on time, including Nationally Determined Contributions (NDCs), national power development plans (PDPs), and the enhanced scenarios of the national energy roadmaps of each ASEAN member state (e.g., the Clean Energy Scenario in the Philippines). The RAS pathway includes the 2025 ASEAN Plan of Action for Energy Cooperation (APAEC) targets for renewable energy generation and energy efficiency. The RAS pathway extends the ACE ATS pathway, covering all policies included in ATS with the inclusion of additional aspirational goals. The RAS also differs from the ATS pathway in using a least-cost optimization approach, which results in both a faster build-out of renewable energy and lower utilization rates for fossil fuel power plans.\n\nEmissions remain stable in the RAS until 2030, after which they start to decrease very slightly at a rate of approximately 0.1% per year across the energy sector. Emissions from power generation decrease much more rapidly to approximately a third of 2022 emissions by 2050. Emissions in the industry and residential sectors also drop significantly compared to the ATS.",
+  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Regional Aspiration Scenario (RAS) is an exploratory pathway that assumes that every ASEAN member state fully achieves both its unconditional and conditional transition targets on time, including Nationally Determined Contributions (NDCs), national power development plans (PDPs), and the enhanced scenarios of the national energy roadmaps of each ASEAN member state (e.g., the Clean Energy Scenario in the Philippines). The RAS pathway includes the 2025 ASEAN Plan of Action for Energy Cooperation (APAEC) targets for renewable energy generation and energy efficiency. The RAS pathway extends the ACE ATS pathway, covering all policies included in ATS with the inclusion of additional aspirational goals. The RAS also differs from the ATS pathway in using a least-cost optimization approach, which results in both a faster build-out of renewable energy and lower utilization rates for fossil fuel power plans.\n\nEmissions remain stable in the RAS until 2030, after which they start to decrease very slightly at a rate of approximately 0.1% per year across the energy sector. Emissions from power generation decrease much more rapidly to approximately a third of 2022 emissions by 2050. Emissions in the industry and residential sectors also drop significantly compared to the ATS.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -234,10 +234,10 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Accelerated regional EE/RE measures, conditional NDCs and harmonised standards drive RAS beyond national targets.",
+    "policies": "Accelerated regional renewable energy and efficiency measures, conditional NDCs, and harmonized standards drive this scenario beyond national targets.",
     "emissionsTargets": null,
-    "technologyCosts": "Least-cost optimisation determines the power build-out based on granular technology-level capital costs and O&M costs, although unit costs are assumed static. Lower renewable costs increase solar and wind deployment.",
-    "investmentChange": "Average annual Power investment rises from USD 45.6bn in 2023–2030 to USD 190.3bn in 2041–2050. Even more investment is needed for solar and wind than in ATS and additionaly some new technologies come online that require investment.",
+    "technologyCosts": "Least-cost optimization determines the power build-out based on granular technology-level capital costs and O&M costs, although unit costs are assumed static. Lower renewable costs increase solar and wind deployment.",
+    "investmentChange": "Average annual power investment rises from US$45.6B in 2023–2030 to US$190.3B in 2041–2050.",
     "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
     "behavioralShifts": null,
     "otherDrivers": null
@@ -251,7 +251,7 @@
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Regionally coordinated and harmonised standards and rules for interconnected power and storage materially affect grid decarbonisation.",
+      "dependency_description": "Regionally coordinated and harmonised standards and rules for interconnected power and storage materially affect grid decarbonization.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -309,7 +309,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived emissions intensity from power absolute emissions and elecricity generation"
+        "scopeLimitations": "Derived emissions intensity from power absolute emissions and elecricity generation."
       },
       {
         "metricName": "Absolute Emissions",
@@ -319,7 +319,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Directly reported electricity-generation GHG emissions in MtCO2-eq. \"Other Transformation\" is excluded."
+        "scopeLimitations": "Directly reported electricity-generation GHG emissions in MtCO2e. \"Other Transformation\" is excluded."
       },
       {
         "metricName": "Capacity",

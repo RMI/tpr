@@ -339,13 +339,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The scenario doesn't follow policies: PDP8 plans only 2.8 of 11 GW of LNG additions. Rail electrification and exogenous modal shift follows local policy. Power operating rules are relaxed: early coal decommissioning and flexible operation from 2030.",
-    "emissionsTargets": "Same National Climate Change Strategy caps as NZ (101 Mt energy + 20 Mt process in 2050); identical by design because Green Growth assumes change in economy, not in scenario ambition.",
-    "technologyCosts": "Least-cost optimisation as in NZ, but lower demand means no nuclear, LNG at 19 GW and only ~50% of RE potential used; total system cost 13% below BSL.",
+    "policies": "Power operating rules are relaxed, early coal decommissioning and flexible operation from 2030.",
+    "emissionsTargets": "There is an emissions cap in 2050 (from the National Climate Change Strategy) of 101 Mt CO2e in the energy system plus 20 Mt of industrial process emissions.",
+    "technologyCosts": "Least-cost optimization as in NZ, but lower demand means no nuclear, LNG at 19 GW, and only ~50% of renewables potential used. Total system cost 13% below BSL.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Differentiating driver with NZ scenario: same 6.5% GDP growth but industry falls to 30% and services rise to 60% of GDP by 2050, with growth in high-value manufacturing. Industrial energy service demand grows 4.2-fold (vs 5.6 in BSL) and electricity demand reaches only ~1,010 TWh.",
-    "behavioralShifts": "Inherits NZ modal shift to rail/public transport and demand flexibility.",
-    "otherDrivers": "Renewable potential: 272 GW land solar as in NZ, but much less binding because demand is lower."
+    "macroeconomicDrivers": "GDP growth of 7%/y (2021-30) and 6.5%/y (2030-50), with industry at 30% and services 60% of GDP by 2050,  2030, with growth in high-value manufacturing. Industrial energy service demand grows 4.2-fold and electricity demand reaches ~1,010 TWh.",
+    "behavioralShifts": "Modal shift from cars/motorcycles to urban rail and from road/ship/air to rail cuts transport fuel use by at least 9% versus BSL and is the main reason NZ system cost is 5% below BSL. 40% of EVs and 18% of electric industrial load are assumed to shift demand flexibly.",
+    "otherDrivers": "Renewable potential is doubled. Land-based solar potential is 272 GW, assuming more land for energy, but this is less impactful than the NZ pathway because demand is lower."
   },
   "dependencies": [
     {
@@ -380,13 +380,13 @@
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "NZ depends on doubling land for utility PV to 272 GW (~3,000 km2, 0.9% of Viet Nam land). GG uses only ~50% of RE potential by 2050.",
+      "dependency_description": "NZ depends on doubling land for utility PV to 272 GW (~3,000 km2, 0.9% of Vietnam land). GG uses only ~50% of RE potential by 2050.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "Planning reserves account for climate-related lower hydro and RE output and higher temperature-driven demand; this was modelled only in the NZ-Reserve sensitivity, adding 42 GW hydrogen-fired reserve plants. Low reservoir levels are cited as a stress case for flexibility.",
+      "dependency_description": "Planning reserves account for climate-related lower hydro and RE output and higher temperature-driven demand; this was modeled only in the NZ-Reserve sensitivity, adding 42 GW hydrogen-fired reserve plants. Low reservoir levels are cited as a stress case for flexibility.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
@@ -545,7 +545,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Text",
         "granularity": ["International and national transmission lines"],
-        "scopeLimitations": "Inter-regional capacity between 7 regions, HVAC/HVDC split (Fig 5.6). Distribution grid not modelled as capacity."
+        "scopeLimitations": "Inter-regional capacity between 7 regions, HVAC/HVDC split (Fig 5.6). Distribution grid not modeled as capacity."
       },
       {
         "metricName": "Technology cost",
@@ -555,7 +555,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "External catalogue values, USD2019, Viet Nam-adjusted; land cost excluded (catalogue p.14)."
+        "scopeLimitations": "External catalogue values, 2019 US$, Vietnam-adjusted; land cost excluded (catalogue p.14)."
       },
       {
         "metricName": "Investment requirement",
@@ -565,7 +565,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Figure",
         "granularity": ["By technology"],
-        "scopeLimitations": "NPV-discounted (10%) share of investment 2025-2050; excludes transmission (p.43 fn 12)."
+        "scopeLimitations": "NPV-discounted (10%) share of investment 2025–2050; excludes transmission (p.43 fn 12)."
       },
       {
         "metricName": "Asset lifetime",

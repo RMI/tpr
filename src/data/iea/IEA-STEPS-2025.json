@@ -225,9 +225,9 @@
       "US": ["US"],
       "BR": ["BR"],
       "RU": ["RU"],
+      "CN": ["CN", "HK"],
       "IN": ["IN"],
-      "JP": ["JP"],
-      "CN": ["CN", "HK"]
+      "JP": ["JP"]
     }
   },
   "pathwayType": "Exploratory",
@@ -328,11 +328,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Minor decrease"
       },
@@ -365,6 +360,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
@@ -408,11 +408,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Minor decrease"
       },
@@ -444,6 +439,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Moderate decrease"
       },
       {
@@ -490,11 +490,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate improvement"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Moderate improvement"
       },
@@ -526,6 +521,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Moderate improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Moderate improvement"
       },
       {
@@ -570,11 +570,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -606,6 +601,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -652,11 +652,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Minor increase"
       },
@@ -689,6 +684,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Minor increase"
       },
       {
         "sector": "across sectors",
@@ -732,11 +732,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -768,6 +763,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "No information"
       },
       {
@@ -814,11 +814,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Low or no change"
       },
@@ -851,6 +846,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate increase"
       },
       {
         "sector": "across sectors",
@@ -903,11 +903,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -939,6 +934,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -983,11 +983,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1019,6 +1014,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1065,11 +1065,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1101,6 +1096,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1145,11 +1145,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1181,6 +1176,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1227,11 +1227,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1263,6 +1258,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1307,11 +1307,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1343,6 +1338,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1389,11 +1389,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1425,6 +1420,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1469,11 +1469,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1505,6 +1500,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1551,11 +1551,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1587,6 +1582,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1631,11 +1631,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1667,6 +1662,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1720,11 +1720,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1756,6 +1751,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1807,11 +1807,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1843,6 +1838,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1889,11 +1889,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1925,6 +1920,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1969,11 +1969,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2009,6 +2004,11 @@
       },
       {
         "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -2030,18 +2030,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "STEPS incorporates a broader policy set than the accompanying CPS with policies formally tabled but not yet legislated, and includes official strategy documents that indicate a 'direction of travel' (e.g. power-sector development plans, transport/buildings regulatory reform plans), with time-bound policies assumed to be prolonged rather than lapsing. However, it does not assume aspirational goals (NDCs, Paris Agreement) are met in full.",
+    "policies": "STEPS incorporates a broader policy set than the accompanying CPS with policies formally tabled but not yet legislated, and includes official strategy documents that indicate a \"direction of travel\" (e.g., power sector development plans, transport/buildings regulatory reform plans), with time-bound policies assumed to be prolonged rather than lapsing. However, it does not assume aspirational goals (e.g., NDCs, Paris Agreement) are met in full.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Falling unit costs for solar PV and battery storage continue to support their expansion, with faster and deeper cost declines feeding through to materially higher deployment than the more conservative CPS pathway. The same is seen for innovative low-carbon technology costs (steel, electrolysers, fuel cells) which fall further and faster than in CPS.",
-    "investmentChange": "Low-emissions share of total energy investment rises by almost ten percentage points to about 75% in 2035, as spending shifts to grids and storage, end-use electrification and efficiency. Total investment stabilises near USD 3.6 trillion in 2035 and stays broadly flat to 2050.",
-    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO-2025 scenarios (global GDP CAGR 2024-2050 = 2.6%; population rising from 8.09 to 9.57 billion).",
+    "technologyCosts": "Falling unit costs for solar PV and battery storage continue to support their expansion, with faster and deeper cost declines feeding through to materially higher deployment than the more conservative CPS pathway. The same is seen for innovative low-carbon technology costs (e.g., steel, electrolyzers, fuel cells) which fall further and faster than in CPS.",
+    "investmentChange": "Low-emissions share of total energy investment rises by almost ten percentage points to about 75% in 2035, as spending shifts to grids and storage, end-use electrification and efficiency. Total investment stabilizes near US$3.6 trillion in 2035 and stays broadly flat to 2050.",
+    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO–2025 scenarios (global GDP CAGR 2024–2050 = 2.6%, population rising from 8.09 to 9.57 billion).",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "STEPS embeds specific power-sector development plans and renewable-target policies (e.g. national power development plans, feed-in and auction mechanisms) as a direct enabling strategy for the sector's build-out, though targets are not automatically assumed to be met in full.",
+      "dependency_description": "STEPS embeds specific power-sector development plans and renewable-target policies (e.g., national power development plans, feed-in and auction mechanisms) as a direct enabling strategy for the sector's build-out, although targets are not automatically assumed to be met in full.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -2095,7 +2095,7 @@
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "STEPS retires substantially more coal capacity than CPS (-2,032 GW net by 2050 across scenario vs CPS's much smaller net change), implying materially larger fossil-sector job losses and retraining needs than CPS, alongside larger low-carbon-sector job creation from the larger renewables build.",
+      "dependency_description": "STEPS retires substantially more coal capacity than CPS (-2,032 GW net by 2050 across scenario vs. CPS's much smaller net change), implying materially larger fossil-sector job losses and retraining needs than CPS, alongside larger low-carbon-sector job creation from the larger renewables build.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
@@ -2232,7 +2232,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Coal and natural gas are further split by 'unabated' and 'with-CCUS' in the source data. Solar combines Solar PV and concentrating solar power. 'Other' includes Marine and Hydrogen/H2-based generation."
+        "scopeLimitations": "Coal and natural gas are further split by \"unabated\" and \"with-CCUS\" in the source data. Solar combines Solar PV and concentrating solar power. \"Other\" includes marine and hydrogen/H2-based generation."
       },
       {
         "metricName": "Technology mix",
@@ -2270,7 +2270,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Coal and natural gas are further split by 'unabated' and 'with-CCUS' in the source data. Solar combines Solar PV and concentrating solar power. 'Other' includes Marine and Hydrogen/H2-based generation."
+        "scopeLimitations": "Coal and natural gas are further split by \"unabated\" and \"with-CCUS\" in the source data. Solar combines solar PV and concentrating solar power. \"Other\" includes marine and hydrogen/H2-based generation."
       },
       {
         "metricName": "Transmission lines",
@@ -2290,7 +2290,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Capital costs, capacity factor, and fuel/CO2/O&M costs by technology are disclosed for selected individual regions (e.g. United States), not globally."
+        "scopeLimitations": "Capital costs, capacity factor, and fuel/CO2/O&M costs by technology are disclosed for selected individual regions (e.g., United States), not globally."
       },
       {
         "metricName": "Investment requirement",

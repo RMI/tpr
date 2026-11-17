@@ -341,18 +341,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The scenario doesn't follow policies: PDP8 plans only 2.8 of 11 GW of LNG additions. Rail electrification and exogenous modal shift follows local policy. Power operating rules are relaxed: early coal decommissioning and flexible operation from 2030.",
-    "emissionsTargets": "Emissions cap in 2050 from the National Climate Change Strategy: 101 Mt CO2eq energy system plus 20 Mt industrial process emissions; net zero closed by an exogenous -185 Mt LULUCF sink.",
-    "technologyCosts": "Least-cost choice under the cap front-loads cheap land solar (48 GW by 2030) and onshore wind to avoid stranded thermal plant; offshore wind (84 GW by 2050) and batteries (98 GW) follow as costs fall; CCS in power and H2 co-firing are rejected as too costly. A +70% solar CAPEX sensitivity cuts 2050 solar from ~406 GW to 250 GW.",
+    "policies": "Power operating rules are relaxed, early coal decommissioning and flexible operation from 2030.",
+    "emissionsTargets": "There is an emissions cap in 2050 (from the National Climate Change Strategy) of 101 Mt CO2e in the energy system plus 20 Mt of industrial process emissions. Net zero is achieved by an exogenous -185 Mt LULUCF sink.",
+    "technologyCosts": "Least-cost choice under the emissions cap front-loads cheap land-based solar (48 GW by 2030) and onshore wind to avoid stranded thermal plants. Offshore wind (84 GW by 2050) and batteries (98 GW) follow as costs fall. CCS in power and H2 co-firing are rejected as too costly. A +70% solar capex sensitivity cuts 2050 solar from ~406 GW to 250 GW.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "GDP growth of 7%/yr (2021-30) and 6.5%/yr (2030-50), with industry at 40% and services 50% of GDP from 2030, drives a 4.5-fold rise in electricity demand to 1,127 TWh. A 7.5%/yr High-GDP sensitivity is run on NZ.",
-    "behavioralShifts": "Modal shift from cars/motorcycles to urban rail and from road/ship/air to rail cuts transport fuel use by at least 9% versus BSL and is the main reason NZ system cost is 5% below BSL; 40% of EVs and 18% of electric industrial load are assumed to shift demand flexibly.",
-    "otherDrivers": "Renewable potential doubled: land-based solar potential 272 GW, assuming more land for energy; without it the cost-optimal RE build is not available."
+    "macroeconomicDrivers": "GDP growth of 7%/y (2021-30) and 6.5%/y (2030-50), with industry at 40% and services 50% of GDP from 2030, drives a 4.5-fold rise in electricity demand to 1,127 TWh. A 7.5%/y High-GDP sensitivity is run on NZ.",
+    "behavioralShifts": "Modal shift from cars/motorcycles to urban rail and from road/ship/air to rail cuts transport fuel use by at least 9% versus BSL and is the main reason NZ system cost is 5% below BSL. 40% of EVs and 18% of electric industrial load are assumed to shift demand flexibly.",
+    "otherDrivers": "Renewable potential is doubled. Land-based solar potential is 272 GW, assuming more land for energy."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "NZ needs power policy to move faster than PDP8 before 2030 - 78 GW wind+solar by 2030 with land solar 37.5 GW above PDP8 and an RE share of 64% - plus an ETS aligned with 2030/2035 power targets. Without it, thermal capacity built now is stranded after 10-15 years.",
+      "dependency_description": "NZ needs power policy to move faster than PDP8 before 2030 — 78 GW wind+solar by 2030 with land solar 37.5 GW above PDP8 and an RE share of 64% — plus an ETS aligned with 2030/2035 power targets. Without it, thermal capacity built now is stranded after 10-15 years.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -382,13 +382,13 @@
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "NZ depends on doubling land for utility PV to 272 GW (~3,000 km2, 0.9% of Viet Nam land); the report asks for a multipurpose land-use study. 2/3 of RE potential is used by 2050.",
+      "dependency_description": "NZ depends on doubling land for utility PV to 272 GW (~3,000 km2, 0.9% of Vietnam land); the report asks for a multipurpose land-use study. 2/3 of RE potential is used by 2050.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "Planning reserves account for climate-related lower hydro and RE output and higher temperature-driven demand; this was modelled only in the NZ-Reserve sensitivity, adding 42 GW hydrogen-fired reserve plants. Low reservoir levels are cited as a stress case for flexibility.",
+      "dependency_description": "Planning reserves account for climate-related lower hydro and RE output and higher temperature-driven demand; this was modeled only in the NZ-Reserve sensitivity, adding 42 GW hydrogen-fired reserve plants. Low reservoir levels are cited as a stress case for flexibility.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
@@ -564,7 +564,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["International and national transmission lines"],
-        "scopeLimitations": "Inter-regional capacity between 7 regions, HVAC/HVDC split (Fig 5.6). Distribution grid not modelled as capacity."
+        "scopeLimitations": "Inter-regional capacity between 7 regions, HVAC/HVDC split (Fig 5.6). Distribution grid not modeled as capacity."
       },
       {
         "metricName": "Technology cost",
@@ -574,7 +574,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "External catalogue values, USD2019, Viet Nam-adjusted; land cost excluded (catalogue p.14)."
+        "scopeLimitations": "External catalogue values, 2019 US$, Vietnam-adjusted; land cost excluded (catalogue p.14)."
       },
       {
         "metricName": "Investment requirement",
@@ -584,7 +584,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Figure",
         "granularity": ["By technology"],
-        "scopeLimitations": "NPV-discounted (10%) share of investment 2025-2050; excludes transmission (p.43 fn 12)."
+        "scopeLimitations": "NPV-discounted (10%) share of investment 2025–2050; excludes transmission (p.43 fn 12)."
       },
       {
         "metricName": "Asset lifetime",

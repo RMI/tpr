@@ -67,7 +67,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "Exploratory least-cost Malaysian power pathway (2019–2050) that keeps NETR/MyRER targets as floors, with no new coal and coal out by 2050, but optimises the rest on cost in NEMO with no emissions cap. Solar stays at the 56 GW NETR floor while gas nearly doubles to 53 GW and biomass generation drops 77%. Investment falls 15% to USD 219bn and costs 18% versus EP, but power emissions still rise slightly to 96 MtCO2e by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "Exploratory least-cost Malaysian power pathway (2019–2050) that keeps NETR/MyRER targets as floors, with no new coal and coal out by 2050, but optimizes the rest on cost in NEMO with no emissions cap. Solar stays at the 56 GW NETR floor while gas nearly doubles to 53 GW and biomass generation drops 77%. Investment falls 15% to US$219B and costs 18% versus EP, but power emissions still rise slightly to 96 MtCO2e by 2050.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Absolute Emissions",
     "Capacity",
@@ -209,13 +209,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Existing Policy targets act as fixed floors: the NETR/MyRER RE capacity targets are added exogenously and coal's maximum capacity addition is set to zero, keeping the coal moratorium and phase-out by 2050. Demand-side efficiency standards and transport targets are unchanged from EP because only generation is optimised. Above the policy floor, additions are chosen on cost rather than RE preference, so policy fixes solar at exactly the NETR 56.3 GW.",
+    "policies": "Capacity mix and renewable energy targets (31% in 2025, 40% in 2035, 70% in 2050) act as fixed floors. There is no new coal or diesel, coal is phased out by 2050 and diesel by 2045 via natural retirement. Above the policy floor, additions are chosen on cost.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "OEP minimises financial cost in NEMO with NREL ATB 2023 capital/O&M costs and ACE fuel costs at a 7% discount rate (Table 9 & 10). Although solar capex falls (USD 1,291/kW in 2018 to 632/kW in 2050), solar stays at the NETR floor while gas grows to 53.4 GW, almost twice NETR’s 28.1 GW (2050 gas CC capex USD 971/kW, fuel USD 27.9/MWh). Biomass generation drops 77% and hydro use rises. Real investment falls 15% (USD 219bn vs 257bn) and 2050 production cost 18% (7.2 vs 8.8 US cents/kWh).",
-    "investmentChange": "Cumulative power generation investment overcomes USD 200 bn, with around USD 100 bn in fossil fuel. This pathway experiences less investment in low carbon technology.",
-    "macroeconomicDrivers": "OEP inherits EP's GDP, population, urbanisation and sectoral value-added assumptions unchanged, so it must meet the same 393 TWh of 2050 electricity demand. Macro assumptions are therefore not a differentiator for OEP; sources as in EP (government projections, UN World Urbanization Prospects, World Bank, LEAP defaults).",
-    "behavioralShifts": "not applicable.",
-    "otherDrivers": "Build-rate and utilisation limits bound the optimiser: maximum annual additions are small hydro 100 MW, mini hydro 10 MW, biogas 10 MW and MSW 50 MW (gas, solar and large hydro unlimited), and every unit must run at least 50% of capacity (25% for hydro). These constraints sit outside cost and policy targets but shape which technologies the least-cost solution can add each period. The report itself flags the resulting biomass decline and gas over-capacity for further investigation."
+    "technologyCosts": "OEP is a cost-optimized pathway. Although solar capex falls (US$1,291/kW in 2018 to US$632/kW in 2050), solar stays at the policy floor while gas grows to 53.4 GW. Biomass generation drops 77% and hydro use rises.",
+    "investmentChange": "Cumulative power generation investment exceeds US$200B, with around US$100B in fossil fuels. This pathway experiences less investment in low-carbon technology.",
+    "macroeconomicDrivers": "GDP, population, urbanization (76% in 2018 to 90% by 2060), and sectoral value added drive electricity demand to 393 TWh in 2050 (+152% vs. 2019), with services and industry making up 79% of the increase.",
+    "behavioralShifts": "23% energy-intensity gain for industry and commercial uses, and efficiency gains for household appliance targets. Clean transport adoption targets include 80% xEV share of 4- and 2-wheelers, 60% public-transport share, 5% hydrogen heavy vehicles, and B30 biodiesel.",
+    "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
@@ -226,13 +226,13 @@
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "OEP inherits EP's regulatory setting: weak enforcement of building rules, limited financing for energy performance contracts and an EECA covering only 21% of commercial consumption and under 1% of users. The report raises no OEP-specific market rules. The relevant point is contractual: the optimiser nearly doubles gas capacity, while the report recommends a roadmap for moving uncontracted gas and existing coal plants to renewables.",
+      "dependency_description": "OEP inherits EP's regulatory setting: weak enforcement of building rules, limited financing for energy performance contracts and an EECA covering only 21% of commercial consumption and under 1% of users. The report raises no OEP-specific market rules. The relevant point is contractual: the optimizer nearly doubles gas capacity, while the report recommends a roadmap for moving uncontracted gas and existing coal plants to renewables.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "OEP is the cheapest pathway on financial cost (USD 219bn real investment; 7.2 US cents/kWh in 2050), but its 53.4 GW gas fleet raises exposure to gas prices, imports and stranding. Once carbon is priced at USD 185/t its social cost (10.96 US cents/kWh) exceeds OMAP's (10.67), so its economic advantage depends on carbon staying unpriced.",
+      "dependency_description": "OEP is the cheapest pathway on financial cost (US$219B real investment; 7.2 US cents/kWh in 2050), but its 53.4 GW gas fleet raises exposure to gas prices, imports and stranding. Once carbon is priced at US$185/t its social cost (10.96 US cents/kWh) exceeds OMAP's (10.67), so its economic advantage depends on carbon staying unpriced.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -244,7 +244,7 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "OEP carries EP's demand-side adoption assumptions unchanged by design — demand is not re-optimised — so consumer behaviour affects OEP only through the 393 TWh it must supply. No OEP-specific behavioural evidence exists.",
+      "dependency_description": "OEP carries EP's demand-side adoption assumptions unchanged by design — demand is not re-optimized — so consumer behaviour affects OEP only through the 393 TWh it must supply. No OEP-specific behavioural evidence exists.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -268,7 +268,7 @@
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "OEP's hydro output is slightly higher than EP's (94.9 vs 87.7 TWh) because optimisation raises utilisation, so drought exposure persists; the report's caveat that no sensitivity or resilience analysis was run, including on hydro availability across the two monsoon seasons, applies.",
+      "dependency_description": "OEP's hydro output is slightly higher than EP's (94.9 vs. 87.7 TWh) because optimization raises utilisation, so drought exposure persists; the report's caveat that no sensitivity or resilience analysis was run, including on hydro availability across the two monsoon seasons, applies.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -376,7 +376,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Table 9 capex (USD/kW), fixed O&M (USD/kW-yr), variable (USD/MWh) by technology from NREL ATB 2023 (US-based, not localised); fuel costs Table 10 (ACE 2022). Same table in all pathways. Drives OEP's least-cost optimisation."
+        "scopeLimitations": "Table 9 capex (US$/kW), fixed O&M (US$/kW-yr), variable (US$/MWh) by technology from NREL ATB 2023 (US-based, not localised); fuel costs Table 10 (ACE 2022). Same table in all pathways. Drives OEP's least-cost optimisation."
       },
       {
         "metricName": "Investment requirement",
@@ -386,7 +386,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["By technology"],
-        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), USD. Excludes transmission and distribution; storage not shown separately in the investment figures."
+        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), US$. Excludes transmission and distribution; storage not shown separately in the investment figures."
       },
       {
         "metricName": "Asset lifetime",

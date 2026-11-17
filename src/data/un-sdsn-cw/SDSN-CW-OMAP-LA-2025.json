@@ -131,11 +131,11 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Hydro additions are aligned with the NDC until 2030, but doesn't continue after 2030. As coal power is phased out in 2040 and needs to be replaced, additional wind and solar are added to the pathway.",
-    "emissionsTargets": "Near-zero 2050 and coal phase-out by 2040 constrain the pathway.",
-    "technologyCosts": "Least-cost optimization determines dispatch and generation mix.",
+    "policies": "Hydro additions are aligned with the NDC until 2030 and continue until the maximum hydro resource potential in Laos is reached. Coal power is phased out in 2040 and wind and solar are added to replace it.",
+    "emissionsTargets": "Near-zero emissions by 2050 and coal phaseout by 2040.",
+    "technologyCosts": "The OMAP pathway is driven by cost optimization. Declining costs for solar and wind lead these resources to be less expensive than capital-intensive hydropower or coal power, leading to reduced hydropower development and significantly expanded wind and solar capacity build-out. As a result, cumulative power sector investment costs are lower in OMAP than in the MAP or Existing Policy pathways, although they are higher than in the Optimized Existing Policy pathway.",
     "investmentChange": null,
-    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and some ambitous electrification assumptions in housings and transportation drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows GDP and population growth projections based on the Shared Socioeconomic Pathway 2. There are also ambitous electrification assumptions in housing and transportation which further drive electricity demand.",
     "behavioralShifts": null,
     "otherDrivers": null
   },
@@ -200,7 +200,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "National power generation; not disclosed directly and should be derived from absolute emissions and generation"
+        "scopeLimitations": "National power generation; not disclosed directly and should be derived from absolute emissions and generation."
       },
       {
         "metricName": "Absolute Emissions",
@@ -260,7 +260,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["Total costs"],
-        "scopeLimitations": "Provide total production costs and total discounted production costs"
+        "scopeLimitations": "Provide total production costs and total discounted production costs."
       },
       {
         "metricName": "Investment requirement",
@@ -270,7 +270,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["By technology"],
-        "scopeLimitations": "Provide cumulative investment cost or cumulative discounted investment cost"
+        "scopeLimitations": "Provide cumulative investment cost or cumulative discounted investment cost."
       },
       {
         "metricName": "Asset lifetime",

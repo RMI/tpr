@@ -218,18 +218,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Wider, more binding instruments than REF drive supply and demand. Technology shares: >50% RE in generation by 2050 under NREP targets. New vs REF: 19 GW offshore wind by 2050 (awarded contracts); nuclear 1.2 GW by 2032, 2.4 GW by 2035, 4.8 GW by 2050. A 40-year coal plant life is a retirement rule, removing 3,600 MW. Tighter demand standards: 5% biodiesel from 2026, 50% EV penetration by 2040, 10% energy savings on oil products and electricity in 2040-2050 via more efficiency.",
+    "policies": "Wider, more binding instruments than the reference pathway drive supply and demand. >50% renewables in generation by 2050, 19 GW offshore wind by 2050 and nuclear 1.2 GW by 2032, 2.4 GW by 2035, and 4.8 GW by 2050. A 40-year coal plant life is a retirement rule, removing 3,600 MW. 5% biodiesel from 2026, 50% EV penetration by 2040, 10% energy savings on oil products and electricity in 2040–2050 via more efficiency.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Unit costs drive the build as in REF, using the same 2022 National Renewable Energy Laboratory database and fuel costs, but the signal is more visible given the larger renewable share: the RE capital cost learning curve keeps blended generation rate growth well below REF. Costs also shape the renewable mix within the RE target, with solar and onshore wind ending below REF levels as offshore wind displaces some lower-capacity-factor capacity. Nuclear is an exogenous assumption, not cost-driven.",
-    "investmentChange": "Low-carbon investment takes a larger share of GDP than in REF, though it still declines over time as capital costs fall. Total investment is roughly two fifths above REF, with the increase concentrated in renewables, a sharp rise in battery storage, nuclear and other technologies absent from REF, and electric vehicles, the largest single component.",
-    "macroeconomicDrivers": "The macroeconomic and socioeconomic assumptions are identical to REF and CES 2 and are recorded for that reason, not as a differentiator: sustained high real GDP growth, with sectoral and household income growth and population as demand predictors, sourced from the Philippine Development Plan 2023-2028 and AmBisyon Natin 2040. Unlike in REF, they do not dominate: policy targets and technology costs shape outcomes, and demand differs from REF through efficiency and electrification, not growth.",
-    "behavioralShifts": "The household fuel preference shift from REF also applies, and the publication adds a behavioural element specific to the clean energy case: stronger efficiency and conservation yielding savings on oil products and electricity after 2040. Traditional biomass still declines, with LPG and electricity covering most household demand by 2050. Transport shows the largest cut against REF as alternative fuels displace gasoline and diesel, though EV uptake is a policy target, not a consumer preference.",
-    "otherDrivers": "REF’s Competitive Renewable Energy Zone, service contract, reserve margin and network limits apply; two more appear. Offshore wind is sited by grid per the World Bank roadmap, fixing its transmission and balancing needs. Nuclear relies on an institutional programme, not a market: the Philippine Nuclear Energy Program pursues IAEA milestones while nuclear legislation is drafted, so its build rests on a pre-commercial framework. Both are siting and readiness conditions, not instruments or costs."
+    "technologyCosts": "Unit costs drive the build, using the 2022 National Renewable Energy Laboratory database and fuel costs. The renewables capital cost learning curve keeps the blended generation rate growth well below the reference pathway rate. Costs also shape the renewable mix within the renewables target, with solar and onshore wind ending below reference levels as offshore wind displaces some lower-capacity-factor capacity. Nuclear is an exogenous assumption, not cost-driven.",
+    "investmentChange": "Low-carbon investment takes a larger share of GDP than in the reference pathway, though it still declines over time as capital costs fall.",
+    "macroeconomicDrivers": "The macroeconomic and socioeconomic assumptions are identical to the other pathways in this plan. Sustained high real GDP growth, with sectoral and household income growth and population as demand predictors. Demand differs here from the reference pathway through efficiency and electrification.",
+    "behavioralShifts": "The household fuel preference shift from the reference pathway also applies, and the publication adds a behavioral element specific to the clean energy case: stronger efficiency and conservation yielding savings on oil products and electricity after 2040. Traditional biomass still declines, with LPG and electricity covering most household demand by 2050.",
+    "otherDrivers": "Offshore wind is sited by the grid per the World Bank roadmap, fixing its transmission and balancing needs. Nuclear relies on an institutional program, not a market: the Philippine Nuclear Energy Program pursues IAEA milestones while nuclear legislation is drafted, so its build rests on a pre-commercial framework."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Every increment over REF is policy-delivered, so the pathway is infeasible as modelled without it. Four assumptions are decisive: the RE share target under National Renewable Energy Program goals, awarded offshore wind contracts sited per the World Bank roadmap, staged nuclear capacity, and a coal technical-life rule, the only instrument removing high-carbon capacity. Demand-side EV penetration and B5 blending are equally policy-set. Hydrogen is an ambition with no deployment target.",
+      "dependency_description": "Every increment over REF is policy-delivered, so the pathway is infeasible as modeled without it. Four assumptions are decisive: the RE share target under National Renewable Energy Program goals, awarded offshore wind contracts sited per the World Bank roadmap, staged nuclear capacity, and a coal technical-life rule, the only instrument removing high-carbon capacity. Demand-side EV penetration and B5 blending are equally policy-set. Hydrogen is an ambition with no deployment target.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -265,7 +265,7 @@
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Three not-yet-market-ready technologies carry this pathway, against REF’s one. Battery storage must scale far beyond REF, shifting from ancillary service to bulk balancing. Small modular reactors, the route to nuclear, promise faster deployment and lower fuel needs than pressurised water reactors but would be a national first. Green hydrogen is named for firming, storage and offshore-wind-linked production, but lacks volume or date, so it is expected, not modelled. Mature ones are excluded.",
+      "dependency_description": "Three not-yet-market-ready technologies carry this pathway, against REF’s one. Battery storage must scale far beyond REF, shifting from ancillary service to bulk balancing. Small modular reactors, the route to nuclear, promise faster deployment and lower fuel needs than pressurised water reactors but would be a national first. Green hydrogen is named for firming, storage and offshore-wind-linked production, but lacks volume or date, so it is expected, not modeled. Mature ones are excluded.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -283,7 +283,7 @@
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "The skills requirement far exceeds REF’s and extends into occupations the country lacks. Jobs are well above REF, led by renewable plant construction, with sharp rises in storage and EVs and a new nuclear line. Nuclear needs a workforce built from nothing; the Philippine Nuclear Energy Program names human resource development as an infrastructure issue alongside regulation. The publication responds with rightskilling led by the Department of Energy and the Department of Labor and Employment.",
+      "dependency_description": "The skills requirement far exceeds REF’s and extends into occupations the country lacks. Jobs are well above REF, led by renewable plant construction, with sharp rises in storage and Evs. and a new nuclear line. Nuclear needs a workforce built from nothing; the Philippine Nuclear Energy Program names human resource development as an infrastructure issue alongside regulation. The publication responds with rightskilling led by the Department of Energy and the Department of Labor and Employment.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
@@ -299,7 +299,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived, not published: GHG / generation. Numerator is Transformation-sector GHG, which bundles refining and own-use with power generation, so the result runs about 1.5 percent above a power-only figure - 2022 check 77.44/111.52 = 0.694 against power-only 0.684 and the 0.68 tCO2e/MWh the publication states. Scope 1 combustion only, CO2e on the Kyoto basket. Excludes network losses. 2050 value 0.166 tCO2e/MWh."
+        "scopeLimitations": "Derived, not published: GHG / generation. Numerator is Transformation-sector GHG, which bundles refining and own-use with power generation, so the result runs about 1.5% above a power-only figure - 2022 check 77.44/111.52 = 0.694 against power-only 0.684 and the 0.68 tCO2e/MWh the publication states. Scope 1 combustion only, CO2e on the Kyoto basket. Excludes network losses. 2050 value 0.166 tCO2e/MWh."
       },
       {
         "metricName": "Absolute Emissions",
@@ -309,7 +309,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Transformation sector, which is power generation plus refining and own use - about 1.5 percent wider than power alone at the 2022 baseline. Scope 1 combustion, CO2e on the Kyoto basket via LEAP IPCC GWP-100. Energy-sector emissions only: no land use, no industrial process emissions. Values 77.44 MtCO2e (2022) to 73.55 MtCO2e (2050)."
+        "scopeLimitations": "Transformation sector, which is power generation plus refining and own use - about 1.5% wider than power alone at the 2022 baseline. Scope 1 combustion, CO2e on the Kyoto basket via LEAP IPCC GWP-100. Energy-sector emissions only: no land use, no industrial process emissions. Values 77.44 MtCO2e (2022) to 73.55 MtCO2e (2050)."
       },
       {
         "metricName": "Capacity",
@@ -331,7 +331,7 @@
           "Other",
           "Energy storage"
         ],
-        "scopeLimitations": "On-grid capacity across the Luzon, Visayas and Mindanao networks, from the PLEXOS expansion. Energy storage covers battery storage and pumped hydro but is reported as one BESS figure in Volume I with pumped hydro inside the hydro line. Only Power Development Plan 2023-2050 splits battery from pumped hydro - so the two are not distinguishable in the annual series. No reported series for rooftop and behind-the-meter solar, nor for captive industrial generation."
+        "scopeLimitations": "On-grid capacity across the Luzon, Visayas and Mindanao networks, from the PLEXOS expansion. Energy storage covers battery storage and pumped hydro but is reported as one BESS figure in Volume I with pumped hydro inside the hydro line. Only Power Development Plan 2023–2050 splits battery from pumped hydro - so the two are not distinguishable in the annual series. No reported series for rooftop and behind-the-meter solar, nor for captive industrial generation."
       },
       {
         "metricName": "Generation",
@@ -352,7 +352,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Gross generation, on-grid, across the three modelled networks. Gross rather than net, so station own-use is included and network losses are not netted off. BESS throughput is reported alongside but excluded from the generation total. Total rises from 111.52 TWh (2022) to 443.90 TWh (2050). Hourly dispatch underlies the annual figures but is not published."
+        "scopeLimitations": "Gross generation, on-grid, across the three modeled networks. Gross rather than net, so station own-use is included and network losses are not netted off. BESS throughput is reported alongside but excluded from the generation total. Total rises from 111.52 TWh (2022) to 443.90 TWh (2050). Hourly dispatch underlies the annual figures but is not published."
       },
       {
         "metricName": "Technology mix",
@@ -373,7 +373,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Shares of gross generation, on-grid, three modelled networks - so the same boundary as Generation, including station own-use and excluding BESS throughput from the denominator. RE share moves from 22.13 percent (2022) to 64.86 percent (2050). Capacity shares are also published and differ from generation shares; the two should not be conflated."
+        "scopeLimitations": "Shares of gross generation, on-grid, three modeled networks - so the same boundary as Generation, including station own-use and excluding BESS throughput from the denominator. RE share moves from 22.13% (2022) to 64.86% (2050). Capacity shares are also published and differ from generation shares; the two should not be conflated."
       },
       {
         "metricName": "Transmission lines",
@@ -403,7 +403,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["By technology"],
-        "scopeLimitations": "PhP billion at 2022 prices, converted at PhP55/USD. Two periods only, 2023-2028 and 2029-2050, not an annual series. The renewables line is an aggregate and is not split by individual RE technology, so solar, wind, hydro, geothermal and biomass investment cannot be separated - a material limitation given that renewables are the largest component. No transmission or distribution investment is included. Covers new build; maintenance and refurbishment treatment is not stated."
+        "scopeLimitations": "PhP billion at 2022 prices, converted at PhP55/US$. Two periods only, 2023-2028 and 2029–2050, not an annual series. The renewables line is an aggregate and is not split by individual RE technology, so solar, wind, hydro, geothermal and biomass investment cannot be separated - a material limitation given that renewables are the largest component. No transmission or distribution investment is included. Covers new build; maintenance and refurbishment treatment is not stated."
       },
       {
         "metricName": "Asset lifetime",
@@ -415,7 +415,7 @@
         "granularity": [
           "High-carbon assets lifetime face early retirement policy"
         ],
-        "scopeLimitations": "Applies to coal-fired capacity. A 40-year technical life retires 3,600 MW over 2023-2050, taking coal capacity to 11,111 MW by 2050. The publication describes the retirement as voluntary with possible repurposing rather than mandated, so it is a lifetime rule with an assumed uptake, not a legislated phaseout. No plant-level retirement schedule, vintage profile or repurposing pathway is published, and no lifetime assumption is stated for oil or gas assets."
+        "scopeLimitations": "Applies to coal-fired capacity. A 40-year technical life retires 3,600 MW over 2023–2050, taking coal capacity to 11,111 MW by 2050. The publication describes the retirement as voluntary with possible repurposing rather than mandated, so it is a lifetime rule with an assumed uptake, not a legislated phaseout. No plant-level retirement schedule, vintage profile or repurposing pathway is published, and no lifetime assumption is stated for oil or gas assets."
       }
     ]
   }

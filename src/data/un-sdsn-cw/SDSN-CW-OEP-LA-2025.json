@@ -125,13 +125,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Hydro capacity additions in 2030 aligned with NDCs, then additional additions are included based on ressource potential assessment and least cost optimization.",
+    "policies": "The Existing Policy scenario reflects current policy and market trends, with continued reliance on hydropower and coal. Hydro capacity additions in 2030 are aligned with the NDC, then further additions are included based on resource potential assessment and least cost optimization.",
     "emissionsTargets": null,
-    "technologyCosts": "Least-cost optimization determines dispatch and generation mix.",
+    "technologyCosts": "Economic optimization is the defining driver of this scenario. It determines the cheapest mix of generation to meet electricity demand, without introducing any new climate constraints. This means that capital and operating costs dictate the outcome, and as such no additional renewables beyond those already mandated by policy are built unless they are cost-competitive.",
     "investmentChange": null,
-    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2.",
     "behavioralShifts": null,
-    "otherDrivers": "Hydropower resource potential is the main constraint for end-year capacity mix."
+    "otherDrivers": "Hydropower resource potential is the main constraint on the final capacity mix."
   },
   "dependencies": [
     {
@@ -154,7 +154,7 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "OEP expands significantly hydro capacities. Hydropower facilities are typically situated in isolated regions and require integration with the national system to distribute energy nationwide. However, OEP does not quantify transmission expansion or model grid integration as a constraint. Hydro power plant are able to generate twice more electricity than in EP. This implies greater utilization of the hydro system, but no corresponding pathway-specific transmission/logistics expansion is modelled.",
+      "dependency_description": "OEP expands significantly hydro capacities. Hydropower facilities are typically situated in isolated regions and require integration with the national system to distribute energy nationwide. However, OEP does not quantify transmission expansion or model grid integration as a constraint. Hydro power plant are able to generate twice more electricity than in EP. This implies greater utilization of the hydro system, but no corresponding pathway-specific transmission/logistics expansion is modeled.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
@@ -188,7 +188,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "National power generation; not disclosed directly and should be derived from absolute emissions and generation"
+        "scopeLimitations": "National power generation; not disclosed directly and should be derived from absolute emissions and generation."
       },
       {
         "metricName": "Absolute Emissions",
@@ -248,7 +248,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["Total costs"],
-        "scopeLimitations": "Provide total production costs and total discounted production costs"
+        "scopeLimitations": "Provide total production costs and total discounted production costs."
       },
       {
         "metricName": "Investment requirement",
@@ -258,7 +258,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Figure",
         "granularity": ["By technology"],
-        "scopeLimitations": "Provide cumulative investment cost or cumulative discounted investment cost"
+        "scopeLimitations": "Provide cumulative investment cost or cumulative discounted investment cost."
       },
       {
         "metricName": "Asset lifetime",

@@ -56,7 +56,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Baseline scenario (BAS) is a predictive pathway that extrapolates observed historic trends of the ASEAN Member States (AMS) energy systems into the future. It assumes a business-as-usual level of effort and specifically disregards modelling any policy interventions, even existing ones to meet national energy efficiency (EE) and renewable energy (RE) targets. Hence, it also excludes firm plant capacity additions based on power development plans (PDP). The extrapolation of past trends also implies that technology costs remain static and new technologies do not benefit from learning rates.\n\nAs a conservative baseline pathway, ACE BAS forecasts emissions at the ASEAN level to more than double by 2050.",
+  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The ACE Baseline scenario (BAS) is a predictive pathway that extrapolates observed historic trends of the ASEAN Member States (AMS) energy systems into the future. It assumes a business-as-usual level of effort and specifically disregards modeling any policy interventions, even existing ones to meet national energy efficiency (EE) and renewable energy (RE) targets. Hence, it also excludes firm plant capacity additions based on power development plans (PDP). The extrapolation of past trends also implies that technology costs remain static and new technologies do not benefit from learning rates.\n\nAs a conservative baseline pathway, ACE BAS forecasts emissions for the ASEAN level to more than double by 2050.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -227,7 +227,7 @@
     "policies": null,
     "emissionsTargets": null,
     "technologyCosts": null,
-    "investmentChange": "Average annual Power investment rises from USD 20.0bn in 2023–2030 to USD 27.7bn in 2041–2050, driven by a high share of fossil fuel investments.",
+    "investmentChange": "Average annual power investment rises from US$20.0B in 2023–2030 to US$27.7B in 2041–2050, driven by a high share of fossil fuel investments.",
     "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
     "behavioralShifts": null,
     "otherDrivers": null
@@ -235,7 +235,7 @@
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "No additional policy strategy is required or modelled. BAS is the no-intervention reference pathway.",
+      "dependency_description": "No additional policy strategy is required or modeled. BAS is the no-intervention reference pathway.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -247,7 +247,7 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Existing grids and infrastructure support the historical trajectory of the power sector. Energy storage and regional grid optimisation are not central levers in the BAS pathway.",
+      "dependency_description": "Existing grids and infrastructure support the historical trajectory of the power sector. Energy storage and regional grid optimization are not central levers in the BAS pathway.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },

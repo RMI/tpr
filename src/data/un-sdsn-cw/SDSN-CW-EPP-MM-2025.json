@@ -55,7 +55,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Existing Policies Pathway (EPP) is a predictive power-sector scenario for Myanmar modeling the energy system under current policies and Nationally Determined Contribution (NDC) targets. It is complemented by two pathways from the same developers: the Optimized Existing Policy Pathway, which uses the same assumptions with cost optimization, and the Optimized More Ambitious Pathway, which reaches near-zero power-sector emissions by 2050. EPP projects demand growth across all major sectors and reflects planned gas, hydro, and solar additions alongside retirements of aging thermal assets. Renewables expand moderately; no major policy shifts or large-scale low-carbon interventions are assumed. Reserve margins tighten as demand grows and new firm capacity remains limited. Generation rises 57% from 2020 to 2040, then falls 16% by 2050, causing a domestic supply shortfall. Direct emissions fall as coal and gas are phased out by 2050, though imports reaching 14% of demand may offset this.",
+  "pathwayDescription": "The Existing Policies Pathway (EPP) is a predictive power-sector scenario for Myanmar modeling the energy system under current policies and Nationally Determined Contribution (NDC) targets. It is complemented by two pathways from the same developers: the Optimized Existing Policy Pathway, which uses the same assumptions with cost optimization, and the Optimized More Ambitious Pathway, which reaches near-zero power-sector emissions by 2050. EPP projects demand growth across all major sectors and reflects planned gas, hydro, and solar additions alongside retirements of aging thermal assets. Renewables expand moderately; no major policy shifts or large-scale low-carbon interventions are assumed. Reserve margins tighten as demand grows and new firm capacity remains limited. Generation rises 57% from 2020 to 2040, then falls 16% by 2050, causing a domestic supply shortfall. Direct emissions fall as coal and gas are phased out by 2050, although imports reaching 14% of demand may offset this.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -141,13 +141,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Demand side sector energy demand follows Myanmar official targets. To fulffil those additional demands, the scenario follows Myanmar official technology shares targets in 2030, sourced from a World Bank report. Myanmar also issued NDC Capacity targets additions, but due to political instability, challenges with natural gas supply, and the lack of foreign investment, the country power development landscape has changed.",
+    "policies": "The pathway reflects Myanmar’s currently enacted policies and announced plans, including incremental renewable additions. It incorporates sectoral energy efficiency goals and supply-side targets, such as increasing renewable energy’s share of generation to 39% by 2030 (28% from hydropower and 11% from other renewables).",
     "emissionsTargets": null,
-    "technologyCosts": null,
+    "technologyCosts": "Cost assumptions reflect global technology trends, with declining renewable and storage costs improving their long-term economic viability but not triggering large-scale deployment under existing policy conditions. This scenario forecasts a minor increase in renewables technology deployment.",
     "investmentChange": null,
-    "macroeconomicDrivers": "Follows SSP2. GDP and medium population growth extracted from World Bank data, sectoral value-added trends are modeled based on historic World Bank data. These all drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2.",
     "behavioralShifts": null,
-    "otherDrivers": "Aging-plant retirements and supply constraints are a dominant driver. It leads to a shrtage in supply in the power sector."
+    "otherDrivers": "Aging-plant retirements and supply constraints are a dominant driver. It leads to a shortage in supply in the power sector which requires power imports to cover."
   },
   "dependencies": [
     {

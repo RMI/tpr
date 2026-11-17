@@ -225,9 +225,9 @@
       "US": ["US"],
       "BR": ["BR"],
       "RU": ["RU"],
+      "CN": ["CN", "HK"],
       "IN": ["IN"],
-      "JP": ["JP"],
-      "CN": ["CN", "HK"]
+      "JP": ["JP"]
     }
   },
   "pathwayType": "Predictive",
@@ -296,7 +296,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Current Policies Scenario (CPS) offers a cautious view of the energy sector’s trajectory. It considers only policies and regulations already adopted in legislation, assumes no change even where governments have signalled an intention to act, and takes the lower end of any target range. Time-bound policies are not extended once they expire, and new energy technologies are assumed to be deployed and integrated more slowly than in recent years. Under these conditions, oil and natural gas demand keep growing to mid-century, and global energy-related CO2 emissions stay close to 40 Gt per year through 2050. The CPS pathway corresponds to 2.9°C of warming by 2100 (50% probability), compared with 2.5°C in the IEA’s Stated Policies Scenario (STEPS) and a return to below 1.5°C by 2100 in the IEA’s Net Zero Emissions by 2050 Scenario (NZE).",
+  "pathwayDescription": "The Current Policies Scenario (CPS) offers a cautious view of the energy sector’s trajectory. It considers only policies and regulations already adopted in legislation, assumes no change even where governments have signaled an intention to act, and takes the lower end of any target range. Time-bound policies are not extended once they expire, and new energy technologies are assumed to be deployed and integrated more slowly than in recent years. Under these conditions, oil and natural gas demand keep growing to mid-century, and global energy-related CO2 emissions stay close to 40 Gt per year through 2050. The CPS pathway corresponds to 2.9°C of warming by 2100 (50% probability), compared with 2.5°C in the IEA’s Stated Policies Scenario (STEPS) and a return to below 1.5°C by 2100 in the IEA’s Net Zero Emissions by 2050 Scenario (NZE).",
   "metric": [
     "Absolute Emissions",
     "Emissions Intensity",
@@ -325,11 +325,6 @@
         "sector": "across sectors",
         "geography": "Central and South America",
         "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
@@ -365,6 +360,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate decrease"
       },
       {
         "sector": "across sectors",
@@ -408,11 +408,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Minor decrease"
       },
@@ -445,6 +440,11 @@
         "sector": "Power",
         "geography": "BR",
         "value": "Minor increase"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Moderate decrease"
       },
       {
         "sector": "Power",
@@ -490,11 +490,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate improvement"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Moderate improvement"
       },
@@ -527,6 +522,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Minor improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate improvement"
       },
       {
         "sector": "across sectors",
@@ -570,11 +570,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -606,6 +601,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -652,11 +652,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Minor increase"
       },
@@ -689,6 +684,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Minor increase"
       },
       {
         "sector": "across sectors",
@@ -732,11 +732,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "No information"
       },
@@ -768,6 +763,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "No information"
       },
       {
@@ -814,11 +814,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Low or no change"
       },
@@ -851,6 +846,11 @@
         "sector": "across sectors",
         "geography": "BR",
         "value": "Minor increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Moderate increase"
       },
       {
         "sector": "across sectors",
@@ -896,11 +896,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -932,6 +927,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -976,11 +976,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1012,6 +1007,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1058,11 +1058,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1094,6 +1089,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1138,11 +1138,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1174,6 +1169,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1220,11 +1220,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1256,6 +1251,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1300,11 +1300,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1336,6 +1331,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1382,11 +1382,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1418,6 +1413,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1462,11 +1462,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1498,6 +1493,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1544,11 +1544,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1580,6 +1575,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1624,11 +1624,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1660,6 +1655,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1712,11 +1712,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1748,6 +1743,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1798,11 +1798,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": ["Not applicable at this scope level"]
       },
@@ -1834,6 +1829,11 @@
       {
         "sector": "Power",
         "geography": "BR",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1880,11 +1880,6 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -1916,6 +1911,11 @@
       {
         "sector": "across sectors",
         "geography": "BR",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1960,11 +1960,6 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Eurasia",
         "value": "Not applicable at this scope level"
       },
@@ -2000,6 +1995,11 @@
       },
       {
         "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "IN",
         "value": "Not applicable at this scope level"
       },
@@ -2021,18 +2021,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The CPS holds today's legislated and regulated energy policies fixed. No new measures are added, and where existing policies target a range of outcomes the lower end is assumed. Time-bound policies (e.g. tax credits, mandates with an expiry date) are not renewed or strengthened once they lapse, even where governments have signalled further action.",
+    "policies": "The CPS holds today's legislated and regulated energy policies fixed. No new measures are added, and where existing policies target a range of outcomes the lower end is assumed. Time-bound policies (e.g., tax credits, mandates with an expiry date) are not renewed or strengthened once they lapse, even where governments have signaled further action.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Falling unit costs for solar PV and battery storage continue to support their expansion even without new policy support, driving most incremental power capacity. Higher-cost or still-immature low-carbon options (CCUS, green hydrogen) see markedly slower deployment than in the acoompanying STEPS/NZE under CPS's 'generally cautious perspective on the speed at which new energy technologies are deployed'.",
-    "investmentChange": "Low-emissions technologies' share of total energy investment rises only marginally, to about 70% in 2035. Spending stays tilted toward maintaining conventional supply: oil and gas supply investment rises about 7% over 2025-2035.",
-    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO-2025 scenarios (global GDP CAGR 2024-2050 = 2.6%; population rising from 8.09 to 9.57 billion). In the CPS specifically, where no new policy or technology-breakthrough assumption operates, these demographic and macroeconomic trends are the primary driver of the modelled increase in energy service demand (TFC +32.4% 2024-2050).",
+    "technologyCosts": "Falling unit costs for solar PV and battery storage continue to support their expansion even without new policy support, driving most incremental power capacity. Higher-cost or still-immature low-carbon options (CCUS, green hydrogen) see markedly slower deployment than in the accompanying STEPS/NZE under CPS's \"generally cautious perspective on the speed at which new energy technologies are deployed.\".",
+    "investmentChange": "Low-emissions technologies' share of total energy investment rises only marginally, to about 70% in 2035. Spending stays tilted toward maintaining conventional supply. Oil and gas supply investment rises about 7% over 2025–2035.",
+    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO–2025 scenarios (global GDP CAGR 2024–2050 = 2.6%, population rising from 8.09 to 9.57 billion). In the CPS scenario where there are no new policy or technology-breakthrough assumptions, these demographic and macroeconomic trends are the primary driver of the modeled increase in energy service demand.",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "CPS models no new decarbonisation, CCUS, or hydrogen policy support beyond what is already legislated. Continued renewables deployment to 2050 rests mainly on cost economics rather than policy strategy support.",
+      "dependency_description": "CPS models no new decarbonization, CCUS, or hydrogen policy support beyond what is already legislated. Continued renewables deployment to 2050 rests mainly on cost economics rather than policy strategy support.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
