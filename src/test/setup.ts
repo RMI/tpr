@@ -36,4 +36,22 @@ if (typeof window !== "undefined") {
   if (typeof window.HTMLElement.prototype.scrollIntoView !== "function") {
     window.HTMLElement.prototype.scrollIntoView = function scrollIntoView() {};
   }
+
+  // jsdom has <dialog> but not its methods. Enough for NewsletterSignupDialog:
+  // toggle `open`, and fire `close` the way a browser does on close(): in a
+  // later task, not synchronously, so tests can't come to rely on onClose
+  // having run by the time close() returns.
+  const dialogProto = window.HTMLDialogElement.prototype;
+  if (typeof dialogProto.showModal !== "function") {
+    dialogProto.showModal = function showModal(this: HTMLDialogElement) {
+      this.open = true;
+    };
+  }
+  if (typeof dialogProto.close !== "function") {
+    dialogProto.close = function close(this: HTMLDialogElement) {
+      if (!this.open) return;
+      this.open = false;
+      setTimeout(() => this.dispatchEvent(new Event("close")), 0);
+    };
+  }
 }
