@@ -12,7 +12,9 @@ export type CaseStudy = {
   /** One-line summary shown on the landing page tile. */
   teaser: string;
   icon: LucideIcon;
-  body: React.ReactNode;
+  /** The case study's text. The page lays it out on the shared outline and
+   * prefixes the sub-heading ids with `id`. */
+  content: CaseStudyContent;
 };
 
 /** The sub-sections every case study shares, in order. */
@@ -70,7 +72,7 @@ export const caseStudies: CaseStudy[] = [
     teaser:
       "Understand how a company's emissions targets compare to its sector and region.",
     icon: Target,
-    body: caseStudyBody("company-target-setting", {
+    content: {
       intro: (
         <p>
           When a lender or investor screens a company’s climate targets and
@@ -182,7 +184,7 @@ export const caseStudies: CaseStudy[] = [
           </p>
         ),
       },
-    }),
+    },
   },
   {
     id: "investment-opportunity-identification",
@@ -190,7 +192,7 @@ export const caseStudies: CaseStudy[] = [
     teaser:
       "See which technologies regional pathways expect to grow, and how a company's project pipeline compares.",
     icon: HandCoins,
-    body: caseStudyBody("investment-opportunity-identification", {
+    content: {
       intro: (
         <p>
           Transition pathways can indicate how renewables are expected to scale
@@ -300,7 +302,7 @@ export const caseStudies: CaseStudy[] = [
           </p>
         ),
       },
-    }),
+    },
   },
   {
     id: "policy-risk-assessment",
@@ -308,7 +310,7 @@ export const caseStudies: CaseStudy[] = [
     teaser:
       "Spot policy risk in a company's transition plan by comparing it to policy-based pathways.",
     icon: Landmark,
-    body: caseStudyBody("policy-risk-assessment", {
+    content: {
       intro: (
         <p>
           When trying to understand how announced energy sector policies may
@@ -452,7 +454,7 @@ export const caseStudies: CaseStudy[] = [
           </p>
         ),
       },
-    }),
+    },
   },
 ];
 
@@ -498,7 +500,7 @@ const CaseStudiesPage: React.FC = () => {
                 </h2>
 
                 <div className="mt-6 max-w-3xl space-y-4 text-rmigray-700 leading-7">
-                  {study.body}
+                  {caseStudyBody(study.id, study.content)}
                 </div>
               </article>
             ))}
