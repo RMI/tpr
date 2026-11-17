@@ -28,63 +28,15 @@ const caseStudySections = [
 
 type CaseStudySectionSlug = (typeof caseStudySections)[number]["slug"];
 
-/** A source the case study cites: a link, a reference without one, or several
- * links grouped under a topic. */
-type CaseStudySource =
-  { href: string } | { reference: string } | { topic: string; links: string[] };
-
 type CaseStudyContent = {
   /** Shown above the first sub-section. */
   intro?: React.ReactNode;
   /** The text of each sub-section. */
   sections: Record<CaseStudySectionSlug, React.ReactNode>;
-  sources?: CaseStudySource[];
 };
 
 const linkClass =
   "text-energy-700 underline underline-offset-2 hover:text-energy-800";
-
-/** Long URLs are the link text, so they may break anywhere to fit a phone. */
-const SourceLink: React.FC<{ href: string }> = ({ href }) => (
-  <a
-    href={href}
-    className={`${linkClass} break-all`}
-  >
-    {href}
-  </a>
-);
-
-const SourceList: React.FC<{ sources: CaseStudySource[] }> = ({ sources }) => (
-  <div className="border-t border-neutral-200 pt-4 text-sm">
-    <h4 className="font-semibold text-rmigray-800">Sources</h4>
-    <ul className="mt-2 list-disc space-y-1 pl-5">
-      {sources.map((source) => {
-        if ("href" in source) {
-          return (
-            <li key={source.href}>
-              <SourceLink href={source.href} />
-            </li>
-          );
-        }
-        if ("reference" in source) {
-          return <li key={source.reference}>{source.reference}</li>;
-        }
-        return (
-          <li key={source.topic}>
-            {source.topic}
-            <ul className="mt-1 list-[circle] space-y-1 pl-5">
-              {source.links.map((href) => (
-                <li key={href}>
-                  <SourceLink href={href} />
-                </li>
-              ))}
-            </ul>
-          </li>
-        );
-      })}
-    </ul>
-  </div>
-);
 
 /**
  * A case study laid out on the shared outline. Each sub-heading gets an id
@@ -105,7 +57,6 @@ const caseStudyBody = (id: string, content: CaseStudyContent) => (
         {content.sections[section.slug]}
       </React.Fragment>
     ))}
-    {content.sources ? <SourceList sources={content.sources} /> : null}
   </>
 );
 
@@ -496,63 +447,6 @@ export const caseStudies: CaseStudy[] = [
           </p>
         ),
       },
-      sources: [
-        {
-          href: "https://www.iea.org/policies/25681-malaysia-carbon-tax?country%5B0%5D=Malaysia&qs=mal&status=Announced",
-        },
-        {
-          href: "https://www.pwc.com/my/en/publications/2026/preparing-for-compliance-positioning-for-value.html",
-        },
-        {
-          topic: "ETS scheme",
-          links: [
-            "https://icapcarbonaction.com/en/ets/malaysia",
-            "https://www.pmiclimate.org/country/malaysia",
-          ],
-        },
-        {
-          href: "https://www.reccessary.com/en/news/malaysia-delays-carbon-tax",
-        },
-        {
-          topic: "Market structure",
-          links: ["https://singlebuyer.com.my/about-single-buyer/governance"],
-        },
-        {
-          topic: "CRESS",
-          links: [
-            "https://singlebuyer.com.my/market/market-operations/programs/cress",
-            "https://www.st.gov.my/sites/default/files/2026-04/Guidelines-for-CRESS_2.pdf",
-          ],
-        },
-        {
-          topic: "Carbon tax announced",
-          links: [
-            "https://www.mida.gov.my/mida-news/budget-2025-govt-to-introduce-carbon-tax-on-iron-steel-and-energy-industries-by-2026/",
-            "https://belanjawan.mof.gov.my/pdf/belanjawan2026/ucapan/bs26.pdf",
-          ],
-        },
-        {
-          topic: "Carbon tax and ETS scope",
-          links: [
-            "https://www.businesstoday.com.my/2026/03/11/planned-carbon-tax-in-2026-to-focus-iron-steel-and-energy-sectors-first/",
-          ],
-        },
-        {
-          topic: "Carbon tax delayed",
-          links: [
-            "https://www.bernama.com/en/news.php?id=2547455",
-            "https://www.thestar.com.my/news/nation/2026/04/21/carbon-tax-plan-put-on-hold-amid-middle-east-tensions-says-kurup",
-            "https://www.thestar.com.my/business/business-news/2026/06/24/national-carbon-tax-policy-in-final-phase-says-mof",
-            "https://www.thestar.com.my/news/nation/2026/06/19/carbon-tax-a-matter-of-time",
-            "https://www.thestar.com.my/news/nation/2026/06/24/carbon-tax-bill-in-final-stage-of-drafting-dewan-rakyat-heard",
-          ],
-        },
-        {
-          topic: "EU CBAM connection",
-          links: ["https://bernama.com/en/thoughts/news.php?id=2554435"],
-        },
-        { reference: "JRC Global Energy and Climate Outlook 2024" },
-      ],
     }),
   },
 ];
