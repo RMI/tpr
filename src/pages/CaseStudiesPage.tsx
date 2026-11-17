@@ -68,7 +68,7 @@ export const caseStudies: CaseStudy[] = [
     id: "company-target-setting",
     title: "Company target setting",
     teaser:
-      "Check whether a company's emissions targets are ambitious enough for its sector and region.",
+      "Understand how a company's emissions targets compare to its sector and region.",
     icon: Target,
     body: caseStudyBody("company-target-setting", {
       intro: (
@@ -188,7 +188,7 @@ export const caseStudies: CaseStudy[] = [
     id: "investment-opportunity-identification",
     title: "Investment and financing opportunities",
     teaser:
-      "Find the technologies and sectors that pathways expect to grow, to guide where capital goes.",
+      "See which technologies regional pathways expect to grow, and how a company's project pipeline compares.",
     icon: HandCoins,
     body: caseStudyBody("investment-opportunity-identification", {
       intro: (
@@ -306,7 +306,7 @@ export const caseStudies: CaseStudy[] = [
     id: "policy-risk-assessment",
     title: "Policy risk assessment",
     teaser:
-      "Understand how changes in policy could affect a company's transition plan.",
+      "Spot policy risk in a company's transition plan by comparing it to policy-based pathways.",
     icon: Landmark,
     body: caseStudyBody("policy-risk-assessment", {
       intro: (
