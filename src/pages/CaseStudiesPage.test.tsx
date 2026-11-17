@@ -49,13 +49,9 @@ describe("CaseStudiesPage", () => {
         "investment-opportunity-identification",
         "policy-risk-assessment",
       ].flatMap((study) =>
-        [
-          "situation",
-          "challenge",
-          "how-the-tpr-helps",
-          "analysis",
-          "final-notes",
-        ].map((section) => `${study}-${section}`),
+        ["situation", "how-the-tpr-helps", "analysis", "final-notes"].map(
+          (section) => `${study}-${section}`,
+        ),
       ),
     );
   });
@@ -71,7 +67,6 @@ describe("CaseStudiesPage", () => {
     expect(links.map((link) => link.textContent)).toEqual([
       "Company target setting",
       "Situation",
-      "Challenge",
       "How the Transition Pathways Repository helps",
       "Analysis",
       "Final notes",
@@ -80,29 +75,11 @@ describe("CaseStudiesPage", () => {
     ]);
   });
 
-  it("shows written case studies in full and keeps the placeholder for the rest", () => {
-    renderPage();
-
-    const article = (id: string) =>
-      document.getElementById(id)?.closest("article") as HTMLElement;
-
-    for (const id of ["company-target-setting", "policy-risk-assessment"]) {
-      expect(
-        within(article(id)).queryByText("Content to be added."),
-      ).not.toBeInTheDocument();
-    }
-    expect(
-      within(article("investment-opportunity-identification")).getAllByText(
-        "Content to be added.",
-      ),
-    ).toHaveLength(5);
-  });
-
   it("describes every screenshot and chart for screen readers", () => {
     renderPage();
 
     const figures = screen.getAllByRole("img");
-    expect(figures).toHaveLength(4);
+    expect(figures).toHaveLength(5);
     for (const figure of figures) {
       expect(figure).toHaveAccessibleName();
     }
