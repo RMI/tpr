@@ -343,7 +343,7 @@
     "emissionsTargets": "There is an emissions cap in 2050 (from the National Climate Change Strategy) of 101 Mt CO2e in the energy system plus 20 Mt of industrial process emissions.",
     "technologyCosts": "Least-cost optimization as in NZ, but lower demand means no nuclear, LNG at 19 GW, and only ~50% of renewables potential used. Total system cost 13% below BSL.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "GDP growth of 7%/y (2021-30) and 6.5%/y (2030-50), with industry at 30% and services 60% of GDP by 2050,  2030, with growth in high-value manufacturing. Industrial energy service demand grows 4.2-fold and electricity demand reaches ~1,010 TWh.",
+    "macroeconomicDrivers": "GDP growth of 7%/y (2021-30) and 6.5%/y (2030-50), with industry at 30% and services 60% of GDP by 2050, with growth in high-value manufacturing. Industrial energy service demand grows 4.2-fold and electricity demand reaches ~1,010 TWh.",
     "behavioralShifts": "Modal shift from cars/motorcycles to urban rail and from road/ship/air to rail cuts transport fuel use by at least 9% versus BSL and is the main reason NZ system cost is 5% below BSL. 40% of EVs and 18% of electric industrial load are assumed to shift demand flexibly.",
     "otherDrivers": "Renewable potential is doubled. Land-based solar potential is 272 GW, assuming more land for energy, but this is less impactful than the NZ pathway because demand is lower."
   },

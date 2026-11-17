@@ -2511,9 +2511,9 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Shadow carbon price reaches  US$98/tCO2 (2010 $) in 2030 and US$243 in 2050, the main lever moving investment and dispatch away from fossil fuels.",
+    "policies": "Shadow carbon price reaches US$98/tCO2 (2010 $) in 2030 and US$243 in 2050, the main lever moving investment and dispatch away from fossil fuels.",
     "emissionsTargets": "1.5°C with global net-zero CO2 around 2050, plus national net-zero targets met on time.",
-    "technologyCosts": "MESSAGE minimizes total system cost from investment, O&M, and fuel costs. Exogenous declines (North America solar PV US$853 to US374/kW, 2020–2050 [2010 $]) favor renewables, while cheap CCS keeps gas in the mix: wind and solar reach 75% of 2050 generation (Current Policies 31%). With carbon at US$243/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
+    "technologyCosts": "MESSAGE minimizes total system cost from investment, O&M, and fuel costs. Exogenous declines (North America solar PV US$853 to US$374/kW, 2020–2050 [2010 $]) favor renewables, while cheap CCS keeps gas in the mix: wind and solar reach 75% of 2050 generation (Current Policies 31%). With carbon at US$243/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
     "investmentChange": "Low-carbon power investment moves from 1.11% of GDP (MER) in 2020 to 0.34% in 2050, a decrease of 69%. MESSAGE's GDP grows faster than its power investment, so the share falls even where low-carbon investment rises in absolute terms.",
     "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.59 billion people in 2050 and GDP (MER) growing 3.87%/y over 2020–2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (+0.03% in 2050).",
     "behavioralShifts": "Behavioral change lowers energy demand. 2050 final energy is 287 EJ vs. 394 EJ in Net Zero 2050 (-27%), cutting the 2050 carbon price to US$243 from US$461/tCO2 (2010 $).",

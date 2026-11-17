@@ -3265,9 +3265,9 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Shadow carbon price reaches  US$111/tCO2 (2010 $) in 2030 and US$487 in 2050, the main lever moving investment and dispatch away from fossil fuels. Fossil-gas import restrictions constrain Europe's gas supply.",
+    "policies": "Shadow carbon price reaches US$111/tCO2 (2010 $) in 2030 and US$487 in 2050, the main lever moving investment and dispatch away from fossil fuels. Fossil-gas import restrictions constrain Europe's gas supply.",
     "emissionsTargets": "1.5°C with global net-zero CO2 around 2050, plus national net-zero targets met on time.",
-    "technologyCosts": "REMIND optimizes intertemporally over investment, O&M, fuel, and emission costs, with adjustment costs on fast scale-up. Learning cuts solar PV from US$866 to US361/kW by 2050 here (2010 $), so cost decline depends on deployment: wind and solar reach 79% of 2050 generation (Current Policies 72%). With carbon at US$487/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
+    "technologyCosts": "REMIND optimizes intertemporally over investment, O&M, fuel, and emission costs, with adjustment costs on fast scale-up. Learning cuts solar PV from US$866 to US$361/kW by 2050 here (2010 $), so cost decline depends on deployment: wind and solar reach 79% of 2050 generation (Current Policies 72%). With carbon at US$487/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
     "investmentChange": "Low-carbon power investment moves from 0.99% of GDP (MER) in 2020 to 0.81% in 2050, a decrease of 19%. Investment and GDP are solved jointly in REMIND's general equilibrium.",
     "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.64 billion people in 2050 and GDP (MER) growing 2.23%/y over 2020–2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-1.25% in 2050).",
     "behavioralShifts": "Behavioral change lowers energy demand. 2050 final energy is 270 EJ vs. 386 EJ in Net Zero 2050 (-30%), cutting the 2050 carbon price to US$487 from US$749/tCO2 (2010 $).",

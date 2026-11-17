@@ -3270,7 +3270,7 @@
     "investmentChange": "Low-carbon power investment moves from 0.99% of GDP (MER) in 2020 to 1.56% in 2050, an increase of 57%. Investment and GDP are solved jointly in REMIND's general equilibrium.",
     "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.64 billion people in 2050 and GDP (MER) growing 2.19%/y over 2020–2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-2.41% in 2050).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "The model  switches off direct air capture and enhanced weathering, forcing deeper gross cuts and higher carbon prices (US$320/tCO2 in 2050 [2010 $]; total CCS 2,226 Mt CO2/y). The 2030 switch is unanticipated, stranding capital built for a fossil recovery."
+    "otherDrivers": "The model switches off direct air capture and enhanced weathering, forcing deeper gross cuts and higher carbon prices (US$320/tCO2 in 2050 [2010 $]; total CCS 2,226 Mt CO2/y). The 2030 switch is unanticipated, stranding capital built for a fossil recovery."
   },
   "dependencies": [
     {

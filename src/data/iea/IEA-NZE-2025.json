@@ -266,7 +266,7 @@
     "investmentChange": "Low-emissions technologies approach 100% of power-sector investment by 2035, with power investment above US$2.5 trillion a year by 2035, nearly double today. Fossil-fuel supply investment falls from about US$1 trillion a year to under US$350 billion in 2035 and 90% below today by 2050.",
     "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO–2025 scenarios (global GDP CAGR 2024–2050 = 2.6%, population rising from 8.09 to 9.57 billion).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Widespread deployment of CO2 removal technologies (direct air capture  and other CDR) that are currently unproven at large scale. This is what brings the temperature back below 1.5°C by 2100 after the mid-century overshoot."
+    "otherDrivers": "Widespread deployment of CO2 removal technologies (direct air capture and other CDR) that are currently unproven at large scale. This is what brings the temperature back below 1.5°C by 2100 after the mid-century overshoot."
   },
   "dependencies": [
     {
