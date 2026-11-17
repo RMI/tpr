@@ -79,7 +79,7 @@ describe("CaseStudiesPage", () => {
     renderPage();
 
     const figures = screen.getAllByRole("img");
-    expect(figures).toHaveLength(5);
+    expect(figures).toHaveLength(6);
     for (const figure of figures) {
       expect(figure).toHaveAccessibleName();
     }

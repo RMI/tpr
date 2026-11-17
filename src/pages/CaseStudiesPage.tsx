@@ -129,7 +129,7 @@ export const caseStudies: CaseStudy[] = [
             </p>
             <img
               src="/case-studies/company-target-setting-filters.png"
-              alt="The repository's search filtered to Indonesia and Southeast Asia, the power sector, high policy ambition and downloadable data. ACE: Carbon Neutrality Scenario is among the results."
+              alt="The repository's search with filters set for geography, policy ambition, sector and data availability. ACE: Carbon Neutrality Scenario is highlighted among the results, next to JETP ID: Comprehensive Investment and Policy Plan and JRC: 1.5°C Scenario."
               loading="lazy"
               className={figureClass}
             />
@@ -242,6 +242,12 @@ export const caseStudies: CaseStudy[] = [
               be competitive and scale in the current policy and market
               environment.
             </p>
+            <img
+              src="/case-studies/investment-opportunity-identification-filters.png"
+              alt="The repository's search with filters set for geography, policy ambition, sector and data availability. Two pathways match: JRC: Reference Scenario, which is highlighted, and TransitionZero: Business as Usual."
+              loading="lazy"
+              className={figureClass}
+            />
           </>
         ),
         "analysis": (
@@ -399,7 +405,7 @@ export const caseStudies: CaseStudy[] = [
             </p>
             <img
               src="/case-studies/policy-risk-assessment-filters.png"
-              alt="The repository's search filtered to Malaysia and the power sector, finding 23 pathways. JRC: Nationally Determined Contributions and Long-Term Strategies and JRC: Reference Scenario are among the results."
+              alt="The repository's search with Malaysia selected in the geography filter, plus filters for sector and data availability. JRC: Nationally Determined Contributions and Long-Term Strategies and JRC: Reference Scenario are highlighted among the results."
               loading="lazy"
               className={figureClass}
             />
