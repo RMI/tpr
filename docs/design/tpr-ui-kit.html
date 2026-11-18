@@ -4820,7 +4820,9 @@
                           <path d="M20 6 9 17l-5-5" /></svg></span
                       >Power
                     </div>
-                    <div class="sr-grouphead">Covered · no data yet</div>
+                    <div class="sr-grouphead">
+                      Covered · not shown in detail yet
+                    </div>
                     <div class="sr-opt nodata">
                       <span class="tick"></span>Agriculture
                     </div>
@@ -4849,7 +4851,7 @@
                   ><span class="tag">panel: w-72 sm:w-[34rem] shadow-lg</span
                   ><span class="tag">list sm:w-60 · pane sm:w-[17rem]</span
                   ><span class="tag">search above 8 options</span
-                  ><span class="tag">no data: opacity-50, grouped last</span>
+                  ><span class="tag">not shown: opacity-50, grouped last</span>
                 </div>
                 <p class="note">
                   Top, as on TZ-BAU-2024: the only sector is read-only (a fact,
@@ -4860,19 +4862,21 @@
                 </p>
                 <p class="note">
                   Below, the Sector dropdown open, as on JRC-GECO-1.5C-2025.
-                  Every option the pathway declares is listed: those with data
-                  first, then the rest under &ldquo;Covered · no data
-                  yet&rdquo;, greyed and unpickable, each group alphabetical.
-                  The preview pane shows what the pointed-at, highlighted or
-                  selected option covers: a sector's description, or a region's
-                  full member list. Countries get the same pane and trigger
-                  tooltip when the publication counts other codes with them
-                  (China with Hong Kong, the USA with Puerto Rico and the US
-                  Virgin Islands). The pane appears only while the option in
-                  view has something to show: pointing at a country that is only
-                  itself folds it away, with no placeholder. Below 640px the
-                  pane stacks under the list, and the panel shifts to stay 16px
-                  inside the screen.
+                  Every option the pathway declares is listed: those the TPR can
+                  show first, then the rest under &ldquo;Covered · not shown in
+                  detail yet&rdquo;, greyed and unpickable, each group
+                  alphabetical. Since #1081 only Power is shown in detail, so
+                  Steel and Aviation sit in the greyed group even where the
+                  pathway has values for them. The preview pane shows what the
+                  pointed-at, highlighted or selected option covers: a sector's
+                  description, or a region's full member list. Countries get the
+                  same pane and trigger tooltip when the publication counts
+                  other codes with them (China with Hong Kong, the USA with
+                  Puerto Rico and the US Virgin Islands). The pane appears only
+                  while the option in view has something to show: pointing at a
+                  country that is only itself folds it away, with no
+                  placeholder. Below 640px the pane stacks under the list, and
+                  the panel shifts to stay 16px inside the screen.
                 </p>
               </div>
             </div>

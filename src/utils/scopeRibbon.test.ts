@@ -124,7 +124,7 @@ describe("slotState", () => {
     expect(slotState("country", [opt("Indonesia", false, "ID")])).toEqual({
       kind: "inactive",
       label: "Indonesia",
-      tooltip: "No data for Indonesia in TPR yet.",
+      tooltip: "Indonesia isn't shown in detail in TPR yet.",
     });
   });
 
@@ -134,13 +134,15 @@ describe("slotState", () => {
     ).toMatchObject({
       kind: "inactive",
       label: "Region",
-      tooltip: "None of this pathway's 2 regions has data in TPR yet.",
+      tooltip:
+        "None of this pathway's 2 regions is shown in detail in TPR yet.",
     });
     expect(
       slotState("sector", [opt("Power", false), opt("Steel", false)]),
     ).toMatchObject({
       label: "Sector",
-      tooltip: "None of this pathway's 2 sectors has data in TPR yet.",
+      tooltip:
+        "None of this pathway's 2 sectors is shown in detail in TPR yet.",
     });
   });
 

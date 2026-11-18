@@ -398,7 +398,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
       const singapore = screen.getByRole("button", { name: "Singapore" });
       expect(singapore).toHaveAttribute("aria-disabled", "true");
       expect(await tooltipOf(singapore)).toBe(
-        "No data for Singapore in TPR yet.",
+        "Singapore isn't shown in detail in TPR yet.",
       );
       // The Coverage panel still lists the pathway's full coverage.
       expect(

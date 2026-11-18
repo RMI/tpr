@@ -89,7 +89,8 @@ describe("ScopeDropdown list", () => {
       "Steel",
       "Buildings",
     ]);
-    expect(within(list).getByText(NO_DATA_GROUP_LABEL)).toBeInTheDocument();
+    // Split across two spans so it breaks at the dot; read as one string.
+    expect(list).toHaveTextContent(NO_DATA_GROUP_LABEL);
     expect(
       within(list).getByRole("group", { name: NO_DATA_GROUP_LABEL }),
     ).toBeInTheDocument();

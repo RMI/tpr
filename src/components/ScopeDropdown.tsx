@@ -286,6 +286,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   };
 
   const noDataHeaderId = `${baseId}-nodata`;
+  const [noDataHead, noDataRest] = NO_DATA_GROUP_LABEL.split(" · ");
   const listId = `${baseId}-list`;
   const paneId = `${baseId}-pane`;
 
@@ -382,7 +383,13 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
                     id={noDataHeaderId}
                     className={`${LABEL_CLASS} px-3 pt-2 pb-1`}
                   >
-                    {NO_DATA_GROUP_LABEL}
+                    {/*
+                      The label wraps in the 15rem list. Kept whole after the
+                      dot, so it breaks as "Covered ·" / "not shown in detail
+                      yet" rather than leaving "yet" or "shown" stranded.
+                    */}
+                    {noDataHead} ·{" "}
+                    <span className="whitespace-nowrap">{noDataRest}</span>
                   </div>
                   <ul
                     role="group"

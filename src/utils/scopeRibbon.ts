@@ -41,8 +41,12 @@ const LEVEL_PLURAL: Record<GeographyLevel | "sector", string> = {
 /** A dropdown longer than this gets a search field. */
 export const SEARCH_THRESHOLD = 8;
 
-/** Header above the options a pathway declares but has no data for. */
-export const NO_DATA_GROUP_LABEL = "Covered · no data yet";
+/**
+ * Header above the options a pathway declares but the TPR cannot show. Not
+ * "no data": since #1081 only Power is shown in detail, so Steel and Aviation
+ * land here even where the pathway has values for them (Sebastian, 2026-11-18).
+ */
+export const NO_DATA_GROUP_LABEL = "Covered · not shown in detail yet";
 
 export interface RibbonOption {
   token: string;
@@ -189,13 +193,13 @@ export function slotState(
       return {
         kind: "inactive",
         label: only.label,
-        tooltip: `No data for ${only.label} in TPR yet.`,
+        tooltip: `${only.label} isn't shown in detail in TPR yet.`,
       };
     }
     return {
       kind: "inactive",
       label: name,
-      tooltip: `None of this pathway's ${options.length} ${LEVEL_PLURAL[level]} has data in TPR yet.`,
+      tooltip: `None of this pathway's ${options.length} ${LEVEL_PLURAL[level]} is shown in detail in TPR yet.`,
     };
   }
 

@@ -348,7 +348,7 @@ describe("PathwayContextRibbon", () => {
 
       fireEvent.focus(screen.getByRole("button", { name: /United States/ }));
       expect(await screen.findByRole("tooltip")).toHaveTextContent(
-        "No data for United States of America in TPR yet.",
+        "United States of America isn't shown in detail in TPR yet.",
       );
     });
   });
