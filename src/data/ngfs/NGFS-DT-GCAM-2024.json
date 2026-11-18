@@ -7522,7 +7522,7 @@
     "investmentChange": "Low-carbon power investment moves from 0.70% of GDP (MER) in 2020 to 1.54% in 2050, an increase of 119%. GCAM's GDP is exogenous, so the change comes from investment volumes.",
     "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.59 billion people in 2050 and GDP (MER) growing 2.16%/y over 2020–2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-4.44% in 2050).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "CCS is constrained, forcing deeper gross cuts and higher carbon prices (US$529/tCO2 in 2050 [2010 $[; total CCS 6,131 Mt CO2/y). The 2030 switch is unanticipated, stranding capital built for a fossil recovery."
+    "otherDrivers": "CCS is constrained, forcing deeper gross cuts and higher carbon prices (US$529/tCO2 in 2050 [2010 $]; total CCS 6,131 Mt CO2/y). The 2030 switch is unanticipated, stranding capital built for a fossil recovery."
   },
   "dependencies": [
     {

@@ -7539,7 +7539,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Power investment averages US$1,120B/y over 2025–2050 ((1.73x Current Policies), including US$894B/y for grids, and must be financed. A 2050 carbon price of US$1,260/tCO2 erodes unabated fossil plant profitability. (2010 $).",
+      "dependency_description": "Power investment averages US$1,120B/y over 2025–2050 (1.73x Current Policies), including US$894B/y for grids, and must be financed. A 2050 carbon price of US$1,260/tCO2 erodes unabated fossil plant profitability. (2010 $).",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

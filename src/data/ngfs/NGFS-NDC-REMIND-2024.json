@@ -3264,7 +3264,7 @@
     ]
   },
   "coreDrivers": {
-    "policies": "hadow carbon price reaches US$84/tCO2 (2010 $) in 2030 and US$86 in 2050, the main lever moving investment and dispatch away from fossil fuels. Fossil-gas import restrictions constrain Europe's gas supply.",
+    "policies": "Shadow carbon price reaches US$84/tCO2 (2010 $) in 2030 and US$86 in 2050, the main lever moving investment and dispatch away from fossil fuels. Fossil-gas import restrictions constrain Europe's gas supply.",
     "emissionsTargets": "Emission constraints equal to pledged NDC targets (cut-off end-March 2024), with ambition held beyond the NDC horizon.",
     "technologyCosts": "REMIND optimizes intertemporally over investment, O&M, fuel, and emission costs, with adjustment costs on fast scale-up. Learning cuts solar PV from US$866 to US$332/kW by 2050 here (2010 $), so cost decline depends on deployment: wind and solar reach 81% of 2050 generation (Current Policies 72%). With carbon at US$86/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
     "investmentChange": "Low-carbon power investment moves from 0.99% of GDP (MER) in 2020 to 1.20% in 2050, an increase of 20%. Investment and GDP are solved jointly in REMIND's general equilibrium.",

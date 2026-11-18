@@ -160,7 +160,7 @@
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The pathway assumes significantly more electrification and power demand by 2050. Current policies are not enough and cost optimization is used to maximise investment costs while still filling demand.",
+      "dependency_description": "The pathway assumes significantly more electrification and power demand by 2050. Current policies are not enough and cost optimization is used to minimize investment costs while still filling demand.",
       "sector": "Power",
       "evidence_type": "No evidence"
     },

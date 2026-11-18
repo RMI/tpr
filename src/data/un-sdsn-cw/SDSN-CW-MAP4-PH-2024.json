@@ -201,7 +201,7 @@
     "policies": "MAP imposes accelerated fossil retirement, no new coal/gas beyond committed projects, higher offshore wind deployment and renewable energy share targets and the pathway prohibits nuclear and targets an all renewables end state.",
     "emissionsTargets": "Normative pathway designed for near-zero power-sector emissions by 2060, with no explicit annual cap. The all renewables system reaches it without GHG social costs in the objective, so interim emissions are higher than MAP2's.",
     "technologyCosts": "Least-cost optimization makes technology capital/O&M/fuel costs a core driver. MAP4 excludes monetized GHG externalities from the objective, allowing more coal use and higher interim emissions than its paired externality case.",
-    "investmentChange": "Total cumulative investment in the power sector reaches US$1033B by 2050, but no low-carbon breakdown is provided. ].",
+    "investmentChange": "Total cumulative investment in the power sector reaches US$1033B by 2050, but no low-carbon breakdown is provided.",
     "macroeconomicDrivers": "Electricity demand is driven by common macroeconomic assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "not applicable."

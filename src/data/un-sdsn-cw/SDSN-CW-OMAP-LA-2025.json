@@ -135,7 +135,7 @@
     "emissionsTargets": "Near-zero emissions by 2050 and coal phaseout by 2040.",
     "technologyCosts": "The OMAP pathway is driven by cost optimization. Declining costs for solar and wind lead these resources to be less expensive than capital-intensive hydropower or coal power, leading to reduced hydropower development and significantly expanded wind and solar capacity build-out. As a result, cumulative power sector investment costs are lower in OMAP than in the MAP or Existing Policy pathways, although they are higher than in the Optimized Existing Policy pathway.",
     "investmentChange": null,
-    "macroeconomicDrivers": "The pathway follows GDP and population growth projections based on the Shared Socioeconomic Pathway 2. There are also ambitous electrification assumptions in housing and transportation which further drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows GDP and population growth projections based on the Shared Socioeconomic Pathway 2. There are also ambitious electrification assumptions in housing and transportation which further drive electricity demand.",
     "behavioralShifts": null,
     "otherDrivers": null
   },

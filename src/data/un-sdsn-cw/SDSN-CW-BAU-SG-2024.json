@@ -166,7 +166,7 @@
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "BAU depends on hydrogen-natural gas co-firing becoming mmore commercially established, starting at 30% hydrogen blend and 70% natural gas and reaching 70% green hydrogen by 2050 at the Keppel Sakra plant from 2026. Carbon capture must be retrofittable to gas, oil, WTE and coal plants from 2030, though the modeled abatement is deliberately conservative at 5% rising to 10% — and the report notes CCS in Singapore is 'still in its infancy' with no suitable domestic geological storage.",
+      "dependency_description": "BAU depends on hydrogen-natural gas co-firing becoming more commercially established, starting at 30% hydrogen blend and 70% natural gas and reaching 70% green hydrogen by 2050 at the Keppel Sakra plant from 2026. Carbon capture must be retrofittable to gas, oil, WTE and coal plants from 2030, though the modeled abatement is deliberately conservative at 5% rising to 10% — and the report notes CCS in Singapore is 'still in its infancy' with no suitable domestic geological storage.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

@@ -135,7 +135,7 @@
     "emissionsTargets": "Near-zero emissions by 2050 and coal phaseout by 2040.",
     "technologyCosts": null,
     "investmentChange": null,
-    "macroeconomicDrivers": "The pathway follows GDP and population growth projections based on the Shared Socioeconomic Pathway 2. There are also ambitous electrification assumptions in housing and transportation which further drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows GDP and population growth projections based on the Shared Socioeconomic Pathway 2. There are also ambitious electrification assumptions in housing and transportation which further drive electricity demand.",
     "behavioralShifts": null,
     "otherDrivers": null
   },
