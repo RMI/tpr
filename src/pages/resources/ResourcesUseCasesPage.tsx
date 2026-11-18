@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
+import { Link } from "react-router";
 import OnPageIndex from "../../components/OnPageIndex";
 import PageHeader from "../../components/PageHeader";
+import { caseStudies, type CaseStudy } from "../CaseStudiesPage";
 
 const financialInstitutionRoles = [
   {
@@ -38,9 +40,17 @@ const audienceCards = [
   },
 ];
 
-const useCases = [
+/** `caseStudyId` links a use case to its worked example on the case studies
+ * page, by that case study's `id`. */
+const useCases: {
+  title: string;
+  subtitle: string;
+  bullets: string[];
+  caseStudyId?: string;
+}[] = [
   {
     title: "Assess target ambition",
+    caseStudyId: "company-target-setting",
     subtitle:
       "Ambition is often benchmarked on the basis of global 1.5°C pathways. This is a fair approach for a diversified global portfolio, but global pathways that lack regional granularity do not account for local constraints. Region-specific pathways may not always align to a clear temperature outcome, but they can provide a useful indication of what high ambition looks like in a specific region.",
     bullets: [
@@ -59,6 +69,7 @@ const useCases = [
   },
   {
     title: "Identify emerging technologies",
+    caseStudyId: "investment-opportunity-identification",
     subtitle:
       "Emissions are a lagging indicator for the progression of the energy transition. To understand how the transition may progress, you need to understand the technologies that drive it and how these could scale.",
     bullets: [
@@ -68,6 +79,7 @@ const useCases = [
   },
   {
     title: "Understand transition risks and their drivers",
+    caseStudyId: "policy-risk-assessment",
     subtitle:
       "Transition risks are shaped by evolving policies, technologies, and market conditions that can materially impact performance, and are often modeled in pathways.",
     bullets: [
@@ -82,12 +94,15 @@ type UseCaseCardProps = {
   title: string;
   subtitle: string;
   bullets: string[];
+  /** The worked example to link to, if there is one. */
+  caseStudy?: Pick<CaseStudy, "id" | "title">;
 };
 
 const UseCaseCard: React.FC<UseCaseCardProps> = ({
   title,
   subtitle,
   bullets,
+  caseStudy,
 }) => {
   return (
     <article className="overflow-hidden rounded-lg border border-rmiblue-200 bg-white shadow-sm">
@@ -115,6 +130,15 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({
             </li>
           ))}
         </ul>
+        {caseStudy ? (
+          <Link
+            to={`/case-studies#${caseStudy.id}`}
+            className="mt-4 inline-block text-sm font-semibold text-energy-700 underline underline-offset-2 hover:text-energy-800"
+          >
+            See a worked example: {caseStudy.title}
+            <span aria-hidden="true"> →</span>
+          </Link>
+        ) : null}
       </div>
     </article>
   );
@@ -256,6 +280,9 @@ const ResourcesUseCasesPage: React.FC = () => {
                     title={useCase.title}
                     subtitle={useCase.subtitle}
                     bullets={useCase.bullets}
+                    caseStudy={caseStudies.find(
+                      (study) => study.id === useCase.caseStudyId,
+                    )}
                   />
                 ))}
               </div>
