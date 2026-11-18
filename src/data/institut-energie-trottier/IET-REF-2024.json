@@ -449,7 +449,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived: 'Electricity production' emissions ('Figure 4.8') / generation excl. storage ('Figure 2.5'). Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
+        "scopeLimitations": "Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
       },
       {
         "metricName": "Absolute Emissions",

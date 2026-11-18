@@ -4366,7 +4366,7 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The pathway models stated policies, such as energy subsisies or power development plans, but does not include policy targets that lack specific provisions for their implementation. Carbon pricing is applied through existing and scheduled schemes, and target technology shares and capacity plans shape the power mix. Fossil fuel consumption subsidies are removed only where a specific commitment exists, and coal phaseout plans are carried where legislated or provisioned.",
+    "policies": "The pathway models stated policies, such as energy subsidies or power development plans, but does not include policy targets that lack specific provisions for their implementation. Carbon pricing is applied through existing and scheduled schemes, and target technology shares and capacity plans shape the power mix. Fossil fuel consumption subsidies are removed only where a specific commitment exists, and coal phaseout plans are carried where legislated or provisioned.",
     "emissionsTargets": "not applicable.",
     "technologyCosts": "Unit technology costs are endogenous and deployment-linked: future cost evolution is tied to deployment levels, following a non-linear learning curve. Falling low-carbon capital costs drive build-out of solar and wind while coal and gas capital costs are held flat, so the relative economics shift toward low-carbon technologies, and utility-scale battery cost decreases which underpins the growth of storage capacity.",
     "investmentChange": "Low-carbon investment rises as a share of total energy investment. Average annual investment across supply, power and end-use grows from US$3 254.8 billion in 2024–2030 to US$3 653.0 billion in 2041–2050, while the fossil component (oil and gas supply, coal supply and unabated fossil generation) falls from US$977.2 to US$732.1 billion, so the fossil share drops from about 30% to about 20% and the low-carbon share rises correspondingly.",
@@ -4419,7 +4419,7 @@
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "The publication warns that reduced investment following the 2023 price fall could cause future supply shortages and price spikes for critical minerals, which would slow or reverse clean energy cost reductions. Concentration risk compounds it, with tariffs and trade measures narrowing supply routes for solar PV, Evs. and batteries. Land availability is not assessed anywhere, and bioenergy demand reaches 56.1 EJ of modern solid bioenergy supply without any stated land constraint.",
+      "dependency_description": "The publication warns that reduced investment following the 2023 price fall could cause future supply shortages and price spikes for critical minerals, which would slow or reverse clean energy cost reductions. Concentration risk compounds it, with tariffs and trade measures narrowing supply routes for solar PV, EVs, and batteries. Land availability is not assessed anywhere, and bioenergy demand reaches 56.1 EJ of modern solid bioenergy supply without any stated land constraint.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },

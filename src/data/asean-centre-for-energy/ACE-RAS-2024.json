@@ -309,7 +309,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived emissions intensity from power absolute emissions and elecricity generation."
+        "scopeLimitations": "Derived emissions intensity from power absolute emissions and electricity generation."
       },
       {
         "metricName": "Absolute Emissions",
