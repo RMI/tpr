@@ -436,7 +436,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "gCO2e/kWh of UK electricity supply, direct emissions only; EfW and CHP excluded from the sector boundary; based on an average weather year. National system figure; no separate captive or rooftop series."
+        "scopeLimitations": "Direct emissions only with EfW and CHP excluded from the sector boundary. No separate captive or rooftop series are included."
       },
       {
         "metricName": "Absolute Emissions",
@@ -464,7 +464,7 @@
           "Energy storage",
           "Other"
         ],
-        "scopeLimitations": "GW by technology; offshore and onshore wind separate. Grid storage is one figure; battery (35 GW) and medium-duration storage (7 GW) are split in Figure 7.5.4 but pumped hydro is inside medium-duration; hydrogen storage is in Section 7.7. Low-carbon dispatchable combines gas CCS and hydrogen. Interconnection and demand flexibility shown separately. No captive or rooftop split."
+        "scopeLimitations": "Offshore and onshore wind are separated. Grid storage is one figure; battery (35 GW) and medium-duration storage (7 GW) are split but pumped hydro is inside medium-duration. Low-carbon dispatchable combines gas CCS and hydrogen and is classified as Other. Interconnection and demand flexibility shown separately. No captive or rooftop split."
       },
       {
         "metricName": "Generation",
@@ -474,7 +474,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Gas", "Nuclear", "Wind", "Solar", "Biomass", "Other"],
-        "scopeLimitations": "TWh by technology before transmission, distribution and storage losses; includes surplus electricity used for electrolytic hydrogen; imports and exports shown separately; average weather year. 'Other' bundles unabated biomass, EfW, hydro and CHP. No captive or rooftop split."
+        "scopeLimitations": "Figures by technology are before  transmission, distribution and storage losses and includes surplus electricity used for electrolytic hydrogen. Imports and exports shown separately and an average weather year is assumed. 'Other' bundles unabated biomass, EfW, hydro and CHP. No captive or rooftop split."
       },
       {
         "metricName": "Technology mix",
@@ -484,7 +484,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Gas", "Nuclear", "Wind", "Solar", "Biomass", "Other"],
-        "scopeLimitations": "Derived as each technology's share of total generation (rows 26-33, before losses, excluding imports). Same boundary as Generation; 'Other' and low-carbon dispatchable remain bundled."
+        "scopeLimitations": "Technology mix is derived as each technology's share of total generation. Figures by technology are before transmission, distribution and storage losses and includes surplus electricity used for electrolytic hydrogen. Imports and exports shown separately and an average weather year is assumed. 'Other' bundles unabated biomass, EfW, hydro and CHP. No captive or rooftop split."
       },
       {
         "metricName": "Transmission lines",
@@ -494,7 +494,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["International and national transmission lines"],
-        "scopeLimitations": "Average transmission network boundary capability (GW) on the boundaries analysed and interconnection capacity (10 -> 28 GW). Distribution network needs are described qualitatively; network reinforcement capex combines both."
+        "scopeLimitations": "Average transmission network boundary capability (GW) on the boundaries analysed and interconnection capacity. Distribution network needs are described qualitatively. Network reinforcement capex combines both."
       },
       {
         "metricName": "Technology cost",
@@ -504,7 +504,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Total costs"],
-        "scopeLimitations": "Levelised cost of electricity for offshore wind and solar (GBP/MWh, 2023 prices) annually; a cost range for low-carbon dispatchable in Table 7.5.1. Other technologies have no published unit cost."
+        "scopeLimitations": "Levelised cost of electricity for offshore wind and solar annually; a cost range for low-carbon dispatchable is also provided. Other technologies have no published unit cost."
       },
       {
         "metricName": "Investment requirement",
@@ -518,7 +518,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["By technology"],
-        "scopeLimitations": "Additional capex and opex relative to the Baseline (2023 prices), by technology and network reinforcement, for decarbonising and expanding supply. Not total investment; excludes costs already in end-use sectors."
+        "scopeLimitations": "Additional capex and opex relative to the Baseline (2023 prices), by technology and network reinforcement, for decarbonising and expanding supply. No total investment is provided and it excludes costs already in end-use sectors."
       },
       {
         "metricName": "Asset lifetime",
