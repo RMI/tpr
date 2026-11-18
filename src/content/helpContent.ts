@@ -108,7 +108,9 @@ const CARD_VIEW: HelpGroup[] = [
       {
         id: "case-studies",
         question: "Where can I see examples of pathways in use?",
-        answer: COMING_SOON_ANSWER,
+        answer:
+          "The Case Studies page walks through three worked examples: assessing a company's targets, finding investment and financing opportunities, and assessing policy risk. Each one shows how to find pathways that fit the question and how to compare a company against them.",
+        readMore: { label: "Case studies", to: "/case-studies" },
       },
       pathwayOverview,
     ],

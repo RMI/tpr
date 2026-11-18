@@ -12,6 +12,7 @@ import { DETAIL_TABS } from "../pages/PathwayDetailPage";
 import ResourcesMethodologyPage from "../pages/resources/ResourcesMethodologyPage";
 import ResourcesHowToChooseAPathwayPage from "../pages/resources/ResourcesHowToChooseAPathwayPage";
 import ResourcesFaqPage from "../pages/resources/ResourcesFaqPage";
+import CaseStudiesPage from "../pages/CaseStudiesPage";
 
 const labels = (groups: HelpGroup[] | null) => groups?.map((g) => g.label);
 
@@ -130,6 +131,7 @@ describe("help links", () => {
     "/resources/methodology": ResourcesMethodologyPage,
     "/resources/how-to-choose-a-pathway": ResourcesHowToChooseAPathwayPage,
     "/resources/faq": ResourcesFaqPage,
+    "/case-studies": CaseStudiesPage,
   };
 
   const targets = new Set([
