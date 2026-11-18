@@ -88,7 +88,7 @@ export const caseStudies: CaseStudy[] = [
             <p>
               Let’s look at a hypothetical independent power producer operating
               gas assets in Indonesia that has committed to cut its Scope 1
-              emissions intensity 50% by 2035 (versus a 2024 baseline). Whether
+              emissions intensity 60% by 2035 (versus a 2024 baseline). Whether
               the company’s target meets a “high ambition” threshold depends on
               what it is measured against. The IEA’s Net Zero Emissions (NZE)
               scenario for the power sector is a widely used reference, but this
@@ -153,7 +153,7 @@ export const caseStudies: CaseStudy[] = [
             </p>
             <img
               src="/case-studies/company-target-setting-chart.png"
-              alt="Line chart of normalized emissions intensity in kgCO2/kWh from 2024 to 2035. Both pathways start at 0.44 in 2024. By 2035, NZE falls to 0.05 and CNS to 0.24. The company's 2035 target of 0.22 sits just below CNS and far above NZE."
+              alt="Line chart of normalized emissions intensity in kgCO2/kWh from 2024 to 2035. Both pathways start at 0.44 in 2024. By 2035, NZE falls to about 0.05 and CNS to just under 0.20. The company's 2035 target of about 0.18 sits just below CNS and far above NZE."
               loading="lazy"
               className={figureClass}
             />
@@ -209,7 +209,7 @@ export const caseStudies: CaseStudy[] = [
               hypothetical bank’s power sector lending has mostly gone to
               gas-fired independent power producers (IPPs) that sell to the
               Electricity Generating Authority of Thailand (EGAT) under
-              long-term contracts. Gas makes up 75% of the capacity in its
+              long-term contracts. Gas makes up 60% of the capacity in its
               current portfolio pipeline, with renewables making up the
               remaining share.
             </p>
@@ -259,26 +259,28 @@ export const caseStudies: CaseStudy[] = [
             </p>
             <img
               src="/case-studies/investment-opportunity-identification-chart.png"
-              alt="Stacked bar chart of the share of installed capacity. The 2023 existing fleet is 25% renewables and 75% fossil fuels. Under the JRC Reference pathway, renewables reach 48% in 2030 and 71% in 2035."
+              alt="Stacked bar chart of the share of installed capacity. The 2022 existing fleet is 37% renewables and 63% fossil fuels. Under the JRC Reference pathway, renewables reach 60% in 2030 and 69% in 2035."
               loading="lazy"
               className={figureClass}
             />
             <p>
               Under the JRC reference pathway, renewables go from a minority of
               Thailand’s fleet today to the majority by 2035. Getting there
-              means a fifteenfold growth in renewables compared to a 6.5% rise
-              in Thailand’s gas capacity from 2022 to 2035. An investment
-              pipeline that is majority gas may look like the existing fleet,
-              but it puts most of the bank’s new lending into a shrinking
-              segment of the market.
+              means a fifteenfold growth in solar compared to a 6.5% rise in
+              Thailand’s gas capacity from 2022 to 2035. An investment pipeline
+              that is majority gas may look like the existing fleet, but it puts
+              most of the bank’s new lending into a shrinking segment of the
+              market.
             </p>
             <p>
               Since this pathway was published, the government of Thailand has
               drafted a new Power Development Plan (PDP) for 2026–2050. The
               draft targets a 50% clean energy share of electricity generation
-              within 10 years. The JRC reference pathway showed this shift
-              occurring before the PDP made it a government target (pending
-              approval).
+              within 10 years. The JRC reference pathway already pointed in this
+              direction: it more than doubles the renewable share of generation,
+              from 18% in 2022 to 41% in 2035. JRC’s NDC-LTS pathway, which
+              assumes Thailand meets its climate pledges, lands almost exactly
+              on the draft PDP target, at 48% in 2035.
             </p>
             <p>
               Banks making use of country-level pathways will have seen this
