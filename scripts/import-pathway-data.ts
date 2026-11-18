@@ -32,6 +32,7 @@ import ExcelJS from "exceljs";
 import isoCountries from "i18n-iso-countries";
 import {
   availabilityMetricsForSector,
+  SECTORS_BY_KEY,
   technologyBelongsToSector,
 } from "../src/utils/timeseriesTaxonomy.ts";
 import {
@@ -341,6 +342,19 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/canada-energy-regulator/CER-CNZ-2026.json",
   },
+  // Institut de l'énergie Trottier -- Canadian Energy Outlook, 3rd edition (2024).
+  "IET:REF:": {
+    mode: "update",
+    file: "src/data/institut-energie-trottier/IET-REF-2024.json",
+  },
+  "IET:NZ50:": {
+    mode: "update",
+    file: "src/data/institut-energie-trottier/IET-NZ50-2024.json",
+  },
+  "IET:NZ50PS:": {
+    mode: "update",
+    file: "src/data/institut-energie-trottier/IET-NZ50PS-2024.json",
+  },
   // UN SDSN / ClimateWorks -- Thailand.
   "SDSN:EXT TH:": {
     mode: "update",
@@ -596,6 +610,7 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("iea") || l.includes("international energy")) return "IEA";
   if (l.includes("asean centre") || l === "ace") return "ACE";
   if (l.includes("canada energy regulator") || l === "cer") return "CER";
+  if (l.includes("trottier") || l === "iet") return "IET";
   if (l.includes("philippines") || l.includes("department of energy"))
     return "PHDOE";
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";
@@ -1529,6 +1544,24 @@ export function buildDataAvailability(
       scopeLimitations,
     });
   }
+
+  // Emit in the cookbook's order rather than the workbook's, so the Data
+  // Availability table reads the same for every pathway however the sheet was
+  // sorted: sectors in SECTORS_BY_KEY order, then each sector's metrics in its
+  // availabilityMetrics order. The sort is stable, so rows for the same metric
+  // keep their sheet order. Anything the taxonomy does not list sorts last;
+  // validation reports it.
+  const rank = (list: readonly string[], value: string) => {
+    const i = list.indexOf(value);
+    return i === -1 ? list.length : i;
+  };
+  const sectorOrder = Object.values(SECTORS_BY_KEY).map((s) => s.displayName);
+  byMetric.sort(
+    (a, b) =>
+      rank(sectorOrder, a.sector) - rank(sectorOrder, b.sector) ||
+      rank(availabilityMetricsForSector(a.sector) ?? [], a.metricName) -
+        rank(availabilityMetricsForSector(b.sector) ?? [], b.metricName),
+  );
 
   const parts = [`${byMetric.length} availability row(s) emitted`];
   if (skipped.length)

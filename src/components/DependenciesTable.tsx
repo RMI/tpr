@@ -1,5 +1,6 @@
 import React from "react";
 import { PathwayMetadataType } from "../types";
+import { isDetailedSector } from "../utils/timeseriesTaxonomy";
 import ScopeFilterNotice from "./ScopeFilterNotice";
 
 // One conditions-of-outcome row. Derived from the schema type so it tracks the
@@ -49,11 +50,15 @@ export const EvidenceBadge: React.FC<{
  * Evidence / Constraint) and multi-sector ones do not lose the scoping. An
  * empty list is a normal state (authoring is incremental) and renders an
  * explanatory empty state.
+ *
+ * Rows for sectors the TPR does not cover in detail are dropped first (#1081),
+ * so the counts and empty states below never point at rows nobody can see.
  */
 const DependenciesTable: React.FC<DependenciesTableProps> = ({
-  dependencies,
+  dependencies: recorded,
   sector = null,
 }) => {
+  const dependencies = recorded.filter((d) => isDetailedSector(d.sector));
   const rows =
     sector === null
       ? dependencies

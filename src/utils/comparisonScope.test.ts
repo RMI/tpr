@@ -280,9 +280,11 @@ describe("columnGeographyOptions", () => {
 describe("comparisonScopeAvailability", () => {
   it("counts key features and dependencies, not only timeseries", () => {
     // What the header and the compare link select by (#1017, #1030, #869).
+    // No timeseries: Power comes from the dependency, and VN, which
+    // dependencies cannot vouch for, from the key feature.
     const scoped = {
-      ...pathway({ id: "s", publisher: "S", sectors: ["Power", "Steel"] }),
-      dependencies: [{ sector: "Steel" }],
+      ...pathway({ id: "s", publisher: "S", sectors: ["Power"] }),
+      dependencies: [{ sector: "Power" }],
       keyFeatures: {
         emissionsTrajectory: [
           { sector: "Power", geography: "VN", value: "Moderate decrease" },
@@ -292,10 +294,25 @@ describe("comparisonScopeAvailability", () => {
 
     const availability = comparisonScopeAvailability(scoped, []);
     expect(availability.hasSector("Power")).toBe(true);
-    expect(availability.hasSector("Steel")).toBe(true);
     expect(availability.hasGeography("VN")).toBe(true);
     expect(availability.hasSector("Cement")).toBe(false);
     expect(availability.hasGeography("TH")).toBe(false);
+  });
+
+  it("never offers a sector the TPR does not cover in detail (#1081)", () => {
+    const scoped = {
+      ...pathway({ id: "a", publisher: "A", sectors: ["Power", "Aviation"] }),
+      dependencies: [{ sector: "Aviation" }],
+      keyFeatures: {
+        emissionsTrajectory: [
+          { sector: "Aviation", geography: "VN", value: "Moderate decrease" },
+        ],
+      },
+    } as unknown as PathwayMetadataType;
+
+    const availability = comparisonScopeAvailability(scoped, []);
+    expect(availability.hasSector("Aviation")).toBe(false);
+    expect(availability.hasGeography("VN")).toBe(false);
   });
 });
 

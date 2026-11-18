@@ -1,9 +1,16 @@
 import React from "react";
 import { Link } from "react-router";
 import HeaderNav from "../components/HeaderNav";
+import {
+  primaryCtaClass,
+  primaryCtaLargeClass,
+  secondaryCtaOnDarkClass,
+} from "../components/buttonStyles";
 import { HeaderBrand } from "../components/Header";
 import CoverageMap from "../components/CoverageMap";
 import { pathwayMetadata } from "../data/pathwayMetadata";
+import { useNewsletterSignup } from "../context/NewsletterSignupContext";
+import { caseStudies } from "./CaseStudiesPage";
 
 const WavePattern: React.FC = () => {
   return (
@@ -138,6 +145,8 @@ const InfoCard: React.FC<{
 );
 
 const LandingPage: React.FC = () => {
+  const { openSignup } = useNewsletterSignup();
+
   return (
     <div className="bg-gray-50">
       {/* Hero */}
@@ -179,13 +188,20 @@ const LandingPage: React.FC = () => {
                 with Southeast Asia.
               </p>
 
-              <div className="mt-10">
+              <div className="mt-10 flex flex-wrap justify-center gap-4">
                 <Link
                   to="/pathway"
-                  className="inline-block px-8 py-4 bg-energy-700 text-neutral-300 rounded-md hover:bg-energy-800 transition-colors duration-200 text-lg font-semibold"
+                  className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>
+                <button
+                  type="button"
+                  onClick={openSignup}
+                  className={`${secondaryCtaOnDarkClass} ${primaryCtaLargeClass}`}
+                >
+                  Sign up for updates
+                </button>
               </div>
 
               <p className="mt-6 text-sm italic text-white/80">
@@ -200,6 +216,34 @@ const LandingPage: React.FC = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-5xl mx-auto">
           <section className="pb-10 border-b border-neutral-200">
+            <h2 className="text-xl font-semibold text-rmiblue-800 mb-3">
+              Case studies
+            </h2>
+            <p className="text-rmigray-700 mb-6">
+              See how the TPR can be used in practice, with worked examples for
+              common transition-assessment questions.
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {caseStudies.map(({ id, title, teaser, icon: Icon }) => (
+                <Link
+                  key={id}
+                  to={`/case-studies#${id}`}
+                  className="group rounded-lg bg-white shadow p-6 text-center transition-shadow hover:shadow-md"
+                >
+                  <Icon
+                    aria-hidden="true"
+                    className="mx-auto mb-3 h-10 w-10 text-energy-700"
+                  />
+                  <h3 className="text-sm font-semibold text-rmiblue-800 mb-3 group-hover:underline underline-offset-2">
+                    {title}
+                  </h3>
+                  <p className="text-sm text-rmigray-700">{teaser}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+
+          <section className="py-10 border-b border-neutral-200">
             <h2 className="text-xl font-semibold text-rmiblue-800 mb-3">
               What is the Transition Pathways Repository?
             </h2>
@@ -384,7 +428,7 @@ const LandingPage: React.FC = () => {
               <div className="mt-8">
                 <Link
                   to="/pathway"
-                  className="inline-block px-8 py-4 bg-energy-700 text-neutral-300 rounded-md hover:bg-energy-800 transition-colors duration-200 text-lg font-semibold"
+                  className={`${primaryCtaClass} ${primaryCtaLargeClass}`}
                 >
                   Explore Pathways
                 </Link>
