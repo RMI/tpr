@@ -13,6 +13,10 @@ vi.mock("./pages/LandingPage", () => ({
   default: () => <div data-testid="mock-homepage">LandingPage</div>,
 }));
 
+vi.mock("./pages/CaseStudiesPage", () => ({
+  default: () => <div data-testid="mock-case-studies-page">Case Studies</div>,
+}));
+
 vi.mock("./pages/ContactPage", () => ({
   default: () => <div data-testid="mock-contact-page">Contact Page</div>,
 }));
@@ -54,6 +58,16 @@ describe("App component", () => {
     expect(screen.getByTestId("location-display")).toHaveTextContent(
       "/resources/how-to-choose-a-pathway",
     );
+  });
+
+  it("renders the case studies route at the top level", () => {
+    render(
+      <MemoryRouter initialEntries={["/case-studies"]}>
+        <AppContent />
+      </MemoryRouter>,
+    );
+
+    expect(screen.getByTestId("mock-case-studies-page")).toBeInTheDocument();
   });
 
   it("shows the newsletter ribbon above the footer on inner pages (#995)", () => {
