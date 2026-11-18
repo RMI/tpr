@@ -37,8 +37,8 @@ describe("getHelpGroups", () => {
   it("returns the Card and Comparison view groups", () => {
     expect(labels(getHelpGroups("/pathway", null))).toEqual([
       "Getting started",
-      "Filters",
       "Pathway cards",
+      "Choosing pathways",
     ]);
     expect(labels(getHelpGroups("/pathway/", null))).toEqual(
       labels(getHelpGroups("/pathway", null)),

@@ -80,15 +80,18 @@ describe("HelpButton", () => {
     await user.click(helpButton());
 
     await user.click(
-      screen.getByRole("button", { name: "What does coverage mean?" }),
+      screen.getByRole("button", { name: "How do I compare pathways?" }),
     );
     expect(
-      screen.getByRole("heading", { name: "What does coverage mean?" }),
+      screen.getByRole("heading", { name: "How do I compare pathways?" }),
     ).toHaveFocus();
-    expect(screen.getByText(/regions, sectors and metrics/)).toBeVisible();
+    expect(screen.getByText(/comparison tray/)).toBeVisible();
     expect(
-      screen.getByRole("link", { name: "Read more: Coverage" }),
-    ).toHaveAttribute("href", "/resources/methodology#coverage");
+      screen.getByRole("link", { name: "Read more: How to compare pathways" }),
+    ).toHaveAttribute(
+      "href",
+      "/resources/how-to-choose-a-pathway#how-to-compare-pathways",
+    );
     expect(
       screen.getByRole("button", { name: "Close help" }),
     ).toBeInTheDocument();
@@ -107,7 +110,7 @@ describe("HelpButton", () => {
     renderAt("/pathway");
     await user.click(helpButton());
     await user.click(
-      screen.getByRole("button", { name: "What does coverage mean?" }),
+      screen.getByRole("button", { name: "How do I compare pathways?" }),
     );
     await user.keyboard("{Escape}");
     await user.click(helpButton());

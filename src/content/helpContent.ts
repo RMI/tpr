@@ -103,7 +103,19 @@ const CARD_VIEW: HelpGroup[] = [
     ],
   },
   {
-    label: "Filters",
+    label: "Pathway cards",
+    topics: [
+      {
+        id: "what-a-card-shows",
+        question: "What does a pathway card show?",
+        answer:
+          "Each card summarizes one pathway: its name, publisher and pathway overview, plus the geographies and sectors it covers. Open a card for the full details, or add it to Compare Pathways to see it side by side with others.",
+        readMore: methodology("pathway-overview", "Pathway overview"),
+      },
+    ],
+  },
+  {
+    label: "Choosing pathways",
     topics: [
       {
         id: "select-a-pathway",
@@ -115,18 +127,15 @@ const CARD_VIEW: HelpGroup[] = [
           to: "/resources/how-to-choose-a-pathway",
         },
       },
-      coverage,
-    ],
-  },
-  {
-    label: "Pathway cards",
-    topics: [
       {
-        id: "what-a-card-shows",
-        question: "What does a pathway card show?",
+        id: "start-a-comparison",
+        question: "How do I compare pathways?",
         answer:
-          "Each card summarizes one pathway: its name, publisher and pathway overview, plus the geographies and sectors it covers. Open a card for the full details, or add it to Compare Pathways to see it side by side with others.",
-        readMore: methodology("pathway-overview", "Pathway overview"),
+          "Click Compare Pathways below the filters to open the comparison tray. Add two or three pathways with the + button on their cards, then click Compare to see their benchmarks, assumptions and coverage side by side.",
+        readMore: {
+          label: "How to compare pathways",
+          to: "/resources/how-to-choose-a-pathway#how-to-compare-pathways",
+        },
       },
     ],
   },
