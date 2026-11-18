@@ -44,9 +44,9 @@ describe("getHelpGroups", () => {
       labels(getHelpGroups("/pathway", null)),
     );
     expect(labels(getHelpGroups("/compare", null))).toEqual([
-      "Getting started",
-      "Header and selectors",
+      "Pathway comparison",
       "Time series",
+      "Assumptions & dependencies",
       "Coverage",
     ]);
   });
@@ -60,6 +60,12 @@ describe("getHelpGroups", () => {
       "Pathway detail",
       "Assumptions & Dependencies",
     ]);
+  });
+
+  it("opens the Comparison view with what the page shows", () => {
+    expect(getHelpGroups("/compare", null)![0].topics[0].question).toBe(
+      "What does the Comparison Page show me?",
+    );
   });
 
   it("opens the Detail view with what the page shows, on every tab", () => {
@@ -108,12 +114,12 @@ describe("getHelpGroups", () => {
     }
   });
 
-  it("only leaves out Read more for coming-soon answers", () => {
+  it("never adds Read more to coming-soon answers", () => {
     for (const groups of ALL_CONTEXTS) {
       for (const topic of groups.flatMap((g) => g.topics)) {
-        expect(topic.readMore === undefined).toBe(
-          topic.answer === COMING_SOON_ANSWER,
-        );
+        if (topic.answer === COMING_SOON_ANSWER) {
+          expect(topic.readMore).toBeUndefined();
+        }
       }
     }
   });

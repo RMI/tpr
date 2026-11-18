@@ -17,7 +17,10 @@ export type HelpTopic = {
   id: string;
   question: string;
   answer: string;
-  /** Omitted while the docs for this topic are still being written. */
+  /**
+   * The docs section that covers this topic in full. Omitted for coming-soon
+   * answers, and for answers about a page control that the docs don't cover.
+   */
   readMore?: HelpLink;
 };
 
@@ -86,6 +89,14 @@ const assumptionsAndTrends: HelpTopic = {
   answer:
     "Assumptions are the inputs that drive a pathway's changes over time, such as policies or technology costs. Trends are the results, such as emissions or the energy mix. Knowing these helps you judge whether a pathway's story fits your analysis.",
   readMore: methodology("assumptions-and-trends", "Assumptions & trends"),
+};
+
+const dependencies: HelpTopic = {
+  id: "dependencies",
+  question: "What are dependencies?",
+  answer:
+    "Dependencies are conditions a pathway's outcomes rely on, such as infrastructure or supply chains. They can hold a sector's transition back or help it along, so they show where a plan depends on things outside a company's control. They're filtered by the selected sector.",
+  readMore: methodology("dependencies", "Dependencies"),
 };
 
 // Groups for each view.
@@ -157,11 +168,6 @@ const DETAIL_PAGE: HelpGroup = {
   ],
 };
 
-const COMPARISON_HEADER: HelpGroup = {
-  label: "Header and selectors",
-  topics: [pathwayOverview, comparisonValuesByScope],
-};
-
 /** Keyed by Detail view tab id; the active tab's group shows last. */
 const DETAIL_VIEW_BY_TAB: Record<string, HelpGroup> = {
   "at-a-glance": {
@@ -184,16 +190,7 @@ const DETAIL_VIEW_BY_TAB: Record<string, HelpGroup> = {
   },
   "assumptions": {
     label: "Assumptions & Dependencies",
-    topics: [
-      assumptionsAndTrends,
-      {
-        id: "dependencies",
-        question: "What are dependencies?",
-        answer:
-          "Dependencies are conditions a pathway's outcomes rely on, such as infrastructure or supply chains. They can hold a sector's transition back or help it along, so they show where a plan depends on things outside a company's control. They're filtered by the selected sector.",
-        readMore: methodology("dependencies", "Dependencies"),
-      },
-    ],
+    topics: [assumptionsAndTrends, dependencies],
   },
   "timeseries": {
     label: "Timeseries",
@@ -222,21 +219,22 @@ const DETAIL_VIEW_BY_TAB: Record<string, HelpGroup> = {
 
 const COMPARISON_VIEW: HelpGroup[] = [
   {
-    label: "Getting started",
+    label: "Pathway comparison",
     topics: [
       {
-        id: "how-to-compare",
-        question: "How do I compare pathways?",
+        id: "what-comparison-shows",
+        question: "What does the Comparison Page show me?",
         answer:
-          "This page shows the benchmarks, assumptions and scope of the pathways you picked, side by side. Choose a sector at the top and a geography for each pathway, then scroll down to compare plots, assumptions, dependencies and coverage.",
+          "This page shows two or three pathways side by side: an overview of each, then their benchmark plots, assumptions & trends, dependencies and coverage. The sector at the top applies to every pathway, and each pathway has its own geography selector. You can share the page's link and it opens the same comparison.",
         readMore: {
           label: "How to compare pathways",
           to: "/resources/how-to-choose-a-pathway#how-to-compare-pathways",
         },
       },
+      pathwayOverview,
+      comparisonValuesByScope,
     ],
   },
-  COMPARISON_HEADER,
   {
     label: "Time series",
     topics: [
@@ -245,7 +243,17 @@ const COMPARISON_VIEW: HelpGroup[] = [
         question: "How do I read the comparison plots?",
         answer: COMING_SOON_ANSWER,
       },
+      {
+        id: "plot-controls",
+        question: "What do Plot type and Freeze plots do?",
+        answer:
+          "Plot type picks the metric every pathway's plot shows, such as emissions intensity, capacity or technology mix, so you always compare like with like. Freeze plots pins the plots below the header while you scroll, so you can keep them in view next to the assumptions, dependencies and coverage further down. The setting is kept while this browser tab is open.",
+      },
     ],
+  },
+  {
+    label: "Assumptions & dependencies",
+    topics: [assumptionsAndTrends, dependencies],
   },
   { label: "Coverage", topics: [coverage] },
 ];

@@ -153,7 +153,9 @@ describe("HelpButton", () => {
     expect(docs).toHaveTextContent("FAQ");
 
     await user.click(
-      screen.getByRole("button", { name: "How do I compare pathways?" }),
+      screen.getByRole("button", {
+        name: "What does the Comparison Page show me?",
+      }),
     );
     await user.click(
       screen.getByRole("link", { name: "Read more: How to compare pathways" }),
