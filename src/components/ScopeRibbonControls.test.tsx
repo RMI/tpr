@@ -169,3 +169,108 @@ it("separates the geography slots with the word 'or'", () => {
   render(<OrSeparator />);
   expect(screen.getByText("or")).toBeInTheDocument();
 });
+
+/*
+ * The compact size, for the comparison header (comparison-ribbon-spec §3).
+ * jsdom has no layout, so a cut-off label is simulated by its widths.
+ */
+describe("compact size", () => {
+  const geo = { country: { JP: ["JP"] } } as unknown as Geography;
+  const japan = { token: "JP", label: "Japan", hasData: true };
+
+  /** Make every element report its text as wider than its box. */
+  const cutOff = () => {
+    const sw = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "scrollWidth",
+    );
+    const cw = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "clientWidth",
+    );
+    Object.defineProperty(HTMLElement.prototype, "scrollWidth", {
+      configurable: true,
+      get: () => 200,
+    });
+    Object.defineProperty(HTMLElement.prototype, "clientWidth", {
+      configurable: true,
+      get: () => 80,
+    });
+    return () => {
+      if (sw) Object.defineProperty(HTMLElement.prototype, "scrollWidth", sw);
+      else
+        delete (HTMLElement.prototype as { scrollWidth?: number }).scrollWidth;
+      if (cw) Object.defineProperty(HTMLElement.prototype, "clientWidth", cw);
+      else
+        delete (HTMLElement.prototype as { clientWidth?: number }).clientWidth;
+    };
+  };
+
+  it("is one step smaller, and can shrink in a narrow column", () => {
+    render(
+      <ChoiceButton
+        level="country"
+        option={japan}
+        selected
+        onSelect={() => {}}
+        geography={geo}
+        size="compact"
+      />,
+    );
+    const button = screen.getByRole("button", { name: /Japan/ });
+    expect(button.className).toContain("h-7");
+    expect(button.className).toContain("text-xs");
+    expect(button.className).toContain("min-w-0");
+    expect(button.querySelector("svg")).toHaveAttribute("width", "12");
+  });
+
+  it("gives a plain option its full name in a tooltip when the name is cut off", () => {
+    const restore = cutOff();
+    try {
+      render(
+        <ChoiceButton
+          level="country"
+          option={japan}
+          selected
+          onSelect={() => {}}
+          geography={geo}
+          size="compact"
+        />,
+      );
+      fireEvent.mouseEnter(screen.getByRole("button", { name: /Japan/ }));
+      expect(screen.getByRole("tooltip")).toHaveTextContent("Japan");
+    } finally {
+      restore();
+    }
+  });
+
+  it("adds no tooltip repeating a name that fits", () => {
+    render(
+      <ChoiceButton
+        level="country"
+        option={japan}
+        selected
+        onSelect={() => {}}
+        geography={geo}
+        size="compact"
+      />,
+    );
+    fireEvent.mouseEnter(screen.getByRole("button", { name: /Japan/ }));
+    expect(screen.queryByRole("tooltip")).toBeNull();
+  });
+
+  it("leaves the default size as it was", () => {
+    render(
+      <ChoiceButton
+        level="country"
+        option={japan}
+        selected
+        onSelect={() => {}}
+        geography={geo}
+      />,
+    );
+    const button = screen.getByRole("button", { name: /Japan/ });
+    expect(button.className).toContain("h-8");
+    expect(button.querySelector("svg")).toHaveAttribute("width", "14");
+  });
+});

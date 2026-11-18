@@ -9,6 +9,7 @@ import {
   sharedSectors,
   type ColumnGeographyOption,
 } from "../utils/comparisonScope";
+import { NO_DATA_GROUP_LABEL } from "../utils/scopeRibbon";
 import type { PathwayMetadataType } from "../types";
 
 /*
@@ -110,193 +111,231 @@ const scrollPast = () =>
     observer?.trigger(sentinel as Element, false, { top: -10 });
   });
 
-/**
- * Lay out any element whose text includes `label` on a second row, as a
- * narrow bar would. Stubbed on the prototype so it also holds for badges
- * BadgeArray mounts afresh when expanding. Returns the restore function.
- */
-const wrapOntoSecondRow = (label: string) => {
-  const original = Object.getOwnPropertyDescriptor(
-    HTMLElement.prototype,
-    "offsetTop",
-  );
-  Object.defineProperty(HTMLElement.prototype, "offsetTop", {
-    configurable: true,
-    get(this: HTMLElement) {
-      return this.textContent?.includes(label) ? 24 : 0;
-    },
-  });
-  return () => {
-    if (original) {
-      Object.defineProperty(HTMLElement.prototype, "offsetTop", original);
-    }
-  };
-};
+/** One column's slots, by the group named for its pathway. */
+const column = (name: string) =>
+  screen.getByRole("group", { name: `Geography for ${name}` });
 
-const columnTrigger = (name: string) =>
-  screen.getByRole("button", { name: `Geography for ${name}` });
+/** The shared Sector control's trigger, whatever it currently shows. */
+const sectorTrigger = () => screen.getByRole("button", { name: /^Sector:/ });
+
+/** A third pathway with several regions, so its Region slot is a dropdown. */
+const wide = {
+  id: "IEA-STEPS-2024",
+  name: { full: "Stated Policies Scenario", short: "STEPS" },
+  publication: { publisher: { short: "IEA", full: "IEA Long" }, year: 2024 },
+  sectors: [{ name: "Power" }, { name: "Buildings" }],
+  geography: {
+    global: true,
+    regions: { "Africa": ["NG", "ZA"], "Southeast Asia": ["ID", "TH"] },
+    country: {},
+  },
+} as unknown as PathwayMetadataType;
 
 describe("ComparisonScopeHeader", () => {
   beforeEach(() => {
     MockIntersectionObserver.instances.length = 0;
   });
 
-  describe("sector axis", () => {
-    it("offers only the sectors every compared pathway declares", () => {
+  /*
+   * The detail ribbon's controls at their compact size (comparison-ribbon-spec,
+   * Sebastian 2026-11-18): one shared Sector control, and Global or Region or
+   * Country for each column.
+   */
+  describe("sector", () => {
+    it("is one shared control, at the compact size", () => {
       renderHeader();
 
-      expect(screen.getByRole("button", { name: "Power" })).toBeInTheDocument();
+      // Sector is a closed vocabulary with a shared intersection, unlike
+      // geography: the asymmetry in this header is deliberate.
+      expect(screen.getAllByRole("button", { name: /^Sector:/ })).toHaveLength(
+        1,
+      );
+      expect(sectorTrigger()).toHaveAccessibleName("Sector: Power");
+      expect(sectorTrigger().className).toContain("h-7");
       expect(
-        screen.getByRole("button", { name: "Buildings" }),
-      ).toBeInTheDocument();
-      // IEA declares Steel; ACE does not, so it is not a shared axis value.
-      expect(screen.queryByRole("button", { name: "Steel" })).toBeNull();
+        within(screen.getByRole("group", { name: "Sector" })).getByRole(
+          "button",
+        ),
+      ).toBe(sectorTrigger());
     });
 
-    it("marks the selected sector pressed", () => {
-      renderHeader();
+    it("offers only the sectors every compared pathway declares", async () => {
+      const { user } = renderHeader();
+      await user.click(sectorTrigger());
 
-      const pressed = screen
-        .getAllByRole("button")
-        .filter((b) => b.getAttribute("aria-pressed") === "true");
-      expect(pressed.map((b) => b.textContent)).toEqual(["Power"]);
+      const names = screen
+        .getAllByRole("option")
+        .map((o) => o.textContent?.trim());
+      expect(names).toEqual(["Buildings", "Power"]);
+      // IEA declares Steel; ACE does not, so it is not a shared axis value.
+      expect(names).not.toContain("Steel");
     });
 
     it("reports a new sector", async () => {
       const { onSectorChange, user } = renderHeader();
-      await user.click(screen.getByRole("button", { name: "Buildings" }));
+      await user.click(sectorTrigger());
+      await user.click(screen.getByRole("option", { name: "Buildings" }));
 
       expect(onSectorChange).toHaveBeenCalledWith("Buildings");
     });
 
-    it("ignores a click on the already-selected sector", async () => {
-      // The axis always carries a value, so deselection is not reachable.
+    it("ignores re-picking the selected sector", async () => {
+      // The axis always carries a value, so re-picking changes nothing.
       const { onSectorChange, user } = renderHeader();
-      await user.click(screen.getByRole("button", { name: "Power" }));
+      await user.click(sectorTrigger());
+      await user.click(screen.getByRole("option", { name: "Power" }));
 
       expect(onSectorChange).not.toHaveBeenCalled();
     });
 
-    it("offers no 'Show all' when every sector already fits (#1026)", () => {
-      // Two shared sectors; jsdom lays them out on one row, as a wide bar would.
-      renderHeader();
+    it("lists a sector no column can show, greyed and last (D2)", async () => {
+      const { user } = renderHeader({ availableSectors: ["Power"] });
+      await user.click(sectorTrigger());
 
-      expect(screen.queryByRole("button", { name: "Show all" })).toBeNull();
-    });
-
-    it("exposes the expand control's state and the badges it controls", async () => {
-      // A narrow bar: the Buildings badge wraps to a second row.
-      const restore = wrapOntoSecondRow("Buildings");
-      try {
-        const { user } = renderHeader();
-
-        const showAll = screen.getByRole("button", { name: "Show all" });
-        expect(showAll).toHaveAttribute("aria-expanded", "false");
-        const sectorGroup = screen.getByRole("group", { name: "Sector" });
-        expect(showAll).toHaveAttribute("aria-controls", sectorGroup.id);
-        expect(sectorGroup.id).not.toBe("");
-
-        await user.click(showAll);
-        expect(
-          screen.getByRole("button", { name: "Show fewer" }),
-        ).toHaveAttribute("aria-expanded", "true");
-      } finally {
-        restore();
-      }
-    });
-
-    it("stays one shared row rather than one per column", () => {
-      // Sector is a closed vocabulary with a shared intersection, unlike
-      // geography — the asymmetry in this header is deliberate.
-      renderHeader();
-      expect(screen.getAllByRole("button", { name: "Power" })).toHaveLength(1);
-    });
-
-    it("lists only the sectors some column has data for (#1046)", () => {
-      renderHeader({ availableSectors: ["Power"] });
-
-      const sectorGroup = screen.getByRole("group", { name: "Sector" });
+      const greyed = screen.getByRole("group", { name: NO_DATA_GROUP_LABEL });
       expect(
-        within(sectorGroup).getByRole("button", { name: "Power" }),
-      ).toBeInTheDocument();
-      // Not outlined: not there at all. The Sectors section shows coverage.
-      expect(sectorGroup).not.toHaveTextContent("Buildings");
+        within(greyed).getByRole("option", { name: "Buildings" }),
+      ).toHaveAttribute("aria-disabled", "true");
+      expect(screen.getByRole("option", { name: "Power" })).not.toHaveAttribute(
+        "aria-disabled",
+      );
     });
 
-    it("says so, in place of the badges, when no shared sector has data", () => {
+    it("shows the only shared sector as a fact, not a choice", () => {
+      const powerOnly = {
+        ...ace,
+        sectors: [{ name: "Power" }],
+      } as unknown as PathwayMetadataType;
+      renderHeader({ pathways: [iea, powerOnly] });
+
+      const group = screen.getByRole("group", { name: "Sector" });
+      expect(group).toHaveTextContent("Power");
+      expect(within(group).queryByRole("button")).toBeNull();
+    });
+
+    it("keeps today's sentence when no shared sector can be selected (C4)", () => {
       renderHeader({ availableSectors: [], selectedSector: null });
 
-      expect(screen.getByRole("group", { name: "Sector" })).toHaveTextContent(
-        "These pathways share no sector with information to compare.",
-      );
+      expect(
+        screen.getByText(
+          "These pathways share no sector with information to compare.",
+        ),
+      ).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /^Sector:/ })).toBeNull();
     });
   });
 
   describe("geography, per column", () => {
-    it("gives every column its own control, named for its pathway", () => {
+    it("gives every column its own group, named for its pathway", () => {
       renderHeader();
 
-      expect(columnTrigger("IEA: APS (2024)")).toBeInTheDocument();
-      expect(columnTrigger("ACE: ATS (2024)")).toBeInTheDocument();
+      expect(column("IEA: APS (2024)")).toBeInTheDocument();
+      expect(column("ACE: ATS (2024)")).toBeInTheDocument();
+    });
+
+    it("groups the columns under one axis label", () => {
+      renderHeader();
+
+      const axis = screen.getByRole("group", { name: "Geography" });
+      expect(
+        within(axis).getAllByRole("group", { name: /^Geography for/ }),
+      ).toHaveLength(2);
+    });
+
+    it("offers Global or Region or Country in each column, at the compact size", () => {
+      renderHeader();
+
+      const ieaColumn = column("IEA: APS (2024)");
+      expect(within(ieaColumn).getAllByText("or")).toHaveLength(2);
+      const global = within(ieaColumn).getByRole("button", { name: /Global/ });
+      expect(global.className).toContain("h-7");
+      expect(
+        within(ieaColumn).getByRole("button", { name: /Southeast Asia/ }),
+      ).toBeInTheDocument();
+      expect(
+        within(ieaColumn).getByRole("button", {
+          name: /United States of America/,
+        }),
+      ).toBeInTheDocument();
     });
 
     it("shows each column's own current geography", () => {
       renderHeader();
 
-      expect(columnTrigger("IEA: APS (2024)")).toHaveTextContent(
-        "Southeast Asia",
-      );
-      expect(columnTrigger("ACE: ATS (2024)")).toHaveTextContent(
-        "South East Asia",
-      );
+      expect(
+        within(column("IEA: APS (2024)")).getByRole("button", {
+          name: /Southeast Asia/,
+        }),
+      ).toHaveAttribute("aria-pressed", "true");
+      expect(
+        within(column("ACE: ATS (2024)")).getByRole("button", {
+          name: /South East Asia/,
+        }),
+      ).toHaveAttribute("aria-pressed", "true");
     });
 
-    it("offers only the geographies that column's publisher declares", async () => {
-      const { user } = renderHeader();
-      await user.click(columnTrigger("ACE: ATS (2024)"));
+    it("offers only the geographies that column's publisher declares", () => {
+      renderHeader();
 
-      const names = screen
-        .getAllByRole("option")
-        .map((o) => o.textContent?.trim());
-      expect(names).toEqual(["South East Asia"]);
+      const aceColumn = column("ACE: ATS (2024)");
       // IEA's spelling belongs to IEA's column.
-      expect(names).not.toContain("Southeast Asia");
-    });
-
-    it("labels options plainly, with no publisher suffix", async () => {
-      // The column carries the provenance, so "(IEA)" would be pure noise —
-      // and across the loadable pathways it disambiguates nothing anyway.
-      const { user } = renderHeader();
-      await user.click(columnTrigger("IEA: APS (2024)"));
-
-      const names = screen
-        .getAllByRole("option")
-        .map((o) => o.textContent?.trim());
-      expect(names).toContain("Southeast Asia");
-      expect(names.join(" ")).not.toContain("(");
+      expect(aceColumn).not.toHaveTextContent("Southeast Asia");
+      // ACE declares no Global: greyed, never hidden (D5).
+      expect(
+        within(aceColumn).getByRole("button", { name: /Global/ }),
+      ).toHaveAttribute("aria-disabled", "true");
     });
 
     it("changes only the column that was used", async () => {
-      const { onGeographyChange, user } = renderHeader({
-        available: ["Global"],
-      });
-      await user.click(columnTrigger("IEA: APS (2024)"));
-      await user.click(screen.getByRole("option", { name: "Global" }));
+      const { onGeographyChange, user } = renderHeader();
+      await user.click(
+        within(column("IEA: APS (2024)")).getByRole("button", {
+          name: /Global/,
+        }),
+      );
 
       expect(onGeographyChange).toHaveBeenCalledTimes(1);
       expect(onGeographyChange).toHaveBeenCalledWith(iea.id, "Global");
     });
 
-    it("groups the controls under one axis label", () => {
-      renderHeader();
+    it("ignores re-picking a column's current geography", async () => {
+      const { onGeographyChange, user } = renderHeader();
+      await user.click(
+        within(column("IEA: APS (2024)")).getByRole("button", {
+          name: /Southeast Asia/,
+        }),
+      );
 
-      const group = screen.getByRole("group", { name: "Geography" });
-      expect(
-        within(group).getAllByRole("button", { name: /^Geography for/ }),
-      ).toHaveLength(2);
+      expect(onGeographyChange).not.toHaveBeenCalled();
     });
 
-    it("degrades to a disabled control for a pathway with no geography", () => {
+    it("lists a column's several regions in a dropdown, labelled plainly", async () => {
+      // The column carries the provenance, so "(IEA)" would be pure noise.
+      const { onGeographyChange, user } = renderHeader({
+        pathways: [wide, ace],
+        selectedGeographies: {
+          [wide.id]: "Southeast Asia",
+          [ace.id]: "South East Asia",
+        },
+        available: ["Global", "Africa", "Southeast Asia", "South East Asia"],
+      });
+      await user.click(
+        within(column("IEA: STEPS (2024)")).getByRole("button", {
+          name: "Region: Southeast Asia",
+        }),
+      );
+
+      const names = screen
+        .getAllByRole("option")
+        .map((o) => o.textContent?.trim());
+      expect(names).toEqual(["Africa", "Southeast Asia"]);
+      expect(names.join(" ")).not.toContain("(");
+
+      await user.click(screen.getByRole("option", { name: "Africa" }));
+      expect(onGeographyChange).toHaveBeenCalledWith(wide.id, "Africa");
+    });
+
+    it("greys every slot for a pathway with no geography", () => {
       const bare = {
         ...ace,
         id: "bare",
@@ -309,19 +348,31 @@ describe("ComparisonScopeHeader", () => {
         selectedGeographies: { [iea.id]: "Global", bare: null },
       });
 
-      expect(columnTrigger("ACE: BARE (2024)")).toBeDisabled();
+      const slots = within(column("ACE: BARE (2024)")).getAllByRole("button");
+      expect(slots).toHaveLength(3);
+      for (const slot of slots) {
+        expect(slot).toHaveAttribute("aria-disabled", "true");
+      }
     });
   });
 
   describe("availability", () => {
-    it("offers only the geographies this tool can plot (#1046)", async () => {
-      // 13 of IEA's 15 declared geographies carry no timeseries rows.
-      const { user } = renderHeader({ available: ["Southeast Asia"] });
-      await user.click(columnTrigger("IEA: APS (2024)"));
+    it("greys the geographies this tool can't show, rather than hiding them (D2)", async () => {
+      const { onGeographyChange, user } = renderHeader({
+        available: ["Southeast Asia", "South East Asia"],
+      });
 
+      const ieaColumn = column("IEA: APS (2024)");
+      const global = within(ieaColumn).getByRole("button", { name: /Global/ });
+      expect(global).toHaveAttribute("aria-disabled", "true");
       expect(
-        screen.getAllByRole("option").map((o) => o.textContent?.trim()),
-      ).toEqual(["Southeast Asia"]);
+        within(ieaColumn).getByRole("button", {
+          name: /United States of America/,
+        }),
+      ).toHaveAttribute("aria-disabled", "true");
+
+      await user.click(global);
+      expect(onGeographyChange).not.toHaveBeenCalled();
     });
   });
 
@@ -434,10 +485,10 @@ describe("ComparisonScopeHeader", () => {
       expect(within(bar).getByText("2025")).toBeInTheDocument();
       expect(within(bar).getAllByText("2024")).toHaveLength(2);
 
-      // The geography selects are named apart too, year included.
-      expect(columnTrigger("IEA: NZE (2024)")).toBeInTheDocument();
-      expect(columnTrigger("IEA: NZE (2025)")).toBeInTheDocument();
-      expect(columnTrigger("ACE: NZE (2024)")).toBeInTheDocument();
+      // The columns' geography groups are named apart too, year included.
+      expect(column("IEA: NZE (2024)")).toBeInTheDocument();
+      expect(column("IEA: NZE (2025)")).toBeInTheDocument();
+      expect(column("ACE: NZE (2024)")).toBeInTheDocument();
     });
   });
   describe("height reporting", () => {

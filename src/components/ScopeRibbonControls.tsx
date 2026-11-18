@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Factory, Flag, Globe, Map as MapIcon } from "lucide-react";
 import TextWithTooltip from "./TextWithTooltip";
 import RegionMembersTooltip from "./RegionMembersTooltip";
@@ -24,6 +24,55 @@ export type RibbonLevel = GeographyLevel | "sector";
 /** Every ribbon control: one height, one shape. */
 export const CONTROL_CLASS =
   "inline-flex items-center gap-1.5 h-8 px-2.5 rounded-md border text-sm";
+
+/**
+ * The comparison page's header carries up to three geography groups side by
+ * side, so its controls are one step smaller (comparison-ribbon-spec §3).
+ * `max-w-full min-w-0` let a control shrink inside a narrow column, so its
+ * label truncates rather than overflowing.
+ */
+export const COMPACT_CONTROL_CLASS =
+  "inline-flex items-center gap-1 h-7 px-2 rounded-md border text-xs max-w-full min-w-0";
+
+/** "default" on the detail page; "compact" in the comparison header. */
+export type ControlSize = "default" | "compact";
+
+export const controlClass = (size: ControlSize): string =>
+  size === "compact" ? COMPACT_CONTROL_CLASS : CONTROL_CLASS;
+
+/** Level icon and chevron size, in px. */
+export const iconPx = (size: ControlSize): number =>
+  size === "compact" ? 12 : 14;
+
+/**
+ * The visible label's cap. A longer name truncates; the full name is in the
+ * control's tooltip. `min-w-0` lets it give way further in a narrow column.
+ */
+export const labelClass = (size: ControlSize): string =>
+  size === "compact"
+    ? "truncate min-w-0 max-w-[7.5rem]"
+    : "truncate max-w-[11rem]";
+
+/**
+ * Whether an element's text is cut off, measured when the reader points at or
+ * focuses the control. A compact control's label truncates in a narrow column,
+ * and an option with nothing else to say then needs its full name in a
+ * tooltip; one that fits needs no tooltip repeating it. jsdom has no layout, so
+ * this reads false there.
+ */
+export function useTruncated<T extends HTMLElement>(): {
+  ref: React.RefObject<T | null>;
+  truncated: boolean;
+  measure: () => void;
+} {
+  const ref = useRef<T | null>(null);
+  const [truncated, setTruncated] = useState(false);
+  const measure = useCallback(() => {
+    const el = ref.current;
+    setTruncated(el !== null && el.scrollWidth > el.clientWidth);
+  }, []);
+  return { ref, truncated, measure };
+}
 
 /** The control holding the selection: ring and weight, like a pressed badge. */
 export const ACTIVE_CLASS =
@@ -54,14 +103,17 @@ const LEVEL_ICON: Record<RibbonLevel, React.FC<{ size?: number }>> = {
   country: Flag,
 };
 
-export const LevelIcon: React.FC<{ level: RibbonLevel }> = ({ level }) => {
+export const LevelIcon: React.FC<{
+  level: RibbonLevel;
+  size?: ControlSize;
+}> = ({ level, size = "default" }) => {
   const Icon = LEVEL_ICON[level];
   return (
     <span
       aria-hidden="true"
       className="inline-flex flex-shrink-0"
     >
-      <Icon size={14} />
+      <Icon size={iconPx(size)} />
     </span>
   );
 };
@@ -141,7 +193,8 @@ export const InactiveSlot: React.FC<{
   level: RibbonLevel;
   label: string;
   tooltip: string;
-}> = ({ level, label, tooltip }) => (
+  size?: ControlSize;
+}> = ({ level, label, tooltip, size = "default" }) => (
   <TextWithTooltip
     as="button"
     position="bottom"
@@ -150,15 +203,18 @@ export const InactiveSlot: React.FC<{
     // Tailwind settles two classes for one property by its own stylesheet
     // order, not by the order they are written in. Measured in the browser:
     // without it the inactive slot showed a pointer.
-    className={`${CONTROL_CLASS} ${IDLE_STATIC_CLASS} ${FOCUS_CLASS} opacity-50 cursor-not-allowed!`}
+    className={`${controlClass(size)} ${IDLE_STATIC_CLASS} ${FOCUS_CLASS} opacity-50 cursor-not-allowed!`}
     buttonProps={{
       "aria-disabled": true,
       "onClick": (event) => event.preventDefault(),
     }}
     text={
       <>
-        <LevelIcon level={level} />
-        <span className="truncate max-w-[11rem]">{label}</span>
+        <LevelIcon
+          level={level}
+          size={size}
+        />
+        <span className={labelClass(size)}>{label}</span>
       </>
     }
   />
@@ -178,16 +234,49 @@ export const ChoiceButton: React.FC<{
   selected: boolean;
   onSelect: (token: string) => void;
   geography: Geography | null | undefined;
-}> = ({ level, option, selected, onSelect, geography }) => {
-  const className = `${CONTROL_CLASS} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  size?: ControlSize;
+}> = ({ level, option, selected, onSelect, geography, size = "default" }) => {
+  const className = `${controlClass(size)} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  const label = useTruncated<HTMLSpanElement>();
   const content = (
     <>
-      <LevelIcon level={level} />
-      <span className="truncate max-w-[11rem]">{option.label}</span>
+      <LevelIcon
+        level={level}
+        size={size}
+      />
+      <span
+        ref={label.ref}
+        className={labelClass(size)}
+      >
+        {option.label}
+      </span>
     </>
   );
+  const hasInfo = optionHasInfo(level, option.token, geography);
 
-  if (!optionHasInfo(level, option.token, geography)) {
+  // Compact, with nothing else to say: a tooltip with the full name, shown
+  // only while the label is cut off. Always the same component, so focus is
+  // never lost to a swap when the measurement changes.
+  if (!hasInfo && size === "compact") {
+    return (
+      <TextWithTooltip
+        as="button"
+        position="bottom"
+        className={className}
+        text={content}
+        tooltip={option.label}
+        suppressed={!label.truncated}
+        buttonProps={{
+          "aria-pressed": selected,
+          "onClick": () => onSelect(option.token),
+          "onMouseEnter": label.measure,
+          "onFocus": label.measure,
+        }}
+      />
+    );
+  }
+
+  if (!hasInfo) {
     return (
       <button
         type="button"
@@ -230,16 +319,20 @@ export const ChoiceButton: React.FC<{
  * A fact about the pathway rather than a choice, so it is not interactive. It
  * is still focusable, so its tooltip can be reached from the keyboard.
  */
-export const ReadOnlySector: React.FC<{ option: RibbonOption }> = ({
-  option,
-}) => (
+export const ReadOnlySector: React.FC<{
+  option: RibbonOption;
+  size?: ControlSize;
+}> = ({ option, size = "default" }) => (
   <TextWithTooltip
     position="bottom"
-    className={`${CONTROL_CLASS} ${ACTIVE_CLASS} ${FOCUS_CLASS}`}
+    className={`${controlClass(size)} ${ACTIVE_CLASS} ${FOCUS_CLASS}`}
     text={
       <>
-        <LevelIcon level="sector" />
-        <span className="truncate max-w-[11rem]">{option.label}</span>
+        <LevelIcon
+          level="sector"
+          size={size}
+        />
+        <span className={labelClass(size)}>{option.label}</span>
       </>
     }
     tooltip={

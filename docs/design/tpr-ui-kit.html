@@ -1693,6 +1693,34 @@
         color: var(--color-rmigray-500);
         font-weight: 400;
       }
+      /* Compact: the comparison header (comparison-ribbon-spec §3). */
+      .sr-ctl.compact {
+        height: 28px;
+        padding: 0 8px;
+        gap: 4px;
+        font-size: 12px;
+        max-width: 100%;
+        min-width: 0;
+      }
+      .sr-ctl.compact .lbl {
+        max-width: 7.5rem;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .sr-cols {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0 24px;
+      }
+      .sr-colgroup {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px 2px;
+        min-width: 0;
+      }
       .sr-or {
         font-size: 11px;
         font-style: italic;
@@ -3056,25 +3084,6 @@
                 <div class="tags">
                   <span class="tag">underline</span
                   ><span class="tag">disabled:opacity-50</span>
-                </div>
-              </div>
-            </div>
-            <div class="comp-card">
-              <div
-                class="stage"
-                style="gap: 18px"
-              >
-                <button class="axis-toggle">Show all</button
-                ><button class="axis-toggle">Show fewer</button>
-              </div>
-              <div class="info">
-                <h4>Compact text action <span class="new-pill">v2</span></h4>
-                <p class="src">ScopeAxisRow.tsx</p>
-                <div class="tags">
-                  <span class="tag">text-[10px] underline</span
-                  ><span class="tag">text-rmigray-500</span
-                  ><span class="tag">hover:text-bluespruce</span
-                  ><span class="tag">focus-visible:ring-bluespruce</span>
                 </div>
               </div>
             </div>
@@ -4900,77 +4909,288 @@
                     >
                   </div>
                   <div
-                    class="axes"
-                    style="padding-bottom: 0"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      gap: 8px;
+                      padding: 8px 24px 0;
+                    "
                   >
-                    <div class="lab-cell">
-                      <span class="axis-label">Sector</span>
-                    </div>
-                    <div class="vals">
-                      <button
-                        class="badge selected"
-                        style="
-                          --b: var(--color-solar-100);
-                          --t: var(--color-solar-800);
-                          --bd: var(--color-solar-200);
-                        "
+                    <span class="axis-label">Sector</span>
+                    <span class="sr-ctl compact active"
+                      ><svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
                       >
-                        Power
-                      </button>
-                    </div>
+                        <path d="M12 16h.01" />
+                        <path d="M16 16h.01" />
+                        <path
+                          d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"
+                        />
+                        <path d="M8 16h.01" /></svg
+                      ><span class="lbl">Power</span
+                      ><svg
+                        width="12"
+                        height="12"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                      >
+                        <path d="m6 9 6 6 6-6" /></svg
+                    ></span>
                   </div>
-                  <div class="geo-row">
+                  <div
+                    class="geo-row"
+                    style="padding-top: 6px"
+                  >
                     <span
                       class="axis-label"
-                      style="display: block"
+                      style="display: block; margin-bottom: 4px"
                       >Geography</span
                     >
-                    <div class="cols">
-                      <button class="geo-select">
-                        <span>Southeast Asia</span
-                        ><svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          style="flex: none"
+                    <div class="sr-cols">
+                      <div class="sr-colgroup">
+                        <span class="sr-ctl compact"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                            />
+                            <path
+                              d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                            />
+                            <path d="M2 12h20" /></svg
+                          ><span class="lbl">Global</span></span
+                        ><span class="sr-or">or</span
+                        ><span class="sr-ctl compact active"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                            />
+                            <path d="M15 5.764v15" />
+                            <path d="M9 3.236v15" /></svg
+                          ><span class="lbl">Southeast Asia</span
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="m6 9 6 6 6-6" /></svg></span
+                        ><span class="sr-or">or</span
+                        ><span class="sr-ctl compact"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
+                            /></svg
+                          ><span class="lbl muted">Country</span
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="m6 9 6 6 6-6" /></svg
+                        ></span>
+                      </div>
+                      <div class="sr-colgroup">
+                        <span class="sr-ctl compact"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                            />
+                            <path
+                              d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                            />
+                            <path d="M2 12h20" /></svg
+                          ><span class="lbl">Global</span></span
+                        ><span class="sr-or">or</span
+                        ><span class="sr-ctl compact active"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                            />
+                            <path d="M15 5.764v15" />
+                            <path d="M9 3.236v15" /></svg
+                          ><span class="lbl">Southeast Asia</span
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="m6 9 6 6 6-6" /></svg></span
+                        ><span class="sr-or">or</span
+                        ><span class="sr-ctl compact"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
+                            /></svg
+                          ><span class="lbl muted">Country</span
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="m6 9 6 6 6-6" /></svg
+                        ></span>
+                      </div>
+                      <div class="sr-colgroup">
+                        <span class="sr-ctl compact inactive"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                            />
+                            <path
+                              d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                            />
+                            <path d="M2 12h20" /></svg
+                          ><span class="lbl">Global</span></span
+                        ><span class="sr-or">or</span
+                        ><span class="sr-ctl compact active"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                            />
+                            <path d="M15 5.764v15" />
+                            <path d="M9 3.236v15" /></svg
+                          ><span class="lbl">South East Asia</span></span
+                        ><span class="sr-or">or</span
+                        ><span class="sr-ctl compact inactive"
+                          ><svg
+                            width="12"
+                            height="12"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path
+                              d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
+                            /></svg
+                          ><span class="lbl">Country</span></span
                         >
-                          <path d="m6 9 6 6 6-6" />
-                        </svg>
-                      </button>
-                      <button class="geo-select">
-                        <span>South East Asia</span
-                        ><svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          style="flex: none"
-                        >
-                          <path d="m6 9 6 6 6-6" />
-                        </svg>
-                      </button>
-                      <button
-                        class="geo-select"
-                        disabled
-                      >
-                        <span>No geography</span
-                        ><svg
-                          width="14"
-                          height="14"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          style="flex: none"
-                        >
-                          <path d="m6 9 6 6 6-6" />
-                        </svg>
-                      </button>
+                      </div>
                     </div>
                     <p
                       class="notice-xs"
@@ -4992,110 +5212,23 @@
                   <span class="tag"
                     >condensed: h-8 bg-bluespruce text-xs font-semibold</span
                   ><span class="tag">grid-template-columns: repeat(n, 1fr)</span
-                  ><span class="tag">gap-x-6</span>
+                  ><span class="tag">gap-x-6</span
+                  ><span class="tag">compact: h-7 px-2 gap-1 text-xs</span
+                  ><span class="tag">icons 12px · label max-w-[7.5rem]</span>
                 </div>
                 <p class="note">
-                  One shared sector row for all columns. Geography gets one
-                  dropdown per pathway, lined up under its column, because each
-                  publisher names places differently.
-                </p>
-              </div>
-            </div>
-
-            <div class="comp-card">
-              <div
-                class="stage tight align-start"
-                style="flex-direction: column; align-items: flex-start"
-              >
-                <button
-                  class="geo-select"
-                  style="width: 240px"
-                >
-                  <span>Southeast Asia</span
-                  ><svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    style="flex: none"
-                  >
-                    <path d="m6 9 6 6 6-6" />
-                  </svg>
-                </button>
-                <div
-                  class="geo-list"
-                  role="listbox"
-                >
-                  <div class="opts">
-                    <div class="opt">
-                      <span
-                        class="badge"
-                        style="
-                          --b: var(--color-pinishgreen-800);
-                          --t: var(--color-pinishgreen-100);
-                          --bd: var(--color-pinishgreen-100);
-                        "
-                        >Global</span
-                      >
-                    </div>
-                    <div class="opt sel">
-                      <span
-                        class="badge"
-                        style="
-                          --b: var(--color-pinishgreen-200);
-                          --t: var(--color-pinishgreen-800);
-                          --bd: var(--color-pinishgreen-800);
-                        "
-                        >Southeast Asia</span
-                      >
-                    </div>
-                    <div class="opt">
-                      <span
-                        class="badge"
-                        style="
-                          --b: transparent;
-                          --t: var(--color-pinishgreen-800);
-                          --bd: var(--color-pinishgreen-400);
-                        "
-                        >Africa</span
-                      >
-                    </div>
-                    <div class="opt">
-                      <span
-                        class="badge"
-                        style="
-                          --b: transparent;
-                          --t: var(--color-pinishgreen-800);
-                          --bd: var(--color-pinishgreen-400);
-                        "
-                        >India</span
-                      >
-                    </div>
-                  </div>
-                  <div class="foot">
-                    Filled badges indicate that data is available for
-                    visualization and download in this tool. Outlined badges
-                    indicate the data for this geography is available in the
-                    source publication, but not currently in this tool.
-                  </div>
-                </div>
-              </div>
-              <div class="info">
-                <h4>Column geography select — open</h4>
-                <p class="src">ColumnGeographySelect.tsx</p>
-                <div class="tags">
-                  <span class="tag">text-xs rounded-md border-gray-300</span
-                  ><span class="tag">selected: bg-neutral-100</span
-                  ><span class="tag">max-h-64 overflow-auto</span
-                  ><span class="tag">shadow-lg</span>
-                </div>
-                <p class="note">
-                  Options reuse the geography badges; outlined ("-pub") ones
-                  have no chart data. The footnote is
-                  <code>GEOGRAPHY_AVAILABILITY_TOOLTIP</code>, the same text as
-                  the Geographies tooltip on the pathway card.
+                  The scope ribbon's controls at their compact size
+                  (<code>size="compact"</code>). One shared Sector control for
+                  all columns. Geography gets Global or Region or Country per
+                  pathway, lined up under its column, because each publisher
+                  names places differently. Every ribbon rule applies: greyed
+                  slots with a tooltip, one option as a button, options that
+                  can't be shown grouped last, search over 8, the preview pane.
+                  A cut-off name is in the control's tooltip. The open list is
+                  the same size as on the detail page. In narrow columns the
+                  slots wrap or stack. With no selectable shared sector, the row
+                  keeps the sentence "These pathways share no sector with
+                  information to compare."
                 </p>
               </div>
             </div>

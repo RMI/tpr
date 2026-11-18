@@ -254,12 +254,14 @@ describe("ComparisonPage — structured geography", () => {
         global → "Global", region key → "Europe", ISO-2 → country name.
 
       getAllByText rather than getByText: the scope header's per-column
-      dropdown mirrors the coverage section, so a token the column has selected
-      appears twice on the page by design.
+      slots mirror the coverage section, so a token a column offers as a
+      button appears twice on the page by design.
     */
     expect(screen.getAllByText("Global").length).toBeGreaterThan(0);
     expect(screen.getAllByText("Europe").length).toBeGreaterThan(0);
-    expect(screen.getByText("United States of America")).toBeInTheDocument();
+    expect(
+      screen.getAllByText("United States of America").length,
+    ).toBeGreaterThan(0);
     expect(screen.getAllByText("Germany").length).toBeGreaterThan(0);
     expect(screen.getByText("France")).toBeInTheDocument();
   });
@@ -342,6 +344,37 @@ describe("ComparisonPage — pathways with no sector in common", () => {
   });
 });
 
+/** One column's geography slots, by the group named for its pathway. */
+const columnGroup = (name: string) =>
+  screen.getByRole("group", { name: `Geography for ${name}` });
+
+/**
+ * What one column has selected: the pressed one-option button, or the label on
+ * the dropdown trigger that holds the selection ("Country: Germany").
+ */
+const columnShows = (name: string): string | null => {
+  const buttons = within(columnGroup(name)).getAllByRole("button");
+  const pressed = buttons.find(
+    (b) => b.getAttribute("aria-pressed") === "true",
+  );
+  if (pressed) return pressed.textContent?.trim() ?? null;
+  for (const b of buttons) {
+    const label = b.getAttribute("aria-label") ?? "";
+    const match = /^(?:Region|Country): (.+)$/.exec(label);
+    if (match && match[1] !== "not selected") return match[1];
+  }
+  return null;
+};
+
+/** Pick a sector from the shared Sector dropdown. */
+const pickSector = async (
+  user: ReturnType<typeof userEvent.setup>,
+  sector: string,
+) => {
+  await user.click(screen.getByRole("button", { name: /^Sector:/ }));
+  await user.click(screen.getByRole("option", { name: sector }));
+};
+
 describe("ComparisonPage — shared scope", () => {
   beforeEach(() => {
     sessionStorage.clear();
@@ -352,10 +385,6 @@ describe("ComparisonPage — shared scope", () => {
     vi.restoreAllMocks();
   });
 
-  /** The geography control for one column, by the pathway it belongs to. */
-  const columnTrigger = (name: string) =>
-    screen.getByRole("button", { name: `Geography for ${name}` });
-
   it("takes each column's geography from the URL", async () => {
     await mountWithFixtures(
       "cmp-a,cmp-b&sector=Power&geography=cmp-a:Europe,cmp-b:DE",
@@ -363,14 +392,11 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
-    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
-    expect(
-      screen
-        .getAllByRole("button")
-        .filter((b) => b.getAttribute("aria-pressed") === "true")
-        .map((b) => b.textContent),
-    ).toEqual(["Power"]);
+    expect(columnShows("PubA: A (2024)")).toBe("Europe");
+    expect(columnShows("PubB: B (2023)")).toBe("Germany");
+    expect(screen.getByRole("group", { name: "Sector" })).toHaveTextContent(
+      "Power",
+    );
   });
 
   it("defaults each column independently when the URL carries none", async () => {
@@ -380,8 +406,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Global");
-    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
+    expect(columnShows("PubA: A (2024)")).toBe("Global");
+    expect(columnShows("PubB: B (2023)")).toBe("Germany");
   });
 
   it("ignores a token the column does not declare", async () => {
@@ -393,8 +419,8 @@ describe("ComparisonPage — shared scope", () => {
 
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Global");
-    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
+    expect(columnShows("PubA: A (2024)")).toBe("Global");
+    expect(columnShows("PubB: B (2023)")).toBe("Germany");
   });
 
   it("warns that the columns are not showing the same geography", async () => {
@@ -406,15 +432,23 @@ describe("ComparisonPage — shared scope", () => {
     ).toBeInTheDocument();
   });
 
-  it("offers only geographies with data, while the Geographies section lists them all (#1046)", async () => {
+  it("lets a column select only geographies with data, greying the rest (D2)", async () => {
     // B declares DE and FR, but holds data for DE only.
     await mountWithFixtures("cmp-a,cmp-b");
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
-    await userEvent.click(columnTrigger("PubB: B (2023)"));
-    expect(
-      screen.getAllByRole("option").map((o) => o.textContent?.trim()),
-    ).toEqual(["Germany"]);
+    await userEvent.click(
+      within(columnGroup("PubB: B (2023)")).getByRole("button", {
+        name: "Country: Germany",
+      }),
+    );
+    expect(screen.getByRole("option", { name: "Germany" })).not.toHaveAttribute(
+      "aria-disabled",
+    );
+    expect(screen.getByRole("option", { name: "France" })).toHaveAttribute(
+      "aria-disabled",
+      "true",
+    );
 
     const coverage = screen
       .getByRole("heading", { name: /Geographies/ })
@@ -479,11 +513,14 @@ describe("ComparisonPage — shared scope", () => {
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     const user = userEvent.setup();
-    await user.click(columnTrigger("PubA: A (2024)"));
-    await user.click(screen.getByRole("option", { name: "Europe" }));
+    await user.click(
+      within(columnGroup("PubA: A (2024)")).getByRole("button", {
+        name: /Europe/,
+      }),
+    );
 
-    expect(columnTrigger("PubA: A (2024)")).toHaveTextContent("Europe");
-    expect(columnTrigger("PubB: B (2023)")).toHaveTextContent("Germany");
+    expect(columnShows("PubA: A (2024)")).toBe("Europe");
+    expect(columnShows("PubB: B (2023)")).toBe("Germany");
   });
 });
 
@@ -535,7 +572,7 @@ describe("ComparisonPage — dependencies", () => {
     // Steel has no benchmark data in either column; E's dependencies alone
     // make it a selectable sector rather than an outlined one.
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "Steel" }));
+    await pickSector(user, "Steel");
 
     expect(screen.getByText("Needs green hydrogen.")).toBeInTheDocument();
     expect(
@@ -563,9 +600,7 @@ describe("ComparisonPage — key features make a token selectable", () => {
 
     // F has no benchmark data, so without its key features the column would
     // have no geography at all.
-    expect(
-      screen.getByRole("button", { name: "Geography for PubF: F (2024)" }),
-    ).toHaveTextContent("Global");
+    expect(columnShows("PubF: F (2024)")).toBe("Global");
 
     // The coverage section still speaks only about data in this tool.
     const coverage = screen
@@ -582,7 +617,7 @@ describe("ComparisonPage — key features make a token selectable", () => {
     // Neither column has Steel data or a Steel dependency; F's key features
     // alone make it selectable.
     const user = userEvent.setup();
-    await user.click(screen.getByRole("button", { name: "Steel" }));
+    await pickSector(user, "Steel");
 
     expect(screen.getByText("Minor decrease")).toBeInTheDocument();
   });

@@ -451,3 +451,109 @@ describe("ScopeDropdown countries with member codes", () => {
     expect(screen.queryByRole("tooltip")).toBeNull();
   });
 });
+
+describe("ScopeDropdown compact size", () => {
+  const plainCountries = [opt("Japan", true, "JP"), opt("Brazil", true, "BR")];
+  const noMembers = {
+    country: { JP: ["JP"], BR: ["BR"] },
+  } as unknown as Geography;
+
+  it("shrinks only the trigger; the open panel is unchanged", async () => {
+    const { trigger } = renderDropdown({ size: "compact" });
+    expect(trigger.className).toContain("h-7");
+    expect(trigger.className).toContain("text-xs");
+    expect(trigger.parentElement?.className).toContain("min-w-0");
+    await userEvent.click(trigger);
+    expect(
+      screen.getByRole("listbox").closest(".absolute")?.className,
+    ).toContain("w-72");
+  });
+
+  it("names a cut-off selection in a tooltip when it has no other information", () => {
+    const sw = Object.getOwnPropertyDescriptor(
+      HTMLElement.prototype,
+      "scrollWidth",
+    );
+    Object.defineProperty(HTMLElement.prototype, "scrollWidth", {
+      configurable: true,
+      get: () => 500,
+    });
+    try {
+      const { trigger } = renderDropdown({
+        level: "country",
+        withData: plainCountries,
+        withoutData: [],
+        selectedToken: "JP",
+        geography: noMembers,
+        size: "compact",
+      });
+      fireEvent.mouseEnter(trigger);
+      expect(screen.getByRole("tooltip")).toHaveTextContent("Japan");
+    } finally {
+      if (sw) Object.defineProperty(HTMLElement.prototype, "scrollWidth", sw);
+      else
+        delete (HTMLElement.prototype as { scrollWidth?: number }).scrollWidth;
+    }
+  });
+
+  it("adds no name tooltip at the default size", () => {
+    const { trigger } = renderDropdown({
+      level: "country",
+      withData: plainCountries,
+      withoutData: [],
+      selectedToken: "JP",
+      geography: noMembers,
+    });
+    fireEvent.mouseEnter(trigger);
+    expect(screen.queryByRole("tooltip")).toBeNull();
+  });
+});
+
+describe("ScopeDropdown on a narrow screen", () => {
+  /*
+   * jsdom has no layout, so the panel's box is simulated: 288px wide, its
+   * trigger 150px from the left of a 375px screen, moved by its own `left`.
+   * The pane appears just after opening and re-measures the panel; that
+   * re-measure used to see the shift already applied and drop it, leaving the
+   * panel off-screen (comparison page, 375px, 2026-11-18).
+   */
+  it("keeps the panel on screen after the pane appears", async () => {
+    Object.defineProperty(document.documentElement, "clientWidth", {
+      configurable: true,
+      get: () => 375,
+    });
+    const layout = vi
+      .spyOn(Element.prototype, "getBoundingClientRect")
+      .mockImplementation(function (this: Element) {
+        if (
+          !(this instanceof HTMLElement) ||
+          !this.className.includes("absolute left-0 top-full")
+        ) {
+          return new DOMRect();
+        }
+        return new DOMRect(150 + (parseFloat(this.style.left) || 0), 0, 288, 0);
+      });
+    try {
+      const { trigger } = renderDropdown({
+        level: "region",
+        withData: [opt("Asia"), opt("Europe")],
+        withoutData: [],
+        selectedToken: null,
+      });
+      await userEvent.click(trigger);
+      fireEvent.mouseEnter(screen.getByRole("option", { name: "Europe" }));
+      const panel = screen
+        .getByRole("listbox")
+        .closest(".absolute") as HTMLElement;
+      const box = panel.getBoundingClientRect();
+      expect(box.right).toBeLessThanOrEqual(375 - 16);
+      expect(box.left).toBeGreaterThanOrEqual(16);
+      // Moved by position, not a transform: a transform leaves the panel's
+      // unshifted spot counted as page width, so a phone could scroll sideways.
+      expect(panel.style.transform).toBe("");
+    } finally {
+      layout.mockRestore();
+      delete (document.documentElement as { clientWidth?: number }).clientWidth;
+    }
+  });
+});

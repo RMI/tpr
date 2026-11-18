@@ -20,13 +20,17 @@ import {
 import {
   ACTIVE_CLASS,
   CLICKABLE_CLASS,
-  CONTROL_CLASS,
   FOCUS_CLASS,
   IDLE_CLASS,
   InfoTooltipBody,
   LevelIcon,
   OptionInfo,
+  controlClass,
+  iconPx,
+  labelClass,
   optionHasInfo,
+  useTruncated,
+  type ControlSize,
   type RibbonLevel,
 } from "./ScopeRibbonControls";
 import type { Geography } from "../types";
@@ -41,6 +45,11 @@ interface ScopeDropdownProps {
   selectedToken: string | null;
   onSelect: (token: string) => void;
   geography: Geography | null | undefined;
+  /**
+   * "compact" in the comparison header (comparison-ribbon-spec §3). Only the
+   * trigger shrinks; the open panel is the same at both sizes.
+   */
+  size?: ControlSize;
 }
 
 /**
@@ -51,8 +60,7 @@ interface ScopeDropdownProps {
  *
  * Keyboard focus stays in the search field (or the list) while the arrow keys
  * move a highlight, announced through `aria-activedescendant`. Moving real
- * focus onto each option would stop the reader typing to filter, which matters
- * more here than matching `ColumnGeographySelect`, which has no search.
+ * focus onto each option would stop the reader typing to filter.
  *
  * Options without data are listed, last and greyed, and can never be picked
  * (spec §4.5). The highlight skips them.
@@ -64,6 +72,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   selectedToken,
   onSelect,
   geography,
+  size = "default",
 }) => {
   const { open, triggerRef, menuRef, toggle, close } =
     useDropdown<HTMLButtonElement>();
@@ -131,10 +140,13 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
     Keep the open panel on screen. It is anchored to its trigger's left edge,
     and the spec caps its WIDTH at the viewport minus 32px, but not its
     POSITION: on a phone, a dropdown at the right of the row opened partly
-    off-screen. Measured once it opens, then nudged sideways to leave the same
-    16px gutter at both edges. jsdom has no layout, so this is a no-op there.
+    off-screen. Measured once it opens (and again when the pane comes or goes),
+    then nudged sideways to leave the same 16px gutter at both edges. jsdom has no layout, so this is a no-op there.
   */
   const [shift, setShift] = useState(0);
+  // The shift on screen right now, so a re-measure can subtract it.
+  const appliedShift = useRef(0);
+  appliedShift.current = shift;
   useLayoutEffect(() => {
     if (!open) {
       setShift(0);
@@ -144,14 +156,20 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
     if (!panel) return;
     const rect = panel.getBoundingClientRect();
     if (rect.width === 0) return;
+    // Where the panel would sit unshifted. A re-measure sees the shift already
+    // applied, and computing from that undid it: the pane appears just after
+    // opening, re-measuring an on-screen panel to "no shift needed" and
+    // dropping it back off-screen (measured, comparison page at 375px).
+    const left = rect.left - appliedShift.current;
+    const right = rect.right - appliedShift.current;
     const gutter = 16;
     // The visible width, not window.innerWidth: on a phone an overflowing
     // panel widens the layout viewport itself, so innerWidth grows to fit the
     // very panel being measured (461px on a 375px screen, measured).
     const visible = document.documentElement.clientWidth;
     let dx = 0;
-    if (rect.right > visible - gutter) dx = visible - gutter - rect.right;
-    if (rect.left + dx < gutter) dx = gutter - rect.left;
+    if (right > visible - gutter) dx = visible - gutter - right;
+    if (left + dx < gutter) dx = gutter - left;
     setShift(dx);
     // Re-measured when the pane comes or goes, since that changes the width.
   }, [open, menuRef, hasPane]);
@@ -218,28 +236,43 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
 
   const activeId = cursor ? optionId.get(cursor) : undefined;
 
+  const label = useTruncated<HTMLSpanElement>();
+  // A compact trigger can cut its selection's name short. When the selection
+  // has no information tooltip (which leads with the name), its name gets one
+  // of its own, shown only while it is cut off.
+  const showsName =
+    size === "compact" && selected !== null && !showsInfo && label.truncated;
+
   const triggerContent = (
     <>
-      <LevelIcon level={level} />
+      <LevelIcon
+        level={level}
+        size={size}
+      />
       <span
-        className={`truncate max-w-[11rem] ${selected ? "" : "text-rmigray-500 font-normal"}`}
+        ref={label.ref}
+        className={`${labelClass(size)} ${selected ? "" : "text-rmigray-500 font-normal"}`}
       >
         {selected?.label ?? name}
       </span>
       <ChevronDown
-        size={14}
+        size={iconPx(size)}
         aria-hidden="true"
         className={`flex-shrink-0 transition-transform ${open ? "rotate-180" : ""}`}
       />
     </>
   );
-  const triggerClass = `${CONTROL_CLASS} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  const triggerClass = `${controlClass(size)} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
   const triggerLabel = `${name}: ${selected?.label ?? "not selected"}`;
   const triggerAttrs = {
     "onClick": toggle,
     "aria-haspopup": "listbox" as const,
     "aria-expanded": open,
-    "onMouseEnter": () => setQuiet(false),
+    "onMouseEnter": () => {
+      setQuiet(false);
+      label.measure();
+    },
+    "onFocus": label.measure,
     "onBlur": () => setQuiet(false),
   };
 
@@ -291,7 +324,9 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   const paneId = `${baseId}-pane`;
 
   return (
-    <div className="relative inline-block">
+    <div
+      className={`relative inline-block ${size === "compact" ? "max-w-full min-w-0" : ""}`}
+    >
       {/*
         Always the same component, whatever the selection: only the tooltip
         switches off when there is nothing to show. Rendering a plain <button>
@@ -302,7 +337,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
         as="button"
         position="bottom"
         triggerRef={triggerRef}
-        suppressed={!showsInfo || open || quiet}
+        suppressed={!(showsInfo || showsName) || open || quiet}
         ariaLabel={triggerLabel}
         className={triggerClass}
         text={triggerContent}
@@ -316,6 +351,8 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
                 capped
               />
             </InfoTooltipBody>
+          ) : showsName && selected ? (
+            selected.label
           ) : null
         }
         buttonProps={triggerAttrs}
@@ -325,7 +362,10 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
         <div
           ref={menuRef}
           onKeyDown={onPanelKeyDown}
-          style={shift ? { transform: `translateX(${shift}px)` } : undefined}
+          // `left`, not a transform: the browser counts a transformed box's
+          // untransformed spot as page width, so a nudged panel still let a
+          // phone scroll sideways (540px on a 375px screen, measured).
+          style={shift ? { left: `${shift}px` } : undefined}
           className={`absolute left-0 top-full mt-1 z-40 max-w-[calc(100vw-32px)] rounded-md border border-neutral-200 bg-white shadow-lg ${
             hasPane ? "w-72 sm:w-[34rem]" : anyInfo ? "w-72 sm:w-60" : "w-72"
           }`}
