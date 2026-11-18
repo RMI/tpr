@@ -141,9 +141,20 @@ const CARD_VIEW: HelpGroup[] = [
   },
 ];
 
-const DETAIL_HEADER: HelpGroup = {
-  label: "Header and selectors",
-  topics: [pathwayOverview, detailValuesByScope],
+/** Shown first on every Detail view tab. */
+const DETAIL_PAGE: HelpGroup = {
+  label: "Pathway detail",
+  topics: [
+    {
+      id: "what-detail-shows",
+      question: "What does the Detail View show me?",
+      answer:
+        "This page shows detailed information on one pathway, organized in tabs: its narrative (At a glance), its assumptions and dependencies (Assumptions & Dependencies), its outputs (Timeseries) and its coverage (Scope & Granularity). Some of what you see depends on the sector and geography selected at the top. They start from the filters you set on the pathway list, so changing them may change the content.",
+      readMore: { label: "Methodology", to: "/resources/methodology" },
+    },
+    pathwayOverview,
+    detailValuesByScope,
+  ],
 };
 
 const COMPARISON_HEADER: HelpGroup = {
@@ -151,7 +162,7 @@ const COMPARISON_HEADER: HelpGroup = {
   topics: [pathwayOverview, comparisonValuesByScope],
 };
 
-/** Keyed by Detail view tab id; the active tab's group shows first. */
+/** Keyed by Detail view tab id; the active tab's group shows last. */
 const DETAIL_VIEW_BY_TAB: Record<string, HelpGroup> = {
   "at-a-glance": {
     label: "At a glance",
@@ -240,8 +251,9 @@ const COMPARISON_VIEW: HelpGroup[] = [
 ];
 
 /**
- * The help groups for a page, most relevant first, or `null` on pages without
- * on-page help.
+ * The help groups for a page, in display order, or `null` on pages without
+ * on-page help. On the Detail view, the general page group comes first and
+ * the active tab's group last.
  *
  * @param pathname The current route, e.g. `/pathway/abc`.
  * @param tab The Detail view's `?tab=` value. Missing or unknown values mean
@@ -263,7 +275,7 @@ export function getHelpGroups(
       tab !== null && Object.hasOwn(DETAIL_VIEW_BY_TAB, tab)
         ? tab
         : DETAIL_TABS[0].id;
-    return [DETAIL_VIEW_BY_TAB[tabId], DETAIL_HEADER];
+    return [DETAIL_PAGE, DETAIL_VIEW_BY_TAB[tabId]];
   }
 
   return null;

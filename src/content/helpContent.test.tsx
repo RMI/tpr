@@ -51,15 +51,22 @@ describe("getHelpGroups", () => {
     ]);
   });
 
-  it("puts the active Detail tab first, then the header group", () => {
+  it("puts the page group first and the active Detail tab last", () => {
     expect(labels(getHelpGroups("/pathway/x", "scope"))).toEqual([
+      "Pathway detail",
       "Scope & Granularity",
-      "Header and selectors",
     ]);
     expect(labels(getHelpGroups("/pathway/x", "assumptions"))).toEqual([
+      "Pathway detail",
       "Assumptions & Dependencies",
-      "Header and selectors",
     ]);
+  });
+
+  it("opens the Detail view with what the page shows, on every tab", () => {
+    for (const tab of [null, ...DETAIL_TABS.map((t) => t.id)]) {
+      const first = getHelpGroups("/pathway/x", tab)![0].topics[0];
+      expect(first.question).toBe("What does the Detail View show me?");
+    }
   });
 
   it("falls back to the first Detail tab for a missing or unknown tab", () => {
@@ -86,7 +93,9 @@ describe("getHelpGroups", () => {
 
   it("has a group for every Detail tab", () => {
     for (const tab of DETAIL_TABS) {
-      expect(getHelpGroups("/pathway/x", tab.id)![0].label).toBe(tab.label);
+      expect(getHelpGroups("/pathway/x", tab.id)!.at(-1)!.label).toBe(
+        tab.label,
+      );
     }
   });
 

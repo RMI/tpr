@@ -132,17 +132,14 @@ describe("HelpButton", () => {
     expect(screen.queryByRole("link", { name: /Read more/ })).toBeNull();
   });
 
-  it("puts the active Detail tab's questions first", async () => {
+  it("puts the active Detail tab's questions last", async () => {
     const user = userEvent.setup();
     renderAt("/pathway/abc?tab=scope");
     await user.click(helpButton());
     const groupHeadings = screen
       .getAllByRole("heading", { level: 3 })
       .map((h) => h.textContent);
-    expect(groupHeadings).toEqual([
-      "Scope & Granularity",
-      "Header and selectors",
-    ]);
+    expect(groupHeadings).toEqual(["Pathway detail", "Scope & Granularity"]);
   });
 
   it("links to the general docs and closes when a link is followed", async () => {
