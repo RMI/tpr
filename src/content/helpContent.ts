@@ -147,7 +147,7 @@ const DETAIL_PAGE: HelpGroup = {
   topics: [
     {
       id: "what-detail-shows",
-      question: "What does the Detail View show me?",
+      question: "What does the Detail Page show me?",
       answer:
         "This page shows detailed information on one pathway, organized in tabs: its narrative (At a glance), its assumptions and dependencies (Assumptions & Dependencies), its outputs (Timeseries) and its coverage (Scope & Granularity). Some of what you see depends on the sector and geography selected at the top. They start from the filters you set on the pathway list, so changing them may change the content.",
       readMore: { label: "Methodology", to: "/resources/methodology" },

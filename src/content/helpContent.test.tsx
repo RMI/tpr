@@ -65,7 +65,7 @@ describe("getHelpGroups", () => {
   it("opens the Detail view with what the page shows, on every tab", () => {
     for (const tab of [null, ...DETAIL_TABS.map((t) => t.id)]) {
       const first = getHelpGroups("/pathway/x", tab)![0].topics[0];
-      expect(first.question).toBe("What does the Detail View show me?");
+      expect(first.question).toBe("What does the Detail Page show me?");
     }
   });
 
