@@ -247,7 +247,7 @@ const COMPARISON_VIEW: HelpGroup[] = [
         id: "plot-controls",
         question: "What do Plot type and Freeze plots do?",
         answer:
-          "Plot type picks the metric every pathway's plot shows, such as emissions intensity, capacity or technology mix, so you always compare like with like. Freeze plots pins the plots below the header while you scroll, so you can keep them in view next to the assumptions, dependencies and coverage further down. The setting is kept while this browser tab is open.",
+          "Plot type picks the metric every pathway's plot shows, such as emissions intensity, capacity or technology mix, so you always compare like with like. Freeze plots pins the plots below the header while you scroll, so you can keep them in view next to the assumptions, dependencies and coverage further down.",
       },
     ],
   },
