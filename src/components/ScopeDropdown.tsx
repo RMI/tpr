@@ -18,10 +18,8 @@ import {
   type RibbonOption,
 } from "../utils/scopeRibbon";
 import {
-  ACTIVE_CLASS,
   CLICKABLE_CLASS,
   FOCUS_CLASS,
-  IDLE_CLASS,
   InfoTooltipBody,
   LevelIcon,
   OptionInfo,
@@ -29,6 +27,8 @@ import {
   iconPx,
   labelClass,
   optionHasInfo,
+  showsLevelIcon,
+  stateClass,
   useTruncated,
   type ControlSize,
   type RibbonLevel,
@@ -46,8 +46,8 @@ interface ScopeDropdownProps {
   onSelect: (token: string) => void;
   geography: Geography | null | undefined;
   /**
-   * "compact" in the comparison header (comparison-ribbon-spec §3). Only the
-   * trigger shrinks; the open panel is the same at both sizes.
+   * The trigger's size and look (see `ControlSize`). Only the trigger changes;
+   * the open panel is the same at every size.
    */
   size?: ControlSize;
 }
@@ -241,14 +241,16 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   // has no information tooltip (which leads with the name), its name gets one
   // of its own, shown only while it is cut off.
   const showsName =
-    size === "compact" && selected !== null && !showsInfo && label.truncated;
+    size !== "default" && selected !== null && !showsInfo && label.truncated;
 
   const triggerContent = (
     <>
-      <LevelIcon
-        level={level}
-        size={size}
-      />
+      {showsLevelIcon(size) && (
+        <LevelIcon
+          level={level}
+          size={size}
+        />
+      )}
       <span
         ref={label.ref}
         className={`${labelClass(size)} ${selected ? "" : "text-rmigray-500 font-normal"}`}
@@ -262,7 +264,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
       />
     </>
   );
-  const triggerClass = `${controlClass(size)} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  const triggerClass = `${controlClass(size)} ${CLICKABLE_CLASS} ${stateClass(size, selected !== null)} ${FOCUS_CLASS}`;
   const triggerLabel = `${name}: ${selected?.label ?? "not selected"}`;
   const triggerAttrs = {
     "onClick": toggle,
@@ -325,7 +327,11 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
 
   return (
     <div
-      className={`relative inline-block ${size === "compact" ? "max-w-full min-w-0" : ""}`}
+      className={
+        size === "value"
+          ? "relative block w-full min-w-0"
+          : `relative inline-block ${size === "default" ? "" : "max-w-full min-w-0"}`
+      }
     >
       {/*
         Always the same component, whatever the selection: only the tooltip

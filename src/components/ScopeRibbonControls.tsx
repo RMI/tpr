@@ -34,24 +34,56 @@ export const CONTROL_CLASS =
 export const COMPACT_CONTROL_CLASS =
   "inline-flex items-center gap-1 h-7 px-2 rounded-md border text-xs max-w-full min-w-0";
 
-/** "default" on the detail page; "compact" in the comparison header. */
-export type ControlSize = "default" | "compact";
+/**
+ * The size and look of a ribbon control:
+ *
+ * - "default": the detail page's ribbon.
+ * - "compact": one step smaller, for a header with several columns.
+ * - "segment": the comparison header's Sector control, styled as the level
+ *   switch's selected segment, so the header reads as one family: h-6, a thin
+ *   bluespruce border and no ring (comparison-option-b-spec §2.1, B4).
+ * - "value": the comparison header's value line under the level switch. h-6,
+ *   the column's full width, a neutral border and no ring even while it holds
+ *   the selection, and no level icon, which the switch already shows (§2.3,
+ *   B3).
+ */
+export type ControlSize = "default" | "compact" | "segment" | "value";
+
+const SEGMENT_CONTROL_CLASS =
+  "inline-flex items-center gap-1 h-6 px-1.5 rounded border text-xs max-w-full min-w-0";
+// `flex!`: TextWithTooltip's trigger carries `inline-block`, which otherwise
+// wins (Tailwind orders the two by its stylesheet, not by the class string)
+// and centres the label with the chevron pushed out of line. Measured.
+const VALUE_CONTROL_CLASS =
+  "flex! w-full items-center gap-1 h-6 px-2 rounded-md border text-xs min-w-0";
 
 export const controlClass = (size: ControlSize): string =>
-  size === "compact" ? COMPACT_CONTROL_CLASS : CONTROL_CLASS;
+  ({
+    default: CONTROL_CLASS,
+    compact: COMPACT_CONTROL_CLASS,
+    segment: SEGMENT_CONTROL_CLASS,
+    value: VALUE_CONTROL_CLASS,
+  })[size];
 
 /** Level icon and chevron size, in px. */
 export const iconPx = (size: ControlSize): number =>
-  size === "compact" ? 12 : 14;
+  size === "default" ? 14 : 12;
+
+/** Whether the control shows its level icon. */
+export const showsLevelIcon = (size: ControlSize): boolean => size !== "value";
 
 /**
  * The visible label's cap. A longer name truncates; the full name is in the
  * control's tooltip. `min-w-0` lets it give way further in a narrow column.
+ * The value line has no cap: it fills the column and truncates at its edge.
  */
 export const labelClass = (size: ControlSize): string =>
-  size === "compact"
-    ? "truncate min-w-0 max-w-[7.5rem]"
-    : "truncate max-w-[11rem]";
+  ({
+    default: "truncate max-w-[11rem]",
+    compact: "truncate min-w-0 max-w-[7.5rem]",
+    segment: "truncate min-w-0 max-w-[7.5rem]",
+    value: "truncate min-w-0 flex-1 text-left",
+  })[size];
 
 /**
  * Whether an element's text is cut off, measured when the reader points at or
@@ -81,6 +113,19 @@ export const ACTIVE_CLASS =
 /** A usable control that does not hold the selection. */
 export const IDLE_CLASS =
   "border-neutral-300 text-rmigray-600 bg-white hover:border-neutral-400";
+
+/**
+ * The border, text and background for a control, by whether it holds the
+ * selection. The two comparison looks drop the ring: a segment-look control is
+ * always the selection, and the value line shows its selection by its text.
+ */
+export const stateClass = (size: ControlSize, selected: boolean): string => {
+  if (size === "segment")
+    return "border-bluespruce text-bluespruce font-semibold bg-white";
+  if (size === "value")
+    return "border-neutral-300 hover:border-neutral-400 text-bluespruce font-semibold bg-white";
+  return selected ? ACTIVE_CLASS : IDLE_CLASS;
+};
 
 /** As IDLE, without the hover change: an inactive slot should not invite a click. */
 const IDLE_STATIC_CLASS = "border-neutral-300 text-rmigray-600 bg-white";
@@ -236,7 +281,7 @@ export const ChoiceButton: React.FC<{
   geography: Geography | null | undefined;
   size?: ControlSize;
 }> = ({ level, option, selected, onSelect, geography, size = "default" }) => {
-  const className = `${controlClass(size)} ${CLICKABLE_CLASS} ${selected ? ACTIVE_CLASS : IDLE_CLASS} ${FOCUS_CLASS}`;
+  const className = `${controlClass(size)} ${CLICKABLE_CLASS} ${stateClass(size, selected)} ${FOCUS_CLASS}`;
   const label = useTruncated<HTMLSpanElement>();
   const content = (
     <>
@@ -325,7 +370,7 @@ export const ReadOnlySector: React.FC<{
 }> = ({ option, size = "default" }) => (
   <TextWithTooltip
     position="bottom"
-    className={`${controlClass(size)} ${ACTIVE_CLASS} ${FOCUS_CLASS}`}
+    className={`${controlClass(size)} ${stateClass(size, true)} ${FOCUS_CLASS}`}
     text={
       <>
         <LevelIcon
@@ -350,6 +395,57 @@ export const ReadOnlySector: React.FC<{
     }
   />
 );
+
+/**
+ * A level's only option, on the comparison header's value line (Option B
+ * spec §2.3). Choosing the level already selected it, so this is a fact rather
+ * than a control: not a button, which would be a pressed toggle that does
+ * nothing. It is still focusable, so its tooltip can be reached from the
+ * keyboard: a region's members or a country's member codes, or the full name
+ * while the name is cut off.
+ */
+export const ReadOnlyValue: React.FC<{
+  level: GeographyLevel;
+  option: RibbonOption;
+  geography: Geography | null | undefined;
+}> = ({ level, option, geography }) => {
+  const label = useTruncated<HTMLSpanElement>();
+  const hasInfo = optionHasInfo(level, option.token, geography);
+  const tooltip = hasInfo ? (
+    <InfoTooltipBody name={option.label}>
+      <OptionInfo
+        level={level}
+        token={option.token}
+        geography={geography}
+        capped
+      />
+    </InfoTooltipBody>
+  ) : (
+    option.label
+  );
+  return (
+    <span
+      className="block w-full min-w-0"
+      onMouseEnter={label.measure}
+      onFocus={label.measure}
+    >
+      <TextWithTooltip
+        position="bottom"
+        className={`${controlClass("value")} ${stateClass("value", true)} ${FOCUS_CLASS}`}
+        tooltip={tooltip}
+        suppressed={!hasInfo && !label.truncated}
+        text={
+          <span
+            ref={label.ref}
+            className={labelClass("value")}
+          >
+            {option.label}
+          </span>
+        }
+      />
+    </span>
+  );
+};
 
 /** The word between geography slots: the three are one choice (spec §4.6). */
 export const OrSeparator: React.FC = () => (

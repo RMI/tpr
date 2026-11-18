@@ -137,12 +137,12 @@ describe("ComparisonScopeHeader", () => {
   });
 
   /*
-   * The detail ribbon's controls at their compact size (comparison-ribbon-spec,
-   * Sebastian 2026-11-18): one shared Sector control, and Global or Region or
-   * Country for each column.
+   * Option B (comparison-option-b-spec, Sebastian 2026-11-18): one shared
+   * Sector control styled as the switch's selected segment, and for each
+   * column a level switch, then one value line.
    */
   describe("sector", () => {
-    it("is one shared control, at the compact size", () => {
+    it("is one shared control, styled as the switch's selected segment (B4)", () => {
       renderHeader();
 
       // Sector is a closed vocabulary with a shared intersection, unlike
@@ -151,7 +151,9 @@ describe("ComparisonScopeHeader", () => {
         1,
       );
       expect(sectorTrigger()).toHaveAccessibleName("Sector: Power");
-      expect(sectorTrigger().className).toContain("h-7");
+      expect(sectorTrigger().className).toContain("h-6");
+      expect(sectorTrigger().className).toContain("border-bluespruce");
+      expect(sectorTrigger().className).not.toContain("ring-1");
       expect(
         within(screen.getByRole("group", { name: "Sector" })).getByRole(
           "button",
@@ -242,55 +244,61 @@ describe("ComparisonScopeHeader", () => {
       ).toHaveLength(2);
     });
 
-    it("offers Global or Region or Country in each column, at the compact size", () => {
+    it("gives each column a level switch, then one value line", () => {
       renderHeader();
 
       const ieaColumn = column("IEA: APS (2024)");
-      expect(within(ieaColumn).getAllByText("or")).toHaveLength(2);
-      const global = within(ieaColumn).getByRole("button", { name: /Global/ });
-      expect(global.className).toContain("h-7");
+      const levels = within(ieaColumn).getByRole("radiogroup", {
+        name: "Geography level for IEA: APS (2024)",
+      });
       expect(
-        within(ieaColumn).getByRole("button", { name: /Southeast Asia/ }),
-      ).toBeInTheDocument();
+        within(levels)
+          .getAllByRole("radio")
+          .map((r) => r.getAttribute("aria-label")),
+      ).toEqual(["Global", "Region", "Country"]);
       expect(
-        within(ieaColumn).getByRole("button", {
-          name: /United States of America/,
-        }),
-      ).toBeInTheDocument();
+        within(levels).getByRole("radio", { name: "Region" }),
+      ).toHaveAttribute("aria-checked", "true");
+      // One option at Region: shown as a value, not a control (§2.3).
+      expect(ieaColumn).toHaveTextContent("Southeast Asia");
+      expect(
+        within(ieaColumn).queryByRole("button", { name: /Southeast Asia/ }),
+      ).toBeNull();
     });
 
     it("shows each column's own current geography", () => {
       renderHeader();
 
-      expect(
-        within(column("IEA: APS (2024)")).getByRole("button", {
-          name: /Southeast Asia/,
-        }),
-      ).toHaveAttribute("aria-pressed", "true");
-      expect(
-        within(column("ACE: ATS (2024)")).getByRole("button", {
-          name: /South East Asia/,
-        }),
-      ).toHaveAttribute("aria-pressed", "true");
+      for (const [name, value] of [
+        ["IEA: APS (2024)", "Southeast Asia"],
+        ["ACE: ATS (2024)", "South East Asia"],
+      ]) {
+        const col = column(name);
+        expect(
+          within(col).getByRole("radio", { name: "Region" }),
+        ).toHaveAttribute("aria-checked", "true");
+        expect(col).toHaveTextContent(value);
+      }
     });
 
-    it("offers only the geographies that column's publisher declares", () => {
+    it("greys a level the column lacks, never hiding it (D5)", () => {
       renderHeader();
 
       const aceColumn = column("ACE: ATS (2024)");
+      for (const level of ["Global", "Country"]) {
+        expect(
+          within(aceColumn).getByRole("radio", { name: level }),
+        ).toHaveAttribute("aria-disabled", "true");
+      }
       // IEA's spelling belongs to IEA's column.
       expect(aceColumn).not.toHaveTextContent("Southeast Asia");
-      // ACE declares no Global: greyed, never hidden (D5).
-      expect(
-        within(aceColumn).getByRole("button", { name: /Global/ }),
-      ).toHaveAttribute("aria-disabled", "true");
     });
 
     it("changes only the column that was used", async () => {
       const { onGeographyChange, user } = renderHeader();
       await user.click(
-        within(column("IEA: APS (2024)")).getByRole("button", {
-          name: /Global/,
+        within(column("IEA: APS (2024)")).getByRole("radio", {
+          name: "Global",
         }),
       );
 
@@ -298,18 +306,44 @@ describe("ComparisonScopeHeader", () => {
       expect(onGeographyChange).toHaveBeenCalledWith(iea.id, "Global");
     });
 
-    it("ignores re-picking a column's current geography", async () => {
+    it("selects a level's only option by choosing the level (§2.4)", async () => {
       const { onGeographyChange, user } = renderHeader();
       await user.click(
-        within(column("IEA: APS (2024)")).getByRole("button", {
-          name: /Southeast Asia/,
+        within(column("IEA: APS (2024)")).getByRole("radio", {
+          name: "Country",
+        }),
+      );
+
+      expect(onGeographyChange).toHaveBeenCalledWith(iea.id, "US");
+    });
+
+    it("ignores choosing the current level", async () => {
+      const { onGeographyChange, user } = renderHeader();
+      await user.click(
+        within(column("IEA: APS (2024)")).getByRole("radio", {
+          name: "Region",
         }),
       );
 
       expect(onGeographyChange).not.toHaveBeenCalled();
     });
 
-    it("lists a column's several regions in a dropdown, labelled plainly", async () => {
+    it("leaves the value line empty under Global", () => {
+      renderHeader({
+        selectedGeographies: {
+          [iea.id]: "Global",
+          [ace.id]: "South East Asia",
+        },
+      });
+
+      const ieaColumn = column("IEA: APS (2024)");
+      expect(
+        within(ieaColumn).getByRole("radio", { name: "Global" }),
+      ).toHaveAttribute("aria-checked", "true");
+      expect(ieaColumn).not.toHaveTextContent("Southeast Asia");
+    });
+
+    it("lists a level's several options in one full-width dropdown, labelled plainly", async () => {
       // The column carries the provenance, so "(IEA)" would be pure noise.
       const { onGeographyChange, user } = renderHeader({
         pathways: [wide, ace],
@@ -319,11 +353,15 @@ describe("ComparisonScopeHeader", () => {
         },
         available: ["Global", "Africa", "Southeast Asia", "South East Asia"],
       });
-      await user.click(
-        within(column("IEA: STEPS (2024)")).getByRole("button", {
-          name: "Region: Southeast Asia",
-        }),
-      );
+      const trigger = within(column("IEA: STEPS (2024)")).getByRole("button", {
+        name: "Region: Southeast Asia",
+      });
+      // The value-line look: full width, no ring, no level icon (B3).
+      expect(trigger.className).toContain("w-full");
+      expect(trigger.className).toContain("h-6");
+      expect(trigger.className).not.toContain("ring-1");
+      expect(trigger.querySelectorAll("svg")).toHaveLength(1); // chevron only
+      await user.click(trigger);
 
       const names = screen
         .getAllByRole("option")
@@ -335,7 +373,7 @@ describe("ComparisonScopeHeader", () => {
       expect(onGeographyChange).toHaveBeenCalledWith(wide.id, "Africa");
     });
 
-    it("greys every slot for a pathway with no geography", () => {
+    it("greys every level for a pathway with no geography", () => {
       const bare = {
         ...ace,
         id: "bare",
@@ -348,27 +386,26 @@ describe("ComparisonScopeHeader", () => {
         selectedGeographies: { [iea.id]: "Global", bare: null },
       });
 
-      const slots = within(column("ACE: BARE (2024)")).getAllByRole("button");
-      expect(slots).toHaveLength(3);
-      for (const slot of slots) {
-        expect(slot).toHaveAttribute("aria-disabled", "true");
+      const levels = within(column("ACE: BARE (2024)")).getAllByRole("radio");
+      expect(levels).toHaveLength(3);
+      for (const level of levels) {
+        expect(level).toHaveAttribute("aria-disabled", "true");
+        expect(level).toHaveAttribute("aria-checked", "false");
       }
     });
   });
 
   describe("availability", () => {
-    it("greys the geographies this tool can't show, rather than hiding them (D2)", async () => {
+    it("greys the levels this tool can't show, rather than hiding them (D2)", async () => {
       const { onGeographyChange, user } = renderHeader({
         available: ["Southeast Asia", "South East Asia"],
       });
 
       const ieaColumn = column("IEA: APS (2024)");
-      const global = within(ieaColumn).getByRole("button", { name: /Global/ });
+      const global = within(ieaColumn).getByRole("radio", { name: "Global" });
       expect(global).toHaveAttribute("aria-disabled", "true");
       expect(
-        within(ieaColumn).getByRole("button", {
-          name: /United States of America/,
-        }),
+        within(ieaColumn).getByRole("radio", { name: "Country" }),
       ).toHaveAttribute("aria-disabled", "true");
 
       await user.click(global);
@@ -491,14 +528,71 @@ describe("ComparisonScopeHeader", () => {
       expect(column("ACE: NZE (2024)")).toBeInTheDocument();
     });
   });
+  describe("level names (V13)", () => {
+    /*
+     * The switch shows names when the widest switch that can appear fits the
+     * column. jsdom has no layout, so widths are simulated: each measuring
+     * copy 212px, a column `columnWidth`. ResizeObserver is stubbed so the
+     * measure runs at all; it reads the widths once on mount.
+     */
+    class NoopResizeObserver {
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    }
+    const withWidths = (columnWidth: number, copyWidths = [212, 212, 213]) => {
+      vi.stubGlobal("ResizeObserver", NoopResizeObserver);
+      let copy = 0;
+      return vi
+        .spyOn(Element.prototype, "getBoundingClientRect")
+        .mockImplementation(function (this: Element) {
+          if (this.hasAttribute("data-switch-copy")) {
+            return new DOMRect(0, 0, copyWidths[copy++ % 3], 28);
+          }
+          if (this.getAttribute("aria-label")?.startsWith("Geography for")) {
+            return new DOMRect(0, 0, columnWidth, 56);
+          }
+          return new DOMRect();
+        });
+    };
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+      vi.unstubAllGlobals();
+    });
+
+    const levelText = () =>
+      screen.getAllByRole("radiogroup").map((g) => g.textContent);
+
+    it("shows names when the widest switch fits the column", () => {
+      withWidths(213);
+      renderHeader();
+      expect(levelText()).toEqual([
+        "GlobalRegionCountry",
+        "GlobalRegionCountry",
+      ]);
+    });
+
+    it("shows icons only when it doesn't, measuring the widest real switch", () => {
+      // 212px fits Global or Region selected, but Country selected is 213px.
+      withWidths(212);
+      renderHeader();
+      expect(levelText()).toEqual(["", ""]);
+    });
+  });
+
   describe("height reporting", () => {
-    /** Drives the bar's observed height; jsdom has no layout of its own. */
+    /**
+     * Drives the bar's observed height; jsdom has no layout of its own. The
+     * header has two observers, the bar's height and the level switch's fit,
+     * so this drives the one watching the sticky bar.
+     */
     let observed: ResizeObserverCallback | null = null;
     class StubResizeObserver {
-      constructor(callback: ResizeObserverCallback) {
-        observed = callback;
+      constructor(private callback: ResizeObserverCallback) {}
+      observe(target: Element) {
+        if (target.classList.contains("sticky")) observed = this.callback;
       }
-      observe() {}
       unobserve() {}
       disconnect() {}
     }

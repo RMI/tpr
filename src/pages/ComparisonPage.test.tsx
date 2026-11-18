@@ -349,21 +349,24 @@ const columnGroup = (name: string) =>
   screen.getByRole("group", { name: `Geography for ${name}` });
 
 /**
- * What one column has selected: the pressed one-option button, or the label on
- * the dropdown trigger that holds the selection ("Country: Germany").
+ * What one column has selected (Option B): "Global" when that level is chosen,
+ * otherwise the value line's selection, a dropdown ("Country: Germany") or a
+ * level's only option shown as a value.
  */
 const columnShows = (name: string): string | null => {
-  const buttons = within(columnGroup(name)).getAllByRole("button");
-  const pressed = buttons.find(
-    (b) => b.getAttribute("aria-pressed") === "true",
+  const levels = within(columnGroup(name)).getByRole("radiogroup");
+  const level = within(levels)
+    .getAllByRole("radio")
+    .find((r) => r.getAttribute("aria-checked") === "true")
+    ?.getAttribute("aria-label");
+  if (!level) return null;
+  if (level === "Global") return "Global";
+  const line = levels.nextElementSibling as HTMLElement;
+  const trigger = line.querySelector("[aria-haspopup]");
+  const match = /^(?:Region|Country): (.+)$/.exec(
+    trigger?.getAttribute("aria-label") ?? "",
   );
-  if (pressed) return pressed.textContent?.trim() ?? null;
-  for (const b of buttons) {
-    const label = b.getAttribute("aria-label") ?? "";
-    const match = /^(?:Region|Country): (.+)$/.exec(label);
-    if (match && match[1] !== "not selected") return match[1];
-  }
-  return null;
+  return match ? match[1] : line.textContent?.trim() || null;
 };
 
 /** Pick a sector from the shared Sector dropdown. */
@@ -514,8 +517,8 @@ describe("ComparisonPage — shared scope", () => {
 
     const user = userEvent.setup();
     await user.click(
-      within(columnGroup("PubA: A (2024)")).getByRole("button", {
-        name: /Europe/,
+      within(columnGroup("PubA: A (2024)")).getByRole("radio", {
+        name: "Region",
       }),
     );
 

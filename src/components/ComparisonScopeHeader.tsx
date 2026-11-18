@@ -1,25 +1,22 @@
-import React, { useEffect, useId, useRef } from "react";
+import React, { useEffect, useId, useRef, useState } from "react";
 import type { PathwayMetadataType } from "../types";
 import { EMPTY_AXIS_CLASS, LABEL_CLASS } from "./ScopeAxisRow";
 import GeographyDivergenceNotice from "./GeographyDivergenceNotice";
 import { useCondensedOnScroll } from "./PathwayContextRibbon";
 import ScopeDropdown from "./ScopeDropdown";
-import {
-  ChoiceButton,
-  InactiveSlot,
-  OrSeparator,
-  ReadOnlySector,
-} from "./ScopeRibbonControls";
+import { ReadOnlySector } from "./ScopeRibbonControls";
+import ColumnGeographyControl, {
+  SEGMENT_CLASS,
+  SEGMENT_SELECTED_CLASS,
+  SWITCH_TRACK_CLASS,
+  SegmentFace,
+} from "./ColumnGeographyControl";
 import type {
   ColumnGeographyDivergence,
   ColumnGeographyOption,
 } from "../utils/comparisonScope";
-import { normalizeGeography } from "../utils/geographyUtils";
-import type { ScopeAvailability } from "../utils/scopeAvailability";
 import {
   GEOGRAPHY_LEVELS,
-  geographyLevels,
-  geographyOptions as ribbonGeographyOptions,
   sectorOptions as ribbonSectorOptions,
   slotState,
 } from "../utils/scopeRibbon";
@@ -139,6 +136,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
     if (next !== selectedSector) onSectorChange(next);
   };
   const columns = `repeat(${pathways.length}, minmax(0, 1fr))`;
+  const [showNames, gridRef, measureRef] = useSwitchNamesFit();
 
   return (
     <>
@@ -191,7 +189,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
         </div>
 
         <div className="bg-white/95 backdrop-blur border-b border-neutral-200">
-          <div className="px-6 pt-2 flex items-center gap-2 min-w-0">
+          <div className="px-6 pt-2 flex h-9 items-center gap-2 min-w-0">
             <span
               id={`${baseId}-sector`}
               className={LABEL_CLASS}
@@ -215,7 +213,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
                 {sectorSlot.kind === "single" ? (
                   <ReadOnlySector
                     option={sectorSlot.option}
-                    size="compact"
+                    size="segment"
                   />
                 ) : (
                   <ScopeDropdown
@@ -225,7 +223,7 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
                     selectedToken={selectedSector}
                     onSelect={selectSector}
                     geography={null}
-                    size="compact"
+                    size="segment"
                   />
                 )}
               </div>
@@ -245,20 +243,23 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
             >
               Geography
             </span>
+            <SwitchMeasure ref={measureRef} />
             <div
+              ref={gridRef}
               role="group"
               aria-labelledby={`${baseId}-geography`}
               className="grid gap-x-6"
               style={{ gridTemplateColumns: columns }}
             >
               {pathways.map((pathway) => (
-                <ColumnGeographySlots
+                <ColumnGeographyControl
                   key={pathway.id}
-                  pathway={pathway}
-                  name={`Geography for ${columnLabel(pathway)} (${pathway.publication.year})`}
+                  name={`${columnLabel(pathway)} (${pathway.publication.year})`}
+                  geography={pathway.geography}
                   options={geographyOptions[pathway.id] ?? []}
                   selected={selectedGeographies[pathway.id] ?? null}
                   onSelect={(token) => onGeographyChange(pathway.id, token)}
+                  showNames={showNames}
                 />
               ))}
             </div>
@@ -271,79 +272,98 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
 };
 
 /**
- * One column's Global or Region or Country slots, as on the detail ribbon, at
- * the compact size.
+ * Whether the level switch can show its names in every column: names whenever
+ * the whole switch fits, icons only when it does not (Sebastian, 2026-11-18;
+ * spec V13).
  *
- * What a slot can select comes from the column's own options, the same flags
- * that validate the URL, so the controls and the URL cannot disagree. Looked
- * up by the normalised token, since `columnGeographyOptions` normalises its
- * tokens and `geographyLevels` reads the raw keys; no pathway differs today.
+ * Measured rather than a fixed breakpoint: a 3-column tablet column is 213px
+ * and the switch with names about 212px, a margin of 1px that a fixed rule
+ * would lose to font rendering. The switch is the same in every column, so
+ * one hidden measure serves them all. Its width depends on which level is
+ * selected (that segment is semibold), so the measure holds the three switches
+ * that can appear and takes the widest. Measuring all three segments in bold
+ * would be wider than any real switch, and lose names that fit.
+ *
+ * jsdom has no ResizeObserver and no layout, so there it shows names.
  */
-const ColumnGeographySlots: React.FC<{
-  pathway: PathwayMetadataType;
-  name: string;
-  options: readonly ColumnGeographyOption[];
-  selected: string | null;
-  onSelect: (token: string) => void;
-}> = ({ pathway, name, options, selected, onSelect }) => {
-  const available = new Set(
-    options.filter((o) => o.available).map((o) => o.token),
-  );
-  const availability: ScopeAvailability = {
-    hasSector: () => true,
-    hasGeography: (token) => available.has(normalizeGeography(token)),
-  };
-  const levels = geographyLevels(pathway.geography);
-  const pick = (token: string) => {
-    if (token !== selected) onSelect(token);
-  };
+function useSwitchNamesFit(): [
+  boolean,
+  React.RefObject<HTMLDivElement | null>,
+  React.RefObject<HTMLDivElement | null>,
+] {
+  const gridRef = useRef<HTMLDivElement | null>(null);
+  const measureRef = useRef<HTMLDivElement | null>(null);
+  const [fits, setFits] = useState(true);
 
-  return (
-    <div
-      role="group"
-      aria-label={name}
-      className="flex min-w-0 flex-wrap items-center gap-x-0.5 gap-y-1"
-    >
-      {GEOGRAPHY_LEVELS.map((level, index) => {
-        const state = slotState(
-          level,
-          ribbonGeographyOptions(levels[level], availability),
-        );
-        return (
-          <React.Fragment key={level}>
-            {index > 0 && <OrSeparator />}
-            {state.kind === "inactive" ? (
-              <InactiveSlot
+  useEffect(() => {
+    const grid = gridRef.current;
+    const measure = measureRef.current;
+    if (!grid || !measure || typeof ResizeObserver === "undefined") return;
+
+    const check = () => {
+      const column = grid.firstElementChild;
+      if (!column) return;
+      const columnWidth = column.getBoundingClientRect().width;
+      const switchWidth = Math.max(
+        ...Array.from(
+          measure.querySelectorAll<HTMLElement>("[data-switch-copy]"),
+          (copy) => copy.getBoundingClientRect().width,
+        ),
+      );
+      if (columnWidth > 0 && switchWidth > 0) {
+        setFits(switchWidth <= columnWidth);
+      }
+    };
+    // Both: the column for resizes, the copies for late-loading fonts.
+    const observer = new ResizeObserver(check);
+    observer.observe(grid);
+    measure
+      .querySelectorAll("[data-switch-copy]")
+      .forEach((copy) => observer.observe(copy));
+    check();
+
+    return () => observer.disconnect();
+  }, []);
+
+  return [fits, gridRef, measureRef];
+}
+
+/**
+ * The hidden measure: the three switches that can appear, with names, one per
+ * selected level. In a zero-size clipped box, so it never widens the page (a
+ * bare absolutely positioned copy gave 90px of sideways scroll at 375px in
+ * the prototype). Spans rather than buttons, so nothing in it is focusable.
+ */
+const SwitchMeasure: React.FC<{
+  ref: React.Ref<HTMLDivElement>;
+}> = ({ ref }) => (
+  <div
+    ref={ref}
+    aria-hidden="true"
+    className="h-0 w-0 overflow-hidden"
+  >
+    <div className="flex w-max flex-col items-start">
+      {GEOGRAPHY_LEVELS.map((selected) => (
+        <span
+          key={selected}
+          data-switch-copy=""
+          className={SWITCH_TRACK_CLASS}
+        >
+          {GEOGRAPHY_LEVELS.map((level) => (
+            <span
+              key={level}
+              className={`${SEGMENT_CLASS} ${level === selected ? SEGMENT_SELECTED_CLASS : ""}`}
+            >
+              <SegmentFace
                 level={level}
-                label={state.label}
-                tooltip={state.tooltip}
-                size="compact"
+                showName
               />
-            ) : state.kind === "single" ? (
-              <ChoiceButton
-                level={level}
-                option={state.option}
-                selected={selected === state.option.token}
-                onSelect={pick}
-                geography={pathway.geography}
-                size="compact"
-              />
-            ) : (
-              <ScopeDropdown
-                level={level}
-                withData={state.withData}
-                withoutData={state.withoutData}
-                selectedToken={selected}
-                onSelect={pick}
-                geography={pathway.geography}
-                size="compact"
-              />
-            )}
-          </React.Fragment>
-        );
-      })}
+            </span>
+          ))}
+        </span>
+      ))}
     </div>
-  );
-};
+  </div>
+);
 
 export default ComparisonScopeHeader;

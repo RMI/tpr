@@ -1721,6 +1721,77 @@
         gap: 4px 2px;
         min-width: 0;
       }
+      /* Option B: the comparison header's level switch and value line. */
+      .sr-ctl.segment {
+        height: 24px;
+        padding: 0 6px;
+        gap: 4px;
+        font-size: 12px;
+        border-radius: 4px;
+        box-shadow: none;
+      }
+      .sr-colgroup.b {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+      .sr-switch {
+        display: inline-flex;
+        align-items: center;
+        height: 28px;
+        padding: 2px;
+        border: 1px solid var(--color-neutral-300);
+        border-radius: 6px;
+        background: var(--color-neutral-50);
+      }
+      .sr-seg {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        height: 24px;
+        padding: 0 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        white-space: nowrap;
+        color: var(--color-rmigray-600);
+      }
+      .sr-seg.on {
+        background: #fff;
+        color: var(--color-bluespruce);
+        font-weight: 600;
+        box-shadow:
+          0 0 0 1px var(--color-bluespruce),
+          0 1px 2px rgb(0 0 0 / 0.05);
+      }
+      .sr-seg.off {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+      .sr-value {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        width: 100%;
+        height: 24px;
+        padding: 0 8px;
+        border: 1px solid var(--color-neutral-300);
+        border-radius: 6px;
+        background: #fff;
+        color: var(--color-bluespruce);
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .sr-value .lbl {
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .sr-value.empty {
+        border-color: transparent;
+        background: transparent;
+      }
       .sr-or {
         font-size: 11px;
         font-style: italic;
@@ -4917,7 +4988,7 @@
                     "
                   >
                     <span class="axis-label">Sector</span>
-                    <span class="sr-ctl compact active"
+                    <span class="sr-ctl segment active"
                       ><svg
                         width="12"
                         height="12"
@@ -4960,162 +5031,68 @@
                       >Geography</span
                     >
                     <div class="sr-cols">
-                      <div class="sr-colgroup">
-                        <span class="sr-ctl compact"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              cx="12"
-                              cy="12"
-                              r="10"
-                            />
-                            <path
-                              d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
-                            />
-                            <path d="M2 12h20" /></svg
-                          ><span class="lbl">Global</span></span
-                        ><span class="sr-or">or</span
-                        ><span class="sr-ctl compact active"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
-                            />
-                            <path d="M15 5.764v15" />
-                            <path d="M9 3.236v15" /></svg
-                          ><span class="lbl">Southeast Asia</span
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="m6 9 6 6 6-6" /></svg></span
-                        ><span class="sr-or">or</span
-                        ><span class="sr-ctl compact"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
-                            /></svg
-                          ><span class="lbl muted">Country</span
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="m6 9 6 6 6-6" /></svg
-                        ></span>
-                      </div>
-                      <div class="sr-colgroup">
-                        <span class="sr-ctl compact"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              cx="12"
-                              cy="12"
-                              r="10"
-                            />
-                            <path
-                              d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
-                            />
-                            <path d="M2 12h20" /></svg
-                          ><span class="lbl">Global</span></span
-                        ><span class="sr-or">or</span
-                        ><span class="sr-ctl compact active"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
-                            />
-                            <path d="M15 5.764v15" />
-                            <path d="M9 3.236v15" /></svg
-                          ><span class="lbl">Southeast Asia</span
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path d="m6 9 6 6 6-6" /></svg></span
-                        ><span class="sr-or">or</span
-                        ><span class="sr-ctl compact"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
-                            /></svg
-                          ><span class="lbl muted">Country</span
+                      <div class="sr-colgroup b">
+                        <span class="sr-switch"
+                          ><span class="sr-seg"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                              />
+                              <path
+                                d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                              />
+                              <path d="M2 12h20" /></svg
+                            >Global</span
+                          ><span class="sr-seg on"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                              />
+                              <path d="M15 5.764v15" />
+                              <path d="M9 3.236v15" /></svg
+                            >Region</span
+                          ><span class="sr-seg"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
+                              /></svg
+                            >Country</span
+                          ></span
+                        ><span class="sr-value"
+                          ><span class="lbl"
+                            >Rest of Commonwealth of Independent States</span
                           ><svg
                             width="12"
                             height="12"
@@ -5130,65 +5107,128 @@
                             <path d="m6 9 6 6 6-6" /></svg
                         ></span>
                       </div>
-                      <div class="sr-colgroup">
-                        <span class="sr-ctl compact inactive"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <circle
-                              cx="12"
-                              cy="12"
-                              r="10"
-                            />
-                            <path
-                              d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
-                            />
-                            <path d="M2 12h20" /></svg
-                          ><span class="lbl">Global</span></span
-                        ><span class="sr-or">or</span
-                        ><span class="sr-ctl compact active"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
-                            />
-                            <path d="M15 5.764v15" />
-                            <path d="M9 3.236v15" /></svg
+                      <div class="sr-colgroup b">
+                        <span class="sr-switch"
+                          ><span class="sr-seg on"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                              />
+                              <path
+                                d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                              />
+                              <path d="M2 12h20" /></svg
+                            >Global</span
+                          ><span class="sr-seg"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                              />
+                              <path d="M15 5.764v15" />
+                              <path d="M9 3.236v15" /></svg
+                            >Region</span
+                          ><span class="sr-seg"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
+                              /></svg
+                            >Country</span
+                          ></span
+                        ><span class="sr-value empty"></span>
+                      </div>
+                      <div class="sr-colgroup b">
+                        <span class="sr-switch"
+                          ><span class="sr-seg off"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                              />
+                              <path
+                                d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"
+                              />
+                              <path d="M2 12h20" /></svg
+                            >Global</span
+                          ><span class="sr-seg on"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+                              />
+                              <path d="M15 5.764v15" />
+                              <path d="M9 3.236v15" /></svg
+                            >Region</span
+                          ><span class="sr-seg off"
+                            ><svg
+                              width="12"
+                              height="12"
+                              viewBox="0 0 24 24"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="2"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              aria-hidden="true"
+                            >
+                              <path
+                                d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
+                              /></svg
+                            >Country</span
+                          ></span
+                        ><span class="sr-value"
                           ><span class="lbl">South East Asia</span></span
-                        ><span class="sr-or">or</span
-                        ><span class="sr-ctl compact inactive"
-                          ><svg
-                            width="12"
-                            height="12"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                          >
-                            <path
-                              d="M4 22V4a1 1 0 0 1 .4-.8A6 6 0 0 1 8 2c3 0 5 2 7.333 2q2 0 3.067-.8A1 1 0 0 1 20 4v10a1 1 0 0 1-.4.8A6 6 0 0 1 16 16c-3 0-5-2-8-2a6 6 0 0 0-4 1.528"
-                            /></svg
-                          ><span class="lbl">Country</span></span
                         >
                       </div>
                     </div>
@@ -5213,22 +5253,32 @@
                     >condensed: h-8 bg-bluespruce text-xs font-semibold</span
                   ><span class="tag">grid-template-columns: repeat(n, 1fr)</span
                   ><span class="tag">gap-x-6</span
-                  ><span class="tag">compact: h-7 px-2 gap-1 text-xs</span
-                  ><span class="tag">icons 12px · label max-w-[7.5rem]</span>
+                  ><span class="tag"
+                    >switch: h-7 track, h-6 segments, text-xs</span
+                  ><span class="tag"
+                    >value line: h-6 w-full, no ring, no icon</span
+                  ><span class="tag"
+                    >sector: h-6 border-bluespruce, no ring</span
+                  ><span class="tag">block: 56px per column</span>
                 </div>
                 <p class="note">
-                  The scope ribbon's controls at their compact size
-                  (<code>size="compact"</code>). One shared Sector control for
-                  all columns. Geography gets Global or Region or Country per
-                  pathway, lined up under its column, because each publisher
-                  names places differently. Every ribbon rule applies: greyed
-                  slots with a tooltip, one option as a button, options that
-                  can't be shown grouped last, search over 8, the preview pane.
-                  A cut-off name is in the control's tooltip. The open list is
-                  the same size as on the detail page. In narrow columns the
-                  slots wrap or stack. With no selectable shared sector, the row
-                  keeps the sentence "These pathways share no sector with
-                  information to compare."
+                  Option B (<code>ColumnGeographyControl</code>). One shared
+                  Sector control, styled as the switch's selected segment
+                  (<code>size="segment"</code>). Each column gets a level
+                  switch, Global | Region | Country, then a value line with ONE
+                  list for the chosen level at the column's full width
+                  (<code>size="value"</code>). A level with one option shows it
+                  as a plain value; under Global the line stays empty, so every
+                  column's block is 56px whatever the level. Switching level
+                  returns to the last value picked there, else the first with
+                  data. The switch is a radiogroup with the tabs' keyboard
+                  model: one tab stop, arrows and Home/End. It shows level names
+                  whenever the widest real switch fits the column (measured),
+                  icons only when it doesn't. Every ribbon rule applies: greyed
+                  levels with a tooltip, options that can't be shown grouped
+                  last, search over 8, the preview pane. With no selectable
+                  shared sector, the row keeps the sentence "These pathways
+                  share no sector with information to compare."
                 </p>
               </div>
             </div>
