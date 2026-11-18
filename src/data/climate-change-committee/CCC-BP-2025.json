@@ -96,7 +96,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Balanced Pathway (BP) is the Climate Change Committee’s normative pathway for the UK to reach net zero greenhouse gas emissions by 2050, covering all sectors including international aviation and shipping. It underpins the CCC’s advice to set the Seventh Carbon Budget (2038–2042) at 535 MtCO2e and is designed to meet the UK’s 2030 and 2035 NDCs and existing carbon budgets. CO2 emissions reach net zero by 2045, and removals then balance residual methane and nitrous oxide by 2050. The CCC states that net zero by 2050 is consistent with IPCC scenarios that limit warming to 1.5°C, but it does not model a global temperature outcome. Electrification drives the pathway: electricity’s share of final energy demand rises from 17% in 2025 to 69% in 2050, while total final energy demand falls by about 40%. Offshore wind grows from 15 GW to 125 GW and solar from 16 GW to 106 GW, supported by 42 GW of grid storage, 28 GW of interconnection and 38 GW of gas CCS and hydrogen plants, with unabated gas phased out by 2050. Lower demand for high-carbon activities, such as managed growth in flying and dietary change, cuts emissions further, and engineered removals offset what remains. The CCC only includes technologies it expects to reach large-scale use before 2050. Investment averages about £26 billion a year (around 0.9% of GDP), peaking in 2029, and the pathway becomes a net cost saving around 2041. In contrast, emissions in the CCC’s Baseline rise to about 16% above 2023 levels by 2050.",
+  "pathwayDescription": "The Climate Change Committee (CCC) is an independent, statutory body established under the Climate Change Act 2008. Its purpose is to advise the UK and devolved governments on emissions targets and to report to Parliament on progress made in reducing greenhouse gas emissions and preparing for and adapting to the impacts of climate change.\nThe Balanced Pathway (BP) is the CCC’s normative pathway for the UK to reach net zero greenhouse gas emissions by 2050, covering UK emissions mapped by energy-related sectors, including international aviation and shipping. It underpins the CCC’s advice to set the Seventh Carbon Budget (2038–2042) at 535 MtCO2e and is designed to meet the UK’s 2030 and 2035 NDCs and existing carbon budgets. CO2 emissions reach net zero by 2045, and removals then balance residual methane and nitrous oxide by 2050. The CCC states that net zero by 2050 is consistent with IPCC scenarios that limit warming to 1.5°C, but it does not model a global temperature outcome. Electrification drives the pathway: electricity’s share of final energy demand rises from 17% in 2025 to 69% in 2050, while total final energy demand falls by about 40%. Offshore wind grows from 15 GW to 125 GW and solar from 16 GW to 106 GW, supported by 42 GW of grid storage, 28 GW of interconnection and 38 GW of gas CCS and hydrogen plants, with unabated gas phased out by 2050. Lower demand for high-carbon activities, such as managed growth in flying and dietary change, cuts emissions further, and engineered removals offset what remains. The CCC only includes technologies it expects to reach large-scale use before 2050. Investment averages about £26 billion a year (around 0.9% of GDP), peaking in 2029, and the pathway becomes a net cost saving around 2041. In contrast, emissions in the CCC’s Baseline rise to about 16% above 2023 levels by 2050.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -336,37 +336,37 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Moderate: Consumers must voluntarily offer flexibility: smart demand flexibility grows from 7 GW (2023) to 33 GW (2050) and time-shifted demand to 32 TWh, through EV charging and heat pump operation. This lowers generation and storage needs; less participation would raise system costs.",
+      "dependency_description": "Consumers must voluntarily offer flexibility: smart demand flexibility grows from 7 GW (2023) to 33 GW (2050) and time-shifted demand to 32 TWh, through EV charging and heat pump operation. This lowers generation and storage needs; less participation would raise system costs.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Critical: A decarbonised system relies on networks and flexibility: average transmission boundary capability rises from 5.5 GW to 20.3 GW, interconnection from 10 GW to 28 GW and grid storage from 6 GW to 42 GW by 2050. Low-carbon dispatchable plant needs CCS and hydrogen pipelines and storage. The system is tested hourly against a 1-in-20 weather year.",
+      "dependency_description": "A decarbonised system relies on networks and flexibility: average transmission boundary capability rises from 5.5 GW to 20.3 GW, interconnection from 10 GW to 28 GW and grid storage from 6 GW to 42 GW by 2050. Low-carbon dispatchable plant needs CCS and hydrogen pipelines and storage. The system is tested hourly against a 1-in-20 weather year.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "High: Firm low-carbon supply relies on technologies not yet at scale: gas CCS and hydrogen turbines (0 to 38 GW by 2050), BECCS power, and medium-duration storage such as compressed/liquid air and flow batteries (7 GW). Battery storage grows tenfold. Technologies below TRL 6 are excluded.",
+      "dependency_description": "Firm low-carbon supply relies on technologies not yet at scale: gas CCS and hydrogen turbines (0 to 38 GW by 2050), BECCS power, and medium-duration storage such as compressed/liquid air and flow batteries (7 GW). Battery storage grows tenfold. Technologies below TRL 6 are excluded.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Moderate: Renewable build needs seabed and land: 81 GW of seabed has been leased, while 2050 solar and onshore wind need about 1% and 2% of UK land. BECCS depends on limited sustainable biomass, with less reliance on imports than in earlier advice.",
+      "dependency_description": "Renewable build needs seabed and land: 81 GW of seabed has been leased, while 2050 solar and onshore wind need about 1% and 2% of UK land. BECCS depends on limited sustainable biomass, with less reliance on imports than in earlier advice.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "Moderate: A weather-dependent system must stay secure through low-wind years and wind droughts, so it is sized to a 1-in-20 adverse weather year. Generation and network assets must be resilient to flooding, storms, extreme heat and reduced water availability, and the CCC asks that resilience be designed in from the outset.",
+      "dependency_description": "A weather-dependent system must stay secure through low-wind years and wind droughts, so it is sized to a 1-in-20 adverse weather year. Generation and network assets must be resilient to flooding, storms, extreme heat and reduced water availability, and the CCC asks that resilience be designed in from the outset.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "Moderate: A skilled workforce and supply chain are needed to sustain the renewables pipeline (Table 2.1). Renewables and nuclear could create over 50,000 direct jobs by 2030; no binding shortage is quantified.",
+      "dependency_description": "A skilled workforce and supply chain are needed to sustain the renewables pipeline (Table 2.1). Renewables and nuclear could create over 50,000 direct jobs by 2030; no binding shortage is quantified.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -396,31 +396,31 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "High: Demand growth is held to 28% above 2025 passenger numbers by 2050 (402 million), versus 53% per-capita growth by 2040 in the Baseline. This depends on passengers responding to higher prices, with business flight demand growing more slowly and some modal shift to rail.",
+      "dependency_description": "Demand growth is held to 28% above 2025 passenger numbers by 2050 (402 million), versus 53% per-capita growth by 2040 in the Baseline. This depends on passengers responding to higher prices, with business flight demand growing more slowly and some modal shift to rail.",
       "sector": "Aviation",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Moderate: UK synthetic fuel production from the mid-2030s needs low-carbon hydrogen, captured carbon and CO2 transport and storage. Residual aviation emissions are offset by engineered removals equal to about 60% of UK engineered removals in 2050.",
+      "dependency_description": "UK synthetic fuel production from the mid-2030s needs low-carbon hydrogen, captured carbon and CO2 transport and storage. Residual aviation emissions are offset by engineered removals equal to about 60% of UK engineered removals in 2050.",
       "sector": "Aviation",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "High: Abatement relies on SAF (38% of liquid fuel by 2050, including synthetic fuel), hybrid-electric and battery-electric aircraft entering from 2040, and efficiency gains of 1.3%/yr. Hydrogen aircraft are excluded as insufficiently developed; the balance between options is uncertain, so all must be pursued.",
+      "dependency_description": "Abatement relies on SAF (38% of liquid fuel by 2050, including synthetic fuel), hybrid-electric and battery-electric aircraft entering from 2040, and efficiency gains of 1.3%/yr. Hydrogen aircraft are excluded as insufficiently developed; the balance between options is uncertain, so all must be pursued.",
       "sector": "Aviation",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "High: SAF supply is limited by sustainable biomass and feedstock availability, with strong international competition for feedstock in the late 2020s and 2030s; this is why the SAF trajectory sits below the Government's SAF mandate.",
+      "dependency_description": "SAF supply is limited by sustainable biomass and feedstock availability, with strong international competition for feedstock in the late 2020s and 2030s; this is why the SAF trajectory sits below the Government's SAF mandate.",
       "sector": "Aviation",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "Low: Aviation's non-CO2 effects (mainly contrail cirrus) likely have a large but uncertain warming effect and rise 19% above 2025 by 2050; the CCC asks that they be addressed, but they do not constrain the pathway's measures.",
+      "dependency_description": "Aviation's non-CO2 effects (mainly contrail cirrus) likely have a large but uncertain warming effect and rise 19% above 2025 by 2050; the CCC asks that they be addressed, but they do not constrain the pathway's measures.",
       "sector": "Aviation",
       "evidence_type": "Qualitative"
     }
