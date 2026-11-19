@@ -2510,7 +2510,7 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Shadow carbon price reaches US$2tCO2 (2010 $) in 2030 and US$64 in 2050, the main lever moving investment and dispatch away from fossil fuels. Current or pledged policies enter as energy share, capacity/generation, and tax/subsidy constraints.",
+    "policies": "Shadow carbon price reaches US$2/tCO2 (2010 $) in 2030 and US$64 in 2050, the main lever moving investment and dispatch away from fossil fuels. Current or pledged policies enter as energy share, capacity/generation, and tax/subsidy constraints.",
     "emissionsTargets": "Net-zero-target countries reach 80% of the targeted cut by 2050; others face no constraint beyond current policies.",
     "technologyCosts": "MESSAGE minimizes total system cost from investment, O&M, and fuel costs. Exogenous declines (North America solar PV US$853 to US$374/kW, 2020–2050 [2010 $]) favor renewables, while cheap CCS keeps gas in the mix: wind and solar reach 51% of 2050 generation (Current Policies 31%). With carbon at US$64/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
     "investmentChange": "Low-carbon power investment moves from 1.11% of GDP (MER) in 2020 to 0.66% in 2050, a decrease of 41%. MESSAGE's GDP grows faster than its power investment, so the share falls even where low-carbon investment rises in absolute terms.",

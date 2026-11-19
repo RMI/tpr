@@ -283,7 +283,7 @@
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "The skills requirement far exceeds REF’s and extends into occupations the country lacks. Jobs are well above REF, led by renewable plant construction, with sharp rises in storage and Evs. and a new nuclear line. Nuclear needs a workforce built from nothing; the Philippine Nuclear Energy Program names human resource development as an infrastructure issue alongside regulation. The publication responds with rightskilling led by the Department of Energy and the Department of Labor and Employment.",
+      "dependency_description": "The skills requirement far exceeds REF’s and extends into occupations the country lacks. Jobs are well above REF, led by renewable plant construction, with sharp rises in storage and EVs, and a new nuclear line. Nuclear needs a workforce built from nothing; the Philippine Nuclear Energy Program names human resource development as an infrastructure issue alongside regulation. The publication responds with rightskilling led by the Department of Energy and the Department of Labor and Employment.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }

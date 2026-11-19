@@ -154,7 +154,7 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "BAU's end-use adoption assumptions  turn transport and household energy demand into power demand. Half the bus fleet is electric by 2030 and the fleet is 100% cleaner-energy by 2040; internal combustion engines numbers in automotive, motorcycle and freight fall to zero by 2040; large uptake of Evs. and hybrid is also projected for buses, motorcycles, and freight transport. Households take a 2.4% cut in energy intensity by 2030 from the smart-meter rollout.",
+      "dependency_description": "BAU's end-use adoption assumptions  turn transport and household energy demand into power demand. Half the bus fleet is electric by 2030 and the fleet is 100% cleaner-energy by 2040; internal combustion engines numbers in automotive, motorcycle and freight fall to zero by 2040; large uptake of EVs, and hybrid is also projected for buses, motorcycles, and freight transport. Households take a 2.4% cut in energy intensity by 2030 from the smart-meter rollout.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
