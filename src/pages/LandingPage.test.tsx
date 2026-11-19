@@ -42,6 +42,31 @@ describe("LandingPage navigation", () => {
       within(resourcesNav).getByRole("link", { name: "FAQs" }),
     ).toBeInTheDocument();
   });
+
+  it("links each case study tile to its section of the case studies page", () => {
+    render(
+      <MemoryRouter>
+        <NewsletterSignupProvider>
+          <LandingPage />
+        </NewsletterSignupProvider>
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("link", { name: /Company target setting/ }),
+    ).toHaveAttribute("href", "/case-studies#company-target-setting");
+    expect(
+      screen.getByRole("link", {
+        name: /Investment and financing opportunities/,
+      }),
+    ).toHaveAttribute(
+      "href",
+      "/case-studies#investment-opportunity-identification",
+    );
+    expect(
+      screen.getByRole("link", { name: /Policy risk assessment/ }),
+    ).toHaveAttribute("href", "/case-studies#policy-risk-assessment");
+  });
 });
 
 describe("LandingPage coverage", () => {
