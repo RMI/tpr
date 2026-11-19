@@ -14,10 +14,35 @@ const ICON_BUTTON_CLASS =
 const LINK_CLASS =
   "text-energy-700 underline underline-offset-2 hover:text-energy-800";
 
+/**
+ * Set once the reader first opens help. Kept in localStorage, not
+ * sessionStorage, so a returning reader isn't nudged again.
+ */
+const HELP_SEEN_KEY = "help-seen";
+
+function readHelpSeen(): boolean {
+  try {
+    return localStorage.getItem(HELP_SEEN_KEY) === "true";
+  } catch {
+    // Storage unavailable: count help as seen. Otherwise the button would
+    // pulse on every page, since we could never remember it was opened.
+    return true;
+  }
+}
+
+function markHelpSeen() {
+  try {
+    localStorage.setItem(HELP_SEEN_KEY, "true");
+  } catch {
+    /* non-critical: localStorage unavailable */
+  }
+}
+
 const HelpPanel: React.FC<{ groups: HelpGroup[] }> = ({ groups }) => {
   const { open, triggerRef, menuRef, toggle, close } =
     useDropdown<HTMLButtonElement>();
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [seen, setSeen] = useState(readHelpSeen);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const selected = selectedId
@@ -35,6 +60,10 @@ const HelpPanel: React.FC<{ groups: HelpGroup[] }> = ({ groups }) => {
     // Every open starts on the list of questions.
     setSelectedId(null);
     toggle();
+    if (!seen) {
+      markHelpSeen();
+      setSeen(true);
+    }
   };
 
   return (
@@ -161,10 +190,19 @@ const HelpPanel: React.FC<{ groups: HelpGroup[] }> = ({ groups }) => {
         onClick={onTriggerClick}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="inline-flex items-center gap-2 rounded-full bg-bluespruce px-4 py-2 text-sm font-semibold text-white shadow-lg ring-2 ring-white hover:bg-energy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-energy-400 focus-visible:ring-offset-2"
+        className="relative inline-flex items-center gap-2 rounded-full bg-energy px-5 py-2.5 text-base font-semibold text-bluespruce shadow-lg ring-2 ring-white hover:bg-bluespruce hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-2"
       >
+        {/* Until the reader first opens help, a halo pulses a few times on
+            each page to draw the eye. See .help-pulse in index.css. */}
+        {!seen && (
+          <span
+            data-testid="help-pulse"
+            aria-hidden="true"
+            className="help-pulse pointer-events-none absolute inset-0 rounded-full"
+          />
+        )}
         <CircleHelp
-          size={18}
+          size={20}
           aria-hidden="true"
         />
         Help

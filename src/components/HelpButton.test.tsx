@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter, Route, Routes, useLocation } from "react-router";
@@ -30,7 +30,35 @@ const renderAt = (url: string) =>
 const helpButton = () => screen.getByRole("button", { name: "Help" });
 const panel = () => screen.queryByRole("dialog", { name: "Help" });
 
+const pulse = () => screen.queryByTestId("help-pulse");
+
 describe("HelpButton", () => {
+  beforeEach(() => localStorage.clear());
+  afterEach(() => vi.restoreAllMocks());
+
+  it("pulses until help is first opened, and remembers that across pages", async () => {
+    const user = userEvent.setup();
+    const { unmount } = renderAt("/pathway");
+    expect(pulse()).toBeInTheDocument();
+
+    await user.click(helpButton());
+    expect(pulse()).toBeNull();
+    expect(localStorage.getItem("help-seen")).toBe("true");
+    unmount();
+
+    renderAt("/compare");
+    expect(pulse()).toBeNull();
+  });
+
+  it("does not pulse when storage is unavailable", () => {
+    vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      throw new Error("blocked");
+    });
+    renderAt("/pathway");
+    expect(helpButton()).toBeInTheDocument();
+    expect(pulse()).toBeNull();
+  });
+
   it("renders only on the Card, Detail and Comparison views", () => {
     for (const url of ["/pathway", "/pathway/abc", "/compare?ids=a,b"]) {
       const { unmount } = renderAt(url);
