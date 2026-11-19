@@ -194,7 +194,7 @@ When opening a Pull Request, an GitHub workflow will dry-run the release process
 
 ### Note on schemata
 
-At the moment, schemata are for internal use only and are treated as malleable. We do not consider a minor schema change a breaking change for external users at the moment. This is subject to change, once the use of the transition pathways repository requires it, e.g. once it has external consumers.
+At the moment, schemata are for internal use only and are treated as malleable. We do not consider a minor schema change a breaking change for external users at the moment. Removing a schema version (as v2 did with the v1 metadata and timeseries schemata) is a breaking change, and any commit marked breaking (`type!:` or a `BREAKING CHANGE:` footer) bumps the major version, whatever its type. This is subject to change, once the use of the transition pathways repository requires it, e.g. once it has external consumers.
 
 ## License
 
