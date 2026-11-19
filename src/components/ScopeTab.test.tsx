@@ -11,7 +11,7 @@ import { act, render, screen, within } from "@testing-library/react";
 import { ScopedContainer, type ScopeSegment } from "./ScopeTab";
 
 /*
- * The phone-width rule (scope-tab-spec §1.5, V3): an "X < Y" half shows only X
+ * The phone-width rule: an "X < Y" half shows only X
  * when the full tab does not fit its container, and its full label again once
  * it does. jsdom has no layout, so widths are stubbed: a label's scrollWidth
  * is its text length × 5px, its clientWidth what the container leaves it.

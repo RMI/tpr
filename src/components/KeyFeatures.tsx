@@ -352,7 +352,7 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
 
   /*
     The feature label. Where a value's scope comes from is the scope tab's job
-    now (scope-tab-spec), on the container around this item, so the label
+    now, on the container around this item, so the label
     stands alone; without a label (the comparison grid's cells) nothing shows.
   */
   const header = (spacing?: string) =>
@@ -573,7 +573,7 @@ export interface ScopedFeatureProps {
 
 /**
  * One key feature in its own container, with the scope tab in its corner
- * (scope-tab-spec, Draft A). With no value to draw, the container holds just
+ * (design decision, 2026-11-19). With no value to draw, the container holds just
  * the words, centred: no ramp, no greyed options, no badge (P5). The tab
  * stays, neutral, naming the scope the page looked at.
  */

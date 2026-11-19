@@ -171,7 +171,7 @@ it("separates the geography slots with the word 'or'", () => {
 });
 
 /*
- * The compact size, for the comparison header (comparison-ribbon-spec §3).
+ * The compact size, for the comparison header.
  * jsdom has no layout, so a cut-off label is simulated by its widths.
  */
 describe("compact size", () => {

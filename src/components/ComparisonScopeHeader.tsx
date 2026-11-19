@@ -69,7 +69,7 @@ const columnLabel = (pathway: PathwayMetadataType): string =>
  * of the column names that appears once the pathway cards scroll away.
  *
  * The detail page's ribbon controls and rules, at their compact size
- * (comparison-ribbon-spec, Sebastian 2026-11-18), replacing the sector badge
+ * (design decision, 2026-11-18), replacing the sector badge
  * row and the per-column geography select.
  *
  * The two axes are deliberately shaped differently, because they are different
@@ -273,8 +273,8 @@ export const ComparisonScopeHeader: React.FC<ComparisonScopeHeaderProps> = ({
 
 /**
  * Whether the level switch can show its names in every column: names whenever
- * the whole switch fits, icons only when it does not (Sebastian, 2026-11-18;
- * spec V13).
+ * the whole switch fits, icons only when it does not (design decision,
+ * 2026-11-18).
  *
  * Measured rather than a fixed breakpoint: a 3-column tablet column is 213px
  * and the switch with names about 212px, a margin of 1px that a fixed rule

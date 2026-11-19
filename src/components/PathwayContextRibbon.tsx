@@ -103,8 +103,8 @@ interface PathwayContextRibbonProps {
  * country beyond a shade of green.
  *
  * Every option the pathway declares is listed, with those lacking data last and
- * unpickable. That deliberately reverses #1046 for this ribbon (Sebastian,
- * 2026-11-05). Which options can be picked is unchanged: `scopeAvailability`,
+ * unpickable. That deliberately reverses #1046 for this ribbon (design
+ * decision, 2026-11-05). Which options can be picked is unchanged: `scopeAvailability`,
  * computed by the caller from the bundled timeseries index, so the controls
  * never change after mount. The rules for each control are in `scopeRibbon`.
  */

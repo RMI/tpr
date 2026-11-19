@@ -8,7 +8,7 @@ import type { Geography } from "../types";
 
 /*
  * One comparison column's geography under Option B
- * (comparison-option-b-spec, Sebastian 2026-11-18): a level switch, then one
+ * (design decision, 2026-11-18): a level switch, then one
  * value line. A stateful harness, since switching level is only meaningful
  * once the selection actually moves.
  */

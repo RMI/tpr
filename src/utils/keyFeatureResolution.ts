@@ -225,7 +225,7 @@ export function resolveKeyFeature(
 
 /**
  * Why one axis of a key feature shows the scope it does, for the scope tab
- * (scope-tab-spec, Sebastian 2026-11-19):
+ * (design decision, 2026-11-19):
  *  - `match`: the value is at the scope the reader selected on this axis;
  *  - `marked`: the publisher marks the selected scope as recorded at a broader
  *    level (`Not applicable at this scope level`), so the broader value is

@@ -102,7 +102,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
   const lookToken = hover ?? cursor ?? selected?.token ?? null;
   const look = all.find((o) => o.token === lookToken) ?? null;
   // The pane shows only while the option being looked at has something to
-  // show (Sebastian, 2026-11-12: no "Nothing more to show." placeholder).
+  // show (design decision, 2026-11-12: no "Nothing more to show." placeholder).
   // Always for sectors and regions; for a country, only one with member codes
   // (China with Hong Kong, say), so pointing at Japan folds the pane away.
   const hasPane = look !== null && optionHasInfo(level, look.token, geography);
@@ -408,7 +408,7 @@ const ScopeDropdown: React.FC<ScopeDropdownProps> = ({
               // No onMouseLeave reset: the pointed-at option holds the pane
               // until another option is pointed at or the list closes, so a
               // reader can move into the pane and scroll a long member list
-              // (Sebastian, 2026-11-12). Clearing on leave reverted the pane to
+              // (design decision, 2026-11-12). Clearing on leave reverted the pane to
               // the selection the moment the pointer crossed into it.
               className={`max-h-72 overflow-y-auto py-1 focus:outline-none ${
                 anyInfo ? "sm:w-60 sm:shrink-0" : ""

@@ -376,7 +376,7 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
             {/*
               The chart in its scope container: which geography this column
               actually shows, and why when it fell back, are in the tab's
-              geography half and its tooltip (scope-tab-spec §1.4). Per column,
+              geography half and its tooltip. Per column,
               because the columns can differ. The sector-segment badges stay.
             */}
             {used ? (

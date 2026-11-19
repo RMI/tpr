@@ -160,7 +160,7 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
     Every panel resolves to the same geography, so one tab's worth of halves
     serves them all. The fallback sentence that used to sit above the grid,
     and the geography badge under each chart, are in the tab now: the
-    sentence in its geography half's tooltip (scope-tab-spec §1.4).
+    sentence in its geography half's tooltip.
   */
   const scope = chartSegments(
     resolution,

@@ -301,7 +301,7 @@ describe("ScopeDropdown preview pane", () => {
 
 describe("ScopeDropdown held preview", () => {
   // Moving from an option into the pane to scroll a long member list must not
-  // revert the pane to the selection (Sebastian, 2026-11-12).
+  // revert the pane to the selection (design decision, 2026-11-12).
   it("keeps the pointed-at option in the pane after the pointer leaves the list", async () => {
     const { trigger } = renderDropdown({
       level: "region",
@@ -374,8 +374,8 @@ describe("ScopeDropdown trigger tooltip", () => {
 });
 
 /*
- * Countries with member codes get the same treatment as regions (Sebastian,
- * 2026-11-12). Since #1080/#1082 a country can include other codes: China
+ * Countries with member codes get the same treatment as regions (design
+ * decision, 2026-11-12). Since #1080/#1082 a country can include other codes: China
  * with Hong Kong, the USA with Puerto Rico and the US Virgin Islands.
  */
 describe("ScopeDropdown countries with member codes", () => {
@@ -413,7 +413,7 @@ describe("ScopeDropdown countries with member codes", () => {
     });
     await userEvent.click(trigger);
     const listbox = screen.getByRole("listbox");
-    // Nothing to show for France, so no pane at all (Sebastian, 2026-11-12),
+    // Nothing to show for France, so no pane at all (design decision, 2026-11-12),
     // rather than a pane saying so.
     fireEvent.mouseEnter(screen.getByRole("option", { name: "France" }));
     expect(listbox).not.toHaveAttribute("aria-describedby");

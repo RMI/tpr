@@ -15,7 +15,7 @@ import type { Geography, Sector } from "../types";
  * The small controls of the detail page's scope ribbon, and the styling every
  * ribbon control shares. The dropdown itself is in `ScopeDropdown`.
  *
- * Class strings follow the design handoff (scope-ribbon-spec.md §4), which
+ * Class strings follow the design handoff, which
  * built them from classes already used in the app.
  */
 
@@ -27,7 +27,7 @@ export const CONTROL_CLASS =
 
 /**
  * The comparison page's header carries up to three geography groups side by
- * side, so its controls are one step smaller (comparison-ribbon-spec §3).
+ * side, so its controls are one step smaller.
  * `max-w-full min-w-0` let a control shrink inside a narrow column, so its
  * label truncates rather than overflowing.
  */
@@ -41,7 +41,7 @@ export const COMPACT_CONTROL_CLASS =
  * - "compact": one step smaller, for a header with several columns.
  * - "segment": the comparison header's Sector control, styled as the level
  *   switch's selected segment, so the header reads as one family: h-6, a thin
- *   bluespruce border and no ring (comparison-option-b-spec §2.1, B4).
+ *   bluespruce border and no ring.
  * - "value": the comparison header's value line under the level switch. h-6,
  *   the column's full width, a neutral border and no ring even while it holds
  *   the selection, and no level icon, which the switch already shows (§2.3,
@@ -177,8 +177,8 @@ export function levelHasInfo(level: RibbonLevel): boolean {
  * Every sector has a description and every region a member list. A country
  * has one only when the publication counts other codes with it -- China with
  * Hong Kong, the USA with Puerto Rico and the US Virgin Islands -- since #1080
- * keyed countries by code and #1082 gave them member lists. Sebastian,
- * 2026-11-12: such countries get the same treatment as regions.
+ * keyed countries by code and #1082 gave them member lists. Design
+ * decision, 2026-11-12: such countries get the same treatment as regions.
  */
 export function optionHasInfo(
   level: RibbonLevel,

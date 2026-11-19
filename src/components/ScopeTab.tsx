@@ -23,7 +23,7 @@ import type {
 } from "../utils/keyFeatureResolution";
 
 /*
- * The scope tab (Draft A, scope-tab-spec, Sebastian 2026-11-19). Every key
+ * The scope tab (design decision, 2026-11-19). Every key
  * feature and chart panel is its own container, and the scope its value
  * actually comes from sits in a tab flush in the container's bottom-left
  * corner, always visible: one half per axis, each with its own colour and

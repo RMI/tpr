@@ -44,7 +44,7 @@ export const SEARCH_THRESHOLD = 8;
 /**
  * Header above the options a pathway declares but the TPR cannot show. Not
  * "no data": since #1081 only Power is shown in detail, so Steel and Aviation
- * land here even where the pathway has values for them (Sebastian, 2026-11-18).
+ * land here even where the pathway has values for them (design decision, 2026-11-18).
  */
 export const NO_DATA_GROUP_LABEL = "Covered · not shown in detail yet";
 
@@ -98,7 +98,7 @@ export function geographyDisplayLabel(token: string): string {
  * display label.
  *
  * Every declared option is returned, selectable or not. That deliberately
- * reverses #1046 for this ribbon (Sebastian, 2026-11-05).
+ * reverses #1046 for this ribbon (design decision, 2026-11-05).
  *
  * This is the DISPLAY order, for scanning. Which option the page opens on is
  * still `defaultScopeFor`'s job, with its own order, and the two are meant to
@@ -170,7 +170,7 @@ export type SlotState =
  * | 1        | 1         | single                                  |
  * | 2+       | 1+        | dropdown                                |
  *
- * A level is never hidden, whatever its state (Sebastian's rule): an unusable
+ * A level is never hidden, whatever its state (a design rule): an unusable
  * slot is greyed and explains itself instead.
  */
 export function slotState(
@@ -188,7 +188,7 @@ export function slotState(
   if (withDataCount === 0) {
     if (options.length === 1) {
       // Keeps the option's name, although a greyed name can look like a
-      // selection (Sebastian, 2026-11-05). No real pathway hits this today.
+      // selection (design decision, 2026-11-05). No real pathway hits this today.
       const only = options[0];
       return {
         kind: "inactive",

@@ -387,7 +387,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     async () => {
       // Replaces "leaves a token with nothing to show out of the ribbon, but
       // not out of Coverage (#1046)". The ribbon now lists every declared
-      // token (Sebastian, 2026-11-05). SG has no benchmark data, and its only
+      // token (design decision, 2026-11-05). SG has no benchmark data, and its only
       // key feature says "No information", so nothing can be shown for it
       // (#1017): it is the pathway's only country, so its slot is inactive and
       // keeps its own name (spec §4.4) -- the edge state no real pathway

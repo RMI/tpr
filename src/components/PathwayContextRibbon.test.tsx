@@ -313,7 +313,7 @@ describe("PathwayContextRibbon", () => {
   describe("availability (#1017; #1046 reversed for this ribbon)", () => {
     it("lists every declared token, those without data last and unpickable", async () => {
       // Replaces "lists only the tokens with something to show". This ribbon
-      // deliberately reverses #1046 (Sebastian, 2026-11-05): a token the
+      // deliberately reverses #1046 (design decision, 2026-11-05): a token the
       // pathway declares is listed even with nothing to show, greyed and last.
       const onScopeChange = vi.fn();
       renderMulti({ sector: "Power", geography: "Global" }, onScopeChange);

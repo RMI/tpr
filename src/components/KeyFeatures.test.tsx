@@ -422,7 +422,7 @@ const LIGHT_YELLOW = "bg-solar-100/50";
 /** The scope badge the tab replaced: "<sector> · <geography>". */
 const queryScopeBadge = () => screen.queryByText(/ · /);
 
-describe("ScopedFeature: the scope tab (scope-tab-spec)", () => {
+describe("ScopedFeature: the scope tab", () => {
   it("names the selected scope, neutral, for an exact match", async () => {
     renderResolved("emissionsTrajectory", [
       e("Power", "TH", "Moderate decrease"),

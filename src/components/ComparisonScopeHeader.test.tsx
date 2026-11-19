@@ -137,7 +137,7 @@ describe("ComparisonScopeHeader", () => {
   });
 
   /*
-   * Option B (comparison-option-b-spec, Sebastian 2026-11-18): one shared
+   * Option B (design decision, 2026-11-18): one shared
    * Sector control styled as the switch's selected segment, and for each
    * column a level switch, then one value line.
    */

@@ -19,7 +19,7 @@ import type { Geography } from "../types";
 /*
  * One comparison column's geography: a level switch (Global | Region |
  * Country), then a value line with ONE list for the chosen level
- * (comparison-option-b-spec, Sebastian 2026-11-18). Every detail-ribbon rule
+ * (design decision, 2026-11-18). Every detail-ribbon rule
  * applies: an unusable level is greyed with a tooltip, never hidden; a level
  * with one option needs no list; the list is the ribbon's own dropdown.
  */
