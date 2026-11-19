@@ -117,6 +117,10 @@
           "preset": "conventionalcommits",
           "releaseRules": [
             {
+              "breaking": true,
+              "release": "major"
+            },
+            {
               "type": "build",
               "release": "patch"
             },
