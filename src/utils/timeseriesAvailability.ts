@@ -1,6 +1,6 @@
 // src/utils/timeseriesAvailability.ts
 import { SECTORS_BY_KEY } from "./timeseriesTaxonomy";
-import { geographyLabel, normalizeGeography } from "./geographyUtils";
+import { normalizeGeography } from "./geographyUtils";
 
 interface TimeseriesSummary {
   sectors?: string[];
@@ -38,7 +38,9 @@ function metricDisplayNames(summary: unknown): Set<string> {
     const sectorDef = SECTORS_BY_KEY[sectorKey];
     if (!sectorDef) continue;
     for (const metricKey of s.metrics ?? []) {
-      const metricDef = sectorDef.metrics[metricKey];
+      // `metrics` is optional: Steel and Aviation are defined for their
+      // data-availability vocabularies but plot no timeseries yet.
+      const metricDef = sectorDef.metrics?.[metricKey];
       if (metricDef) names.add(metricDef.displayName);
     }
   }
@@ -64,22 +66,25 @@ export function pathwayToolAvailability(
 
   const sectorNames = new Set<string>();
   const metricNames = new Set<string>();
-  const geoStrings = new Set<string>();
+  const geographies = new Set<string>();
 
   for (const ds of datasets) {
     for (const v of sectorDisplayNames(ds.summary)) sectorNames.add(v);
     for (const v of metricDisplayNames(ds.summary)) metricNames.add(v);
     for (const v of parseSummary(ds.summary).geographies ?? [])
-      geoStrings.add(v);
+      geographies.add(normalizeGeography(v));
   }
 
   return {
     hasSector: (name) => sectorNames.has(name),
     hasMetric: (name) => metricNames.has(name),
-    hasGeography: (rawGeo) => {
-      const label = geographyLabel(normalizeGeography(rawGeo));
-      return geoStrings.has(label) || geoStrings.has(rawGeo);
-    },
+    /*
+      A plain lookup of the metadata token. Timeseries geographies are the
+      labels the pathway's metadata declares (#945, enforced by
+      validateTimeseries), so the tokens a caller passes match the summary's
+      exactly; only stray whitespace is normalized away.
+    */
+    hasGeography: (rawGeo) => geographies.has(normalizeGeography(rawGeo)),
   };
 }
 

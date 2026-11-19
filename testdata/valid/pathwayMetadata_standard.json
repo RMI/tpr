@@ -1,5 +1,5 @@
 {
-  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v1.json",
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
   "id": "pathway-simple-standard",
   "name": {
     "full": "Simple Standard Pathway",
@@ -27,23 +27,98 @@
   "sectors": [
     {
       "name": "Land Use",
-      "technologies": ["Precision Agriculture"]
+      "technologies": []
     }
   ],
-  "pathwayOverview": "Example Overview.",
-  "expertOverview": "Example Expert Recommendation.",
+  "pathwayDescription": null,
   "metric": ["Emissions Intensity"],
   "keyFeatures": {
-    "emissionsTrajectory": "Minor decrease",
-    "energyEfficiency": "Moderate improvement",
-    "energyDemand": "Minor increase",
-    "electrification": "Moderate increase",
-    "policyTypes": ["Carbon price", "Phaseout dates"],
-    "technologyCostTrend": "No information",
-    "emissionsScope": "CO2",
-    "policyAmbition": "Current/legislated policies",
-    "technologyCostsDetail": "Capital costs, O&M, etc.",
-    "newTechnologiesIncluded": ["DAC", "Green H2/ammonia"],
-    "investmentNeeds": "By sector, part of value chain"
-  }
+    "emissionsTrajectory": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Minor decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Moderate improvement"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Minor increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Moderate increase"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": ["Carbon price", "Phaseout dates"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "No information"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "CO2"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Current/legislated policies"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "Capital costs, O&M, etc."
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": ["DAC", "Green H2/ammonia"]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "Land Use",
+        "geography": "Global",
+        "value": "By sector, part of value chain"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": null,
+    "emissionsTargets": null,
+    "technologyCosts": null,
+    "investmentChange": null,
+    "macroeconomicDrivers": null,
+    "behavioralShifts": null,
+    "otherDrivers": null
+  },
+  "dependencies": []
 }

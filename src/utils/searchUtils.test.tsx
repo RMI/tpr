@@ -233,7 +233,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "B",
       name: "B",
       sectors: [{ name: "Power" }],
-      geography: { regions: { Europe: [] } },
+      geography: { regions: { Europe: ["DE", "FR"] } },
       modelTempIncrease: 2.0,
       pathwayType: "Normative",
       modelYearNetzero: 2040,
@@ -245,7 +245,7 @@ describe("filterPathways (array-backed facets)", () => {
       id: "C",
       name: "C",
       sectors: [{ name: "Steel" }],
-      geography: { regions: { Asia: [] } },
+      geography: { regions: { Asia: ["CN", "JP"] } },
       modelTempIncrease: 1.5,
       pathwayType: "Exploratory",
       modelYearNetzero: 2030,
@@ -306,13 +306,23 @@ describe("filterPathways (array-backed facets)", () => {
     // Matching is by ISO overlap, so use country codes: B covers DE, C covers
     // JP, and B2 covers both.
     const many: PathwayMetadataType[] = [
-      { ...pathways[1], id: "B", name: "B", geography: { country: ["DE"] } },
-      { ...pathways[2], id: "C", name: "C", geography: { country: ["JP"] } },
+      {
+        ...pathways[1],
+        id: "B",
+        name: "B",
+        geography: { country: { DE: ["DE"] } },
+      },
+      {
+        ...pathways[2],
+        id: "C",
+        name: "C",
+        geography: { country: { JP: ["JP"] } },
+      },
       {
         ...pathways[1],
         id: "B2",
         name: "B2",
-        geography: { country: ["DE", "JP"] },
+        geography: { country: { DE: ["DE"], JP: ["JP"] } },
       },
     ];
     // ANY (default): DE OR JP → B, C, B2
@@ -531,19 +541,18 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
   const pathways: PathwayMetadataType[] = [
     p("g", { global: true }),
     p("sea", { regions: { "South East Asia": ["ID", "TH", "VN"] } }),
-    p("cn", { country: ["CN"] }),
+    p("cn", { country: { CN: ["CN"] } }),
     p("mix", {
       global: true,
       regions: { "Europe and Central Asia": ["DE", "FR"] },
-      country: ["US"],
+      country: { US: ["US"] },
     }),
     p("mix2", {
       global: true,
-      regions: { "South East Asia": ["TH"] },
-      country: ["US"],
+      regions: { "South East Asia": ["TH", "VN"] },
+      country: { US: ["US"] },
     }),
     p("empty", {}),
-    p("emptyreg", { regions: { "South East Asia": [] } }),
   ];
   const ids = (f: SearchFilters) =>
     filterPathways(pathways, f).map((x) => x.id);
@@ -553,7 +562,7 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
   });
 
   it("a defined region matches by ISO overlap and excludes global-only pathways", () => {
-    // "Southeast Asia" (10 ASEAN codes) overlaps sea (ID/TH/VN) and mix2 (TH),
+    // "Southeast Asia" (10 ASEAN codes) overlaps sea (ID/TH/VN) and mix2 (TH/VN),
     // but not the global-only 'g' (empty coverage) despite its global flag.
     expect(ids({ geography: ["Southeast Asia"] })).toEqual(["sea", "mix2"]);
   });
@@ -582,7 +591,7 @@ describe("geography ISO-overlap matching (#797/#783)", () => {
     expect(ids({ geography: ["AQ"] })).toEqual([]);
   });
 
-  it("ABSENT/'None' matches only empty geography, not empty-member regions", () => {
+  it("ABSENT/'None' matches only empty geography", () => {
     expect(ids({ geography: [ABSENT_FILTER_TOKEN] })).toEqual(["empty"]);
   });
 

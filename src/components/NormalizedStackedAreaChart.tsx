@@ -9,6 +9,11 @@ import { stackOffsetExpand } from "d3-shape";
 import "d3-transition";
 import { useRef, useEffect, useState, useMemo } from "react";
 import { capitalizeWords } from "../utils/capitalizeWords";
+import {
+  MAX_PLOT_YEAR,
+  isPastPlottedYears,
+  plotXAxis,
+} from "../utils/plotYears";
 import type { HoveredPoint } from "./PlotSelector";
 
 interface DataPoint {
@@ -38,18 +43,21 @@ interface NormalizedStackedAreaChartProps {
   onHoverPoint?: (point: HoveredPoint | null) => void;
 }
 
-const technologyColors = {
+// Stacking and legend order follow key order: high-carbon reds first, then
+// "other", then low-carbon blues. A technology missing here renders black at
+// the bottom of the stack, which is why the test checks coverage.
+export const technologyColors = {
   coal: "#AB3C2C", // red-brown
   oil: "#DF4E39", // deep red (hot)
   gas: "#F7988B", // orange-pink
   other: "#B3BCC5", // gray
   biomass: "#91CBF2", // light blue
   biofuels: "#77B8E4", // argentinian blue
+  geothermal: "#529CBA", // rmiblue-400
   hydro: "#2888C9", // blue
   nuclear: "#2274AA", // ucla blue
   wind: "#005A96", // dark blue
   solar: "#003B63", // navy blue
-  renewables: "#003152", // prussian blue
 } as const;
 
 export default function NormalizedStackedAreaChart({
@@ -65,8 +73,15 @@ export default function NormalizedStackedAreaChart({
   externalHoveredPoint,
   onHoverPoint,
 }: NormalizedStackedAreaChartProps) {
+  // Rows past MAX_PLOT_YEAR are dropped here too, so the chart is right even
+  // for a caller that skipped capToPlotYears.
   const [d3data] = useState<DataPoint[]>(() =>
-    data.data.filter((d) => d.sector === sector && d.metric === metric),
+    data.data.filter(
+      (d) =>
+        d.sector === sector &&
+        d.metric === metric &&
+        Number(d.year) <= MAX_PLOT_YEAR,
+    ),
   );
 
   const chartTitle = useMemo(() => {
@@ -102,19 +117,16 @@ export default function NormalizedStackedAreaChart({
   // Memoize scales and data transformations
   const chartSetup = useMemo(() => {
     const parse = utcParse("%Y");
-    const years = extent(d3data, (d) => parse(d.year) ?? new Date());
-    const xticks = Array.from(new Set(d3data.map((d) => d.year)))
-      .map(parse)
-      .filter(
-        (d, i): d is Date =>
-          d !== null && (i === 0 || d.getUTCFullYear() % 10 === 0),
-      );
+    // extent skips years that fail to parse, as MultiLineChart does.
+    const years = extent(d3data, (d) => parse(d.year));
     if (!years[0] || !years[1]) {
       return null;
     }
 
+    const { domain, ticks: xticks } = plotXAxis(years[0], years[1]);
+
     const x = scaleUtc()
-      .domain(years)
+      .domain(domain)
       .range([marginLeft, width - marginRight]);
 
     const y = scaleLinear()
@@ -274,6 +286,7 @@ export default function NormalizedStackedAreaChart({
       x: x(parse(d.data.year as string) ?? new Date()),
     }));
     yearPositionsRef.current = yearPositions;
+    const yearXs = yearPositions.map((d) => d.x);
 
     svg
       .on("pointerenter", pointerentered)
@@ -328,6 +341,14 @@ export default function NormalizedStackedAreaChart({
 
     function pointermoved(event: PointerEvent) {
       const [xm] = pointer(event);
+      if (isPastPlottedYears(xm, yearXs)) {
+        if (lastHoveredYear.current !== null) {
+          lastHoveredYear.current = null;
+          onHoverPointRef.current?.(null);
+        }
+        hideTooltip();
+        return;
+      }
       const i = leastIndex(yearPositions, (d) => Math.abs(d.x - xm));
       if (i === undefined || i < 0) return;
       const { x: xPixel, year } = yearPositions[i];

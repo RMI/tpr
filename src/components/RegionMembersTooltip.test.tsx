@@ -30,7 +30,7 @@ describe("RegionMembersTooltip", () => {
   it("names the member countries instead of showing raw ISO codes", () => {
     const geography: Geography = {
       regions: { "South East Asia": ["TH", "ID"] },
-      country: ["US"],
+      country: { US: ["US"] },
     };
     render(
       <RegionMembersTooltip
@@ -46,23 +46,29 @@ describe("RegionMembersTooltip", () => {
     expect(screen.queryByText("ID")).toBeNull();
   });
 
-  it("heads the list with a count, pluralized", () => {
-    const { unmount } = render(
+  it("names only a country's other codes, under 'Also includes' (#1071)", () => {
+    render(
+      <RegionMembersTooltip
+        geography={{ country: { CN: ["CN", "HK", "MO"] } }}
+        label="CN"
+      />,
+    );
+    expect(screen.getByText("Also includes")).toBeInTheDocument();
+    expect(screen.getByText("Hong Kong")).toBeInTheDocument();
+    expect(screen.getByText("Macao")).toBeInTheDocument();
+    // The badge already names the country, so the tooltip does not repeat it.
+    expect(screen.queryByText("People's Republic of China")).toBeNull();
+    expect(screen.queryByText(/countries/)).toBeNull();
+  });
+
+  it("heads the list with a count", () => {
+    render(
       <RegionMembersTooltip
         geography={{ regions: { Pair: ["TH", "ID"] } }}
         label="Pair"
       />,
     );
     expect(screen.getByText("2 countries")).toBeInTheDocument();
-    unmount();
-
-    render(
-      <RegionMembersTooltip
-        geography={{ regions: { Single: ["TH"] } }}
-        label="Single"
-      />,
-    );
-    expect(screen.getByText("1 country")).toBeInTheDocument();
   });
 
   it("orders members A→Z by ISO2, matching the country badges", () => {
@@ -113,20 +119,10 @@ describe("RegionMembersTooltip", () => {
     expect(container.textContent).toMatch(/Thailand.*Germany/);
   });
 
-  it("says so when the publication provides no mapping for the region", () => {
-    render(
-      <RegionMembersTooltip
-        geography={{ regions: { "South East Asia": [] } }}
-        label="South East Asia"
-      />,
-    );
-    expect(screen.getByText(NO_REGION_MAPPING_TEXT)).toBeInTheDocument();
-  });
-
   it("shows the no-mapping copy rather than an empty box for unknown or missing geography", () => {
     const { unmount } = render(
       <RegionMembersTooltip
-        geography={{ regions: { Europe: ["DE"] } }}
+        geography={{ regions: { Europe: ["DE", "FR"] } }}
         label="Africa"
       />,
     );

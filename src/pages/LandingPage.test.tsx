@@ -69,6 +69,27 @@ describe("LandingPage navigation", () => {
   });
 });
 
+describe("LandingPage coverage", () => {
+  it("shows which regions the TPR covers, with a map", async () => {
+    render(
+      <MemoryRouter>
+        <NewsletterSignupProvider>
+          <LandingPage />
+        </NewsletterSignupProvider>
+      </MemoryRouter>,
+    );
+
+    expect(
+      screen.getByRole("heading", {
+        name: "Which regions does the TPR cover?",
+      }),
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByRole("img", { name: /world map/i }),
+    ).toBeInTheDocument();
+  });
+});
+
 describe("LandingPage newsletter signup (#995)", () => {
   it("offers signup from a hero button beside Explore Pathways, not a separate band", async () => {
     render(

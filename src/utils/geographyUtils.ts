@@ -5,13 +5,13 @@ countries.registerLocale(en);
 
 export type GeographyKind = "global" | "region" | "country";
 
-// Approved wording from #800 (2026-08-10). Single source of truth for the
-// region-mapping disclaimer, rendered on the methodology page, in the detail-page
-// geography tooltip, and under the Geography filter dropdown — the three places a
-// user meets a region→country mapping.
+// Wording from the RMI policy doc (#917, replacing #800's). Single source of truth
+// for the region-mapping disclaimer, rendered on the methodology page, in the
+// detail-page geography tooltip, and under the Geography filter dropdown — the
+// three places a user meets a region→country mapping.
 export const REGION_MAPPING_DISCLAIMER =
-  "The mapping of any individual country or territory to a region reflects the " +
-  "mappings of the model used in the pathway. It does not reflect any opinion of RMI.";
+  "Country and regional representations follow the conventions used in the " +
+  "underlying data sources and do not reflect any institutional point of view by RMI.";
 
 // Flatten the structured geography object into the ordered flat token list the
 // rest of the app historically operated on: "Global" (when global) → region
@@ -27,13 +27,14 @@ export function flattenGeography(geo: Geography | null | undefined): string[] {
   const tokens: string[] = [];
   if (geo.global) tokens.push("Global");
   if (geo.regions) tokens.push(...Object.keys(geo.regions));
-  if (geo.country) tokens.push(...geo.country);
+  if (geo.country) tokens.push(...Object.keys(geo.country));
   return tokens;
 }
 
-// The ISO-3166-1 alpha-2 codes a pathway actually covers: the union of its
-// standalone `country` list and the member codes of every `regions` entry.
-// Unlike `flattenGeography` (which carries region LABELS, not members), this is
+// The ISO-3166-1 alpha-2 codes a pathway actually covers: the codes of every
+// `country` entry (a country can include territories, e.g. CN with HK, #1071)
+// and of every `regions` entry.
+// Unlike `flattenGeography` (which carries keys and labels, not members), this is
 // the country-level expansion used for ISO-overlap geography matching. The
 // `global` flag is intentionally NOT expanded here — it is a separate boolean,
 // so a global-only pathway yields an empty coverage set (which is what makes
@@ -50,57 +51,77 @@ export function pathwayISOCoverage(
     const iso = toISO2(raw);
     if (iso && countryNameFromISO2(iso)) codes.add(iso as GeographyCode);
   };
-  if (geo.country) geo.country.forEach(add);
-  if (geo.regions) {
-    for (const members of Object.values(geo.regions)) {
-      if (Array.isArray(members)) members.forEach(add);
-    }
+  for (const members of [
+    ...Object.values(geo.country ?? {}),
+    ...Object.values(geo.regions ?? {}),
+  ]) {
+    if (Array.isArray(members)) members.forEach(add);
   }
   return codes;
 }
 
-// The ISO-3166-1 alpha-2 codes a pathway's OWN `regions[label]` entry declares —
-// the publication's mapping, never the filter-region vocabulary in
-// `filterRegions.ts`. `flattenGeography` carries region labels only, so this is how
-// display code gets the membership behind a region badge back (#799). Returns an
-// empty array both when `label` is not one of the pathway's regions and when the
-// publication provides no mapping for it (empty member array). Those two cases are
-// NOT distinguishable from the result, and `geographyKind` cannot tell them apart
-// either — it answers "region" for any non-Global, non-country token, including a
-// label this pathway never declared. A caller that needs the difference has to look
-// for the label in `geo.regions` itself. Unrecognised codes are
-// dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the order
-// comes from `sortGeographiesForDetails` so members read A→Z by ISO2 exactly like
-// country badges elsewhere.
-export function regionMemberCodes(
+// The ISO-3166-1 alpha-2 codes one of a pathway's OWN tokens declares: a
+// `regions[label]` entry's members, or a `country[code]` entry's codes (a
+// country can include territories, e.g. CN with HK and MO, #1071). Always the
+// publication's mapping, never the filter-region vocabulary in
+// `filterRegions.ts`. `flattenGeography` carries keys only, so this is how
+// display code gets the membership behind a badge back (#799). Returns an empty
+// array for a token the pathway does not declare; every declared region has two
+// or more members and every country at least its own code. `geographyKind`
+// cannot tell an undeclared label apart — it answers "region" for any
+// non-Global, non-country token — so a caller that needs to know has to look
+// for the token in `geo` itself. Regions are looked up first, so a two-letter
+// region label such as JRC's "EU" reads as the region it is. Unrecognised codes
+// are dropped and duplicates collapsed, matching `pathwayISOCoverage`, and the
+// order comes from `sortGeographiesForDetails` so members read A→Z by ISO2
+// exactly like country badges elsewhere.
+export function geographyMemberCodes(
   geo: Geography | null | undefined,
-  label: string,
+  token: string,
 ): GeographyCode[] {
-  if (!geo || typeof geo !== "object" || !geo.regions) return [];
-  const wanted = normalizeGeography(label);
+  if (!geo || typeof geo !== "object") return [];
+  const wanted = normalizeGeography(token);
   if (!wanted) return [];
   // Match on the normalized form so the lookup accepts the same token
   // `flattenGeography` emitted, even if the raw key carries stray whitespace.
-  const key = Object.keys(geo.regions).find(
+  // Exact otherwise: timeseries labels are the metadata's own (#945, enforced
+  // by validateTimeseries), so no spelling fold is needed.
+  const regionKey = Object.keys(geo.regions ?? {}).find(
     (k) => normalizeGeography(k) === wanted,
   );
-  if (key === undefined) return [];
-  const members = geo.regions[key];
+  const members: unknown =
+    regionKey !== undefined
+      ? geo.regions?.[regionKey]
+      : geo.country?.[toISO2(wanted) ?? ""];
   if (!Array.isArray(members)) return [];
   const codes = new Set<string>();
   for (const raw of members) {
-    const iso = toISO2(raw);
+    const iso = toISO2(String(raw));
     if (iso && countryNameFromISO2(iso)) codes.add(iso);
   }
   return sortGeographiesForDetails([...codes]) as GeographyCode[];
 }
 
+// Whether a geography badge lists members in a tooltip: every region does (an
+// undeclared one says it has no mapping), and so does a country that includes
+// more than its own code — NGFS's US with Puerto Rico and the US Virgin Islands.
+// A plain country, and Global, have nothing to list, and a tooltip-less badge
+// stays a plain span with no focus trigger.
+export function hasMemberList(
+  geo: Geography | null | undefined,
+  token: string,
+): boolean {
+  const kind = geographyKind(token);
+  if (kind === "region") return true;
+  if (kind === "global") return false;
+  const self = toISO2(token);
+  return geographyMemberCodes(geo, token).some((code) => code !== self);
+}
+
 // A pathway has "absent" geography when flattening yields no tokens — i.e. an
 // empty/missing geography object (`{}`, `undefined`, or the legacy empty array).
 // Single source of truth shared by the "None" facet gate and the ABSENT match
-// arm so the two can never disagree about what counts as empty. Note a region
-// with an empty member array (e.g. `{regions:{X:[]}}`) is NOT absent — it still
-// carries a region label token.
+// arm so the two can never disagree about what counts as empty.
 export function isGeographyAbsent(geo: Geography | null | undefined): boolean {
   return flattenGeography(geo).length === 0;
 }
@@ -152,6 +173,25 @@ export function geographyKind(raw: string): GeographyKind {
   if (/^global$/i.test(s)) return "global"; // match literal "global"
   if (toISO2(raw) && countryNameFromISO2(raw)) return "country";
   return "region";
+}
+
+/**
+ * A publication-independent identity for a geography token, folding away
+ * spelling differences only: case, spacing and punctuation.
+ *
+ * Different publishers spell the same region differently — IEA writes
+ * "Southeast Asia", JRC "South East Asia" — which matters when one page sets
+ * pathways side by side (comparisonScope). Within one pathway no fold is
+ * needed: its timeseries use its metadata's own labels (#945). This
+ * is deliberately a spelling fold and NOT a synonym table: "ASEAN" does not
+ * merge with "South East Asia", and no ISO-similarity threshold is involved,
+ * because a fuzzy match is unreviewable. Two tokens share a key only when they
+ * are the same words written differently.
+ */
+export function canonicalGeographyKey(raw: string): string {
+  return normalizeGeography(raw)
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "");
 }
 
 // geographyLabel does not support mapping for ISO-3 country codes, region

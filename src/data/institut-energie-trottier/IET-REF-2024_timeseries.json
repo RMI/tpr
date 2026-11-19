@@ -1,0 +1,1466 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayTimeseries.v2.json",
+  "id": "IET-REF-2024_timeseries",
+  "pathwayId": ["IET-REF-2024"],
+  "name": "Reference scenario (REF) Timeseries Data",
+  "description": "Exploratory Canadian reference: in-force plus proposed federal rules (CER, ZEV mandate); no GHG cap.",
+  "publication": {
+    "title": {
+      "full": "Canadian Energy Outlook, 3rd edition – Pathways for a net-zero Canada: Horizon 2060"
+    },
+    "publisher": {
+      "full": "Institut de l'énergie Trottier, Polytechnique Montréal",
+      "short": "IET"
+    },
+    "year": 2024,
+    "city": "Montréal",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://iet.polymtl.ca/download/842/CEO3_2_PNZC_20240628.pdf"
+      },
+      {
+        "description": "Dataset",
+        "url": "https://2024.pathways-trajectoires.ca/"
+      },
+      {
+        "description": "Data license",
+        "url": "https://open.canada.ca/en/open-government-licence-canada"
+      }
+    ]
+  },
+  "pathwayName": "Reference scenario (REF)",
+  "emissionsScope": "CO2e (Kyoto)",
+  "data": [
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 77.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 48.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 0.8,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 4.6,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 2.3,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 3.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 3.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 3.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 2.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "capacity",
+      "value": 7.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "capacity",
+      "value": 1.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "capacity",
+      "value": 0.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "capacity",
+      "value": 0.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 0.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 6.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 11.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 14.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 15.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 25.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 27.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 23.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 22.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 20.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 81.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 85.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 86.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 87.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 82.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 12.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 10,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 14.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 15.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 18.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 2.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 0.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 0.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 2.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 1.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 3.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 7.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 12.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 14.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 34.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 14.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 27,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 65.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 68.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 69.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.12,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.072,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.001,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.006,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.003,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 11.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 10.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 9.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 13.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 1.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "generation",
+      "value": 32.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "generation",
+      "value": 2.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 76.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 97.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 5.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 14.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 17.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 387.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 416.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 426.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 440.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 416,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 87.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 64.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 104.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 114.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 147.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 4.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 5.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 2.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 9.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 12.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 11.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 4.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 10.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 18.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 22.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 55.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 35.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 67.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 196.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 208.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 213.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.81,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.57,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.18,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.67,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.14,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "technologyMix",
+      "value": 4.98,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "coal",
+      "metric": "technologyMix",
+      "value": 0.4,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 11.92,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 14.45,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 0.69,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 1.78,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 2.08,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 60.05,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 61.83,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 55.33,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 53.32,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 48.17,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 13.54,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 9.58,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 13.6,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 13.86,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 17.08,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0.73,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0.09,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0.02,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 0.79,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 0.38,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 1.27,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 1.47,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 1.38,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 0.7,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 1.63,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 2.43,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 2.72,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 6.44,
+      "unit": "%"
+    },
+    {
+      "year": 2021,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 5.47,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 10.08,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 25.47,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 25.18,
+      "unit": "%"
+    },
+    {
+      "year": 2060,
+      "geography": "CA",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 24.71,
+      "unit": "%"
+    }
+  ]
+}

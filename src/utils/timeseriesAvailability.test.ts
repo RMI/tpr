@@ -87,24 +87,18 @@ describe("pathwayToolAvailability", () => {
       expect(av.hasGeography("North America")).toBe(false);
     });
 
-    it("maps ISO2 country codes to display names", () => {
-      // "DE" maps to "Germany" via geographyLabel — confirmed by PathwayCard tests.
-      const av = pathwayToolAvailability([
-        {
-          summary: {
-            sectors: [],
-            geographies: ["Germany"],
-            metrics: [],
-          },
-        },
-      ]);
-      expect(av.hasGeography("DE")).toBe(true);
+    it("matches the metadata token exactly, so a different spelling is absent", () => {
+      // Timeseries carry the metadata's own labels (#945, enforced by
+      // validateTimeseries), so no spelling fold or name lookup is involved.
+      expect(av.hasGeography("Southeast Asia")).toBe(false);
+      expect(av.hasGeography("south east asia")).toBe(false);
     });
 
-    it("returns false for an ISO2 code whose display name is not present", () => {
+    it("matches an ISO2 country by its code, as summaries record it", () => {
       const av = pathwayToolAvailability([
-        { summary: { sectors: [], geographies: ["Germany"], metrics: [] } },
+        { summary: { sectors: [], geographies: ["DE"], metrics: [] } },
       ]);
+      expect(av.hasGeography("DE")).toBe(true);
       expect(av.hasGeography("FR")).toBe(false);
     });
   });
@@ -157,6 +151,18 @@ describe("pathwayToolAvailability", () => {
       expect(av.hasSector("Power")).toBe(false);
       expect(av.hasMetric("Capacity")).toBe(false);
       expect(av.hasGeography("Global")).toBe(false);
+    });
+
+    it("tolerates a sector the taxonomy defines without a metrics axis", () => {
+      // Steel and Aviation are in SECTORS_BY_KEY for their data-availability
+      // vocabularies but define no timeseries `metrics`. Indexing that
+      // undefined axis used to throw, which would have broken the detail page
+      // the day a Steel series landed.
+      const av = pathwayToolAvailability([
+        { summary: { sectors: ["steel"], metrics: ["capacity"] } },
+      ]);
+      expect(av.hasSector("Steel")).toBe(true);
+      expect(av.hasMetric("Capacity")).toBe(false);
     });
   });
 });

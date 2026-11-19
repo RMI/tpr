@@ -15,6 +15,16 @@ export function fetchTimeseriesIndex(): Promise<TimeseriesIndex> {
   return Promise.resolve(gen);
 }
 
+/**
+ * The index, synchronously. It is bundled with the app, so a caller that must
+ * not restyle after mount (the scope ribbon's availability) can read it on the
+ * first render. Going through this module rather than `index.gen` keeps it
+ * mockable alongside `fetchTimeseriesIndex`.
+ */
+export function getTimeseriesIndex(): TimeseriesIndex {
+  return gen;
+}
+
 export function datasetsForPathway(
   index: TimeseriesIndex | null,
   pathwayId: string,

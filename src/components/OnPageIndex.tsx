@@ -89,9 +89,25 @@ const OnPageIndex: React.FC<OnPageIndexProps> = ({ containerRef }) => {
     const target = found
       .flatMap((section) => [section, ...section.children])
       .find((heading) => heading.id === targetId);
+    // A deep link may also point below the index, at an element that is not
+    // listed (the methodology page's key features are `h4`s, but kept their
+    // v1 ids, #1055). Land on it, and mark the closest indexed heading above
+    // it active so its section expands.
+    const unindexed =
+      target || !targetId ? null : document.getElementById(targetId);
     if (target) {
       document.getElementById(target.id)?.scrollIntoView({ block: "start" });
       setActiveId(target.id);
+    } else if (unindexed && container.contains(unindexed)) {
+      unindexed.scrollIntoView({ block: "start" });
+      const enclosing = elements
+        .filter(
+          (el) =>
+            el.compareDocumentPosition(unindexed) &
+            Node.DOCUMENT_POSITION_FOLLOWING,
+        )
+        .pop();
+      setActiveId(enclosing?.id ?? found[0]?.id ?? null);
     } else {
       setActiveId(found[0]?.id ?? null);
     }
