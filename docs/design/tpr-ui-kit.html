@@ -1375,8 +1375,8 @@
         display: inline-flex;
         align-items: center;
         gap: 8px;
-        background: var(--color-energy);
-        color: var(--color-bluespruce);
+        background: var(--color-bluespruce);
+        color: #fff;
         border: none;
         border-radius: 9999px;
         padding: 10px 20px;
@@ -1391,8 +1391,7 @@
         font-family: inherit;
       }
       .help-trigger:hover {
-        background: var(--color-bluespruce);
-        color: #fff;
+        background: var(--color-energy);
       }
       /* First-visit halo (.help-pulse in index.css). The app runs it three
          times; it loops here so the demo stays visible. */
@@ -5559,16 +5558,15 @@
                 <div class="tags">
                   <span class="tag">fixed bottom-4 right-4 z-40</span
                   ><span class="tag"
-                    >rounded-full bg-energy text-bluespruce px-5 py-2.5
-                    text-base shadow-lg ring-2 ring-white</span
-                  ><span class="tag">hover:bg-bluespruce hover:text-white</span
+                    >rounded-full bg-bluespruce px-5 py-2.5 text-base shadow-lg
+                    ring-2 ring-white</span
+                  ><span class="tag">hover:bg-energy</span
                   ><span class="tag">.help-pulse</span>
                 </div>
                 <p class="note">
                   z-40 keeps it above the sticky bars (z-10 to z-30) and below
-                  the header and its menus (z-50 and up). The teal fill sets it
-                  apart from the dark-blue header and footer, and the white ring
-                  keeps its edge clear on any background.
+                  the header and its menus (z-50 and up). The white ring keeps
+                  it visible over the dark-blue footer.
                 </p>
                 <p class="note">
                   Until a reader first opens help, a teal halo pulses three

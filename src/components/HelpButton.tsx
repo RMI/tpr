@@ -190,7 +190,7 @@ const HelpPanel: React.FC<{ groups: HelpGroup[] }> = ({ groups }) => {
         onClick={onTriggerClick}
         aria-haspopup="dialog"
         aria-expanded={open}
-        className="relative inline-flex items-center gap-2 rounded-full bg-energy px-5 py-2.5 text-base font-semibold text-bluespruce shadow-lg ring-2 ring-white hover:bg-bluespruce hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-bluespruce focus-visible:ring-offset-2"
+        className="relative inline-flex items-center gap-2 rounded-full bg-bluespruce px-5 py-2.5 text-base font-semibold text-white shadow-lg ring-2 ring-white hover:bg-energy focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-energy-400 focus-visible:ring-offset-2"
       >
         {/* Until the reader first opens help, a halo pulses a few times on
             each page to draw the eye. See .help-pulse in index.css. */}
