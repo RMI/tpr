@@ -421,6 +421,67 @@
         flex-wrap: wrap;
         gap: 6px;
       }
+      /* Scope tab (Draft A, scope-tab-spec 2026-11-19) */
+      .st-box {
+        display: flex;
+        flex-direction: column;
+        width: 260px;
+        max-width: 100%;
+        border: 1px solid var(--color-neutral-200, #e5e5e5);
+        border-radius: 8px;
+        background: #fff;
+      }
+      .st-box .st-body {
+        padding: 12px 12px 10px;
+        font-size: 12px;
+        color: var(--color-rmigray-500, #6b7280);
+      }
+      .st-box .st-body.empty {
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        color: var(--color-rmigray-400, #9ca3af);
+      }
+      .st-tab {
+        display: flex;
+        width: fit-content;
+        max-width: 100%;
+        overflow: hidden;
+        border-top-right-radius: 6px;
+        border-bottom-left-radius: 7px;
+      }
+      .st-seg {
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 3px 8px;
+        font-size: 10px;
+        font-weight: 500;
+        line-height: 16px;
+        color: var(--color-rmigray-500, #6b7280);
+      }
+      .st-seg + .st-seg {
+        border-left: 1px solid #fff;
+      }
+      .st-seg.match {
+        background: var(--color-neutral-100, #f5f5f5);
+      }
+      .st-seg.marked {
+        background: var(--color-neutral-300, #d4d4d4);
+      }
+      .st-seg.missing {
+        background: var(--color-solar-100);
+      }
+      .st-seg.na {
+        background: color-mix(
+          in oklab,
+          var(--color-solar-100) 50%,
+          transparent
+        );
+      }
       .comp-card .note {
         margin: 9px 0 0;
         font-size: 12px;
@@ -1904,6 +1965,7 @@
             >Notices &amp; empty states<span class="new-dot"></span
           ></a>
           <a href="#editions">Pathway editions<span class="new-dot"></span></a>
+          <a href="#scope-tab">Scope tab<span class="new-dot"></span></a>
         </div>
         <div class="toc-group">
           <h6>Handoff</h6>
@@ -2311,6 +2373,22 @@
               <div class="meta">
                 <p class="name">solar-100</p>
                 <p class="hex">#FFEDA9</p>
+              </div>
+            </div>
+            <div class="swatch">
+              <div
+                class="chip"
+                style="
+                  background: color-mix(
+                    in oklab,
+                    var(--color-solar-100) 50%,
+                    transparent
+                  );
+                "
+              ></div>
+              <div class="meta">
+                <p class="name">solar-100/50</p>
+                <p class="hex">≈ #FFF6D4 on white · scope tab only</p>
               </div>
             </div>
             <div class="swatch">
@@ -5851,6 +5929,125 @@
         </section>
 
         <!-- ============ V2: NOTICES & EMPTY STATES ============ -->
+        <section
+          class="block"
+          id="scope-tab"
+        >
+          <h2>Scope tab <span class="new-pill">v2</span></h2>
+          <p class="lede">
+            Every key feature and benchmark chart sits in its own bordered
+            container, with the scope its value actually comes from in a tab
+            flush in the bottom-left corner, always visible. One half per axis
+            (sector, then geography), each with its own colour and tooltip. Grey
+            means granularity, yellow means missing data. When the full tab
+            doesn&rsquo;t fit, every &ldquo;X &lt; Y&rdquo; half shows only X:
+            measured, not a breakpoint.
+          </p>
+          <div class="comp-grid">
+            <div class="comp-card">
+              <div class="stage">
+                <div class="st-box">
+                  <div class="st-body">Policy ambition</div>
+                  <div class="st-tab">
+                    <span class="st-seg match">Power</span>
+                    <span class="st-seg match">ASEAN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Matches the selection</h4>
+                <p class="src">ScopeTab.tsx · ScopedContainer</p>
+                <div class="tags">
+                  <span class="tag">bg-neutral-100</span>
+                  <span class="tag">text-rmigray-500</span>
+                  <span class="tag">text-[10px] font-medium</span>
+                  <span class="tag">px-2 py-[3px]</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage">
+                <div class="st-box">
+                  <div class="st-body">Policy types</div>
+                  <div class="st-tab">
+                    <span class="st-seg marked">Across sectors &lt; Power</span>
+                    <span class="st-seg marked">Global &lt; Thailand</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Recorded at a broader level</h4>
+                <p class="src">scopeReasons → marked</p>
+                <div class="tags">
+                  <span class="tag">bg-neutral-300</span>
+                  <span class="tag">label: source &lt; selected</span>
+                  <span class="tag">short form: source</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage">
+                <div class="st-box">
+                  <div class="st-body">Technology cost trend</div>
+                  <div class="st-tab">
+                    <span class="st-seg missing">Across sectors</span>
+                    <span class="st-seg match">ASEAN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Missing, so the tool fell back</h4>
+                <p class="src">scopeReasons → missing</p>
+                <div class="tags">
+                  <span class="tag">bg-solar-100</span>
+                  <span class="tag"
+                    >charts: geographyFallbackNote in tooltip</span
+                  >
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage">
+                <div class="st-box">
+                  <div class="st-body">Electrification</div>
+                  <div class="st-tab">
+                    <span class="st-seg na">Across sectors</span>
+                    <span class="st-seg match">ASEAN</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>Doesn&rsquo;t apply (Electrification × Power)</h4>
+                <p class="src">scopeReasons → notApplicable</p>
+                <div class="tags">
+                  <span class="tag">bg-solar-100/50</span>
+                  <span class="tag">new swatch</span>
+                </div>
+              </div>
+            </div>
+            <div class="comp-card">
+              <div class="stage">
+                <div class="st-box">
+                  <div class="st-body empty">No information</div>
+                  <div class="st-tab">
+                    <span class="st-seg match">Power</span>
+                    <span class="st-seg match">Singapore</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info">
+                <h4>No value</h4>
+                <p class="src">ScopedFeature</p>
+                <div class="tags">
+                  <span class="tag">text-sm text-rmigray-400</span>
+                  <span class="tag">centred, no ramp or pills</span>
+                  <span class="tag">tab stays neutral</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section
           class="block"
           id="notices"

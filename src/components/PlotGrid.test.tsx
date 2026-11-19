@@ -1,5 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import PlotGrid from "./PlotGrid";
 import MultiLineChart from "./MultiLineChart";
 import type { Geography } from "../types";
@@ -11,6 +17,28 @@ vi.mock("./NormalizedStackedAreaChart", () => ({
   default: vi.fn(() => <div data-testid="stacked-area-chart" />),
 }));
 const mockedMultiLineChart = vi.mocked(MultiLineChart);
+
+/** Every chart's scope tab, half by half. */
+const tabHalves = () =>
+  screen.getAllByRole("list", { name: "Scope shown" }).map((tab) =>
+    within(tab)
+      .getAllByRole("listitem")
+      .map((half) => half.textContent),
+  );
+
+/** Open the tooltip on the first tab half showing `text`, and read it. */
+async function halfTooltip(text: string): Promise<string | null> {
+  const trigger = screen
+    .getAllByText(text, { selector: "[data-scope-label]" })[0]
+    .closest("[tabindex]") as HTMLElement;
+  await waitFor(() => {
+    fireEvent.focus(trigger);
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+  });
+  const content = screen.getByRole("tooltip").textContent;
+  fireEvent.blur(trigger);
+  return content;
+}
 
 const SEA: Geography = {
   global: false,
@@ -285,7 +313,7 @@ describe("PlotGrid", () => {
     expect(screen.queryByText("Power generation")).not.toBeInTheDocument();
   });
 
-  it("renders both indicators as badges, in distinct colours", () => {
+  it("keeps the segment badge, and moves the geography into the scope tab", async () => {
     render(
       <PlotGrid
         timeseriesdata={timeseries({
@@ -300,10 +328,12 @@ describe("PlotGrid", () => {
     expect(segment).toHaveClass("bg-rmipink-100");
     expect(segment).toHaveClass("rounded-full");
 
-    // The geography indicator keeps its own family, so the pair reads as two
-    // different dimensions rather than one run of pills.
-    const geography = screen.getByText("South East Asia").closest("span");
-    expect(geography).toHaveClass("bg-pinishgreen-200");
+    // The geography badge is gone: the tab names it, with the region's
+    // members in its tooltip, as the badge's tooltip listed them.
+    expect(document.querySelector(".bg-pinishgreen-200")).toBeNull();
+    expect(tabHalves()).toEqual([["Power", "South East Asia"]]);
+    const tooltip = await halfTooltip("South East Asia");
+    expect(tooltip).toContain("3 countries");
   });
 
   it("makes the sector segment badge hoverable", () => {
@@ -324,7 +354,7 @@ describe("PlotGrid", () => {
     ).not.toBeNull();
   });
 
-  it("explains the fallback when the requested geography is unavailable", () => {
+  it("explains the fallback when the requested geography is unavailable", async () => {
     render(
       <PlotGrid
         timeseriesdata={timeseries({
@@ -336,11 +366,14 @@ describe("PlotGrid", () => {
       />,
     );
 
+    // In the geography half's tooltip, which turns yellow.
+    expect(screen.queryByText(/No timeseries data for/)).toBeNull();
     expect(
-      screen.getByText(
-        "No timeseries data for Malaysia; showing South East Asia instead.",
-      ),
-    ).toBeInTheDocument();
+      screen.getByText("South East Asia", { selector: "[data-scope-label]" }),
+    ).toHaveClass("bg-solar-100");
+    expect(await halfTooltip("South East Asia")).toContain(
+      "No timeseries data for Malaysia; showing South East Asia instead.",
+    );
   });
 
   it("says nothing fell back when the requested geography is present", () => {
@@ -353,10 +386,12 @@ describe("PlotGrid", () => {
     );
 
     expect(screen.queryByText(/No timeseries data for/)).toBeNull();
-    expect(screen.getByText("Vietnam")).toBeInTheDocument();
+    expect(
+      screen.getByText("Vietnam", { selector: "[data-scope-label]" }),
+    ).toHaveClass("bg-neutral-100");
   });
 
-  it("renders each plot as its own bordered card", () => {
+  it("renders each plot in its own scope container", () => {
     render(
       <PlotGrid
         timeseriesdata={timeseries(
@@ -369,14 +404,14 @@ describe("PlotGrid", () => {
 
     const cards = screen
       .getAllByText(/^(Capacity|Generation)$/)
-      .map((caption) => caption.parentElement as HTMLElement);
+      .map((caption) => caption.closest("figure") as HTMLElement);
 
     expect(cards).toHaveLength(2);
     cards.forEach((card) => {
-      expect(card.tagName).toBe("FIGURE");
-      expect(card).toHaveClass("bg-white");
-      expect(card).toHaveClass("rounded-lg");
-      expect(card).toHaveClass("border");
+      const container = card.firstElementChild as HTMLElement;
+      expect(container).toHaveClass("bg-white", "rounded-lg", "border");
+      // The tab sits in the container, after the chart.
+      expect(container.lastElementChild).toHaveAttribute("role", "list");
     });
   });
 
@@ -463,7 +498,7 @@ describe("PlotGrid — scope selection (#872)", () => {
       { metric: "generation", geography: "South East Asia" },
     );
 
-  it("explains the fallback once for the whole grid, not once per panel", () => {
+  it("moves the fallback sentence from above the grid into each chart's tab", () => {
     render(
       <PlotGrid
         timeseriesdata={twoPanels()}
@@ -472,11 +507,14 @@ describe("PlotGrid — scope selection (#872)", () => {
       />,
     );
 
-    // Two charts, one sentence: every panel resolves to the same geography.
+    // No sentence above the grid any more: each chart's tab says it, in
+    // its geography half's tooltip.
     expect(screen.getAllByText("Capacity")).toHaveLength(1);
-    expect(screen.getAllByText(/No timeseries data for Malaysia/)).toHaveLength(
-      1,
-    );
+    expect(screen.queryByText(/No timeseries data for/)).toBeNull();
+    expect(tabHalves()).toEqual([
+      ["Power", "South East Asia"],
+      ["Power", "South East Asia"],
+    ]);
   });
 
   it("says nothing when the requested geography resolves exactly", () => {

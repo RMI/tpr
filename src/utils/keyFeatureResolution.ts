@@ -1,6 +1,6 @@
 /**
  * The key-feature fallback resolver (#869): the value a pathway reports for the
- * scope the reader selected, and where it was found, so #859 can badge a value
+ * scope the reader selected, and where it was found, so the scope tab can name a value
  * inherited from a broader scope.
  *
  * Kept apart from keyFeatureScope, which answers search's question — which
@@ -18,7 +18,6 @@ import type {
   PathwayMetadataType,
   PathwayScopeSelection,
 } from "../types";
-import { geographyLabel } from "./geographyUtils";
 import { asEntries } from "./keyFeatureScope";
 import {
   ACROSS_REGIONS,
@@ -159,7 +158,7 @@ export function geographyChain(
  * without reading it, and goes on to `across sectors`. Most pathways open on
  * Power, so answering "not applicable" there would hide the pathway's
  * electrification everywhere it is first seen; inheriting the across-sectors
- * value, badged and explained, shows it. A pathway with nothing across sectors
+ * value, named and explained in the scope tab, shows it. A pathway with nothing across sectors
  * ends `unavailable`, still naming the sector, so the page says the feature does
  * not apply there rather than that nothing is recorded. Malformed or non-array
  * input degrades to "no entries", and so to `unavailable`.
@@ -225,16 +224,64 @@ export function resolveKeyFeature(
 }
 
 /**
- * Name a resolved scope for its badge: `"Across sectors · South East Asia"`,
- * `"Power · Thailand"`. The geography goes through `geographyLabel`, as in
- * `scopeSelectionLabel`, so a country reads as its name rather than its ISO code.
+ * Why one axis of a key feature shows the scope it does, for the scope tab
+ * (scope-tab-spec, Sebastian 2026-11-19):
+ *  - `match`: the value is at the scope the reader selected on this axis;
+ *  - `marked`: the publisher marks the selected scope as recorded at a broader
+ *    level (`Not applicable at this scope level`), so the broader value is
+ *    the pathway's own answer, a matter of granularity;
+ *  - `missing`: nothing is recorded at the selected scope, so the resolver
+ *    fell back;
+ *  - `notApplicable` (sector only): the field cannot apply to the selected
+ *    sector (Electrification × Power), so the across-sectors value is shown.
  */
-export function sourceScopeLabel(scope: Scope): string {
-  const sector =
-    scope.sector === ACROSS_SECTORS ? "Across sectors" : scope.sector;
-  const geography =
-    scope.geography === ACROSS_REGIONS
-      ? "Across regions"
-      : geographyLabel(scope.geography);
-  return `${sector} · ${geography}`;
+export type ScopeReason = "match" | "marked" | "missing" | "notApplicable";
+
+export interface ScopeReasons {
+  sector: ScopeReason;
+  geography: ScopeReason;
+}
+
+/**
+ * The reason on each axis for a resolved key feature, read from the same
+ * entries the resolver walked. An unavailable feature has nothing to explain:
+ * both axes read `match`, naming the scope the page looked at.
+ *
+ * The sector reads the selected sector's entry at the selected geography; the
+ * geography reads the source sector's entry at the selected geography, so
+ * each axis is judged on the row the value actually came from.
+ */
+export function scopeReasons(
+  pathway: Pick<PathwayMetadataType, "keyFeatures">,
+  field: KeyFeatureKey,
+  resolution: ResolvedKeyFeature,
+): ScopeReasons {
+  if (resolution.status === "unavailable") {
+    return { sector: "match", geography: "match" };
+  }
+  const { sourceScope: source, requestedScope: requested } = resolution;
+  const entries = asEntries(pathway.keyFeatures?.[field]);
+  const markedAt = (sector: string, geography: string) =>
+    entries.some(
+      (e) =>
+        e.sector === sector &&
+        e.geography === geography &&
+        isScopeLevelNotApplicable(e.value),
+    );
+
+  const sector: ScopeReason =
+    source.sector === requested.sector
+      ? "match"
+      : resolution.notApplicableSector
+        ? "notApplicable"
+        : markedAt(requested.sector, requested.geography)
+          ? "marked"
+          : "missing";
+  const geography: ScopeReason =
+    source.geography === requested.geography
+      ? "match"
+      : markedAt(source.sector, requested.geography)
+        ? "marked"
+        : "missing";
+  return { sector, geography };
 }

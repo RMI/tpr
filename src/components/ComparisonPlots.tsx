@@ -7,19 +7,9 @@ import {
   hasDataForMetricAndGeo,
 } from "./PlotPanel";
 import Badge from "./Badge";
-import RegionMembersTooltip from "./RegionMembersTooltip";
+import { ScopedContainer, chartSegments } from "./ScopeTab";
 import type { Geography } from "../types";
-import {
-  geographyKind,
-  geographyLabel,
-  geographyVariant,
-  hasMemberList,
-  normalizeGeography,
-} from "../utils/geographyUtils";
-import {
-  geographyFallbackNote,
-  resolveGeography,
-} from "../utils/geographyFallback";
+import { resolveGeography } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
 import { plottedSegments } from "../utils/timeseriesSegments";
 import { capToPlotYears } from "../utils/plotYears";
@@ -38,6 +28,13 @@ const CHART_DIMS: Record<number, { width: number; height: number }> = {
 
 /** Quantise the measured width so a window drag does not re-run d3 per pixel. */
 const WIDTH_STEP = 20;
+
+/**
+ * Column width minus the chart's width: the scope container's 1px borders and
+ * `p-2` padding (18px), plus half a WIDTH_STEP, because the measured width is
+ * rounded to the nearest step and may be up to that much over.
+ */
+const CHART_INSET = 2 + 16 + WIDTH_STEP / 2;
 
 /**
  * Stable empty default for `requestedGeographies`. An inline `{}` would be a
@@ -122,6 +119,10 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
     that only matched one viewport width.
 
     One observer suffices: every column is `1fr`, so they share a width. The
+    column is measured, since it is always there, and the chart is drawn
+    inside its scope container: CHART_INSET takes off the container's border
+    and padding, and the half-step the measurement may have rounded up by,
+    so a chart is never wider than its box. The
     charts already re-scale on a width change — MultiLineChart and
     NormalizedStackedAreaChart both list `width` in their effect deps — so no
     remount is needed, and `dims` stays OUT of PlotPanel's key: keying on it
@@ -131,7 +132,8 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
   const fallbackDims = CHART_DIMS[n] ?? CHART_DIMS[3];
   const dims = useMemo(
     () => ({
-      width: columnWidth ?? fallbackDims.width,
+      width:
+        columnWidth !== null ? columnWidth - CHART_INSET : fallbackDims.width,
       height: fallbackDims.height,
     }),
     [columnWidth, fallbackDims],
@@ -350,8 +352,6 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
       {entries.map((entry, idx) => {
         const resolution = resolutions[idx];
         const used = resolution?.used ?? "";
-        const usedKind = geographyKind(used);
-        const note = resolution ? geographyFallbackNote(resolution) : null;
         // Only for a series PlotPanel draws; see PlotGrid.
         const segments = hasDataForMetricAndGeo(
           entry.timeseriesdata,
@@ -371,57 +371,60 @@ const ComparisonPlots: React.FC<ComparisonPlotsProps> = ({
             key={entry.pathwayId}
             // Only the first column is measured; they are all `1fr`.
             ref={idx === 0 ? firstColumnRef : undefined}
-            className="min-w-0"
+            className="flex min-w-0"
           >
-            <PlotPanel
-              timeseriesdata={entry.timeseriesdata}
-              datasetId={entry.datasetId}
-              plotType={selectedPlot}
-              selectedGeography={used}
-              dims={dims}
-              yMin={sharedYBounds?.yMin}
-              yMax={sharedYBounds?.yMax}
-              hoveredPoint={hoveredPoint}
-              onHoverPoint={handleHoverPoint}
-            />
-
             {/*
-              Which geography this column actually shows. Per column rather
-              than once for the grid, because the columns can differ — which is
-              the whole reason the shared request is resolved separately.
+              The chart in its scope container: which geography this column
+              actually shows, and why when it fell back, are in the tab's
+              geography half and its tooltip (scope-tab-spec §1.4). Per column,
+              because the columns can differ. The sector-segment badges stay.
             */}
             {used ? (
-              <div className="mt-1 flex flex-wrap items-center">
-                <Badge
-                  variant={geographyVariant(usedKind)}
-                  tooltip={
-                    hasMemberList(entry.pathwayGeography, used) ? (
-                      <RegionMembersTooltip
-                        geography={entry.pathwayGeography}
-                        label={used}
-                      />
-                    ) : undefined
-                  }
-                >
-                  {geographyLabel(normalizeGeography(used))}
-                </Badge>
-                {segments.map((segment) => (
-                  <Badge
-                    key={segment}
-                    variant="sectorSegment"
-                    tooltip={getSectorSegmentTooltip(
-                      PLOT_SECTOR.displayName,
-                      segment,
-                    )}
-                  >
-                    {segment}
-                  </Badge>
-                ))}
-              </div>
-            ) : null}
-            {note ? (
-              <p className="mt-1 text-xs text-rmigray-600">{note}</p>
-            ) : null}
+              <ScopedContainer
+                segments={chartSegments(
+                  resolution,
+                  PLOT_SECTOR.displayName,
+                  entry.pathwayGeography,
+                )}
+                padding="p-2"
+              >
+                <PlotPanel
+                  timeseriesdata={entry.timeseriesdata}
+                  datasetId={entry.datasetId}
+                  plotType={selectedPlot}
+                  selectedGeography={used}
+                  dims={dims}
+                  yMin={sharedYBounds?.yMin}
+                  yMax={sharedYBounds?.yMax}
+                  hoveredPoint={hoveredPoint}
+                  onHoverPoint={handleHoverPoint}
+                />
+                {segments.length > 0 ? (
+                  <div className="mt-1 flex flex-wrap items-center">
+                    {segments.map((segment) => (
+                      <Badge
+                        key={segment}
+                        variant="sectorSegment"
+                        tooltip={getSectorSegmentTooltip(
+                          PLOT_SECTOR.displayName,
+                          segment,
+                        )}
+                      >
+                        {segment}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : null}
+              </ScopedContainer>
+            ) : (
+              <PlotPanel
+                timeseriesdata={entry.timeseriesdata}
+                datasetId={entry.datasetId}
+                plotType={selectedPlot}
+                selectedGeography={used}
+                dims={dims}
+              />
+            )}
           </div>
         );
       })}

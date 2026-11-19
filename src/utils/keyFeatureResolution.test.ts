@@ -4,7 +4,7 @@ import {
   effectiveScope,
   geographyChain,
   resolveKeyFeature,
-  sourceScopeLabel,
+  scopeReasons,
 } from "./keyFeatureResolution";
 import type { Geography, PathwayMetadataType } from "../types";
 
@@ -517,59 +517,109 @@ describe("createKeyFeatureResolver", () => {
   });
 });
 
-describe("sourceScopeLabel", () => {
-  it("names the sentinels in sentence case", () => {
-    expect(
-      sourceScopeLabel({ sector: "across sectors", geography: "ASEAN" }),
-    ).toBe("Across sectors · ASEAN");
-    expect(
-      sourceScopeLabel({ sector: "Power", geography: "across regions" }),
-    ).toBe("Power · Across regions");
-  });
-
-  it("names a country rather than its code", () => {
-    expect(sourceScopeLabel({ sector: "Power", geography: "TH" })).toBe(
-      "Power · Thailand",
+describe("scopeReasons (scope tab)", () => {
+  const reasonsFor = (
+    p: PathwayMetadataType,
+    field: string,
+    selection: ReturnType<typeof at>,
+  ) =>
+    scopeReasons(
+      p,
+      field as never,
+      resolveKeyFeature(p, field as never, selection),
     );
-  });
 
-  it("keeps region labels and Global as they are", () => {
-    expect(
-      sourceScopeLabel({ sector: "Buildings", geography: "South East Asia" }),
-    ).toBe("Buildings · South East Asia");
-    expect(sourceScopeLabel({ sector: "Power", geography: "Global" })).toBe(
-      "Power · Global",
-    );
-  });
-});
-
-describe("geographyChain — a country that includes territories (#1071)", () => {
-  const geo: Geography = {
-    global: true,
-    regions: {
-      "Asia Pacific": ["CN", "HK", "JP", "MO"],
-      // Holds CN but not HK or MO, so it does not contain the country CN.
-      "Mainland Asia": ["CN", "IN"],
-    },
-    country: { CN: ["CN", "HK", "MO"] },
-  };
-
-  it("walks a territory out to the country that includes it", () => {
-    expect(geographyChain("HK", geo)).toEqual([
-      "HK",
-      "CN",
-      "Asia Pacific",
-      "across regions",
-      "Global",
+  it("matches on both axes when the value is at the selected scope", () => {
+    const p = withEntries("policyAmbition", [
+      e("Power", "TH", "Current/legislated policies"),
     ]);
+    expect(reasonsFor(p, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "match",
+      geography: "match",
+    });
   });
 
-  it("walks the country only to regions that hold all of its codes", () => {
-    expect(geographyChain("CN", geo)).toEqual([
-      "CN",
-      "Asia Pacific",
-      "across regions",
-      "Global",
+  it("calls a geography the publisher marks recorded at a broader level", () => {
+    const p = withEntries("policyAmbition", [
+      e("Power", "TH", SENTINEL),
+      e("Power", "South East Asia", "Current/legislated policies"),
     ]);
+    expect(reasonsFor(p, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "match",
+      geography: "marked",
+    });
+  });
+
+  it("calls a geography with no entry at all missing", () => {
+    const p = withEntries("policyAmbition", [
+      e("Power", "South East Asia", "Current/legislated policies"),
+    ]);
+    expect(reasonsFor(p, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "match",
+      geography: "missing",
+    });
+  });
+
+  it("tells a marked sector from a missing one", () => {
+    const marked = withEntries("policyAmbition", [
+      e("Power", "TH", SENTINEL),
+      e("across sectors", "TH", "Current/legislated policies"),
+    ]);
+    expect(reasonsFor(marked, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "marked",
+      geography: "match",
+    });
+
+    const missing = withEntries("policyAmbition", [
+      e("across sectors", "TH", "Current/legislated policies"),
+    ]);
+    expect(reasonsFor(missing, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "missing",
+      geography: "match",
+    });
+  });
+
+  it("judges the geography on the row the value came from", () => {
+    // Power is marked at TH, across sectors is marked at TH too: the value is
+    // across sectors at the region, and both axes are granularity.
+    const p = withEntries("policyAmbition", [
+      e("Power", "TH", SENTINEL),
+      e("across sectors", "TH", SENTINEL),
+      e("across sectors", "South East Asia", "Current/legislated policies"),
+    ]);
+    expect(reasonsFor(p, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "marked",
+      geography: "marked",
+    });
+
+    // Only Power is marked at TH: across sectors has no TH row, so its
+    // geography is missing even though Power's was marked.
+    const q = withEntries("policyAmbition", [
+      e("Power", "TH", SENTINEL),
+      e("across sectors", "South East Asia", "Current/legislated policies"),
+    ]);
+    expect(reasonsFor(q, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "marked",
+      geography: "missing",
+    });
+  });
+
+  it("says a field that cannot apply to the sector does not apply", () => {
+    const p = withEntries("electrification", [
+      e("Power", "TH", "Minor increase"),
+      e("across sectors", "TH", "Moderate increase"),
+    ]);
+    expect(reasonsFor(p, "electrification", at("Power", "TH"))).toEqual({
+      sector: "notApplicable",
+      geography: "match",
+    });
+  });
+
+  it("has nothing to explain when the feature is unavailable", () => {
+    const p = withEntries("policyAmbition", []);
+    expect(reasonsFor(p, "policyAmbition", at("Power", "TH"))).toEqual({
+      sector: "match",
+      geography: "match",
+    });
   });
 });

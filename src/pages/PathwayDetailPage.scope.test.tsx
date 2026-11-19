@@ -598,7 +598,7 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
     ["At a glance", "/pathway/detail-scope"],
     ["Assumptions & Dependencies", "/pathway/detail-scope?tab=assumptions"],
   ])(
-    "resolves key features for the ribbon's scope on %s, badging inherited values",
+    "resolves key features for the ribbon's scope on %s, naming inherited scopes in the tab",
     async (_tab, path) => {
       await mountDetailPage(path);
       // Wait for the Emissions group, not the panel title: the title differs
@@ -609,20 +609,30 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
         screen.getByRole("heading", { level: 4, name: "Emissions" })
           .parentElement as HTMLElement;
 
+      // The emissions trajectory's scope tab, half by half.
+      const trajectoryTab = async () =>
+        within(
+          within(await findFeature("Emissions trajectory")).getByRole("list", {
+            name: "Scope shown",
+          }),
+        )
+          .getAllByRole("listitem")
+          .map((half) => half.textContent);
+
       // Power · Global has no row of its own: inherited from across sectors.
       expect(emissions()).toHaveTextContent("Significant decrease");
-      expect(emissions()).toHaveTextContent("Across sectors · Global");
+      expect(await trajectoryTab()).toEqual(["Across sectors", "Global"]);
 
       // Steel · Global is recorded exactly, so nothing is inherited.
       await selectScope("Steel");
       expect(emissions()).toHaveTextContent("Moderate decrease");
-      expect(emissions()).not.toHaveTextContent(" · ");
+      expect(await trajectoryTab()).toEqual(["Steel", "Global"]);
 
       // Steel · South East Asia falls back up the geography chain, and stays
       // in Steel rather than taking the across sectors value.
       await selectScope("South East Asia");
       expect(emissions()).toHaveTextContent("Moderate decrease");
-      expect(emissions()).toHaveTextContent("Steel · Global");
+      expect(await trajectoryTab()).toEqual(["Steel", "Global"]);
     },
     TEST_TIMEOUT,
   );
@@ -637,13 +647,13 @@ describe("PathwayDetailPage — scope ribbon (#872)", () => {
 
       // Opens on Power · Global, which inherits the across sectors value.
       expect(electrification).toHaveTextContent("Moderate increase");
-      expect(
-        await tooltipOf(
-          within(electrification).getByText("Across sectors · Global"),
-        ),
-      ).toBe(
-        "Electrification does not apply to the Power sector; showing the" +
-          " closest broader scope this pathway reports.",
+      const sector = within(electrification).getByText("Across sectors", {
+        selector: "[data-scope-label]",
+      });
+      expect(sector).toHaveClass("bg-solar-100/50");
+      expect(await tooltipOf(sector)).toBe(
+        "Electrification does not apply to the Power sector, so this is the" +
+          " value across all of the pathway's sectors.",
       );
     },
     TEST_TIMEOUT,

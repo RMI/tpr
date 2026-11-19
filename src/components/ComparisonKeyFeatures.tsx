@@ -1,6 +1,6 @@
 import React from "react";
 import { PathwayMetadataType } from "../types";
-import { GROUPS, FeatureItem } from "./KeyFeatures";
+import { GROUPS, ScopedFeature } from "./KeyFeatures";
 import {
   createKeyFeatureResolver,
   type ResolvedKeyFeature,
@@ -46,7 +46,7 @@ interface Row {
  *
  * Each key feature is resolved for its column's scope (#869) — the shared
  * sector and that column's own geography — and a value inherited from a broader
- * scope carries the same badge it does on the detail page.
+ * scope says so in its scope tab, as on the detail page.
  *
  * A driver row is dropped when NO compared pathway describes it. For a single
  * pathway "not a core driver for this pathway" is a real statement, which is
@@ -106,10 +106,14 @@ const ComparisonKeyFeatures: React.FC<ComparisonKeyFeaturesProps> = ({
       key: `feature-${feature.key}`,
       label: feature.label,
       cell: (pathway, resolve) => (
-        <FeatureItem
+        <ScopedFeature
           feature={feature}
           resolution={resolve(feature.key)}
+          pathway={pathway}
           showLabel={false}
+          // Three columns on a phone leave a cell under 100px: the detail
+          // page's padding would push a long option pill past the screen.
+          padding="p-2 sm:p-4"
         />
       ),
     })),
@@ -153,9 +157,13 @@ const ComparisonKeyFeatures: React.FC<ComparisonKeyFeaturesProps> = ({
 
               {/* Content cells — one per pathway, no label inside */}
               {pathways.map((pathway, idx) => (
+                /*
+                  A flex column, so a row's containers are equal height and
+                  their scope tabs line up across the columns.
+                */
                 <div
                   key={pathway.id}
-                  className="pb-3 min-w-0"
+                  className="flex min-w-0 flex-col pb-3"
                 >
                   {row.cell(pathway, resolvers[idx])}
                 </div>

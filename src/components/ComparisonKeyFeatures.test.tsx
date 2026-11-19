@@ -4,10 +4,7 @@ import ComparisonKeyFeatures from "./ComparisonKeyFeatures";
 import { NOT_A_CORE_DRIVER_TEXT } from "./CoreDrivers";
 import type { CoreDrivers } from "./CoreDrivers";
 import type { PathwayMetadataType } from "../types";
-import {
-  resolveKeyFeature,
-  sourceScopeLabel,
-} from "../utils/keyFeatureResolution";
+import { resolveKeyFeature } from "../utils/keyFeatureResolution";
 import { ACROSS_SECTORS } from "../utils/keyFeatureRules";
 
 /**
@@ -119,7 +116,15 @@ const cellsOf = (label: string, columns: number): HTMLElement[] => {
 };
 
 /** Any scope badge, whatever it names: they all read "<sector> · <geography>". */
-const queryScopeBadge = (cell: HTMLElement) => within(cell).queryByText(/ · /);
+/** A cell's scope tab, half by half. */
+const halvesOf = (cell: HTMLElement) =>
+  within(within(cell).getByRole("list", { name: "Scope shown" }))
+    .getAllByRole("listitem")
+    .map((half) => half.textContent);
+
+/** One half's label in a cell, to read its colour. */
+const labelOf = (cell: HTMLElement, text: string) =>
+  within(cell).getByText(text, { selector: "[data-scope-label]" });
 
 const groupHeadings = () =>
   screen.getAllByRole("heading", { level: 3 }).map((h) => h.textContent);
@@ -256,6 +261,16 @@ describe("ComparisonKeyFeatures", () => {
       expect(screen.getAllByText(NOT_A_CORE_DRIVER_TEXT)).toHaveLength(2);
     });
 
+    it("makes each cell a flex column, so a row's tabs line up", () => {
+      renderGrid([pathway("a"), pathway("b")]);
+
+      for (const cell of cellsOf("Policy ambition", 2)) {
+        expect(cell).toHaveClass("flex", "flex-col");
+        // The container fills the cell, whatever its neighbour's height.
+        expect(cell.firstElementChild).toHaveClass("flex-1");
+      }
+    });
+
     it("sizes the grid to the number of pathways", () => {
       const { container } = renderGrid([pathway("a"), pathway("b")]);
       const grid = container.firstChild as HTMLElement;
@@ -351,14 +366,12 @@ describe("ComparisonKeyFeatures", () => {
 
       const [a, b] = cellsOf("Emissions trajectory", 2);
       expect(within(a).getByText("Minor decrease")).toBeInTheDocument();
-      expect(within(a).getByText("Power · Southeast Asia")).toBeInTheDocument();
+      expect(halvesOf(a)).toEqual(["Power", "Southeast Asia"]);
       expect(within(b).getByText("Moderate increase")).toBeInTheDocument();
-      expect(
-        within(b).getByText("Power · South East Asia"),
-      ).toBeInTheDocument();
+      expect(halvesOf(b)).toEqual(["Power", "South East Asia"]);
     });
 
-    it("badges a fallback cell, and only that cell", () => {
+    it("colours a fallback cell's tab, and only that cell's", () => {
       const trajectory = {
         emissionsTrajectory: [
           e("Power", "TH", "Moderate decrease"),
@@ -375,12 +388,14 @@ describe("ComparisonKeyFeatures", () => {
       );
 
       const [a, b] = cellsOf("Emissions trajectory", 2);
-      expect(queryScopeBadge(a)).not.toBeInTheDocument();
+      expect(halvesOf(a)).toEqual(["Power", "Thailand"]);
+      expect(labelOf(a, "Thailand")).toHaveClass("bg-neutral-100");
       expect(within(b).getByText("Minor decrease")).toBeInTheDocument();
-      expect(within(b).getByText("Power · Southeast Asia")).toBeInTheDocument();
+      expect(halvesOf(b)).toEqual(["Power", "Southeast Asia"]);
+      expect(labelOf(b, "Southeast Asia")).toHaveClass("bg-solar-100");
     });
 
-    it("falls Electrification on Power back to across sectors, badged", () => {
+    it("falls Electrification on Power back to across sectors, light yellow", () => {
       // Electrification is not recorded for Power itself. Asserted against the
       // resolver's own answer rather than tooltip copy, which is changing.
       const pathway = scopedPathway("a", SEA, {
@@ -401,9 +416,7 @@ describe("ComparisonKeyFeatures", () => {
 
       const [a] = cellsOf("Electrification", 2);
       expect(within(a).getByText("Moderate increase")).toBeInTheDocument();
-      expect(
-        within(a).getByText(sourceScopeLabel(resolution.sourceScope)),
-      ).toBeInTheDocument();
+      expect(labelOf(a, "Across sectors")).toHaveClass("bg-solar-100/50");
     });
 
     it("says Not applicable for Electrification on Power with nothing across sectors", () => {

@@ -5,14 +5,13 @@ import type { PathwayScopeSelection } from "../types";
 import { getKeyFeatureTooltip } from "../utils/tooltipUtils";
 import {
   createKeyFeatureResolver,
-  sourceScopeLabel,
+  scopeReasons,
   type ResolvedKeyFeature,
-  type Scope,
 } from "../utils/keyFeatureResolution";
-import { scopeSelectionLabel } from "../utils/scopeLabel";
 import type { KeyFeatureKey } from "../utils/keyFeatureRules";
 import TextWithTooltip from "./TextWithTooltip";
 import Badge from "./Badge";
+import { ScopedContainer, featureSegments } from "./ScopeTab";
 import SectionIntro from "./SectionIntro";
 import SentimentScale, { getSentimentPalette } from "./SentimentScale";
 import NeutralScale, { NEUTRAL_SELECTED_COLOR } from "./NeutralScale";
@@ -310,21 +309,6 @@ function notApplicableTooltip(
   return `${feature.label} does not apply to the ${notApplicableSector} sector.`;
 }
 
-/**
- * Why a value is inherited. A feature that cannot apply to the requested sector
- * says so, rather than claiming that sector simply has no value.
- */
-function fallbackTooltip(
-  feature: FeatureConfig,
-  requested: Scope,
-  notApplicableSector: string | undefined,
-): string {
-  const reason = notApplicableSector
-    ? `${feature.label} does not apply to the ${notApplicableSector} sector`
-    : `No value for ${scopeSelectionLabel(requested)}`;
-  return `${reason}; showing the closest broader scope this pathway reports.`;
-}
-
 /** Nothing selected on either axis, which resolves at the pathway's widest. */
 const WIDEST_SCOPE: PathwayScopeSelection = { sector: null, geography: null };
 
@@ -366,39 +350,15 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
     </Badge>
   );
 
-  // Names the broader scope an inherited value came from (#859).
-  const scopeBadge =
-    resolution.status === "resolved" && resolution.isFallback ? (
-      <Badge
-        variant="scope"
-        tooltip={fallbackTooltip(
-          feature,
-          resolution.requestedScope,
-          resolution.notApplicableSector,
-        )}
-      >
-        {sourceScopeLabel(resolution.sourceScope)}
-      </Badge>
-    ) : null;
-
   /*
-    The feature label, with the scope badge beside it. Without a badge this is
-    the plain label it always was; without a label (the comparison grid's
-    cells) the badge stands alone, so an inherited value never appears without
-    saying where it came from.
+    The feature label. Where a value's scope comes from is the scope tab's job
+    now (scope-tab-spec), on the container around this item, so the label
+    stands alone; without a label (the comparison grid's cells) nothing shows.
   */
-  const header = (spacing?: string) => {
-    if (!showLabel) return scopeBadge;
-    if (!scopeBadge) {
-      return <p className={clsx(labelClassName, spacing)}>{feature.label}</p>;
-    }
-    return (
-      <div className={clsx("flex flex-wrap items-baseline gap-x-2", spacing)}>
-        <p className={labelClassName}>{feature.label}</p>
-        {scopeBadge}
-      </div>
-    );
-  };
+  const header = (spacing?: string) =>
+    showLabel ? (
+      <p className={clsx(labelClassName, spacing)}>{feature.label}</p>
+    ) : null;
 
   // A selected "No information" pill explains the absence the way the badge
   // does; every other pill describes its own value.
@@ -565,10 +525,108 @@ export const FeatureItem: React.FC<FeatureItemProps> = ({
   return null;
 };
 
+/**
+ * Whether a feature has a value to draw: the same test FeatureItem applies, a
+ * value counts only if it is one of the feature's options or scale steps, and
+ * "No information" never does. When it has none, the three absences
+ * FeatureItem tells apart, with the same tooltips.
+ */
+function absenceOf(
+  feature: FeatureConfig,
+  resolution: ResolvedKeyFeature,
+): { text: string; tooltip: string } | null {
+  if (resolution.status === "unavailable") {
+    return resolution.notApplicableSector
+      ? {
+          text: NOT_APPLICABLE,
+          tooltip: notApplicableTooltip(
+            feature,
+            resolution.notApplicableSector,
+          ),
+        }
+      : { text: NO_INFORMATION, tooltip: UNAVAILABLE_TOOLTIP };
+  }
+  const allowed =
+    feature.type === "single-select" || feature.type === "multi-select"
+      ? feature.options
+      : feature.scaleValues;
+  const values = (
+    Array.isArray(resolution.value) ? resolution.value : [resolution.value]
+  ).filter(
+    (v): v is string =>
+      typeof v === "string" && v !== NO_INFORMATION && allowed.includes(v),
+  );
+  return values.length === 0
+    ? { text: NO_INFORMATION, tooltip: AUTHORED_NO_INFORMATION_TOOLTIP }
+    : null;
+}
+
+export interface ScopedFeatureProps {
+  feature: FeatureConfig;
+  resolution: ResolvedKeyFeature;
+  /** The pathway the resolution is for, to tell "marked" from "missing". */
+  pathway: Pick<PathwayMetadataType, "keyFeatures">;
+  showLabel?: boolean;
+  /** The container's padding. The comparison grid's narrow cells use less. */
+  padding?: string;
+}
+
+/**
+ * One key feature in its own container, with the scope tab in its corner
+ * (scope-tab-spec, Draft A). With no value to draw, the container holds just
+ * the words, centred: no ramp, no greyed options, no badge (P5). The tab
+ * stays, neutral, naming the scope the page looked at.
+ */
+export const ScopedFeature: React.FC<ScopedFeatureProps> = ({
+  feature,
+  resolution,
+  pathway,
+  showLabel = true,
+  padding,
+}) => {
+  const segments = featureSegments(
+    feature.label,
+    resolution,
+    scopeReasons(pathway, feature.key, resolution),
+  );
+  const absence = absenceOf(feature, resolution);
+  return (
+    <ScopedContainer
+      segments={segments}
+      padding={padding}
+    >
+      {absence ? (
+        <div className="flex h-full min-h-14 flex-col">
+          {showLabel ? (
+            <p className="text-xs font-medium text-rmigray-500">
+              {feature.label}
+            </p>
+          ) : null}
+          <div className="flex flex-1 items-center justify-center py-2">
+            <TextWithTooltip
+              position="top"
+              tooltip={absence.tooltip}
+              text={
+                <span className="text-sm text-rmigray-400">{absence.text}</span>
+              }
+            />
+          </div>
+        </div>
+      ) : (
+        <FeatureItem
+          feature={feature}
+          resolution={resolution}
+          showLabel={showLabel}
+        />
+      )}
+    </ScopedContainer>
+  );
+};
+
 interface KeyFeaturesProps {
   /**
    * The pathway whose key features to show. Each is resolved for `scope`
-   * (#869), badging any value inherited from a broader scope.
+   * (#869), each in a container whose scope tab names where its value comes from.
    */
   pathway: PathwayMetadataType;
   /**
@@ -646,10 +704,11 @@ const KeyFeatures: React.FC<KeyFeaturesProps> = ({
                   ))
                 : null}
               {group.features.map((feature) => (
-                <FeatureItem
+                <ScopedFeature
                   key={feature.key}
                   feature={feature}
                   resolution={resolve(feature.key)}
+                  pathway={pathway}
                 />
               ))}
             </div>

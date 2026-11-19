@@ -493,14 +493,18 @@ describe("ComparisonPage — shared scope", () => {
     const b = a.nextElementSibling as HTMLElement;
 
     // A resolves exactly at Power · Europe; B, asked for Germany, inherits its
-    // across-sectors row there and says so.
+    // across-sectors row there, and its scope tab says so.
+    const halves = (cell: HTMLElement) =>
+      within(within(cell).getByRole("list", { name: "Scope shown" }))
+        .getAllByRole("listitem")
+        .map((half) => half.textContent);
     expect(within(a).getByText("Moderate decrease")).toBeInTheDocument();
-    expect(within(a).queryByText(/ · /)).not.toBeInTheDocument();
+    expect(halves(a)).toEqual(["Power", "Europe"]);
     expect(within(b).queryByText("Moderate decrease")).not.toBeInTheDocument();
-    expect(within(b).getByText("Across sectors · Germany")).toBeInTheDocument();
+    expect(halves(b)).toEqual(["Across sectors", "Germany"]);
   });
 
-  it("badges a key feature the column inherits from a broader scope", async () => {
+  it("names the broader scope a column's key feature comes from", async () => {
     // US records nothing, so A's trajectory comes from across sectors · Global.
     await mountWithFixtures(
       "cmp-a,cmp-b&sector=Power&geography=cmp-a:US,cmp-b:DE",
@@ -508,7 +512,14 @@ describe("ComparisonPage — shared scope", () => {
     await screen.findByText("PubA: Comparison Pathway A", undefined, WAIT);
 
     expect(screen.queryByText("Moderate decrease")).not.toBeInTheDocument();
-    expect(screen.getByText("Across sectors · Global")).toBeInTheDocument();
+    const label = screen.getByText("Emissions trajectory", { selector: "p" })
+      .parentElement as HTMLElement;
+    const a = label.nextElementSibling as HTMLElement;
+    expect(
+      within(within(a).getByRole("list", { name: "Scope shown" }))
+        .getAllByRole("listitem")
+        .map((half) => half.textContent),
+    ).toEqual(["Across sectors", "Global"]);
   });
 
   it("changes one column without disturbing the other", async () => {

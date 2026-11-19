@@ -8,19 +8,9 @@ import {
 } from "./PlotPanel";
 import Badge from "./Badge";
 import SectionIntro from "./SectionIntro";
-import RegionMembersTooltip from "./RegionMembersTooltip";
+import { ScopedContainer, chartSegments } from "./ScopeTab";
 import type { Geography } from "../types";
-import {
-  geographyKind,
-  geographyLabel,
-  geographyVariant,
-  hasMemberList,
-  normalizeGeography,
-} from "../utils/geographyUtils";
-import {
-  geographyFallbackNote,
-  resolveGeography,
-} from "../utils/geographyFallback";
+import { resolveGeography } from "../utils/geographyFallback";
 import { getSectorDefinition } from "../utils/timeseriesTaxonomy";
 import { plottedSegments } from "../utils/timeseriesSegments";
 import { capToPlotYears } from "../utils/plotYears";
@@ -165,22 +155,21 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
     );
   }
 
-  const fallbackNote = geographyFallbackNote(resolution);
   const used = resolution.used;
-  const usedKind = geographyKind(used);
-  const usedLabel = geographyLabel(normalizeGeography(used));
+  /*
+    Every panel resolves to the same geography, so one tab's worth of halves
+    serves them all. The fallback sentence that used to sit above the grid,
+    and the geography badge under each chart, are in the tab now: the
+    sentence in its geography half's tooltip (scope-tab-spec §1.4).
+  */
+  const scope = chartSegments(
+    resolution,
+    PLOT_SECTOR.displayName,
+    pathwayGeography,
+  );
 
   return panel(
     <>
-      {/*
-        One sentence for the whole grid, not one per panel: every panel resolves
-        to the same geography, so repeating it under each chart said the same
-        thing up to five times. The copy lives in `geographyFallbackNote` so the
-        comparison page's columns cannot word the same fact differently.
-      */}
-      {fallbackNote ? (
-        <p className="mb-3 text-sm text-rmigray-600">{fallbackNote}</p>
-      ) : null}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {panels.map((opt) => {
           if (!opt.hasData) {
@@ -219,49 +208,40 @@ export const PlotGrid: React.FC<PlotGridProps> = ({
           return (
             <figure
               key={opt.value}
-              className="min-w-0 m-0 rounded-lg border border-neutral-200 bg-white p-4"
+              className="min-w-0 m-0 flex"
             >
-              <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
-                {opt.label}
-              </figcaption>
+              <ScopedContainer segments={scope}>
+                <figcaption className="text-xs font-semibold text-rmigray-500 uppercase tracking-wide mb-3">
+                  {opt.label}
+                </figcaption>
 
-              <PlotPanel
-                timeseriesdata={timeseriesdata}
-                datasetId={datasetId}
-                plotType={opt.value}
-                selectedGeography={used}
-                dims={PANEL_DIMS}
-              />
+                <PlotPanel
+                  timeseriesdata={timeseriesdata}
+                  datasetId={datasetId}
+                  plotType={opt.value}
+                  selectedGeography={used}
+                  dims={PANEL_DIMS}
+                />
 
-              {/* Which geography and sector segment this panel actually shows —
-              the reader cannot tell from the chart itself. */}
-              <div className="mt-1 flex flex-wrap items-center">
-                <Badge
-                  variant={geographyVariant(usedKind)}
-                  tooltip={
-                    hasMemberList(pathwayGeography, used) ? (
-                      <RegionMembersTooltip
-                        geography={pathwayGeography}
-                        label={used}
-                      />
-                    ) : undefined
-                  }
-                >
-                  {usedLabel}
-                </Badge>
-                {segments.map((segment) => (
-                  <Badge
-                    key={segment}
-                    variant="sectorSegment"
-                    tooltip={getSectorSegmentTooltip(
-                      PLOT_SECTOR.displayName,
-                      segment,
-                    )}
-                  >
-                    {segment}
-                  </Badge>
-                ))}
-              </div>
+                {/* Which sector segments this panel's series cover; the
+              geography is in the scope tab. */}
+                {segments.length > 0 ? (
+                  <div className="mt-1 flex flex-wrap items-center">
+                    {segments.map((segment) => (
+                      <Badge
+                        key={segment}
+                        variant="sectorSegment"
+                        tooltip={getSectorSegmentTooltip(
+                          PLOT_SECTOR.displayName,
+                          segment,
+                        )}
+                      >
+                        {segment}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : null}
+              </ScopedContainer>
             </figure>
           );
         })}

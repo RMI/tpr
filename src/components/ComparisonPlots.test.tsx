@@ -1,5 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
-import { act, fireEvent, render, screen } from "@testing-library/react";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+  within,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import ComparisonPlots from "./ComparisonPlots";
 import type { ComparisonPlotsEntry } from "./ComparisonPlots";
@@ -237,12 +244,62 @@ describe("ComparisonPlots", () => {
       />,
     );
 
+    // Both columns name what they actually show, in their scope tabs.
+    const tabs = await screen.findAllByRole("list", { name: "Scope shown" });
     expect(
-      await screen.findByText(/showing Global instead/i),
-    ).toBeInTheDocument();
-    // Both columns name what they actually show.
-    expect(screen.getByText("EU")).toBeInTheDocument();
-    expect(screen.getByText("Global")).toBeInTheDocument();
+      tabs.map((tab) =>
+        within(tab)
+          .getAllByRole("listitem")
+          .map((half) => half.textContent),
+      ),
+    ).toEqual([
+      ["Power", "EU"],
+      ["Power", "Global"],
+    ]);
+    // p2 fell back: its geography half is yellow and says so in its tooltip,
+    // not in a note under the chart.
+    expect(screen.queryByText(/showing Global instead/i)).toBeNull();
+    const global = within(tabs[1]).getByText("Global");
+    expect(global).toHaveClass("bg-solar-100");
+    const trigger = global.closest("[tabindex]") as HTMLElement;
+    await waitFor(() => {
+      fireEvent.focus(trigger);
+      expect(screen.getByRole("tooltip")).toHaveTextContent(
+        "No timeseries data for EU; showing Global instead.",
+      );
+    });
+  });
+
+  it("draws each chart no wider than its scope container's content box", () => {
+    // A 400px column: the container's borders and p-2 padding take 18px, and
+    // the measurement may be rounded up by half a 20px step.
+    const original = globalThis.ResizeObserver;
+    globalThis.ResizeObserver = class {
+      constructor(private cb: ResizeObserverCallback) {}
+      observe(target: Element) {
+        this.cb(
+          [{ target, contentRect: { width: 400 } } as ResizeObserverEntry],
+          this,
+        );
+      }
+      unobserve() {}
+      disconnect() {}
+    };
+    try {
+      const entries = [
+        makeMetricEntry("p1", "absoluteEmissions", [50, 150]),
+        makeMetricEntry("p2", "absoluteEmissions", [80, 200]),
+      ];
+      render(<ComparisonPlots entries={entries} />);
+      fireEvent.change(screen.getAllByRole("combobox")[0], {
+        target: { value: "absoluteEmissions" },
+      });
+
+      const widths = mockedMultiLineChart.mock.calls.map(([p]) => p.width);
+      expect(widths.at(-1)).toBe(400 - 18 - 10);
+    } finally {
+      globalThis.ResizeObserver = original;
+    }
   });
 
   it("lets each column show a different geography", async () => {
