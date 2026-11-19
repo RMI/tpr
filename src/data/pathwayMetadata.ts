@@ -9,9 +9,14 @@ import { PATHWAY_TIMESERIES_V2_ID } from "../utils/validateTimeseries";
 import pathwayMetadataSchema from "../schema/pathwayMetadata.v2.json" with { type: "json" };
 import { commonSchemas } from "../schema/common";
 
-// 1) Grab every JSON file in this folder **and subfolders**
+// 1) Grab every JSON file in this folder **and subfolders**, except timeseries.
 //    `eager:true` = load at build time (no async), `import:'default'` = get the parsed JSON
-const modules = import.meta.glob("./**/*.json", {
+//    Timeseries files are excluded: assembleData would discard them anyway, and
+//    bundling them inlined ~55 MB into the main chunk (#1104). The plots fetch
+//    the copies scripts/build-timeseries-files.ts writes to public/data, and the
+//    download links the CSV beside them. timeseriesNaming.test.ts keeps every
+//    timeseries file named *_timeseries.json so this pattern stays exact.
+const modules = import.meta.glob(["./**/*.json", "!./**/*_timeseries.json"], {
   eager: true,
   import: "default",
 });
