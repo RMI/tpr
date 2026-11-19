@@ -165,7 +165,9 @@ export const ScopeTab: React.FC<{ segments: readonly ScopeSegment[] }> = ({
           role="listitem"
           // Both halves shrink, so in a very narrow cell neither disappears:
           // each truncates, and its tooltip still names it in full.
-          className={`min-w-0 ${idx > 0 ? "border-l border-white" : ""}`}
+          // leading-none: the label is an inline-block, and the page's 24px
+          // line height would leave a 2px strip under its 22px colour.
+          className={`min-w-0 leading-none ${idx > 0 ? "border-l border-white" : ""}`}
         >
           <TextWithTooltip
             position="top"
