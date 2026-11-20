@@ -214,8 +214,8 @@
     "technologyCosts": "not applicable.",
     "investmentChange": "Cumulative power generation investment exceeds US$250B, with more than US$100B in fossil fuels.",
     "macroeconomicDrivers": "GDP, population, urbanization (76% in 2018 to 90% by 2060), and sectoral value added drive electricity demand to 393 TWh in 2050 (+152% vs. 2019), with services and industry making up 79% of the increase.",
-    "behavioralShifts": "23% energy-intensity gain for industry and commercial uses, and efficiency gains for household appliance targets. Clean transport adoption targets include 80% xEV share of 4- and 2-wheelers, 60% public-transport share, 5% hydrogen heavy vehicles, and B30 biodiesel.",
-    "otherDrivers": "not applicable."
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "The modeller fixes the merit order (1: solar+BESS and wind; 2: coal, gas, hydro, geothermal, MSW, biomass, biogas; 3: diesel), and LEAP adds any capacity needed to hold the planning reserve margin in the modeller's addition order. This configuration produces EP's larger fleet (137.8 GW vs 125.2 GW in OEP) and a 72 GW solar build that exceeds NETR's 56 GW. It is a model-configuration assumption, not a policy, cost or macroeconomic driver."
   },
   "dependencies": [
     {

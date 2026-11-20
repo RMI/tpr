@@ -213,7 +213,7 @@
     "technologyCosts": "OMAP is a cost-optimized pathway within the fossil-free 2050 constraint. The optimizer selects 23.9 GW biomass (125 TWh), 13.6 GW large and 4.2 GW small hydro, 81 GW solar, 5.3 GW wind, 4.5 GW batteries, and 8.0 GW pumped hydro.",
     "investmentChange": "This scenario requires US$393B investment in power generation capacity, 1.8 times more than the OEP pathway.",
     "macroeconomicDrivers": "OMAP uses the same GDP, population, urbanization, and sectoral value-added assumptions as EP and OEP; its 2050 electricity demand of 369 TWh (+137% vs. 2019) is about 6% below EP because of efficiency measures, not different macro assumptions.",
-    "behavioralShifts": "Commercial energy-intensity gain doubles to 46% compared to EP and OEP. Industry energy intensity improvement is 23% plus a 4% circular-economy steel demand cut, with electricity’s fuel share raised to 46%; efficient household appliances at 100% by 2060.",
+    "behavioralShifts": "not applicable.",
     "otherDrivers": "Biomass as a resource is left unconstrained. The report says this result must be triangulated with a land-use study."
   },
   "dependencies": [

@@ -155,7 +155,7 @@
     "investmentChange": "not applicable.",
     "macroeconomicDrivers": "Electricity demand growth from the draft MEMR National Electricity Planning (RUKN) is applied identically in both scenarios and sets the scale of the system the pathway has to decarbonise. Unlike in BAU, it is not the dominant driver here, the emissions caps and the strategy set are, but it is what makes the transition hard: generation has to roughly quintuple by 2050 while emissions fall to near zero. This is why the pathway leans heavily on utility-scale solar rather than on demand restraint.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "not applicable."
+    "otherDrivers": "Two structural assumptions shape the pathway. First, flexibility and grid integration: coal shifts to dispatch service, islands interconnect from 2030 and storage absorbs renewables, yet low dry-season hydro raises Sulawesi coal and gas use. Second, captive plants are young, exempt from the coal ban and tied to industrial users, so on-grid levers cannot reach them; pending Sulawesi grid connection, on-grid plants must deliver most cuts. Neither is a policy, target, unit cost or macro forecast."
   },
   "dependencies": [
     {

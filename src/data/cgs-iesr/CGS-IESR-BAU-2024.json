@@ -138,7 +138,7 @@
     "investmentChange": "not applicable.",
     "macroeconomicDrivers": "Electricity demand growth is the dominant driver of BAU, and in the absence of any policy or emissions constraint it is what sets the scale of the fleet. The demand projection follows draft National Electricity Planning and is applied identically in both scenarios.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "not applicable."
+    "otherDrivers": "Three fleet assumptions, not market or policy response, shape the BAU curve: every coal unit runs at a constant capacity factor, units retire after a fixed operating life (co-firing units may run beyond 2040), and gas emissions stay frozen at their 2022 Ember value. As nothing else varies, the 2025 peak and subsequent decline stem entirely from the vintage profile of the existing and under-construction fleet. This is an input-assumption driver, not a policy, target, cost or macroeconomic one."
   },
   "dependencies": [
     {

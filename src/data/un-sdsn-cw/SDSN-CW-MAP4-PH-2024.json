@@ -204,7 +204,7 @@
     "investmentChange": "Total cumulative investment in the power sector reaches US$1033B by 2050, but no low-carbon breakdown is provided.",
     "macroeconomicDrivers": "Electricity demand is driven by common macroeconomic assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "not applicable."
+    "otherDrivers": "Excluding environmental externalities from the objective is a distinctive scenario-design driver. The resulting system uses more coal and produces higher interim emissions than the paired externality-inclusive pathway."
   },
   "dependencies": [
     {

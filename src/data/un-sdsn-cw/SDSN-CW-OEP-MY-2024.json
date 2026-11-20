@@ -214,8 +214,8 @@
     "technologyCosts": "OEP is a cost-optimized pathway. Although solar capex falls (US$1,291/kW in 2018 to US$632/kW in 2050), solar stays at the policy floor while gas grows to 53.4 GW. Biomass generation drops 77% and hydro use rises.",
     "investmentChange": "Cumulative power generation investment exceeds US$200B, with around US$100B in fossil fuels. This pathway experiences less investment in low-carbon technology.",
     "macroeconomicDrivers": "GDP, population, urbanization (76% in 2018 to 90% by 2060), and sectoral value added drive electricity demand to 393 TWh in 2050 (+152% vs. 2019), with services and industry making up 79% of the increase.",
-    "behavioralShifts": "23% energy-intensity gain for industry and commercial uses, and efficiency gains for household appliance targets. Clean transport adoption targets include 80% xEV share of 4- and 2-wheelers, 60% public-transport share, 5% hydrogen heavy vehicles, and B30 biodiesel.",
-    "otherDrivers": "not applicable."
+    "behavioralShifts": "not applicable.",
+    "otherDrivers": "Maximum annual capacity additions are small hydro 100 MW, mini hydro 10 MW, biogas 10 MW and MSW 50 MW (gas, solar and large hydro unlimited). Every unit must run at least 50% of capacity (25% for hydro). These constraints sit outside cost and policy targets but shape which technologies the least-cost solution can add each period. The report itself flags the resulting biomass decline and gas over-capacity for further investigation."
   },
   "dependencies": [
     {
