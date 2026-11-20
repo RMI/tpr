@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { MemoryRouter, Route, Routes, useLocation } from "react-router";
+import { Link, MemoryRouter, Route, Routes, useLocation } from "react-router";
 import HelpButton from "./HelpButton";
 
 const LocationProbe = () => {
@@ -18,6 +18,7 @@ const renderAt = (url: string) =>
           element={
             <>
               <button type="button">Outside</button>
+              <Link to="/compare">Go to compare</Link>
               <HelpButton />
               <LocationProbe />
             </>
@@ -47,6 +48,23 @@ describe("HelpButton", () => {
     unmount();
 
     renderAt("/compare");
+    expect(pulse()).toBeNull();
+  });
+
+  it("stops pulsing for the visit when storage can't save that help was opened", async () => {
+    vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      throw new Error("quota exceeded");
+    });
+    const user = userEvent.setup();
+    renderAt("/pathway");
+    expect(pulse()).toBeInTheDocument();
+
+    await user.click(helpButton());
+    expect(pulse()).toBeNull();
+
+    // Moving to another page remounts the panel; the pulse must not return.
+    await user.click(screen.getByRole("link", { name: "Go to compare" }));
+    expect(screen.getByTestId("location")).toHaveTextContent("/compare");
     expect(pulse()).toBeNull();
   });
 

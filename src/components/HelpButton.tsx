@@ -38,11 +38,15 @@ function markHelpSeen() {
   }
 }
 
-const HelpPanel: React.FC<{ groups: HelpGroup[] }> = ({ groups }) => {
+const HelpPanel: React.FC<{
+  groups: HelpGroup[];
+  /** Whether the reader has opened help before; if not, the button pulses. */
+  seen: boolean;
+  onFirstOpen: () => void;
+}> = ({ groups, seen, onFirstOpen }) => {
   const { open, triggerRef, menuRef, toggle, close } =
     useDropdown<HTMLButtonElement>();
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [seen, setSeen] = useState(readHelpSeen);
   const headingRef = useRef<HTMLHeadingElement>(null);
 
   const selected = selectedId
@@ -60,10 +64,7 @@ const HelpPanel: React.FC<{ groups: HelpGroup[] }> = ({ groups }) => {
     // Every open starts on the list of questions.
     setSelectedId(null);
     toggle();
-    if (!seen) {
-      markHelpSeen();
-      setSeen(true);
-    }
+    if (!seen) onFirstOpen();
   };
 
   return (
@@ -222,6 +223,14 @@ const HelpButton: React.FC = () => {
   const [searchParams] = useSearchParams();
   const tab = searchParams.get("tab");
   const groups = getHelpGroups(pathname, tab);
+  // Held here rather than in HelpPanel, which remounts on every page change:
+  // if storage rejects the write, help still counts as seen for the rest of
+  // the visit instead of pulsing again on the next page.
+  const [seen, setSeen] = useState(readHelpSeen);
+  const onFirstOpen = () => {
+    markHelpSeen();
+    setSeen(true);
+  };
 
   if (!groups) return null;
 
@@ -231,6 +240,8 @@ const HelpButton: React.FC = () => {
     <HelpPanel
       key={`${pathname}?tab=${tab ?? ""}`}
       groups={groups}
+      seen={seen}
+      onFirstOpen={onFirstOpen}
     />
   );
 };
