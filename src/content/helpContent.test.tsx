@@ -48,7 +48,7 @@ describe("getHelpGroups", () => {
       "Pathway comparison",
       "Time series",
       "Assumptions & dependencies",
-      "Coverage",
+      "Geographies, sectors & metrics",
     ]);
   });
 

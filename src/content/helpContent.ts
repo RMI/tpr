@@ -227,7 +227,7 @@ const COMPARISON_VIEW: HelpGroup[] = [
         id: "what-comparison-shows",
         question: "What does the Comparison Page show me?",
         answer:
-          "This page shows two or three pathways side by side: an overview of each, then their benchmark plots, assumptions & trends, dependencies and coverage. The sector at the top applies to every pathway, and each pathway has its own geography selector. You can share the page's link and it opens the same comparison.",
+          "This page shows two or three pathways side by side: an overview of each, then their benchmark plots, assumptions & trends, dependencies, and the geographies, sectors and benchmark metrics they cover. The sector at the top applies to every pathway, and each pathway has its own geography selector. You can share the page's link and it opens the same comparison.",
         readMore: {
           label: "How to compare pathways",
           to: "/resources/how-to-choose-a-pathway#how-to-compare-pathways",
@@ -249,7 +249,7 @@ const COMPARISON_VIEW: HelpGroup[] = [
         id: "plot-controls",
         question: "What do Plot type and Freeze plots do?",
         answer:
-          "Plot type picks the metric every pathway's plot shows, such as emissions intensity, capacity or technology mix, so you always compare like with like. Freeze plots pins the plots below the header while you scroll, so you can keep them in view next to the assumptions, dependencies and coverage further down.",
+          "Plot type picks the metric every pathway's plot shows, such as emissions intensity, capacity or technology mix, so you always compare like with like. Freeze plots pins the plots below the header while you scroll, so you can keep them in view next to the sections further down.",
       },
     ],
   },
@@ -257,7 +257,9 @@ const COMPARISON_VIEW: HelpGroup[] = [
     label: "Assumptions & dependencies",
     topics: [assumptionsAndTrends, dependencies],
   },
-  { label: "Coverage", topics: [coverage] },
+  // Named after the page's Geographies, Sectors and Benchmark Metrics
+  // sections, which together show a pathway's coverage.
+  { label: "Geographies, sectors & metrics", topics: [coverage] },
 ];
 
 /**
