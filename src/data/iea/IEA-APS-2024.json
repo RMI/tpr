@@ -367,9 +367,9 @@
       "US": ["US"],
       "BR": ["BR"],
       "RU": ["RU"],
+      "CN": ["CN", "HK"],
       "IN": ["IN"],
-      "JP": ["JP"],
-      "CN": ["CN", "HK"]
+      "JP": ["JP"]
     }
   },
   "pathwayType": "Exploratory",
@@ -438,7 +438,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Announced Pledges Scenario (APS) provides a pathway in which all countries achieve their aspirational energy transition goals, including national and regional net zero emissions pledges, in addition to their currently legislated policies. As an exploratory scenario, APS provides a detailed description of a possible future, but does not attempt to predict which announced policies will be implemented. The APS pathway corresponds to 1.7°C of warming by 2100 (50% probability). This is significantly lower than the IEA’s current policies scenario (STEPS), which forecasts 2.4°C of warming by 2100 (50% probability), but still higher than the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability). This indicates that the policies and pledges incorporated into APS significantly increase the pace of the transition compared to status quo conditions.",
+  "pathwayDescription": "The Announced Pledges Scenario (APS) provides a pathway in which all countries achieve their aspirational energy transition goals, including national and regional net-zero emissions pledges, in addition to their currently legislated policies. As an exploratory scenario, APS provides a detailed description of a possible future, but does not attempt to predict which announced policies will be implemented. The APS pathway corresponds to 1.7°C of warming by 2100 (50% probability). This is significantly lower than the IEA’s current policies scenario (STEPS), which forecasts 2.4°C of warming by 2100 (50% probability), but still higher than the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability). This indicates that the policies and pledges incorporated into APS significantly increase the pace of the transition compared to status quo conditions.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -4362,11 +4362,11 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The APS assumes current nationally determined contributions (NDCs) are met, including emissions intensity goals and coal phase-out commitments. Carbon pricing widens and steepens, reaching USD 200/t CO2 by 2050 in advanced economies with net zero pledges and USD 160/t CO2 in selected emerging economies, phase-out and retirement instruments are more binding with coal-fired generation down more than 50% by 2035 and early retirement of coal plants accelerating.",
-    "emissionsTargets": "The APS pathway assumes governments meet all climate commitments, including Nationally Determined Contributions and longer-term net zero emissions targets, in full and on time.",
+    "policies": "The APS assumes current Nationally Determined Contributions (NDCs) are met, including emissions intensity goals and coal phaseout commitments. Carbon pricing widens and steepens, reaching US$200/t CO2 by 2050 in advanced economies with net-zero pledges and US$160/t CO2 in selected emerging economies, phaseout and retirement instruments are more binding with coal-fired generation down more than 50% by 2035 and early retirement of coal plants accelerating.",
+    "emissionsTargets": "The APS pathway assumes governments meet all climate commitments, including Nationally Determined Contributions and longer-term net-zero emissions targets, in full and on time.",
     "technologyCosts": "Unit technology costs are endogenous and deployment-linked: future cost evolution is tied to deployment levels, following a non-linear learning curve.",
-    "investmentChange": "The shift toward low-carbon investment is substantially larger than in the corresponding IEA STEPS pathway. Average annual total investment rises from USD 3 785.2 billion in 2024-2030 to USD 4 430.0 billion in 2041-2050, while the fossil component falls from USD 863.1 to USD 363.0 billion, taking the fossil share from about 23% to about 8%.",
-    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from USD 175,981 billion to USD 357,510 billion (2023, PPP).",
+    "investmentChange": "The shift toward low-carbon investment is substantially larger than in the corresponding IEA STEPS pathway. Average annual total investment rises from US$3 785.2 billion in 2024–2030 to US$4 430.0 billion in 2041–2050, while the fossil component falls from US$863.1 to US$363.0 billion, taking the fossil share from about 23% to about 8%.",
+    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from US$175,981 billion to US$357,510 billion (2023, PPP).",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "not applicable."
   },
@@ -4379,13 +4379,13 @@
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Transmission and distribution investment reaches USD 944.7 billion a year in 2041-2050, and battery storage 4,386 GW by 2050, all of it subject to the decade-long project lead times and connection queues the publication identifies. Market-design reform is explicitly called for alongside the investment, not just the investment itself.",
+      "dependency_description": "Transmission and distribution investment reaches US$944.7 billion a year in 2041–2050, and battery storage 4,386 GW by 2050, all of it subject to the decade-long project lead times and connection queues the publication identifies. Market-design reform is explicitly called for alongside the investment, not just the investment itself.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "The fossil share of average annual energy investment has to fall from about 23% in 2024-2030 to about 8% in 2041-2050 while total investment rises to USD 4 430 billion a year. Carbon prices of USD 200/t CO2 in advanced economies and USD 160/t CO2 in China, India and Indonesia are the main mechanism making the hydrogen and CCUS levers bankable; where no explicit pricing is assumed, the levers rely on direct intervention instead.",
+      "dependency_description": "The fossil share of average annual energy investment has to fall from about 23% in 2024-2030 to about 8% in 2041–2050 while total investment rises to US$4 430 billion a year. Carbon prices of US$200/t CO2 in advanced economies and US$160/t CO2 in China, India and Indonesia are the main mechanism making the hydrogen and CCUS levers bankable; where no explicit pricing is assumed, the levers rely on direct intervention instead.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -4403,7 +4403,7 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Network investment 2.4 times current levels and battery investment five times, with storage reaching 4 386 GW by 2050 and transmission and distribution investment at USD 944.7 billion a year in 2041-2050. Interconnection matters because the early retirement of coal plants shifts adequacy onto storage and system flexibility, some of it from demand-side management.",
+      "dependency_description": "Network investment 2.4 times current levels and battery investment five times, with storage reaching 4 386 GW by 2050 and transmission and distribution investment at US$944.7 billion a year in 2041–2050. Interconnection matters because the early retirement of coal plants shifts adequacy onto storage and system flexibility, some of it from demand-side management.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -4687,7 +4687,7 @@
         "granularity": [
           "High-carbon assets lifetime face early retirement policy"
         ],
-        "scopeLimitations": "Retirements and additions are cumulative over 2024-2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
+        "scopeLimitations": "Retirements and additions are cumulative over 2024–2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
       }
     ]
   }

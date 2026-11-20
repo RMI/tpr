@@ -50,7 +50,7 @@ const pathwayOverview: HelpTopic = {
   id: "pathway-overview",
   question: "What do pathway type, warming and net zero mean?",
   answer:
-    "These describe the overall idea behind a pathway. Type says whether it predicts, explores or targets an outcome. Warming is the temperature rise it reaches by 2100, and net zero is the year it reaches net-zero emissions. They describe the pathway as a whole, so they don't change by sector or geography.",
+    "These describe the overall idea behind a pathway. Type says whether it projects likely futures from current trends (Predictive), explores plausible futures under explicit assumptions (Exploratory), or starts from a desired end state and works backward (Normative). Warming is the temperature rise it reaches by 2100, and net zero is the year it reaches net-zero emissions. They describe the pathway as a whole, so they don't change by sector or geography.",
   readMore: methodology("pathway-overview", "Pathway overview"),
 };
 

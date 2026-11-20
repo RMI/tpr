@@ -218,13 +218,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The instrument classes match CES 1, differing only in a higher offshore wind setting. Target technology shares keep RE generation above half by 2050 under National Renewable Energy Program targets, with a far larger awarded-contract offshore wind option. Nuclear follows the same path. Coal technical life retires more capacity than in CES 1, as more renewables displace more coal. Demand-side standards for B5 blending, EV penetration and energy savings are identical. No carbon price applies.",
+    "policies": "The instrument classes match CES 1, differing only in a higher offshore wind setting. Target technology shares keep renewable generation above half by 2050 under National Renewable Energy Program targets, with a far larger awarded-contract offshore wind option. Coal technical life retires more capacity than in CES 1 as more renewables displace more coal. 5% biodiesel from 2026, 50% EV penetration by 2040, 10% energy savings on oil products and electricity in 2040–2050 via more efficiency.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Unit costs drive the build from the same 2022 National Renewable Energy Laboratory database and fuel costs, with capacity factor the distinguishing cost channel. Offshore wind’s capacity factor, the highest among variable renewables, gives the lowest blended generation rate of the three pathways despite the largest capital programme. It also displaces lower-capacity-factor capacity, with solar and onshore wind well below CES 1. Nuclear and offshore wind volumes are exogenous, not cost outcomes.",
-    "investmentChange": "Low-carbon investment reaches the highest GDP share of the three pathways, though it still declines over time as capital costs fall. Total investment is about an eighth above CES 1, with the increase concentrated in renewables, battery storage and natural gas, the last reflecting the additional firm capacity needed for the larger variable renewable share.",
-    "macroeconomicDrivers": "The macroeconomic and socioeconomic assumptions are identical to REF and CES 1 and recorded for consistency, not as a differentiator: sustained high real GDP growth, with sectoral growth, household income and population as demand predictors, sourced from the Philippine Development Plan 2023-2028 and AmBisyon Natin 2040. As in CES 1, they do not dominate; CES 2 differs from its siblings through an offshore wind resource assumption, not a different growth path, and its demand side is the same.",
-    "behavioralShifts": "Behavioural assumptions are identical to CES 1, and the publication states that demand does not differ between the two clean energy pathways. The household shift to modern energy operates as in REF, with traditional biomass declining and LPG and electricity covering most household demand by 2050, while the CES efficiency and conservation activity yields the same post-2040 savings on oil products and electricity. A higher bioethanol blend is explored only as a hypothetical, not as part of CES 2.",
-    "otherDrivers": "Offshore wind potential defines this pathway. Its build sits within an assessed, mostly floating national potential from Northwest Luzon to Negros-Panay, bounded by where that resource lies and what can reach it. The shared Competitive Renewable Energy Zone, service contract, reserve and network limits bind harder, as more generation is variable and concentrated. Nuclear rests on the CES 1 pre-commercial framework. These are resource, network and readiness conditions, not policy or costs."
+    "technologyCosts": "Unit costs drive the build, using the 2022 National Renewable Energy Laboratory database and fuel costs. Offshore wind’s capacity factor, the highest among variable renewables, gives the lowest blended generation rate of the three pathways despite the largest capital program. It also displaces lower-capacity-factor capacity, with solar and onshore wind well below CES 1 levels. Nuclear and offshore wind volumes are exogenous, not cost outcomes.",
+    "investmentChange": "Low-carbon investment reaches the highest GDP share of the three pathways, though it still declines over time as capital costs fall. Total investment is about an eighth above CES 1, with the increase concentrated in renewables, battery storage, and natural gas, the last reflecting the additional firm capacity needed for the larger variable renewable share.",
+    "macroeconomicDrivers": "The macroeconomic and socioeconomic assumptions are identical to the other pathways in this plan. Sustained high real GDP growth, with sectoral and household income growth and population as demand predictors. Demand differs here from the reference pathway through efficiency and electrification.",
+    "behavioralShifts": "The household fuel preference shift from the reference pathway also applies, and the publication adds a behavioral element specific to the clean energy case: stronger efficiency and conservation yielding savings on oil products and electricity after 2040. Traditional biomass still declines, with LPG and electricity covering most household demand by 2050.",
+    "otherDrivers": "Offshore wind potential defines this pathway. Its build sits within an assessed, mostly floating national potential from Northwest Luzon to Negros-Panay, bounded by where that resource lies and what can reach it."
   },
   "dependencies": [
     {
@@ -253,7 +253,7 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Demand-side assumptions are identical to CES 1: EV penetration, B5 blending and post-2040 energy savings are stated once for both clean energy pathways, and their end-use emissions match every year. The same exposure applies, as mass vehicle purchases and sustained efficiency are needed but not modelled behaviourally. With the most favourable price path of the three, willingness to pay is least exposed here. A higher bioethanol blend is explored only as a hypothetical, outside this pathway.",
+      "dependency_description": "Demand-side assumptions are identical to CES 1: EV penetration, B5 blending and post-2040 energy savings are stated once for both clean energy pathways, and their end-use emissions match every year. The same exposure applies, as mass vehicle purchases and sustained efficiency are needed but not modeled behaviourally. With the most favourable price path of the three, willingness to pay is least exposed here. A higher bioethanol blend is explored only as a hypothetical, outside this pathway.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
@@ -299,7 +299,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived, not published: GHG / generation. Numerator is Transformation-sector GHG, which bundles refining and own-use with power generation, so the result runs about 1.5 percent above a power-only figure - 2022 check 77.44/111.52 = 0.694 against power-only 0.684 and the 0.68 tCO2e/MWh the publication states. Scope 1 combustion only, CO2e on the Kyoto basket. Excludes network losses. 2050 value 0.135 tCO2e/MWh."
+        "scopeLimitations": "Derived, not published: GHG/generation. Numerator is Transformation-sector GHG, which bundles refining and own-use with power generation, so the result runs about 1.5% above a power-only figure - 2022 check 77.44/111.52 = 0.694 against power-only 0.684 and the 0.68 tCO2e/MWh the publication states. Scope 1 combustion only, CO2e on the Kyoto basket. Excludes network losses. 2050 value 0.135 tCO2e/MWh."
       },
       {
         "metricName": "Absolute Emissions",
@@ -309,7 +309,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Transformation sector, which is power generation plus refining and own use - about 1.5 percent wider than power alone at the 2022 baseline. Scope 1 combustion, CO2e on the Kyoto basket via LEAP IPCC GWP-100. Energy-sector emissions only: no land use, no industrial process emissions. Values 77.44 MtCO2e (2022) to 59.98 MtCO2e (2050)."
+        "scopeLimitations": "Transformation sector, which is power generation plus refining and own use - about 1.5% wider than power alone at the 2022 baseline. Scope 1 combustion, CO2e on the Kyoto basket via LEAP IPCC GWP-100. Energy-sector emissions only: no land use, no industrial process emissions. Values 77.44 MtCO2e (2022) to 59.98 MtCO2e (2050)."
       },
       {
         "metricName": "Capacity",
@@ -331,7 +331,7 @@
           "Other",
           "Energy storage"
         ],
-        "scopeLimitations": "On-grid capacity across the Luzon, Visayas and Mindanao networks, from the PLEXOS expansion. Energy storage covers battery storage and pumped hydro but is reported as one BESS figure in Volume I with pumped hydro inside the hydro line. Only Power Development Plan 2023-2050 splits battery from pumped hydro - so the two are not distinguishable in the annual series. No reported series for rooftop and behind-the-meter solar, nor for captive industrial generation."
+        "scopeLimitations": "On-grid capacity across the Luzon, Visayas and Mindanao networks, from the PLEXOS expansion. Energy storage covers battery storage and pumped hydro but is reported as one BESS figure in Volume I with pumped hydro inside the hydro line. Only Power Development Plan 2023–2050 splits battery from pumped hydro - so the two are not distinguishable in the annual series. No reported series for rooftop and behind-the-meter solar, nor for captive industrial generation."
       },
       {
         "metricName": "Generation",
@@ -352,7 +352,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Gross generation, on-grid, across the three modelled networks. Gross rather than net, so station own-use is included and network losses are not netted off. BESS throughput is reported alongside but excluded from the generation total. Total rises from 111.52 TWh (2022) to 444.87 TWh (2050). Hourly dispatch underlies the annual figures but is not published."
+        "scopeLimitations": "Gross generation, on-grid, across the three modeled networks. Gross rather than net, so station own-use is included and network losses are not netted off. BESS throughput is reported alongside but excluded from the generation total. Total rises from 111.52 TWh (2022) to 444.87 TWh (2050). Hourly dispatch underlies the annual figures but is not published."
       },
       {
         "metricName": "Technology mix",
@@ -373,7 +373,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Shares of gross generation, on-grid, three modelled networks - so the same boundary as Generation, including station own-use and excluding BESS throughput from the denominator. RE share moves from 22.13 percent (2022) to 70.71 percent (2050). Capacity shares are also published and differ from generation shares; the two should not be conflated."
+        "scopeLimitations": "Shares of gross generation, on-grid, three modeled networks - so the same boundary as Generation, including station own-use and excluding BESS throughput from the denominator. RE share moves from 22.13% (2022) to 70.71% (2050). Capacity shares are also published and differ from generation shares; the two should not be conflated."
       },
       {
         "metricName": "Transmission lines",
@@ -403,7 +403,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["By technology"],
-        "scopeLimitations": "PhP billion at 2022 prices, converted at PhP55/USD. Two periods only, 2023-2028 and 2029-2050, not an annual series. The renewables line is an aggregate and is not split by individual RE technology, so solar, wind, hydro, geothermal and biomass investment cannot be separated - a material limitation given that renewables are the largest component. No transmission or distribution investment is included. Covers new build; maintenance and refurbishment treatment is not stated."
+        "scopeLimitations": "PhP billion at 2022 prices, converted at PhP55/US$. Two periods only, 2023-2028 and 2029–2050, not an annual series. The renewables line is an aggregate and is not split by individual RE technology, so solar, wind, hydro, geothermal and biomass investment cannot be separated - a material limitation given that renewables are the largest component. No transmission or distribution investment is included. Covers new build; maintenance and refurbishment treatment is not stated."
       },
       {
         "metricName": "Asset lifetime",
@@ -415,7 +415,7 @@
         "granularity": [
           "High-carbon assets lifetime face early retirement policy"
         ],
-        "scopeLimitations": "Applies to coal-fired capacity. A 40-year technical life retires 4,803 MW over 2023-2050, taking coal capacity to 9,929 MW by 2050. The publication describes the retirement as voluntary with possible repurposing rather than mandated, so it is a lifetime rule with an assumed uptake, not a legislated phaseout. No plant-level retirement schedule, vintage profile or repurposing pathway is published, and no lifetime assumption is stated for oil or gas assets."
+        "scopeLimitations": "Applies to coal-fired capacity. A 40-year technical life retires 4,803 MW over 2023–2050, taking coal capacity to 9,929 MW by 2050. The publication describes the retirement as voluntary with possible repurposing rather than mandated, so it is a lifetime rule with an assumed uptake, not a legislated phaseout. No plant-level retirement schedule, vintage profile or repurposing pathway is published, and no lifetime assumption is stated for oil or gas assets."
       }
     ]
   }

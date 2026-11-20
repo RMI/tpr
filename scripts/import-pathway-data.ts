@@ -355,6 +355,15 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/institut-energie-trottier/IET-NZ50PS-2024.json",
   },
+  // Climate Change Committee -- The Seventh Carbon Budget (UK, 2025).
+  "CCC:BP:": {
+    mode: "update",
+    file: "src/data/climate-change-committee/CCC-BP-2025.json",
+  },
+  "CCC:BL:": {
+    mode: "update",
+    file: "src/data/climate-change-committee/CCC-BL-2025.json",
+  },
   // UN SDSN / ClimateWorks -- Thailand.
   "SDSN:EXT TH:": {
     mode: "update",
@@ -611,6 +620,7 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("asean centre") || l === "ace") return "ACE";
   if (l.includes("canada energy regulator") || l === "cer") return "CER";
   if (l.includes("trottier") || l === "iet") return "IET";
+  if (l.includes("climate change committee") || l === "ccc") return "CCC";
   if (l.includes("philippines") || l.includes("department of energy"))
     return "PHDOE";
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";

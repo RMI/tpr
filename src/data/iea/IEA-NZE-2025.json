@@ -99,7 +99,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Net Zero Emissions by 2050 Scenario (NZE) is a normative pathway that sets out how the global energy sector could reach net zero CO2 emissions by 2050, recognising that each country will follow its own route. It is consistent with limiting the long-term temperature rise to 1.5°C (50% probability). The 2025 NZE is no longer a limited-overshoot pathway: warming peaks at around 1.65°C around 2050 and stays above 1.5°C for several decades before falling back below 1.5°C by 2100. Getting there requires very rapid deployment of renewables, grids, storage, electrification and efficiency, alongside widespread use of CO2 removal technologies that are not yet proven at large scale. For comparison, the IEA’s Current Policies Scenario (CPS) and Stated Policies Scenario (STEPS) correspond to 2.9°C and 2.5°C of warming by 2100 (50% probability).",
+  "pathwayDescription": "The Net Zero Emissions by 2050 Scenario (NZE) is a normative pathway that sets out how the global energy sector could reach net-zero CO2 emissions by 2050, recognizing that each country will follow its own route. It is consistent with limiting the long-term temperature rise to 1.5°C (50% probability). The 2025 NZE is no longer a limited-overshoot pathway: warming peaks at around 1.65°C around 2050 and stays above 1.5°C for several decades before falling back below 1.5°C by 2100. Getting there requires very rapid deployment of renewables, grids, storage, electrification, and efficiency, alongside widespread use of CO2 removal technologies that are not yet proven at large scale. For comparison, the IEA’s Current Policies Scenario (CPS) and Stated Policies Scenario (STEPS) correspond to 2.9°C and 2.5°C of warming by 2100 (with a 50% probability).",
   "metric": [
     "Absolute Emissions",
     "Emissions Intensity",
@@ -260,24 +260,24 @@
     ]
   },
   "coreDrivers": {
-    "policies": "NZE assumes co-ordinated, front-loaded policy action across all major instrument types. Carbon pricing rises materially faster and higher than in the accompanying CPS/STEPS pathways. There are also explicit fossil-fuel and technology phase-out dates, target technology shares, subsidies, and feed-in-tariff-style price support to reach net zero by 2050.",
-    "emissionsTargets": "The NZE Scenario is designed and constrained to reach net-zero energy-related CO2 emissions globally by 2050, with a temperature peak at about 1.65°C around 2050 before declining below 1.5°C by 2100. This is a materially higher and longer overshoot than in earlier NZE editions.",
-    "technologyCosts": "NZE relies on the fastest and deepest technology cost declines of the three WEO scenarios to support its much larger and faster low-carbon build-out. This includes both for established and innovative low carbon technologies.",
-    "investmentChange": "Low-emissions technologies approach 100% of power-sector investment by 2035, with power investment above USD 2.5 trillion a year by 2035, nearly double today. Fossil-fuel supply investment falls from about USD 1 trillion a year to under USD 350 billion in 2035 and 90% below today by 2050.",
-    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO-2025 scenarios (global GDP CAGR 2024-2050 = 2.6%; population rising from 8.09 to 9.57 billion).",
+    "policies": "NZE assumes coordinated, front-loaded policy action across all major instrument types. Carbon pricing rises materially faster and higher than in the accompanying CPS/STEPS pathways. There are also explicit fossil-fuel and technology phaseout dates, target technology shares, subsidies, and feed-in-tariff-style price support to reach net zero by 2050.",
+    "emissionsTargets": "The NZE scenario is designed and constrained to reach net-zero energy-related CO2 emissions globally by 2050, with a temperature peak at about 1.65°C around 2050 before declining below 1.5°C by 2100. This is a materially higher and longer overshoot than in earlier NZE editions.",
+    "technologyCosts": "NZE relies on the fastest and deepest technology cost declines of the three WEO scenarios to support its much larger and faster low-carbon build-out. This includes both for established and innovative low-carbon technologies.",
+    "investmentChange": "Low-emissions technologies approach 100% of power-sector investment by 2035, with power investment above US$2.5 trillion a year by 2035, nearly double today. Fossil-fuel supply investment falls from about US$1 trillion a year to under US$350 billion in 2035 and 90% below today by 2050.",
+    "macroeconomicDrivers": "Population and GDP growth are common assumptions across all three WEO–2025 scenarios (global GDP CAGR 2024–2050 = 2.6%, population rising from 8.09 to 9.57 billion).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Widespread deployment of CO2 removal technologies (direct air capture, and other CDR) that are 'currently unproven at large scale' is a distinct, load-bearing NZE assumption. It is what brings the temperature back below 1.5°C by 2100 after the mid-century overshoot."
+    "otherDrivers": "Widespread deployment of CO2 removal technologies (direct air capture and other CDR) that are currently unproven at large scale. This is what brings the temperature back below 1.5°C by 2100 after the mid-century overshoot."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "NZE is not feasible without co-ordinated power-sector policy such as carbon prices rising materially faster than CPS/STEPS, explicit coal/gas phase-out, 100%-clean-generation trajectories, and strong target-technology-share and subsidy support. Generation and capacity outcomes go far beyond what current or drafted policy alone would deliver.",
+      "dependency_description": "NZE is not feasible without coordinated power-sector policy such as carbon prices rising materially faster than CPS/STEPS, explicit coal/gas phase-out, 100%-clean-generation trajectories, and strong target-technology-share and subsidy support. Generation and capacity outcomes go far beyond what current or drafted policy alone would deliver.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Faster interconnection, permitting and market-design reform is implied by the scale and speed of the NZE build-out (e.g. solar capacity nearly doubling relative to STEPS by 2050).",
+      "dependency_description": "Faster interconnection, permitting and market-design reform is implied by the scale and speed of the NZE build-out (e.g., solar capacity nearly doubling relative to STEPS by 2050).",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },

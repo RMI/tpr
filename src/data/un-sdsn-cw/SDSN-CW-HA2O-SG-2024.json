@@ -52,7 +52,7 @@
       ]
     }
   ],
-  "pathwayDescription": "Highly Ambitious 2 Optimized (HA2O) uses a least-cost optimization framework for capacity expansion and dispatch and adds explicit constraints to ensure the power sector achieves near-zero emissions by 2050. In contrast to HA1 Optimized (from the same developers), which allows greater flexibility and results in some residual fossil generation, HA2 Optimized imposes stricter renewable and emissions limits to show what a cost-optimal, near-zero power sector could look like.\n\nThis scenario assumes a broad technology set (imports of low-carbon electricity, solar PV, hydrogen- and ammonia-fueled plants, nuclear, geothermal, and Waste to Energy with carbon capture) alongside three key constraints:\n\nCapacity constraints limiting over-reliance on individual technologies and driving diversification of the low carbon portfolio.\nA renewable portfolio standard (RPS) is imposed, requiring a minimum share of generation from renewable and low-carbon sources\nThe minimum utilization of WTE plants is reduced by 2050, allowing for reduced operation of the remaining high-emitting assets and enabling the system to converge towards near-zero emissions.\nUnder these constraints, the model selects a configuration with very low power-sector emissions in 2050 (around 0.8–0.9 MtCO₂e) and a grid emissions factor falling to roughly 9.4 kgCO₂e/MWh. The generation mix in 2050 has hydrogen and imported electricity as the dominant energy sources (each supply ~40% of demand), supported by solar (12%), with geothermal, ammonia, biomass, and waste-to-energy providing supplementary capacity.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "The Highly Ambitious 2 Optimized (HA2O) scenario uses a least-cost optimization framework for capacity expansion and dispatch and adds explicit constraints to ensure the power sector achieves near-zero emissions by 2050. In contrast to HA1 Optimized (from the same developers), which allows greater flexibility and results in some residual fossil generation, HA2O imposes stricter renewable and emissions limits to show what a cost-optimal, near-zero power sector could look like.\n\nThis scenario assumes a broad technology set (imports of low-carbon electricity, solar PV, hydrogen- and ammonia-fueled plants, nuclear, geothermal, and waste to energy with carbon capture) alongside three key constraints:\n\n1. Capacity constraints limiting over-reliance on individual technologies and driving diversification of the low carbon portfolio.\n2. A renewable portfolio standard (RPS) is imposed, requiring a minimum share of generation from renewable and low-carbon sources.\n3. The minimum utilization of WTE plants is reduced by 2050, allowing for reduced operation of the remaining high-emitting assets and enabling the system to converge towards near-zero emissions.\n\nUnder these constraints, the model selects a configuration with very low power-sector emissions in 2050 (around 0.8–0.9 MtCO₂e) and a grid emissions factor falling to roughly 9.4 kgCO₂e/MWh. The generation mix in 2050 has hydrogen and imported electricity as the dominant energy sources (each supply ~40% of demand), supported by solar (12%), with geothermal, ammonia, biomass, and waste-to-energy providing supplementary capacity.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -146,18 +146,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "A 99.3% renewable portfolio requirement, fossil phase-out and other technology constraints such as a maximum total capacity of geothermal and biomass generation.",
+    "policies": "A 99.3% renewable portfolio requirement, fossil phaseout, and other technology constraints such as a maximum total capacity of geothermal and biomass generation.",
     "emissionsTargets": "Power-sector emissions are targeted to below 1 MtCO2e in 2050 through the scenario design.",
     "technologyCosts": "Technology-specific capital, O&M, and fuel costs determine least-cost expansion and dispatch.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Common Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and sector-growth assumptions expand demand and GDP.",
+    "macroeconomicDrivers": "Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and growth assumptions expand demand and GDP.",
     "behavioralShifts": "Smart-meter response and a modeled shift to fully electric road vehicles reduce end-use energy intensity.",
-    "otherDrivers": "The binding renewable portfolio standard does not include nuclear, pushing the capacity mix toward hydrogen, imports, solar, and BESS."
+    "otherDrivers": "The renewable portfolio standard does not include nuclear, pushing the capacity mix toward hydrogen, imports, solar, and BESS."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "HA2O includes 2050 gas and oil phase-out, WTE retirement, coal out of the cogeneration feedstock, 100% green hydrogen feedstock, 50% WTE capture and full demand-side electrification - it also applies a renewable portfolio standard requiring a minimum 30% of electricity from renewable sources in 2030 rising to a minimum 99.3% by 2050. It also caps geothermal at 250 MW and coal and biomass cogeneration at 400.5 MW.",
+      "dependency_description": "HA2O includes 2050 gas and oil phase-out, WTE retirement, coal out of the cogeneration feedstock, 100% green hydrogen feedstock, 50% WTE capture and full demand-side electrification — it also applies a renewable portfolio standard requiring a minimum 30% of electricity from renewable sources in 2030 rising to a minimum 99.3% by 2050. It also caps geothermal at 250 MW and coal and biomass cogeneration at 400.5 MW.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -181,13 +181,13 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "HA2 (Optimised) needs both interconnection build-out and storage build-out. Imports supply 42.2% of 2050 generation over submarine links whose engineering and cost risk the report identifies directly through the failure of the 1.75 GW Sun Cable project. Storage is added at 7.5 MW a year to 120 MW cumulative. No transmission or distribution network is modelled.",
+      "dependency_description": "HA2 (optimized) needs both interconnection build-out and storage build-out. Imports supply 42.2% of 2050 generation over submarine links whose engineering and cost risk the report identifies directly through the failure of the 1.75 GW Sun Cable project. Storage is added at 7.5 MW a year to 120 MW cumulative. No transmission or distribution network is modeled.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "HA2 (Optimised) concentrates its readiness risk on hydrogen (40.4% of 2050 generation) rather than spreading it across technologies, although some technology risk still comes from EGS/AGS geothermal (2.3% of generation in 2050). Grid-scale energy storage and CCUS play minor roles but are also still not at the required technological level.",
+      "dependency_description": "HA2 (optimized) concentrates its readiness risk on hydrogen (40.4% of 2050 generation) rather than spreading it across technologies, although some technology risk still comes from EGS/AGS geothermal (2.3% of generation in 2050). Grid-scale energy storage and CCUS play minor roles but are also still not at the required technological level.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

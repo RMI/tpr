@@ -658,13 +658,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Target technology shares: minimum RE/solar shares for Brunei, Indonesia, Malaysia and the Philippines are imposed as constraints. Target capacity levels: minimum hydro, solar, RE and wind capacities (Cambodia, Lao PDR, Myanmar, Singapore, Viet Nam) and coal caps (Myanmar, Viet Nam) are imposed, several binding exactly in 2035. The policy set is identical to REGI; the Indonesian inter-island links barely change how the constraints are met (inter-island trade <2 TWh).",
-    "emissionsTargets": "Absolute emissions caps are imposed as model constraints: Indonesia's power emissions peak at 290 MtCO2eq by 2030 and Singapore's at 60 MtCO2eq in 2030. In ISG's 2035 results Indonesia emits 240.7 Mt and Singapore 23.1 Mt, so neither cap binds at the reported year.",
-    "technologyCosts": "Cost optimisation decides how far to use the four extra Indonesian inter-island links; the model sizes them small and leaves the Jawa–Sumatera and Jawa–Kalimantan links unused, because island-level supply including fossil generation is cheaper than inter-island transfer. Transmission capex is USD 123.66bn and ASEAN system cost 88.43bn, almost identical to REGI.",
+    "policies": "Minimum renewables shares are imposed for Brunei, Indonesia, Malaysia, and the Philippines. Minimum hydro, solar, and wind capacities (Cambodia, Lao PDR, Myanmar, Singapore, Vietnam) and coal caps (Myanmar, Vietnam) are imposed, several binding exactly in 2035. The policy set is identical to REGI, the Indonesian inter-island links barely change how the constraints are met (inter-island trade <2 TWh).",
+    "emissionsTargets": "Absolute emissions caps are imposed as model constraints. Indonesia's power emissions peak at 290 MtCO2eq by 2030 and Singapore's at 60 MtCO2eq in 2030 However, results are only provided for 2035 when Indonesia emits 240.7 Mt and Singapore 23.1 Mt, so neither cap binds at the reported year.",
+    "technologyCosts": "Cost optimization decides how far to use the four extra Indonesian inter-island links. The model sizes them small and leaves the Jawa–Sumatera and Jawa–Kalimantan links unused, because island-level supply including fossil generation is cheaper than inter-island transfer. Transmission capex is US$123.66B and ASEAN system cost US$88.43B, almost identical to REGI.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Electricity demand growth is an exogenous driver common to all four TZ-APG pathways and does not differentiate them: country CAGRs for 2023-2035 range from 1.6% (Myanmar) to 8.1% (Cambodia). Sources are national plans (Cambodia PDMP, Indonesia JETP CIPP, Philippines PDP, Singapore Energy 2050 Committee, Thailand PDP, Viet Nam PDP) and, for Brunei, Lao PDR, Malaysia and Myanmar, TransitionZero estimates based on historical trends and World Bank, IMF and IIASA population and GDP projections.",
+    "macroeconomicDrivers": "Electricity demand growth is an exogenous driver common to all four TZ-APG pathways and does not differentiate them: country CAGRs for 2023–2035 range from 1.6% (Myanmar) to 8.1% (Cambodia). Sources are national plans (Cambodia PDMP, Indonesia JETP CIPP, Philippines PDP, Singapore Energy 2050 Committee, Thailand PDP, Vietnam PDP) and, for Brunei, Lao PDR, Malaysia and Myanmar, TransitionZero estimates are based on historical trends and World Bank, IMF, and IIASA population and GDP projections.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Grid topology: ISG adds four Indonesian inter-island lines to the REGI network (62 routes). The model barely uses them (inter-island trade <2 TWh, with Kalimantan→Sulawesi the largest at 1.8 TWh), so ISG's outputs almost match REGI's (storage 43.6 GW, system cost USD 88.43bn); the extra topology mainly tests, and rejects, an intra-Indonesia trade case. It is an infrastructure assumption fitting no named driver."
+    "otherDrivers": "ISG adds four Indonesian inter-island lines to the REGI network (62 routes). The model barely uses them (inter-island trade <2 TWh, with Kalimantan to Sulawesi the largest at 1.8 TWh), so ISG's outputs almost match REGI's (storage 43.6 GW, system cost US$88.43B). The extra topology mainly tests, and rejects, an intra-Indonesia trade case."
   },
   "dependencies": [
     {
@@ -681,7 +681,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "About USD 124bn of transmission investment yields almost the same system cost as REGI (USD 88.43bn vs 88.5bn), because the extra Indonesian links (about USD 1.8bn) carry little trade. The financing dependence is REGI's, plus a weak economic case for the additional domestic links (evidence-based inference).",
+      "dependency_description": "About US$124B of transmission investment yields almost the same system cost as REGI (US$88.43B vs. US$88.5B), because the extra Indonesian links (about US$1.8B) carry little trade. The financing dependence is REGI's, plus a weak economic case for the additional domestic links (evidence-based inference).",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -888,7 +888,7 @@
         "timeResolution": "Medium-term data point",
         "dataFormat": "Tabular",
         "granularity": ["International and national transmission lines"],
-        "scopeLimitations": "Line-level trade (GWh), capacity (MW) and capex (USD bn) between the 24 nodes. 62 routes incl. four Indonesian inter-island links; capacity optimised; capex vs BAU. Lines act as combined interfaces between node centre-points; HVAC/HVDC by distance; no distribution grid; no trade with China; no wheeling charges."
+        "scopeLimitations": "Line-level trade (GWh), capacity (MW) and capex (billion US$) between the 24 nodes. 62 routes incl. four Indonesian inter-island links; capacity optimised; capex vs BAU. Lines act as combined interfaces between node centre-points; HVAC/HVDC by distance; no distribution grid; no trade with China; no wheeling charges."
       },
       {
         "metricName": "Technology cost",
@@ -913,7 +913,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Capital (USD/MW), fixed O&M (USD/MW-yr), variable (USD/MWh) and fuel (USD/MWh) costs per country and technology, incl. Li-ion battery and HVAC/HVDC/subsea transmission. DEA Viet Nam/Indonesia average applied to all countries; single ASEAN fuel prices."
+        "scopeLimitations": "Capital (US$/MW), fixed O&M (US$/MW-yr), variable (US$/MWh) and fuel (US$/MWh) costs per country and technology, incl. Li-ion battery and HVAC/HVDC/subsea transmission. DEA Vietnam/Indonesia average applied to all countries; single ASEAN fuel prices."
       },
       {
         "metricName": "Investment requirement",
@@ -935,7 +935,7 @@
         "timeResolution": "Medium-term data point",
         "dataFormat": "Tabular",
         "granularity": ["By sector, part of value chain"],
-        "scopeLimitations": "Systems cost by node = generator capex 2023-2035 plus 2035 opex (USD bn); blends capex with one year of opex. Transmission capex by line vs BAU (total USD 123.66bn). No technology split of generation capex."
+        "scopeLimitations": "Systems cost by node = generator capex 2023-2035 plus 2035 opex (billion US$); blends capex with one year of opex. Transmission capex by line vs BAU (total US$123.66B). No technology split of generation capex."
       },
       {
         "metricName": "Asset lifetime",

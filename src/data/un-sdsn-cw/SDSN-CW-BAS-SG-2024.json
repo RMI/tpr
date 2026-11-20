@@ -43,7 +43,7 @@
       "technologies": ["Coal", "Oil", "Gas", "Solar", "Biomass", "Other"]
     }
   ],
-  "pathwayDescription": "The Baseline (BAS) scenario models a continuation of historical energy and emissions trends for Singapore without the application of new or existing policy measures, except Minimum Energy Performance Standards in the residential sector, vehicle growth policy in the transport sector, and the Laos-Thailand-Malaysia-Singapore Power Integration Project. It represents the counterfactual case in which technological progress, policy ambition, and regional integration remain static. No new energy efficiency measures or renewable energy policies are incorporated, to reflect a scenario of inertia in energy transformation.\n\nUnder BAS, Singapore’s energy system evolves in a manner reflective of historical norms, with natural gas remaining the dominant energy source providing over 93% of generation. Waste-to-energy and coal maintain marginal shares of generation, while renewables and imports remain negligible. Installed capacity grows only marginally, and no new low-carbon technologies are introduced.\n\nThis scenario’s geographic scope is limited to Singapore, and it is not linked to a specific global temperature rise outcome.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "The Baseline (BAS) scenario models a continuation of historical energy and emissions trends for Singapore without the application of new or existing policy measures, except Minimum Energy Performance Standards in the residential sector, vehicle growth policy in the transport sector, and the Laos-Thailand-Malaysia-Singapore Power Integration Project. It represents the counterfactual case in which technological progress, policy ambition, and regional integration remain static. No new energy efficiency measures or renewable energy policies are incorporated, to reflect a scenario of inertia in energy transformation.\n\nUnder BAS, Singapore’s energy system evolves in a manner reflective of historical norms, with natural gas remaining the dominant energy source providing over 93% of generation. Waste-to-energy and coal maintain marginal shares of generation, while renewables and imports remain negligible. Installed capacity grows only marginally, and no new low-carbon technologies are introduced.\n\nThis scenario’s geographic scope is limited to Singapore, and it is not linked to a specific global temperature rise outcome.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -124,18 +124,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Residential Minimum Energy Performance Standards (MEPS), vehicle population growth controls, and LTMS-PIP electricity imports are the limited policy drivers.",
+    "policies": "Residential Minimum Energy Performance Standards (MEPS), vehicle population growth controls, and electricity imports (under the LTMS-PIP initiative) are the limited policy drivers.",
     "emissionsTargets": "not applicable.",
     "technologyCosts": "not applicable.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Common Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and sector-growth assumptions expand demand and GDP.",
+    "macroeconomicDrivers": "Shared Socioeconomic Pathway 2 (SSP2) macroeconomic and growth assumptions expand demand and GDP.",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "BAS carries only three in-force measures - residential MEPS, the vehicle population growth caps and the 100 MW LTMS-PIP hydropower import - and none of them acts on a power-sector decarbonisation lever. No grid-decarbonisation target, hydrogen policy, biomass policy or CCUS policy is applied, so there is no policy mechanism by which the generation mix could shift.",
+      "dependency_description": "BAS carries only three in-force measures — residential MEPS, the vehicle population growth caps, and the 100 MW LTMS-PIP hydropower import — and none of them acts on a power-sector decarbonization lever. No grid-decarbonization target, hydrogen policy, biomass policy, or CCUS policy is applied, so there is no policy mechanism by which the generation mix could shift.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
