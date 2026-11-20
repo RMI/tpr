@@ -205,7 +205,7 @@
     "investmentChange": "not applicable.",
     "macroeconomicDrivers": "Electricity demand is driven by common macroeconomic assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Order and block size of new plants is set exogenously based on existing plant sizes and policy pronouncements."
+    "otherDrivers": "Order and block size of new plants are set exogenously based on existing plant sizes and policy pronouncements."
   },
   "dependencies": [
     {
