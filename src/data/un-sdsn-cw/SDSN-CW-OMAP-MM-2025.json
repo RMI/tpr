@@ -149,18 +149,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The scenario includes more ambitious targets for electricity demand. Fossil Fuel capacities are progressively phased out and low carbon technology additions are optimised based on NEMO optimization tools.",
-    "emissionsTargets": "OMAP aims to achieve near-zero emissions from electricity generation by 2050, by introducing constraints to limit the use of fossil fuels.",
-    "technologyCosts": "Technology capital, O&M and fuel costs affect least-cost capacity choices. Low-carbon technology should replace high carbon power generation, and the selection of technology is made based on technology costs.",
+    "policies": "The scenario includes more ambitious targets for electricity demand. Fossil fuel capacity is progressively phased out and low-carbon technology additions are made based on cost optimization.",
+    "emissionsTargets": "OMAP aims to achieve near-zero emissions from electricity generation by 2050 by introducing constraints to limit the use of fossil fuels.",
+    "technologyCosts": "Capital, O&M, and fuel costs affect least-cost capacity choices. Low-carbon technology replaces high-carbon power generation, and the selection of low-carbon technology is made based on cost.",
     "investmentChange": null,
-    "macroeconomicDrivers": "Follows SSP2. GDP and medium population growth extracted from World Bank data, combined with stronger electrification and efficiency assumptions this drives electricity demand growth. The demand growth is much more signififcant than the forecasted in other pathways. Electricity demand, for example, is twice as high in 2050 in this pathway than in the EPP and OEPP pathways.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2. Strong electrification and efficiency assumptions further drive electricity demand growth. The resulting electricity demand is twice as high in 2050 in this pathway than in the corresponding EPP and OEPP pathways.",
     "behavioralShifts": null,
     "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The pathway assumes significantly more electrification and power demand by 2050. Current policies are not enough and cost optimisation is used to maximise investment costs while still filling demand.",
+      "dependency_description": "The pathway assumes significantly more electrification and power demand by 2050. Current policies are not enough and cost optimization is used to minimize investment costs while still filling demand.",
       "sector": "Power",
       "evidence_type": "No evidence"
     },
@@ -178,7 +178,7 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Adoption of efficient appliances, electric cooking, EVs and electrified industrial processes substantially raises electricity demand while reducing demand-side emissions.",
+      "dependency_description": "Adoption of efficient appliances, electric cooking, EVs, and electrified industrial processes substantially raises electricity demand while reducing demand-side emissions.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

@@ -264,7 +264,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. Its Nationally Determined Contribution – Long Term Strategies (NDC-LTS) pathway provides a detailed exploratory scenario in which all countries fully implement their existing conditional and unconditional NDCs, as well as introducing additional policies necessary to achieve stated long-term carbon neutrality objectives. These policies reduce emissions significantly from GECO’s reference pathway, producing a projected temperature rise of 1.8°C by 2100.",
+  "pathwayDescription": "The European Commission’s Global Energy and Climate Outlook 2024 (GECO) provides an ensemble of energy transition scenarios, developed by the Joint Research Centre. Its Nationally Determined Contribution – Long Term Strategies (NDC-LTS) pathway provides a detailed exploratory scenario in which all countries fully implement their existing conditional and unconditional NDCs, as well as introducing additional policies necessary to achieve stated long-term carbon-neutrality objectives. These policies reduce emissions significantly from GECO’s reference pathway, producing a projected temperature rise of 1.8°C by 2100.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -287,6 +287,11 @@
       {
         "sector": "across sectors",
         "geography": "EFTA",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "EU",
         "value": "Significant decrease"
       },
       {
@@ -378,11 +383,6 @@
         "sector": "across sectors",
         "geography": "EG",
         "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
-        "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
@@ -486,6 +486,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "No information"
       },
@@ -573,11 +578,6 @@
         "sector": "Power",
         "geography": "EG",
         "value": "Moderate increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
-        "value": "Significant decrease"
       },
       {
         "sector": "Power",
@@ -683,6 +683,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant improvement"
       },
@@ -769,11 +774,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Significant improvement"
       },
       {
@@ -878,6 +878,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -964,11 +969,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1075,6 +1075,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Significant increase"
       },
@@ -1162,11 +1167,6 @@
         "sector": "across sectors",
         "geography": "EG",
         "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
-        "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
@@ -1270,6 +1270,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Significant increase"
       },
@@ -1357,11 +1362,6 @@
         "sector": "Power",
         "geography": "EG",
         "value": "Significant increase"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
-        "value": "Moderate increase"
       },
       {
         "sector": "Power",
@@ -1467,6 +1467,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Moderate increase"
       },
@@ -1553,11 +1558,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Significant increase"
       },
       {
@@ -1670,6 +1670,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": ["Not applicable at this scope level"]
       },
@@ -1756,11 +1761,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1865,6 +1865,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": ["Not applicable at this scope level"]
       },
@@ -1951,11 +1956,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2062,6 +2062,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -2148,11 +2153,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2257,6 +2257,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -2343,11 +2348,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2454,6 +2454,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -2540,11 +2545,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2649,6 +2649,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -2735,11 +2740,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2846,6 +2846,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -2932,11 +2937,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3041,6 +3041,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -3127,11 +3132,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3238,6 +3238,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -3324,11 +3329,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3433,6 +3433,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -3519,11 +3524,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3637,6 +3637,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": ["Not applicable at this scope level"]
       },
@@ -3723,11 +3728,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3832,6 +3832,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": ["Not applicable at this scope level"]
       },
@@ -3918,11 +3923,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -4029,6 +4029,11 @@
       },
       {
         "sector": "across sectors",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -4115,11 +4120,6 @@
       {
         "sector": "across sectors",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4224,6 +4224,11 @@
       },
       {
         "sector": "Power",
+        "geography": "EU",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
         "geography": "Mediterranean Middle East",
         "value": "Not applicable at this scope level"
       },
@@ -4310,11 +4315,6 @@
       {
         "sector": "Power",
         "geography": "EG",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU",
         "value": "Not applicable at this scope level"
       },
       {
@@ -4406,7 +4406,7 @@
   },
   "coreDrivers": {
     "policies": "The pathway is aligned with Nationally Determined Contributions and Long-Term Strategies (NDC-LTS). It also adds country-specific carbon prices and regulatory instruments to meet NDCs and LTS pledges until 2050.",
-    "emissionsTargets": "National NDC objectives and long-term net-zero/neutrality pledges constrain emissions, yielding about 1.8°C warming.",
+    "emissionsTargets": "National NDC objectives and long-term net-zero/neutrality pledges constrain emissions, yielding about 1.8°C of warming.",
     "technologyCosts": "Technology learning rates are endogenously developed in the model, based on learning curve literature. The overall technology cost trend decreases based on the adoption of individual technologies and their unit costs.",
     "investmentChange": null,
     "macroeconomicDrivers": "Population and GDP assumptions are shared across the GECO scenarios and set the activity baseline. Inputs combine World Bank, IMF, OECD/SSP2, EU Ageing Report, and JRC-IIASA sources.",
@@ -4603,7 +4603,7 @@
           "Biomass",
           "Other"
         ],
-        "scopeLimitations": "Installed generation capacity (GW) by technology, fossil generation is split into unabated and with-CCUS. Storage is modelled but reported only as share of electricity delivered from storage. Dedicated renewables for hydrogen and DAC are reported separately and excluded from the total."
+        "scopeLimitations": "Installed generation capacity (GW) by technology, fossil generation is split into unabated and with-CCUS. Storage is modeled but reported only as share of electricity delivered from storage. Dedicated renewables for hydrogen and DAC are reported separately and excluded from the total."
       },
       {
         "metricName": "Generation",

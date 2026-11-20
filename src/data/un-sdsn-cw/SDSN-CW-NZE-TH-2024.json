@@ -136,11 +136,11 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Near-zero policy and constraint assumptions drive NZE: fossil power phaseouts, 70% renewable electricity by 2050, CCUS and hydrogen from 2030, and strong transport/end-use electrification.",
-    "emissionsTargets": "The pathway targets the lowest feasible GHG emissions in the power sector by 2060; it is near-zero but not net zero.",
-    "technologyCosts": "Technology unit costs are a core driver because LEAP-NEMO selects least-cost capacity expansion and dispatch under given technology constraints. This means that declining costs for solar, wind, gas with CCS, and hydrogen power capacity affects deployment rates.",
+    "policies": "Near-zero policy and constraint assumptions drive NZE, including fossil power phaseouts, 70% renewable electricity by 2050, CCUS and hydrogen from 2030, and strong transport/end-use electrification.",
+    "emissionsTargets": "The pathway targets the low GHG emissions in the power sector by 2060. It is near zero but not net zero.",
+    "technologyCosts": "Technology unit costs are a core driver because the LEAP-NEMO model selects least-cost capacity expansion and dispatch under given technology constraints. This means that declining costs for solar, wind, gas with CCS, and hydrogen power capacity affects deployment rates.",
     "investmentChange": null,
-    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics. Sectoral value-added projections are based on World Bank indicators, assuming they remain stable. All these indicators are common demand drivers rather than pathway-specific differentiators.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics.",
     "behavioralShifts": null,
     "otherDrivers": null
   },

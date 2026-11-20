@@ -99,7 +99,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The IEA Net Zero Emissions by 2050 (NZE) Scenario is a normative 1.5 aligned pathway, outlining how the global energy sector can reach net zero CO2 emissions by 2050. It assumes that advanced economies achieve net zero earlier (by mid 2040s), with emerging markets following by 2050. As a normative scenario, the NZE provides a detailed description of one pathway to reach a targeted future state, but it does not attempt to predict which policies or outcomes are most probable. The NZE pathway corresponds to a 50% probability of 1.5°C of warming by 2100. This is a more ambitious outcome than the IEA’s Announced Pledges Scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), indicating a significant gap remains between announced governmental pledges and the trajectory described by the NZE pathway.",
+  "pathwayDescription": "The IEA Net Zero Emissions by 2050 (NZE) Scenario is a normative 1.5°C-aligned pathway, outlining how the global energy sector can reach net-zero CO2 emissions by 2050. It assumes that advanced economies achieve net zero earlier (by mid 2040s), with emerging markets following by 2050. As a normative scenario, the NZE provides a detailed description of one pathway to reach a targeted future state, but it does not attempt to predict which policies or outcomes are most probable. The NZE pathway corresponds to a 50% probability of 1.5°C of warming by 2100. This is a more ambitious outcome than the IEA’s Announced Pledges Scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), indicating a significant gap remains between announced governmental pledges and the trajectory described by the NZE pathway.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -368,13 +368,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The NZE pathway expands on currently stated policies and NDC targets. Carbon prices are introduced in all regions and cover most sectors, rising to USD 250/t CO2 by 2050 in advanced economies and USD 200/t CO2 in emerging markets, phase-out dates are explicit and binding as unabated coal-fired generation falls 85% by 2035 and is completely phased out by 2040.",
-    "emissionsTargets": "This pathway is defined by reaching net zero energy-related CO2 emissions by 2050. The target is also expressed as a temperature outcome, consistent with limiting warming to 1.5 C with limited overshoot at a 50% probability. Advanced economies are constrained to reach net zero by mid 2040s with emerging market and developing economies following by 2050.",
+    "policies": "The NZE pathway expands on currently stated policies and NDC targets. Carbon prices are introduced in all regions and cover most sectors, rising to US$250/t CO2 by 2050 in advanced economies and US$200/t CO2 in emerging markets, phaseout dates are explicit and binding as unabated coal-fired generation falls 85% by 2035 and is completely phased out by 2040.",
+    "emissionsTargets": "This pathway is defined by reaching net-zero energy-related CO2 emissions by 2050. The target is also expressed as a temperature outcome, consistent with limiting warming to 1.5 C with limited overshoot at a 50% probability. Advanced economies are constrained to reach net zero by mid 2040s with emerging market and developing economies following by 2050.",
     "technologyCosts": "Unit technology costs are endogenous and deployment-linked: future cost evolution is tied to deployment levels, following a non-linear learning curve.",
-    "investmentChange": "Low-carbon investment rises sharply as a share of total energy investment. Oil and gas supply investment falls to USD 250 billion in 2035, around 70% below today, while clean energy spending grows in all sectors with the largest increases in grids and storage, buildings and transport.",
-    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from USD 175,981 billion to USD 357,510 billion (2023, PPP).",
+    "investmentChange": "Low-carbon investment rises sharply as a share of total energy investment. Oil and gas supply investment falls to US$250 billion in 2035, around 70% below today, while clean energy spending grows in all sectors with the largest increases in grids, storage, buildings, and transport.",
+    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from US$175,981 billion to US$357,510 billion (2023, PPP).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "An international co-operation and burden-sharing assumption shapes the regional distribution of the pathway: achieving net zero energy sector CO2 by 2050 \"depends on fair and effective global co-operation, with advanced economies taking the lead and reaching net zero emissions earlier in the NZE Scenario than emerging market and developing economies\". Advanced economies reach -583 Mt CO2 in 2050 while the world total is exactly zero."
+    "otherDrivers": "An international cooperation and burden-sharing assumption shapes the regional distribution of the pathway: achieving net-zero energy sector CO2 by 2050 \"depends on fair and effective global co-operation, with advanced economies taking the lead and reaching net zero emissions earlier in the NZE Scenario than emerging market and developing economies.\" Advanced economies reach -583 Mt CO2 in 2050 while the world total is exactly zero."
   },
   "dependencies": [
     {
@@ -391,7 +391,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "The pathway requires both rapid scale-up of clean energy finance and contraction of fossil finance. Oil and gas supply investment falls to USD 250 billion by 2035, around 70% below today, so many new projects face major commercial risks and some may fail to recover their upfront costs. On the other side, clean energy spending has to grow in every sector with the largest increases in grids and storage, buildings and transport, much of it in economies where capital costs are highest.",
+      "dependency_description": "The pathway requires both rapid scale-up of clean energy finance and contraction of fossil finance. Oil and gas supply investment falls to US$250 billion by 2035, around 70% below today, so many new projects face major commercial risks and some may fail to recover their upfront costs. On the other side, clean energy spending has to grow in every sector with the largest increases in grids and storage, buildings and transport, much of it in economies where capital costs are highest.",
       "sector": "Power",
       "evidence_type": "No evidence"
     },
@@ -403,7 +403,7 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "The pathway requires the electricity share of final consumption to reach 54.5% by 2050, from 20.4% in 2023, at the same time as total final consumption falls from 444.7 to 344.1 EJ - so households and firms must both electrify and consume less.",
+      "dependency_description": "The pathway requires the electricity share of final consumption to reach 54.5% by 2050, from 20.4% in 2023, at the same time as total final consumption falls from 444.7 to 344.1 EJ — so households and firms must both electrify and consume less.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -427,7 +427,7 @@
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "The water finding is quantified specifically for this pathway as the pathway depends more heavily on water-exposed generation, with hydro at 2 419 GW by 2050 and essentially all unabated fossil generation gone by then, so system adequacy rests more on hydrology and weather-dependent output. Physical climate impacts are still not modelled as a constraint on any lever, no adaptation requirement is quantified.",
+      "dependency_description": "The water finding is quantified specifically for this pathway as the pathway depends more heavily on water-exposed generation, with hydro at 2 419 GW by 2050 and essentially all unabated fossil generation gone by then, so system adequacy rests more on hydrology and weather-dependent output. Physical climate impacts are still not modeled as a constraint on any lever, no adaptation requirement is quantified.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -569,7 +569,7 @@
         "granularity": [
           "High-carbon assets lifetime face early retirement policy"
         ],
-        "scopeLimitations": "Retirements and additions are cumulative over 2024-2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
+        "scopeLimitations": "Retirements and additions are cumulative over 2024–2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
       }
     ]
   }

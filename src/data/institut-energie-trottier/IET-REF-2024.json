@@ -449,7 +449,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived: 'Electricity production' emissions ('Figure 4.8') / generation excl. storage ('Figure 2.5'). Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
+        "scopeLimitations": "Scope 1 CO2e. BECCS power is netted in, so intensity is negative in net-zero pathways by 2050. Explorer 'Electricity' emissions also include a 'Heat' line, excluded here. Distributed (rooftop) PV included in generation."
       },
       {
         "metricName": "Absolute Emissions",
@@ -481,7 +481,7 @@
           "Energy storage",
           "Other"
         ],
-        "scopeLimitations": "Installed capacity, GW. Storage figure covers centralized batteries, decentralized batteries, pumped hydro, flywheel and hydrogen storage; one combined series in the report figure, broken down by type in the Explorer export - 2050 total 14.3 GW (6.3 centralized battery, 2.7 decentralized battery, 5.3 pumped hydro). Decentralized (rooftop) PV and batteries reported separately in Explorer. No captive industrial series."
+        "scopeLimitations": "Installed capacity, GW. Storage figure covers centralized batteries, decentralized batteries, pumped hydro, flywheel and hydrogen storage. One combined series in the report figure, broken down by type in the Explorer export. Decentralized (rooftop) PV and batteries reported separately in Explorer. No captive industrial series."
       },
       {
         "metricName": "Generation",
@@ -502,7 +502,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Electricity generation in PJ. Figure lists a small 'Storage' output line (1-35 PJ), excluded here. Explorer separates centralized and decentralized (rooftop) PV. On-grid and distributed generation are both included; no captive industrial series. Provincial generation by source exists for all 13 jurisdictions in the Chapter 5 dataset."
+        "scopeLimitations": "Electricity generation in PJ. Figure lists a small 'Storage' output line, which is excluded here. Explorer separates centralized and decentralized (rooftop) PV. On-grid and distributed generation are both included. No captive industrial series. Provincial generation by source exists for all 13 jurisdictions."
       },
       {
         "metricName": "Technology mix",
@@ -523,7 +523,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Derived: technology generation / total generation excl. storage. Not reported directly as shares. Provincial generation technology mix also exists for all 13 jurisdictions in the Chapter 5 dataset."
+        "scopeLimitations": "Technology generation / total generation excl. storage. Not reported directly as shares. Provincial generation technology mix also exists for all 13 jurisdictions in the Chapter 5 dataset."
       },
       {
         "metricName": "Transmission lines",
@@ -543,7 +543,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Investment cost for 2022, 2030, 2050 and one fixed O&M value per technology; no variable O&M or fuel costs shown. Two SMR rows: optimistic (REF, NZ50) and pessimistic (NZ50PS). Storage split into 4h/8h utility batteries, decentralized batteries, pumped hydro and compressed air (peak and seasonal). No transmission costs."
+        "scopeLimitations": "Investment cost for 2022, 2030, 2050 and one fixed O&M value per technology. No variable O&M or fuel costs shown. Two SMR rows: optimistic (REF, NZ50) and pessimistic (NZ50PS). Storage split into 4h/8h utility batteries, decentralized batteries, pumped hydro and compressed air (peak and seasonal). No transmission costs."
       },
       {
         "metricName": "Investment requirement",
@@ -553,7 +553,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["By sector"],
-        "scopeLimitations": "LIMITATION - period totals: values are 10-year period totals, each covering the decade ending in its label year (2040 = 2031-2040); divide by 10 for an annual average (e.g. NZ50 2041-2050 $509bn -> ~$51bn/yr). Reviewer interpretation, not documented in the export; discounting basis unknown. Aggregate electricity-sector investment in $ (Power10=3), plus 'Fix operation cost'. No technology split, no 2021 value."
+        "scopeLimitations": "LIMITATION - period totals: values are 10-year period totals, each covering the decade ending in its label year (2040 = 2031-2040); divide by 10 for an annual average (e.g. NZ50 2041-2050 $509bn -> ~$51bn/yr). Aggregate electricity-sector investment. No technology split."
       },
       {
         "metricName": "Asset lifetime",
@@ -565,7 +565,7 @@
         "granularity": [
           "High-carbon assets lifetime face early retirement policy"
         ],
-        "scopeLimitations": "Retirement is regulation-driven via the CER, which excludes Nunavut, Northwest Territories, Yukon and remote communities; existing units are modelled individually. No asset-lifetime table is published."
+        "scopeLimitations": "Retirement is regulation-driven via the CER, which excludes Nunavut, Northwest Territories, Yukon and remote communities. Existing units are modelled individually. No asset-lifetime table is published."
       },
       {
         "metricName": "Emissions intensity (total)",

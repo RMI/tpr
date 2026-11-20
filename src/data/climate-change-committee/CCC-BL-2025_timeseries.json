@@ -1,0 +1,294 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayTimeseries.v2.json",
+  "id": "CCC-BL-2025_timeseries",
+  "pathwayId": ["CCC-BL-2025"],
+  "name": "Baseline (BL) Timeseries Data",
+  "description": "Exploratory UK counterfactual: low-carbon tech frozen at today's levels, no further climate action.",
+  "publication": {
+    "title": {
+      "full": "The Seventh Carbon Budget: Advice for the UK Government"
+    },
+    "publisher": {
+      "full": "Climate Change Committee",
+      "short": "CCC"
+    },
+    "year": 2025,
+    "month": 2,
+    "day": 26,
+    "city": "London",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.theccc.org.uk/publication/the-seventh-carbon-budget/"
+      },
+      {
+        "description": "Report (PDF)",
+        "url": "https://www.theccc.org.uk/wp-content/uploads/2025/02/The-Seventh-Carbon-Budget.pdf"
+      }
+    ]
+  },
+  "pathwayName": "Baseline (BL)",
+  "emissionsScope": "CO2e (Kyoto)",
+  "data": [
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 32.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 34.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 37,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 39.3,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 38,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 36.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 35.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 34.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 36.3,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 38.6,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 40.8,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 42.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 43.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 44.8,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 46.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 47.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 48.6,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 49.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 50.9,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 52.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 53.3,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 53.9,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 54.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 55,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 55.6,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 56.2,
+      "unit": "MtCO2e"
+    }
+  ]
+}
