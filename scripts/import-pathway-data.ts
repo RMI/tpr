@@ -364,6 +364,27 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/climate-change-committee/CCC-BL-2025.json",
   },
+  // National Energy System Operator -- Future Energy Scenarios 2025 (GB).
+  "NESO:HT:": {
+    mode: "update",
+    file: "src/data/national-energy-system-operator/NESO-HT-2025.json",
+  },
+  "NESO:EE:": {
+    mode: "update",
+    file: "src/data/national-energy-system-operator/NESO-EE-2025.json",
+  },
+  "NESO:HE:": {
+    mode: "update",
+    file: "src/data/national-energy-system-operator/NESO-HE-2025.json",
+  },
+  "NESO:FB:": {
+    mode: "update",
+    file: "src/data/national-energy-system-operator/NESO-FB-2025.json",
+  },
+  "NESO:10YF:": {
+    mode: "update",
+    file: "src/data/national-energy-system-operator/NESO-10YF-2025.json",
+  },
   // UN SDSN / ClimateWorks -- Thailand.
   "SDSN:EXT TH:": {
     mode: "update",
@@ -621,6 +642,8 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("canada energy regulator") || l === "cer") return "CER";
   if (l.includes("trottier") || l === "iet") return "IET";
   if (l.includes("climate change committee") || l === "ccc") return "CCC";
+  if (l.includes("national energy system operator") || l === "neso")
+    return "NESO";
   if (l.includes("philippines") || l.includes("department of energy"))
     return "PHDOE";
   if (l.includes("joint research") || l.includes("jrc")) return "JRC";

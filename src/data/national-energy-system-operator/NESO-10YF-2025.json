@@ -1,0 +1,437 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayMetadata.v2.json",
+  "id": "NESO-10YF-2025",
+  "publication": {
+    "title": {
+      "full": "Future Energy Scenarios 2025: Pathways to Net Zero"
+    },
+    "publisher": {
+      "full": "National Energy System Operator",
+      "short": "NESO"
+    },
+    "year": 2025,
+    "city": "Warwick",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.neso.energy/publications/future-energy-scenarios-fes"
+      },
+      {
+        "description": "Documents and data workbook",
+        "url": "https://www.neso.energy/publications/future-energy-scenarios-fes/fes-documents"
+      },
+      {
+        "description": "Data license",
+        "url": "https://www.neso.energy/data-portal/neso-open-licence"
+      }
+    ]
+  },
+  "name": {
+    "full": "Ten Year Forecast",
+    "short": "10YF"
+  },
+  "description": "Predictive GB forecast to 2035 based on the current project pipeline, policies and delivery trends.",
+  "geography": {
+    "country": {
+      "GB": ["GB"]
+    }
+  },
+  "pathwayType": "Predictive",
+  "modelYearStart": 2024,
+  "modelYearEnd": 2035,
+  "sectors": [
+    {
+      "name": "Buildings",
+      "technologies": []
+    },
+    {
+      "name": "Gas (Upstream)",
+      "technologies": []
+    },
+    {
+      "name": "Power",
+      "technologies": [
+        "Oil",
+        "Gas",
+        "Nuclear",
+        "Hydro",
+        "Wind",
+        "Solar",
+        "Biomass",
+        "Geothermal",
+        "Energy storage",
+        "Other"
+      ]
+    },
+    {
+      "name": "Automotive",
+      "technologies": []
+    },
+    {
+      "name": "Rail",
+      "technologies": []
+    },
+    {
+      "name": "Aviation",
+      "technologies": []
+    },
+    {
+      "name": "Shipping",
+      "technologies": []
+    },
+    {
+      "name": "Other",
+      "technologies": []
+    }
+  ],
+  "pathwayDescription": "The National Energy System Operator (NESO) is Great Britain’s independent, publicly owned operator and planner of the electricity and gas systems, set up in October 2024. Its annual Future Energy Scenarios (FES) map credible routes for the whole energy system to 2050 and feed network planning, security-of-supply and market analysis. FES 2025 contains three net zero pathways (Holistic Transition, Electric Engagement and Hydrogen Evolution), a Falling Behind scenario and a Ten Year Forecast.\nThe Ten Year Forecast is a predictive view of the next ten years, to 2035. It reflects where the system is today, existing project pipelines and current policy, and is used for downstream security-of-supply planning. Its purpose is to show the gap between stated ambition and likely delivery, and where intervention is most needed. Capacity follows current project progression rather than cost optimisation, prices follow base forecasts, and demand carries uncertainty bands calibrated on past forecasting errors. Main drivers are the Future Homes Standard from 2027 but no wider boiler phase-out, moderate efficiency grants, a 25% fall in heat pump costs by 2030, electric vehicle uptake slower than the Zero Emission Vehicle mandate, fairly strong take-up of smart charging and vehicle-to-grid, and long-duration storage arriving only once the cap and floor scheme delivers in the early 2030s.\nAgainst the other scenarios, the Ten Year Forecast sits between Falling Behind and the net zero pathways on most assumptions. By 2035 it has 61.6 GW of offshore wind, 30 GW of batteries, 19.8 GW of unabated gas power and grid carbon intensity of 23 g/kWh, with no small modular reactors yet. UK emissions fall to about 274 MtCO2e in 2035, though the assumptions log states that 10YF emissions are not modelled, so these figures should be treated as indicative. Unlike the 2050 pathways, it makes no long-term claim about net zero.",
+  "metric": [
+    "Emissions Intensity",
+    "Absolute Emissions",
+    "Capacity",
+    "Generation",
+    "Technology Mix"
+  ],
+  "keyFeatures": {
+    "emissionsTrajectory": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Significant decrease"
+      }
+    ],
+    "energyEfficiency": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "energyDemand": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Significant increase"
+      }
+    ],
+    "electrification": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Significant increase"
+      }
+    ],
+    "policyTypes": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": [
+          "Carbon price",
+          "Phaseout dates",
+          "Subsidies",
+          "Performance standards"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": ["Not applicable at this scope level"]
+      }
+    ],
+    "technologyCostTrend": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "emissionsScope": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "CO2e (Kyoto)"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "policyAmbition": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "Current/legislated policies"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "Not applicable at this scope level"
+      }
+    ],
+    "technologyCostsDetail": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "No information"
+      }
+    ],
+    "newTechnologiesIncluded": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "SAF",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": [
+          "CCUS",
+          "Green H2/ammonia",
+          "Battery storage",
+          "Other new technologies"
+        ]
+      }
+    ],
+    "investmentNeeds": [
+      {
+        "sector": "across sectors",
+        "geography": "GB",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "GB",
+        "value": "No information"
+      }
+    ]
+  },
+  "coreDrivers": {
+    "policies": "Carbon prices follow the base forecast. The Future Homes Standard bans fossil fuel boilers in new builds from 2027, but there is no wider boiler phase-out. Homes receive about £1,800 each in efficiency grants, and long-duration storage receives cap and floor revenue support from the early 2030s. Renewable growth reflects current policies, while battery electric vehicle uptake is slower than the Zero Emission Vehicle mandate requires.",
+    "emissionsTargets": "not applicable.",
+    "technologyCosts": "Technology costs act on the demand side, with heat pump capital costs falling 25% by 2030 to support uptake. Power capacity is not cost-optimised and is instead based on the current project pipeline and its progress.",
+    "investmentChange": "not applicable.",
+    "macroeconomicDrivers": "With no target to meet, forecasts of population, housing and economic output are a main driver of demand to 2035. These forecasts are the same across all pathways in this report. Data centre growth is mid-range for this report. Demand forecasts include uncertainty bands based on past forecast errors.",
+    "behavioralShifts": "Consumer engagement varies by technology. Smart charger adoption and vehicle-to-grid engagement are the second highest in this report, with 16% of vehicles providing vehicle-to-grid in 2035. Take-up of smart tariffs is slower, with more consumers keeping flat tariffs. By 2035, 8% of homes have air conditioning.",
+    "otherDrivers": "Capacity additions follow the current project pipeline and its progress through grid connection registers. Interconnectors start operating on realistic dates that allow for current delays, and long-duration storage does not grow until cap and floor support is in place."
+  },
+  "dependencies": [
+    {
+      "dependency_name": "Policy strategy",
+      "dependency_description": "Forecast delivery reflects current policies, the Clean Power 2030 Action Plan pipeline and cap and floor support for long-duration storage. Fiscal priority for decarbonisation and project progress fall short of the net zero pathways, highlighting the gap between ambition and current delivery.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Regulatory framework",
+      "dependency_description": "Delivery to 2035 depends on grid connections reform and on projects progressing through the grid connection registers. Interconnector start dates allow for current delays, and alignment between local and national plans stays at today's level.",
+      "sector": "Power",
+      "evidence_type": "Qualitative"
+    },
+    {
+      "dependency_name": "Market and economics",
+      "dependency_description": "Base carbon and gas prices support continued use of unabated gas. Long-duration storage waits for cap and floor revenue support and does not grow in the first four years.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Public acceptance",
+      "dependency_description": "Renewable growth to 2035 is based on known projects. Opposition to new unabated gas plants may delay their timelines.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Consumer and client behavior",
+      "dependency_description": "Medium to high engagement in smart electric vehicle charging and vehicle-to-grid supports flexibility, with 16% of vehicles providing vehicle-to-grid in 2035. However, more consumers keep flat tariffs.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Infrastructure and logistics",
+      "dependency_description": "Significant infrastructure build-out is needed, with renewables integrated under current network constraints. Curtailment reaches 24 TWh in 2035 in a model that does not constrain dispatch by the network.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Technology",
+      "dependency_description": "The pathway relies little on immature technology before 2035. It includes only 5.9 GW of gas with carbon capture, a small amount of bioenergy with carbon capture, 0.4 GW of hydrogen peaking plants and 1.4 GW of liquid air storage, with no small modular reactors.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Resource availability",
+      "dependency_description": "Reliance on gas imports stays high to 2035, while biomass use for power declines.",
+      "sector": "Power",
+      "evidence_type": "Quantitative"
+    },
+    {
+      "dependency_name": "Environmental impacts and ecosystem services",
+      "dependency_description": "Retained gas capacity buffers weather risk to 2035. The report notes this risk only in general terms.",
+      "sector": "Power",
+      "evidence_type": "Anecdotal"
+    },
+    {
+      "dependency_name": "Labor availability",
+      "dependency_description": "No labour constraint specific to this forecast is identified. Only general workforce notes apply.",
+      "sector": "Power",
+      "evidence_type": "No evidence"
+    }
+  ],
+  "dataAvailability": {
+    "overall": null,
+    "byMetric": [
+      {
+        "metricName": "Emissions intensity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Values show the direct combustion intensity of power generation, calculated as total annual power emissions divided by total generation. Values are net of carbon removals from bioenergy with carbon capture, and a series excluding these removals is also given. Energy-from-waste and combined heat and power plants supplying industrial heat are excluded. Hourly dispatch does not include redispatch for network constraints. Data cover Great Britain only, and Northern Ireland is not modelled."
+      },
+      {
+        "metricName": "Absolute Emissions",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["Scope 1"],
+        "scopeLimitations": "Emissions in MtCO2e cover fossil fuel and combined heat and power plants of major power producers. Carbon removals from bioenergy with carbon capture in power are reported as a separate row. Energy-from-waste and smaller combined heat and power plants are excluded and reported under waste and industry. Northern Ireland power appears only within a single UK-wide row in whole-system totals. Data cover Great Britain only, and Northern Ireland is not modelled."
+      },
+      {
+        "metricName": "Capacity",
+        "sector": "Power",
+        "sectorSegment": ["Power generation", "Energy storage"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Energy storage",
+          "Other"
+        ],
+        "scopeLimitations": "Installed capacity in MW is reported by connection type. These are transmission, distribution of 1 MW or more, micro distribution below 1 MW and non-networked capacity for hydrogen. Micro distribution includes rooftop solar. Values are taken at 1 December each year. Storage is broken down into battery, pumped hydro, compressed air and liquid air, and vehicle-to-grid is reported separately. Data cover Great Britain only, and Northern Ireland is not modelled."
+      },
+      {
+        "metricName": "Generation",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Annual generation in TWh comes from hourly economic dispatch using the 2013 weather year, by calendar year and before redispatch for network constraints. It includes distributed and micro generation, with no separate split for rooftop or captive generation. Data cover Great Britain only, and Northern Ireland is not modelled, even though the ISO code GB usually denotes the whole UK."
+      },
+      {
+        "metricName": "Technology mix",
+        "sector": "Power",
+        "sectorSegment": ["Power generation"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": [
+          "Oil",
+          "Gas",
+          "Nuclear",
+          "Hydro",
+          "Wind",
+          "Solar",
+          "Biomass",
+          "Geothermal",
+          "Other"
+        ],
+        "scopeLimitations": "Annual generation in TWh comes from hourly economic dispatch using the 2013 weather year, by calendar year and before redispatch for network constraints. It includes distributed and micro generation, with no separate split for rooftop or captive generation. Technology mix is each technology's share of total generation. Data cover Great Britain only, and Northern Ireland is not modelled, even though the ISO code GB usually denotes the whole UK."
+      },
+      {
+        "metricName": "Transmission lines",
+        "sector": "Power",
+        "sectorSegment": ["Transmission and distribution"],
+        "geography": ["GB"],
+        "timeResolution": "1-year steps",
+        "dataFormat": "Tabular",
+        "granularity": ["International connections only"],
+        "scopeLimitations": "Interconnector capacity in GW and annual import, export and net flows are reported. Internal transmission starts from the network upgrades already planned by NESO, which the model may expand so that dispatch is not constrained by the network. No line lengths or capacities are reported."
+      },
+      {
+        "metricName": "Technology cost",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Investment requirement",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      },
+      {
+        "metricName": "Asset lifetime",
+        "sector": "Power",
+        "sectorSegment": ["Not covered"],
+        "geography": ["Not covered"],
+        "timeResolution": "Not covered",
+        "dataFormat": "Not covered",
+        "granularity": ["Not covered"],
+        "scopeLimitations": "Not covered"
+      }
+    ]
+  }
+}

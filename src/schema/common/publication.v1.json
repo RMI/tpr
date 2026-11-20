@@ -19,6 +19,7 @@
         "European Commission, Joint Research Centre",
         "Institute for Sustainable Futures, University of Technology Sydney",
         "International Energy Agency",
+        "National Energy System Operator",
         "Network of Central Banks and Supervisors for Greening the Financial System",
         "Philippines Department of Energy",
         "Sustainable Development Solutions Network and ClimateWorks Centre",
@@ -37,6 +38,7 @@
         "CGS, IESR",
         "JETP ID",
         "JRC",
+        "NESO",
         "NGFS",
         "UN SDSN, CW",
         "UTS ISF",
@@ -84,6 +86,13 @@
               "properties": {
                 "full": { "const": "Climate Change Committee" },
                 "short": { "const": "CCC" }
+              },
+              "required": ["full", "short"]
+            },
+            {
+              "properties": {
+                "full": { "const": "National Energy System Operator" },
+                "short": { "const": "NESO" }
               },
               "required": ["full", "short"]
             },
