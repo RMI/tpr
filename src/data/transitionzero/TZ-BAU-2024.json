@@ -658,18 +658,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Target technology shares: minimum RE/solar shares for Brunei, Indonesia, Malaysia and the Philippines are imposed as constraints. Target capacity levels: minimum hydro, solar, RE and wind capacities (Cambodia, Lao PDR, Myanmar, Singapore, Viet Nam) and coal caps (Myanmar, Viet Nam) are imposed, several binding exactly in 2035. With no grid expansion, every country must meet these constraints from domestic resources, so they shape each national mix directly.",
-    "emissionsTargets": "Absolute emissions caps are imposed as model constraints: Indonesia's power emissions peak at 290 MtCO2eq by 2030 and Singapore's at 60 MtCO2eq in 2030. In BAU's 2035 results Indonesia emits 236.9 Mt and Singapore 24.0 Mt, so neither cap binds at the reported year.",
-    "technologyCosts": "The model minimises total system cost using DEA technology-catalogue capex and O&M (Viet Nam/Indonesia average applied to all countries), so unit costs decide what is built beyond the policy minimums. Falling costs for solar (0.79 → 0.56 M USD/MW, 2023-2030) and lithium-ion batteries (0.47 → 0.33 M USD/MW) make battery storage the least-cost balancing option when the grid is fixed: BAU builds 68.0 GW of storage, the most of any pathway.",
+    "policies": "Minimum renewables shares are imposed for Brunei, Indonesia, Malaysia, and the Philippines. Minimum hydro, solar, and wind capacities (Cambodia, Lao PDR, Myanmar, Singapore, Vietnam) and coal caps (Myanmar, Vietnam) are imposed, several binding exactly in 2035. With no grid expansion, every country must meet these constraints from domestic resources, so they shape each national mix directly.",
+    "emissionsTargets": "Absolute emissions caps are imposed as model constraints. Indonesia's power emissions peak at 290 MtCO2e by 2030 and Singapore's at 60 MtCO2e. However, results are only provided for 2035 when Indonesia emits 236.9 Mt and Singapore 24.0 Mt.",
+    "technologyCosts": "The model minimizes total system cost using DEA technology-catalogue capex and O&M (Vietnam/Indonesia average applied to all countries), so unit costs decide what is built beyond the policy minimums. Falling costs for solar and lithium-ion batteries make battery storage the least-cost balancing option when the grid is fixed. BAU builds 68.0 GW of storage, the most of any pathway in this report.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Electricity demand growth is an exogenous driver common to all four TZ-APG pathways and does not differentiate them: country CAGRs for 2023-2035 range from 1.6% (Myanmar) to 8.1% (Cambodia). Sources are national plans (Cambodia PDMP, Indonesia JETP CIPP, Philippines PDP, Singapore Energy 2050 Committee, Thailand PDP, Viet Nam PDP) and, for Brunei, Lao PDR, Malaysia and Myanmar, TransitionZero estimates based on historical trends and World Bank, IMF and IIASA population and GDP projections.",
+    "macroeconomicDrivers": "Electricity demand growth is an exogenous driver common to all four TZ-APG pathways and does not differentiate them. Country CAGRs for 2023–2035 range from 1.6% (Myanmar) to 8.1% (Cambodia). Sources are national plans (Cambodia PDMP, Indonesia JETP CIPP, Philippines PDP, Singapore Energy 2050 Committee, Thailand PDP, Vietnam PDP) and, for Brunei, Lao PDR, Malaysia and Myanmar, TransitionZero estimates are based on historical trends and World Bank, IMF, and IIASA population and GDP projections.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Grid topology is the defining assumption: BAU freezes the 31 existing domestic and cross-border routes at current capacity. This blocks resource sharing, so balancing falls on local storage (68.0 GW) and gas (138.7 GW), and fixed Lao exports flow mainly to Thailand (Lao→Thailand North 47.5 TWh). This is an infrastructure-design assumption that fits no other named driver."
+    "otherDrivers": "Grid topology is the defining assumption: BAU freezes the 31 existing domestic and cross-border routes at current capacity. This blocks resource sharing, so balancing falls on local storage (68.0 GW) and gas (138.7 GW), and fixed Lao exports flow mainly to Thailand."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "BAU's renewable build-out is driven by national targets, such as RE shares in Brunei, Indonesia, Malaysia and the Philippines and capacity minimums in Cambodia, Lao PDR, Myanmar, Singapore and Viet Nam. With a fixed grid, each country meets its targets domestically. National power plans are the only policy lever for grid decarbonisation; regional instruments play no role. Several constraints bind exactly in 2035, e.g. Lao hydro at 13,000 MW and Viet Nam onshore wind at 21,880 MW.",
+      "dependency_description": "BAU's renewable build-out is driven by national targets, such as RE shares in Brunei, Indonesia, Malaysia and the Philippines and capacity minimums in Cambodia, Lao PDR, Myanmar, Singapore and Vietnam. With a fixed grid, each country meets its targets domestically. National power plans are the only policy lever for grid decarbonization; regional instruments play no role. Several constraints bind exactly in 2035, e.g., Lao hydro at 13,000 MW and Vietnam onshore wind at 21,880 MW.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -699,7 +699,7 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "With transmission frozen at today's 31 routes, BAU meets demand and targets through local balancing infrastructure. It needs 68.0 GW of battery storage, the most of any pathway (Viet Nam 36.3 GW, Indonesia 22.9 GW). Storage build-out is the binding infrastructure dependency; dispatch is modelled in 2-hour blocks, which captures intraday storage cycling.",
+      "dependency_description": "With transmission frozen at today's 31 routes, BAU meets demand and targets through local balancing infrastructure. It needs 68.0 GW of battery storage, the most of any pathway (Vietnam 36.3 GW, Indonesia 22.9 GW). Storage build-out is the binding infrastructure dependency; dispatch is modeled in 2-hour blocks, which captures intraday storage cycling.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -877,7 +877,7 @@
         "timeResolution": "Medium-term data point",
         "dataFormat": "Tabular",
         "granularity": ["International and national transmission lines"],
-        "scopeLimitations": "Line-level trade (GWh), capacity (MW) and capex (USD bn) between the 24 nodes. 31 existing routes at fixed capacity; trade only, capex 'NA'. Lines act as combined interfaces between node centre-points; HVAC/HVDC by distance; no distribution grid; no trade with China; no wheeling charges."
+        "scopeLimitations": "Line-level trade (GWh), capacity (MW) and capex (billion US$) between the 24 nodes. 31 existing routes at fixed capacity; trade only, capex 'NA'. Lines act as combined interfaces between node centre-points; HVAC/HVDC by distance; no distribution grid; no trade with China; no wheeling charges."
       },
       {
         "metricName": "Technology cost",
@@ -902,7 +902,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Capital (USD/MW), fixed O&M (USD/MW-yr), variable (USD/MWh) and fuel (USD/MWh) costs per country and technology, incl. Li-ion battery and HVAC/HVDC/subsea transmission. DEA Viet Nam/Indonesia average applied to all countries; single ASEAN fuel prices."
+        "scopeLimitations": "Capital (US$/MW), fixed O&M (US$/MW-yr), variable (US$/MWh) and fuel (US$/MWh) costs per country and technology, incl. Li-ion battery and HVAC/HVDC/subsea transmission. DEA Vietnam/Indonesia average applied to all countries; single ASEAN fuel prices."
       },
       {
         "metricName": "Investment requirement",
@@ -924,7 +924,7 @@
         "timeResolution": "Medium-term data point",
         "dataFormat": "Tabular",
         "granularity": ["By sector"],
-        "scopeLimitations": "Systems cost by node = generator capex 2023-2035 plus 2035 opex (USD bn); blends capex with one year of opex. No transmission investment (no new lines)."
+        "scopeLimitations": "Systems cost by node = generator capex 2023-2035 plus 2035 opex (billion US$); blends capex with one year of opex. No transmission investment (no new lines)."
       },
       {
         "metricName": "Asset lifetime",

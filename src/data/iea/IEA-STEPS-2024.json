@@ -367,9 +367,9 @@
       "US": ["US"],
       "BR": ["BR"],
       "RU": ["RU"],
+      "CN": ["CN", "HK"],
       "IN": ["IN"],
-      "JP": ["JP"],
-      "CN": ["CN", "HK"]
+      "JP": ["JP"]
     }
   },
   "pathwayType": "Exploratory",
@@ -442,7 +442,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Stated Policies Scenario (STEPS) projects the energy sector’s current direction of travel, based on the latest market data, technology costs and in-depth analysis of the stated policies in countries around the world. STEPS provides a detailed projection of future outcomes based on current conditions, but does not attempt to predict which existing policies or economic conditions are more or less likely to change. The STEPS pathway corresponds to 2.4°C of warming by 2100 (50% probability). This is significantly higher than the IEA’s announced pledges scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), and the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability).",
+  "pathwayDescription": "The Stated Policies Scenario (STEPS) projects the energy sector’s current direction of travel, based on the latest market data, technology costs, and in-depth analysis of the stated policies in countries around the world. STEPS provides a detailed projection of future outcomes based on current conditions, but does not attempt to predict which existing policies or economic conditions are more or less likely to change. The STEPS pathway corresponds to 2.4°C of warming by 2100 (50% probability). This is significantly higher than the IEA’s announced pledges scenario (APS), which projects 1.7°C of warming by 2100 (50% probability), and the IEA’s Net Zero scenario (NZE), which targets 1.5°C of warming by 2100 (50% probability).",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -4366,18 +4366,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "The pathway models stated policies, such as energy subsisies or power development  plans, but does not include policy targets that lack specific provisions for their implementation. Carbon pricing is applied through existing and scheduled schemes, and target technology shares and capacity plans shape the power mix. Fossil fuel consumption subsidies are removed only where a specific commitment exists, and coal phase-out plans are carried where legislated or provisioned.",
+    "policies": "The pathway models stated policies, such as energy subsidies or power development plans, but does not include policy targets that lack specific provisions for their implementation. Carbon pricing is applied through existing and scheduled schemes, and target technology shares and capacity plans shape the power mix. Fossil fuel consumption subsidies are removed only where a specific commitment exists, and coal phaseout plans are carried where legislated or provisioned.",
     "emissionsTargets": "not applicable.",
     "technologyCosts": "Unit technology costs are endogenous and deployment-linked: future cost evolution is tied to deployment levels, following a non-linear learning curve. Falling low-carbon capital costs drive build-out of solar and wind while coal and gas capital costs are held flat, so the relative economics shift toward low-carbon technologies, and utility-scale battery cost decreases which underpins the growth of storage capacity.",
-    "investmentChange": "Low-carbon investment rises as a share of total energy investment. Average annual investment across supply, power and end-use grows from USD 3 254.8 billion in 2024-2030 to USD 3 653.0 billion in 2041-2050, while the fossil component (oil and gas supply, coal supply and unabated fossil generation) falls from USD 977.2 to USD 732.1 billion, so the fossil share drops from about 30% to about 20% and the low-carbon share rises correspondingly.",
-    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from USD 175,981 billion to USD 357,510 billion (2023, PPP).",
+    "investmentChange": "Low-carbon investment rises as a share of total energy investment. Average annual investment across supply, power and end-use grows from US$3 254.8 billion in 2024–2030 to US$3 653.0 billion in 2041–2050, while the fossil component (oil and gas supply, coal supply and unabated fossil generation) falls from US$977.2 to US$732.1 billion, so the fossil share drops from about 30% to about 20% and the low-carbon share rises correspondingly.",
+    "macroeconomicDrivers": "Population follows the UN medium variant, reaching 9.68 billion in 2050, and GDP grows from US$175,981 billion to US$357,510 billion (2023, PPP).",
     "behavioralShifts": "not applicable.",
     "otherDrivers": "not applicable."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Policy support is the organising assumption of this pathway but is not stretched beyond what is already in place or provisioned, so it enables the decarbonisation levers without being a binding condition on them. Carbon pricing covers only the jurisdictions that already have schemes, efficiency and vehicle standards pull end-use electrification along, and renewable and capacity targets shape the power mix.",
+      "dependency_description": "Policy support is the organising assumption of this pathway but is not stretched beyond what is already in place or provisioned, so it enables the decarbonization levers without being a binding condition on them. Carbon pricing covers only the jurisdictions that already have schemes, efficiency and vehicle standards pull end-use electrification along, and renewable and capacity targets shape the power mix.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -4419,19 +4419,19 @@
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "The publication warns that reduced investment following the 2023 price fall could cause future supply shortages and price spikes for critical minerals, which would slow or reverse clean energy cost reductions. Concentration risk compounds it, with tariffs and trade measures narrowing supply routes for solar PV, EVs and batteries. Land availability is not assessed anywhere, and bioenergy demand reaches 56.1 EJ of modern solid bioenergy supply without any stated land constraint.",
+      "dependency_description": "The publication warns that reduced investment following the 2023 price fall could cause future supply shortages and price spikes for critical minerals, which would slow or reverse clean energy cost reductions. Concentration risk compounds it, with tariffs and trade measures narrowing supply routes for solar PV, EVs, and batteries. Land availability is not assessed anywhere, and bioenergy demand reaches 56.1 EJ of modern solid bioenergy supply without any stated land constraint.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Environmental impacts and ecosystem services",
-      "dependency_description": "The publication raises physical climate risk to energy infrastructure from extreme weather as a general concern and identifies it among the risks to fuel supply chains, but it models no climate impact on any decarbonisation lever and quantifies no adaptation requirement.",
+      "dependency_description": "The publication raises physical climate risk to energy infrastructure from extreme weather as a general concern and identifies it among the risks to fuel supply chains, but it models no climate impact on any decarbonization lever and quantifies no adaptation requirement.",
       "sector": "Power",
       "evidence_type": "Anecdotal"
     },
     {
       "dependency_name": "Labor availability",
-      "dependency_description": "Over 6 million additional energy workers are needed worldwide by 2030, and the publication states that several parts of the energy industry already face skill shortages, with clean energy sectors competing for the same limited pool of construction workers, welders and electricians - the same trades the grid build-out depends on, where a shortage of qualified staff is already named as a cause of project delay.",
+      "dependency_description": "Over 6 million additional energy workers are needed worldwide by 2030, and the publication states that several parts of the energy industry already face skill shortages, with clean energy sectors competing for the same limited pool of construction workers, welders and electricians — the same trades the grid build-out depends on, where a shortage of qualified staff is already named as a cause of project delay.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     }
@@ -4536,7 +4536,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop capacity cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive, and rooftop capacity cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
       },
       {
         "metricName": "Generation",
@@ -4576,7 +4576,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive, and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
       },
       {
         "metricName": "Technology mix",
@@ -4616,7 +4616,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
+        "scopeLimitations": "No separate captive industrial or residential-rooftop series is published, so on-grid, captive, and rooftop generation cannot be distinguished. Fossil generation is split into unabated and with-CCUS."
       },
       {
         "metricName": "Transmission lines",
@@ -4645,7 +4645,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Unit costs for nuclear, coal, gas CCGT, solar PV, onshore wind and offshore wind only - no cost data for hydro, bioenergy, geothermal, marine, CCUS-equipped plant or storage."
+        "scopeLimitations": "Unit costs for nuclear, coal, gas CCGT, solar PV, onshore wind and offshore wind only — no cost data for hydro, bioenergy, geothermal, marine, CCUS-equipped plant, or storage."
       },
       {
         "metricName": "Investment requirement",
@@ -4668,7 +4668,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Tabular",
         "granularity": ["By technology"],
-        "scopeLimitations": "Covers generation, networks and battery storage across the power value chain. Figures are multi-year averages and cumulative totals, not annual series, and include maintenance and infrastructure spend, so they are not derivable from capacity growth and unit costs."
+        "scopeLimitations": "Covers generation, networks, and battery storage across the power value chain. Figures are multi-year averages and cumulative totals, not annual series, and include maintenance and infrastructure spend, so they are not derivable from capacity growth and unit costs."
       },
       {
         "metricName": "Asset lifetime",
@@ -4689,7 +4689,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Text",
         "granularity": ["High-carbon assets lifetime assumed constant"],
-        "scopeLimitations": "Retirements and additions are cumulative over 2024-2050 by technology and region, with no vintage, age or plant-level detail, so implied plant lifetimes cannot be derived."
+        "scopeLimitations": "Retirements and additions are cumulative over 2024–2050 by technology and region, with no vintage, age, or plant-level detail, so implied plant lifetimes cannot be derived."
       }
     ]
   }

@@ -352,10 +352,10 @@
       ]
     },
     "country": {
+      "CN": ["CN", "HK", "MO", "TW"],
       "IN": ["IN"],
       "JP": ["JP"],
-      "US": ["US"],
-      "CN": ["CN", "HK", "MO", "TW"]
+      "US": ["US"]
     }
   },
   "pathwayType": "Normative",
@@ -437,7 +437,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The Network for Greening the Financial System (NGFS) develops reference climate transition and physical risk scenarios to support financial institutions, regulators, and policymakers in assessing climate-related financial risks. These scenarios provide globally consistent projections of emissions, energy systems, and macroeconomic trends under varying policy and temperature pathways. Their Net Zero 2050, REMIND-MAgPIE 3.3-4.8 (NZ2050 REMIND) Scenario is a normative, high-ambition global pathway in which the world achieves net-zero greenhouse gas emissions by 2050, consistent with limiting warming to below 1.5°C. It assumes immediate and coordinated global policy action, rapid decarbonization across all sectors, and large-scale deployment of clean energy and negative-emission technologies.\n\nThe NZ2050 REMIND pathway ensures net-zero CO₂ emissions by midcentury, with residual non-CO₂ gases offset through negative-emission technologies such as bioenergy with carbon capture and sequestration (BECCS) and direct air capture (DAC). This results in 1.4°C of cumulative warming in 2100. Fossil fuel use declines by roughly 90% by mid-century, with unabated coal nearly eliminated by 2040 and sharp reductions in oil and gas. Global energy demand stabilizes as efficiency gains and electrification offset growth in activity.\n\nNZ2050 represents the most ambitious pathway in the NGFS scenario set. NZ2050 builds on existing and announced policies but introduces stringent emissions limits and rapid technology innovation. Note that all NGFS scenarios are produced using three different Integrated Assessment Models (IAMs): REMIND-MAgPIE, MESSAGEix-GLOBIOM, and GCAM. These IAMs share the common assumptions that define each scenario, but may offer different projections based on underlying model structure. Technical users may wish to consult NGFS documentation to determine if a specific IAM best fits their applications.",
+  "pathwayDescription": "The Network for Greening the Financial System (NGFS) develops reference climate transition and physical risk scenarios to support financial institutions, regulators, and policymakers in assessing climate-related financial risks. These scenarios provide globally consistent projections of emissions, energy systems, and macroeconomic trends under varying policy and temperature pathways. Their Net Zero 2050 REMIND-MAgPIE 3.3-4.8 (NZ2050 REMIND) Scenario is a normative, high-ambition global pathway in which the world achieves net-zero greenhouse gas emissions by 2050, consistent with limiting warming to below 1.5°C. It assumes immediate and coordinated global policy action, rapid decarbonization across all sectors, and large-scale deployment of clean energy and negative-emission technologies.\n\nThe NZ2050 REMIND pathway ensures net-zero CO₂ emissions by midcentury, with residual non-CO₂ gases offset through negative-emission technologies such as bioenergy with carbon capture and sequestration (BECCS) and direct air capture (DAC). This results in 1.4°C of cumulative warming in 2100. Fossil fuel use declines by roughly 90% by mid-century, with unabated coal nearly eliminated by 2040 and sharp reductions in oil and gas. Global energy demand stabilizes as efficiency gains and electrification offset growth in activity.\n\nNZ2050 represents the most ambitious pathway in the NGFS scenario set. NZ2050 builds on existing and announced policies but introduces stringent emissions limits and rapid technology innovation. Note that all NGFS scenarios are produced using three different Integrated Assessment Models (IAMs): REMIND-MAgPIE, MESSAGEix-GLOBIOM, and GCAM. These IAMs share the common assumptions that define each scenario, but may offer different projections based on underlying model structure. Technical users may wish to consult NGFS documentation to determine if a specific IAM best fits their applications.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -459,27 +459,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -509,6 +494,21 @@
       },
       {
         "sector": "across sectors",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "US",
         "value": "Significant decrease"
       },
@@ -534,11 +534,6 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Moderate decrease"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Moderate decrease"
       },
@@ -546,16 +541,6 @@
         "sector": "Aviation",
         "geography": "EU 28",
         "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
-        "value": "Moderate decrease"
       },
       {
         "sector": "Aviation",
@@ -583,28 +568,108 @@
         "value": "Significant increase"
       },
       {
+        "sector": "Power",
+        "geography": "Canada / NZ / Australia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Countries from the Reforming Economies of the Former Soviet Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "EU 28",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Middle East / North Africa / Central Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Non-EU28 Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Other Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "Sub-saharan Africa",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Canada / NZ / Australia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Countries from the Reforming Economies of the Former Soviet Union",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "EU 28",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Latin America and the Caribbean",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Middle East / North Africa / Central Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Non-EU28 Europe",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Other Asia",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "Sub-saharan Africa",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Moderate decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Moderate decrease"
+      },
+      {
         "sector": "Aviation",
         "geography": "US",
         "value": "Moderate decrease"
       },
       {
         "sector": "Power",
-        "geography": "Canada / NZ / Australia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
         "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "Countries from the Reforming Economies of the Former Soviet Union",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "EU 28",
         "value": "Significant decrease"
       },
       {
@@ -615,31 +680,6 @@
       {
         "sector": "Power",
         "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "Latin America and the Caribbean",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "Middle East / North Africa / Central Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "Non-EU28 Europe",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "Other Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Power",
-        "geography": "Sub-saharan Africa",
         "value": "Significant decrease"
       },
       {
@@ -649,22 +689,7 @@
       },
       {
         "sector": "Steel",
-        "geography": "Canada / NZ / Australia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
         "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Countries from the Reforming Economies of the Former Soviet Union",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "EU 28",
         "value": "Significant decrease"
       },
       {
@@ -675,31 +700,6 @@
       {
         "sector": "Steel",
         "geography": "JP",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Latin America and the Caribbean",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Middle East / North Africa / Central Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Non-EU28 Europe",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Other Asia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "Sub-saharan Africa",
         "value": "Significant decrease"
       },
       {
@@ -721,27 +721,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Significant improvement"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Significant improvement"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Significant improvement"
       },
       {
@@ -771,6 +756,21 @@
       },
       {
         "sector": "across sectors",
+        "geography": "CN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant improvement"
+      },
+      {
+        "sector": "across sectors",
         "geography": "US",
         "value": "Significant improvement"
       },
@@ -796,27 +796,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -842,11 +827,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -856,27 +836,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -902,11 +867,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -916,27 +876,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -962,6 +907,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -983,27 +983,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Significant decrease"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Moderate increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1033,6 +1018,21 @@
       },
       {
         "sector": "across sectors",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Moderate increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "across sectors",
         "geography": "US",
         "value": "Significant decrease"
       },
@@ -1058,27 +1058,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Minor increase"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Significant decrease"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1107,18 +1092,8 @@
         "value": "Significant increase"
       },
       {
-        "sector": "Aviation",
-        "geography": "US",
-        "value": "Significant decrease"
-      },
-      {
         "sector": "Power",
         "geography": "Canada / NZ / Australia",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "CN",
         "value": "No information"
       },
       {
@@ -1129,16 +1104,6 @@
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "No information"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "No information"
       },
       {
@@ -1167,18 +1132,8 @@
         "value": "No information"
       },
       {
-        "sector": "Power",
-        "geography": "US",
-        "value": "No information"
-      },
-      {
         "sector": "Steel",
         "geography": "Canada / NZ / Australia",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "CN",
         "value": "Significant decrease"
       },
       {
@@ -1189,16 +1144,6 @@
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Significant decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Minor decrease"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Significant decrease"
       },
       {
@@ -1225,6 +1170,61 @@
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
         "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Minor increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "No information"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "No information"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Significant decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Minor decrease"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
+        "value": "Significant decrease"
       },
       {
         "sector": "Steel",
@@ -1245,27 +1245,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Significant increase"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Significant increase"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Significant increase"
       },
       {
@@ -1295,6 +1280,21 @@
       },
       {
         "sector": "across sectors",
+        "geography": "CN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
+        "value": "Significant increase"
+      },
+      {
+        "sector": "across sectors",
         "geography": "US",
         "value": "Significant increase"
       },
@@ -1315,27 +1315,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1361,11 +1346,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1375,27 +1355,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1421,6 +1386,41 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1442,27 +1442,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1488,6 +1473,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1517,27 +1517,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1563,11 +1548,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1577,27 +1557,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1623,11 +1588,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1637,27 +1597,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1683,6 +1628,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -1704,27 +1704,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1750,6 +1735,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1779,27 +1779,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1825,11 +1810,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1839,27 +1819,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1885,11 +1850,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1899,27 +1859,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1945,6 +1890,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -1966,27 +1966,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2012,6 +1997,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2041,27 +2041,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2087,11 +2072,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2101,27 +2081,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2147,11 +2112,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2161,27 +2121,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2207,6 +2152,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2228,27 +2228,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2274,6 +2259,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2303,27 +2303,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2349,11 +2334,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2363,27 +2343,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2409,11 +2374,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2423,27 +2383,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2469,6 +2414,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2490,27 +2490,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2536,6 +2521,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2565,27 +2565,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2611,11 +2596,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2625,27 +2605,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2671,11 +2636,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2685,27 +2645,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2731,6 +2676,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -2752,27 +2752,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2798,6 +2783,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2827,27 +2827,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2873,11 +2858,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2887,27 +2867,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2933,11 +2898,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2947,27 +2907,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": ["Not applicable at this scope level"]
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": ["Not applicable at this scope level"]
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -2993,6 +2938,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": ["Not applicable at this scope level"]
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": ["Not applicable at this scope level"]
       },
       {
@@ -3014,27 +3014,12 @@
       },
       {
         "sector": "across sectors",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "across sectors",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "across sectors",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3060,6 +3045,21 @@
       {
         "sector": "across sectors",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "across sectors",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3089,27 +3089,12 @@
       },
       {
         "sector": "Aviation",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Aviation",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3135,11 +3120,6 @@
       {
         "sector": "Aviation",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Aviation",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3149,27 +3129,12 @@
       },
       {
         "sector": "Power",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Power",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3195,11 +3160,6 @@
       {
         "sector": "Power",
         "geography": "Sub-saharan Africa",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Power",
-        "geography": "US",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3209,27 +3169,12 @@
       },
       {
         "sector": "Steel",
-        "geography": "CN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
         "geography": "Countries from the Reforming Economies of the Former Soviet Union",
         "value": "Not applicable at this scope level"
       },
       {
         "sector": "Steel",
         "geography": "EU 28",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "IN",
-        "value": "Not applicable at this scope level"
-      },
-      {
-        "sector": "Steel",
-        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3255,6 +3200,61 @@
       {
         "sector": "Steel",
         "geography": "Sub-saharan Africa",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Aviation",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "JP",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Power",
+        "geography": "US",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "CN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "IN",
+        "value": "Not applicable at this scope level"
+      },
+      {
+        "sector": "Steel",
+        "geography": "JP",
         "value": "Not applicable at this scope level"
       },
       {
@@ -3265,18 +3265,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Carbon price: the shadow carbon price reaches 183 US$2010/tCO2 in 2030 and 749 in 2050, the main lever moving investment and dispatch away from fossil fuels. Other: fossil-gas import restrictions constrain Europe's gas supply.",
-    "emissionsTargets": "Temperature and net-zero constraint: 1.5°C with global net zero CO2 around 2050, plus national net-zero targets (Table 37) met on time. REMIND applies the targets by its 12 regions (e.g. India as CO2-only).",
-    "technologyCosts": "REMIND optimises intertemporally over investment, O&M, fuel and emission costs, with adjustment costs on fast scale-up. Learning cuts solar PV from 866 to 318 US$2010/kW by 2050 here, so cost decline depends on deployment: wind and solar reach 85% of 2050 generation (Current Policies 72%). With carbon at 749 US$2010/tCO2 in 2050, the cost ranking tilts further to low-carbon options.",
+    "policies": "Shadow carbon price reaches US$183/tCO2 (2010 $) in 2030 and US$749 in 2050, the main lever moving investment and dispatch away from fossil fuels. Fossil-gas import restrictions constrain Europe's gas supply.",
+    "emissionsTargets": "1.5°C with global net-zero CO2 around 2050, plus national net-zero targets met on time.",
+    "technologyCosts": "REMIND optimizes intertemporally over investment, O&M, fuel, and emission costs, with adjustment costs on fast scale-up. Learning cuts solar PV from US$866 to US$318/kW by 2050 here, so cost decline depends on deployment: wind and solar reach 85% of 2050 generation (Current Policies 72%). With carbon at US$749/tCO2 in 2050 (2010 $), the cost ranking tilts further to low-carbon options.",
     "investmentChange": "Low-carbon power investment moves from 0.99% of GDP (MER) in 2020 to 1.25% in 2050, an increase of 26%. Investment and GDP are solved jointly in REMIND's general equilibrium.",
-    "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.64 billion people in 2050 and GDP (MER) growing 2.15%/yr over 2020-2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-3.56% in 2050).",
+    "macroeconomicDrivers": "Shared SSP2 v3.0 population and GDP drive energy and material demand: 9.64 billion people in 2050 and GDP (MER) growing 2.15%/y over 2020–2050. The assumptions are common to all NGFS scenarios; GDP differs from Current Policies only through transition costs (-3.56% in 2050).",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Limited carbon dioxide removal: REMIND switches off direct air capture and enhanced weathering, forcing deeper gross cuts and higher carbon prices (749 US$2010/tCO2 in 2050; total CCS 4594 Mt CO2/yr). It is a technology-availability limit, not a cost, policy or target, so no other driver fits."
+    "otherDrivers": "The model switches off direct air capture and enhanced weathering, forcing deeper gross cuts and higher carbon prices (US$749/tCO2 in 2050 [2010 $]; total CCS 4,594 Mt CO2/y)."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "Grid decarbonisation in Net Zero 2050 (REMIND) rests on the carbon price (183 US$2010/tCO2 in 2030, 749 in 2050). It lifts wind and solar from 10% of generation in 2020 to 85% in 2050 and cuts coal capacity to 1% of its 2020 level by 2040.",
+      "dependency_description": "Grid decarbonization in Net Zero 2050 (REMIND) rests on the carbon price (US$183/tCO2 in 2030, US$749 in 2050 [2010 $]). It lifts wind and solar from 10% of generation in 2020 to 85% in 2050 and cuts coal capacity to 1% of its 2020 level by 2040.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -3288,7 +3288,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Power investment averages 2570 bn US$2010/yr over 2025-2050 (1.55x Current Policies), including 1135 bn/yr for grids, and must be financed. A 2050 carbon price of 749 US$2010/tCO2 erodes unabated fossil plant profitability.",
+      "dependency_description": "Power investment averages US$2,570B/y over 2025–2050 (1.55x Current Policies), including US$1,135B/y for grids, and must be financed. A 2050 carbon price of US$749/tCO2 erodes unabated fossil plant profitability. (2010 $).",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -3306,19 +3306,19 @@
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "With wind and solar at 85% of 2050 generation, grids, storage and flexibility must absorb variable output. REMIND prices batteries, hydrogen storage, grid expansion and curtailment as integration costs; storage reaches 8955 GW by 2050. Grid investment averages 1135 bn US$2010/yr (2025-2050). No hourly dispatch is reported, so curtailment cannot be checked.",
+      "dependency_description": "With wind and solar at 85% of 2050 generation, grids, storage and flexibility must absorb variable output. REMIND prices batteries, hydrogen storage, grid expansion and curtailment as integration costs; storage reaches 8,955 GW by 2050. Grid investment averages US$1,135B/y (2025–2050) (2010 $). No hourly dispatch is reported, so curtailment cannot be checked.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Power CCS captures 142 Mt CO2/yr in 2050 (141 Mt from bioenergy), so the pathway needs CCS at commercial scale; CCS cost differences between models drive large gaps in fossil generation. Storage of 8955 GW in 2050 relies on continued storage cost declines (endogenous learning).",
+      "dependency_description": "Power CCS captures 142 Mt CO2/y in 2050 (141 Mt from bioenergy), so the pathway needs CCS at commercial scale; CCS cost differences between models drive large gaps in fossil generation. Storage of 8955 GW in 2050 relies on continued storage cost declines (endogenous learning).",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "REMIND uses regional renewable potentials by grade (hydro capped near 50 EJ/yr) and MAgPIE biomass competing with food. Power BECCS reaches 141 Mt CO2/yr and primary biomass 92 EJ in 2050, so land limits the negative-emission part of the power transition. Wind and solar at 85% of 270 EJ draw on the regional potentials.",
+      "dependency_description": "REMIND uses regional renewable potentials by grade (hydro capped near 50 EJ/y) and MAgPIE biomass competing with food. Power BECCS reaches 141 Mt CO2/y and primary biomass 92 EJ in 2050, so land limits the negative-emission part of the power transition. Wind and solar at 85% of 270 EJ draw on the regional potentials.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
@@ -3480,7 +3480,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Derived Mt CO2 per EJ generated (1 EJ = 277.8 TWh). Scope 1 CO2 only; denominator is gross generation incl. CCS and bioenergy plants."
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Derived MtCO2 per EJ generated (1 EJ = 277.8 TWh). Scope 1 CO2 only; denominator is gross generation incl. CCS and bioenergy plants."
       },
       {
         "metricName": "Absolute Emissions",
@@ -3575,7 +3575,7 @@
           "Geothermal",
           "Other"
         ],
-        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Gross secondary electricity (EJ/yr) by technology incl. CHP electricity; CCS and non-CCS variants reported."
+        "scopeLimitations": "Model-region power-system totals; no separate captive or rooftop series. Gross secondary electricity (EJ/y) by technology incl. CHP electricity; CCS and non-CCS variants reported."
       },
       {
         "metricName": "Technology mix",
@@ -3672,7 +3672,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["By tech, part of value chain"],
-        "scopeLimitations": "Annual investment, billion US$2010/yr. Post-processed variants may contain multi-model-average infill (NGFS Climate Scenarios Technical Documentation V5.0 (Nov 2024), p.82); native series used."
+        "scopeLimitations": "Annual investment, billion US$2010/y. Post-processed variants may contain multi-model-average infill (NGFS Climate Scenarios Technical Documentation V5.0 [Nov 2024], p.82); native series used."
       },
       {
         "metricName": "Asset lifetime",
@@ -3708,7 +3708,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived t CO2(e) per t crude steel (sector emissions / Production|Steel, Mt/yr); primary and secondary routes combined; Scope 1 only."
+        "scopeLimitations": "Derived t CO2(e) per t crude steel (sector emissions / Production|Steel, Mt/y); primary and secondary routes combined; Scope 1 only."
       },
       {
         "metricName": "Emissions intensity (primary)",
@@ -3752,7 +3752,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Iron and steel modelled as one sector; ironmaking and steelmaking not separable. Energy-related CO2 only; Scope 1, excludes purchased electricity. Process-emission treatment not stated."
+        "scopeLimitations": "Iron and steel modeled as one sector; ironmaking and steelmaking not separable. Energy-related CO2 only; Scope 1, excludes purchased electricity. Process-emission treatment not stated."
       },
       {
         "metricName": "Technology mix (production by route)",
@@ -3836,7 +3836,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived g CO2 per pkm (Mt CO2 / bn pkm x 1000); Scope 1 direct combustion only; no freight split."
+        "scopeLimitations": "Derived g CO2 per pkm (MtCO2 / bn pkm x 1000); Scope 1 direct combustion only; no freight split."
       },
       {
         "metricName": "Emissions intensity (freight)",
@@ -3904,7 +3904,7 @@
         "timeResolution": "5-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Unspecified"],
-        "scopeLimitations": "Passenger-km (Energy Service|Transportation|Passenger|Aviation, bn pkm/yr); no freight or belly-freight split; domestic and international combined."
+        "scopeLimitations": "Passenger-km (Energy Service|Transportation|Passenger|Aviation, bn pkm/y); no freight or belly-freight split; domestic and international combined."
       },
       {
         "metricName": "Total demand (freight)",

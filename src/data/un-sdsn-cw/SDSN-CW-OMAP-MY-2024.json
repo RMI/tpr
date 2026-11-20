@@ -66,7 +66,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "Normative Malaysian pathway reaching a 100% renewable power system by 2050: no new fossil capacity after 2030, coal phased out early and gas and diesel by 2050, plus stronger efficiency standards. Least-cost optimisation picks 81 GW solar, 24 GW biomass, hydro, batteries and pumped hydro. Power emissions fall from 87 to 2 MtCO2e, but investment rises to USD 393bn (1.8x OEP) and the biomass build far exceeds assessed resource potential.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "Normative Malaysian pathway reaching a 100% renewable power system by 2050: no new fossil capacity after 2030, coal phased out early and gas and diesel by 2050, plus stronger efficiency standards. Least-cost optimization picks 81 GW solar, 24 GW biomass, hydro, batteries, and pumped hydro. Power emissions fall from 87 to 2 MtCO2e, but investment rises to US$393B (1.8x OEP) and the biomass build far exceeds assessed resource potential.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Absolute Emissions",
     "Capacity",
@@ -208,20 +208,20 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Phase-out: no new fossil capacity after 2030; coal out by 2030 (Table 2; §3.3.2 says 2040), gas and diesel by 2050. Target share: 100% renewable power, with LEAP adding renewables, batteries and pumped hydro as needed. Efficiency: commercial energy-intensity gain doubled to 46%; industry 23% plus 4% circular-economy steel demand cut, with electricity’s fuel share raised to 46%; efficient household appliances at 100% by 2060. Transport keeps Existing Policy targets.",
-    "emissionsTargets": "The pathway is constrained to a near-zero-emissions, 100% renewable power sector by 2050, implemented through fuel phase-out and no-new-fossil constraints rather than an explicit emissions cap. Power emissions fall to 2 MtCO2e in 2050; no economy-wide emissions target is applied.",
-    "technologyCosts": "OMAP uses the same NEMO least-cost optimisation and NREL/ACE cost tables as OEP, but within a fossil-free 2050 constraint, so costs pick the renewables and storage. The optimiser selects 23.9 GW biomass (125 TWh), 13.6 GW large and 4.2 GW small hydro, 81 GW solar, 5.3 GW wind, 4.5 GW batteries and 8.0 GW pumped hydro. Storage costs may limit more solar; cheaper batteries could favour it. 2050 production cost rises to 10.6 US cents/kWh (vs 8.8 in EP) and real investment to USD 393bn.",
-    "investmentChange": "This scenario requires USD 393 bn investment in power generation capacity, 1.8 times more than OEP. No technology-level figures are available.",
-    "macroeconomicDrivers": "OMAP uses the same GDP, population, urbanisation and sectoral value-added assumptions as EP and OEP; its 2050 electricity demand of 369 TWh (+137% vs 2019) is about 6% below EP because of efficiency measures, not different macro assumptions. Sources as in EP (government projections, UN World Urbanization Prospects, World Bank, LEAP defaults).",
+    "policies": "There is no new fossil capacity after 2030. Coal is phased out by 2030, and gas and diesel by 2050. 100% renewable power is targeted.",
+    "emissionsTargets": "The pathway is constrained to a near-zero emissions, 100% renewable power sector by 2050, implemented through fuel phaseout and no-new-fossil constraints rather than an explicit emissions cap. Power emissions fall to 2 MtCO2e in 2050.",
+    "technologyCosts": "OMAP is a cost-optimized pathway within the fossil-free 2050 constraint. The optimizer selects 23.9 GW biomass (125 TWh), 13.6 GW large and 4.2 GW small hydro, 81 GW solar, 5.3 GW wind, 4.5 GW batteries, and 8.0 GW pumped hydro.",
+    "investmentChange": "This scenario requires US$393B investment in power generation capacity, 1.8 times more than the OEP pathway.",
+    "macroeconomicDrivers": "OMAP uses the same GDP, population, urbanization, and sectoral value-added assumptions as EP and OEP; its 2050 electricity demand of 369 TWh (+137% vs. 2019) is about 6% below EP because of efficiency measures, not different macro assumptions.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Biomass resource left unconstrained: Table 2 sets no maximum annual addition for biomass (unlike biogas and MSW, which are fuel-limited), and the optimiser expands it to 23.9 GW generating 125 TWh, 30% of 2050 generation and far above SEDA's 2.3 GW potential. The report says this result must be triangulated with a land-use study. This is a resource-assumption driver, distinct from cost (it is an absent limit) and from policy."
+    "otherDrivers": "Biomass as a resource is left unconstrained. The report says this result must be triangulated with a land-use study."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "111111`111111`.",
+      "dependency_description": "OMAP rests on commitments absent from today's plans — no new fossil capacity after 2030, coal exit by 2030, gas and diesel exit by 2050, 100% renewable power, a doubled commercial efficiency target (46%) and a 46% industrial electricity share. Without them the least-cost solution reverts to the OEP gas-heavy mix. The report's recommendations include a roadmap for retiring uncontracted gas and coal plants, biomass and biogas incentives, and support for pumped hydro.",
       "sector": "Power",
-      "evidence_type": "No evidence"
+      "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
@@ -231,7 +231,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "OMAP needs 1.8x OEP's investment (USD 393bn real) and raises 2050 production cost to 10.6 US cents/kWh, against current tariffs of 4.2–12.0 US cents/kWh. Its economic case depends on carbon pricing: from USD 185/t it has the lowest social cost (Table 7), and Malaysia's carbon tax on iron/steel and energy from 2026 is noted. The report also calls for grants, tax breaks and green finance for pumped hydro and biomass plantations.",
+      "dependency_description": "OMAP needs 1.8x OEP's investment (US$393B real) and raises 2050 production cost to 10.6 US cents/kWh, against current tariffs of 4.2–12.0 US cents/kWh. Its economic case depends on carbon pricing: from US$185/t it has the lowest social cost (Table 7), and Malaysia's carbon tax on iron/steel and energy from 2026 is noted. The report also calls for grants, tax breaks and green finance for pumped hydro and biomass plantations.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -243,13 +243,13 @@
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "On top of EP's transport assumptions, OMAP requires 100% efficient lighting, refrigeration and air conditioning by 2060 and a 46% commercial efficiency gain, cutting 2050 demand 6% versus EP (369 vs 393 TWh) and residential demand 11%. Commercial uptake is the weak link, since the EECA covers only 21% of commercial consumption; these are imposed adoption assumptions rather than modelled behaviour.",
+      "dependency_description": "On top of EP's transport assumptions, OMAP requires 100% efficient lighting, refrigeration and air conditioning by 2060 and a 46% commercial efficiency gain, cutting 2050 demand 6% versus EP (369 vs. 393 TWh) and residential demand 11%. Commercial uptake is the weak link, since the EECA covers only 21% of commercial consumption; these are imposed adoption assumptions rather than modeled behaviour.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "A 100% renewable system needs 4.5 GW of batteries (less than 1GW in OEP or EP) and 8.0 GW of pumped hydro (1.96 GWh per million people), 2.8 GW of offshore wind, and transmission from renewable zones to load centres; the cheapest decarbonisation route needs a coordinated regional approach and proposes a UHV DC backbone. Storage and transmission are preconditions for OMAP. Only annual capacity results are reported, with no hourly dispatch, which limits curtailment assessment.",
+      "dependency_description": "A 100% renewable system needs 4.5 GW of batteries (less than 1GW in OEP or EP) and 8.0 GW of pumped hydro (1.96 GWh per million people), 2.8 GW of offshore wind, and transmission from renewable zones to load centres; the cheapest decarbonization route needs a coordinated regional approach and proposes a UHV DC backbone. Storage and transmission are preconditions for OMAP. Only annual capacity results are reported, with no hourly dispatch, which limits curtailment assessment.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -374,7 +374,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Table 9 capex (USD/kW), fixed O&M (USD/kW-yr), variable (USD/MWh) by technology from NREL ATB 2023 (US-based, not localised); fuel costs Table 10 (ACE 2022). Same table in all pathways. Drives OMAP's least-cost optimisation within the fossil phase-out constraint."
+        "scopeLimitations": "Table 9 capex (US$/kW), fixed O&M (US$/kW-yr), variable (US$/MWh) by technology from NREL ATB 2023 (US-based, not localized); fuel costs Table 10 (ACE 2022). Same table in all pathways. Drives OMAP's least-cost optimisation within the fossil phase-out constraint."
       },
       {
         "metricName": "Investment requirement",
@@ -384,7 +384,7 @@
         "timeResolution": "2050 data point",
         "dataFormat": "Tabular",
         "granularity": ["By sector"],
-        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), USD. Excludes transmission and distribution; storage not shown separately in the investment figures."
+        "scopeLimitations": "Cumulative power-generation capacity investment, real and discounted (7%, base 2019), US$. Excludes transmission and distribution; storage not shown separately in the investment figures."
       },
       {
         "metricName": "Asset lifetime",
