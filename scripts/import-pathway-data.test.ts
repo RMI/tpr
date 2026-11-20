@@ -53,6 +53,10 @@ describe("publisherGroup", () => {
     expect(publisherGroup("IET")).toBe("IET");
     expect(publisherGroup("Climate Change Committee (CCC)")).toBe("CCC");
     expect(publisherGroup("CCC")).toBe("CCC");
+    expect(publisherGroup("National Energy System Operator (NESO)")).toBe(
+      "NESO",
+    );
+    expect(publisherGroup("NESO")).toBe("NESO");
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
@@ -146,6 +150,19 @@ describe("canonicalKey", () => {
     expect(TARGETS["CCC:BP:"]).toMatchObject({
       file: "src/data/climate-change-committee/CCC-BP-2025.json",
     });
+    for (const [name, code] of [
+      ["Holistic Transition (HT)", "HT"],
+      ["Electric Engagement (EE)", "EE"],
+      ["Hydrogen Evolution (HE)", "HE"],
+      ["Falling Behind (FB)", "FB"],
+      ["Ten Year Forecast (10YF)", "10YF"],
+    ]) {
+      const key = canonicalKey("National Energy System Operator (NESO)", name);
+      expect(key, name).toBe(`NESO:${code}:`);
+      expect(TARGETS[`NESO:${code}:`], name).toMatchObject({
+        file: `src/data/national-energy-system-operator/NESO-${code}-2025.json`,
+      });
+    }
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
       canonicalKey(
