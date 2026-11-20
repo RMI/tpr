@@ -132,11 +132,11 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Current Thai energy and power plans drive the pathway, which assumes that energy efficiency and renewable capacity share targets are met as laid out in: PDP2018, AEDP2018 and EEP2018. Electric vehicle uptake follows targets based on LT-LEDS.",
+    "policies": "Current energy and power plans drive the pathway, which assumes that energy efficiency and renewable capacity share targets are met as laid out in PDP2018, AEDP2018, and EEP2018. Electric vehicle uptake follows targets based on LT-LEDS.",
     "emissionsTargets": null,
     "technologyCosts": null,
     "investmentChange": null,
-    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics. Sectoral value-added projections are based on World Bank indicators, assuming they remain stable. All these indicators are common demand drivers rather than pathway-specific differentiators.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2 with GDP growing 3% annually, and population, household, and urbanization numbers are based on UN projections and official Thai statistics.",
     "behavioralShifts": null,
     "otherDrivers": null
   },

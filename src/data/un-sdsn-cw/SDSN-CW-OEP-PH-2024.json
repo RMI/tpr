@@ -55,7 +55,7 @@
       ]
     }
   ],
-  "pathwayDescription": "Least-cost Philippine power pathway (2022–2060) built in LEAP under the same existing-policy constraints as SEP: coal moratorium, 40-year coal retirement, planned offshore wind and nuclear. Treating RE-share goals as binding, it meets the 35%/50%/55% targets for 2030/2040/2050 exactly. Falling solar and wind costs shape the mix, and power emissions dip slightly from 71.1 to 67.2 MtCO2e (2025–2050) despite strong demand growth.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "Least-cost Philippine power pathway (2022–2060) built in LEAP under the same existing-policy constraints as SEP: coal moratorium, 40-year coal retirement, planned offshore wind and nuclear. Treating RE-share goals as binding, it meets the 35%/50%/55% targets for 2030/2040/2050 exactly. Falling solar and wind costs shape the mix, and power emissions dip slightly from 71.1 to 67.2 MtCO2e (2025–2050) despite strong demand growth.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -199,60 +199,60 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Existing-policy constraints (coal moratorium, 40-year coal retirement, RE-share targets and planned offshore-wind/nuclear additions) bound the least-cost optimization, which exactly meets the RE-share targets.",
+    "policies": "Existing-policy constraints (coal moratorium, 40-year coal retirement, RE-share targets and planned offshore wind/nuclear additions) bound the least-cost optimization, which exactly meets the RE-share targets.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Technology capital, O&M and fuel costs are central to this pathway because LEAP minimizes net present system cost. Falling solar/wind costs and relative gas/RE economics drive the optimized build and dispatch.",
+    "technologyCosts": "This is a cost-optimized pathway using technology capital, O&M, and fuel costs to minimize net present system cost. Falling solar/wind costs and relative gas/renewables economics drive the optimized build and dispatch.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Electricity demand is driven by common macro assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
+    "macroeconomicDrivers": "Electricity demand is driven by common macroeconomic assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Technical feasibility constraints—RE resource bounds, storage, RPS/minimum utilization and plant availability—shape OEP's optimized capacity beyond pure cost ranking."
+    "otherDrivers": "Technical feasibility constraints — renewable energy resource bounds, storage, minimum utilization, and plant availability — shape OEP's optimized capacity beyond pure cost ranking."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "High (Explicit): Existing-policy constraints are in effect but the optimisation treats the RE share goals as binding and meets them exactly. OEP exactly reaches the 35%/50%/55% RE generation targets in 2030/2040/2050 while retaining the same policy envelope.",
+      "dependency_description": "Existing-policy constraints are in effect but the optimization treats the RE share goals as binding and meets them exactly. OEP exactly reaches the 35%/50%/55% RE generation targets in 2030/2040/2050 while retaining the same policy envelope.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Moderate (Explicit): OEP can optimize within current rules, but private ownership and Power Supply Agreements and coal retirement still constrain how quickly fossil capacity can be removed despite higher RE deployment.",
+      "dependency_description": "OEP can optimize within current rules, but private ownership and Power Supply Agreements and coal retirement still constrain how quickly fossil capacity can be removed despite higher RE deployment.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "Moderate (Quantitative proxy): OEP has the lowest long-run generation cost among the modeled systems (9.40 US¢/kWh in 2060) and lower cumulative investment, reducing the market/affordability constraint.",
+      "dependency_description": "OEP has the lowest long-run generation cost among the modeled systems (9.40 US¢/kWh in 2060) and lower cumulative investment, reducing the market/affordability constraint.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "Moderate (Explicit): Planned nuclear additions under the existing-policy pathways depend on public acceptance. There are enduring safety/perception concerns around nuclear power in the Philippines.",
+      "dependency_description": "Planned nuclear additions under the existing-policy pathways depend on public acceptance. There are enduring safety/perception concerns around nuclear power in the Philippines.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Low (Quantitative proxy): OEP minimizes generation cost and therefore faces the least consumer-price pressure among the modeled pathways, although Philippine tariffs are already high.",
+      "dependency_description": "OEP minimizes generation cost and therefore faces the least consumer-price pressure among the modeled pathways, although Philippine tariffs are already high.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "High (Quantitative proxy): OEP's larger variable-RE build (177 GW solar+wind versus 100 GW in SEP by 2060) and 34.8 TWh surplus increase grid, storage and flexibility requirements.",
+      "dependency_description": "OEP's larger variable-RE build (177 GW solar+wind versus 100 GW in SEP by 2060) and 34.8 TWh surplus increase grid, storage and flexibility requirements.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Moderate (Quantitative proxy): OEP has locally nascent offshore-wind rollout but optimizes a much larger variable-RE system, increasing execution dependence on scalable wind/solar/storage technologies.",
+      "dependency_description": "OEP has locally nascent offshore-wind rollout but optimizes a much larger variable-RE system, increasing execution dependence on scalable wind/solar/storage technologies.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Moderate (Quantitative proxy): OEP expands solar/onshore wind substantially and explicitly respects CREZ potential bounds, making resource availability relevant but not visibly exhausted by 2050.",
+      "dependency_description": "OEP expands solar/onshore wind substantially and explicitly respects CREZ potential bounds, making resource availability relevant but not visibly exhausted by 2050.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -280,7 +280,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived from reported power-generation GHG / electricity generation; direct plant boundary. Gas basket is not exhaustively specified. No T&D or demand-side emissions."
+        "scopeLimitations": "Derived from reported power-generation GHG/electricity generation; direct plant boundary. Gas basket is not exhaustively specified. No T&D or demand-side emissions."
       },
       {
         "metricName": "Absolute Emissions",
@@ -310,7 +310,7 @@
           "Biomass",
           "Energy storage"
         ],
-        "scopeLimitations": "National modeled generation/storage capacity. Report does not separately identify on-grid vs captive industrial vs residential-rooftop power; T&D capacity is outside these tables."
+        "scopeLimitations": "National modeled generation/storage capacity. Report does not separately identify on-grid vs. captive industrial vs. residential-rooftop power; T&D capacity is outside these tables."
       },
       {
         "metricName": "Generation",

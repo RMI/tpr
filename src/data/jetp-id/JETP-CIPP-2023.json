@@ -135,18 +135,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Policies are reformed to support renewables scaling and coal phased down. RE/VRE target shares and phaseout/early retirement targets are embedded. Market-policy drivers are also included in the scenario: LCR reform, bankable PPAs/procurement and removal of coal price distortions are policy enablers.",
-    "emissionsTargets": "The pathway uses an on-grid CO2 emissions cap of 250 Mt in 2030, a reduction to 175 Mt by 2040, and near net-zero emissions by 2050. This is a central normative constraint.",
-    "technologyCosts": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind LCOE make these technologies the least expensive options for power generation.",
-    "investmentChange": "Investment data are partial but substantial: Solar plus wind cumulative investment is nearly US$25B/yr by 2030 and almost US$80B/yr by 2040. Coal flexibility and repurposing can require up to US$10B and bioenergy/hydrogen repurposing represents an average of more than US$7B/yr in 2046-2050.",
-    "macroeconomicDrivers": "Estimates from the Ministry of Energy and Mineral Resources point to 6% GDP growth p.a. until 2030, 7% p.a. from 2030 to 2040, and then a convergence to high income countries between 2040 and 2050, while the population is estimated to grow from 276 mio. in 2022 to 324 mio. in 2050. Electricity demand growth is an important input in the JETP, with an assumed 6.0% annual demand growth including captive connections.",
+    "policies": "Policies are reformed to support renewables scaling and coal phase-down, including renewable energy target shares and early retirement targets. Bankable PPAs/procurement and removal of coal price distortions are further policy enablers.",
+    "emissionsTargets": "The pathway uses an on-grid CO2 emissions cap of 250 Mt in 2030, a reduction to 175 Mt by 2040, and near net-zero emissions by 2050.",
+    "technologyCosts": "Technology-level costs drive the least-cost supply optimization and support the modeled build-out of low-carbon generation. Falling utility-scale solar PV and onshore wind costs make these technologies the least expensive options for power generation.",
+    "investmentChange": "Solar and wind cumulative investment is nearly US$25B/y by 2030 and almost US$80B/y by 2040. Coal flexibility and repurposing can require up to US$10B and bioenergy/hydrogen repurposing represents an average of more than US$7B/y in 2046–2050.",
+    "macroeconomicDrivers": "Estimates from the Ministry of Energy and Mineral Resources point to 6% GDP growth annually until 2030, 7% from 2030 to 2040, and then a convergence to high-income countries between 2040 and 2050. Electricity demand is assumed to grow at 6.0% annually including captive connections.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Grid integration and system flexibility are major additional drivers: transmission follows RUPTL to 2030, large-island interconnection starts from 2029, coal flexible utilization is explicitly included, and storage grows to 38 GW by 2050. Captive load connections affect demand, while captive generation decarbonization is planned separately."
+    "otherDrivers": "Grid integration and system flexibility are major additional drivers: transmission follows the state roadmap to 2030, large-island interconnection starts from 2029, coal flexible utilization is explicitly included, and storage grows to 38 GW by 2050."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The pathway depends on a policy package to enable grid decarbonization and coal phase-down, including an emissions cap, RE/VRE share targets, early coal retirement/managed phase-out, LCR reform, procurement/PPA reform, PLN financial sustainability and financial-policy support. These policies are intended to lower renewable costs, expose coal's true cost and make renewable procurement/investment bankable.",
+      "dependency_description": "The pathway depends on a policy package to enable grid decarbonization and coal phase-down, including an emissions cap, RE/VRE share targets, early coal retirement/managed phase-out, LCR reform, procurement/PPA reform, PLN financial sustainability, and financial-policy support. These policies are intended to lower renewable costs, expose coal's true cost, and make renewable procurement/investment bankable.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -158,7 +158,7 @@
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "The JETP agreement includes US$ 20bn in required investments, half of which are committed through public funding and half of which are meant to be privately financed. A GFANZ working group including international financial institutions aims to mobilize that private capital and the expected financing structures are manifold from plain public and private financing instruments, to blended finance and philanthropic grants.",
+      "dependency_description": "The JETP agreement includes US$ 20B in required investments, half of which are committed through public funding and half of which are meant to be privately financed. A GFANZ working group including international financial institutions aims to mobilize that private capital and the expected financing structures are manifold from plain public and private financing instruments, to blended finance and philanthropic grants.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -324,7 +324,7 @@
         "timeResolution": "Other time resolution",
         "dataFormat": "Figure",
         "granularity": ["By tech, part of value chain"],
-        "scopeLimitations": "Partial investment evidence only. Values include nearly US$25B solar/wind by 2030, almost US$80B by 2040. Coal flexibility up to US$10B, bioenergy/hydrogen repurposing >US$7B/yr in 2046-2050."
+        "scopeLimitations": "Partial investment evidence only. Values include nearly US$25B solar/wind by 2030, almost US$80B by 2040. Coal flexibility up to US$10B, bioenergy/hydrogen repurposing >US$7B/y in 2046–2050."
       },
       {
         "metricName": "Asset lifetime",

@@ -9,6 +9,7 @@ import {
 } from "react-router";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import HelpButton from "./components/HelpButton";
 import NewsletterCta from "./components/NewsletterCta";
 import LegalPage from "./pages/LegalPage";
 import PathwaySearch from "./pages/PathwaySearch";
@@ -108,6 +109,7 @@ export const AppContent = () => {
         </main>
         {showNewsletterRibbon && <NewsletterCta />}
         {!isLandingPage && <Footer />}
+        <HelpButton />
       </div>
     </NewsletterSignupProvider>
   );

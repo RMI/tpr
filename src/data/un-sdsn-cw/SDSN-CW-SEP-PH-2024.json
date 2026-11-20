@@ -55,7 +55,7 @@
       ]
     }
   ],
-  "pathwayDescription": "The SEP PH models the Philippine power system under the continuation of current policies and investment trajectories as outlined in the Philippine Energy Plan 2023–2050. It models the energy transition assuming full implementation of the moratorium on new coal-fired plants, as well as existing renewable energy policies, but just misses renewable energy share targets as natural gas also takes an increasing role in the generation mix. Using the Low Emissions Analysis Platform (LEAP) model, SEP uses a predefined set of capacity additions that follow policy targets and expected investment behavior, instead of allowing the model to pick the lowest cost mix.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policy makers.",
+  "pathwayDescription": "The SEP PH models the Philippine power system under the continuation of current policies and investment trajectories as outlined in the Philippine Energy Plan 2023–2050. It models the energy transition assuming full implementation of the moratorium on new coal-fired plants, as well as existing renewable energy policies, but just misses renewable energy share targets as natural gas also takes an increasing role in the generation mix. Using the Low Emissions Analysis Platform (LEAP) model, SEP uses a predefined set of capacity additions that follow policy targets and expected investment behavior, instead of allowing the model to pick the lowest cost mix.\n\nThe ASEAN Green Future regional research project is run by the United Nations Sustainable Development Solutions Network, Climateworks Centre, and local researchers from leading universities. The project develops national policy analysis and near-zero pathways that are meant to provide policy recommendations and support policymakers.",
   "metric": [
     "Emissions Intensity",
     "Absolute Emissions",
@@ -199,60 +199,60 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Coal-moratorium exemptions, RE-share goals, offshore-wind/nuclear plans and a 40-year coal-retirement assumption shape the pathway. However the pathway misses some interim RE-share targets.",
+    "policies": "Coal-moratorium exemptions, renewable energy share goals, offshore wind/nuclear plans, and a 40-year coal-retirement assumption shape the pathway. However the pathway misses some interim renewable energy share targets.",
     "emissionsTargets": "not applicable.",
-    "technologyCosts": "Running costs influence SEP dispatch, while NREL-based capital/O&M assumptions determine reported investment and production costs. RE unit costs generally decline over time.",
+    "technologyCosts": "Running costs influence dispatch, while NREL-based capital/O&M assumptions determine reported investment and production costs. Renewable energy unit costs generally decline over time.",
     "investmentChange": "not applicable.",
-    "macroeconomicDrivers": "Electricity demand is driven by common macro assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
+    "macroeconomicDrivers": "Electricity demand is driven by common macroeconomic assumptions. Population follows the UN World Population Prospects 2019 medium-fertility projection.",
     "behavioralShifts": "not applicable.",
-    "otherDrivers": "Accounting-framework construction is a distinctive driver: the modeler exogenously sets the order and block size of new plants based on existing plant sizes and policy pronouncements."
+    "otherDrivers": "Order and block size of new plants are set exogenously based on existing plant sizes and policy pronouncements."
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "High (Explicit): This pathway is built around the existing-policy package (coal moratorium, RE targets, offshore-wind/nuclear plans and age-40 coal retirement) and the report concludes stronger policies are needed to decouple emissions from growth.",
+      "dependency_description": "This pathway is built around the existing-policy package (coal moratorium, RE targets, offshore-wind/nuclear plans and age-40 coal retirement) and the report concludes stronger policies are needed to decouple emissions from growth.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Moderate (Explicit): Private ownership, Power Supply Agreements and the absence of a mandatory coal-retirement framework constrain faster grid decarbonization. SEP therefore assumes voluntary retirement and still has 3.93 GW coal in 2060.",
+      "dependency_description": "Private ownership, Power Supply Agreements and the absence of a mandatory coal-retirement framework constrain faster grid decarbonization. SEP therefore assumes voluntary retirement and still has 3.93 GW coal in 2060.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Market and economics",
-      "dependency_description": "High (Quantitative proxy): SEP's 2060 generation cost is 11.95 US¢/kWh and cumulative generation investment reaches US$398.3bn. Affordability and private financing materially constrain the transition.",
+      "dependency_description": "SEP's 2060 generation cost is 11.95 US¢/kWh and cumulative generation investment reaches US$398.3B. Affordability and private financing materially constrain the transition.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Public acceptance",
-      "dependency_description": "Moderate (Explicit): Planned nuclear additions under the existing-policy pathways depend on public acceptance. There are enduring safety/perception concerns around nuclear power in the Philippines.",
+      "dependency_description": "Planned nuclear additions under the existing-policy pathways depend on public acceptance. There are enduring safety/perception concerns around nuclear power in the Philippines.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Consumer and client behavior",
-      "dependency_description": "Moderate (Explicit): Consumer acceptance is sensitive to electricity prices. The report treats affordability as the binding social constraint: consumers bear tariffs well above PEP estimates, and any acceptable plan is expected to avoid raising prices.",
+      "dependency_description": "Consumer acceptance is sensitive to electricity prices. The report treats affordability as the binding social constraint: consumers bear tariffs well above PEP estimates, and any acceptable plan is expected to avoid raising prices.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Infrastructure and logistics",
-      "dependency_description": "Moderate (Quantitative proxy): SEP adds substantial variable RE but no surplus generation. Grid modernization/storage are needed to manage intermittency, though the build is smaller than optimized/high-ambition cases.",
+      "dependency_description": "SEP adds substantial variable RE but no surplus generation. Grid modernization/storage are needed to manage intermittency, though the build is smaller than optimized/high-ambition cases.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
     {
       "dependency_name": "Technology",
-      "dependency_description": "Low (Explicit): Offshore wind is described as locally nascent and is phased in gradually. Technology readiness affects deployment pace but does not dominate the existing-policy outcome.",
+      "dependency_description": "Offshore wind is described as locally nascent and is phased in gradually. Technology readiness affects deployment pace but does not dominate the existing-policy outcome.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },
     {
       "dependency_name": "Resource availability",
-      "dependency_description": "Low (Quantitative proxy): Renewable potential bounds are modeled, but SEP's lower RE build remains well below the national wind/solar/hydro potentials so resource availability is not strongly binding.",
+      "dependency_description": "Renewable potential bounds are modeled, but SEP's lower RE build remains well below the national wind/solar/hydro potentials so resource availability is not strongly binding.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },
@@ -280,7 +280,7 @@
         "timeResolution": "10-year steps",
         "dataFormat": "Tabular",
         "granularity": ["Scope 1"],
-        "scopeLimitations": "Derived from reported power-generation GHG / electricity generation; direct plant boundary. Gas basket is not exhaustively specified. No T&D or demand-side emissions."
+        "scopeLimitations": "Derived from reported power-generation GHG/electricity generation; direct plant boundary. Gas basket is not exhaustively specified. No T&D or demand-side emissions."
       },
       {
         "metricName": "Absolute Emissions",
@@ -310,7 +310,7 @@
           "Biomass",
           "Energy storage"
         ],
-        "scopeLimitations": "National modeled generation/storage capacity. Report does not separately identify on-grid vs captive industrial vs residential-rooftop power; T&D capacity is outside these tables."
+        "scopeLimitations": "National modeled generation/storage capacity. Report does not separately identify on-grid vs. captive industrial vs. residential-rooftop power; T&D capacity is outside these tables."
       },
       {
         "metricName": "Generation",
@@ -368,7 +368,7 @@
         "timeResolution": "1-year steps",
         "dataFormat": "Figure",
         "granularity": ["Capital costs, O&M, etc."],
-        "scopeLimitations": "Model input costs for generation/storage technologies; does not include all grid investment, stranded/salvage costs or auxiliary fuels."
+        "scopeLimitations": "Model input costs for generation/storage technologies; does not include all grid investment, stranded/salvage costs, or auxiliary fuels."
       },
       {
         "metricName": "Investment requirement",

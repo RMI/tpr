@@ -132,18 +132,18 @@
     ]
   },
   "coreDrivers": {
-    "policies": "MAP assumes that policy targets after 2037 become more ambitious and keep driving energy efficiency, electric cooking, renewable industrial energy, EV/electric rail shares, and higher RE capacity.",
+    "policies": "MAP assumes that policy targets after 2037 become more ambitious and keep driving energy efficiency, electric cooking, renewable industrial energy, electric vehicle/rail shares, and higher renewable energy capacity.",
     "emissionsTargets": null,
     "technologyCosts": null,
     "investmentChange": null,
-    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics. Sectoral value-added projections are based on World Bank indicators, assuming they remain stable. All these indicators are common demand drivers rather than pathway-specific differentiators.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2, with GDP growing 3% p.a., with population, household, and urbanization numbers based on UN projections and official Thai statistics.",
     "behavioralShifts": null,
     "otherDrivers": null
   },
   "dependencies": [
     {
       "dependency_name": "Policy strategy",
-      "dependency_description": "The MAP pathway depends more strongly than EXT on policy strategy because it extends and strengthens efficiency, EV, electric rail, T&D-loss, and RE-capacity targets to 2060. These policy assumptions help halve 2060 power emissions relative to EXT.",
+      "dependency_description": "The MAP pathway depends more strongly than EXT on policy strategy because it extends and strengthens efficiency, EV, electric rail, T&D-loss, and RE capacity targets to 2060. These policy assumptions help halve 2060 power emissions relative to EXT.",
       "sector": "Power",
       "evidence_type": "Quantitative"
     },

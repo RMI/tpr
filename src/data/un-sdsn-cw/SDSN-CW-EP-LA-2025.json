@@ -125,13 +125,13 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Hydro capacity additions in 2030 is aligned with NDCs, then additional additions are included based on ressource potential assessment.",
+    "policies": "The Existing Policy scenario reflects current policy and market trends, with continued reliance on hydropower and coal. Hydro capacity additions in 2030 are aligned with the NDC, then further additions are included based on resource potential assessment.",
     "emissionsTargets": null,
     "technologyCosts": null,
     "investmentChange": null,
-    "macroeconomicDrivers": "SSP2 GDP, medium population growth extracted from World Bank and sectoral value-added trends from country target drive electricity demand.",
+    "macroeconomicDrivers": "The pathway follows projections based on the Shared Socioeconomic Pathway 2.",
     "behavioralShifts": null,
-    "otherDrivers": "Hydropower resource potential is the main constraint for end-year capacity mix."
+    "otherDrivers": "Hydropower resource potential is the main constraint on the final capacity mix."
   },
   "dependencies": [
     {

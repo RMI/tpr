@@ -58,7 +58,7 @@
       "technologies": []
     }
   ],
-  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The Carbon Neutral Scenario (CNS) is a normative pathway in which the ASEAN region achieves net-zero carbon emissions by 2050, both in energy and non-energy sectors. This pathway builds on the extensive set of stated and aspirational policies modelled in ACE’s Regional Aspiration Scenario (RAS), introducing further emissions constraints, accelerated low-emissions technology and low-carbon fuels availability, gradual retirement of some coal and gas technologies, and expanded low-emission power generation. It assumes that countries improve their energy efficiency according to their full potential, develop and deploy renewable energy sources according to their individual technical potential, and models capacity additions beyond existing power development plans (PDPs), prioritizing dispatch of renewable energy. The CNS pathway also models widespread adoption of carbon capture and storage (CCS) technology, and rapid scale-up of low-carbon fuels. The CNS pathway incorporates least-cost-optimization in its projections.",
+  "pathwayDescription": "The ASEAN Centre for Energy (ACE) acts as the ASEAN energy data center and knowledge hub and produces the ACE ASEAN Energy Outlook providing energy pathways for Southeast Asia. The Carbon Neutral Scenario (CNS) is a normative pathway in which the ASEAN region achieves net-zero carbon emissions by 2050, both in energy and non-energy sectors. This pathway builds on the extensive set of stated and aspirational policies modeled in ACE’s Regional Aspiration Scenario (RAS), introducing further emissions constraints, accelerated low-emissions technology and low-carbon fuels availability, gradual retirement of some coal and gas technologies, and expanded low-emission power generation. It assumes that countries improve their energy efficiency according to their full potential, and develop and deploy renewable energy sources according to their individual technical potential. It models capacity additions beyond existing power development plans (PDPs), prioritizing dispatch of renewable energy. The CNS pathway also models widespread adoption of carbon capture and storage (CCS) technology, and rapid scale-up of low-carbon fuels. The CNS pathway incorporates least-cost-optimization in its projections.",
   "metric": [
     "Emissions Intensity",
     "Capacity",
@@ -242,10 +242,10 @@
     ]
   },
   "coreDrivers": {
-    "policies": "Carbon-neutrality measures, stringent efficiency action, fossil retirement and low-carbon technology support drive the CNS transformation.",
+    "policies": "Carbon-neutrality measures, stringent efficiency action, fossil retirement, and low-carbon technology drive the energy transition in the CNS pathway.",
     "emissionsTargets": "A regional carbon-neutrality constraint for 2050 is the defining pathway driver.",
-    "technologyCosts": "Least-cost optimisation and the relative capital costs and O&M costs of new technologies like CCS, nuclear, renewables and energy storage determine the net-zero technology mix.",
-    "investmentChange": "Average annual Power investment rises from USD 55.8bn in 2023–2030 to USD 371.1bn in 2041–2050. This is driven by increased energy and electricity demand that is met by heavy investments in a wide set of renewables, and by significantly scaling new technologies such as green hydrogen and gas with CCUS.",
+    "technologyCosts": "Least-cost optimization and the relative capital costs and O&M costs of new technologies like CCS, nuclear, renewables, and energy storage determine the net-zero technology mix.",
+    "investmentChange": "Average annual power investment rises from US$55.8B in 2023–2030 to US$371.1B in 2041–2050. This is driven by increased energy and electricity demand that is met by heavy investments in a wide set of renewables, and by significantly scaling new technologies such as green hydrogen and natural gas generation with CCUS.",
     "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
     "behavioralShifts": null,
     "otherDrivers": null
@@ -259,7 +259,7 @@
     },
     {
       "dependency_name": "Regulatory framework",
-      "dependency_description": "Grid decarbonization (e.g. throught the efficient use of the APG) and regional coordination of new technologies and shared infrastructurem, e.g. for CCS, will require regional regulatory framworks.",
+      "dependency_description": "Grid decarbonization (e.g., through the efficient use of the APG) and regional coordination of new technologies and shared infrastructure, e.g., for CCS, will require regional regulatory frameworks.",
       "sector": "Power",
       "evidence_type": "Qualitative"
     },

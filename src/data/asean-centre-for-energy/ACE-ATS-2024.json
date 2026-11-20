@@ -225,10 +225,10 @@
     ]
   },
   "coreDrivers": {
-    "policies": "National renewable-energy and efficiency targets, power development plans, energy-access measures and unconditional NDCs drive the outcomes of the ATS pathway.",
+    "policies": "National renewable energy and efficiency targets, power development plans, energy-access measures, and unconditional NDCs drive the outcomes of the ATS pathway.",
     "emissionsTargets": null,
     "technologyCosts": null,
-    "investmentChange": "Average annual Power investment rises from USD 34.8bn in 2023–2030 to USD 46.3bn in 2041–2050. This comes from significant investment in solar and wind that more than offsets the lower fossil fuel investment needs compared to BAS.",
+    "investmentChange": "Average annual power investment rises from US$34.8B in 2023–2030 to US$46.3B in 2041–2050. This comes from significant investment in solar and wind that more than offsets the lower fossil fuel investment compared to the AEO8 baseline scenario.",
     "macroeconomicDrivers": "Population and GDP growth are a common underlying demand driver across all ACE scenarios and extracted from World Bank and ADB projections.",
     "behavioralShifts": null,
     "otherDrivers": null
