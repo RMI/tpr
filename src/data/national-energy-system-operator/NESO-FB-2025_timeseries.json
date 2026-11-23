@@ -1,0 +1,7326 @@
+{
+  "$schema": "http://pathways.rmi.org/schema/pathwayTimeseries.v2.json",
+  "id": "NESO-FB-2025_timeseries",
+  "pathwayId": ["NESO-FB-2025"],
+  "name": "Falling Behind (FB) Timeseries Data",
+  "description": "Exploratory GB scenario with slow and delayed decarbonisation that misses net zero by 2050.",
+  "publication": {
+    "title": {
+      "full": "Future Energy Scenarios 2025: Pathways to Net Zero"
+    },
+    "publisher": {
+      "full": "National Energy System Operator",
+      "short": "NESO"
+    },
+    "year": 2025,
+    "city": "Warwick",
+    "links": [
+      {
+        "description": "Report",
+        "url": "https://www.neso.energy/publications/future-energy-scenarios-fes"
+      },
+      {
+        "description": "Documents and data workbook",
+        "url": "https://www.neso.energy/publications/future-energy-scenarios-fes/fes-documents"
+      },
+      {
+        "description": "Data license",
+        "url": "https://www.neso.energy/data-portal/neso-open-licence"
+      }
+    ]
+  },
+  "pathwayName": "Falling Behind (FB)",
+  "emissionsScope": "CO2e (Kyoto)",
+  "data": [
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 29.2,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 16.5,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 17,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 19.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 22.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 22.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 24.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 14.8,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 13,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 10.6,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 10.5,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 10.5,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 11.6,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 11.2,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 14.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 14.9,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 12.9,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 15.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 16.5,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 15.3,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 13.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 19.1,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 19.2,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 20.5,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 15.7,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 15.2,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "absoluteEmissions",
+      "value": 13.4,
+      "unit": "MtCO2e"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 4.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "capacity",
+      "value": 5.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 9.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 11.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 12.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 14.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 17.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 19.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 22.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 23.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 24,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 24.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 25.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 25.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 26.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 27.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 27.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 28.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 28.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 29.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 29.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 29.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 29.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 30.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 30.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 30.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 30.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 30.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Energy storage"],
+      "technology": "energyStorage",
+      "metric": "capacity",
+      "value": 30.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 39.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 39.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 40.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 41.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 42,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 44,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 46.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 48.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 48.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 50.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 50.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 51.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 51,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 51.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 51.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 51.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 51.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 52,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 55.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 57.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 60,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 60.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 60.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 61.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 61.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 62.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "capacity",
+      "value": 62,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "capacity",
+      "value": 1.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 6.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 6.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 6.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 2.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 4.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 3.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 5.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 5.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 6.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 6.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 8.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 8.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 8.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 9,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "capacity",
+      "value": 10.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 1,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "capacity",
+      "value": 0.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 4,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 4,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 4,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 4,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 4,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 4,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "capacity",
+      "value": 3.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 18.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 19.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 20.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 23.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 25.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 28,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 32.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 35.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 37.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 38.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 40.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 41.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 42.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 42.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 43.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 43.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 45.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 47.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 49.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 51,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 52.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 54.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 55.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 59.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 60.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 61.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "capacity",
+      "value": 62.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 30,
+      "unit": "GW"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 31.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 31.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 37.4,
+      "unit": "GW"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 42.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 46.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 56.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 69.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 76.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 80.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 83.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 86.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 90.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 96.5,
+      "unit": "GW"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 103.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 107.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 107.9,
+      "unit": "GW"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 110.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 111.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 112.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 113.2,
+      "unit": "GW"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 113.3,
+      "unit": "GW"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 113.7,
+      "unit": "GW"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 113.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 115.6,
+      "unit": "GW"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 116.1,
+      "unit": "GW"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "capacity",
+      "value": 116.8,
+      "unit": "GW"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.118,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.071,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.071,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.08,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.086,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.08,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.08,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.042,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.033,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.025,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.024,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.023,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.025,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.023,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.028,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.03,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.025,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.029,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.031,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.028,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.024,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.034,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.033,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.035,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.031,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.03,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": null,
+      "metric": "emissionsIntensity",
+      "value": 0.026,
+      "unit": "tCO2e/MWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 12.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 15.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 18.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 14.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 5.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 3.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 6.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 3.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 3.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 4.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "generation",
+      "value": 3.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 93.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 54.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 56.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 65.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 73.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 71.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 76.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 64.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 56.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 53.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 55.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 59.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 64,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 66.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 73.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 75.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 71.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 80.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 96.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 101.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 105.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 123,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 124.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 127.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 125.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 125.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "generation",
+      "value": 123.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "generation",
+      "value": 3.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 42.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 43.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 42.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 38.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 26.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 26.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 25.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 25.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 26.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 30,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 31.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 30.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 31.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 31.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 31.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 30.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 30.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 25.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 37.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 37.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 45.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 42.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 53.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 52.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 58.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 60.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "generation",
+      "value": 69.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "generation",
+      "value": 0,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 24.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 24.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 25.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 25.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 24.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 24.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 24.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 22.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 20.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 19.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 19.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 19.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 19.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 19.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 17,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 16.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 16.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 16.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 16,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 15.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "generation",
+      "value": 14.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 19.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 20.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 21.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 23,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 25.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 27.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 30.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 32.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 32.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 32.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 34.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 35.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 36.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 35.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 35.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 35.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 37.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 39,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 41.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 43,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 44.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 47.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 49.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 52.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 54.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 55.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "generation",
+      "value": 56.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 91.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 94.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 97.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 104.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 132.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 149.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 167.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 212.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 243.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 260.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 268.9,
+      "unit": "TWh"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 279.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 290.5,
+      "unit": "TWh"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 306.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 328.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 339.3,
+      "unit": "TWh"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 346.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 357,
+      "unit": "TWh"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 360.1,
+      "unit": "TWh"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 363.4,
+      "unit": "TWh"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 365.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 366,
+      "unit": "TWh"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 366.7,
+      "unit": "TWh"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 367.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 372.6,
+      "unit": "TWh"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 374.8,
+      "unit": "TWh"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "generation",
+      "value": 376.2,
+      "unit": "TWh"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 4.33,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 6.17,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 6.93,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 5.34,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.8,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.46,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.15,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.37,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.13,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.53,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 1.09,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.95,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.98,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.86,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.8,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.81,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.83,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.7,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.66,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.61,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.6,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.67,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.66,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.69,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.69,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.7,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "biomass",
+      "metric": "technologyMix",
+      "value": 0.59,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 32.5,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 21.34,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 21.4,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 23.79,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 25.15,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 23.13,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 22.9,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 17.7,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 14.63,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 13.29,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 13.32,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 13.76,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 14.23,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 14.22,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 14.92,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 14.97,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 13.98,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 15.21,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 17.21,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 17.85,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 18,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 20.38,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 20.12,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 20.43,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 19.8,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 19.65,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "gas",
+      "metric": "technologyMix",
+      "value": 19.07,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.22,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.36,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.32,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.27,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.2,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.13,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 1.05,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.94,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.88,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.83,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.8,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.78,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.75,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.72,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.66,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.65,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.66,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.64,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.6,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.6,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.58,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.56,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.55,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.55,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.55,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.54,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "hydro",
+      "metric": "technologyMix",
+      "value": 0.53,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 14.86,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 17.05,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 16.03,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 14.05,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 8.96,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 8.66,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.68,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6.94,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6.74,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.4,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.55,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.05,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.02,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6.81,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6.35,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 5.99,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 4.87,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6.67,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 6.57,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.74,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 7.08,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 8.69,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 8.46,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 9.17,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 9.42,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "nuclear",
+      "metric": "technologyMix",
+      "value": 10.76,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "oil",
+      "metric": "technologyMix",
+      "value": 0,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 8.44,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 9.55,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 9.55,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 9.21,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 8.54,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 8.1,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 7.49,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 6.04,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 5.23,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 4.74,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 4.58,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 4.57,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 4.41,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 4.09,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 3.62,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 3.4,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 3.45,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 3.36,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 3.09,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.98,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.9,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.77,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.68,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.6,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.52,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.45,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "other",
+      "metric": "technologyMix",
+      "value": 2.26,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 6.77,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.89,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.99,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.39,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.81,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 9.03,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 9.26,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.97,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.48,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.09,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.33,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.24,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.02,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.69,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.15,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.06,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.31,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.41,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.39,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.56,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.59,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.88,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 7.95,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.44,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.62,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.7,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "solar",
+      "metric": "technologyMix",
+      "value": 8.73,
+      "unit": "%"
+    },
+    {
+      "year": 2024,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 31.89,
+      "unit": "%"
+    },
+    {
+      "year": 2025,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 36.64,
+      "unit": "%"
+    },
+    {
+      "year": 2026,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 36.78,
+      "unit": "%"
+    },
+    {
+      "year": 2027,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 37.95,
+      "unit": "%"
+    },
+    {
+      "year": 2028,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 45.53,
+      "unit": "%"
+    },
+    {
+      "year": 2029,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 48.48,
+      "unit": "%"
+    },
+    {
+      "year": 2030,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 50.47,
+      "unit": "%"
+    },
+    {
+      "year": 2031,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 58.03,
+      "unit": "%"
+    },
+    {
+      "year": 2032,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 62.91,
+      "unit": "%"
+    },
+    {
+      "year": 2033,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 64.12,
+      "unit": "%"
+    },
+    {
+      "year": 2034,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 64.33,
+      "unit": "%"
+    },
+    {
+      "year": 2035,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 64.66,
+      "unit": "%"
+    },
+    {
+      "year": 2036,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 64.59,
+      "unit": "%"
+    },
+    {
+      "year": 2037,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 65.62,
+      "unit": "%"
+    },
+    {
+      "year": 2038,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 66.49,
+      "unit": "%"
+    },
+    {
+      "year": 2039,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 67.11,
+      "unit": "%"
+    },
+    {
+      "year": 2040,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 67.77,
+      "unit": "%"
+    },
+    {
+      "year": 2041,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 67.8,
+      "unit": "%"
+    },
+    {
+      "year": 2042,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 64.38,
+      "unit": "%"
+    },
+    {
+      "year": 2043,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 63.84,
+      "unit": "%"
+    },
+    {
+      "year": 2044,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 62.59,
+      "unit": "%"
+    },
+    {
+      "year": 2045,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 60.66,
+      "unit": "%"
+    },
+    {
+      "year": 2046,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 59.35,
+      "unit": "%"
+    },
+    {
+      "year": 2047,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 58.83,
+      "unit": "%"
+    },
+    {
+      "year": 2048,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 58.65,
+      "unit": "%"
+    },
+    {
+      "year": 2049,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 58.53,
+      "unit": "%"
+    },
+    {
+      "year": 2050,
+      "geography": "GB",
+      "sector": "power",
+      "sectorSegment": ["Power generation"],
+      "technology": "wind",
+      "metric": "technologyMix",
+      "value": 58.07,
+      "unit": "%"
+    }
+  ]
+}
