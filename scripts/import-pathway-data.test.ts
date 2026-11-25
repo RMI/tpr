@@ -57,6 +57,12 @@ describe("publisherGroup", () => {
       "NESO",
     );
     expect(publisherGroup("NESO")).toBe("NESO");
+    expect(
+      publisherGroup(
+        "Climate Analytics, Potsdam Institute for Climate Impact Research (PIK)",
+      ),
+    ).toBe("CA");
+    expect(publisherGroup("CA, PIK")).toBe("CA");
     // AGF must win over the SDSN check even though both live under un-sdsn-cw.
     expect(publisherGroup("ASEAN Green Future (AGF)")).toBe("AGF");
     expect(publisherGroup("UN SDSN, CW")).toBe("SDSN");
@@ -163,6 +169,15 @@ describe("canonicalKey", () => {
         file: `src/data/national-energy-system-operator/NESO-${code}-2025.json`,
       });
     }
+    expect(
+      canonicalKey(
+        "Climate Analytics, Potsdam Institute for Climate Impact Research (PIK)",
+        "Highest Possible Ambition scenario (HPA)",
+      ),
+    ).toBe("CA:HPA:");
+    expect(TARGETS["CA:HPA:"]).toMatchObject({
+      file: "src/data/climate-analytics-pik/CA-PIK-HPA-2025.json",
+    });
     // Myanmar and Laos OMAP resolve to distinct keys.
     expect(
       canonicalKey(

@@ -364,6 +364,12 @@ export const TARGETS: Record<string, Target> = {
     mode: "update",
     file: "src/data/climate-change-committee/CCC-BL-2025.json",
   },
+  // Climate Analytics and PIK -- Rescuing 1.5°C, Highest Possible Ambition
+  // (global, with the 1.5°C national pathway explorer's EU27 and 12 countries).
+  "CA:HPA:": {
+    mode: "update",
+    file: "src/data/climate-analytics-pik/CA-PIK-HPA-2025.json",
+  },
   // National Energy System Operator -- Future Energy Scenarios 2025 (GB).
   "NESO:HT:": {
     mode: "update",
@@ -642,6 +648,7 @@ export function publisherGroup(label: string): string | null {
   if (l.includes("canada energy regulator") || l === "cer") return "CER";
   if (l.includes("trottier") || l === "iet") return "IET";
   if (l.includes("climate change committee") || l === "ccc") return "CCC";
+  if (l.includes("climate analytics") || l === "ca, pik") return "CA";
   if (l.includes("national energy system operator") || l === "neso")
     return "NESO";
   if (l.includes("philippines") || l.includes("department of energy"))
