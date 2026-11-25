@@ -84,7 +84,7 @@
     "jsdom": "^31.0.1",
     "postcss": "^8.5.33",
     "prettier": "^3.10.1",
-    "semantic-release": "^25.0.9",
+    "semantic-release": "^26.0.1",
     "simple-git": "^4.0.2",
     "tailwindcss": "^4.1.7",
     "ts-node": "^10.9.2",
